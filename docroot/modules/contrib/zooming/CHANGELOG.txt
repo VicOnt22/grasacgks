@@ -1,0 +1,17 @@
+
+Zooming 7.x-1.0-dev, 2021-12-17
+-------------------------------
+- Added Drupal ^10.
+
+Zooming 7.x-1.0-dev, 2020-02-02
+-------------------------------
+- Added the new libraries_directory_file_finder service.
+- Removed deprecated core/classList as per D8.8.
+
+Zooming 7.x-1.0-dev, 2019-02-21
+-------------------------------
+- Renamed .media__zooming to just .zooming to be usable outside the .media.
+
+Zooming 7.x-1.0-dev, 2019-02-09
+-------------------------------
+Initial commit.

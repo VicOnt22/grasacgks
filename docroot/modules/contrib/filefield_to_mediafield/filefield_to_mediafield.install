@@ -1,0 +1,45 @@
+<?php
+
+use Drupal\file\Entity\File;
+
+/**
+ * @file
+ * Install, update and uninstall functions for the 'filefield_to_mediafield' module.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Create storage for hashes of image files. It will be be used to prevent 
+ * of creation Media entities with the same images.
+ * The structure of the array: ['media id' => 'hash of image file'].
+ * 'media id' is id of the Media entity that contains the image file that was
+ * hashed.
+ */
+function filefield_to_mediafield_install() {
+  \Drupal::state()->set('filefield_to_mediafield.hashes_of_image_files', []);
+
+  // get all media, and create a hash for it.
+  $all_media = \Drupal::entityTypeManager()
+        ->getStorage('media')
+        ->loadMultiple();
+  foreach ($all_media as $media) {
+    if (!empty($media->field_media_image->target_id)) {
+      $fid = $media->field_media_image->target_id;
+      $file = File::load($fid);
+      $hash = sha1_file($file->getFileUri());
+      if(!empty($hash)) {
+        $hashes[$media->id()] = $hash;
+      }
+    }
+  }
+  // Store the media id and hash of the image file.
+  \Drupal::state()->set('filefield_to_mediafield.hashes_of_image_files', $hashes);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function filefield_to_mediafield_uninstall() {
+  \Drupal::state()->delete('filefield_to_mediafield.hashes_of_image_files');
+}

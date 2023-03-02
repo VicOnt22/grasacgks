@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall functions for the 'image_field_to_media' module.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Create storage for hashes of image files. It will be be used to prevent
+ * of creation Media entities with the same images.
+ * The structure of the array: ['media id' => 'hash of image file'].
+ * 'media id' is id of the Media entity that contains the image file that was
+ * hashed.
+ */
+function image_field_to_media_install() {
+  \Drupal::state()->set('image_field_to_media.hashes_of_image_files', []);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function image_field_to_media_uninstall() {
+  \Drupal::state()->delete('image_field_to_media.hashes_of_image_files');
+}

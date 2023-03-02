@@ -1,0 +1,63 @@
+// Collapsible details component style.
+// @see collapse.js
+// @see http://nicolasgallagher.com/css-background-image-hacks/
+// -----------------------------------------------------------------------------
+@import "../../node_modules/bootstrap/scss/functions";  // Bootstrap functions.
+@import "../../node_modules/bootstrap/scss/mixins";     // Bootstrap mixins.
+@import "../variables";                   // grasacgks variables.
+@import "../mixins";                      // grasacgks mixins.
+// -----------------------------------------------------------------------------
+
+details {
+  border: 1px solid $border-color;
+  margin-top: $spacer;
+  margin-bottom: $spacer;
+}
+
+details>.details-wrapper {
+  padding: 0.5em 1.5em;
+}
+
+
+// @todo Regression: The summary of uncollapsible details are no longer
+// vertically aligned with the .details-wrapper in browsers without native
+// details support.
+
+summary {
+  cursor: pointer;
+  padding: 0.2em 0.5em;
+}
+
+details#edit-field-current-institution-target-id-collapsible {
+    margin-right: 1rem;
+}
+details#edit-field-region-of-origin-target-id-collapsible {
+  margin-right: 1rem;
+}
+details#edit-field-nation-tid-target-id-collapsible {
+  margin-right: 1rem;
+}
+details#edit-field-collection-target-id-collapsible {
+  margin-right: 1rem;
+}
+
+form#views-exposed-form-browse-gks-block-1{
+   button#edit-reset{
+    margin-top: 1rem;
+  }
+  button#edit-submit-browse-gks{
+    margin-top: 1rem;
+  }
+}
+
+form#views-exposed-form-glossary-page-1{
+  .js-form-item-field-languages-target-id.form-item-field-languages-target-id {
+    margin-right: 1rem;
+  }
+  button[id*='edit-submit-glossary']{
+    margin-top: 2rem;
+  }
+  button[id*='edit-reset']{
+    margin-top: 2rem;
+  }
+}

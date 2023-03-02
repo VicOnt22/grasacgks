@@ -1,0 +1,15 @@
+// grasacgks base, which Bootstrap overrides.
+// -----------------------------------------------------------------------------
+@import "../../node_modules/bootstrap/scss/functions";  // Bootstrap functions.
+@import "../../node_modules/bootstrap/scss/mixins";     // Bootstrap mixins.
+@import "../variables";                   // grasacgks variables.
+@import "../mixins";                      // grasacgks mixins.
+// -----------------------------------------------------------------------------
+
+/* Insert your grasacgks base overrides over Vartheme BS4 and Bootstrap */
+
+
+
+body {
+  font-family: 'Noto Sans Canadian Aboriginal', 'Noto Sans', sans-serif;
+}

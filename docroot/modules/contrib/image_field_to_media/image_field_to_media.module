@@ -1,0 +1,65 @@
+<?php
+
+/**
+ * @file
+ * Contains image_field_to_media.module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\field\FieldConfigInterface;
+use Drupal\Core\Url;
+use Drupal\media\MediaInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_entity_operation().
+ *
+ * Add "Clone to media" entity operation to the Image fields.
+ */
+function image_field_to_media_entity_operation(EntityInterface $entity) {
+  $current_user = \Drupal::currentUser();
+
+  if (!$current_user->hasPermission('create media fields based on existing image fields')) {
+    return;
+  }
+
+  if ($entity instanceof FieldConfigInterface && $entity->getType() == 'image') {
+
+    $operations['clone_to_media'] = [
+      'title' => t('Clone to media'),
+      'url' => Url::fromRoute('image_field_to_media', ['field_config' => $entity->id()]),
+      'weight' => 150,
+    ];
+
+    return $operations;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete() for media entity.
+ *
+ * Delete from the storage the hash of the image file related with the deleted
+ * media entity.
+ */
+function image_field_to_media_media_delete(MediaInterface $media) {
+  $mid = $media->id();
+  $hashes = \Drupal::state()->get('image_field_to_media.hashes_of_image_files');
+  unset($hashes[$mid]);
+  \Drupal::state()->set('image_field_to_media.hashes_of_image_files', $hashes);
+}
+
+/**
+ * Implements hook_help().
+ */
+function image_field_to_media_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the image_fields_to_media module.
+    case 'help.page.image_field_to_media':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Enables to convert existing image fields to Media image fields.') . '</p>';
+      return $output;
+
+    default:
+  }
+}

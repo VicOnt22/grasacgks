@@ -1,0 +1,9 @@
+image_media_migrate.form:
+  path: '/admin/config/system/image_media_migrate/batch-form'
+  defaults:
+    _title: 'Migrate image fields in media library.'
+    _form: 'Drupal\image_media_migrate\Form\ImageInMedia'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE

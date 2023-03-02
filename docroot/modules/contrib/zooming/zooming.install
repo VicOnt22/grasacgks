@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * Installation actions for Zooming.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function zooming_requirements($phase) {
+  if ($phase != 'runtime') {
+    return [];
+  }
+
+  $requirements = [];
+  $path = zooming_libraries_get_path('zooming') ?: \Drupal::root() . '/libraries/zooming';
+  $exists = is_file($path . '/build/zooming.min.js');
+
+  $requirements['zooming_library'] = [
+    'title'       => t('Zooming library'),
+    'severity'    => $exists ? REQUIREMENT_OK : REQUIREMENT_ERROR,
+    'value'       => $exists ? t('Installed') : t('Not installed'),
+    'description' => $exists ? '' : t('The <a href="@url">Zooming library</a> should be installed at <strong>/libraries/zooming/build/zooming.min.js</strong>, or any path supported by libraries.module. Check out file or folder permissions if troubled.', [
+      '@url' => 'https://github.com/kingdido999/zooming',
+    ]),
+  ];
+
+  return $requirements;
+}

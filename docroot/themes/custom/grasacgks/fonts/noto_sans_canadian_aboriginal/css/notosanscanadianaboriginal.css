@@ -1,0 +1,25 @@
+/* noto-sans-canadian-aboriginal-regular - canadian-aboriginal */
+@font-face {
+  font-family: 'Noto Sans Canadian Aboriginal';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../webfonts/noto-sans-canadian-aboriginal-v19-canadian-aboriginal-regular.eot'); /* IE9 Compat Modes */
+  src:
+    url('../webfonts/noto-sans-canadian-aboriginal-v19-canadian-aboriginal-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../webfonts/noto-sans-canadian-aboriginal-v19-canadian-aboriginal-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../webfonts/noto-sans-canadian-aboriginal-v19-canadian-aboriginal-regular.woff') format('woff'), /* Modern Browsers */
+    url('../webfonts/noto-sans-canadian-aboriginal-v19-canadian-aboriginal-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+}
+
+/* noto-sans-canadian-aboriginal-700 - canadian-aboriginal */
+@font-face {
+  font-family: 'Noto Sans Canadian Aboriginal';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../webfonts/noto-sans-canadian-aboriginal-v19-canadian-aboriginal-700.eot'); /* IE9 Compat Modes */
+  src:
+    url('../webfonts/noto-sans-canadian-aboriginal-v19-canadian-aboriginal-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../webfonts/noto-sans-canadian-aboriginal-v19-canadian-aboriginal-700.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../webfonts/noto-sans-canadian-aboriginal-v19-canadian-aboriginal-700.woff') format('woff'), /* Modern Browsers */
+    url('../webfonts/noto-sans-canadian-aboriginal-v19-canadian-aboriginal-700.ttf') format('truetype'), /* Safari, Android, iOS */
+}

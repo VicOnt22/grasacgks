@@ -1,0 +1,7 @@
+name: 'Image field to media'
+type: module
+description: 'Enables to convert existing image fields to Media image fields.'
+core_version_requirement: ^8 || ^9
+package: 'Fields'
+dependencies:
+  - 'drupal:media'

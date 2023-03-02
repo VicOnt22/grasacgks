@@ -1,0 +1,6 @@
+image_media_migrate.link:
+  title: 'Media migrate'
+  description: 'Migrate image field in media field or media field in media field.'
+  route_name: image_media_migrate.form
+  parent: system.admin_config_media
+  weight: -100

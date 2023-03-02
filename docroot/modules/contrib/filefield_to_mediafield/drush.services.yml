@@ -1,0 +1,7 @@
+services:
+  filefield_to_mediafield_drush_commands.commands:
+    class: \Drupal\filefield_to_mediafield\Commands\FileToMediaDrushCommands
+    arguments:
+      - '@filefield_to_mediafield'
+    tags:
+      - { name: drush.command }

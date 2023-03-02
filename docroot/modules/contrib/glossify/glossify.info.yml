@@ -1,0 +1,13 @@
+name: Glossify
+description: 'API module to automatically create links or tooltips based on other content or taxonomy terms.'
+type: module
+package: "Input filters"
+configure: 'admin/config/content/formats'
+core_version_requirement: ^8 || ^9
+dependencies:
+  - drupal:filter
+
+# Information added by Drupal.org packaging script on 2022-06-26
+version: '2.0.4'
+project: 'glossify'
+datestamp: 1656249298

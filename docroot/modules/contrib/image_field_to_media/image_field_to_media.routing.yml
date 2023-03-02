@@ -1,0 +1,9 @@
+image_field_to_media:
+  path: '/image-field-to-media/{field_config}'
+  defaults:
+    _form: '\Drupal\image_field_to_media\Form\ImageFieldToMediaForm'
+    _title: 'Clone the image field to the Media image field'
+  options:
+    _admin_route: TRUE
+  requirements:
+    _permission: 'create media fields based on existing image fields'

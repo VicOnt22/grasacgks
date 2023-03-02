@@ -1,0 +1,47 @@
+details {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #dee2e6;
+}
+
+details > .details-wrapper {
+  padding: 0.5em 1.5em;
+}
+
+summary {
+  padding: 0.2em 0.5em;
+  cursor: pointer;
+}
+
+details#edit-field-current-institution-target-id-collapsible {
+  margin-right: 1rem;
+}
+
+details#edit-field-region-of-origin-target-id-collapsible {
+  margin-right: 1rem;
+}
+
+details#edit-field-nation-tid-target-id-collapsible {
+  margin-right: 1rem;
+}
+
+details#edit-field-collection-target-id-collapsible {
+  margin-right: 1rem;
+}
+
+form#views-exposed-form-browse-gks-block-1 button#edit-reset {
+  margin-top: 1rem;
+}
+form#views-exposed-form-browse-gks-block-1 button#edit-submit-browse-gks {
+  margin-top: 1rem;
+}
+
+form#views-exposed-form-glossary-page-1 .js-form-item-field-languages-target-id.form-item-field-languages-target-id {
+  margin-right: 1rem;
+}
+form#views-exposed-form-glossary-page-1 button[id*=edit-submit-glossary] {
+  margin-top: 2rem;
+}
+form#views-exposed-form-glossary-page-1 button[id*=edit-reset] {
+  margin-top: 2rem;
+}

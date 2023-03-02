@@ -1,0 +1,7 @@
+services:
+  filefield_to_mediafield:
+    class: Drupal\filefield_to_mediafield\FileToMedia
+    arguments: ['@entity_type.manager', '@logger.channel.filefield_to_mediafield']
+  logger.channel.filefield_to_mediafield:
+    parent: logger.channel_base
+    arguments: ['filefield_to_mediafield']

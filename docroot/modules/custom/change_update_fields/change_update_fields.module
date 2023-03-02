@@ -1,0 +1,202 @@
+<?php
+
+use \Drupal\node\NodeInterface;
+use \Drupal\node\Entity\Node;
+use Drupal\Core\Entity\EntityTypeManager;
+use \Drupal\Core\Entity\RevisionLogInterface;
+
+/**
+ * name comes from ini functionality: Copies the value from one field to another empty field.
+ * A custom callback _my_module_copy_field_values allows Implementations of
+ * hook_post_update_NAME that act as implementations of callback_batch_operation
+ * across multiple HTTP requests and avoid PHP timeouts.
+ *
+ * @param array $sandbox
+ * The batch operation sandbox.
+ * @param string $bundle
+ * The node bundle.
+ * @param string $source_field
+ * The source field name.
+ * @param string $dest_field
+ * The destination field.
+ * @param int $nodes_per_batch
+ * The amount of nodes to update at a given time.
+ */
+function _change_update_fields_copy_field_values(array &$sandbox, $bundle, $source_field, $dest_field, $nodes_per_batch = 20) {
+
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+  // Initialize some variables during the first pass through.
+  // ->notExists($dest_field)  and ->exists($source_field) are only for copy ini case
+  if (!isset($sandbox['total'])) {
+    $query = $storage->getQuery()
+      ->condition('type', $bundle)
+      ->notExists($dest_field)
+      ->exists($source_field)
+//      ->range(0, 10)
+//      ->sort('created', 'ASC')
+      ->accessCheck(FALSE);
+
+    $nids = $query->execute();
+
+    $sandbox['total'] = count($nids);
+    $sandbox['ids'] = array_chunk($nids, $nodes_per_batch);
+    $sandbox['current'] = 0;
+  }
+
+  $nids = array_shift($sandbox['ids']);
+  $nodes = $storage->loadMultiple($nids);
+
+//  The code to programmatically copy field data in Drupal 8 isn’t the hard part.
+// Assuming your source and destination field types are compatible,
+// it’s just two quick lines:
+
+// /* @var $node \Drupal\node\NodeInterface $node */
+// $node->$dest_field = $node->$source_field;
+// $node->save();
+
+// It gets complicated when you need to do this on hundreds or thousands of entities.
+// We don’t want to load, process, and save all those entities at once
+// as that would likely bring our server down. We need to batch the operation.
+
+  /* @var $node \Drupal\node\NodeInterface $node */
+  foreach ($nodes as $node) {
+    // This is main copy operation
+    $node->$dest_field = $node->$source_field; // ini example: Programmatically copy field data
+
+    $node->save();
+    $sandbox['current']++;
+  }
+  $sandbox['#finished'] = min(($sandbox['current'] / $sandbox['total']), 1);
+}
+
+/**
+ * name comes from ini functionality: Copies the value from one field to another empty field.
+ * A custom callback _my_module_copy_field_values allows Implementations of
+ * hook_post_update_NAME that act as implementations of callback_batch_operation
+ * across multiple HTTP requests and avoid PHP timeouts.
+ *
+ * @param array $sandbox
+ * The batch operation sandbox.
+ * @param string $bundle
+ * The node bundle.
+ * @param int $nodes_per_batch
+ * The amount of nodes to update at a given time.
+ */
+function _change_update_fields_save_bundle(array &$sandbox, $bundle, $nodes_per_batch = 20) {
+
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+
+  // as we need only ->save(operation)
+  if (!isset($sandbox['total'])) {
+    $query = $storage->getQuery()
+      ->condition('type', $bundle)
+      ->accessCheck(FALSE);
+
+    $nids = $query->execute();
+
+    $sandbox['total'] = count($nids);
+    $sandbox['ids'] = array_chunk($nids, $nodes_per_batch);
+    $sandbox['current'] = 0;
+  }
+
+  if ($sandbox['total'] == 0) {
+    $sandbox['#finished'] = 1;
+    return;
+  }
+
+  $nids = array_shift($sandbox['ids']);
+  $nodes = $storage->loadMultiple($nids);
+
+  // It gets complicated when you need to do this on hundreds or thousands of entities.
+  // We don’t want to load, process, and save all those entities at once
+  // as that would likely bring our server down. We need to batch the operation.
+
+  /* @var $node \Drupal\node\NodeInterface $node */
+  foreach ($nodes as $node) {
+    $node->save();
+    $sandbox['current']++;
+  }
+
+  $sandbox['#finished'] = min(($sandbox['current'] / $sandbox['total']), 1);
+}
+
+/**
+ * name comes from ini functionality: Copies the value from one field to another empty field.
+ * A custom callback _my_module_copy_field_values allows Implementations of
+ * hook_post_update_NAME that act as implementations of callback_batch_operation
+ * across multiple HTTP requests and avoid PHP timeouts.
+ *
+ * @param array $sandbox
+ * The batch operation sandbox.
+ * @param string $bundle
+ * The node bundle.
+ * @param int $nodes_per_batch
+ * The amount of nodes to update at a given time.
+ */
+function _change_update_fields_publish_bundle(array &$sandbox, $bundle, $nodes_per_batch = 20) {
+
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+
+  // as we need only ->save(operation) and we know what operation we want $node->setPublished(true);
+  if (!isset($sandbox['total'])) {
+    $query = $storage->getQuery()
+      ->condition('type', $bundle)
+//      ->range(0, 2)
+      ->sort('changed', 'DESC')
+      ->accessCheck(FALSE);
+
+    $nids = $query->execute();
+
+    $sandbox['total'] = count($nids);
+    $sandbox['ids'] = array_chunk($nids, $nodes_per_batch);
+    $sandbox['current'] = 0;
+  }
+
+  if ($sandbox['total'] == 0) {
+    $sandbox['#finished'] = 1;
+    return;
+  }
+
+  $nids = array_shift($sandbox['ids']);
+  $nodes = $storage->loadMultiple($nids);
+
+  // It gets complicated when you need to do this on hundreds or thousands of entities.
+  // We don’t want to load, process, and save all those entities at once
+  // as that would likely bring our server down. We need to batch the operation.
+
+  /* @var $node \Drupal\node\NodeInterface $node */
+  foreach ($nodes as $node) {
+//    $node->setPublished(true); // did not work if in draft as this node is under workflow
+//    \Drupal::messenger()->addMessage("$node->id Node updated");
+
+    $node->set('moderation_state', 'published');
+    $node->set('langcode', 'en');
+    if ($node instanceof RevisionLogInterface) {
+      $node->setRevisionLogMessage('Set moderation state to Published.');
+      $node->setRevisionUserId(\Drupal::currentUser()->id());
+    }
+    $node->save();
+    $sandbox['current']++;
+  }
+
+  $sandbox['#finished'] = min(($sandbox['current'] / $sandbox['total']), 1);
+}
+
+
+
+/**
+ * Implements hook_cron().
+ */
+function change_update_fields_cron() {
+
+ //// one node update Title example
+//  $query = \Drupal::entityQuery('node')
+//    ->condition('nid', '1');    // The ID of the node.
+//  $nids = $query->execute();
+//  $nodes = Node::loadMultiple($nids);
+//  foreach ($nodes as $node) {
+//    $node->set("title", strtoupper($node->title->value));
+//    $node->save();
+//  }
+//  \Drupal::messenger()->addMessage('Nodes updated');
+}

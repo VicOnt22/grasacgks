@@ -1,0 +1,8 @@
+type: module
+name: Filefield to Media Copy
+description: "Copies filefield files / images into an existing media field within the same entity. Typically used after migration."
+package: Utility
+core_version_requirement: ^8.9 || ^9 || ^10
+dependencies:
+  - drupal:file
+  - drupal:media

@@ -1,0 +1,27 @@
+// grasacgks header styling.
+// -----------------------------------------------------------------------------
+@import "../../node_modules/bootstrap/scss/functions";  // Bootstrap functions.
+@import "../../node_modules/bootstrap/scss/mixins";     // Bootstrap mixins.
+@import "../variables";                   // grasacgks variables.
+@import "../mixins";                      // grasacgks mixins.
+// -----------------------------------------------------------------------------
+
+/* Insert your grasacgks header custom SASS styling. */
+
+// Navbar brand
+//
+// Used for brand, project, or site names.
+
+.navbar-brand {
+  display: inline-block;
+  padding-top: $navbar-brand-padding-y;
+  padding-bottom: $navbar-brand-padding-y;
+  margin-right: $navbar-padding-x + 2.0rem;
+  @include font-size($navbar-brand-font-size);
+  line-height: inherit;
+  white-space: nowrap;
+
+  @include hover-focus() {
+    text-decoration: none;
+  }
+}
