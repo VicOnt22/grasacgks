@@ -1,0 +1,18 @@
+uuid: cfc5bb64-5019-4500-abb9-976cd8d494b2
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.varbase_heroslider_media
+id: entity_subqueue.varbase_heroslider_media.title
+field_name: title
+entity_type: entity_subqueue
+bundle: varbase_heroslider_media
+label: Title
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

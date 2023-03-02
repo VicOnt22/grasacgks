@@ -1,0 +1,14 @@
+uuid: 55e2da7f-729b-460a-83bf-f61bde3d1b5e
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.full_member
+  module:
+    - user
+id: user_add_role_action.full_member
+label: 'Add the Full Member role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: full_member

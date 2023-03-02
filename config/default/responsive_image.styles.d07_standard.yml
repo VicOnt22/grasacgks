@@ -1,0 +1,26 @@
+uuid: 098c6d21-e0b3-4018-b7e0-f03a53e6d8db
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.d07_standard
+    - image.style.d08_standard
+  module:
+    - varbase_media
+_core:
+  default_config_hash: LNVKfoDwpipp6eJhRkFzhLgwB786P-Ta-cdrCStIz1M
+id: d07_standard
+label: 'Display 07 responsive standard 16:9'
+image_style_mappings:
+  -
+    breakpoint_id: varbase_media.screen-sm-max
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: d08_standard
+  -
+    breakpoint_id: varbase_media.screen-md-min
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: d07_standard
+breakpoint_group: varbase_media
+fallback_image_style: d07_standard

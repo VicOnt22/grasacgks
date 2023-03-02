@@ -1,0 +1,14 @@
+uuid: b721225b-25eb-4637-94a8-55e32a0044b9
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.full_member
+  module:
+    - user
+id: user_remove_role_action.full_member
+label: 'Remove the Full Member role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: full_member

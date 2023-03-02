@@ -1,0 +1,25 @@
+uuid: d129395b-588f-4d3a-b8a0-d3074fba1fb6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_nation_rationale
+    - node.type.heritage_item
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    allowed_formats: {  }
+id: node.heritage_item.field_nation_rationale
+field_name: field_nation_rationale
+entity_type: node
+bundle: heritage_item
+label: 'Nation of Origin Reason for Attribution'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

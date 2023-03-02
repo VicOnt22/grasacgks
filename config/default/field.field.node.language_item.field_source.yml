@@ -1,0 +1,29 @@
+uuid: 5dc16265-3ec1-4f0b-9dec-7ab544f65a0b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_source
+    - node.type.language_item
+    - taxonomy.vocabulary.language_item_source
+id: node.language_item.field_source
+field_name: field_source
+entity_type: node
+bundle: language_item
+label: 'Source of term'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      language_item_source: language_item_source
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

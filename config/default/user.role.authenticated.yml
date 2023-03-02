@@ -1,0 +1,48 @@
+uuid: a6635158-ff52-482a-a138-7e6455735e15
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - media
+    - system
+_core:
+  default_config_hash: D8GiER5rX7kzimb-u9Q0Pc3LKEFzKvKgjp2OpYPDafs
+id: authenticated
+label: 'authenticated user'
+weight: -9
+is_admin: false
+permissions:
+  - 'access comments'
+  - 'access content'
+  - 'access relations'
+  - 'access site-wide contact form'
+  - 'access user contact forms'
+  - 'edit own comments'
+  - 'edit own tags'
+  - 'post comments'
+  - 'search all content'
+  - 'search all excluded entities'
+  - 'search article content'
+  - 'search content'
+  - 'search heritage_item content'
+  - 'search language_item content'
+  - 'search page content'
+  - 'search project content'
+  - 'search resource content'
+  - 'search secure_page content'
+  - 'skip comment approval'
+  - 'tag content'
+  - 'use advanced search'
+  - 'use text format filtered_html'
+  - 'view advanced help index'
+  - 'view advanced help popup'
+  - 'view advanced help topic'
+  - 'view field_gks_id'
+  - 'view field_make_role'
+  - 'view files'
+  - 'view icons'
+  - 'view media'
+  - 'view own field_gks_id'
+  - 'view own field_make_role'
+  - 'view own files'

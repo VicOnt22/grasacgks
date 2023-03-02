@@ -1,0 +1,22 @@
+uuid: 47ef0133-3c32-42be-ba34-2e1fe679f593
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.institution
+id: taxonomy_term.institution.status
+field_name: status
+entity_type: taxonomy_term
+bundle: institution
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,18 @@
+uuid: 42bf1507-78d5-4a25-a810-389e849e2178
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.folders
+id: taxonomy_term.folders.metatag
+field_name: metatag
+entity_type: taxonomy_term
+bundle: folders
+label: 'Metatags (Hidden field for JSON support)'
+description: 'The meta tags for the entity.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: map

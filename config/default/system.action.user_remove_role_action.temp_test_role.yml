@@ -1,0 +1,14 @@
+uuid: 40d15fd2-226c-491b-a1e9-e86da20b6765
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.temp_test_role
+  module:
+    - user
+id: user_remove_role_action.temp_test_role
+label: 'Remove the Temp Test Role role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: temp_test_role

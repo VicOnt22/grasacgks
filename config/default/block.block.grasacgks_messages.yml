@@ -1,0 +1,22 @@
+uuid: 2d0c7b40-1f87-4f53-947e-c158fe57719d
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - grasacgks
+_core:
+  default_config_hash: PJMjtYTZ5fPAKJyB0zCntUpdCP7avJPuSrHuzvSsGeQ
+id: grasacgks_messages
+theme: grasacgks
+region: header
+weight: -2
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  label_display: '0'
+  provider: system
+visibility: {  }

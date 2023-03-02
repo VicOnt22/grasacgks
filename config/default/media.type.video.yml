@@ -1,0 +1,20 @@
+uuid: c93ca46d-36b0-4582-a559-e9c718eee04c
+langcode: en
+status: true
+dependencies:
+  module:
+    - crop
+third_party_settings:
+  crop:
+    image_field: null
+_core:
+  default_config_hash: eIkKkAgdcmz-vuQPidRZ6kuQ2Ek_1D1vCt6b1N8K16s
+id: video
+label: Video
+description: 'A locally hosted video file.'
+source: video_file
+queue_thumbnail_downloads: false
+new_revision: true
+source_configuration:
+  source_field: field_media_video_file
+field_map: {  }

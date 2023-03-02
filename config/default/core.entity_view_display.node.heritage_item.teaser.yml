@@ -1,0 +1,248 @@
+uuid: 25399da6-d4c1-494d-81b9-ced7fb84cb0b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.heritage_item.body
+    - field.field.node.heritage_item.field_abstract
+    - field.field.node.heritage_item.field_access_rationale
+    - field.field.node.heritage_item.field_acquired_from
+    - field.field.node.heritage_item.field_bibliographic_citation
+    - field.field.node.heritage_item.field_catalog_id
+    - field.field.node.heritage_item.field_collection
+    - field.field.node.heritage_item.field_contributor_collector
+    - field.field.node.heritage_item.field_current_institution
+    - field.field.node.heritage_item.field_date_acquisition
+    - field.field.node.heritage_item.field_date_attribution
+    - field.field.node.heritage_item.field_date_ceremonial_time
+    - field.field.node.heritage_item.field_date_collection
+    - field.field.node.heritage_item.field_date_made
+    - field.field.node.heritage_item.field_date_seasonal_time
+    - field.field.node.heritage_item.field_description_condition
+    - field.field.node.heritage_item.field_description_materials
+    - field.field.node.heritage_item.field_description_medium
+    - field.field.node.heritage_item.field_description_motifs
+    - field.field.node.heritage_item.field_description_othernotes
+    - field.field.node.heritage_item.field_description_source
+    - field.field.node.heritage_item.field_description_summary
+    - field.field.node.heritage_item.field_description_symbols
+    - field.field.node.heritage_item.field_description_techniques
+    - field.field.node.heritage_item.field_dimensions
+    - field.field.node.heritage_item.field_exhibition_notes
+    - field.field.node.heritage_item.field_filter_date_made
+    - field.field.node.heritage_item.field_folders
+    - field.field.node.heritage_item.field_function_attribution
+    - field.field.node.heritage_item.field_geofield
+    - field.field.node.heritage_item.field_geolocation
+    - field.field.node.heritage_item.field_gks_id
+    - field.field.node.heritage_item.field_identifier_url
+    - field.field.node.heritage_item.field_image2
+    - field.field.node.heritage_item.field_item_type
+    - field.field.node.heritage_item.field_local_origin_attribution
+    - field.field.node.heritage_item.field_local_origin_tid
+    - field.field.node.heritage_item.field_make_role
+    - field.field.node.heritage_item.field_maker_attribution
+    - field.field.node.heritage_item.field_maker_name
+    - field.field.node.heritage_item.field_maker_role
+    - field.field.node.heritage_item.field_media_audio_video_docs_
+    - field.field.node.heritage_item.field_media_image_twoc
+    - field.field.node.heritage_item.field_nation_rationale
+    - field.field.node.heritage_item.field_nation_tid
+    - field.field.node.heritage_item.field_original_function
+    - field.field.node.heritage_item.field_provenance
+    - field.field.node.heritage_item.field_publication_history
+    - field.field.node.heritage_item.field_record_creation
+    - field.field.node.heritage_item.field_record_creation_notes
+    - field.field.node.heritage_item.field_region_of_origin
+    - field.field.node.heritage_item.field_region_origin_attribution
+    - field.field.node.heritage_item.field_related_heritage_item
+    - field.field.node.heritage_item.field_related_language_item
+    - field.field.node.heritage_item.field_source_coll_his
+    - field.field.node.heritage_item.field_sources_exhib_pub_his
+    - field.field.node.heritage_item.field_subsequent_functions
+    - field.field.node.heritage_item.field_time_attribution
+    - field.field.node.heritage_item.field_title_rationale
+    - image.style.d02
+    - node.type.heritage_item
+  module:
+    - ds
+    - image
+    - layout_builder
+    - taxonomy
+    - user
+third_party_settings:
+  ds:
+    layout:
+      id: bs_1col
+      library: null
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        label: ''
+        layout:
+          wrapper: div
+          classes:
+            row: row
+          add_layout_class: 1
+          attributes: ''
+        regions:
+          main:
+            wrapper: div
+            classes:
+              col-sm-12: col-sm-12
+            add_region_classes: 1
+            attributes: ''
+    regions:
+      main:
+        - field_image2
+        - node_title
+        - field_region_of_origin
+        - field_nation_tid
+        - links
+        - content_moderation_control
+        - field_item_type
+    fields:
+      node_title:
+        plugin_id: node_title
+        weight: 1
+        label: hidden
+        formatter: default
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.heritage_item.teaser
+targetEntityType: node
+bundle: heritage_item
+mode: teaser
+content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: main
+  field_image2:
+    type: image
+    label: above
+    settings:
+      image_link: content
+      image_style: d02
+      image_loading:
+        attribute: lazy
+    third_party_settings:
+      ds:
+        ds_limit: '1'
+        ft:
+          id: expert
+          settings:
+            lb: ''
+            lbw: false
+            lbw-el: ''
+            lbw-cl: ''
+            lbw-at: ''
+            lb-col: false
+            ow: false
+            ow-el: ''
+            ow-cl: ''
+            ow-at: ''
+            ow-def-at: false
+            ow-def-cl: false
+            fis: false
+            fis-el: ''
+            fis-cl: ''
+            fis-at: ''
+            fis-def-at: false
+            fi: false
+            fi-el: ''
+            fi-cl: ''
+            fi-at: ''
+            fi-def-at: false
+            prefix: ''
+            suffix: ''
+    weight: 0
+    region: main
+  field_item_type:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 6
+    region: main
+  field_nation_tid:
+    type: entity_reference_rss_category
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: main
+  field_region_of_origin:
+    type: entity_reference_rss_category
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: main
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: main
+hidden:
+  body: true
+  field_abstract: true
+  field_access_rationale: true
+  field_acquired_from: true
+  field_bibliographic_citation: true
+  field_catalog_id: true
+  field_collection: true
+  field_contributor_collector: true
+  field_current_institution: true
+  field_date_acquisition: true
+  field_date_attribution: true
+  field_date_ceremonial_time: true
+  field_date_collection: true
+  field_date_made: true
+  field_date_seasonal_time: true
+  field_description_condition: true
+  field_description_materials: true
+  field_description_medium: true
+  field_description_motifs: true
+  field_description_othernotes: true
+  field_description_source: true
+  field_description_summary: true
+  field_description_symbols: true
+  field_description_techniques: true
+  field_dimensions: true
+  field_exhibition_notes: true
+  field_filter_date_made: true
+  field_folders: true
+  field_function_attribution: true
+  field_geofield: true
+  field_geolocation: true
+  field_gks_id: true
+  field_identifier_url: true
+  field_local_origin_attribution: true
+  field_local_origin_tid: true
+  field_make_role: true
+  field_maker_attribution: true
+  field_maker_name: true
+  field_maker_role: true
+  field_media_audio_video_docs_: true
+  field_media_image_twoc: true
+  field_nation_rationale: true
+  field_original_function: true
+  field_provenance: true
+  field_publication_history: true
+  field_record_creation: true
+  field_record_creation_notes: true
+  field_region_origin_attribution: true
+  field_related_heritage_item: true
+  field_related_language_item: true
+  field_source_coll_his: true
+  field_sources_exhib_pub_his: true
+  field_subsequent_functions: true
+  field_time_attribution: true
+  field_title_rationale: true
+  langcode: true
+  search_api_excerpt: true

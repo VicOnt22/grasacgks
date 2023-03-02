@@ -1,0 +1,14 @@
+uuid: 8bc4f473-b15d-4587-b306-4fdcc1971644
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: Be--4YMgYe4oiflLxTlJW2AhzG_9M7b7QyCXOL--8B0
+id: node_type_landing_page
+entity_type_id: null
+entity_id: null
+action: display_page
+allow_override: 0
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: null

@@ -1,0 +1,23 @@
+uuid: b594b112-4530-4287-b339-fb809c69a6fa
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - file
+    - text
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: file.field_transcription_text
+field_name: field_transcription_text
+entity_type: file
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

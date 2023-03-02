@@ -1,0 +1,20 @@
+uuid: 7464a693-8082-443d-a212-a1fdc264d408
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.document_private
+  module:
+    - path
+id: media.document_private.path
+field_name: path
+entity_type: media
+bundle: document_private
+label: 'URL alias'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

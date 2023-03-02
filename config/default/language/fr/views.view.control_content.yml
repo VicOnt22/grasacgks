@@ -1,0 +1,55 @@
+display:
+  default:
+    display_title: Maître
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Appliquer
+          reset_button_label: Réinitialiser
+          exposed_sorts_label: 'Trier par'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        options:
+          tags:
+            previous: ‹‹
+            next: ››
+            first: '« Premier'
+            last: 'Dernier »'
+          expose:
+            items_per_page_label: 'Éléments par page'
+            items_per_page_options_all_label: '- Tout -'
+            offset_label: Décalage
+      fields:
+        node_bulk_form:
+          action_title: Action
+        title:
+          label: Titre
+          separator: ', '
+        uid:
+          label: Auteur
+          separator: ', '
+        created:
+          separator: ', '
+        changed:
+          label: 'Date de mise à jour'
+          separator: ', '
+        status:
+          label: Publié
+          separator: ', '
+        edit_node:
+          label: Modifier
+          text: modifier
+      filters:
+        status:
+          expose:
+            label: Publié
+        uid:
+          expose:
+            label: 'Écrit par'
+        combine:
+          expose:
+            label: Contient
+        type:
+          expose:
+            label: Type

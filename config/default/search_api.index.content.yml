@@ -1,0 +1,39 @@
+uuid: 89bff093-b488-4182-98f8-0895ade8b29d
+langcode: en
+status: true
+dependencies:
+  config:
+    - search_api.server.database_server
+  module:
+    - search_api
+    - node
+id: content
+name: Content
+description: ''
+read_only: false
+field_settings: {  }
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - heritage_item
+        - language_item
+        - page
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  entity_type: {  }
+  language_with_fallback: {  }
+  rendered_item: {  }
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  cron_limit: 50
+  index_directly: true
+  track_changes_in_references: true
+server: database_server

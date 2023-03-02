@@ -1,0 +1,17 @@
+uuid: 91b64a94-91ac-455f-8a67-d8fbf5a73edb
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs_library
+third_party_settings:
+  paragraphs_library:
+    allow_library_conversion: true
+_core:
+  default_config_hash: SJelM7PvEcq3_FHvVPhqM7brIUwzKnarfaGD85JYhao
+id: bp_accordion_section
+label: 'Accordion Section'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

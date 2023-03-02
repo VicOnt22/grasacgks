@@ -1,0 +1,19 @@
+uuid: 73e289c6-28ac-4ad0-b02d-5a909d520fe0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_part_of_speech
+    - node.type.language_item
+id: node.language_item.field_part_of_speech
+field_name: field_part_of_speech
+entity_type: node
+bundle: language_item
+label: 'Part of speech'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

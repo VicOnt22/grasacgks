@@ -1,0 +1,26 @@
+entity_type_groups:
+  node:
+    landing_page:
+      basic: basic
+    landing_page_lb:
+      basic: basic
+    page:
+      basic: basic
+    varbase_blog:
+      basic: basic
+    varbase_heroslider_media:
+      basic: basic
+    article:
+      basic: basic
+    heritage_item:
+      basic: basic
+    language_item:
+      basic: basic
+    project:
+      basic: basic
+    resource:
+      basic: basic
+    secure_page:
+      basic: basic
+    resempty:
+      basic: basic

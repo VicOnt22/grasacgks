@@ -1,0 +1,18 @@
+uuid: 8c0591f7-d86c-4ef8-ba5c-c8a58c172be3
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.contributors
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: taxonomy_term.contributors
+target_entity_type_id: taxonomy_term
+target_bundle: contributors
+default_langcode: site_default
+language_alterable: true

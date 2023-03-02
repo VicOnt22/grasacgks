@@ -1,0 +1,196 @@
+uuid: 92dad714-db2f-4f7a-98eb-d87552f698f4
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.detail_view
+    - field.field.node.language_item.body
+    - field.field.node.language_item.field_alternative_spellings
+    - field.field.node.language_item.field_audio_video
+    - field.field.node.language_item.field_date_created
+    - field.field.node.language_item.field_folders
+    - field.field.node.language_item.field_languages
+    - field.field.node.language_item.field_part_of_speech
+    - field.field.node.language_item.field_record_editable_by
+    - field.field.node.language_item.field_related_heritage_item
+    - field.field.node.language_item.field_related_language_item
+    - field.field.node.language_item.field_related_places
+    - field.field.node.language_item.field_source
+    - field.field.node.language_item.field_term_definition
+    - field.field.node.language_item.field_unique_id
+    - node.type.language_item
+  module:
+    - ds
+    - layout_builder
+    - text
+    - user
+third_party_settings:
+  ds:
+    layout:
+      id: bs_1col
+      library: null
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        label: ''
+        layout:
+          wrapper: div
+          classes:
+            row: row
+          add_layout_class: 1
+          attributes: ''
+        regions:
+          main:
+            wrapper: div
+            classes:
+              col-sm-12: col-sm-12
+            add_region_classes: 1
+            attributes: ''
+    regions:
+      main:
+        - node_title
+        - links
+        - body
+        - content_moderation_control
+        - field_languages
+        - field_part_of_speech
+        - field_term_definition
+        - field_alternative_spellings
+        - field_source
+        - field_audio_files
+        - field_date_created
+        - field_related_heritage_item
+        - field_related_language_item
+        - field_related_places
+        - field_unique_id
+        - field_record_editable_by
+        - field_folders
+    fields:
+      node_title:
+        plugin_id: node_title
+        weight: 0
+        label: hidden
+        formatter: default
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.language_item.detail_view
+targetEntityType: node
+bundle: language_item
+mode: detail_view
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: main
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: main
+  field_alternative_spellings:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
+    region: main
+  field_date_created:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 10
+    region: main
+  field_folders:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 16
+    region: main
+  field_languages:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: main
+  field_part_of_speech:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 5
+    region: main
+  field_record_editable_by:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 15
+    region: main
+  field_related_heritage_item:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 11
+    region: main
+  field_related_language_item:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 12
+    region: main
+  field_related_places:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 13
+    region: main
+  field_source:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 8
+    region: main
+  field_term_definition:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: main
+  field_unique_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 14
+    region: main
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: main
+hidden:
+  field_audio_video: true
+  langcode: true
+  search_api_excerpt: true

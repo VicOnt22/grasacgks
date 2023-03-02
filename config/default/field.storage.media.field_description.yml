@@ -1,0 +1,23 @@
+uuid: db5d1475-1da5-482a-a833-f55481c8fb20
+langcode: und
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - media
+    - text
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: media.field_description
+field_name: field_description
+entity_type: media
+type: text_with_summary
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

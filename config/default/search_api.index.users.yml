@@ -1,0 +1,33 @@
+uuid: a31c5640-e20a-4bd0-8c57-afad846b2b42
+langcode: en
+status: true
+dependencies:
+  config:
+    - search_api.server.database_server
+  module:
+    - search_api
+    - user
+id: users
+name: users
+description: ''
+read_only: false
+field_settings: {  }
+datasource_settings:
+  'entity:user':
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  entity_type: {  }
+  language_with_fallback: {  }
+  rendered_item: {  }
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  cron_limit: 50
+  index_directly: true
+  track_changes_in_references: true
+server: database_server

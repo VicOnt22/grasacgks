@@ -1,0 +1,19 @@
+uuid: 956c7db3-980e-413a-b48b-91173bd99b1f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_record_creation_notes
+    - node.type.heritage_item
+id: node.heritage_item.field_record_creation_notes
+field_name: field_record_creation_notes
+entity_type: node
+bundle: heritage_item
+label: 'Record Creation Notes/Observations'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

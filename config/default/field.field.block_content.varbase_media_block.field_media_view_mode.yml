@@ -1,0 +1,23 @@
+uuid: 07181ae9-06f5-4141-81c9-e33c437ab293
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.varbase_media_block
+    - field.storage.block_content.field_media_view_mode
+_core:
+  default_config_hash: GBdkg9qZKbDRIoLQLctRzVJ0pnSL6AhmdmrkQnMpgq0
+id: block_content.varbase_media_block.field_media_view_mode
+field_name: field_media_view_mode
+entity_type: block_content
+bundle: varbase_media_block
+label: 'Media View Mode'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:entity_view_mode'
+  handler_settings: {  }
+field_type: entity_reference

@@ -1,0 +1,20 @@
+uuid: b44734e4-bb91-44b2-b245-7d351c2b54e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.varbase_rich_text_block
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+_core:
+  default_config_hash: UU1psOD8mvnSvsPX1lI9NeiBIMek1M4P-uPrAyKDmbM
+id: block_content.varbase_rich_text_block
+target_entity_type_id: block_content
+target_bundle: varbase_rich_text_block
+default_langcode: site_default
+language_alterable: true

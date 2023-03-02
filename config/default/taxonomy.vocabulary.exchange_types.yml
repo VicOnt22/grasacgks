@@ -1,0 +1,8 @@
+uuid: b0d16421-5cb9-4be9-b264-846e74079a18
+langcode: en
+status: true
+dependencies: {  }
+name: 'Exchange Types'
+vid: exchange_types
+description: ''
+weight: 0

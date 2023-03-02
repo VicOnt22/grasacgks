@@ -1,0 +1,19 @@
+uuid: 5105327d-f316-40c4-ac5a-31f9371a53e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_alternative_spellings
+    - node.type.language_item
+id: node.language_item.field_alternative_spellings
+field_name: field_alternative_spellings
+entity_type: node
+bundle: language_item
+label: 'Alternative spellings'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

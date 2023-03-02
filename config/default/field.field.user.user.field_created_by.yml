@@ -1,0 +1,26 @@
+uuid: a5961361-a535-4b9c-91fd-d2ce9318e2ee
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_created_by
+  module:
+    - user
+id: user.user.field_created_by
+field_name: field_created_by
+entity_type: user
+bundle: user
+label: 'Created by'
+description: 'Type and select User who creates this account'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: user_admin_people
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

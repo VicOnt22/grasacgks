@@ -1,0 +1,21 @@
+uuid: 802d9829-0206-4fbd-8c7b-012dbda9bfdf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image
+    - node.type.article
+id: node.article.field_image
+field_name: field_image
+entity_type: node
+bundle: article
+label: Image
+description: 'Upload an image to go with this article.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: entity_reference

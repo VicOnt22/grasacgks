@@ -1,0 +1,20 @@
+uuid: bf8c50f2-bbc2-48fa-85c0-ce502c171387
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.varbase_gallery_block
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+_core:
+  default_config_hash: zL-G4EL2leeRi9FfYjXMa9NhysFU23D-Z_-ZuFBAXL8
+id: block_content.varbase_gallery_block
+target_entity_type_id: block_content
+target_bundle: varbase_gallery_block
+default_langcode: current_interface
+language_alterable: true

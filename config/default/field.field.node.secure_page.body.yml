@@ -1,0 +1,23 @@
+uuid: 486a7c0e-c553-4bce-a534-e51ec4135d48
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.secure_page
+  module:
+    - text
+id: node.secure_page.body
+field_name: body
+entity_type: node
+bundle: secure_page
+label: Body
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+field_type: text_with_summary

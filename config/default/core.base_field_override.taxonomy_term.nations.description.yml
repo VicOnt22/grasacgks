@@ -1,0 +1,20 @@
+uuid: 1d94a904-2cb8-424b-8fcf-c3400eb8fd9e
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.nations
+  module:
+    - text
+id: taxonomy_term.nations.description
+field_name: description
+entity_type: taxonomy_term
+bundle: nations
+label: Description
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

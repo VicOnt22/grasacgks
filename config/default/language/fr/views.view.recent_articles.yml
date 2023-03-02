@@ -1,0 +1,5 @@
+label: 'Articles récents'
+display:
+  default:
+    display_options:
+      title: 'Articles récents'

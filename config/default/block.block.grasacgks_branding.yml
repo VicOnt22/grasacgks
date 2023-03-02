@@ -1,0 +1,25 @@
+uuid: 316a4c5f-41b0-4eda-9455-68ba34dce503
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - grasacgks
+_core:
+  default_config_hash: KpapOhIadYRbqfE459LWVv6Eew2DRn2GvMW90E-WjjA
+id: grasacgks_branding
+theme: grasacgks
+region: navigation_collapsible
+weight: -3
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: false
+visibility: {  }

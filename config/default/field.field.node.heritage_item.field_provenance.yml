@@ -1,0 +1,19 @@
+uuid: 71df7c2b-9f56-4b4f-ab47-17578f01e075
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_provenance
+    - node.type.heritage_item
+id: node.heritage_item.field_provenance
+field_name: field_provenance
+entity_type: node
+bundle: heritage_item
+label: 'Collection Narrative/History'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -1,0 +1,44 @@
+uuid: d77bc2c6-b25a-4370-a910-ecc97101ca56
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+    - node.type.article
+  module:
+    - filter
+    - node
+id: institution_key_contact
+label: 'Institution Key Contact'
+weight: 1
+is_admin: null
+permissions:
+  - 'access all views'
+  - 'access comments'
+  - 'access content overview'
+  - 'access media browser'
+  - 'access relations'
+  - 'access site-wide contact form'
+  - 'access user contact forms'
+  - 'access user profiles'
+  - 'change own username'
+  - 'delete own article content'
+  - 'download any audio files'
+  - 'download any document files'
+  - 'download any image files'
+  - 'download any video files'
+  - 'download own audio files'
+  - 'download own document files'
+  - 'download own image files'
+  - 'download own video files'
+  - 'edit own article content'
+  - 'edit own comments'
+  - 'post comments'
+  - 'search heritage_item content'
+  - 'search language_item content'
+  - 'use php in custom pagers'
+  - 'use text format full_html'
+  - 'view files'
+  - 'view icons'
+  - 'view own unpublished content'
+  - 'view revisions'

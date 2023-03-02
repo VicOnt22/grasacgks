@@ -1,0 +1,23 @@
+uuid: 9fbd3d57-af0b-430c-990e-8a5a640bd3bc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_associated_instituation
+    - taxonomy.vocabulary.institution
+id: taxonomy_term.institution.field_associated_instituation
+field_name: field_associated_instituation
+entity_type: taxonomy_term
+bundle: institution
+label: ' Associated GRASAC Contributing Institution'
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

@@ -1,0 +1,14 @@
+uuid: 16cdefa9-1e5e-4e2f-9162-4c246d0c0436
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.institution_key_contact
+  module:
+    - user
+id: user_add_role_action.institution_key_contact
+label: 'Add the Institution Key Contact role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: institution_key_contact

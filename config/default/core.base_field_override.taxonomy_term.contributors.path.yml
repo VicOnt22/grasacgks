@@ -1,0 +1,20 @@
+uuid: cb3689ca-7660-4b08-9f65-60658e74c1f8
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.contributors
+  module:
+    - path
+id: taxonomy_term.contributors.path
+field_name: path
+entity_type: taxonomy_term
+bundle: contributors
+label: 'URL alias'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

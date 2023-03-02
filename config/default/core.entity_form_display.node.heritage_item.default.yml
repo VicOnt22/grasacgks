@@ -1,0 +1,1227 @@
+uuid: 24137294-b1c2-42bc-a5b1-70ca240d4a26
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.heritage_item.body
+    - field.field.node.heritage_item.field_abstract
+    - field.field.node.heritage_item.field_access_rationale
+    - field.field.node.heritage_item.field_acquired_from
+    - field.field.node.heritage_item.field_bibliographic_citation
+    - field.field.node.heritage_item.field_catalog_id
+    - field.field.node.heritage_item.field_collection
+    - field.field.node.heritage_item.field_contributor_collector
+    - field.field.node.heritage_item.field_current_institution
+    - field.field.node.heritage_item.field_date_acquisition
+    - field.field.node.heritage_item.field_date_attribution
+    - field.field.node.heritage_item.field_date_ceremonial_time
+    - field.field.node.heritage_item.field_date_collection
+    - field.field.node.heritage_item.field_date_made
+    - field.field.node.heritage_item.field_date_seasonal_time
+    - field.field.node.heritage_item.field_description_condition
+    - field.field.node.heritage_item.field_description_materials
+    - field.field.node.heritage_item.field_description_medium
+    - field.field.node.heritage_item.field_description_motifs
+    - field.field.node.heritage_item.field_description_othernotes
+    - field.field.node.heritage_item.field_description_source
+    - field.field.node.heritage_item.field_description_summary
+    - field.field.node.heritage_item.field_description_symbols
+    - field.field.node.heritage_item.field_description_techniques
+    - field.field.node.heritage_item.field_dimensions
+    - field.field.node.heritage_item.field_exhibition_notes
+    - field.field.node.heritage_item.field_filter_date_made
+    - field.field.node.heritage_item.field_folders
+    - field.field.node.heritage_item.field_function_attribution
+    - field.field.node.heritage_item.field_geofield
+    - field.field.node.heritage_item.field_geolocation
+    - field.field.node.heritage_item.field_gks_id
+    - field.field.node.heritage_item.field_identifier_url
+    - field.field.node.heritage_item.field_image2
+    - field.field.node.heritage_item.field_item_type
+    - field.field.node.heritage_item.field_local_origin_attribution
+    - field.field.node.heritage_item.field_local_origin_tid
+    - field.field.node.heritage_item.field_make_role
+    - field.field.node.heritage_item.field_maker_attribution
+    - field.field.node.heritage_item.field_maker_name
+    - field.field.node.heritage_item.field_maker_role
+    - field.field.node.heritage_item.field_media_audio_video_docs_
+    - field.field.node.heritage_item.field_media_image_twoc
+    - field.field.node.heritage_item.field_nation_rationale
+    - field.field.node.heritage_item.field_nation_tid
+    - field.field.node.heritage_item.field_original_function
+    - field.field.node.heritage_item.field_provenance
+    - field.field.node.heritage_item.field_publication_history
+    - field.field.node.heritage_item.field_record_creation
+    - field.field.node.heritage_item.field_record_creation_notes
+    - field.field.node.heritage_item.field_region_of_origin
+    - field.field.node.heritage_item.field_region_origin_attribution
+    - field.field.node.heritage_item.field_related_heritage_item
+    - field.field.node.heritage_item.field_related_language_item
+    - field.field.node.heritage_item.field_source_coll_his
+    - field.field.node.heritage_item.field_sources_exhib_pub_his
+    - field.field.node.heritage_item.field_subsequent_functions
+    - field.field.node.heritage_item.field_time_attribution
+    - field.field.node.heritage_item.field_title_rationale
+    - image.style.thumbnail
+    - node.type.heritage_item
+    - workflows.workflow.varbase_simple_workflow
+  module:
+    - content_moderation
+    - datetime_range
+    - geofield
+    - geolocation_leaflet
+    - image
+    - length_indicator
+    - link
+    - media_library
+    - path
+    - physical
+    - scheduler
+    - scheduler_content_moderation_integration
+    - text
+id: node.heritage_item.default
+targetEntityType: node
+bundle: heritage_item
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 2
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_abstract:
+    type: string_textarea
+    weight: 46
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_access_rationale:
+    type: string_textarea
+    weight: 62
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_acquired_from:
+    type: string_textarea
+    weight: 51
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_bibliographic_citation:
+    type: string_textarea
+    weight: 58
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_catalog_id:
+    type: string_textfield
+    weight: 20
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_collection:
+    type: entity_reference_autocomplete
+    weight: 23
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_contributor_collector:
+    type: entity_reference_autocomplete
+    weight: 52
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_current_institution:
+    type: entity_reference_autocomplete
+    weight: 21
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_date_acquisition:
+    type: string_textfield
+    weight: 50
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_date_attribution:
+    type: string_textarea
+    weight: 26
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_date_ceremonial_time:
+    type: string_textfield
+    weight: 28
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_date_collection:
+    type: string_textfield
+    weight: 53
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_date_made:
+    type: string_textfield
+    weight: 24
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_date_seasonal_time:
+    type: string_textfield
+    weight: 27
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_description_condition:
+    type: string_textarea
+    weight: 43
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_description_materials:
+    type: string_textarea
+    weight: 38
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_description_medium:
+    type: text_textarea
+    weight: 39
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_description_motifs:
+    type: string_textarea
+    weight: 40
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_description_othernotes:
+    type: string_textarea
+    weight: 44
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_description_source:
+    type: string_textarea
+    weight: 17
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_description_summary:
+    type: text_textarea_with_summary
+    weight: 16
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  field_description_symbols:
+    type: string_textarea
+    weight: 42
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_description_techniques:
+    type: string_textarea
+    weight: 41
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_dimensions:
+    type: physical_dimensions_default
+    weight: 45
+    region: content
+    settings:
+      default_unit: ''
+      allow_unit_change: true
+    third_party_settings: {  }
+  field_exhibition_notes:
+    type: string_textarea
+    weight: 56
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_filter_date_made:
+    type: daterange_default
+    weight: 25
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_folders:
+    type: entity_reference_autocomplete
+    weight: 65
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_function_attribution:
+    type: string_textarea
+    weight: 48
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_geofield:
+    type: geofield_default
+    weight: 71
+    region: content
+    settings:
+      geometry_validation: false
+    third_party_settings: {  }
+  field_geolocation:
+    type: geolocation_leaflet
+    weight: 70
+    region: content
+    settings:
+      auto_client_location: ''
+      auto_client_location_marker: '1'
+      allow_override_map_settings: 0
+      hide_textfield_form: false
+      centre:
+        fixed_value:
+          enable: false
+          weight: 0
+          settings:
+            location_option_id: fixed_value
+            latitude: null
+            longitude: null
+          map_center_id: location_plugins
+        ipstack:
+          enable: false
+          weight: 0
+          settings:
+            location_option_id: ipstack
+            access_key: ''
+          map_center_id: location_plugins
+        client_location:
+          enable: true
+          weight: 0
+          map_center_id: client_location
+        fixed_boundaries:
+          enable: false
+          weight: 0
+          settings:
+            south: ''
+            west: ''
+            north: ''
+            east: ''
+          map_center_id: fixed_boundaries
+        fit_bounds:
+          enable: true
+          weight: 0
+          settings:
+            reset_zoom: false
+            min_zoom: 5
+          map_center_id: fit_bounds
+      leaflet_settings:
+        map_features:
+          leaflet_control_geocoder:
+            weight: -100
+            settings:
+              position: topright
+              geocoder: google_geocoding_api
+              settings:
+                label: Address
+                description: 'Enter an address to be localized.'
+                autocomplete_min_length: 1
+                component_restrictions:
+                  route: ''
+                  country: 'ca, us'
+                  administrative_area: ''
+                  locality: ''
+                  postal_code: ''
+                boundary_restriction:
+                  south: ''
+                  west: ''
+                  north: ''
+                  east: ''
+                region: ''
+            enabled: false
+          leaflet_client_location_indicator:
+            weight: 0
+            enabled: false
+          leaflet_disable_user_interaction:
+            weight: 0
+            enabled: false
+          geolocation_shapes:
+            weight: 0
+            settings:
+              remove_markers: false
+              polyline: true
+              polyline_title: Polyline
+              strokeColor: '#FF0000'
+              strokeOpacity: 0.8
+              strokeWidth: '2'
+              polygon: true
+              polygon_title: Poligonmap
+              fillColor: '#FF0000'
+              fillOpacity: 0.35
+            enabled: true
+          leaflet_gesture_handling:
+            weight: 0
+            enabled: false
+          leaflet_rotate:
+            weight: 0
+            settings:
+              display_control: true
+              bearing: !!float 0
+            enabled: false
+          leaflet_control_attribution:
+            weight: 0
+            settings:
+              position: bottomright
+              prefix: Leaflet
+            enabled: true
+          leaflet_control_fullscreen:
+            weight: 0
+            settings:
+              position: topright
+            enabled: false
+          leaflet_control_locate:
+            weight: 0
+            settings:
+              position: topright
+            enabled: true
+          leaflet_control_recenter:
+            weight: 0
+            settings:
+              position: topright
+            enabled: true
+          leaflet_control_scale:
+            weight: 0
+            settings:
+              position: topright
+              metric: true
+              imperial: false
+            enabled: true
+          leaflet_control_layer:
+            weight: 0
+            settings:
+              position: topright
+              default_label: Default
+              tile_layer_providers:
+                OpenStreetMap:
+                  'OpenStreetMap Mapnik':
+                    checkbox: true
+                    label: ''
+                  'OpenStreetMap BlackAndWhite':
+                    checkbox: false
+                    label: ''
+                  'OpenStreetMap DE':
+                    checkbox: false
+                    label: ''
+                  'OpenStreetMap CH':
+                    checkbox: false
+                    label: ''
+                  'OpenStreetMap France':
+                    checkbox: false
+                    label: ''
+                  'OpenStreetMap HOT':
+                    checkbox: false
+                    label: ''
+                  'OpenStreetMap BZH':
+                    checkbox: false
+                    label: ''
+                OpenTopoMap:
+                  OpenTopoMap:
+                    checkbox: false
+                    label: ''
+                Thunderforest:
+                  'Thunderforest OpenCycleMap':
+                    checkbox: false
+                    label: ''
+                  'Thunderforest Transport':
+                    checkbox: false
+                    label: ''
+                  'Thunderforest TransportDark':
+                    checkbox: false
+                    label: ''
+                  'Thunderforest SpinalMap':
+                    checkbox: false
+                    label: ''
+                  'Thunderforest Landscape':
+                    checkbox: false
+                    label: ''
+                  'Thunderforest Outdoors':
+                    checkbox: false
+                    label: ''
+                  'Thunderforest Pioneer':
+                    checkbox: false
+                    label: ''
+                OpenMapSurfer:
+                  'OpenMapSurfer Roads':
+                    checkbox: false
+                    label: ''
+                  'OpenMapSurfer Grayscale':
+                    checkbox: false
+                    label: ''
+                Hydda:
+                  'Hydda Full':
+                    checkbox: false
+                    label: ''
+                  'Hydda Base':
+                    checkbox: false
+                    label: ''
+                MapBox:
+                  MapBox:
+                    checkbox: false
+                    label: MapBox
+                Stamen:
+                  'Stamen Toner':
+                    checkbox: false
+                    label: ''
+                  'Stamen TonerBackground':
+                    checkbox: false
+                    label: ''
+                  'Stamen TonerLite':
+                    checkbox: false
+                    label: ''
+                  'Stamen Watercolor':
+                    checkbox: false
+                    label: ''
+                  'Stamen Terrain':
+                    checkbox: false
+                    label: ''
+                  'Stamen TerrainBackground':
+                    checkbox: false
+                    label: ''
+                  'Stamen TopOSMRelief':
+                    checkbox: false
+                    label: ''
+                Esri:
+                  'Esri WorldStreetMap':
+                    checkbox: false
+                    label: ''
+                  'Esri DeLorme':
+                    checkbox: false
+                    label: ''
+                  'Esri WorldTopoMap':
+                    checkbox: false
+                    label: ''
+                  'Esri WorldImagery':
+                    checkbox: false
+                    label: ''
+                  'Esri WorldTerrain':
+                    checkbox: false
+                    label: ''
+                  'Esri WorldShadedRelief':
+                    checkbox: false
+                    label: ''
+                  'Esri WorldPhysical':
+                    checkbox: false
+                    label: ''
+                  'Esri OceanBasemap':
+                    checkbox: false
+                    label: ''
+                  'Esri NatGeoWorldMap':
+                    checkbox: false
+                    label: ''
+                  'Esri WorldGrayCanvas':
+                    checkbox: false
+                    label: ''
+                HERE:
+                  'HERE normalDay':
+                    checkbox: false
+                    label: ''
+                  'HERE normalDayCustom':
+                    checkbox: false
+                    label: ''
+                  'HERE normalDayGrey':
+                    checkbox: false
+                    label: ''
+                  'HERE normalDayMobile':
+                    checkbox: false
+                    label: ''
+                  'HERE normalDayGreyMobile':
+                    checkbox: false
+                    label: ''
+                  'HERE normalDayTransit':
+                    checkbox: false
+                    label: ''
+                  'HERE normalDayTransitMobile':
+                    checkbox: false
+                    label: ''
+                  'HERE normalNight':
+                    checkbox: false
+                    label: ''
+                  'HERE normalNightMobile':
+                    checkbox: false
+                    label: ''
+                  'HERE normalNightGrey':
+                    checkbox: false
+                    label: ''
+                  'HERE normalNightGreyMobile':
+                    checkbox: false
+                    label: ''
+                  'HERE normalNightTransit':
+                    checkbox: false
+                    label: ''
+                  'HERE normalNightTransitMobile':
+                    checkbox: false
+                    label: ''
+                  'HERE redcuedDay':
+                    checkbox: false
+                    label: ''
+                  'HERE redcuedNight':
+                    checkbox: false
+                    label: ''
+                  'HERE basicMap':
+                    checkbox: false
+                    label: ''
+                  'HERE mapLabels':
+                    checkbox: false
+                    label: ''
+                  'HERE trafficFlow':
+                    checkbox: false
+                    label: ''
+                  'HERE carnavDayGrey':
+                    checkbox: false
+                    label: ''
+                  'HERE hybridDayMobile':
+                    checkbox: false
+                    label: ''
+                  'HERE hybridDayTransit':
+                    checkbox: false
+                    label: ''
+                  'HERE hybridDayGrey':
+                    checkbox: false
+                    label: ''
+                  'HERE pedestrianDay':
+                    checkbox: false
+                    label: ''
+                  'HERE pedestrianNight':
+                    checkbox: false
+                    label: ''
+                  'HERE satelliteDay':
+                    checkbox: false
+                    label: ''
+                  'HERE terrainDay':
+                    checkbox: false
+                    label: ''
+                  'HERE terrainDayMobile':
+                    checkbox: false
+                    label: ''
+                FreeMapSK:
+                  FreeMapSK:
+                    checkbox: true
+                    label: FreeMapSk
+                MtbMap:
+                  MtbMap:
+                    checkbox: false
+                    label: ''
+                CartoDB:
+                  'CartoDB Positron':
+                    checkbox: false
+                    label: ''
+                  'CartoDB PositronNoLabels':
+                    checkbox: false
+                    label: ''
+                  'CartoDB PositronOnlyLabels':
+                    checkbox: false
+                    label: ''
+                  'CartoDB DarkMatter':
+                    checkbox: false
+                    label: ''
+                  'CartoDB DarkMatterNoLabels':
+                    checkbox: false
+                    label: ''
+                  'CartoDB DarkMatterOnlyLabels':
+                    checkbox: false
+                    label: ''
+                  'CartoDB Voyager':
+                    checkbox: false
+                    label: ''
+                  'CartoDB VoyagerNoLabels':
+                    checkbox: false
+                    label: ''
+                  'CartoDB VoyagerOnlyLabels':
+                    checkbox: false
+                    label: ''
+                  'CartoDB VoyagerLabelsUnder':
+                    checkbox: false
+                    label: ''
+                HikeBike:
+                  HikeBike:
+                    checkbox: false
+                    label: ''
+                  'HikeBike HillShading':
+                    checkbox: false
+                    label: ''
+                BasemapAT:
+                  'BasemapAT basemap':
+                    checkbox: false
+                    label: ''
+                  'BasemapAT grau':
+                    checkbox: false
+                    label: ''
+                  'BasemapAT overlay':
+                    checkbox: false
+                    label: ''
+                  'BasemapAT highdpi':
+                    checkbox: false
+                    label: ''
+                  'BasemapAT orthofoto':
+                    checkbox: false
+                    label: ''
+                NLS:
+                  NLS:
+                    checkbox: false
+                    label: ''
+                GeoportailFrance:
+                  'GeoportailFrance parcels':
+                    checkbox: false
+                    label: ''
+                  'GeoportailFrance ignMaps':
+                    checkbox: false
+                    label: ''
+                  'GeoportailFrance maps':
+                    checkbox: false
+                    label: ''
+                  'GeoportailFrance orthos':
+                    checkbox: false
+                    label: ''
+              tile_providers_options:
+                Thunderforest:
+                  apikey: ''
+                MapBox:
+                  accessToken: ''
+                HERE:
+                  app_id: ''
+                  app_code: ''
+                GeoportailFrance:
+                  apikey: ''
+            enabled: true
+          leaflet_control_zoom:
+            weight: 0
+            settings:
+              position: topright
+            enabled: true
+          leaflet_marker_clusterer:
+            weight: 0
+            settings:
+              cluster_settings:
+                show_coverage_on_hover: true
+                zoom_to_bounds_on_click: true
+              disable_clustering_at_zoom: 2
+              custom_marker_settings: ''
+            enabled: true
+          leaflet_marker_icon:
+            weight: 0
+            settings:
+              marker_shadow_path: ''
+              marker_icon_path: ''
+              icon_size:
+                width: null
+                height: null
+              icon_anchor:
+                x: null
+                'y': null
+              popup_anchor:
+                x: 0
+                'y': 0
+              shadow_size:
+                width: null
+                height: null
+              shadow_anchor:
+                x: null
+                'y': null
+            enabled: false
+          leaflet_marker_popup:
+            weight: 0
+            settings:
+              info_auto_display: false
+              max_width: 300
+              min_width: 50
+              max_height: 0
+              auto_pan: true
+              keep_in_view: false
+              close_button: true
+              auto_close: true
+              close_on_escape_key: true
+              class_name: ''
+            enabled: true
+          geolocation_marker_scroll_to_id:
+            weight: 0
+            settings:
+              scroll_target_id: nid
+            enabled: true
+          leaflet_marker_zoom_and_animate:
+            weight: 0
+            settings:
+              marker_zoom_anchor_id: ''
+            enabled: false
+          leaflet_max_bounds:
+            weight: 0
+            settings:
+              north: null
+              south: null
+              east: null
+              west: null
+            enabled: false
+          leaflet_custom_tile_layer:
+            weight: 0
+            settings:
+              tile_layer_url: '//{s}.tile.osm.org/{z}/{x}/{y}.png'
+              tile_layer_attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+              tile_layer_subdomains: abc
+              tile_layer_zoom: 18
+            enabled: false
+          leaflet_tile_layer_overlay:
+            weight: 0
+            settings:
+              tile_layer_overlay: OpenInfraMap.Water
+            enabled: true
+          leaflet_tile_layer:
+            weight: 0
+            settings:
+              tile_layer_provider: 'OpenStreetMap Mapnik'
+              tile_provider_options:
+                Thunderforest:
+                  apikey: ''
+                MapBox:
+                  accessToken: ''
+                HERE:
+                  app_id: ''
+                  app_code: ''
+                GeoportailFrance:
+                  apikey: ''
+            enabled: true
+          leaflet_wms:
+            weight: 0
+            settings:
+              url: ''
+              version: 1.1.1
+              layers: ''
+              styles: ''
+              srs: ''
+              format: image/jpeg
+              transparent: false
+              identify: false
+            enabled: false
+        zoom: '5'
+        height: 400px
+        width: 50%
+        minZoom: '0'
+        maxZoom: '0'
+        maxBounds:
+          north_east_bound:
+            lat: null
+            lng: null
+          south_west_bound:
+            lat: null
+            lng: null
+        crs: EPSG3857
+        preferCanvas: false
+        zoomSnap: 1
+        zoomDelta: 1
+        trackResize: true
+        boxZoom: true
+        doubleClickZoom: true
+        dragging: true
+        zoomAnimation: true
+        zoomAnimationThreshold: 4
+        fadeAnimation: true
+        markerZoomAnimation: true
+        inertia: false
+        inertiaDeceleration: 3000
+        easeLinearity: 0.2
+        worldCopyJump: false
+        maxBoundsViscosity: !!float 0
+        keyboard: true
+        keyboardPanDelta: 80
+        scrollWheelZoom: true
+        wheelDebounceTime: 40
+        wheelPxPerZoomLevel: 60
+        tap: true
+        tapTolerance: 15
+        touchZoom: true
+        bounceAtZoomLimits: true
+    third_party_settings: {  }
+  field_gks_id:
+    type: string_textfield
+    weight: 19
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_identifier_url:
+    type: link_default
+    weight: 22
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_image2:
+    type: image_image
+    weight: 66
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_item_type:
+    type: entity_reference_autocomplete
+    weight: 15
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_local_origin_attribution:
+    type: string_textarea
+    weight: 37
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_local_origin_tid:
+    type: entity_reference_autocomplete
+    weight: 36
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_make_role:
+    type: string_textfield
+    weight: 32
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_maker_attribution:
+    type: string_textarea
+    weight: 33
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_maker_name:
+    type: string_textfield
+    weight: 30
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_maker_role:
+    type: entity_reference_autocomplete
+    weight: 31
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_media_audio_video_docs_:
+    type: media_library_widget
+    weight: 67
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  field_nation_rationale:
+    type: text_textarea
+    weight: 35
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_nation_tid:
+    type: entity_reference_autocomplete
+    weight: 34
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_original_function:
+    type: string_textarea
+    weight: 47
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_provenance:
+    type: string_textarea
+    weight: 54
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_publication_history:
+    type: string_textarea
+    weight: 57
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_record_creation:
+    type: string_textarea
+    weight: 60
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_record_creation_notes:
+    type: string_textarea
+    weight: 61
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_region_of_origin:
+    type: entity_reference_autocomplete
+    weight: 68
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_region_origin_attribution:
+    type: text_textarea
+    weight: 69
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_related_heritage_item:
+    type: entity_reference_autocomplete
+    weight: 63
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_related_language_item:
+    type: entity_reference_autocomplete
+    weight: 64
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_source_coll_his:
+    type: string_textarea
+    weight: 55
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_sources_exhib_pub_his:
+    type: string_textarea
+    weight: 59
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_subsequent_functions:
+    type: string_textarea
+    weight: 49
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_time_attribution:
+    type: string_textarea
+    weight: 29
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_title_rationale:
+    type: string_textarea
+    weight: 18
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 1
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 13
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 52
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  publish_state:
+    type: scheduler_moderation
+    weight: 53
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  scheduler_settings:
+    weight: 50
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  simple_sitemap:
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 14
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: 'Enter title here'
+    third_party_settings:
+      length_indicator:
+        indicator: true
+        indicator_opt:
+          optimin: 15
+          optimax: 50
+          tolerance: 10
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 3
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  url_redirects:
+    weight: 12
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_media_image_twoc: true
+  promote: true
+  sticky: true
+  unpublish_on: true
+  unpublish_state: true

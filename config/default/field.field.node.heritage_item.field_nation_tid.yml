@@ -1,0 +1,29 @@
+uuid: 9c258c42-1529-4a34-b0a2-b22b68773dcb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_nation_tid
+    - node.type.heritage_item
+    - taxonomy.vocabulary.nations
+id: node.heritage_item.field_nation_tid
+field_name: field_nation_tid
+entity_type: node
+bundle: heritage_item
+label: 'Nation of Maker'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      nations: nations
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

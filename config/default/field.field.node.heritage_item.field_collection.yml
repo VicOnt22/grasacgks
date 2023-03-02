@@ -1,0 +1,29 @@
+uuid: e2e10866-c4df-4760-b0df-8b15ea20943a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_collection
+    - node.type.heritage_item
+    - taxonomy.vocabulary.collection
+id: node.heritage_item.field_collection
+field_name: field_collection
+entity_type: node
+bundle: heritage_item
+label: 'Collection at Current Location'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      collection: collection
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

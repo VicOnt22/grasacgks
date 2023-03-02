@@ -1,0 +1,22 @@
+uuid: 7043d804-7c58-465c-bb17-c6ab0da33d9c
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - grasacgks
+_core:
+  default_config_hash: TLIaRPW-10fhHni9_ACPYUKcQAWcmjCuLzCrb9rvSIw
+id: grasacgks_content
+theme: grasacgks
+region: content
+weight: -7
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

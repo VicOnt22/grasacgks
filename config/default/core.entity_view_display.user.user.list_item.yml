@@ -1,0 +1,66 @@
+uuid: 881c20f2-39c0-4ff3-a401-9d2a916efaf0
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.user.list_item
+    - field.field.user.user.field_address
+    - field.field.user.user.field_created_by
+    - field.field.user.user.field_fax
+    - field.field.user.user.field_institution
+    - field.field.user.user.field_institution_name
+    - field.field.user.user.field_last_password_reset
+    - field.field.user.user.field_name_first_last
+    - field.field.user.user.field_occupation
+    - field.field.user.user.field_password_expiration
+    - field.field.user.user.field_pending_expire_sent
+    - field.field.user.user.field_phone
+    - field.field.user.user.field_research_interests
+    - field.field.user.user.user_picture
+  module:
+    - user
+id: user.user.list_item
+targetEntityType: user
+bundle: user
+mode: list_item
+content:
+  field_occupation:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_phone:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  masquerade:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 50
+    region: content
+  member_for:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+hidden:
+  field_address: true
+  field_created_by: true
+  field_fax: true
+  field_institution: true
+  field_institution_name: true
+  field_last_password_reset: true
+  field_name_first_last: true
+  field_password_expiration: true
+  field_pending_expire_sent: true
+  field_research_interests: true
+  langcode: true
+  search_api_excerpt: true
+  user_picture: true

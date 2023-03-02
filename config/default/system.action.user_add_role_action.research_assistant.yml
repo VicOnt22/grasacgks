@@ -1,0 +1,14 @@
+uuid: 1f9deac2-f3b1-4262-9791-aeb6acfe87cd
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.research_assistant
+  module:
+    - user
+id: user_add_role_action.research_assistant
+label: 'Add the Research Assistant role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: research_assistant

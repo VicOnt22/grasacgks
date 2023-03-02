@@ -1,0 +1,50 @@
+uuid: f9c6efb1-e6c4-4915-bbb9-f0b8f70cf6c4
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:b858d97d-eaa5-4cfe-af6f-b92c21bbca95'
+  module:
+    - block_content
+    - context
+    - system
+  theme:
+    - grasacgks
+id: linkstosearchheritageandlanguageitems
+theme: grasacgks
+region: content
+weight: -6
+provider: null
+plugin: 'block_content:b858d97d-eaa5-4cfe-af6f-b92c21bbca95'
+settings:
+  id: 'block_content:b858d97d-eaa5-4cfe-af6f-b92c21bbca95'
+  label: 'Links to search Heritage and Language Items'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  user_status:
+    id: user_status
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    user_status:
+      viewing_profile: '0'
+      logged_viewing_profile: '0'
+      own_page_true: '0'
+      field_value: '0'
+    user_fields: uid
+  context_all:
+    id: context_all
+    negate: null
+    values: ''
+  context:
+    id: context
+    negate: null
+    values: ''
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

@@ -1,0 +1,5 @@
+content:
+  items:
+    settings:
+      label_singular: élément
+      label_plural: éléments

@@ -1,0 +1,8 @@
+uuid: 93883d5a-6c37-4080-a466-c78902d3ab2e
+langcode: en
+status: true
+dependencies: {  }
+name: 'Language Item Source'
+vid: language_item_source
+description: ''
+weight: 0

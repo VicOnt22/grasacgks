@@ -1,0 +1,14 @@
+uuid: aa8d81b5-ae0f-481b-96d7-edbb26ed92e0
+langcode: en
+status: 1
+dependencies: {  }
+_core:
+  default_config_hash: mXdjeiFh_tGgrAOGO70PKuqW1_NG8f4ykssRlz4vZXI
+id: ipad_pro
+label: 'iPad Pro'
+weight: -7
+orientation: portrait
+dimensions:
+  width: 2048
+  height: 2732
+  dppx: !!float 2

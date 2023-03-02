@@ -1,0 +1,22 @@
+uuid: 834c9f1e-baa3-4531-9d29-17b116aa0aa7
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.varbase_heroslider_media
+_core:
+  default_config_hash: AJOv-nvnpe0opzDD_K9r2axconCE3N4TvaW2RUHf1ac
+id: node.varbase_heroslider_media.menu_link
+field_name: menu_link
+entity_type: node
+bundle: varbase_heroslider_media
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

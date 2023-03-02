@@ -1,0 +1,18 @@
+uuid: e7ad3ebe-9581-496d-8a57-4103e2df98a8
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.institution
+id: taxonomy_term.institution.changed
+field_name: changed
+entity_type: taxonomy_term
+bundle: institution
+label: Changed
+description: 'The time that the term was last edited.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

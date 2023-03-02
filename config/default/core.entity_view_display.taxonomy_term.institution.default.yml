@@ -1,0 +1,81 @@
+uuid: 0f6c5e1c-a556-40ea-bf66-224f222d0532
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.institution.field_address
+    - field.field.taxonomy_term.institution.field_associated_instituation
+    - field.field.taxonomy_term.institution.field_fax_number
+    - field.field.taxonomy_term.institution.field_memo_of_understanding
+    - field.field.taxonomy_term.institution.field_phone_number
+    - field.field.taxonomy_term.institution.field_web_url
+    - taxonomy.vocabulary.institution
+  module:
+    - address
+    - file
+    - link
+    - options
+    - text
+id: taxonomy_term.institution.default
+targetEntityType: taxonomy_term
+bundle: institution
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_address:
+    type: address_default
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_associated_instituation:
+    type: list_default
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_fax_number:
+    type: basic_string
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_memo_of_understanding:
+    type: file_default
+    label: inline
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_phone_number:
+    type: basic_string
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_web_url:
+    type: link
+    label: inline
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

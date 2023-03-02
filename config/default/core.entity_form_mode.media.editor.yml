@@ -1,0 +1,12 @@
+uuid: 33b16e3c-33f4-43d3-9651-87d5bbdbc6db
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+_core:
+  default_config_hash: ACyb3-nlev7PxjkskWlrEyX-WvQ9wrYoshN82q2GjjY
+id: media.editor
+label: Editor
+targetEntityType: media
+cache: true

@@ -1,0 +1,20 @@
+uuid: a4121a9c-2fbe-459a-894c-d63f45699ad8
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.local_origin
+  module:
+    - path
+id: taxonomy_term.local_origin.path
+field_name: path
+entity_type: taxonomy_term
+bundle: local_origin
+label: 'URL alias'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

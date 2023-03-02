@@ -1,0 +1,14 @@
+uuid: 9c5bf018-def6-45a2-87c0-1cd1cc3fe1de
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.temp_test_role
+  module:
+    - user
+id: user_add_role_action.temp_test_role
+label: 'Add the Temp Test Role role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: temp_test_role

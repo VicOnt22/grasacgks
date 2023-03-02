@@ -1,0 +1,102 @@
+display:
+  default:
+    display_title: Maître
+    display_options:
+      fields:
+        bundle:
+          separator: ', '
+      pager:
+        options:
+          tags:
+            next: ››
+            previous: ‹‹
+            first: '« Premier'
+            last: 'Dernier »'
+          expose:
+            items_per_page_label: Éléments
+            items_per_page_options_all_label: '- Tout -'
+            offset_label: Décalage
+      exposed_form:
+        options:
+          submit_button: Rechercher
+          reset_button_label: Réinitialiser
+          exposed_sorts_label: 'Trier par'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      sorts:
+        created:
+          expose:
+            label: Créé
+        name:
+          expose:
+            label: Nom
+      arguments:
+        bundle:
+          exception:
+            title: Tout
+      filters:
+        name:
+          expose:
+            label: 'Nom du média'
+        entity_browser_bundle:
+          expose:
+            label: Type
+  media_browser:
+    display_options:
+      pager:
+        options:
+          tags:
+            next: ››
+            previous: ‹‹
+            first: '« Premier'
+            last: 'Dernier »'
+          expose:
+            items_per_page_label: Éléments
+            items_per_page_options_all_label: '- Tout -'
+      exposed_form:
+        options:
+          submit_button: Rechercher
+          reset_button_label: Réinitialiser
+          exposed_sorts_label: 'Trier par'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+          text_input_required: 'Sélectionnez n''importe quel filtre et cliquez sur Appliquer pour voir les résultats'
+          bef:
+            general:
+              secondary_label: 'Options avancées'
+            sort:
+              advanced:
+                collapsible_label: 'Options de tri'
+  video_browser:
+    display_options:
+      pager:
+        options:
+          tags:
+            next: ››
+            previous: ‹‹
+            first: '« Premier'
+            last: 'Dernier »'
+          expose:
+            items_per_page_label: Éléments
+            items_per_page_options_all_label: '- Tout -'
+      exposed_form:
+        options:
+          submit_button: Rechercher
+          reset_button_label: Réinitialiser
+          exposed_sorts_label: 'Trier par'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+          text_input_required: 'Sélectionnez n''importe quel filtre et cliquez sur Appliquer pour voir les résultats'
+          bef:
+            general:
+              secondary_label: 'Options avancées'
+            sort:
+              advanced:
+                collapsible_label: 'Options de tri'
+      filters:
+        name:
+          expose:
+            label: 'Mots-clés de recherche'
+        bundle:
+          expose:
+            label: Type

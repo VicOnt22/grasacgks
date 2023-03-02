@@ -1,0 +1,22 @@
+uuid: cc80c943-2c2f-4445-8449-95190abe3920
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.remote_video
+  module:
+    - path
+_core:
+  default_config_hash: m6-i_eKXz1TuxlcPpj1ZIQKIUs_USak-JhmjtU2d0XU
+id: media.remote_video.path
+field_name: path
+entity_type: media
+bundle: remote_video
+label: 'URL alias'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

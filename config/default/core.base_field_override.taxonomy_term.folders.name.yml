@@ -1,0 +1,18 @@
+uuid: ca5b7165-a986-46d9-8379-d3844ea4197a
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.folders
+id: taxonomy_term.folders.name
+field_name: name
+entity_type: taxonomy_term
+bundle: folders
+label: Name
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

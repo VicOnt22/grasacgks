@@ -1,0 +1,19 @@
+uuid: 9433efab-0e5a-4036-a388-ed4ca6cea800
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_publication_history
+    - node.type.heritage_item
+id: node.heritage_item.field_publication_history
+field_name: field_publication_history
+entity_type: node
+bundle: heritage_item
+label: 'Publication History'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -1,0 +1,57 @@
+uuid: 6f86b6d0-abcd-4c8d-9498-8145cb5ca42c
+langcode: en
+status: true
+dependencies:
+  module:
+    - context
+    - node
+    - system
+  theme:
+    - grasacgks
+_core:
+  default_config_hash: jHMz28iBOOG40T2rhhRzgyKSg8vdVmWCmRLzXWVh3Is
+id: grasacgks_page_title
+theme: grasacgks
+region: header
+weight: -1
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility:
+  user_status:
+    id: user_status
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    user_status:
+      viewing_profile: '0'
+      logged_viewing_profile: '0'
+      own_page_true: '0'
+      field_value: '0'
+    user_fields: uid
+  context_all:
+    id: context_all
+    negate: null
+    values: ''
+  context:
+    id: context
+    negate: null
+    values: ''
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      article: article
+      landing_page: landing_page
+      landing_page_lb: landing_page_lb
+      page: page
+  request_path:
+    id: request_path
+    negate: true
+    pages: "/browse-gks\r\n/heritage-items\r\n/language-items\r\n/about-grasac"

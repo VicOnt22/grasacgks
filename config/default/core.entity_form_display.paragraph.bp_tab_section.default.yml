@@ -1,0 +1,45 @@
+uuid: d209f234-ce52-4dc2-a4b8-ba7bee9ed443
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.bp_tab_section.bp_tab_section_body
+    - field.field.paragraph.bp_tab_section.bp_tab_section_title
+    - paragraphs.paragraphs_type.bp_tab_section
+  module:
+    - paragraphs
+_core:
+  default_config_hash: 3kY3xCEaH0YbjV-S4TUrXZWUabFb2oMUokQ6pJNoKMw
+id: paragraph.bp_tab_section.default
+targetEntityType: paragraph
+bundle: bp_tab_section
+mode: default
+content:
+  bp_tab_section_body:
+    type: paragraphs
+    weight: 1
+    region: content
+    settings:
+      title: Component
+      title_plural: Components
+      edit_mode: closed
+      add_mode: modal
+      form_display_mode: default
+    third_party_settings: {  }
+  bp_tab_section_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true
+  uid: true

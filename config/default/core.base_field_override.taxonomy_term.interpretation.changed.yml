@@ -1,0 +1,18 @@
+uuid: 6862553a-d44a-4497-8764-2f3d61940c2b
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.interpretation
+id: taxonomy_term.interpretation.changed
+field_name: changed
+entity_type: taxonomy_term
+bundle: interpretation
+label: Changed
+description: 'The time that the term was last edited.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

@@ -1,0 +1,99 @@
+verbose: 0
+types:
+  block_content: {  }
+  consumer: {  }
+  crop: {  }
+  entity_subqueue: {  }
+  file: {  }
+  media: {  }
+  node:
+    '*': '*'
+  redirect: {  }
+  search_api_task: {  }
+  shortcut: {  }
+  oauth2_token: {  }
+  social_auth: {  }
+  taxonomy_term: {  }
+  update_helper_checklist_update: {  }
+  user: {  }
+  webform_submission: {  }
+  menu_link_content: {  }
+  paragraph: {  }
+  content_moderation_state: {  }
+  entity_embed_fake_entity: {  }
+  paragraphs_library_item: {  }
+  path_alias: {  }
+  section_library_template: {  }
+types_translation_lock: {  }
+types_js_lock: {  }
+form_op_lock:
+  block_content:
+    mode: 0
+    values: {  }
+  consumer:
+    mode: 0
+    values: {  }
+  crop:
+    mode: 0
+    values: {  }
+  entity_subqueue:
+    mode: 0
+    values: {  }
+  file:
+    mode: 0
+    values: {  }
+  media:
+    mode: 0
+    values: {  }
+  node:
+    mode: 0
+    values:
+      edit: edit
+  redirect:
+    mode: 0
+    values: {  }
+  search_api_task:
+    mode: 0
+    values: {  }
+  shortcut:
+    mode: 0
+    values: {  }
+  oauth2_token:
+    mode: 0
+    values: {  }
+  social_auth:
+    mode: null
+    values: {  }
+  taxonomy_term:
+    mode: 0
+    values: {  }
+  update_helper_checklist_update:
+    mode: 0
+    values: {  }
+  user:
+    mode: 0
+    values: {  }
+  webform_submission:
+    mode: 0
+    values: {  }
+  menu_link_content:
+    mode: 0
+    values: {  }
+  paragraph:
+    mode: 0
+    values: {  }
+  content_moderation_state:
+    mode: 0
+    values: {  }
+  entity_embed_fake_entity:
+    mode: 0
+    values: {  }
+  paragraphs_library_item:
+    mode: 0
+    values: {  }
+  path_alias:
+    mode: 0
+    values: {  }
+  section_library_template:
+    mode: 0
+    values: {  }

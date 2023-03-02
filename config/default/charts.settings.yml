@@ -1,0 +1,54 @@
+charts_default_settings:
+  library: c3
+  type: area
+  fields:
+    stacking: false
+  display:
+    title: ''
+    title_position: ''
+    data_labels: false
+    data_markers: false
+    legend_position: ''
+    background: ''
+    three_dimensional: 0
+    colors:
+      - '#000000'
+      - '#000000'
+      - '#000000'
+      - '#000000'
+      - '#000000'
+      - '#000000'
+      - '#000000'
+      - '#000000'
+      - '#000000'
+      - '#000000'
+    polar: 0
+    tooltips: false
+    dimensions:
+      width: ''
+      width_units: ''
+      height: ''
+      height_units: ''
+    gauge:
+      max: ''
+      min: ''
+      green_from: ''
+      green_to: ''
+      yellow_from: ''
+      yellow_to: ''
+      red_from: ''
+      red_to: ''
+  xaxis:
+    title: ''
+    labels_rotation: '0'
+  yaxis:
+    title: ''
+    min: ''
+    max: ''
+    prefix: ''
+    suffix: ''
+    decimal_count: ''
+    labels_rotation: '0'
+advanced:
+  debug: false
+library_config: null

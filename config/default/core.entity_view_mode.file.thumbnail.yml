@@ -1,0 +1,10 @@
+uuid: 2434b59f-ff2e-4863-84bf-495431996d9d
+langcode: en
+status: true
+dependencies:
+  module:
+    - file
+id: file.thumbnail
+label: thumbnail
+targetEntityType: file
+cache: true

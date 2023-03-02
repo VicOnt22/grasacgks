@@ -1,0 +1,23 @@
+uuid: 20f73c21-c5ea-4536-8347-716e169eec3c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_web_url
+    - taxonomy.vocabulary.institution
+  module:
+    - link
+id: taxonomy_term.institution.field_web_url
+field_name: field_web_url
+entity_type: taxonomy_term
+bundle: institution
+label: 'Web URL'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 0
+  link_type: 17
+field_type: link

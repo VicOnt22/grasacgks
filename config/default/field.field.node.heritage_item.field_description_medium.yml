@@ -1,0 +1,25 @@
+uuid: 70489747-af97-4b07-8e3d-306a9370e20c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_description_medium
+    - node.type.heritage_item
+  module:
+    - allowed_formats
+    - text
+third_party_settings:
+  allowed_formats:
+    allowed_formats: {  }
+id: node.heritage_item.field_description_medium
+field_name: field_description_medium
+entity_type: node
+bundle: heritage_item
+label: Medium
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

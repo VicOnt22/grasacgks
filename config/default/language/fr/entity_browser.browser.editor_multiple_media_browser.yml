@@ -1,0 +1,9 @@
+display_configuration:
+  link_text: 'Choisir un média'
+widgets:
+  901e1292-75e8-4ecf-a08a-904e75b135bb:
+    settings:
+      submit_text: 'Choisir un média'
+    label: Bibliothèque
+  91fd896e-e8c5-415c-9d14-5bc59c60e630:
+    label: Intégré

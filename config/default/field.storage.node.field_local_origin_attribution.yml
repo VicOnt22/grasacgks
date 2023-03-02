@@ -1,0 +1,23 @@
+uuid: 479c275c-7e60-4cc6-b445-4aa5bd0b4b5d
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - node
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: node.field_local_origin_attribution
+field_name: field_local_origin_attribution
+entity_type: node
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

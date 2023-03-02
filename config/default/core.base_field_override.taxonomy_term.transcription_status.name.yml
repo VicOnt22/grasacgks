@@ -1,0 +1,18 @@
+uuid: c1675647-71b1-4a59-99c5-785b495eb47a
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.transcription_status
+id: taxonomy_term.transcription_status.name
+field_name: name
+entity_type: taxonomy_term
+bundle: transcription_status
+label: Name
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

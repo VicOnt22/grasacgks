@@ -1,0 +1,45 @@
+uuid: e216a83a-92dc-4fe6-88a9-9b8cb0f37501
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image2
+    - node.type.heritage_item
+  module:
+    - content_translation
+    - image
+third_party_settings:
+  content_translation:
+    translation_sync:
+      alt: alt
+      title: title
+      file: '0'
+id: node.heritage_item.field_image2
+field_name: field_image2
+entity_type: node
+bundle: heritage_item
+label: Images
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: media/images/heritage_items
+  file_extensions: 'png gif jpg jpeg webp'
+  max_filesize: '10 MB'
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: true
+  alt_field_required: false
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: c71d5045-1242-41c7-9fa1-c1326d22d6d5
+    alt: 'grasac default image'
+    title: ''
+    width: 200
+    height: 146
+field_type: image

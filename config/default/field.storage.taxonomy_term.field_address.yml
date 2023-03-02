@@ -1,0 +1,23 @@
+uuid: a4d7aceb-25fe-4ec1-8f4d-89e40849a156
+langcode: en
+status: true
+dependencies:
+  module:
+    - address
+    - field_permissions
+    - taxonomy
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: taxonomy_term.field_address
+field_name: field_address
+entity_type: taxonomy_term
+type: address
+settings: {  }
+module: address
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

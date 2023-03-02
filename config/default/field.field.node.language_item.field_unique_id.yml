@@ -1,0 +1,19 @@
+uuid: 5cc57581-d817-4f9b-b559-88067a8ab7fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_unique_id
+    - node.type.language_item
+id: node.language_item.field_unique_id
+field_name: field_unique_id
+entity_type: node
+bundle: language_item
+label: 'Unique ID'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

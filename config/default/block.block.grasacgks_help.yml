@@ -1,0 +1,22 @@
+uuid: 737e29d7-ee6c-4c31-92dd-71c735a5146f
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - grasacgks
+_core:
+  default_config_hash: M7Arj_Ka0E0yU3eSbqSGGctsiP85DX2dsge7rwl2CWE
+id: grasacgks_help
+theme: grasacgks
+region: help
+weight: -5
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }

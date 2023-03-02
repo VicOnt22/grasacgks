@@ -1,0 +1,8 @@
+uuid: 8b4ab2b2-e7c8-4eb3-b72e-1a56c0cace8d
+langcode: en
+status: true
+dependencies: {  }
+name: 'Local Origin'
+vid: local_origin
+description: ''
+weight: 0

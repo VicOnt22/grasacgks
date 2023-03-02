@@ -1,0 +1,12 @@
+uuid: e70707cb-1a20-46cc-b72f-1fa56d501932
+langcode: en
+status: true
+dependencies: {  }
+id: bingmaps
+label: BingMaps
+plugin: bingmaps
+configuration:
+  throttle:
+    period: null
+    limit: null
+  apiKey: AnBnoJUH5RKLbzjBF_NAc5Z41S5NZepm9WHImYjK7SBO48S2We4xLgqkeHBxexF_

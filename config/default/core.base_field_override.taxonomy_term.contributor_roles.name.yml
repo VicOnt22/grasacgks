@@ -1,0 +1,18 @@
+uuid: af503d6b-fa93-478e-9a29-978f5937e013
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.contributor_roles
+id: taxonomy_term.contributor_roles.name
+field_name: name
+entity_type: taxonomy_term
+bundle: contributor_roles
+label: Name
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

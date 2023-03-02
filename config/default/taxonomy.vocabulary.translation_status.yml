@@ -1,0 +1,8 @@
+uuid: 501989e0-191c-4a81-8ed5-d1d70ff88620
+langcode: en
+status: true
+dependencies: {  }
+name: 'HI Translation Status'
+vid: translation_status
+description: ''
+weight: 0

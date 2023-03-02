@@ -1,0 +1,23 @@
+uuid: 41e15e75-5a04-4a2a-a8fc-8c00252612b6
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - node
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: node.field_record_creation_notes
+field_name: field_record_creation_notes
+entity_type: node
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

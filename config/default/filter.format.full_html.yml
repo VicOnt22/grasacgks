@@ -1,0 +1,143 @@
+uuid: 58b278b3-8ff0-466f-85f5-1f83cc9a62f8
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.browser_teaser
+    - core.entity_view_mode.media.media_library
+    - core.entity_view_mode.media.original
+  module:
+    - ace_editor
+    - blazy
+    - image_resize_filter
+    - media
+    - slick
+    - token_filter
+_core:
+  default_config_hash: Tx3Y55kvc5z3Tkzf1UXKOmWmxrHMIkTgkCR2tBIP3pU
+name: 'Full HTML'
+format: full_html
+weight: -10
+filters:
+  filter_htmlcorrector:
+    id: filter_htmlcorrector
+    provider: filter
+    status: true
+    weight: -41
+    settings: {  }
+  filter_url:
+    id: filter_url
+    provider: filter
+    status: true
+    weight: -44
+    settings:
+      filter_url_length: 72
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: true
+    weight: -45
+    settings: {  }
+  slick_filter:
+    id: slick_filter
+    provider: slick
+    status: false
+    weight: 4
+    settings:
+      optionset: default
+      layout: ''
+      skin: ''
+      background: false
+      loading: ''
+      preload: false
+      responsive_image_style: ''
+      image_style: ''
+      media_switch: ''
+      ratio: ''
+      thumbnail_style: ''
+      overridables:
+        arrows: '0'
+        autoplay: '0'
+        dots: '0'
+        draggable: '0'
+        infinite: '0'
+        mouseWheel: '0'
+        randomize: '0'
+        variableWidth: '0'
+      optionset_thumbnail: ''
+      skin_thumbnail: ''
+      thumbnail_caption: ''
+      thumbnail_effect: ''
+      thumbnail_position: ''
+      override: false
+  ace_filter:
+    id: ace_filter
+    provider: ace_editor
+    status: false
+    weight: 0
+    settings:
+      theme: cobalt
+      syntax: html
+      height: 500px
+      width: 700px
+      font_size: 12pt
+      line_numbers: '1'
+      print_margins: '1'
+      show_invisibles: '0'
+      use_wrap_mode: '1'
+  blazy_filter:
+    id: blazy_filter
+    provider: blazy
+    status: false
+    weight: 3
+    settings:
+      media_switch: ''
+      hybrid_style: ''
+      box_style: ''
+      box_caption: ''
+      filter_tags:
+        img: img
+        iframe: iframe
+      use_data_uri: '0'
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: false
+    weight: -10
+    settings:
+      allowed_html: '<em> <strong> <cite> <blockquote cite> <code> <ul type> <ol type start> <li> <dl> <dt> <dd> <h5 id> <h6 id> <drupal-media data-entity-type data-entity-uuid data-view-mode data-align data-caption alt title> <drupal-entity data-entity-type data-entity-uuid data-entity-embed-display data-entity-embed-display-settings data-align data-caption data-embed-button data-langcode alt title> <div data-oembed-url class="bs-callout bs-callout bs-callout-danger bs-callout bs-callout-warning bs-callout bs-callout-info well well well-lg well well-sm alert alert-success alert alert-info alert alert-warning alert alert-danger panel panel-primary panel panel-success panel panel-info panel panel-warning panel panel-danger panel-heading panel-title panel-body panel-footer"> <hr> <table> <caption> <tbody> <thead> <tfoot> <th> <td> <tr> <a href hreflang name> <h2 id class="display-1 display-2"> <h3 id class="display-3"> <h4 id class="display-4"> <p> <u> <s> <sub> <sup> <h1> <pre>'
+      filter_html_help: true
+      filter_html_nofollow: false
+  filter_image_resize:
+    id: filter_image_resize
+    provider: image_resize_filter
+    status: false
+    weight: 0
+    settings:
+      image_locations:
+        local: true
+        remote: false
+  media_embed:
+    id: media_embed
+    provider: media
+    status: true
+    weight: 100
+    settings:
+      default_view_mode: default
+      allowed_view_modes:
+        default: default
+        browser_teaser: browser_teaser
+        media_library: media_library
+        original: original
+      allowed_media_types:
+        audio: audio
+        document: document
+        file: file
+        image: image
+  token_filter:
+    id: token_filter
+    provider: token_filter
+    status: false
+    weight: 0
+    settings:
+      replace_empty: '0'

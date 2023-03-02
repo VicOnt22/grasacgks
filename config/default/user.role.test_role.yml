@@ -1,0 +1,11 @@
+uuid: d6e724ff-1b9a-474b-827f-db3f8b76dd27
+langcode: en
+status: true
+dependencies: {  }
+id: test_role
+label: 'Test Role'
+weight: -4
+is_admin: null
+permissions:
+  - 'edit own comments'
+  - 'view icons'

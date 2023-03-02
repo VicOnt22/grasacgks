@@ -1,0 +1,10 @@
+label: Éditorial
+type_settings:
+  states:
+    draft:
+      label: Brouillon
+    published:
+      label: Publié
+  transitions:
+    publish:
+      label: Publier

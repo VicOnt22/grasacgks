@@ -1,0 +1,18 @@
+uuid: 2f620890-e286-40be-a4af-96521e82b391
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.varbase_heroslider_media
+id: entity_subqueue.varbase_heroslider_media.created
+field_name: created
+entity_type: entity_subqueue
+bundle: varbase_heroslider_media
+label: 'Authored on'
+description: 'The time that the subqueue was created.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

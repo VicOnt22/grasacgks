@@ -1,0 +1,35 @@
+uuid: 28ce0c34-3b62-4583-851d-f4fb1a652a0a
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+  module:
+    - filter
+    - node
+id: guest_member
+label: 'Guest Member'
+weight: -2
+is_admin: null
+permissions:
+  - 'access comments'
+  - 'access content overview'
+  - 'access relations'
+  - 'access site-wide contact form'
+  - 'access user contact forms'
+  - 'download any audio files'
+  - 'download any document files'
+  - 'download any image files'
+  - 'download any video files'
+  - 'download own audio files'
+  - 'download own document files'
+  - 'download own image files'
+  - 'download own video files'
+  - 'edit own comments'
+  - 'post comments'
+  - 'search heritage_item content'
+  - 'search language_item content'
+  - 'skip comment approval'
+  - 'use text format full_html'
+  - 'view files'
+  - 'view icons'

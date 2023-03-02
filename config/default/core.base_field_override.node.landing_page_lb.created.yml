@@ -1,0 +1,20 @@
+uuid: 31dd7829-4f25-4802-88d0-34a9d2b3c261
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.landing_page_lb
+_core:
+  default_config_hash: FfN4bFwKAi2yDh5Z-Ck9j8U5BWnb__R-eFof3PBvxVo
+id: node.landing_page_lb.created
+field_name: created
+entity_type: node
+bundle: landing_page_lb
+label: 'Authored on'
+description: 'The time that the node was created.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

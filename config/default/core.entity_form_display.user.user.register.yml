@@ -1,0 +1,78 @@
+uuid: 8bf9ecd8-3f50-4938-82fe-ff762fec0b1d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.user.register
+    - field.field.user.user.field_address
+    - field.field.user.user.field_created_by
+    - field.field.user.user.field_fax
+    - field.field.user.user.field_institution
+    - field.field.user.user.field_institution_name
+    - field.field.user.user.field_last_password_reset
+    - field.field.user.user.field_name_first_last
+    - field.field.user.user.field_occupation
+    - field.field.user.user.field_password_expiration
+    - field.field.user.user.field_pending_expire_sent
+    - field.field.user.user.field_phone
+    - field.field.user.user.field_research_interests
+    - field.field.user.user.user_picture
+  module:
+    - user
+_core:
+  default_config_hash: RAskrHitZbkHj1WrzaEuLqCWzv5ZGxOHdAQIB92IoME
+id: user.user.register
+targetEntityType: user
+bundle: user
+mode: register
+content:
+  account:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  contact:
+    weight: 5
+    region: content
+  field_name_first_last:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_occupation:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  google_analytics:
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_address: true
+  field_created_by: true
+  field_fax: true
+  field_institution: true
+  field_institution_name: true
+  field_last_password_reset: true
+  field_password_expiration: true
+  field_pending_expire_sent: true
+  field_phone: true
+  field_research_interests: true
+  langcode: true
+  language: true
+  path: true
+  timezone: true
+  user_picture: true

@@ -1,0 +1,207 @@
+uuid: a7756521-a858-4f6d-8f7d-379984a2652b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.gallery.field_media_gallery
+    - field.field.media.gallery.field_media_in_library
+    - media.type.gallery
+    - responsive_image.styles.de2e_standard
+  module:
+    - advanced_text_formatter
+    - blazy
+    - ds
+    - slick
+    - user
+third_party_settings:
+  ds:
+    layout:
+      id: bs_1col
+      library: null
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        label: ''
+        layout:
+          wrapper: div
+          classes:
+            row: row
+          add_layout_class: 1
+          attributes: ''
+        regions:
+          main:
+            wrapper: div
+            classes:
+              col-sm-12: col-sm-12
+            add_region_classes: 1
+            attributes: ''
+    regions:
+      main:
+        - langcode
+        - uid
+        - name
+        - thumbnail
+        - created
+        - field_media_gallery
+        - field_media_in_library
+_core:
+  default_config_hash: aqdQUycBrTH3BwBsH9gA1-enzZypSeUgtniDGb1Qzkk
+id: media.gallery.default
+targetEntityType: media
+bundle: gallery
+mode: default
+content:
+  created:
+    type: timestamp_ago
+    label: above
+    settings:
+      future_format: '@interval hence'
+      past_format: '@interval ago'
+      granularity: 2
+    third_party_settings: {  }
+    weight: 0
+    region: main
+  field_media_gallery:
+    type: slick_media
+    label: hidden
+    settings:
+      caption:
+        field_image_credit: '0'
+        field_media_cover_image: '0'
+        field_provider: '0'
+        title: '0'
+        alt: '0'
+      optionset: varbase_gallery
+      class: ''
+      id: ''
+      image: ''
+      link: ''
+      overlay: ''
+      title: ''
+      vanilla: true
+      layout: ''
+      view_mode: slick
+      cache: 0
+      skin: fullwidth
+      lazy: ''
+      style: ''
+      background: false
+      box_caption: ''
+      box_caption_custom: ''
+      box_media_style: ''
+      loading: ''
+      preload: false
+      responsive_image_style: de2e_standard
+      box_style: ''
+      image_style: ''
+      media_switch: ''
+      ratio: ''
+      thumbnail_style: ''
+      grid: '0'
+      grid_medium: '0'
+      grid_small: '0'
+      overridables:
+        arrows: arrows
+        infinite: infinite
+        autoplay: '0'
+        dots: '0'
+        draggable: '0'
+        mouseWheel: '0'
+        randomize: '0'
+        variableWidth: '0'
+      thumbnail: ''
+      optionset_thumbnail: ''
+      skin_thumbnail: ''
+      thumbnail_caption: ''
+      thumbnail_effect: ''
+      thumbnail_position: ''
+      override: true
+      skin_arrows: ''
+      skin_dots: ''
+      use_theme_field: false
+      preserve_keys: false
+      visible_items: 1
+    third_party_settings:
+      ds:
+        ds_limit: ''
+        ft:
+          id: default
+          settings:
+            lb: ''
+            lb-col: false
+            classes: {  }
+    weight: 0
+    region: main
+  field_media_in_library:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 0
+    region: main
+  langcode:
+    type: language
+    label: above
+    settings:
+      link_to_entity: false
+      native_language: false
+    third_party_settings: {  }
+    weight: 0
+    region: main
+  name:
+    type: advanced_text
+    label: above
+    settings:
+      trim_length: 600
+      ellipsis: 1
+      word_boundary: 1
+      token_replace: 0
+      filter: input
+      format: plain_text
+      allowed_html: '<a> <b> <br> <dd> <dl> <dt> <em> <i> <li> <ol> <p> <strong> <u> <ul>'
+      autop: 0
+      use_summary: 0
+    third_party_settings: {  }
+    weight: 0
+    region: main
+  thumbnail:
+    type: blazy
+    label: above
+    settings:
+      caption: {  }
+      layout: ''
+      view_mode: ''
+      cache: 0
+      skin: ''
+      lazy: ''
+      style: ''
+      background: false
+      box_caption: ''
+      box_caption_custom: ''
+      box_media_style: ''
+      loading: lazy
+      preload: false
+      responsive_image_style: ''
+      box_style: ''
+      image_style: ''
+      media_switch: ''
+      ratio: ''
+      thumbnail_style: ''
+      grid: ''
+      grid_medium: ''
+      grid_small: ''
+    third_party_settings: {  }
+    weight: 0
+    region: main
+  uid:
+    type: author
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: main
+hidden:
+  search_api_excerpt: true

@@ -1,0 +1,21 @@
+uuid: e2413a79-915a-4bbf-8e0c-e47ae419e695
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_filter_date_made
+    - node.type.heritage_item
+  module:
+    - datetime_range
+id: node.heritage_item.field_filter_date_made
+field_name: field_filter_date_made
+entity_type: node
+bundle: heritage_item
+label: 'Date Made (Filter)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: daterange

@@ -1,0 +1,119 @@
+diff --git a/core/lib/Drupal/Core/Ajax/CloseModalDialogCommand.php b/core/lib/Drupal/Core/Ajax/CloseModalDialogCommand.php
+index a9c3fe70..afb48448 100644
+--- a/core/lib/Drupal/Core/Ajax/CloseModalDialogCommand.php
++++ b/core/lib/Drupal/Core/Ajax/CloseModalDialogCommand.php
+@@ -14,9 +14,12 @@ class CloseModalDialogCommand extends CloseDialogCommand {
+    *
+    * @param bool $persist
+    *   (optional) Whether to persist the dialog in the DOM or not.
++   * @param null|string $selector
++   *   (optional) Selector to scope the modal. Only modals of the same scope
++   *   will be removed after opening a subsequent modal.
+    */
+-  public function __construct($persist = FALSE) {
+-    $this->selector = '#drupal-modal';
++  public function __construct($persist = FALSE, $selector = NULL) {
++    $this->selector = $selector ?: '#drupal-modal';
+     $this->persist = $persist;
+   }
+ 
+diff --git a/core/lib/Drupal/Core/Ajax/OpenModalDialogCommand.php b/core/lib/Drupal/Core/Ajax/OpenModalDialogCommand.php
+index a55b0eaf..0aa684c5 100644
+--- a/core/lib/Drupal/Core/Ajax/OpenModalDialogCommand.php
++++ b/core/lib/Drupal/Core/Ajax/OpenModalDialogCommand.php
+@@ -29,10 +29,13 @@ class OpenModalDialogCommand extends OpenDialogCommand {
+    *   (optional) Custom settings that will be passed to the Drupal behaviors
+    *   on the content of the dialog. If left empty, the settings will be
+    *   populated automatically from the current request.
++   * @param null|string $selector
++   *   (optional) Selector to scope the modal. Only modals of the same scope
++   *   will be removed after opening a subsequent modal.
+    */
+-  public function __construct($title, $content, array $dialog_options = [], $settings = NULL) {
++  public function __construct($title, $content, array $dialog_options = [], $settings = NULL, $selector = NULL) {
+     $dialog_options['modal'] = TRUE;
+-    parent::__construct('#drupal-modal', $title, $content, $dialog_options, $settings);
++    parent::__construct($selector ?: '#drupal-modal', $title, $content, $dialog_options, $settings);
+   }
+ 
+ }
+diff --git a/core/lib/Drupal/Core/Entity/ContentEntityBase.php b/core/lib/Drupal/Core/Entity/ContentEntityBase.php
+index 75dd4256..b91877c0 100644
+--- a/core/lib/Drupal/Core/Entity/ContentEntityBase.php
++++ b/core/lib/Drupal/Core/Entity/ContentEntityBase.php
+@@ -11,6 +11,8 @@ use Drupal\Core\Session\AccountInterface;
+ use Drupal\Core\StringTranslation\TranslatableMarkup;
+ use Drupal\Core\TypedData\TranslationStatusInterface;
+ use Drupal\Core\TypedData\TypedDataInterface;
++use Drupal\Core\Url;
++use Symfony\Component\HttpFoundation\RedirectResponse;
+ 
+ /**
+  * Implements Entity Field API specific enhancements to the Entity class.
+@@ -952,13 +954,20 @@ abstract class ContentEntityBase extends EntityBase implements \IteratorAggregat
+     // Make sure we do not attempt to create a translation if an invalid
+     // language is specified or the entity cannot be translated.
+     $this->getLanguages();
+-    if (!isset($this->languages[$langcode]) || $this->hasTranslation($langcode) || $this->languages[$langcode]->isLocked()) {
++    if (!isset($this->languages[$langcode]) || $this->languages[$langcode]->isLocked()) {
+       throw new \InvalidArgumentException("Invalid translation language ($langcode) specified.");
+     }
+     if ($this->languages[$this->defaultLangcode]->isLocked()) {
+       throw new \InvalidArgumentException("The entity cannot be translated since it is language neutral ({$this->defaultLangcode}).");
+     }
+ 
++    // Redirect user to the correct edit page if this translation already exists.
++    if ($this->hasTranslation($langcode)) {
++      $route = 'entity.' . $this->getEntityTypeId() . '.edit_form';
++      $redirect = new RedirectResponse(Url::fromRoute($route, [$this->getEntityTypeId() => $this->id()])->toString());
++      $redirect->send();
++    }
++
+     // Initialize the translation object.
+     /** @var \Drupal\Core\Entity\ContentEntityStorageInterface $storage */
+     $storage = $this->entityTypeManager()->getStorage($this->getEntityTypeId());
+diff --git a/core/lib/Drupal/Core/Entity/Sql/DefaultTableMapping.php b/core/lib/Drupal/Core/Entity/Sql/DefaultTableMapping.php
+index 7cc5cb2f..8af27da2 100644
+--- a/core/lib/Drupal/Core/Entity/Sql/DefaultTableMapping.php
++++ b/core/lib/Drupal/Core/Entity/Sql/DefaultTableMapping.php
+@@ -569,7 +569,7 @@ class DefaultTableMapping implements TableMappingInterface {
+       // with table names longer than 64 characters, we hash the unique storage
+       // identifier and return the first 10 characters so we end up with a short
+       // unique ID.
+-      return "field_deleted_data_" . substr(hash('sha256', $storage_definition->getUniqueStorageIdentifier()), 0, 10);
++      return "field_deleted_data_" . substr(hash('sha256', $storage_definition->getUniqueStorageIdentifier() ?? ''), 0, 10);
+     }
+     else {
+       return $this->generateFieldTableName($storage_definition, FALSE);
+@@ -595,7 +595,7 @@ class DefaultTableMapping implements TableMappingInterface {
+       // up with table names longer than 64 characters, we hash the unique
+       // storage identifier and return the first 10 characters so we end up with
+       // a short unique ID.
+-      return "field_deleted_revision_" . substr(hash('sha256', $storage_definition->getUniqueStorageIdentifier()), 0, 10);
++      return "field_deleted_revision_" . substr(hash('sha256', $storage_definition->getUniqueStorageIdentifier() ?? ''), 0, 10);
+     }
+     else {
+       return $this->generateFieldTableName($storage_definition, TRUE);
+@@ -628,7 +628,7 @@ class DefaultTableMapping implements TableMappingInterface {
+       // Use a shorter separator and a hash of the field storage unique
+       // identifier.
+       $separator = $revision ? '_r__' : '__';
+-      $field_hash = substr(hash('sha256', $storage_definition->getUniqueStorageIdentifier()), 0, 10);
++      $field_hash = substr(hash('sha256', $storage_definition->getUniqueStorageIdentifier() ?? ''), 0, 10);
+ 
+       $table_name = $this->prefix . $entity_type_id . $separator . $field_hash;
+ 
+diff --git a/core/lib/Drupal/Core/Render/MainContent/ModalRenderer.php b/core/lib/Drupal/Core/Render/MainContent/ModalRenderer.php
+index d903acf8..39f0cd7e 100644
+--- a/core/lib/Drupal/Core/Render/MainContent/ModalRenderer.php
++++ b/core/lib/Drupal/Core/Render/MainContent/ModalRenderer.php
+@@ -33,7 +33,8 @@ class ModalRenderer extends DialogRenderer {
+     // otherwise get it from the routing information.
+     $options = $request->request->get('dialogOptions', []);
+ 
+-    $response->addCommand(new OpenModalDialogCommand($title, $content, $options));
++    $modal_selector = $main_content['#modal_selector'] ?? NULL;
++    $response->addCommand(new OpenModalDialogCommand($title, $content, $options, NULL, $modal_selector));
+     return $response;
+   }
+ 

@@ -1,0 +1,8 @@
+uuid: 430aa699-a12d-4188-ad48-fda8744d82fd
+langcode: en
+status: true
+dependencies: {  }
+name: Collection
+vid: collection
+description: 'A grouping element using in Heritage items.'
+weight: 0

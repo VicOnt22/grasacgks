@@ -1,0 +1,29 @@
+uuid: 589735a1-dad9-4a47-a074-cceba4513cde
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_places
+    - node.type.language_item
+    - taxonomy.vocabulary.regions
+id: node.language_item.field_related_places
+field_name: field_related_places
+entity_type: node
+bundle: language_item
+label: 'Related places'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      regions: regions
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

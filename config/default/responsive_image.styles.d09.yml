@@ -1,0 +1,26 @@
+uuid: 15b192b9-2bbb-4c61-aa77-0f9595a72f04
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.d08
+    - image.style.d09
+  module:
+    - varbase_media
+_core:
+  default_config_hash: xCz4AvBaBgEeUs1MkO49zHGkwiCfzABrRLBSD62r9Uc
+id: d09
+label: 'Display 09 responsive auto'
+image_style_mappings:
+  -
+    breakpoint_id: varbase_media.screen-sm-max
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: d08
+  -
+    breakpoint_id: varbase_media.screen-md-min
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: d09
+breakpoint_group: varbase_media
+fallback_image_style: d08

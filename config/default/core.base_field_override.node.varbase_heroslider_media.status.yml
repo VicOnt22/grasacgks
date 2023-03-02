@@ -1,0 +1,24 @@
+uuid: 3d1cb0d6-2e77-4b5c-8c86-deae3af58c09
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.varbase_heroslider_media
+_core:
+  default_config_hash: MSRZ4Ufr861qvvPchCP9RF3e2NbeM5gKlsevIkH47GQ
+id: node.varbase_heroslider_media.status
+field_name: status
+entity_type: node
+bundle: varbase_heroslider_media
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

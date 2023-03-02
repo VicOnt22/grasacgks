@@ -1,0 +1,53 @@
+uuid: 8f688749-50ea-4a3f-a2ae-7c1c3c84e8c2
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.recent_articles
+  module:
+    - block_class
+    - context
+    - system
+    - views
+  theme:
+    - grasacgks
+third_party_settings:
+  block_class:
+    classes: 'text-muted col-12'
+id: views_block__recent_articles_block_1
+theme: grasacgks
+region: content
+weight: -3
+provider: null
+plugin: 'views_block:recent_articles-block_1'
+settings:
+  id: 'views_block:recent_articles-block_1'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  user_status:
+    id: user_status
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    user_status:
+      viewing_profile: '0'
+      logged_viewing_profile: '0'
+      own_page_true: '0'
+      field_value: '0'
+    user_fields: uid
+  context_all:
+    id: context_all
+    negate: null
+    values: ''
+  context:
+    id: context
+    negate: null
+    values: ''
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

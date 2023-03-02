@@ -1,0 +1,20 @@
+uuid: c22fb41b-12d0-443f-9a07-3a6cd1992c52
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_fax
+  module:
+    - user
+id: user.user.field_fax
+field_name: field_fax
+entity_type: user
+bundle: user
+label: Fax
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

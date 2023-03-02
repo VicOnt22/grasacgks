@@ -1,0 +1,12 @@
+uuid: 1afbc567-8fdc-490e-abcd-07d1dab0761b
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+_core:
+  default_config_hash: eNxoCKAeUagL3cl_4_Kwa81k_LWW8nqsW4M05lDOj8w
+id: media.bulk_upload
+label: 'Bulk upload'
+targetEntityType: media
+cache: true

@@ -1,0 +1,7 @@
+uuid: f30feae8-bc83-4f2e-8ec5-0fb697c50e51
+langcode: en
+status: false
+dependencies: {  }
+formId: node_varbase_heroslider_media_form
+captchaType: default
+label: node_varbase_heroslider_media_form

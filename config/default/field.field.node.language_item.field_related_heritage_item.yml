@@ -1,0 +1,29 @@
+uuid: 6c76752b-e502-4fa1-98a5-5aa2729f0edf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_heritage_item
+    - node.type.heritage_item
+    - node.type.language_item
+id: node.language_item.field_related_heritage_item
+field_name: field_related_heritage_item
+entity_type: node
+bundle: language_item
+label: 'Related Heritage Item'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      heritage_item: heritage_item
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

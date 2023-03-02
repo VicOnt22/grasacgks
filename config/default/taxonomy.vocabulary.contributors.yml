@@ -1,0 +1,8 @@
+uuid: 2e50b91e-6eb7-464e-a720-74d2e8797fa2
+langcode: en
+status: true
+dependencies: {  }
+name: Contributors
+vid: contributors
+description: 'List of non-member contributors'
+weight: 0

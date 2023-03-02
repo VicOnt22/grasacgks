@@ -1,0 +1,25 @@
+uuid: 8449016f-5d79-49aa-87be-c9993f3ab4f1
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.code_html
+  module:
+    - ace_editor
+_core:
+  default_config_hash: qgJeekp6vv0oOttfEIi3UvMR2mS5aHx832aBqJDUEzk
+format: code_html
+editor: ace_editor
+settings:
+  fieldset:
+    theme: idle_fingers
+    syntax: html
+    height: 460px
+    width: 100%
+    font_size: 9pt
+    line_numbers: 1
+    print_margins: 1
+    show_invisibles: 1
+    use_wrap_mode: 1
+    auto_complete: 1
+image_upload: {  }

@@ -1,0 +1,49 @@
+uuid: cac96572-dd10-4c4a-a2f1-3dd14d73dcb8
+langcode: en
+status: true
+dependencies:
+  module:
+    - context
+    - system
+  theme:
+    - grasacgks
+_core:
+  default_config_hash: FSJUEuK8s066T4vyBPoteZZt8veeCfzBknJ4AVLSL_s
+id: grasacgks_local_tasks
+theme: grasacgks
+region: header
+weight: 0
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: true
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    context_mapping: {  }
+    pages: '<front>'
+  user_status:
+    id: user_status
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    user_status:
+      viewing_profile: '0'
+      logged_viewing_profile: '0'
+      own_page_true: '0'
+      field_value: '0'
+    user_fields: uid
+  context_all:
+    id: context_all
+    negate: null
+    values: ''
+  context:
+    id: context
+    negate: null
+    values: ''

@@ -1,0 +1,18 @@
+uuid: cd21c4ce-0945-48a2-a68a-080debbfa6d6
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.language_item_source
+id: taxonomy_term.language_item_source.name
+field_name: name
+entity_type: taxonomy_term
+bundle: language_item_source
+label: Name
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

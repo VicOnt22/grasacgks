@@ -1,0 +1,10 @@
+uuid: cfa2fb33-2735-4661-a9ac-9d62d52f6569
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.thumbnail
+label: thumbnail
+targetEntityType: node
+cache: true

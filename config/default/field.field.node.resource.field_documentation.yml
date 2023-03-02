@@ -1,0 +1,27 @@
+uuid: 97700529-c19f-486c-9431-fabaaf4c5fd6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_documentation
+    - node.type.resource
+  module:
+    - file
+id: node.resource.field_documentation
+field_name: field_documentation
+entity_type: node
+bundle: resource
+label: Documents
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: ''
+  file_extensions: 'txt pdf doc docx xls xlsx'
+  max_filesize: '5 MB'
+  description_field: false
+field_type: file

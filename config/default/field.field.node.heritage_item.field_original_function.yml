@@ -1,0 +1,19 @@
+uuid: c10ccd09-d609-4c80-9ea6-e583e7c7ce7c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_original_function
+    - node.type.heritage_item
+id: node.heritage_item.field_original_function
+field_name: field_original_function
+entity_type: node
+bundle: heritage_item
+label: 'Original Function and Subsequent Uses'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

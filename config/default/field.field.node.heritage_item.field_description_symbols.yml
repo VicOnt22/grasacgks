@@ -1,0 +1,19 @@
+uuid: 2934fbba-b51b-4860-b9da-1f39b2d5b017
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_description_symbols
+    - node.type.heritage_item
+id: node.heritage_item.field_description_symbols
+field_name: field_description_symbols
+entity_type: node
+bundle: heritage_item
+label: 'Symbolism and Interpretation'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

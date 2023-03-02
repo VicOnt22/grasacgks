@@ -1,0 +1,19 @@
+uuid: 23a29583-5005-49a3-9c72-ab054b25bdac
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_abstract
+    - node.type.heritage_item
+id: node.heritage_item.field_abstract
+field_name: field_abstract
+entity_type: node
+bundle: heritage_item
+label: 'Description of Writing/Text'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

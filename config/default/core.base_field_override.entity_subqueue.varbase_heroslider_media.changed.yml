@@ -1,0 +1,18 @@
+uuid: 30c60d04-7ce8-4e97-b6fa-6866eb39db3d
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.varbase_heroslider_media
+id: entity_subqueue.varbase_heroslider_media.changed
+field_name: changed
+entity_type: entity_subqueue
+bundle: varbase_heroslider_media
+label: Changed
+description: 'The time that the subqueue was last edited.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

@@ -1,0 +1,10 @@
+uuid: b07f56fa-c61f-45a8-a0bc-9dff80db727a
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.simple_view
+label: simple_view
+targetEntityType: node
+cache: true

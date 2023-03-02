@@ -1,0 +1,8 @@
+uuid: b1948deb-e65d-4223-9341-3f147e1639cd
+langcode: en
+status: true
+dependencies: {  }
+name: Folders
+vid: folders
+description: 'Folders users to categories GKS content for personal use in the GKS system.'
+weight: 0

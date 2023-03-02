@@ -1,0 +1,9 @@
+uuid: ff4ed1ff-0477-46ba-902b-aadd85046beb
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: w4TYUxjjrfRmX1DuX4uhyeiaFTtW1mVd2f9G-sqSIGo
+id: access_development_config_admin_page
+label: 'Access development admin config page'
+route: system.admin_config_development

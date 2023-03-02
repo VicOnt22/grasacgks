@@ -1,0 +1,41 @@
+uuid: 4962e05c-5bc8-477c-a7e5-6fc923a94f4b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.landing_page.field_description
+    - field.field.node.landing_page.field_lp_paragraphs
+    - field.field.node.landing_page.field_meta_tags
+    - field.field.node.landing_page.field_yoast_seo
+    - node.type.landing_page
+  module:
+    - entity_reference_revisions
+    - user
+_core:
+  default_config_hash: y_Hh2w53eWoV16mYbPiaSNufDZHQy17yQazUaRdvMpQ
+id: node.landing_page.default
+targetEntityType: node
+bundle: landing_page
+mode: default
+content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_lp_paragraphs:
+    type: entity_reference_revisions_entity_view
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+hidden:
+  field_description: true
+  field_meta_tags: true
+  field_yoast_seo: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

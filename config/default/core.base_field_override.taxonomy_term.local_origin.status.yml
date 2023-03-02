@@ -1,0 +1,22 @@
+uuid: 661d7b5a-7125-4262-8bb6-12928f69056e
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.local_origin
+id: taxonomy_term.local_origin.status
+field_name: status
+entity_type: taxonomy_term
+bundle: local_origin
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,51 @@
+uuid: c918831e-f7e8-43d7-925f-7acdf589150c
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.footer
+  module:
+    - block_class
+    - context
+    - system
+  theme:
+    - grasacgks
+third_party_settings:
+  block_class:
+    classes: 'text-uppercase col-4'
+_core:
+  default_config_hash: uRh51-A6Cfi4fE_ZAweDwDX2ya1aLIgHfQTQUo5LcJM
+id: grasacgks_footer
+theme: grasacgks
+region: footer
+weight: -4
+provider: null
+plugin: 'system_menu_block:footer'
+settings:
+  id: 'system_menu_block:footer'
+  label: 'Footer menu'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  user_status:
+    id: user_status
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    user_status:
+      viewing_profile: '0'
+      logged_viewing_profile: '0'
+      own_page_true: '0'
+      field_value: '0'
+    user_fields: uid
+  context_all:
+    id: context_all
+    negate: null
+    values: ''
+  context:
+    id: context
+    negate: null
+    values: ''

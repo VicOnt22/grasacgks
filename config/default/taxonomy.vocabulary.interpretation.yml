@@ -1,0 +1,8 @@
+uuid: 2277b9d6-7d9d-41e2-a84e-c488f618002d
+langcode: en
+status: true
+dependencies: {  }
+name: 'HI Interpretation'
+vid: interpretation
+description: ''
+weight: 0

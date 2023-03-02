@@ -1,0 +1,19 @@
+uuid: d69212e1-a5f8-49c2-8de9-0da4731848a4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_description_source
+    - node.type.heritage_item
+id: node.heritage_item.field_description_source
+field_name: field_description_source
+entity_type: node
+bundle: heritage_item
+label: 'Source(s) of Information for this Item'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -1,0 +1,18 @@
+uuid: 662e738b-3032-4d0f-a2a4-74ce04488795
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.varbase_heroslider_media
+id: entity_subqueue.varbase_heroslider_media.metatag
+field_name: metatag
+entity_type: entity_subqueue
+bundle: varbase_heroslider_media
+label: 'Metatags (Hidden field for JSON support)'
+description: 'The meta tags for the entity.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: map

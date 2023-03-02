@@ -1,0 +1,35 @@
+uuid: f69a26ce-2345-4b1b-b2ce-e0e83398be3f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media_audio_video_docs_
+    - media.type.audio
+    - media.type.document
+    - media.type.remote_video
+    - media.type.video
+    - node.type.heritage_item
+id: node.heritage_item.field_media_audio_video_docs_
+field_name: field_media_audio_video_docs_
+entity_type: node
+bundle: heritage_item
+label: 'Media (Audio, Video, Docs)'
+description: 'Additional media: Audio, Video, Docs'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      audio: audio
+      document: document
+      remote_video: remote_video
+      video: video
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: true
+    auto_create_bundle: audio
+field_type: entity_reference

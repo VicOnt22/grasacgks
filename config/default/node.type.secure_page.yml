@@ -1,0 +1,18 @@
+uuid: bc716869-1b75-43b2-a4e1-66e96c056cb3
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main-menu
+    parent: 'main-menu:0:'
+name: 'Secure Page'
+type: secure_page
+description: 'A simple page which only the original author (on an administrator) may edit.'
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: false

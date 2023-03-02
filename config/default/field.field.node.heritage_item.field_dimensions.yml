@@ -1,0 +1,21 @@
+uuid: 7b9c8bd2-22bd-4d76-affb-5229335c5b3a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_dimensions
+    - node.type.heritage_item
+  module:
+    - physical
+id: node.heritage_item.field_dimensions
+field_name: field_dimensions
+entity_type: node
+bundle: heritage_item
+label: Dimensions
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: physical_dimensions

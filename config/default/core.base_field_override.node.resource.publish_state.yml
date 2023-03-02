@@ -1,0 +1,20 @@
+uuid: b5393a8e-ecad-4c5d-861f-b36d54c62765
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.resource
+  module:
+    - options
+id: node.resource.publish_state
+field_name: publish_state
+entity_type: node
+bundle: resource
+label: 'Publish state'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,23 @@
+uuid: eaf6d269-3cb0-446f-9a02-c44f02b42a5a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.bp_background
+    - paragraphs.paragraphs_type.bp_webform
+  module:
+    - options
+_core:
+  default_config_hash: xwnX3L64a-DWl9ObAn9Ayp0cALn8qiGNPLNCCL2pFZU
+id: paragraph.bp_webform.bp_background
+field_name: bp_background
+entity_type: paragraph
+bundle: bp_webform
+label: 'Background color'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

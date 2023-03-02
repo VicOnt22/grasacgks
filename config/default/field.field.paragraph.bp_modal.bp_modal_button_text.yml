@@ -1,0 +1,21 @@
+uuid: 8c5cb80a-a25c-4047-960b-e9a7ba0164d5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.bp_modal_button_text
+    - paragraphs.paragraphs_type.bp_modal
+_core:
+  default_config_hash: U0W9pSjCp0i4uelrkbvUaOOcbcI6x98d8T6yaewO7DQ
+id: paragraph.bp_modal.bp_modal_button_text
+field_name: bp_modal_button_text
+entity_type: paragraph
+bundle: bp_modal
+label: 'Modal button text'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

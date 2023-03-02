@@ -1,0 +1,19 @@
+uuid: 03477de0-e4ff-414c-b3bd-7af232bcf44c
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+    - system
+_core:
+  default_config_hash: o946uJlkxATOINv23-nWPvp8plQ52XpSv3tUZVv007g
+id: anonymous
+label: 'anonymous user'
+weight: -10
+is_admin: false
+permissions:
+  - 'access content'
+  - 'use text format filtered_html'
+  - 'view files'
+  - 'view media'
+  - 'view own files'

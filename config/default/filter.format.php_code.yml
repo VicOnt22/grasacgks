@@ -1,0 +1,92 @@
+uuid: c85e6245-9389-4417-ad17-d763a2486397
+langcode: en
+status: false
+dependencies:
+  module:
+    - ace_editor
+    - blazy
+    - image_resize_filter
+    - slick
+    - token_filter
+name: 'PHP code'
+format: php_code
+weight: -9
+filters:
+  slick_filter:
+    id: slick_filter
+    provider: slick
+    status: false
+    weight: 4
+    settings:
+      optionset: default
+      layout: ''
+      skin: ''
+      background: false
+      loading: ''
+      preload: false
+      responsive_image_style: ''
+      image_style: ''
+      media_switch: ''
+      ratio: ''
+      thumbnail_style: ''
+      overridables:
+        arrows: '0'
+        autoplay: '0'
+        dots: '0'
+        draggable: '0'
+        infinite: '0'
+        mouseWheel: '0'
+        randomize: '0'
+        variableWidth: '0'
+      optionset_thumbnail: ''
+      skin_thumbnail: ''
+      thumbnail_caption: ''
+      thumbnail_effect: ''
+      thumbnail_position: ''
+      override: false
+  ace_filter:
+    id: ace_filter
+    provider: ace_editor
+    status: false
+    weight: 0
+    settings:
+      theme: cobalt
+      syntax: html
+      height: 500px
+      width: 700px
+      font_size: 12pt
+      line_numbers: '1'
+      show_invisibles: '0'
+      print_margins: '1'
+      auto_complete: '1'
+      use_wrap_mode: '1'
+  blazy_filter:
+    id: blazy_filter
+    provider: blazy
+    status: false
+    weight: 3
+    settings:
+      media_switch: ''
+      hybrid_style: ''
+      box_style: ''
+      box_caption: ''
+      filter_tags:
+        img: img
+        iframe: iframe
+      use_data_uri: '0'
+  filter_image_resize:
+    id: filter_image_resize
+    provider: image_resize_filter
+    status: false
+    weight: 0
+    settings:
+      image_locations:
+        local: true
+        remote: false
+  token_filter:
+    id: token_filter
+    provider: token_filter
+    status: false
+    weight: 0
+    settings:
+      replace_empty: '0'

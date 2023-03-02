@@ -1,0 +1,18 @@
+uuid: c8967753-f6dd-4d68-8e9a-168a0a4a3f33
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.record_status
+id: taxonomy_term.record_status.name
+field_name: name
+entity_type: taxonomy_term
+bundle: record_status
+label: Name
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

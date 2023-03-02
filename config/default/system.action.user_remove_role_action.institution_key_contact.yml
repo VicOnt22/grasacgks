@@ -1,0 +1,14 @@
+uuid: 76e68d8e-d5df-4920-9b91-758c31795d3f
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.institution_key_contact
+  module:
+    - user
+id: user_remove_role_action.institution_key_contact
+label: 'Remove the Institution Key Contact role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: institution_key_contact

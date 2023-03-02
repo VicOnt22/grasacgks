@@ -1,0 +1,19 @@
+uuid: 3ebc2bd6-e4e2-4143-8557-0f558cea09c4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_function_attribution
+    - node.type.heritage_item
+id: node.heritage_item.field_function_attribution
+field_name: field_function_attribution
+entity_type: node
+bundle: heritage_item
+label: 'Source of Information about Item History'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

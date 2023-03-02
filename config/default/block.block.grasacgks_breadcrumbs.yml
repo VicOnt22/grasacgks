@@ -1,0 +1,22 @@
+uuid: 420d3d08-8a78-4708-8a4f-8e0b1a451f2d
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - grasacgks
+_core:
+  default_config_hash: srZYUJ7RWiX-poHbQ0J5XIAyiVc7qSnLrZBLMY17VDc
+id: grasacgks_breadcrumbs
+theme: grasacgks
+region: header
+weight: -4
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

@@ -1,0 +1,20 @@
+uuid: c94f4cec-b46a-455c-87dc-944b13a5466e
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.landing_page_lb
+_core:
+  default_config_hash: IZd6hxRO0EWdIPtoBLN37p1fbVNI4miO0aOS79OreXY
+id: node.landing_page_lb.changed
+field_name: changed
+entity_type: node
+bundle: landing_page_lb
+label: Changed
+description: 'The time that the node was last edited.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

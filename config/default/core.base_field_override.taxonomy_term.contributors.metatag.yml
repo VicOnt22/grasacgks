@@ -1,0 +1,18 @@
+uuid: f607965f-336c-46b9-9090-1bef5b2e9008
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.contributors
+id: taxonomy_term.contributors.metatag
+field_name: metatag
+entity_type: taxonomy_term
+bundle: contributors
+label: 'Metatags (Hidden field for JSON support)'
+description: 'The meta tags for the entity.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: map

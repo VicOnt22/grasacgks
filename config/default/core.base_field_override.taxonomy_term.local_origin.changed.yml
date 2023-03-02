@@ -1,0 +1,18 @@
+uuid: 164396cd-746b-4ce5-a259-752dcc40f560
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.local_origin
+id: taxonomy_term.local_origin.changed
+field_name: changed
+entity_type: taxonomy_term
+bundle: local_origin
+label: Changed
+description: 'The time that the term was last edited.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

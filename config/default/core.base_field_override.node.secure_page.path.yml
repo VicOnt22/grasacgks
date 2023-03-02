@@ -1,0 +1,20 @@
+uuid: 322d5c45-d24d-4473-85c8-29962acce0cb
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.secure_page
+  module:
+    - path
+id: node.secure_page.path
+field_name: path
+entity_type: node
+bundle: secure_page
+label: 'URL alias'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

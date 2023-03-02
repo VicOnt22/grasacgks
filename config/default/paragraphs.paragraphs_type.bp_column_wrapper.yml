@@ -1,0 +1,17 @@
+uuid: 0eba0d00-e010-44ac-9246-19ede9952435
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs_library
+third_party_settings:
+  paragraphs_library:
+    allow_library_conversion: true
+_core:
+  default_config_hash: ndzsz6sqsG1xfGsR_-BDve6mDOe0kxcWp92K8ZUYTN8
+id: bp_column_wrapper
+label: 'Column Wrapper'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

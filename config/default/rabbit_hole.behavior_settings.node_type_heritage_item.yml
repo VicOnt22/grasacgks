@@ -1,0 +1,14 @@
+uuid: c12c1d8e-5831-4d5e-b158-08f85708f638
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.heritage_item
+id: node_type_heritage_item
+entity_type_id: node_type
+entity_id: heritage_item
+action: display_page
+allow_override: 1
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: access_denied

@@ -1,0 +1,17 @@
+uuid: d4b03caf-e9f7-40b0-b4c3-a228a63bfe06
+langcode: en
+status: true
+dependencies:
+  module:
+    - change_update_fields
+title: 'Default cron handler'
+id: change_update_fields_cron
+weight: 0
+module: change_update_fields
+callback: change_update_fields_cron
+scheduler:
+  id: simple
+launcher:
+  id: serial
+logger:
+  id: database

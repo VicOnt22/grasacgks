@@ -1,0 +1,19 @@
+uuid: 8710a784-e3a6-46ed-8ad0-58da3e32d0d2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_maker_attribution
+    - node.type.heritage_item
+id: node.heritage_item.field_maker_attribution
+field_name: field_maker_attribution
+entity_type: node
+bundle: heritage_item
+label: 'Source of Information about Makers'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

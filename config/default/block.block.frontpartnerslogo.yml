@@ -1,0 +1,50 @@
+uuid: fae6e2c0-14b1-4690-9b78-4fbec1292809
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:dff495d9-f3e7-46e6-a1f5-9e8d22e011f8'
+  module:
+    - block_content
+    - context
+    - system
+  theme:
+    - grasacgks
+id: frontpartnerslogo
+theme: grasacgks
+region: content
+weight: -2
+provider: null
+plugin: 'block_content:dff495d9-f3e7-46e6-a1f5-9e8d22e011f8'
+settings:
+  id: 'block_content:dff495d9-f3e7-46e6-a1f5-9e8d22e011f8'
+  label: 'Front Partners logo'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  user_status:
+    id: user_status
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    user_status:
+      viewing_profile: '0'
+      logged_viewing_profile: '0'
+      own_page_true: '0'
+      field_value: '0'
+    user_fields: uid
+  context_all:
+    id: context_all
+    negate: null
+    values: ''
+  context:
+    id: context
+    negate: null
+    values: ''
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

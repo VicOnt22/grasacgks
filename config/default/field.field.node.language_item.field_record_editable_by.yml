@@ -1,0 +1,42 @@
+uuid: 15c93b8b-348b-49b4-9528-4b1ba8ca3db2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_record_editable_by
+    - node.type.language_item
+id: node.language_item.field_record_editable_by
+field_name: field_record_editable_by
+entity_type: node
+bundle: language_item
+label: 'Editor(s) of the record'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: status
+      direction: ASC
+    auto_create: false
+    filter:
+      type: role
+      role:
+        research_assistant: research_assistant
+        full_member: full_member
+        editor: '0'
+        content_admin: '0'
+        seo_admin: '0'
+        site_admin: '0'
+        test_role: '0'
+        temp_test_role: '0'
+        guest_member: '0'
+        institution_key_contact: '0'
+        manager: '0'
+        administrator: '0'
+    include_anonymous: false
+field_type: entity_reference

@@ -1,0 +1,29 @@
+uuid: 8c9905ba-b47e-45f9-ba61-67408217c8bf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_folders
+    - node.type.resource
+    - taxonomy.vocabulary.folders
+id: node.resource.field_folders
+field_name: field_folders
+entity_type: node
+bundle: resource
+label: Folders
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      folders: folders
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

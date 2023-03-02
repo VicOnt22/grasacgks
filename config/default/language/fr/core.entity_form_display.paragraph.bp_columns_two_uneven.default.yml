@@ -1,0 +1,9 @@
+content:
+  bp_column_content_2:
+    settings:
+      title: Composant
+      title_plural: Composants
+  bp_title:
+    third_party_settings:
+      maxlength:
+        maxlength_js_label: 'Contenu limité à @limit caractères, restant : <strong>@remaining</strong>'

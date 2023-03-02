@@ -1,0 +1,20 @@
+uuid: 4f991782-bf5c-4130-8c56-b0650b6c206d
+langcode: en
+status: true
+dependencies:
+  theme:
+    - grasacgks
+_core:
+  default_config_hash: sM4MaEEGQZcTeXc8Cm-ujbGjD-Z8JnDHMCJWIouwDyo
+id: grasacgks_local_actions
+theme: grasacgks
+region: header
+weight: -3
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

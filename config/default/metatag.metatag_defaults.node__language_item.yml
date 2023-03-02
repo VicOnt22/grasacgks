@@ -1,0 +1,10 @@
+uuid: 553ffa18-0372-4aef-b52b-420a56fef953
+langcode: en
+status: true
+dependencies: {  }
+id: node__language_item
+label: 'Content: Language item'
+tags:
+  abstract: '[node:summary]'
+  description: '[node:summary]'
+  title: '[node:title] | [site:name]'

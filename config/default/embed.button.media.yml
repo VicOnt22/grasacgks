@@ -1,0 +1,18 @@
+uuid: null
+langcode: en
+status: true
+dependencies:
+  module:
+    - entity_embed
+    - media
+label: Media
+id: media
+type_id: entity
+type_settings:
+  entity_type: media
+  bundles: {  }
+  display_plugins: {  }
+  entity_browser: ''
+  entity_browser_settings: {  }
+icon: {  }
+icon_uuid: 0c8d8f34-e57a-46e7-a0f3-3da1c1d631f6

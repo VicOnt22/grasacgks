@@ -1,0 +1,29 @@
+uuid: 4f7a574e-6064-42b0-9c9c-ce3a88ec63c6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_local_origin_tid
+    - node.type.heritage_item
+    - taxonomy.vocabulary.local_origin
+id: node.heritage_item.field_local_origin_tid
+field_name: field_local_origin_tid
+entity_type: node
+bundle: heritage_item
+label: 'Local Origin'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      local_origin: local_origin
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

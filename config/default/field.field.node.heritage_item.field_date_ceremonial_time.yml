@@ -1,0 +1,19 @@
+uuid: 63e5f26c-dd0a-48e9-98f9-bb1ed0ba423f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date_ceremonial_time
+    - node.type.heritage_item
+id: node.heritage_item.field_date_ceremonial_time
+field_name: field_date_ceremonial_time
+entity_type: node
+bundle: heritage_item
+label: 'Associated Ceremonial Time'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

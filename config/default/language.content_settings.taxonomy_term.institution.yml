@@ -1,0 +1,18 @@
+uuid: 4a1140fe-2af0-475c-be9a-255bdc287e95
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.institution
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: taxonomy_term.institution
+target_entity_type_id: taxonomy_term
+target_bundle: institution
+default_langcode: site_default
+language_alterable: true

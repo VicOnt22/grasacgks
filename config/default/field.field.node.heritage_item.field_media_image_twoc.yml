@@ -1,0 +1,29 @@
+uuid: cef4fd54-76d8-4b19-af81-0cfeb39ca438
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media_image_twoc
+    - media.type.image
+    - node.type.heritage_item
+id: node.heritage_item.field_media_image_twoc
+field_name: field_media_image_twoc
+entity_type: node
+bundle: heritage_item
+label: 'media image twoc'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

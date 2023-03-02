@@ -1,0 +1,29 @@
+uuid: b13af991-6321-44da-baf3-489d613de752
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_maker_role
+    - node.type.heritage_item
+    - taxonomy.vocabulary.contributor_roles
+id: node.heritage_item.field_maker_role
+field_name: field_maker_role
+entity_type: node
+bundle: heritage_item
+label: 'Maker role ref'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      contributor_roles: contributor_roles
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

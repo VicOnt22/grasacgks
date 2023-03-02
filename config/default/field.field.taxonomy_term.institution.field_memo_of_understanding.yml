@@ -1,0 +1,27 @@
+uuid: 4e46a5c2-8c09-4f50-829e-9e9544852538
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_memo_of_understanding
+    - taxonomy.vocabulary.institution
+  module:
+    - file
+id: taxonomy_term.institution.field_memo_of_understanding
+field_name: field_memo_of_understanding
+entity_type: taxonomy_term
+bundle: institution
+label: 'Memo of Understanding'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: 'documents/[current-date:custom:Y/m/d]'
+  file_extensions: 'txt doc pdf docx md'
+  max_filesize: ''
+  description_field: true
+field_type: file

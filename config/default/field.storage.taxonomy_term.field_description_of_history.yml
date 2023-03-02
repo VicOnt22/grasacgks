@@ -1,0 +1,23 @@
+uuid: c386a898-e6a0-4c89-acb4-2dc673e64188
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - taxonomy
+    - text
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: taxonomy_term.field_description_of_history
+field_name: field_description_of_history
+entity_type: taxonomy_term
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,20 @@
+uuid: 83d9eec4-8ad0-4764-8e30-3fbcb0820587
+langcode: en
+status: true
+dependencies:
+  theme:
+    - vartheme_bs4
+_core:
+  default_config_hash: 1f3SKPk8jtkxF__zNY6bZUle5rMoR5qi29oHJ9jjQ6A
+id: vartheme_bs4_page_title
+theme: vartheme_bs4
+region: header
+weight: -1
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility: {  }

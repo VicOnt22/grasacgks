@@ -1,0 +1,24 @@
+uuid: b3997dbb-94e9-471a-9205-6e8132578c43
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.varbase_heroslider_media
+_core:
+  default_config_hash: JCpP1M53e8K6TeU3M_wKPA244xfiNJhzQBnXUGZVhrg
+id: node.varbase_heroslider_media.sticky
+field_name: sticky
+entity_type: node
+bundle: varbase_heroslider_media
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

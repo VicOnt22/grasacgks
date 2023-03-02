@@ -1,0 +1,19 @@
+uuid: b3089e53-087b-41a2-a11f-fad93b62f778
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_title_rationale
+    - node.type.heritage_item
+id: node.heritage_item.field_title_rationale
+field_name: field_title_rationale
+entity_type: node
+bundle: heritage_item
+label: 'Title Rationale'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

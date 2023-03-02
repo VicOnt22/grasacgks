@@ -1,0 +1,20 @@
+uuid: cbd98e72-1e0e-4771-8cab-539b4e6f46b6
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.nations
+  module:
+    - path
+id: taxonomy_term.nations.path
+field_name: path
+entity_type: taxonomy_term
+bundle: nations
+label: 'URL alias'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

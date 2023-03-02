@@ -1,0 +1,20 @@
+uuid: 567bff44-d9e7-48b2-9f8e-49332d3665e1
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.varbase_heroslider_media
+id: entity_subqueue.varbase_heroslider_media.uid
+field_name: uid
+entity_type: entity_subqueue
+bundle: varbase_heroslider_media
+label: 'User ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\entityqueue\Entity\EntitySubqueue::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

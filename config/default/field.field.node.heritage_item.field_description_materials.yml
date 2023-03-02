@@ -1,0 +1,19 @@
+uuid: 34fb5ced-7d35-43c5-af6c-a18c055a164b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_description_materials
+    - node.type.heritage_item
+id: node.heritage_item.field_description_materials
+field_name: field_description_materials
+entity_type: node
+bundle: heritage_item
+label: Materials
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

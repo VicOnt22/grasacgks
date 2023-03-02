@@ -1,0 +1,9 @@
+uuid: b80b0e90-2b7f-4443-b40c-67edee4d2191
+langcode: alg
+status: true
+dependencies: {  }
+id: alg
+label: Anishinaabemowin
+direction: ltr
+weight: 2
+locked: false

@@ -1,0 +1,22 @@
+uuid: d20f281e-3915-483e-a2fc-9da48133b7b1
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.contributors
+id: taxonomy_term.contributors.status
+field_name: status
+entity_type: taxonomy_term
+bundle: contributors
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

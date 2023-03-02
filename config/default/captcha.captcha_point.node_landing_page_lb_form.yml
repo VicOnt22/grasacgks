@@ -1,0 +1,7 @@
+uuid: 4b87e350-e38f-4d1b-bba3-fa43a25f5764
+langcode: en
+status: false
+dependencies: {  }
+formId: node_landing_page_lb_form
+captchaType: default
+label: node_landing_page_lb_form

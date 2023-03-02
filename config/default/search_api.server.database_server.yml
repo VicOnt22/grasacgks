@@ -1,0 +1,16 @@
+uuid: aca4f070-58b1-435f-9154-baac0ac96442
+langcode: en
+status: true
+dependencies:
+  module:
+    - search_api_db
+_core:
+  default_config_hash: 6j6fPQlkZrnR0l0JWV6Km8hCDybxkdu7A_0GoXG2Vyg
+id: database_server
+name: 'Database server'
+description: 'Default database server.'
+backend: search_api_db
+backend_config:
+  database: 'default:default'
+  min_chars: 3
+  matching: partial

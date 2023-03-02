@@ -1,0 +1,22 @@
+uuid: 27759570-89d0-4619-b92b-287e0e6a7cc2
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - vartheme_claro
+_core:
+  default_config_hash: s5WPRcLactZk9jcrDRAHaZGNEP95sWIaGBxPEFXea30
+id: vartheme_claro_breadcrumbs
+theme: vartheme_claro
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

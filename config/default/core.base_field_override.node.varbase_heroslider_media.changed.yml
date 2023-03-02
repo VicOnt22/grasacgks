@@ -1,0 +1,20 @@
+uuid: 710f4237-cfe5-4c5f-ab30-61b02470a5da
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.varbase_heroslider_media
+_core:
+  default_config_hash: 0tpwsY23U-ONjLcZOilMI4iKNfPIm-YJRR0Jw3GaaS0
+id: node.varbase_heroslider_media.changed
+field_name: changed
+entity_type: node
+bundle: varbase_heroslider_media
+label: Changed
+description: 'The time that the node was last edited.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

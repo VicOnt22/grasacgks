@@ -1,0 +1,10 @@
+uuid: 1b1dc8cf-b02b-4629-95c8-11026d201223
+langcode: en
+status: true
+dependencies: {  }
+id: node__heritage_item
+label: 'Content: Heritage Item'
+tags:
+  abstract: '[node:summary]'
+  description: '[node:summary]'
+  title: '[node:title] | [site:name]'

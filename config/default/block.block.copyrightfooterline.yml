@@ -1,0 +1,45 @@
+uuid: 92eaa3f1-c3be-48a2-b619-22d061b0c76a
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:98ca1b48-cd01-4f39-b9fd-78f9ca8f92f0'
+  module:
+    - block_content
+    - context
+  theme:
+    - grasacgks
+id: copyrightfooterline
+theme: grasacgks
+region: footer
+weight: -5
+provider: null
+plugin: 'block_content:98ca1b48-cd01-4f39-b9fd-78f9ca8f92f0'
+settings:
+  id: 'block_content:98ca1b48-cd01-4f39-b9fd-78f9ca8f92f0'
+  label: ' Copyright footer line'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  user_status:
+    id: user_status
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    user_status:
+      viewing_profile: '0'
+      logged_viewing_profile: '0'
+      own_page_true: '0'
+      field_value: '0'
+    user_fields: uid
+  context_all:
+    id: context_all
+    negate: null
+    values: ''
+  context:
+    id: context
+    negate: null
+    values: ''

@@ -1,0 +1,18 @@
+uuid: 74741be0-2717-4c82-ae72-8c7a5498bb59
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.institution
+id: taxonomy_term.institution.name
+field_name: name
+entity_type: taxonomy_term
+bundle: institution
+label: Name
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,18 @@
+uuid: dda75cf9-6eff-4921-8646-b723831ccb03
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.contributor_roles
+id: taxonomy_term.contributor_roles.changed
+field_name: changed
+entity_type: taxonomy_term
+bundle: contributor_roles
+label: Changed
+description: 'The time that the term was last edited.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

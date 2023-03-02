@@ -1,0 +1,18 @@
+uuid: 03dcfef2-1022-4c46-857e-c2745abfbdcd
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.nations
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: taxonomy_term.nations
+target_entity_type_id: taxonomy_term
+target_bundle: nations
+default_langcode: site_default
+language_alterable: true

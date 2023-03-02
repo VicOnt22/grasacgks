@@ -1,0 +1,18 @@
+uuid: 8a405fac-a837-42b8-828d-b0dfe5f31625
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.nations
+id: taxonomy_term.nations.name
+field_name: name
+entity_type: taxonomy_term
+bundle: nations
+label: Name
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

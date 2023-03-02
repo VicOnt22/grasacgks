@@ -1,0 +1,8 @@
+uuid: 0443a07b-cc1d-497b-84ef-96cd19ca8b12
+langcode: en
+status: true
+dependencies: {  }
+id: geoplugin
+label: GeoPlugin
+plugin: geoplugin
+configuration: {  }

@@ -1,0 +1,20 @@
+uuid: d0fca1dd-38ba-4b50-bf9f-d23c2a039eb9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_name_first_last
+  module:
+    - user
+id: user.user.field_name_first_last
+field_name: field_name_first_last
+entity_type: user
+bundle: user
+label: 'Name: First Last'
+description: 'First and Last names'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,8 @@
+uuid: 2e5c63b0-821a-4852-b39d-5a367d735431
+langcode: en
+status: true
+dependencies: {  }
+name: 'Nations or Cultural Traditions'
+vid: nations
+description: ''
+weight: 0

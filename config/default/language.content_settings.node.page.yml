@@ -1,0 +1,20 @@
+uuid: db158322-a3b3-4d24-8cc0-3f01589c3d80
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.page
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+_core:
+  default_config_hash: Ujf9zdW8189vhHJbNKOm-3ZyZA35LL8it_NqFS7soPs
+id: node.page
+target_entity_type_id: node
+target_bundle: page
+default_langcode: site_default
+language_alterable: true

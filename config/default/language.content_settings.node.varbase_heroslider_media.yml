@@ -1,0 +1,18 @@
+uuid: adc590dd-f6bc-4371-a140-285988824d9a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.varbase_heroslider_media
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.varbase_heroslider_media
+target_entity_type_id: node
+target_bundle: varbase_heroslider_media
+default_langcode: site_default
+language_alterable: true

@@ -1,0 +1,20 @@
+uuid: 65ce9013-7e9e-4f97-a1a8-251f99e6b560
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.contributor_roles
+  module:
+    - path
+id: taxonomy_term.contributor_roles.path
+field_name: path
+entity_type: taxonomy_term
+bundle: contributor_roles
+label: 'URL alias'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

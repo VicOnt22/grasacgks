@@ -1,0 +1,23 @@
+uuid: 3b0169e6-bfc7-49c9-af2c-3b6dd4b75629
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - node
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: node.field_description_techniques
+field_name: field_description_techniques
+entity_type: node
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

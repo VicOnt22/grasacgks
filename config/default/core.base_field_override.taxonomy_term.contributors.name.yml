@@ -1,0 +1,18 @@
+uuid: 555ae19d-713b-4eac-80d6-0db8133d62d2
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.contributors
+id: taxonomy_term.contributors.name
+field_name: name
+entity_type: taxonomy_term
+bundle: contributors
+label: Name
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

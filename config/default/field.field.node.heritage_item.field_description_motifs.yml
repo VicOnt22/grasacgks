@@ -1,0 +1,19 @@
+uuid: 08b3d1d3-9fbb-4408-85d0-d08a4d62e4c6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_description_motifs
+    - node.type.heritage_item
+id: node.heritage_item.field_description_motifs
+field_name: field_description_motifs
+entity_type: node
+bundle: heritage_item
+label: 'Motifs and Images'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -1,0 +1,12 @@
+uuid: c163ae2b-470b-4158-915c-f453130d0847
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: pEZU0NZVmZrPzjeeHgaiOdarMAYCy46zVfRC53wLTSg
+id: node.hero_xlarge
+label: 'Hero - xlarge'
+targetEntityType: node
+cache: true

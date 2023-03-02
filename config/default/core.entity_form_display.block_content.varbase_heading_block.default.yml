@@ -1,0 +1,35 @@
+uuid: 3d1f1624-8103-4527-890a-dbb3e60ce0d7
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.varbase_heading_block
+    - field.field.block_content.varbase_heading_block.field_varbase_heading_size
+_core:
+  default_config_hash: HhtyQkktMvMbpOXXaU6SbjwfLgJTIXJwxX8aB8F-ZKM
+id: block_content.varbase_heading_block.default
+targetEntityType: block_content
+bundle: varbase_heading_block
+mode: default
+content:
+  field_varbase_heading_size:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  info:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  langcode: true

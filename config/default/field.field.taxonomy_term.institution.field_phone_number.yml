@@ -1,0 +1,21 @@
+uuid: b38facbf-2c5b-4fdf-b318-f1bc5d36dc50
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_phone_number
+    - taxonomy.vocabulary.institution
+  module:
+    - telephone
+id: taxonomy_term.institution.field_phone_number
+field_name: field_phone_number
+entity_type: taxonomy_term
+bundle: institution
+label: Phone
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

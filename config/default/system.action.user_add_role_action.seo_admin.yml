@@ -1,0 +1,14 @@
+uuid: 9a7e5e6a-8ce6-4994-b8cf-8477bbc2126b
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.seo_admin
+  module:
+    - user
+id: user_add_role_action.seo_admin
+label: 'Add the SEO Admin role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: seo_admin
