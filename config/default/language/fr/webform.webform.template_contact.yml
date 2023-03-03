@@ -1,6 +1,6 @@
 title: 'Nous Contacter'
 settings:
-  confirmation_message: 'Votre message a été envoyé.'
+  confirmation_message: 'Votre message a &eacute;t&eacute; envoy&eacute;.'
 handlers:
   email_confirmation:
     label: 'Courriel de confirmation'

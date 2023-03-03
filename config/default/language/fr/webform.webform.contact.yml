@@ -1,12 +1,4 @@
-settings:
-  confirmation_message: 'Votre message a &eacute;t&eacute; envoy&eacute;.'
-handlers:
-  email_confirmation:
-    label: 'Courriel de confirmation'
-    settings: {  }
-  email_notification:
-    label: 'Notification par courriel'
-    settings: {  }
+title: Contact
 elements: |
   name:
     '#title': 'Votre nom'
@@ -16,3 +8,18 @@ elements: |
     '#title': Sujet
   actions:
     '#submit__label': 'Envoyer le message'
+settings:
+  confirmation_message: 'Votre message a &eacute;t&eacute; envoy&eacute;.'
+handlers:
+  email_confirmation:
+    label: 'Courriel de confirmation'
+    settings:
+      from_name: _default
+      subject: '[webform_submission:values:subject:raw]'
+      body: '[webform_submission:values:message:value]'
+  email_notification:
+    label: 'Notification par courriel'
+    settings:
+      from_name: '[webform_submission:values:name:raw]'
+      subject: '[webform_submission:values:subject:raw]'
+      body: '[webform_submission:values:message:value]'

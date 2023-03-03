@@ -1,0 +1,18 @@
+diff --git a/src/Entity/OgMembershipType.php b/src/Entity/OgMembershipType.php
+index c067bebe48e78d6df02e5d7d810340fe63d4b403..af5760b907db8f88e71834c1af4435e7b112501e 100644
+--- a/src/Entity/OgMembershipType.php
++++ b/src/Entity/OgMembershipType.php
+@@ -102,7 +102,12 @@ class OgMembershipType extends ConfigEntityBase implements OgMembershipTypeInter
+    */
+   public function delete() {
+     if ($this->id() === OgMembershipInterface::TYPE_DEFAULT) {
+-      throw new \Exception('The default OG membership type cannot be deleted.');
++      // Remove the default OG membership type only if there no other types.
++      $query = \Drupal::entityTypeManager()->getStorage('og_membership_type')->getQuery();
++      $membership_types = $query->execute();
++      if (count($membership_types) > 1) {
++        throw new \Exception('The default OG membership type cannot be deleted.');
++      }
+     }
+     parent::delete();
+   }

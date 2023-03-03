@@ -38,7 +38,9 @@
         "geocoder-php/geo-plugin-provider": "^4.3",
         "geocoder-php/cache-provider": "^4.4",
         "geocoder-php/bing-maps-provider": "^4.3",
-        "sibyx/phpgpx": "^1.2"
+        "sibyx/phpgpx": "^1.2",
+        "drupal/backup_migrate": "^5.0",
+        "drupal/config_filter": "^2.4"
     },
     "conflict": {
         "drupal/ctools": "^3.10 || ^4.0.1",
@@ -220,7 +222,10 @@
                 "Add an extra.drush.services section to composer.json": "https://www.drupal.org/files/issues/2021-07-28/3225746-2--add-extra-drush-services-to-composer-json.patch"
             },
             "drupal/og": {
-                "Default membership cannot be deleted /project/og/issues/3257557": "https://git.drupalcode.org/project/og/-/merge_requests/2.diff"
+                "Default membership cannot be deleted /project/og/issues/3257557": "patches/og-membership.patch"
+            },
+            "drupal/config_ignore": {
+                "issues/2857247 Support for export filtering via Drush": "https://www.drupal.org/files/issues/2021-08-18/config_ignore_2857247-75.patch"
             }
         }
     },

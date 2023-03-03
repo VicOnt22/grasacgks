@@ -64,8 +64,6 @@ display:
     display_title: Maître
   overview:
     display_options:
-      menu:
-        title: Planifié
       tab_options:
         title: Contenu
   user_page:
@@ -78,3 +76,4 @@ display:
         uid:
           exception:
             title: Tout
+    display_title: Utilisateur
