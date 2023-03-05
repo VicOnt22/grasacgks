@@ -13,6 +13,7 @@ dependencies:
     - node.type.secure_page
   module:
     - action
+    - backup_migrate
     - block
     - content_translation
     - contextual

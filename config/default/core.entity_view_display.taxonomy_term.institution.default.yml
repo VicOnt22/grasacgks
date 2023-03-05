@@ -6,15 +6,17 @@ dependencies:
     - field.field.taxonomy_term.institution.field_address
     - field.field.taxonomy_term.institution.field_associated_instituation
     - field.field.taxonomy_term.institution.field_fax_number
+    - field.field.taxonomy_term.institution.field_initials
     - field.field.taxonomy_term.institution.field_memo_of_understanding
     - field.field.taxonomy_term.institution.field_phone_number
     - field.field.taxonomy_term.institution.field_web_url
     - taxonomy.vocabulary.institution
   module:
     - address
+    - ds
     - file
     - link
-    - options
+    - telephone
     - text
 id: taxonomy_term.institution.default
 targetEntityType: taxonomy_term
@@ -30,24 +32,71 @@ content:
     region: content
   field_address:
     type: address_default
-    label: inline
+    label: above
     settings: {  }
-    third_party_settings: {  }
+    third_party_settings:
+      ds:
+        ft:
+          id: default
+          settings:
+            lb: Address
+            lb-col: true
+            classes: {  }
     weight: 3
     region: content
   field_associated_instituation:
-    type: list_default
+    type: boolean
     label: inline
-    settings: {  }
-    third_party_settings: {  }
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings:
+      ds:
+        ft:
+          id: expert
+          settings:
+            lb: ''
+            lbw: true
+            lbw-el: 'strong, bold'
+            lbw-cl: ''
+            lbw-at: ''
+            lb-col: false
+            ow: false
+            ow-el: ''
+            ow-cl: ''
+            ow-at: ''
+            ow-def-at: false
+            ow-def-cl: false
+            fis: false
+            fis-el: ''
+            fis-cl: ''
+            fis-at: ''
+            fis-def-at: false
+            fi: false
+            fi-el: ''
+            fi-cl: ''
+            fi-at: ''
+            fi-def-at: false
+            prefix: ''
+            suffix: ''
     weight: 6
     region: content
   field_fax_number:
-    type: basic_string
+    type: telephone_link
     label: inline
-    settings: {  }
+    settings:
+      title: ''
     third_party_settings: {  }
     weight: 5
+    region: content
+  field_initials:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 8
     region: content
   field_memo_of_understanding:
     type: file_default
@@ -58,9 +107,10 @@ content:
     weight: 7
     region: content
   field_phone_number:
-    type: basic_string
+    type: telephone_link
     label: inline
-    settings: {  }
+    settings:
+      title: ''
     third_party_settings: {  }
     weight: 4
     region: content

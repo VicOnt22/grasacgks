@@ -1,21 +1,21 @@
-uuid: 35cc4a75-6834-4f2c-b416-200513e47237
+uuid: 6024afad-d3d9-4fdd-8505-9617959495c4
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
-    - node.type.article
+    - taxonomy.vocabulary.institution
   module:
     - blazy
-    - node
+    - ds
+    - taxonomy
     - user
-id: articles
-label: Articles
+id: institutions
+label: Institutions
 module: views
 description: ''
 tag: ''
-base_table: node_field_data
-base_field: nid
+base_table: taxonomy_term_field_data
+base_field: tid
 display:
   default:
     id: default
@@ -23,18 +23,18 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: Articles
+      title: Institutions
       fields:
-        title:
-          id: title
-          table: node_field_data
-          field: title
+        name:
+          id: name
+          table: taxonomy_term_field_data
+          field: name
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: field
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
           label: ''
           exclude: false
           alter:
@@ -72,16 +72,19 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          convert_spaces: false
       pager:
-        type: mini
+        type: full
         options:
           offset: 0
-          items_per_page: 10
+          items_per_page: 12
           total_pages: null
           id: 0
           tags:
             next: ››
             previous: ‹‹
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -90,6 +93,7 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
+          quantity: 9
       exposed_form:
         type: basic
         options:
@@ -108,30 +112,14 @@ display:
         type: tag
         options: {  }
       empty: {  }
-      sorts:
-        created:
-          id: created
-          table: node_field_data
-          field: created
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: created
-          plugin_id: date
-          order: DESC
-          expose:
-            label: ''
-            field_identifier: ''
-          exposed: false
-          granularity: second
+      sorts: {  }
       arguments: {  }
       filters:
         status:
           id: status
-          table: node_field_data
+          table: taxonomy_term_field_data
           field: status
-          entity_type: node
+          entity_type: taxonomy_term
           entity_field: status
           plugin_id: boolean
           value: '1'
@@ -140,71 +128,27 @@ display:
             operator: ''
             operator_limit_selection: false
             operator_list: {  }
-        type:
-          id: type
-          table: node_field_data
-          field: type
-          entity_type: node
-          entity_field: type
+        vid:
+          id: vid
+          table: taxonomy_term_field_data
+          field: vid
+          entity_type: taxonomy_term
+          entity_field: vid
           plugin_id: bundle
           value:
-            article: article
+            institution: institution
           expose:
             operator_limit_selection: false
             operator_list: {  }
-        langcode:
-          id: langcode
-          table: node_field_data
-          field: langcode
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: langcode
-          plugin_id: language
-          operator: in
-          value:
-            '***LANGUAGE_language_interface***': '***LANGUAGE_language_interface***'
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
       style:
         type: blazy
         options:
           style: column
-          grid: '3'
+          grid: '2'
           grid_medium: '2'
           grid_small: '1'
       row:
-        type: 'entity:node'
-        options:
-          view_mode: teaser
+        type: 'ds_entity:taxonomy_term'
       query:
         type: views_query
         options:
@@ -225,7 +169,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<h2>Articles list</h2>'
+            value: '<h1>Institutions</h1>'
             format: full_html
           tokenize: false
       footer: {  }
@@ -236,7 +180,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
-        - 'user.node_grants:view'
         - user.permissions
       tags: {  }
   page_1:
@@ -245,17 +188,16 @@ display:
     display_plugin: page
     position: 1
     display_options:
-      rendering_language: '***LANGUAGE_language_interface***'
       display_extenders:
         metatag_display_extender:
           metatags: {  }
           tokenize: false
-      path: articles
+      path: institutions
     cache_metadata:
       max-age: -1
       contexts:
+        - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
-        - 'user.node_grants:view'
         - user.permissions
       tags: {  }

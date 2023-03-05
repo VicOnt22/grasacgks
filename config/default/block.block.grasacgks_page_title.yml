@@ -18,8 +18,8 @@ provider: null
 plugin: page_title_block
 settings:
   id: page_title_block
-  label: 'Page title'
-  label_display: '0'
+  label: 'Page Title'
+  label_display: visible
   provider: core
 visibility:
   user_status:
@@ -54,4 +54,4 @@ visibility:
   request_path:
     id: request_path
     negate: true
-    pages: "/browse-gks\r\n/heritage-items\r\n/language-items\r\n/about-grasac"
+    pages: ''

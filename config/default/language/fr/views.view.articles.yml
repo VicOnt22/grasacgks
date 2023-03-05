@@ -1,0 +1,9 @@
+display:
+  default:
+    display_options:
+      title: 'Liste des articles'
+      header:
+        area:
+          content:
+            value: "<h2>Liste des articles</h2>\r\n"
+            format: full_html

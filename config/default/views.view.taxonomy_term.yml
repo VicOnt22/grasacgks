@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
   module:
+    - blazy
     - node
     - taxonomy
     - user
@@ -303,10 +304,27 @@ display:
     display_plugin: page
     position: 1
     display_options:
+      style:
+        type: blazy
+        options:
+          style: column
+          grid: '4'
+          grid_medium: '2'
+          grid_small: '1'
+      row:
+        type: 'entity:node'
+        options:
+          view_mode: teaser
       query:
         type: views_query
         options: {  }
-      display_extenders: {  }
+      defaults:
+        style: false
+        row: false
+      display_extenders:
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
       path: taxonomy/term/%
     cache_metadata:
       max-age: -1

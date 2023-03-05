@@ -540,7 +540,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: false
-          content: 'Displaying @start - @end of @total Relatives'
+          content: "Displaying @start - @end of @total Relatives\r\n<p>&nbsp;</p>"
       footer: {  }
       display_extenders: {  }
     cache_metadata:
