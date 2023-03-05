@@ -193,7 +193,10 @@ class MarkerIconService {
    */
   protected function setMarkersFilesList(): array {
     $markers_files_list = [];
-    $regex = '/\.(' . preg_replace('/ +/', '|', preg_quote($this->allowedExtension)) . ')$/i';
+    //preg_quote null to avoid
+    $pregavoid = $this->allowedExtension ? :'';
+//    $regex = '/\.(' . preg_replace('/ +/', '|', preg_quote($this->allowedExtension)) . ')$/i';
+    $regex = '/\.(' . preg_replace('/ +/', '|', preg_quote($pregavoid)) . ')$/i';
     $security = $this->geofieldMapSettings->get('theming.markers_location.security');
     $rel_path = $this->geofieldMapSettings->get('theming.markers_location.rel_path');
     try {
@@ -213,10 +216,12 @@ class MarkerIconService {
       $theming_folder = $security . $rel_path;
       // Try to generate the theming.markers_location folder,
       // otherwise logs a warning.
-      if (!$this->fileSystem->mkdir($theming_folder)) {
-        $this->logger->warning($this->t("The '@folder' folder couldn't be created", [
-          '@folder' => $theming_folder,
-        ]));
+      if($theming_folder) {
+        if (!$this->fileSystem->mkdir($theming_folder)) {
+          $this->logger->warning($this->t("The '@folder' folder couldn't be created", [
+            '@folder' => $theming_folder,
+          ]));
+        }
       }
     }
 

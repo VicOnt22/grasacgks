@@ -8929,6 +8929,9 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "issues/3325733 and missing key workaround": "patches/geofield-map.patch"
                 }
             },
             "installation-source": "dist",

@@ -226,6 +226,9 @@
             },
             "drupal/config_ignore": {
                 "issues/2857247 Support for export filtering via Drush": "https://www.drupal.org/files/issues/2021-08-18/config_ignore_2857247-75.patch"
+            },
+            "drupal/geofield_map": {
+                "issues/3325733 and missing key workaround": "patches/geofield-map.patch"
             }
         }
     },
