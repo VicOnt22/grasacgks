@@ -1,0 +1,49 @@
+uuid: 1b7bd0ed-25c3-4d2b-b48f-f3fb7e0ed798
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.collection_at_current_location
+  module:
+    - context
+    - facets
+    - system
+  theme:
+    - grasacgks
+id: collectionatcurrentlocation
+theme: grasacgks
+region: sidebar_first
+weight: -11
+provider: null
+plugin: 'facet_block:collection_at_current_location'
+settings:
+  id: 'facet_block:collection_at_current_location'
+  label: 'Collection at Current Location'
+  label_display: '0'
+  provider: facets
+  context_mapping: {  }
+  block_id: collectionatcurrentlocation
+visibility:
+  user_status:
+    id: user_status
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    user_status:
+      viewing_profile: '0'
+      logged_viewing_profile: '0'
+      own_page_true: '0'
+      field_value: '0'
+    user_fields: uid
+  context_all:
+    id: context_all
+    negate: null
+    values: ''
+  context:
+    id: context
+    negate: null
+    values: ''
+  request_path:
+    id: request_path
+    negate: false
+    pages: /search-page

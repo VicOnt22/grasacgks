@@ -40,7 +40,9 @@
         "geocoder-php/bing-maps-provider": "^4.3",
         "sibyx/phpgpx": "^1.2",
         "drupal/backup_migrate": "^5.0",
-        "drupal/config_filter": "^2.4"
+        "drupal/config_filter": "^2.4",
+        "drupal/facets": "^3.0@beta",
+        "bower-asset/jquery-ui-slider-pips": "^1.11"
     },
     "conflict": {
         "drupal/ctools": "^3.10 || ^4.0.1",

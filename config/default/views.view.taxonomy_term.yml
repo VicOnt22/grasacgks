@@ -304,6 +304,41 @@ display:
     display_plugin: page
     position: 1
     display_options:
+      pager:
+        type: full
+        options:
+          offset: 0
+          items_per_page: 20
+          total_pages: 0
+          id: 0
+          tags:
+            next: ››
+            previous: ‹‹
+            first: '« First'
+            last: 'Last »'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: '<strong>No results: </strong> No Items marked as coming or linked to this institution'
+            format: basic_html
+          tokenize: false
       style:
         type: blazy
         options:
@@ -319,6 +354,8 @@ display:
         type: views_query
         options: {  }
       defaults:
+        empty: false
+        pager: false
         style: false
         row: false
       display_extenders:

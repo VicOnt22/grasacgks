@@ -1,0 +1,50 @@
+uuid: 5f399522-43a6-4102-bd2b-20566aacca83
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:varbase_html_code_block:f4d4e73a-1b9e-4062-85aa-228647b1268a'
+  module:
+    - block_content
+    - context
+    - system
+  theme:
+    - grasacgks
+id: searchblockonfrontpagemiddleashtml
+theme: grasacgks
+region: content
+weight: -10
+provider: null
+plugin: 'block_content:f4d4e73a-1b9e-4062-85aa-228647b1268a'
+settings:
+  id: 'block_content:f4d4e73a-1b9e-4062-85aa-228647b1268a'
+  label: 'Search block on front page middle as html'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  user_status:
+    id: user_status
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    user_status:
+      viewing_profile: '0'
+      logged_viewing_profile: '0'
+      own_page_true: '0'
+      field_value: '0'
+    user_fields: uid
+  context_all:
+    id: context_all
+    negate: null
+    values: ''
+  context:
+    id: context
+    negate: null
+    values: ''
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

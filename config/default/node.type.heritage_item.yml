@@ -23,7 +23,7 @@ third_party_settings:
     unpublish_enable: false
     unpublish_required: false
     unpublish_revision: false
-name: 'Heritage Item'
+name: 'Relatives/Heritage Items'
 type: heritage_item
 description: 'Can include material culture, documents, photographs, art, audio and video recordings - any tangible "thing" related to Great Lakes history and heritage. '
 help: ''

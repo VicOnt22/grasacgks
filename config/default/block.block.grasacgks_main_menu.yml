@@ -13,7 +13,7 @@ _core:
 id: grasacgks_main_menu
 theme: grasacgks
 region: navigation_collapsible
-weight: -5
+weight: -13
 provider: null
 plugin: 'system_menu_block:main'
 settings:

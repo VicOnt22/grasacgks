@@ -80,6 +80,10 @@ module:
   entity_usage: 0
   entityqueue: 0
   entityqueue_form_widget: 0
+  facets: 0
+  facets_range_widget: 0
+  facets_searchbox_widget: 0
+  facets_summary: 0
   field: 0
   field_group: 0
   field_permissions: 0
@@ -175,12 +179,6 @@ module:
   page_manager_ui: 0
   panels: 0
   panels_ipe: 0
-  paragraphs_asymmetric_translation_widgets: 0
-  paragraphs_edit: 0
-  paragraphs_features: 0
-  paragraphs_library: 0
-  paragraphs_previewer: 0
-  paragraphs_type_permissions: 0
   password_policy_character_types: 0
   password_policy_characters: 0
   password_policy_consecutive: 0
@@ -293,18 +291,14 @@ module:
   varbase_seo: 2
   varbase_webform: 2
   varbase_core: 3
-  varbase_landing: 3
   vlplb: 3
   vmi: 3
   varbase_styleguide: 4
-  vbp_text_and_image: 4
   content_translation: 10
   password_policy: 10
   views: 10
-  paragraphs: 11
   varbase_internationalization: 11
   varbase_security: 11
-  varbase_bootstrap_paragraphs: 12
   varbase: 1000
 theme:
   bootstrap_barrio: 0

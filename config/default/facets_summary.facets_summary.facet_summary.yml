@@ -1,0 +1,70 @@
+uuid: a871603a-df4c-44b2-a497-f7eab0ff0f43
+langcode: en
+status: true
+dependencies:
+  config:
+    - search_api.index.content
+    - views.view.search_page
+  module:
+    - search_api
+id: facet_summary
+name: 'Facet summary'
+facet_source_id: 'search_api:views_page__search_page__page_1'
+only_visible_when_facet_source_is_visible: false
+processor_configs:
+  reset_facets:
+    processor_id: reset_facets
+    weights:
+      build: '30'
+    settings:
+      link_text: Reset
+      position: replace
+facets:
+  nation_of_maker:
+    checked: true
+    label: 'Nation of Maker'
+    separator: ', '
+    show_count: false
+    weight: 0
+  region_of_origin:
+    checked: true
+    label: 'Region of Origin'
+    separator: ', '
+    show_count: false
+    weight: 0
+  content_type:
+    checked: true
+    label: 'Content type'
+    separator: ', '
+    show_count: false
+    weight: 0
+  languages:
+    checked: true
+    label: Languages
+    separator: ', '
+    show_count: false
+    weight: 0
+  name:
+    checked: true
+    label: 'Current Institution/Location'
+    separator: ', '
+    show_count: false
+    weight: 0
+  collection_at_current_location:
+    checked: true
+    label: 'Collection at Current Location'
+    separator: ', '
+    show_count: false
+    weight: 0
+  item_type:
+    checked: true
+    label: 'Item Type'
+    separator: ', '
+    show_count: false
+    weight: 0
+  original_collector:
+    checked: true
+    label: 'Original Collector'
+    separator: ', '
+    show_count: false
+    weight: 0

@@ -5,7 +5,6 @@ dependencies:
   config:
     - node.type.article
     - node.type.heritage_item
-    - node.type.landing_page
     - node.type.landing_page_lb
     - node.type.language_item
     - node.type.page
@@ -70,7 +69,6 @@ type_settings:
       - page
       - landing_page_lb
       - varbase_heroslider_media
-      - landing_page
       - landing_page_lb
       - article
       - heritage_item
@@ -108,5 +106,7 @@ type_settings:
       - heritage_item
       - heritage_item
       - heritage_item
+      - heritage_item
+      - language_item
       - heritage_item
   default_moderation_state: draft

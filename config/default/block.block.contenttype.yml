@@ -1,0 +1,49 @@
+uuid: d81679ba-e758-42b8-928f-0d6273063e2b
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.content_type
+  module:
+    - context
+    - facets
+    - system
+  theme:
+    - grasacgks
+id: contenttype
+theme: grasacgks
+region: sidebar_first
+weight: -12
+provider: null
+plugin: 'facet_block:content_type'
+settings:
+  id: 'facet_block:content_type'
+  label: 'Content type'
+  label_display: '0'
+  provider: facets
+  context_mapping: {  }
+  block_id: contenttype
+visibility:
+  user_status:
+    id: user_status
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    user_status:
+      viewing_profile: '0'
+      logged_viewing_profile: '0'
+      own_page_true: '0'
+      field_value: '0'
+    user_fields: uid
+  context_all:
+    id: context_all
+    negate: null
+    values: ''
+  context:
+    id: context
+    negate: null
+    values: ''
+  request_path:
+    id: request_path
+    negate: false
+    pages: /search-page

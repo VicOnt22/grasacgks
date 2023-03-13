@@ -15,7 +15,7 @@ id: node.heritage_item.field_nation_rationale
 field_name: field_nation_rationale
 entity_type: node
 bundle: heritage_item
-label: 'Nation of Origin Reason for Attribution'
+label: 'Nation of Maker - Reason for Attribution'
 description: ''
 required: false
 translatable: true

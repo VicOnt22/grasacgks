@@ -12,7 +12,6 @@ dependencies:
     - media.type.image
     - media.type.remote_video
     - media.type.video
-    - node.type.landing_page
     - node.type.landing_page_lb
     - node.type.page
     - node.type.varbase_heroslider_media
@@ -39,8 +38,6 @@ dependencies:
     - node
     - panels
     - panels_ipe
-    - paragraphs
-    - paragraphs_previewer
     - path
     - quickedit
     - rabbit_hole
@@ -101,7 +98,6 @@ permissions:
   - 'create gallery media'
   - 'create image media'
   - 'create instagram media'
-  - 'create landing_page content'
   - 'create landing_page_lb content'
   - 'create media'
   - 'create page content'
@@ -128,7 +124,6 @@ permissions:
   - 'delete own gallery media'
   - 'delete own image media'
   - 'delete own instagram media'
-  - 'delete own landing_page content'
   - 'delete own landing_page_lb content'
   - 'delete own page content'
   - 'delete own remote_video media'
@@ -145,7 +140,6 @@ permissions:
   - 'edit any gallery media'
   - 'edit any image media'
   - 'edit any instagram media'
-  - 'edit any landing_page content'
   - 'edit any landing_page_lb content'
   - 'edit any page content'
   - 'edit any remote_video media'
@@ -158,7 +152,6 @@ permissions:
   - 'edit own gallery media'
   - 'edit own image media'
   - 'edit own instagram media'
-  - 'edit own landing_page content'
   - 'edit own landing_page_lb content'
   - 'edit own page content'
   - 'edit own remote_video media'
@@ -175,7 +168,6 @@ permissions:
   - 'reorder terms in tags'
   - 'schedule publishing of nodes'
   - 'translate block_content'
-  - 'translate landing_page node'
   - 'translate landing_page_lb node'
   - 'translate page node'
   - 'translate paragraph'
@@ -200,10 +192,8 @@ permissions:
   - 'use yoast seo'
   - 'view all media revisions'
   - 'view all revisions'
-  - 'view any paragraphs previewer'
   - 'view any unpublished content'
   - 'view content planner dashboard'
-  - 'view landing_page revisions'
   - 'view landing_page_lb revisions'
   - 'view latest version'
   - 'view media'
@@ -215,6 +205,5 @@ permissions:
   - 'view terms in blog_categories'
   - 'view terms in tags'
   - 'view the administration theme'
-  - 'view unpublished paragraphs'
   - 'view varbase_blog revisions'
   - 'view varbase_heroslider_media revisions'

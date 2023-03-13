@@ -38,6 +38,7 @@ dependencies:
     - field.field.node.heritage_item.field_gks_id
     - field.field.node.heritage_item.field_identifier_url
     - field.field.node.heritage_item.field_image2
+    - field.field.node.heritage_item.field_imagemy_media
     - field.field.node.heritage_item.field_item_type
     - field.field.node.heritage_item.field_local_origin_attribution
     - field.field.node.heritage_item.field_local_origin_tid
@@ -62,7 +63,6 @@ dependencies:
     - field.field.node.heritage_item.field_sources_exhib_pub_his
     - field.field.node.heritage_item.field_subsequent_functions
     - field.field.node.heritage_item.field_time_attribution
-    - field.field.node.heritage_item.field_title_rationale
     - node.type.heritage_item
   module:
     - ds
@@ -96,12 +96,10 @@ third_party_settings:
         - node_title
         - links
         - body
-        - field_browse_images
         - content_moderation_control
         - field_item_type
         - field_description_summary
         - field_description_source
-        - field_title_rationale
     fields:
       node_title:
         plugin_id: node_title
@@ -150,13 +148,6 @@ content:
     third_party_settings: {  }
     weight: 5
     region: main
-  field_title_rationale:
-    type: basic_string
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 8
-    region: main
   links:
     settings: {  }
     third_party_settings: {  }
@@ -194,6 +185,7 @@ hidden:
   field_gks_id: true
   field_identifier_url: true
   field_image2: true
+  field_imagemy_media: true
   field_local_origin_attribution: true
   field_local_origin_tid: true
   field_make_role: true

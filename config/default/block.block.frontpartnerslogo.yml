@@ -13,7 +13,7 @@ dependencies:
 id: frontpartnerslogo
 theme: grasacgks
 region: content
-weight: -2
+weight: -6
 provider: null
 plugin: 'block_content:dff495d9-f3e7-46e6-a1f5-9e8d22e011f8'
 settings:

@@ -12,7 +12,7 @@ _core:
 id: grasacgks_local_tasks
 theme: grasacgks
 region: header
-weight: 0
+weight: -6
 provider: null
 plugin: local_tasks_block
 settings:

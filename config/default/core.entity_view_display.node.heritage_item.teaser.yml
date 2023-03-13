@@ -38,6 +38,7 @@ dependencies:
     - field.field.node.heritage_item.field_gks_id
     - field.field.node.heritage_item.field_identifier_url
     - field.field.node.heritage_item.field_image2
+    - field.field.node.heritage_item.field_imagemy_media
     - field.field.node.heritage_item.field_item_type
     - field.field.node.heritage_item.field_local_origin_attribution
     - field.field.node.heritage_item.field_local_origin_tid
@@ -62,7 +63,6 @@ dependencies:
     - field.field.node.heritage_item.field_sources_exhib_pub_his
     - field.field.node.heritage_item.field_subsequent_functions
     - field.field.node.heritage_item.field_time_attribution
-    - field.field.node.heritage_item.field_title_rationale
     - image.style.d02
     - node.type.heritage_item
   module:
@@ -222,6 +222,7 @@ hidden:
   field_geolocation: true
   field_gks_id: true
   field_identifier_url: true
+  field_imagemy_media: true
   field_local_origin_attribution: true
   field_local_origin_tid: true
   field_make_role: true
@@ -243,6 +244,5 @@ hidden:
   field_sources_exhib_pub_his: true
   field_subsequent_functions: true
   field_time_attribution: true
-  field_title_rationale: true
   langcode: true
   search_api_excerpt: true

@@ -3,13 +3,18 @@ langcode: en
 status: true
 dependencies:
   module:
+    - block_class
+    - context
     - lang_dropdown
   theme:
     - grasacgks
+third_party_settings:
+  block_class:
+    classes: ml-auto
 id: languagedropdownswitcher
 theme: grasacgks
 region: navigation_collapsible
-weight: -4
+weight: -11
 provider: null
 plugin: 'language_dropdown_block:language_interface'
 settings:
@@ -42,4 +47,23 @@ settings:
   languageicons:
     flag_position: 1
   hidden_languages: {  }
-visibility: {  }
+visibility:
+  user_status:
+    id: user_status
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    user_status:
+      viewing_profile: '0'
+      logged_viewing_profile: '0'
+      own_page_true: '0'
+      field_value: '0'
+    user_fields: uid
+  context_all:
+    id: context_all
+    negate: null
+    values: ''
+  context:
+    id: context
+    negate: null
+    values: ''

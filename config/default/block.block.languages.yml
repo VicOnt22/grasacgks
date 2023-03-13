@@ -1,0 +1,49 @@
+uuid: 8bf4e478-1a86-467d-acf6-ab47193ae806
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.languages
+  module:
+    - context
+    - facets
+    - system
+  theme:
+    - grasacgks
+id: languages
+theme: grasacgks
+region: sidebar_first
+weight: -9
+provider: null
+plugin: 'facet_block:languages'
+settings:
+  id: 'facet_block:languages'
+  label: Languages
+  label_display: '0'
+  provider: facets
+  context_mapping: {  }
+  block_id: languages
+visibility:
+  user_status:
+    id: user_status
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    user_status:
+      viewing_profile: '0'
+      logged_viewing_profile: '0'
+      own_page_true: '0'
+      field_value: '0'
+    user_fields: uid
+  context_all:
+    id: context_all
+    negate: null
+    values: ''
+  context:
+    id: context
+    negate: null
+    values: ''
+  request_path:
+    id: request_path
+    negate: false
+    pages: /search-page

@@ -20,15 +20,15 @@ third_party_settings:
       disable_css: false
       entity_classes: all_classes
       settings:
-        label: ''
+        classes:
+          layout_class: {  }
         wrappers:
           ds_content: div
         outer_wrapper: div
         attributes: ''
         link_attribute: ''
         link_custom: ''
-        classes:
-          layout_class: {  }
+        label: ''
     regions:
       ds_content:
         - field_media_video_file
@@ -42,106 +42,104 @@ mode: default
 content:
   field_media_cover_image:
     type: blazy
-    weight: 1
-    region: ds_content
     label: hidden
     settings:
-      responsive_image_style: de2e_standard
-      icon: ''
+      caption: {  }
       layout: ''
       view_mode: ''
       cache: 0
-      current_view_mode: ''
       skin: ''
-      fx: ''
+      lazy: ''
       style: ''
       background: false
       box_caption: ''
       box_caption_custom: ''
       box_media_style: ''
-      caption: {  }
+      loading: lazy
+      preload: false
+      responsive_image_style: de2e_standard
       box_style: ''
       image_style: ''
       media_switch: ''
       ratio: ''
       thumbnail_style: ''
-      _uri: ''
-      breakpoints: {  }
-      sizes: ''
-      grid_header: ''
-      grid: 0
-      grid_medium: 0
-      grid_small: 0
+      grid: '0'
+      grid_medium: '0'
+      grid_small: '0'
     third_party_settings:
       ds:
         ft:
           id: expert
           settings:
             lb: ''
-            prefix: ''
+            lbw: false
             lbw-el: ''
             lbw-cl: ''
             lbw-at: ''
+            lb-col: false
             ow: true
             ow-el: ''
             ow-cl: 'media-cover-image video-player-icon js-video-player-icon'
             ow-at: ''
             ow-def-at: true
             ow-def-cl: true
+            fis: false
             fis-el: ''
             fis-cl: ''
             fis-at: ''
+            fis-def-at: false
+            fi: false
             fi-el: ''
             fi-cl: ''
             fi-at: ''
-            suffix: ''
-            lbw: false
-            lb-col: false
-            fis: false
-            fis-def-at: false
-            fi: false
             fi-def-at: false
+            prefix: ''
+            suffix: ''
+    weight: 1
+    region: ds_content
   field_media_video_file:
     type: file_video
-    weight: 0
     label: hidden
     settings:
       controls: true
-      multiple_file_display_type: tags
-      width: 1600
-      height: 900
       autoplay: false
       loop: false
+      multiple_file_display_type: tags
       muted: false
+      width: 1020
+      height: 500
     third_party_settings:
       ds:
         ft:
           id: expert
           settings:
             lb: ''
-            prefix: ''
+            lbw: false
             lbw-el: ''
             lbw-cl: ''
             lbw-at: ''
+            lb-col: false
             ow: true
             ow-el: ''
             ow-cl: 'varbase-video-player embed-responsive embed-responsive-16by9'
             ow-at: ''
             ow-def-at: true
             ow-def-cl: true
+            fis: false
             fis-el: ''
             fis-cl: ''
             fis-at: ''
+            fis-def-at: false
+            fi: false
             fi-el: ''
             fi-cl: ''
             fi-at: ''
-            suffix: ''
-            lbw: false
-            lb-col: false
-            fis: false
-            fis-def-at: false
-            fi: false
             fi-def-at: false
+            prefix: ''
+            suffix: ''
+      blazy:
+        blazy: false
+    weight: 0
     region: ds_content
 hidden:
   created: true

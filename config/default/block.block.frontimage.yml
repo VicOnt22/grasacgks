@@ -13,7 +13,7 @@ dependencies:
 id: frontimage
 theme: grasacgks
 region: content
-weight: -8
+weight: -14
 provider: null
 plugin: 'block_content:d7093e28-6f19-4633-af30-500c48228287'
 settings:

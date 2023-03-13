@@ -3,15 +3,20 @@ langcode: en
 status: true
 dependencies:
   module:
+    - block_class
+    - context
     - system
   theme:
     - grasacgks
+third_party_settings:
+  block_class:
+    classes: float-left
 _core:
   default_config_hash: KpapOhIadYRbqfE459LWVv6Eew2DRn2GvMW90E-WjjA
 id: grasacgks_branding
 theme: grasacgks
 region: navigation_collapsible
-weight: -3
+weight: -10
 provider: null
 plugin: system_branding_block
 settings:
@@ -22,4 +27,23 @@ settings:
   use_site_logo: true
   use_site_name: true
   use_site_slogan: false
-visibility: {  }
+visibility:
+  user_status:
+    id: user_status
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    user_status:
+      viewing_profile: '0'
+      logged_viewing_profile: '0'
+      own_page_true: '0'
+      field_value: '0'
+    user_fields: uid
+  context_all:
+    id: context_all
+    negate: null
+    values: ''
+  context:
+    id: context
+    negate: null
+    values: ''

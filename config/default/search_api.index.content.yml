@@ -3,35 +3,578 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_abstract
+    - field.storage.node.field_acquired_from
+    - field.storage.taxonomy_term.field_associated_instituation
+    - field.storage.node.field_audio_video
+    - field.storage.node.field_collection
+    - field.storage.node.field_contributor_collector
+    - field.storage.node.field_current_institution
+    - field.storage.node.field_date_ceremonial_time
+    - field.storage.node.field_date_seasonal_time
+    - field.storage.node.field_description_motifs
+    - field.storage.node.field_description_source
+    - field.storage.node.field_description_summary
+    - field.storage.node.field_description_techniques
+    - field.storage.node.field_exhibition_notes
+    - field.storage.node.field_function_attribution
+    - field.storage.taxonomy_term.field_initials
+    - field.storage.node.field_item_type
+    - field.storage.node.field_languages
+    - field.storage.node.field_local_origin_attribution
+    - field.storage.node.field_local_origin_tid
+    - field.storage.node.field_maker_attribution
+    - field.storage.node.field_maker_name
+    - field.storage.node.field_nation_rationale
+    - field.storage.node.field_nation_tid
+    - field.storage.node.field_part_of_speech
+    - field.storage.node.field_provenance
+    - field.storage.node.field_publication_history
+    - field.storage.node.field_region_of_origin
+    - field.storage.node.field_related_places
+    - field.storage.node.field_sources_exhib_pub_his
+    - field.storage.node.field_term_definition
     - search_api.server.database_server
   module:
-    - search_api
+    - taxonomy
     - node
+    - search_api
 id: content
 name: Content
 description: ''
 read_only: false
-field_settings: {  }
+field_settings:
+  aggregated_field:
+    label: 'Aggregated field'
+    property_path: aggregated_field
+    type: text
+    configuration:
+      type: union
+      fields:
+        - 'entity:node/body'
+        - 'entity:node/field_abstract'
+        - 'entity:node/field_acquired_from'
+        - 'entity:node/field_contributor_collector'
+        - 'entity:node/field_current_institution'
+        - 'entity:node/field_date_ceremonial_time'
+        - 'entity:node/field_description_materials'
+        - 'entity:node/field_description_summary'
+        - 'entity:node/field_description_techniques'
+        - 'entity:node/field_exhibition_notes'
+        - 'entity:node/field_function_attribution'
+        - 'entity:node/field_languages'
+        - 'entity:node/field_local_origin_tid'
+        - 'entity:node/field_maker_name'
+        - 'entity:node/field_nation_rationale'
+        - 'entity:node/field_nation_tid'
+        - 'entity:node/field_original_function'
+        - 'entity:node/field_part_of_speech'
+        - 'entity:node/field_region_of_origin'
+        - 'entity:node/field_source_coll_his'
+        - 'entity:node/field_term_definition'
+        - 'entity:node/field_time_attribution'
+        - 'entity:node/title'
+        - 'entity:node/type'
+        - 'entity:taxonomy_term/field_associated_instituation'
+        - 'entity:taxonomy_term/langcode'
+        - 'entity:taxonomy_term/vid'
+  field_abstract:
+    label: 'Description of Writing/Text'
+    datasource_id: 'entity:node'
+    property_path: field_abstract
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_abstract
+  field_acquired_from:
+    label: 'Acquisition Source'
+    datasource_id: 'entity:node'
+    property_path: field_acquired_from
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_acquired_from
+  field_associated_instituation:
+    label: ' Associated GRASAC Contributing Institution'
+    datasource_id: 'entity:taxonomy_term'
+    property_path: field_associated_instituation
+    type: boolean
+    dependencies:
+      config:
+        - field.storage.taxonomy_term.field_associated_instituation
+  field_audio_video:
+    label: 'Related Audio/Video'
+    datasource_id: 'entity:node'
+    property_path: field_audio_video
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_audio_video
+  field_collection:
+    label: 'Collection at Current Location'
+    datasource_id: 'entity:node'
+    property_path: field_collection
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_collection
+  field_contributor_collector:
+    label: 'Original Collector'
+    datasource_id: 'entity:node'
+    property_path: field_contributor_collector
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_contributor_collector
+  field_current_institution:
+    label: 'Current Institution/Location'
+    datasource_id: 'entity:node'
+    property_path: field_current_institution
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_current_institution
+  field_date_ceremonial_time:
+    label: 'Associated Ceremonial Time'
+    datasource_id: 'entity:node'
+    property_path: field_date_ceremonial_time
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_date_ceremonial_time
+  field_date_seasonal_time:
+    label: 'Related Seasonal Time'
+    datasource_id: 'entity:node'
+    property_path: field_date_seasonal_time
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_date_seasonal_time
+  field_description_motifs:
+    label: 'Motifs and Images'
+    datasource_id: 'entity:node'
+    property_path: field_description_motifs
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_description_motifs
+  field_description_source:
+    label: 'Source(s) of Information for this Item'
+    datasource_id: 'entity:node'
+    property_path: field_description_source
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_description_source
+  field_description_summary:
+    label: Introduction
+    datasource_id: 'entity:node'
+    property_path: field_description_summary
+    type: text
+    boost: 1.5
+    dependencies:
+      config:
+        - field.storage.node.field_description_summary
+  field_description_techniques:
+    label: Format/Techniques
+    datasource_id: 'entity:node'
+    property_path: field_description_techniques
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_description_techniques
+  field_exhibition_notes:
+    label: 'Exhibition History'
+    datasource_id: 'entity:node'
+    property_path: field_exhibition_notes
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_exhibition_notes
+  field_function_attribution:
+    label: 'Source of Information about Item History'
+    datasource_id: 'entity:node'
+    property_path: field_function_attribution
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_function_attribution
+  field_initials:
+    label: Initials
+    datasource_id: 'entity:taxonomy_term'
+    property_path: field_initials
+    type: string
+    dependencies:
+      config:
+        - field.storage.taxonomy_term.field_initials
+  field_item_type:
+    label: 'Item Type'
+    datasource_id: 'entity:node'
+    property_path: field_item_type
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_item_type
+  field_languages:
+    label: Languages
+    datasource_id: 'entity:node'
+    property_path: field_languages
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_languages
+  field_local_origin_attribution:
+    label: 'Local Origin Reason for Attribution'
+    datasource_id: 'entity:node'
+    property_path: field_local_origin_attribution
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_local_origin_attribution
+  field_local_origin_tid:
+    label: 'Local Origin'
+    datasource_id: 'entity:node'
+    property_path: field_local_origin_tid
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_local_origin_tid
+  field_maker_attribution:
+    label: 'Source of Information about Makers'
+    datasource_id: 'entity:node'
+    property_path: field_maker_attribution
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_maker_attribution
+  field_maker_name:
+    label: 'Name of Maker(s)'
+    datasource_id: 'entity:node'
+    property_path: field_maker_name
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_maker_name
+  field_nation_rationale:
+    label: 'Nation of Maker - Reason for Attribution'
+    datasource_id: 'entity:node'
+    property_path: field_nation_rationale
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_nation_rationale
+  field_nation_tid:
+    label: 'Nation of Maker'
+    datasource_id: 'entity:node'
+    property_path: field_nation_tid
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_nation_tid
+  field_part_of_speech:
+    label: 'Part of speech'
+    datasource_id: 'entity:node'
+    property_path: field_part_of_speech
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_part_of_speech
+  field_provenance:
+    label: 'Collection Narrative/History'
+    datasource_id: 'entity:node'
+    property_path: field_provenance
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_provenance
+  field_publication_history:
+    label: 'Publication History'
+    datasource_id: 'entity:node'
+    property_path: field_publication_history
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_publication_history
+  field_region_of_origin:
+    label: 'Region of Origin'
+    datasource_id: 'entity:node'
+    property_path: field_region_of_origin
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_region_of_origin
+  field_related_places:
+    label: 'Related places'
+    datasource_id: 'entity:node'
+    property_path: field_related_places
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_related_places
+  field_sources_exhib_pub_his:
+    label: 'Comment on Source of Exhibition & Publication Data'
+    datasource_id: 'entity:node'
+    property_path: field_sources_exhib_pub_his
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_sources_exhib_pub_his
+  field_term_definition:
+    label: Definition
+    datasource_id: 'entity:node'
+    property_path: field_term_definition
+    type: text
+    boost: 1.5
+    dependencies:
+      config:
+        - field.storage.node.field_term_definition
+  name:
+    label: Name
+    datasource_id: 'entity:taxonomy_term'
+    property_path: name
+    type: string
+    boost: !!float 2
+    dependencies:
+      module:
+        - taxonomy
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: text
+    boost: !!float 2
+    dependencies:
+      module:
+        - node
+  type:
+    label: 'Content type'
+    datasource_id: 'entity:node'
+    property_path: type
+    type: string
+    dependencies:
+      module:
+        - node
+  vid:
+    label: Vocabulary
+    datasource_id: 'entity:taxonomy_term'
+    property_path: vid
+    type: integer
+    boost: 1.5
+    dependencies:
+      module:
+        - taxonomy
 datasource_settings:
   'entity:node':
     bundles:
       default: false
       selected:
+        - article
         - heritage_item
         - language_item
         - page
     languages:
       default: true
       selected: {  }
+  'entity:taxonomy_term':
+    bundles:
+      default: false
+      selected:
+        - collection
+        - institution
+        - local_origin
+        - regions
+    languages:
+      default: true
+      selected: {  }
 processor_settings:
   add_url: {  }
   aggregated_field: {  }
+  entity_status: {  }
   entity_type: {  }
+  highlight:
+    weights:
+      postprocess_query: 0
+    prefix: '<strong>'
+    suffix: '</strong>'
+    excerpt: true
+    excerpt_always: false
+    excerpt_length: 256
+    exclude_fields: {  }
+    highlight: server
+    highlight_partial: true
+  html_filter:
+    weights:
+      preprocess_index: -49
+      preprocess_query: -49
+    all_fields: true
+    fields:
+      - aggregated_field
+      - field_abstract
+      - field_acquired_from
+      - field_date_ceremonial_time
+      - field_date_seasonal_time
+      - field_description_motifs
+      - field_description_source
+      - field_description_summary
+      - field_description_techniques
+      - field_exhibition_notes
+      - field_function_attribution
+      - field_initials
+      - field_local_origin_attribution
+      - field_maker_attribution
+      - field_maker_name
+      - field_nation_rationale
+      - field_part_of_speech
+      - field_provenance
+      - field_publication_history
+      - field_sources_exhib_pub_his
+      - field_term_definition
+      - name
+      - title
+      - type
+    title: true
+    alt: false
+    tags:
+      b: 2
+      h1: 5
+      h2: 3
+      h3: 2
+      strong: 2
+  ignorecase:
+    weights:
+      preprocess_index: -50
+      preprocess_query: -50
+    all_fields: true
+    fields:
+      - aggregated_field
+      - field_abstract
+      - field_acquired_from
+      - field_date_ceremonial_time
+      - field_date_seasonal_time
+      - field_description_motifs
+      - field_description_source
+      - field_description_summary
+      - field_description_techniques
+      - field_exhibition_notes
+      - field_function_attribution
+      - field_initials
+      - field_local_origin_attribution
+      - field_maker_attribution
+      - field_maker_name
+      - field_nation_rationale
+      - field_part_of_speech
+      - field_provenance
+      - field_publication_history
+      - field_sources_exhib_pub_his
+      - field_term_definition
+      - name
+      - title
+      - type
   language_with_fallback: {  }
   rendered_item: {  }
+  stemmer:
+    weights:
+      preprocess_index: -45
+      preprocess_query: -46
+    all_fields: true
+    fields:
+      - aggregated_field
+      - field_abstract
+      - field_acquired_from
+      - field_date_ceremonial_time
+      - field_date_seasonal_time
+      - field_description_motifs
+      - field_description_source
+      - field_description_summary
+      - field_description_techniques
+      - field_exhibition_notes
+      - field_function_attribution
+      - field_local_origin_attribution
+      - field_maker_attribution
+      - field_maker_name
+      - field_nation_rationale
+      - field_provenance
+      - field_publication_history
+      - field_sources_exhib_pub_his
+      - field_term_definition
+      - title
+    exceptions:
+      mexican: mexic
+      texan: texa
+  tokenizer:
+    weights:
+      preprocess_index: -47
+      preprocess_query: -47
+    all_fields: true
+    fields:
+      - aggregated_field
+      - field_abstract
+      - field_acquired_from
+      - field_date_ceremonial_time
+      - field_date_seasonal_time
+      - field_description_motifs
+      - field_description_source
+      - field_description_summary
+      - field_description_techniques
+      - field_exhibition_notes
+      - field_function_attribution
+      - field_local_origin_attribution
+      - field_maker_attribution
+      - field_maker_name
+      - field_nation_rationale
+      - field_provenance
+      - field_publication_history
+      - field_sources_exhib_pub_his
+      - field_term_definition
+      - title
+    spaces: ''
+    ignored: ._-
+    overlap_cjk: 0
+    minimum_word_size: '4'
+  transliteration:
+    weights:
+      preprocess_index: -48
+      preprocess_query: -48
+    all_fields: true
+    fields:
+      - aggregated_field
+      - field_abstract
+      - field_acquired_from
+      - field_date_ceremonial_time
+      - field_date_seasonal_time
+      - field_description_motifs
+      - field_description_source
+      - field_description_summary
+      - field_description_techniques
+      - field_exhibition_notes
+      - field_function_attribution
+      - field_initials
+      - field_local_origin_attribution
+      - field_maker_attribution
+      - field_maker_name
+      - field_nation_rationale
+      - field_part_of_speech
+      - field_provenance
+      - field_publication_history
+      - field_sources_exhib_pub_his
+      - field_term_definition
+      - name
+      - title
+      - type
+  type_boost:
+    weights:
+      preprocess_index: -41
+    boosts:
+      'entity:node':
+        datasource_boost: !!float 1
+        bundle_boosts:
+          heritage_item: !!float 2
+          language_item: 1.5
+      'entity:taxonomy_term':
+        datasource_boost: !!float 1
 tracker_settings:
   default:
-    indexing_order: fifo
+    indexing_order: lifo
 options:
   cron_limit: 50
   index_directly: true
