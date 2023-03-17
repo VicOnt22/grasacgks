@@ -18,50 +18,40 @@ bundle: varbase_carousel_block
 mode: default
 content:
   field_media_carousel_slide:
-    weight: 0
+    type: slick_media
     label: hidden
     settings:
-      optionset: varbase_carousel
-      optionset_thumbnail: ''
-      skin: default
-      skin_thumbnail: ''
-      image_style: ''
-      responsive_image_style: d04_traditional
-      thumbnail_effect: ''
-      thumbnail_position: ''
-      media_switch: ''
-      thumbnail_style: d04_traditional
-      ratio: ''
-      view_mode: s04_traditional
-      image: ''
-      title: ''
-      link: ''
-      layout: ''
-      class: ''
-      cache: 0
-      sizes: ''
-      breakpoints:
-        xs:
-          image_style: ''
-          width: ''
-        sm:
-          image_style: ''
-          width: ''
-        md:
-          image_style: ''
-          width: ''
-        lg:
-          image_style: ''
-          width: ''
-        xl:
-          image_style: ''
-          width: ''
-      current_view_mode: default
-      vanilla: false
-      background: false
       caption:
         field_media_image: '0'
-      override: false
+      optionset: varbase_carousel
+      class: ''
+      id: ''
+      image: ''
+      link: ''
+      overlay: ''
+      title: ''
+      vanilla: false
+      layout: ''
+      view_mode: s04_traditional
+      cache: 0
+      skin: default
+      lazy: ''
+      style: ''
+      background: false
+      box_caption: ''
+      box_caption_custom: ''
+      box_media_style: ''
+      loading: lazy
+      preload: false
+      responsive_image_style: d04_traditional
+      box_style: ''
+      image_style: ''
+      media_switch: ''
+      ratio: ''
+      thumbnail_style: d04_traditional
+      grid: '0'
+      grid_medium: '0'
+      grid_small: '0'
       overridables:
         arrows: '0'
         autoplay: '0'
@@ -72,23 +62,17 @@ content:
         randomize: '0'
         variableWidth: '0'
       thumbnail: ''
+      optionset_thumbnail: ''
+      skin_thumbnail: ''
       thumbnail_caption: ''
+      thumbnail_effect: ''
+      thumbnail_position: ''
+      override: false
       skin_arrows: ''
       skin_dots: ''
-      style: ''
-      icon: ''
-      box_caption: ''
-      box_caption_custom: ''
-      box_style: ''
-      box_media_style: ''
+      use_theme_field: false
       preserve_keys: false
       visible_items: 0
-      grid: 0
-      grid_header: ''
-      grid_medium: 0
-      grid_small: 0
-      id: ''
-      overlay: ''
     third_party_settings:
       ds:
         ds_limit: ''
@@ -98,7 +82,8 @@ content:
             lb: ''
             lb-col: false
             classes: {  }
-    type: slick_media
+    weight: 0
     region: content
 hidden:
   langcode: true
+  search_api_excerpt: true

@@ -6,7 +6,7 @@ dependencies:
     - block_content.type.varbase_media_block
     - field.storage.block_content.field_media
     - media.type.audio
-    - media.type.file
+    - media.type.document
     - media.type.image
     - media.type.remote_video
     - media.type.video
@@ -27,12 +27,13 @@ settings:
   handler_settings:
     target_bundles:
       audio: audio
-      file: file
+      document: document
       image: image
       remote_video: remote_video
       video: video
     sort:
       field: _none
+      direction: ASC
     auto_create: false
     auto_create_bundle: audio
 field_type: entity_reference

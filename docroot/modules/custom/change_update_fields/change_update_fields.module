@@ -70,8 +70,8 @@ function _change_update_fields_copy_field_values(array &$sandbox, $bundle, $sour
 }
 
 /**
- * name comes from ini functionality: Copies the value from one field to another empty field.
- * A custom callback _my_module_copy_field_values allows Implementations of
+ * name comes from functionality: just save all nodes for a bundle. Such case exists some time when we need Save to update field...
+ * A custom callback _my_module_fields_save_bundle == _change_update_fields_save_bundle allows Implementations of
  * hook_post_update_NAME that act as implementations of callback_batch_operation
  * across multiple HTTP requests and avoid PHP timeouts.
  *
@@ -121,8 +121,8 @@ function _change_update_fields_save_bundle(array &$sandbox, $bundle, $nodes_per_
 }
 
 /**
- * name comes from ini functionality: Copies the value from one field to another empty field.
- * A custom callback _my_module_copy_field_values allows Implementations of
+ * name comes from functionality: publish all nodes from a bundle.
+ * A custom callback _change_update_fields_publish_bundle allows Implementations of
  * hook_post_update_NAME that act as implementations of callback_batch_operation
  * across multiple HTTP requests and avoid PHP timeouts.
  *
@@ -137,7 +137,8 @@ function _change_update_fields_publish_bundle(array &$sandbox, $bundle, $nodes_p
 
   $storage = \Drupal::entityTypeManager()->getStorage('node');
 
-  // as we need only ->save(operation) and we know what operation we want $node->setPublished(true);
+  // as we need only ->save(operation) and we know what operation we want $node->setPublished(true); we will do it in line 168
+  // From line 142 to 162 we divide/load nodes in batches, preparing nodes Nid's for operation in line 168
   if (!isset($sandbox['total'])) {
     $query = $storage->getQuery()
       ->condition('type', $bundle)
@@ -182,10 +183,156 @@ function _change_update_fields_publish_bundle(array &$sandbox, $bundle, $nodes_p
   $sandbox['#finished'] = min(($sandbox['current'] / $sandbox['total']), 1);
 }
 
+/**
+ * name comes from functionality: publish all nodes from a bundle.
+ * A custom callback _change_update_fields_value_for_bundle allows Implementations of
+ * hook_post_update_NAME that act as implementations of callback_batch_operation
+ * across multiple HTTP requests and avoid PHP timeouts.
+ *
+ * @param array $sandbox
+ * The batch operation sandbox.
+ * @param string $bundle
+ * The node bundle.
+ * @param int $nodes_per_batch
+ * The amount of nodes to update at a given time.
+ */
+function _change_update_fields_value_for_bundle(array &$sandbox, $bundle, $nodes_per_batch = 20) {
+
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+
+  // From line 204 to 224 we divide/load nodes in batches, preparing nodes Nid's for operation in line 218
+  if (!isset($sandbox['total'])) {
+    $query = $storage->getQuery()
+      ->condition('type', $bundle)
+      //      ->range(0, 2)
+      ->sort('changed', 'DESC')
+      ->accessCheck(FALSE);
+
+    $nids = $query->execute();
+
+    $sandbox['total'] = count($nids);
+    $sandbox['ids'] = array_chunk($nids, $nodes_per_batch);
+    $sandbox['current'] = 0;
+  }
+
+  if ($sandbox['total'] == 0) {
+    $sandbox['#finished'] = 1;
+    return;
+  }
+
+  $nids = array_shift($sandbox['ids']);
+  $nodes = $storage->loadMultiple($nids);
+
+  // It gets complicated when you need to do this on hundreds or thousands of entities.
+  // We don’t want to load, process, and save all those entities at once
+  // as that would likely bring our server down. We need to batch the operation.
+   $curr_tid = 0;
+   $current_field_geolocation = 0;
+   $tid_1817_michigan_peninsula_lat_lng = ['lat'=> 45.9, 'lng' => -86.6];
+   $tid_1076_central_greatlakes_lat_lng = ['lat'=> 44.2, 'lng' => -84.4];
+   $tid_1808_bruce_peninsula_lat_lng = ['lat'=> 45.0, 'lng' => -81.3];
+   $tid_1077_eastern_greatlakes_lat_lng = ['lat'=> 43.3, 'lng' => -78.1];
+   $tid_1073_north_eastern_noam_lat_lng = ['lat'=> 43.6, 'lng' => -71.9];
+   $tid_1829_eastern_ontario_lat_lng = ['lat'=> 45.1, 'lng' => -76.4];
+   $tid_1058_fingers_lakes_lat_lng = ['lat'=> 42.7, 'lng' => -76.8];
+   $tid_1074_georgian_bay_lat_lng = ['lat'=> 45.5, 'lng' => -81.1];
+   $tid_1046_great_lakes_lat_lng = ['lat'=> 45.8, 'lng' => -83.9];
+   $tid_1081_hudsons_bay_lat_lng = ['lat'=> 54.9, 'lng' => -82.8];
+   $tid_1908_lake_winnipeg_lat_lng = ['lat'=> 53.5, 'lng' => -97.9];
+   $tid_1075_manitoulin_island_lat_lng = ['lat'=> 45.7, 'lng' => -82.0];
+   $tid_1078_north_great_lakes_lat_lng = ['lat'=> 47.4, 'lng' => -88.2];
+   $tid_1082_ruperts_land_lat_lng = ['lat'=> 54.5, 'lng' => -91.0];
+   $tid_1079_south_great_lakes_lat_lng = ['lat'=> 42.6, 'lng' => -80.5];
+   $tid_1080_western_great_lake_lat_lng = ['lat'=> 46.2, 'lng' => -90.9];
+   $tid_1069_western_ontario_lat_lng = ['lat'=> 43.1, 'lng' => -81.2];
+   $tid_1071_other_lat_lng = ['lat'=> 42.7, 'lng' => -92.2];
+   $tid_1072_unknown_lat_lng = ['lat'=> 48.7, 'lng' => -84.6];
+
+  /* @var $node \Drupal\node\NodeInterface $node */
+  foreach ($nodes as $node) {
+    //    $node->setPublished(true); // did not work if in draft as this node is under workflow
+    //    \Drupal::messenger()->addMessage("$node->id Node updated");
+    $curr_tid = $node->get('field_region_of_origin')->getValue();
+
+    switch ($curr_tid[0]['target_id']) {
+      case "1808":
+        $current_field_geolocation = $tid_1808_bruce_peninsula_lat_lng;
+        break;
+      case "1076":
+        $current_field_geolocation = $tid_1076_central_greatlakes_lat_lng;
+        break;
+      case "1077":
+        $current_field_geolocation = $tid_1077_eastern_greatlakes_lat_lng;
+        break;
+      case "1073":
+        $current_field_geolocation = $tid_1073_north_eastern_noam_lat_lng;
+        break;
+      case "1829":
+        $current_field_geolocation = $tid_1829_eastern_ontario_lat_lng;
+        break;
+      case "1058":
+        $current_field_geolocation = $tid_1058_fingers_lakes_lat_lng;
+        break;
+      case "1074":
+        $current_field_geolocation = $tid_1074_georgian_bay_lat_lng;
+        break;
+      case "1046":
+        $current_field_geolocation = $tid_1046_great_lakes_lat_lng;
+        break;
+      case "1081":
+        $current_field_geolocation = $tid_1081_hudsons_bay_lat_lng;
+        break;
+      case "1908":
+        $current_field_geolocation = $tid_1908_lake_winnipeg_lat_lng;
+        break;
+      case "1817":
+        $current_field_geolocation = $tid_1817_michigan_peninsula_lat_lng;
+        break;
+      case "1078":
+        $current_field_geolocation = $tid_1078_north_great_lakes_lat_lng;
+        break;
+      case "1082":
+        $current_field_geolocation = $tid_1082_ruperts_land_lat_lng;
+        break;
+      case "1079":
+        $current_field_geolocation = $tid_1079_south_great_lakes_lat_lng;
+        break;
+      case "1080":
+        $current_field_geolocation = $tid_1080_western_great_lake_lat_lng;
+        break;
+      case "1069":
+        $current_field_geolocation = $tid_1069_western_ontario_lat_lng;
+        break;
+      case "1071":
+        $current_field_geolocation = $tid_1071_other_lat_lng;
+        break;
+      case "1072":
+        $current_field_geolocation = $tid_1072_unknown_lat_lng;
+        break;
+      default:
+
+    }
+
+    if($current_field_geolocation > 0) {
+      $node->set('field_geolocation', $current_field_geolocation);
+      $node->set('langcode', 'en');
+      if ($node instanceof RevisionLogInterface) {
+        $node->setRevisionLogMessage('Update geofield value in all nodes in center of region specific taxonomy.');
+        $node->setRevisionUserId(\Drupal::currentUser()->id());
+      }
+      $node->save();
+    }
+
+    $sandbox['current']++;
+  }
+
+  $sandbox['#finished'] = min(($sandbox['current'] / $sandbox['total']), 1);
+}
 
 
 /**
  * Implements hook_cron().
+ * an example for future use - note that it does not use batches (that is not best example)
  */
 function change_update_fields_cron() {
 

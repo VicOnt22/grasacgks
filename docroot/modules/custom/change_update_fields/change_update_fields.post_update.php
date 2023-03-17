@@ -23,6 +23,7 @@ use \Drupal\node\Entity\Node;
 
 /**
  * publish nodes of a heritage_item bundle.
+ * we used 9009 for heritage_item and 9010 below for language_item
  */
 function change_update_fields_post_update_9009_publish_heritage(&$sandbox) {
   _change_update_fields_publish_bundle($sandbox, 'heritage_item', 20);
@@ -33,6 +34,14 @@ function change_update_fields_post_update_9009_publish_heritage(&$sandbox) {
  */
 function change_update_fields_post_update_9010_publish_bundle(&$sandbox) {
   _change_update_fields_publish_bundle($sandbox, 'language_item', 50);
+}
+
+/**
+ * Hook change_update_fields_post_update_N_description
+ * set field_geolocation values for nodes of a heritage_item bundle.
+ */
+function change_update_fields_post_update_9014_geolocation_value(&$sandbox) {
+  _change_update_fields_value_for_bundle($sandbox, 'heritage_item', 20);
 }
 
 

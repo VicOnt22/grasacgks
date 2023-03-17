@@ -1157,7 +1157,7 @@ content:
     third_party_settings: {  }
   publish_state:
     type: scheduler_moderation
-    weight: 50
+    weight: 53
     region: content
     settings: {  }
     third_party_settings: {  }

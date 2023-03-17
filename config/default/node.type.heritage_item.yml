@@ -4,6 +4,7 @@ status: true
 dependencies:
   module:
     - menu_ui
+    - node_revision_delete
     - scheduler
 third_party_settings:
   menu_ui:
@@ -23,9 +24,13 @@ third_party_settings:
     unpublish_enable: false
     unpublish_required: false
     unpublish_revision: false
+  node_revision_delete:
+    minimum_revisions_to_keep: 1
+    minimum_age_to_delete: 0
+    when_to_delete: 0
 name: 'Relatives/Heritage Items'
 type: heritage_item
-description: 'Can include material culture, documents, photographs, art, audio and video recordings - any tangible "thing" related to Great Lakes history and heritage. '
+description: 'Include Relatives: material culture, documents, photographs, art, audio and video recordings - any tangible "thing" related to Great Lakes history and heritage. '
 help: ''
 new_revision: true
 preview_mode: 1
