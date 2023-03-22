@@ -1,0 +1,29 @@
+uuid: 41ef3513-512b-452f-a96c-c0afa7821780
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tk_label
+    - node.type.heritage_item
+    - taxonomy.vocabulary.traditional_knowledge_tk_labels
+id: node.heritage_item.field_tk_label
+field_name: field_tk_label
+entity_type: node
+bundle: heritage_item
+label: 'TK Label'
+description: 'Traditional Knowledge Label on how this item may be used '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      traditional_knowledge_tk_labels: traditional_knowledge_tk_labels
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

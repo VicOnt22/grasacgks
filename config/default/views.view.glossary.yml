@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.storage.node.field_term_definition
     - node.type.language_item
-    - system.menu.main
     - taxonomy.vocabulary.languages
   content:
     - 'taxonomy_term:languages:2dfde9d3-07b4-484f-a661-41bad8040847'
@@ -237,9 +236,9 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Appliquer
+          submit_button: Apply
           reset_button: true
-          reset_button_label: Réinitialiser
+          reset_button_label: Reset
           exposed_sorts_label: 'Trier par'
           expose_sort_order: false
           sort_asc_label: Asc
@@ -1089,14 +1088,14 @@ display:
           tokenize: false
       path: language-items-glossary
       menu:
-        type: normal
+        type: none
         title: 'Browse Language items'
         description: ''
-        weight: -49
-        enabled: false
+        weight: -48
         expanded: false
         menu_name: main
         parent: 'menu_link_content:41707dfe-e60a-46c5-ac08-edf2e7107396'
+        context: '0'
     cache_metadata:
       max-age: -1
       contexts:

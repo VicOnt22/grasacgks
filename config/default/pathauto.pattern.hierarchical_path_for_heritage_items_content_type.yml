@@ -1,0 +1,22 @@
+uuid: 584d4f49-9756-4068-bcc8-ae6133a89784
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: hierarchical_path_for_heritage_items_content_type
+label: 'Hierarchical path for Heritage Items content type'
+type: 'canonical_entities:node'
+pattern: '/relatives-heritage/[node:menu-link:parents:join-path]/[node:title]'
+selection_criteria:
+  fd660034-cde0-41eb-8356-7e6e4fe1573d:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: fd660034-cde0-41eb-8356-7e6e4fe1573d
+    context_mapping:
+      node: node
+    bundles:
+      heritage_item: heritage_item
+selection_logic: and
+weight: -5
+relationships: {  }

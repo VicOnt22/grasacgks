@@ -9,16 +9,16 @@ _core:
 id: hierarchical_paths_for_basic_pages
 label: 'Hierarchical paths for basic pages'
 type: 'canonical_entities:node'
-pattern: '[node:menu-link:parents:join-path]/[node:title]'
+pattern: '/pages/[node:menu-link:parents:join-path]/[node:title]'
 selection_criteria:
-  e8a66397-ab44-4e98-b407-ef082a104e4e:
+  eea73d33-e6b3-4978-be52-ea9ac7d8bb90:
     id: 'entity_bundle:node'
-    bundles:
-      page: page
     negate: false
+    uuid: eea73d33-e6b3-4978-be52-ea9ac7d8bb90
     context_mapping:
       node: node
-    uuid: e8a66397-ab44-4e98-b407-ef082a104e4e
+    bundles:
+      page: page
 selection_logic: and
 weight: -5
 relationships: {  }

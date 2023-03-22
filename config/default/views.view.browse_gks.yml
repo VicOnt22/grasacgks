@@ -578,3 +578,66 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_image2'
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      title: 'Browse Relatives/Heritage'
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: "<p>Sorry, no results for this filter. Click Reset and try other filter.</p>\r\n"
+            format: full_html
+          tokenize: false
+      defaults:
+        empty: false
+        title: false
+        header: false
+      header:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: result
+          empty: true
+          content: "<h1>Relatives/Heritage items</h1>\r\nDisplaying @start - @end of @total Relatives\r\n<p>&nbsp;</p>"
+      exposed_block: false
+      display_extenders:
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
+      path: relatives-heritage
+      menu:
+        type: none
+        title: 'Browse Relatives-Heritage'
+        description: ''
+        weight: -50
+        expanded: false
+        menu_name: main
+        parent: 'menu_link_content:41707dfe-e60a-46c5-ac08-edf2e7107396'
+        context: '0'
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_image2'

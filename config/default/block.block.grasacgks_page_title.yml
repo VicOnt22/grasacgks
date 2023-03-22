@@ -48,10 +48,10 @@ visibility:
       node: '@node.node_route_context:node'
     bundles:
       article: article
-      landing_page: landing_page
+      heritage_item: heritage_item
       landing_page_lb: landing_page_lb
       page: page
   request_path:
     id: request_path
-    negate: true
-    pages: ''
+    negate: false
+    pages: "/articles/*\r\n/pages/*\r\n/relatives-heritage/*"

@@ -7,10 +7,10 @@ _core:
 name: thumbnail
 label: 'Thumbnail (100×100)'
 effects:
-  1cfec298-8620-4749-b100-ccb6c4500779:
-    uuid: 1cfec298-8620-4749-b100-ccb6c4500779
+  41ceb32a-daf9-4c54-9864-0e5f3fefe40f:
+    uuid: 41ceb32a-daf9-4c54-9864-0e5f3fefe40f
     id: image_scale
-    weight: 0
+    weight: 2
     data:
       width: 100
       height: 100

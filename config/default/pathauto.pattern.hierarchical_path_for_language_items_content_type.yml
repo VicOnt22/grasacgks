@@ -1,0 +1,22 @@
+uuid: e82f1ba4-9714-4a40-a5a9-b79c9bf0b8c3
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: hierarchical_path_for_language_items_content_type
+label: 'Hierarchical path for Language Items content type'
+type: 'canonical_entities:node'
+pattern: '/language-items/[node:menu-link:parents:join-path]/[node:title]'
+selection_criteria:
+  6d7e07fa-a0d3-495b-8103-683359b7d1d3:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 6d7e07fa-a0d3-495b-8103-683359b7d1d3
+    context_mapping:
+      node: node
+    bundles:
+      language_item: language_item
+selection_logic: and
+weight: -5
+relationships: {  }

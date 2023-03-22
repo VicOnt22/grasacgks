@@ -14,8 +14,24 @@ body {
   font-family: 'Noto Sans Canadian Aboriginal', 'Noto Sans', sans-serif;
 }
 
-//.node--type-page {
-//  .field.field--name-node-title.field--type-ds.field--label-hidden.field__item{
-//    //display: none;
-//  }
-//}
+.page-node-type-article {
+  #block-grasacgks-page-title > h2{
+    display: none;
+  }
+}
+.page-node-type-page {
+    .field.field--name-node-title > h2{
+      display: none;
+    }
+  #block-grasacgks-page-title > h2{
+    display: none;
+  }
+}
+.page-node-type-heritage-item {
+  .field.field--name-node-title > h2{
+    display: none;
+  }
+  #block-grasacgks-page-title > h2{
+    display: none;
+  }
+}

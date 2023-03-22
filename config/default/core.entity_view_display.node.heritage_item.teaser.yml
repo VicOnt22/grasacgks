@@ -63,13 +63,13 @@ dependencies:
     - field.field.node.heritage_item.field_sources_exhib_pub_his
     - field.field.node.heritage_item.field_subsequent_functions
     - field.field.node.heritage_item.field_time_attribution
+    - field.field.node.heritage_item.field_tk_label
     - image.style.d02
     - node.type.heritage_item
   module:
     - ds
     - image
     - layout_builder
-    - taxonomy
     - user
 third_party_settings:
   ds:
@@ -97,17 +97,25 @@ third_party_settings:
       main:
         - field_image2
         - node_title
-        - field_region_of_origin
-        - field_nation_tid
         - links
         - content_moderation_control
-        - field_item_type
     fields:
       node_title:
         plugin_id: node_title
         weight: 1
         label: hidden
         formatter: default
+        settings:
+          link: false
+          'link class': ''
+          wrapper: h3
+          class: ''
+        ft:
+          id: default
+          settings:
+            lb: ''
+            lb-col: false
+            classes: {  }
   layout_builder:
     enabled: false
     allow_custom: false
@@ -119,11 +127,11 @@ content:
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 3
     region: main
   field_image2:
     type: image
-    label: above
+    label: hidden
     settings:
       image_link: content
       image_style: d02
@@ -161,32 +169,10 @@ content:
             suffix: ''
     weight: 0
     region: main
-  field_item_type:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 6
-    region: main
-  field_nation_tid:
-    type: entity_reference_rss_category
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
-    region: main
-  field_region_of_origin:
-    type: entity_reference_rss_category
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 2
-    region: main
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 2
     region: main
 hidden:
   body: true
@@ -223,6 +209,7 @@ hidden:
   field_gks_id: true
   field_identifier_url: true
   field_imagemy_media: true
+  field_item_type: true
   field_local_origin_attribution: true
   field_local_origin_tid: true
   field_make_role: true
@@ -232,11 +219,13 @@ hidden:
   field_media_audio_video_docs_: true
   field_media_image_twoc: true
   field_nation_rationale: true
+  field_nation_tid: true
   field_original_function: true
   field_provenance: true
   field_publication_history: true
   field_record_creation: true
   field_record_creation_notes: true
+  field_region_of_origin: true
   field_region_origin_attribution: true
   field_related_heritage_item: true
   field_related_language_item: true
@@ -244,5 +233,6 @@ hidden:
   field_sources_exhib_pub_his: true
   field_subsequent_functions: true
   field_time_attribution: true
+  field_tk_label: true
   langcode: true
   search_api_excerpt: true

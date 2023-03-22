@@ -22,7 +22,6 @@ dependencies:
   module:
     - ds
     - layout_builder
-    - text
     - user
 third_party_settings:
   ds:
@@ -49,28 +48,27 @@ third_party_settings:
     regions:
       main:
         - node_title
-        - links
-        - body
-        - content_moderation_control
         - field_languages
         - field_part_of_speech
-        - field_term_definition
-        - field_alternative_spellings
-        - field_source
-        - field_audio_files
-        - field_date_created
-        - field_related_heritage_item
-        - field_related_language_item
-        - field_related_places
-        - field_unique_id
-        - field_record_editable_by
-        - field_folders
+        - links
+        - content_moderation_control
     fields:
       node_title:
         plugin_id: node_title
         weight: 0
         label: hidden
         formatter: default
+        settings:
+          link: false
+          'link class': ''
+          wrapper: h3
+          class: ''
+        ft:
+          id: default
+          settings:
+            lb: ''
+            lb-col: false
+            classes: {  }
   layout_builder:
     enabled: false
     allow_custom: false
@@ -79,118 +77,72 @@ targetEntityType: node
 bundle: language_item
 mode: teaser
 content:
-  body:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 2
-    region: main
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: 3
-    region: main
-  field_alternative_spellings:
-    type: basic_string
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 7
-    region: main
-  field_date_created:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 10
-    region: main
-  field_folders:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 16
+    weight: 4
     region: main
   field_languages:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
-    weight: 4
+    weight: 1
     region: main
   field_part_of_speech:
     type: string
-    label: above
+    label: inline
     settings:
       link_to_entity: false
-    third_party_settings: {  }
-    weight: 5
-    region: main
-  field_record_editable_by:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 15
-    region: main
-  field_related_heritage_item:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 11
-    region: main
-  field_related_language_item:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 12
-    region: main
-  field_related_places:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 13
-    region: main
-  field_source:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 8
-    region: main
-  field_term_definition:
-    type: basic_string
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 6
-    region: main
-  field_unique_id:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 14
+    third_party_settings:
+      ds:
+        ft:
+          id: expert
+          settings:
+            lb: ''
+            lbw: true
+            lbw-el: strong
+            lbw-cl: ''
+            lbw-at: ''
+            lb-col: true
+            ow: true
+            ow-el: ''
+            ow-cl: ''
+            ow-at: ''
+            ow-def-at: true
+            ow-def-cl: true
+            fis: false
+            fis-el: ''
+            fis-cl: ''
+            fis-at: ''
+            fis-def-at: false
+            fi: false
+            fi-el: ''
+            fi-cl: ''
+            fi-at: ''
+            fi-def-at: false
+            prefix: ''
+            suffix: ''
+    weight: 2
     region: main
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 3
     region: main
 hidden:
+  body: true
+  field_alternative_spellings: true
   field_audio_video: true
+  field_date_created: true
+  field_folders: true
+  field_record_editable_by: true
+  field_related_heritage_item: true
+  field_related_language_item: true
+  field_related_places: true
+  field_source: true
+  field_term_definition: true
+  field_unique_id: true
   langcode: true
   search_api_excerpt: true

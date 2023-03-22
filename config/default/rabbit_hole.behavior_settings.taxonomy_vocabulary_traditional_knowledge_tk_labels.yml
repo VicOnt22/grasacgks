@@ -1,0 +1,14 @@
+uuid: e4f44c4b-f5ba-4824-b60c-6a684b319dce
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.traditional_knowledge_tk_labels
+id: taxonomy_vocabulary_traditional_knowledge_tk_labels
+entity_type_id: taxonomy_vocabulary
+entity_id: traditional_knowledge_tk_labels
+action: display_page
+allow_override: 1
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: access_denied

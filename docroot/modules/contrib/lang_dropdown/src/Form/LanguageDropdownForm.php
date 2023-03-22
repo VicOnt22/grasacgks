@@ -335,16 +335,14 @@ class LanguageDropdownForm extends FormBase {
       return;
     }
 
-    $route = $this->pathMatcher->isFrontPage() ? '<front>' : '<current>';
-    $url = Url::fromRoute($route);
-    $languages = $this->languageManager->getLanguageSwitchLinks($type, $url);
+    $languages = $this->languageManager->getLanguageSwitchLinks($type, Url::fromRouteMatch(\Drupal::routeMatch()));
 
     $language = $languages->links[$language_code];
 
     $newurl = (isset($language['url']) && $tohome == 0) ? $language['url'] : Url::fromRoute('<front>');
 
     if (!isset($language['query'])) {
-      $language['query'] = $this->requestStack->query->all();
+      $language['query'] = $this->requestStack->getCurrentRequest()->query->all();
     }
 
     $url = new Url($newurl->getRouteName(), $newurl->getRouteParameters(), $language);

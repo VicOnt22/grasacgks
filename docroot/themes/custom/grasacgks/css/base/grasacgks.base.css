@@ -2,3 +2,21 @@
 body {
   font-family: "Noto Sans Canadian Aboriginal", "Noto Sans", sans-serif;
 }
+
+.page-node-type-article #block-grasacgks-page-title > h2 {
+  display: none;
+}
+
+.page-node-type-page .field.field--name-node-title > h2 {
+  display: none;
+}
+.page-node-type-page #block-grasacgks-page-title > h2 {
+  display: none;
+}
+
+.page-node-type-heritage-item .field.field--name-node-title > h2 {
+  display: none;
+}
+.page-node-type-heritage-item #block-grasacgks-page-title > h2 {
+  display: none;
+}

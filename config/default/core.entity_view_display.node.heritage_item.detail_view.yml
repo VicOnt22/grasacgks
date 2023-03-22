@@ -63,6 +63,7 @@ dependencies:
     - field.field.node.heritage_item.field_sources_exhib_pub_his
     - field.field.node.heritage_item.field_subsequent_functions
     - field.field.node.heritage_item.field_time_attribution
+    - field.field.node.heritage_item.field_tk_label
     - node.type.heritage_item
   module:
     - ds
@@ -209,5 +210,6 @@ hidden:
   field_sources_exhib_pub_his: true
   field_subsequent_functions: true
   field_time_attribution: true
+  field_tk_label: true
   langcode: true
   search_api_excerpt: true

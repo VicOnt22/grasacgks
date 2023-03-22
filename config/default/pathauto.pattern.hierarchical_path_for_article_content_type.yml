@@ -1,0 +1,22 @@
+uuid: 9c82eae7-0db9-4838-b9c7-93355c5a1984
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: hierarchical_path_for_article_content_type
+label: 'Hierarchical path for Article content type'
+type: 'canonical_entities:node'
+pattern: '/articles/[node:menu-link:parents:join-path]/[node:title]'
+selection_criteria:
+  27eb7806-e35f-49ec-bfc3-90f2caead66b:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 27eb7806-e35f-49ec-bfc3-90f2caead66b
+    context_mapping:
+      node: node
+    bundles:
+      article: article
+selection_logic: and
+weight: -5
+relationships: {  }

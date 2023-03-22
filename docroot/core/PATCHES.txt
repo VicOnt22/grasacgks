@@ -69,6 +69,3 @@ Issue #3059955: It is possible to overflow the number of items allowed in Media 
 Source: https://www.drupal.org/files/issues/2020-11-16/3059955-107.patch
 
 
-
-
-

@@ -1,0 +1,9 @@
+display:
+  page_1:
+    display_options:
+      title: 'Parcourir du Parents/patrimoine'
+      empty:
+        area:
+          content:
+            value: "<p>Sorry, no results for this filter. Click Reset and try other filter.</p>\r\n"
+            format: full_html

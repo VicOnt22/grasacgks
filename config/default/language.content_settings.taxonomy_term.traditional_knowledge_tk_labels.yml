@@ -1,0 +1,16 @@
+uuid: d401c864-4a05-412f-a35f-e0028e8a28a3
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.traditional_knowledge_tk_labels
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: taxonomy_term.traditional_knowledge_tk_labels
+target_entity_type_id: taxonomy_term
+target_bundle: traditional_knowledge_tk_labels
+default_langcode: site_default
+language_alterable: false

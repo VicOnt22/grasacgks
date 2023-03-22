@@ -1,0 +1,87 @@
+uuid: 3f6518aa-8ea5-4ca3-bb52-4f5dbed8434f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.traditional_knowledge_tk_labels.field_image
+    - image.style.d01
+    - taxonomy.vocabulary.traditional_knowledge_tk_labels
+  module:
+    - ds
+    - media
+    - text
+third_party_settings:
+  ds:
+    layout:
+      id: ds_3col_equal_width
+      library: ds/ds_3col_equal_width
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        classes:
+          layout_class: {  }
+        wrappers:
+          left: div
+          middle: div
+          right: div
+        outer_wrapper: div
+        attributes: ''
+        link_attribute: ''
+        link_custom: ''
+        label: ''
+    regions:
+      left:
+        - field_image
+        - taxonomy_term_title
+      middle:
+        - description
+    fields:
+      taxonomy_term_title:
+        plugin_id: taxonomy_term_title
+        weight: 1
+        label: hidden
+        formatter: default
+        settings:
+          link: true
+          'link class': ''
+          wrapper: h6
+          class: ''
+        ft:
+          id: default
+          settings:
+            lb: ''
+            lb-col: false
+            classes: {  }
+id: taxonomy_term.traditional_knowledge_tk_labels.default
+targetEntityType: taxonomy_term
+bundle: traditional_knowledge_tk_labels
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: middle
+  field_image:
+    type: media_thumbnail
+    label: hidden
+    settings:
+      image_link: content
+      image_style: d01
+      image_loading:
+        attribute: lazy
+    third_party_settings:
+      ds:
+        ft:
+          id: default
+          settings:
+            lb: ''
+            lb-col: false
+            classes: {  }
+    weight: 0
+    region: left
+hidden:
+  langcode: true
+  search_api_excerpt: true
