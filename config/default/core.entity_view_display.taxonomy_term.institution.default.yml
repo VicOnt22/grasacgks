@@ -18,6 +18,56 @@ dependencies:
     - link
     - telephone
     - text
+third_party_settings:
+  ds:
+    layout:
+      id: bs_1col
+      library: null
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        label: ''
+        layout:
+          wrapper: div
+          classes:
+            row: row
+          add_layout_class: 1
+          attributes: ''
+        regions:
+          main:
+            wrapper: div
+            classes:
+              col-sm-12: col-sm-12
+            add_region_classes: 1
+            attributes: ''
+    regions:
+      main:
+        - taxonomy_term_title
+        - description
+        - field_web_url
+        - field_address
+        - field_phone_number
+        - field_fax_number
+        - field_associated_instituation
+        - field_memo_of_understanding
+        - field_initials
+    fields:
+      taxonomy_term_title:
+        plugin_id: taxonomy_term_title
+        weight: 0
+        label: hidden
+        formatter: default
+        settings:
+          link: false
+          'link class': ''
+          wrapper: h1
+          class: ''
+        ft:
+          id: default
+          settings:
+            lb: ''
+            lb-col: false
+            classes: {  }
 id: taxonomy_term.institution.default
 targetEntityType: taxonomy_term
 bundle: institution
@@ -28,22 +78,43 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 0
-    region: content
+    weight: 1
+    region: main
   field_address:
     type: address_default
-    label: above
+    label: inline
     settings: {  }
     third_party_settings:
       ds:
         ft:
-          id: default
+          id: expert
           settings:
             lb: Address
+            lbw: true
+            lbw-el: strong
+            lbw-cl: ''
+            lbw-at: ''
             lb-col: true
-            classes: {  }
+            ow: true
+            ow-el: ''
+            ow-cl: d-flex
+            ow-at: ''
+            ow-def-at: true
+            ow-def-cl: true
+            fis: false
+            fis-el: ''
+            fis-cl: ''
+            fis-at: ''
+            fis-def-at: false
+            fi: false
+            fi-el: ''
+            fi-cl: ''
+            fi-at: ''
+            fi-def-at: false
+            prefix: ''
+            suffix: ''
     weight: 3
-    region: content
+    region: main
   field_associated_instituation:
     type: boolean
     label: inline
@@ -58,10 +129,54 @@ content:
           settings:
             lb: ''
             lbw: true
-            lbw-el: 'strong, bold'
+            lbw-el: strong
             lbw-cl: ''
             lbw-at: ''
-            lb-col: false
+            lb-col: true
+            ow: true
+            ow-el: ''
+            ow-cl: ''
+            ow-at: ''
+            ow-def-at: true
+            ow-def-cl: true
+            fis: false
+            fis-el: ''
+            fis-cl: ''
+            fis-at: ''
+            fis-def-at: false
+            fi: false
+            fi-el: ''
+            fi-cl: ''
+            fi-at: ''
+            fi-def-at: false
+            prefix: ''
+            suffix: ''
+    weight: 6
+    region: main
+  field_fax_number:
+    type: telephone_link
+    label: inline
+    settings:
+      title: ''
+    third_party_settings: {  }
+    weight: 5
+    region: main
+  field_initials:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      ds:
+        ft:
+          id: expert
+          settings:
+            lb: ''
+            lbw: true
+            lbw-el: strong
+            lbw-cl: ''
+            lbw-at: ''
+            lb-col: true
             ow: false
             ow-el: ''
             ow-cl: ''
@@ -80,24 +195,8 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 6
-    region: content
-  field_fax_number:
-    type: telephone_link
-    label: inline
-    settings:
-      title: ''
-    third_party_settings: {  }
-    weight: 5
-    region: content
-  field_initials:
-    type: string
-    label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
     weight: 8
-    region: content
+    region: main
   field_memo_of_understanding:
     type: file_default
     label: inline
@@ -105,15 +204,22 @@ content:
       use_description_as_link_text: true
     third_party_settings: {  }
     weight: 7
-    region: content
+    region: main
   field_phone_number:
     type: telephone_link
     label: inline
     settings:
       title: ''
-    third_party_settings: {  }
+    third_party_settings:
+      ds:
+        ft:
+          id: default
+          settings:
+            lb: ''
+            lb-col: true
+            classes: {  }
     weight: 4
-    region: content
+    region: main
   field_web_url:
     type: link
     label: inline
@@ -124,8 +230,8 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 1
-    region: content
+    weight: 2
+    region: main
 hidden:
   langcode: true
   search_api_excerpt: true

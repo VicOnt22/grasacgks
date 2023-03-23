@@ -77,7 +77,6 @@ dependencies:
     - physical
     - responsive_image
     - smart_trim
-    - taxonomy
     - text
     - user
 third_party_settings:
@@ -457,10 +456,10 @@ content:
             lbw-el: strong
             lbw-cl: ''
             lbw-at: ''
-            lb-col: false
+            lb-col: true
             ow: true
             ow-el: ''
-            ow-cl: ''
+            ow-cl: d-flex
             ow-at: ''
             ow-def-at: true
             ow-def-cl: true
@@ -479,9 +478,10 @@ content:
     weight: 12
     region: main
   field_collection:
-    type: entity_reference_rss_category
+    type: entity_reference_label
     label: above
-    settings: {  }
+    settings:
+      link: true
     third_party_settings:
       ds:
         ft:
@@ -514,9 +514,10 @@ content:
     weight: 13
     region: main
   field_contributor_collector:
-    type: entity_reference_rss_category
+    type: entity_reference_label
     label: above
-    settings: {  }
+    settings:
+      link: true
     third_party_settings:
       ds:
         ds_limit: ''
@@ -528,13 +529,13 @@ content:
             lbw-el: strong
             lbw-cl: ''
             lbw-at: ''
-            lb-col: false
-            ow: false
+            lb-col: true
+            ow: true
             ow-el: ''
             ow-cl: ''
             ow-at: ''
-            ow-def-at: false
-            ow-def-cl: false
+            ow-def-at: true
+            ow-def-cl: true
             fis: false
             fis-el: ''
             fis-cl: ''
@@ -550,9 +551,10 @@ content:
     weight: 14
     region: main
   field_current_institution:
-    type: entity_reference_rss_category
+    type: entity_reference_label
     label: above
-    settings: {  }
+    settings:
+      link: true
     third_party_settings:
       ds:
         ft:
@@ -621,10 +623,10 @@ content:
             lbw-el: strong
             lbw-cl: ''
             lbw-at: ''
-            lb-col: false
+            lb-col: true
             ow: true
             ow-el: ''
-            ow-cl: ''
+            ow-cl: d-flex
             ow-at: ''
             ow-def-at: true
             ow-def-cl: true
@@ -2076,9 +2078,10 @@ content:
     weight: 35
     region: main
   field_local_origin_tid:
-    type: entity_reference_rss_category
+    type: entity_reference_label
     label: above
-    settings: {  }
+    settings:
+      link: true
     third_party_settings:
       ds:
         ft:
@@ -2285,9 +2288,10 @@ content:
     weight: 38
     region: main
   field_maker_role:
-    type: entity_reference_rss_category
+    type: entity_reference_label
     label: above
-    settings: {  }
+    settings:
+      link: true
     third_party_settings:
       ds:
         ft:
