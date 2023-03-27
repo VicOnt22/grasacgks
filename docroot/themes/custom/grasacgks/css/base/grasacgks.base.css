@@ -66,3 +66,12 @@ body {
 #navbar-collapse button#edit-reset {
   display: none;
 }
+#navbar-collapse button#edit-reset--1 {
+  display: none;
+}
+#navbar-collapse button#edit-reset--2 {
+  display: none;
+}
+#navbar-collapse button#edit-reset--3 {
+  display: none;
+}
