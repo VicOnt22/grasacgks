@@ -3,8 +3,8 @@
 namespace Drupal\drd_agent\Agent\Auth;
 
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\State\StateInterface;
 use Drupal\user\UserAuthInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -26,9 +26,9 @@ abstract class Base implements BaseInterface {
   protected $currentUser;
 
   /**
-   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   * @var \Drupal\Core\State\StateInterface
    */
-  protected $configFactory;
+  protected $state;
 
   /**
    * @var \Drupal\user\UserAuthInterface
@@ -39,12 +39,12 @@ abstract class Base implements BaseInterface {
    * Base constructor.
    *
    * @param \Drupal\Core\Session\AccountInterface $current_User
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   * @param \Drupal\Core\State\StateInterface $state
    * @param \Drupal\user\UserAuthInterface $user_auth
    */
-  public function __construct(AccountInterface $current_User, ConfigFactoryInterface $config_factory, UserAuthInterface $user_auth) {
+  public function __construct(AccountInterface $current_User, StateInterface $state, UserAuthInterface $user_auth) {
     $this->currentUser = $current_User;
-    $this->configFactory = $config_factory;
+    $this->state = $state;
     $this->userAuth = $user_auth;
   }
 
@@ -54,7 +54,7 @@ abstract class Base implements BaseInterface {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('current_user'),
-      $container->get('config.factory'),
+      $container->get('state'),
       $container->get('user.auth')
     );
   }
@@ -79,8 +79,7 @@ abstract class Base implements BaseInterface {
    * {@inheritdoc}
    */
   final public function validateUuid($uuid): bool {
-    $config = $this->configFactory->get('drd_agent.settings');
-    $authorised = $config->get('authorised') ?? [];
+    $authorised = $this->state->get('drd_agent.authorised', []);
     if (empty($authorised[$uuid])) {
       return FALSE;
     }

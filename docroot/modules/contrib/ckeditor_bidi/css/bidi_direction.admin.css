@@ -1,0 +1,6 @@
+.ckeditor5-toolbar-button-direction {
+  background-image: url(../icons/rtl.svg);
+}
+.ckeditor5-toolbar-button-direction\:rtl {
+  background-image: url(../icons/rtl.svg);
+}

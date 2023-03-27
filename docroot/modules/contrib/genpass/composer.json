@@ -15,6 +15,6 @@
     "irc": "irc://irc.freenode.org/drupal-contribute",
     "source": "https://github.com/luksak/genpass"
   },
-  "license": "GPL-2.0+",
+  "license": "GPL-2.0-or-later",
   "minimum-stability": "dev"
 }

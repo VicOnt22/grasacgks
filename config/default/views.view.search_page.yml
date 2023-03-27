@@ -364,7 +364,7 @@ display:
           admin_label: ''
           plugin_id: search_api_field
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -428,6 +428,7 @@ display:
             display_methods:
               collection:
                 display_method: label
+                view_mode: default
               contributor_roles:
                 display_method: label
               contributors:
@@ -436,6 +437,7 @@ display:
                 display_method: label
               folders:
                 display_method: label
+                view_mode: default
               institution:
                 display_method: label
                 view_mode: default
@@ -445,22 +447,30 @@ display:
                 display_method: label
               language_item_source:
                 display_method: label
+                view_mode: default
               languages:
                 display_method: label
+                view_mode: default
               local_origin:
                 display_method: label
+                view_mode: default
               nations:
                 display_method: label
+                view_mode: default
               project_status:
                 display_method: label
               record_status:
                 display_method: label
               regions:
                 display_method: label
+                view_mode: default
               tags:
                 display_method: label
               text_type:
                 display_method: label
+              traditional_knowledge_tk_labels:
+                display_method: label
+                view_mode: default
               transcription_status:
                 display_method: label
               translation_status:
@@ -592,7 +602,7 @@ display:
               allow_secondary: false
               secondary_label: 'Advanced options'
               secondary_open: false
-              reset_button_always_show: false
+              reset_button_always_show: true
             filter:
               aggregated_field:
                 plugin_id: default

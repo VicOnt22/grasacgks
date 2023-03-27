@@ -20,6 +20,7 @@ dependencies:
     - field.field.node.language_item.field_unique_id
     - node.type.language_item
   module:
+    - blazy
     - ds
     - layout_builder
     - text
@@ -57,7 +58,6 @@ third_party_settings:
         - field_term_definition
         - field_alternative_spellings
         - field_source
-        - field_audio_files
         - field_date_created
         - field_related_heritage_item
         - field_related_language_item
@@ -65,6 +65,7 @@ third_party_settings:
         - field_unique_id
         - field_record_editable_by
         - field_folders
+        - field_audio_video
     fields:
       node_title:
         plugin_id: node_title
@@ -98,13 +99,49 @@ content:
     third_party_settings: {  }
     weight: 7
     region: main
+  field_audio_video:
+    type: blazy_media
+    label: above
+    settings:
+      caption: {  }
+      class: ''
+      id: ''
+      image: ''
+      link: ''
+      overlay: ''
+      title: ''
+      vanilla: false
+      layout: ''
+      view_mode: ''
+      cache: 0
+      skin: ''
+      lazy: ''
+      style: ''
+      background: false
+      box_caption: ''
+      box_caption_custom: ''
+      box_media_style: ''
+      loading: lazy
+      preload: false
+      responsive_image_style: ''
+      box_style: ''
+      image_style: ''
+      media_switch: ''
+      ratio: ''
+      thumbnail_style: ''
+      grid: ''
+      grid_medium: ''
+      grid_small: ''
+    third_party_settings: {  }
+    weight: 16
+    region: main
   field_date_created:
     type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 10
+    weight: 9
     region: main
   field_folders:
     type: entity_reference_label
@@ -112,7 +149,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 16
+    weight: 15
     region: main
   field_languages:
     type: entity_reference_label
@@ -136,7 +173,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 15
+    weight: 14
     region: main
   field_related_heritage_item:
     type: entity_reference_label
@@ -144,7 +181,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 11
+    weight: 10
     region: main
   field_related_language_item:
     type: entity_reference_label
@@ -152,7 +189,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 12
+    weight: 11
     region: main
   field_related_places:
     type: entity_reference_label
@@ -160,7 +197,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 13
+    weight: 12
     region: main
   field_source:
     type: entity_reference_label
@@ -183,7 +220,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 14
+    weight: 13
     region: main
   links:
     settings: {  }
@@ -191,6 +228,5 @@ content:
     weight: 1
     region: main
 hidden:
-  field_audio_video: true
   langcode: true
   search_api_excerpt: true

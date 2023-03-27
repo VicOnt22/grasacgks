@@ -31,7 +31,9 @@ class Requirements extends Base {
       'username' => '',
       'password' => '',
     ];
-    $info['prefix'] = $info['prefix']['default'];
+    $info['prefix'] = isset($info['prefix']['default']) ?
+      $info['prefix']['default'] :
+      '';
     foreach ($info as $key => $value) {
       unset($info[$key]);
       if (is_scalar($value)) {
@@ -214,16 +216,6 @@ class Requirements extends Base {
       t('For performance reasons you should allow your <a href="@url">JS to be aggregated</a> on production sites.', ['@url' => Url::fromUserInput('/admin/config/development/performance')->toUriString()]),
     ];
 
-    $page = $this->configFactory->get('system.performance')->get('response.gzip');
-    $requirements['drd_agent.compress.page'] = [
-      'title' => t('Compress cached pages'),
-      'value' => $page ? t('Yes') : t('No'),
-      'severity' => $page ? REQUIREMENT_OK : REQUIREMENT_WARNING,
-      'description' => $page ?
-      t('The pages are being compressed on this site. <a href="@url">Performance settings can be managed here</a>.', ['@url' => Url::fromUserInput('/admin/config/development/performance')->toUriString()]) :
-      t('For performance reasons you should allow <a href="@url">cached pages to be compressed</a> on production sites.', ['@url' => Url::fromUserInput('/admin/config/development/performance')->toUriString()]),
-    ];
-
     $page403 = $this->configFactory->get('system.site')->get('page.403');
     $requirements['drd_agent.defined.403'] = [
       'title' => t('Default 403 (access denied) page'),
@@ -242,16 +234,6 @@ class Requirements extends Base {
       'description' => $page404 ?
       t('There is a 404 page defined. <a href="@url">The 404 page can be managed here</a>.', ['@url' => Url::fromUserInput('/admin/config/system/site-information')->toUriString()]) :
       t('For improved user experience you could define a <a href="@url">default 404 (Not found)</a> page.', ['@url' => Url::fromUserInput('/admin/config/system/site-information')->toUriString()]),
-    ];
-
-    $cache = $this->configFactory->get('system.performance')->get('cache.page');
-    $requirements['drd_agent.enable.cache'] = [
-      'title' => t('Cache pages for anonymous users'),
-      'value' => $cache ? t('Yes') : t('No'),
-      'severity' => $cache ? REQUIREMENT_OK : REQUIREMENT_WARNING,
-      'description' => $cache ?
-      t('The pages are being cached. <a href="@url">Performance settings can be managed here</a>.', ['@url' => Url::fromUserInput('/admin/config/development/performance')->toUriString()]) :
-      t('For performance reasons you should <a href="@url">cache pages for anonymous users</a> on production sites.', ['@url' => Url::fromUserInput('/admin/config/development/performance')->toUriString()]),
     ];
 
     $warnings = $this->configFactory->get('system.logging')->get('error_level');
@@ -302,26 +284,45 @@ class Requirements extends Base {
       t('The info files in the Drupal Core could be removed to expose less about which version Drupal is running.'),
     ];
 
-    $robotsurl = Url::fromUri('base://robots.txt', ['absolute' => TRUE, 'language' => (object) ['language' => LanguageInterface::LANGCODE_NOT_SPECIFIED]])->toString();
-    try {
-      $client = new Client([
-        'base_uri' => $robotsurl,
-        'timeout' => 2,
-        'allow_redirects' => FALSE,
-      ]);
-      $response = $client->request('get');
+    if ($this->moduleHandler->moduleExists('robotstxt')) {
+      $robots = file_exists(DRUPAL_ROOT . '/robots.txt');
+      if ($robots) {
+        $severity = REQUIREMENT_WARNING;
+        $description = t('The module robotstxt provides the robots.txt on this site. But there is still a physical file robots.txt in your root directory, which should be removed.');
+      }
+      else {
+        $severity = REQUIREMENT_OK;
+        $description = t('The module robotstxt provides the robots.txt on this site.');
+      }
     }
-    catch (Exception $ex) {
-      // Ignore.
+    else {
+      $robotsurl = Url::fromUri('base://robots.txt', ['absolute' => TRUE, 'language' => (object) ['language' => LanguageInterface::LANGCODE_NOT_SPECIFIED]])->toString();
+      try {
+        $client = new Client([
+          'base_uri' => $robotsurl,
+          'timeout' => 2,
+          'allow_redirects' => FALSE,
+        ]);
+        $response = $client->request('get');
+      }
+      catch (Exception $ex) {
+        // Ignore.
+      }
+      $robots = (isset($response) && $response->getStatusCode() === 200);
+      if ($robots) {
+        $severity = REQUIREMENT_OK;
+        $description = t('This site contains a <a href="@url">robots.txt</a> file', ['@url' => Url::fromUserInput('/robots.txt')->toUriString()]);
+      }
+      else {
+        $severity = REQUIREMENT_WARNING;
+        $description = t('For SEO reasons this site should have a <a href="@url">robots.txt</a> file in the Drupal Core.', ['@url' => Url::fromUri('https://www.drupal.org/project/robotstxt', ['external' => TRUE])->toUriString()]);
+      }
     }
-    $robots = (isset($response) && $response->getStatusCode() === 200);
     $requirements['drd_agent.robots.txt'] = [
       'title' => t('File robots.txt is available'),
       'value' => $robots ? t('Yes') : t('No'),
-      'severity' => $robots ? REQUIREMENT_OK : REQUIREMENT_WARNING,
-      'description' => $robots ?
-      t('This site contains a <a href="@url">robots.txt</a> file', ['@url' => Url::fromUserInput('/robots.txt')->toUriString()]) :
-      t('For SEO reasons this site should have a <a href="@url">robots.txt</a> file in the Drupal Core.', ['@url' => Url::fromUri('https://www.drupal.org/project/robotstxt', ['external' => TRUE])->toUriString()]),
+      'severity' => $severity,
+      'description' => $description,
     ];
 
     $themeregistry = $this->configFactory->get('devel.settings')->get('rebuild_theme');

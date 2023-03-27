@@ -1,3 +1,22 @@
+DRD 4.0.3, 2022-02-08
+---------------------
+Issue #3198218 Modification to take into account the users of the "robotstxt" module
+Issue #3198203 by steveoriol, jurgenhaas: "Compress cached pages" on D8-9
+Issue #3258596 by jurgenhaas, jcandan: Fix database connection prefix as array causes offset errors
+Issue #3203741 by jurgenhaas: "Website encountered an unexpected error" at /drd-agent-authorize
+
+DRD 4.0.2, 2021-01-29
+---------------------
+Fixing conversion from ConfigFormBase to FormBase
+
+DRD 4.0.1, 2021-01-28
+---------------------
+Issue #3195153 by StryKaizer: Store authentication data in State instead of Config
+
+DRD 4.0.0, 2020-06-10
+---------------------
+Issue #3138816 by jurgenhaas: Get ready for Drupal 9
+
 DRD Agent 8.x-3.13, 2020-01-31
 ------------------------------
 Issue #3110284 by jurgenhaas: TypeError: Return value of Drupal/drd_agent/Agent/Action/Base::getDebugMode() must be of the type boolean, null returned

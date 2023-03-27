@@ -13,7 +13,7 @@ dependencies:
 id: searchblockonfrontpagemiddleashtml
 theme: grasacgks
 region: content
-weight: -10
+weight: -9
 provider: null
 plugin: 'block_content:f4d4e73a-1b9e-4062-85aa-228647b1268a'
 settings:

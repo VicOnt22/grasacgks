@@ -74,6 +74,8 @@ class ContentStateStatistic extends DashboardBlockBase implements ContainerFacto
       '#default_value' => $this->getCustomConfigByKey($block_configuration, 'workflow_id', ''),
     ];
 
+    $form['allowed_roles'] = $this->buildAllowedRolesSelectBox($block_configuration);
+
     return $form;
   }
 
@@ -81,6 +83,9 @@ class ContentStateStatistic extends DashboardBlockBase implements ContainerFacto
    * {@inheritdoc}
    */
   public function build() {
+    if (!$this->currentUserHasRole()) {
+      return [];
+    }
 
     // Get config.
     $config = $this->getConfiguration();

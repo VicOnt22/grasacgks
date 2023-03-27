@@ -454,6 +454,7 @@ class WebformAdminConfigElementsForm extends WebformAdminConfigBaseForm {
     foreach ($element_plugins as $element_id => $element_plugin) {
       $element_plugin_definition = $element_plugin->getPluginDefinition();
       $element_plugin_label = $element_plugin_definition['label'];
+      $element_plugin_description = $element_plugin_definition['description'];
       $element_plugin_states = [
         'disabled' => [
           ':input[name="excluded_elements[' . $element_id . ']"]' => ['checked' => FALSE],
@@ -463,7 +464,18 @@ class WebformAdminConfigElementsForm extends WebformAdminConfigBaseForm {
       $row = [];
 
       // Title.
-      $row['title'] = ['#markup' => $element_plugin_label];
+      $row['title'] = [
+        'title' => [
+          '#markup' => $element_plugin_label,
+          '#prefix' => '<strong>',
+          '#suffix' => '</strong>',
+        ],
+        'description' => [
+          '#markup' => $element_plugin_description,
+          '#prefix' => '<div>',
+          '#suffix' => '</div>',
+        ],
+      ];
 
       // ID.
       $row['id'] = ['#markup' => $element_id];

@@ -52,10 +52,11 @@ class Setup extends Command {
   /**
    * {@inheritdoc}
    */
-  protected function execute(InputInterface $input, OutputInterface $output) {
+  protected function execute(InputInterface $input, OutputInterface $output): int {
     $_SESSION['drd_agent_authorization_values'] = $input->getArgument('token');
     $this->setupService->execute();
     unset($_SESSION['drd_agent_authorization_values']);
+    return 0;
   }
 
 }

@@ -20,3 +20,49 @@ body {
 .page-node-type-heritage-item #block-grasacgks-page-title > h2 {
   display: none;
 }
+
+.font11 {
+  text-decoration: none;
+  color: purple;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.font10 {
+  text-decoration: none;
+  color: navy;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.font9 {
+  text-decoration: none;
+  color: #396;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.font8 {
+  text-decoration: none;
+  color: purple;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.font7 {
+  text-decoration: none;
+  color: navy;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.page-view-search-page #block-contenttype select option:nth-child(4) {
+  display: none;
+}
+.page-view-search-page #block-contenttype select option:nth-child(5) {
+  display: none;
+}
+
+#navbar-collapse button#edit-reset {
+  display: none;
+}

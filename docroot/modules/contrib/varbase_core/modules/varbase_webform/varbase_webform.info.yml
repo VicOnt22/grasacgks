@@ -12,7 +12,7 @@ install:
   - taxonomy
   - webform_views
 
-# Information added by Drupal.org packaging script on 2023-01-19
-version: '9.0.46'
+# Information added by Drupal.org packaging script on 2023-03-23
+version: '9.0.53'
 project: 'varbase_core'
-datestamp: 1674148166
+datestamp: 1679566379

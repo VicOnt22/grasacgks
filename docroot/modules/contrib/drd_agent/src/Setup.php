@@ -3,7 +3,7 @@
 namespace Drupal\drd_agent;
 
 use Drupal\Component\Datetime\TimeInterface;
-use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\State\StateInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -16,9 +16,9 @@ class Setup {
   protected $values;
 
   /**
-   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   * @var \Drupal\Core\State\StateInterface
    */
-  protected $configFactory;
+  protected $state;
 
   /**
    * @var \Drupal\Component\Datetime\TimeInterface
@@ -33,12 +33,12 @@ class Setup {
   /**
    * Setup constructor.
    *
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   * @param \Drupal\Core\State\StateInterface $state
    * @param \Drupal\Component\Datetime\TimeInterface $time
    * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
    */
-  public function __construct(ConfigFactoryInterface $config_factory, TimeInterface $time, RequestStack $request_stack) {
-    $this->configFactory = $config_factory;
+  public function __construct(StateInterface $state, TimeInterface $time, RequestStack $request_stack) {
+    $this->state = $state;
     $this->time = $time;
     $this->request = $request_stack->getCurrentRequest();
     $this->checkForRemoteSetupToken();
@@ -72,27 +72,29 @@ class Setup {
    */
   public function execute(): array {
     $this->checkForRemoteSetupToken();
-    $config = $this->configFactory->getEditable('drd_agent.settings');
 
-    $authorised = $config->get('authorised') ?? [];
+    $authorised = $this->state->get('drd_agent.authorised', []);
 
     $this->values['timestamp'] = $this->time->getRequestTime();
     $this->values['ip'] = $this->request->getClientIp();
     $authorised[$this->values['uuid']] = $this->values;
 
-    $config->set('authorised', $authorised)->save(TRUE);
+    $this->state->set('drd_agent.authorised', $authorised);
     return $this->values;
   }
 
   /**
    * Get the hostname to which we should redirect after confirmation.
    *
-   * @return string
-   *   The hostname.
+   * @return string|false
+   *   The hostname or FALSE.
    */
-  public function getDomain(): string {
+  public function getDomain() {
     $this->checkForRemoteSetupToken();
-    return parse_url($this->values['redirect'], PHP_URL_HOST);
+    if (isset($this->values['redirect'])) {
+      return parse_url($this->values['redirect'], PHP_URL_HOST);
+    }
+    return FALSE;
   }
 
 }

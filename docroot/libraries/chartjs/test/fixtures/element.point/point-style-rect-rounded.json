@@ -42,8 +42,6 @@
         },
         "options": {
             "responsive": false,
-            "legend": false,
-            "title": false,
             "elements": {
                 "point": {
                     "pointStyle": "rectRounded"
@@ -53,8 +51,8 @@
                 "padding": 40
             },
             "scales": {
-                "xAxes": [{"display": false}],
-                "yAxes": [{"display": false}]
+                "x": {"display": false},
+                "y": {"display": false}
             }
         }
     },

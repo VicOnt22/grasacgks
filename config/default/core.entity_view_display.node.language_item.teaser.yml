@@ -22,6 +22,7 @@ dependencies:
   module:
     - ds
     - layout_builder
+    - text
     - user
 third_party_settings:
   ds:
@@ -48,8 +49,7 @@ third_party_settings:
     regions:
       main:
         - node_title
-        - field_languages
-        - field_part_of_speech
+        - body
         - links
         - content_moderation_control
     fields:
@@ -77,35 +77,22 @@ targetEntityType: node
 bundle: language_item
 mode: teaser
 content:
-  content_moderation_control:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 4
-    region: main
-  field_languages:
-    type: entity_reference_label
+  body:
+    type: text_summary_or_trimmed
     label: hidden
     settings:
-      link: true
-    third_party_settings: {  }
-    weight: 1
-    region: main
-  field_part_of_speech:
-    type: string
-    label: inline
-    settings:
-      link_to_entity: false
+      trim_length: 160
     third_party_settings:
       ds:
         ft:
           id: expert
           settings:
             lb: ''
-            lbw: true
-            lbw-el: strong
+            lbw: false
+            lbw-el: ''
             lbw-cl: ''
             lbw-at: ''
-            lb-col: true
+            lb-col: false
             ow: true
             ow-el: ''
             ow-cl: ''
@@ -124,19 +111,25 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 2
+    weight: 1
     region: main
-  links:
+  content_moderation_control:
     settings: {  }
     third_party_settings: {  }
     weight: 3
     region: main
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: main
 hidden:
-  body: true
   field_alternative_spellings: true
   field_audio_video: true
   field_date_created: true
   field_folders: true
+  field_languages: true
+  field_part_of_speech: true
   field_record_editable_by: true
   field_related_heritage_item: true
   field_related_language_item: true

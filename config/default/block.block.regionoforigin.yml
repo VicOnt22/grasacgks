@@ -13,7 +13,7 @@ dependencies:
 id: regionoforigin
 theme: grasacgks
 region: sidebar_first
-weight: -6
+weight: -8
 provider: null
 plugin: 'facet_block:region_of_origin'
 settings:

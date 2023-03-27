@@ -3,14 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
+    - filter.format.basic_html
     - filter.format.full_html
     - node.type.article
     - node.type.heritage_item
     - node.type.language_item
     - node.type.page
     - node.type.project
-    - node.type.resource
-    - node.type.secure_page
   module:
     - field_permissions
     - filter
@@ -34,15 +33,12 @@ permissions:
   - 'administer related items'
   - 'change own username'
   - 'create article content'
-  - 'create field_gks_id'
   - 'create field_make_role'
   - 'create files'
   - 'create heritage_item content'
   - 'create language_item content'
   - 'create page content'
   - 'create relations'
-  - 'create resource content'
-  - 'create secure_page content'
   - 'create url aliases'
   - 'delete own article content'
   - 'delete own audio files'
@@ -51,8 +47,6 @@ permissions:
   - 'delete own image files'
   - 'delete own language_item content'
   - 'delete own page content'
-  - 'delete own resource content'
-  - 'delete own secure_page content'
   - 'delete own video files'
   - 'delete relations'
   - 'download any audio files'
@@ -63,20 +57,16 @@ permissions:
   - 'download own document files'
   - 'download own image files'
   - 'download own video files'
-  - 'edit any resource content'
   - 'edit own article content'
   - 'edit own audio files'
   - 'edit own comments'
   - 'edit own document files'
-  - 'edit own field_gks_id'
   - 'edit own field_make_role'
   - 'edit own heritage_item content'
   - 'edit own image files'
   - 'edit own language_item content'
   - 'edit own page content'
   - 'edit own project content'
-  - 'edit own resource content'
-  - 'edit own secure_page content'
   - 'edit own tags'
   - 'edit own video files'
   - 'edit relations'
@@ -109,6 +99,7 @@ permissions:
   - 'skip comment approval'
   - 'use advanced search'
   - 'use php in custom pagers'
+  - 'use text format basic_html'
   - 'use text format full_html'
   - 'view advanced help index'
   - 'view advanced help popup'

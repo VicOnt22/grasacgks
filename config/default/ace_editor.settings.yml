@@ -1,3 +1,5 @@
+_core:
+  default_config_hash: z7BcNFCDCtXwr4-Gea5wfcns2KMG9BzL96hWfZMvUDQ
 theme_list:
   cobalt: Cobalt
   ambiance: Ambiance
@@ -33,7 +35,7 @@ theme_list:
   twilight: Twilight
   vibrant_ink: 'Vibrant Ink'
   xcode: Xcode
-theme: idle_fingers
+theme: cobalt
 syntax_list:
   abap: Abap
   abc: Abc
@@ -178,10 +180,11 @@ syntax_list:
   xquery: Xquery
   yaml: YAML
 syntax: html
-height: auto
-width: 700px
-font_size: 9pt
+height: 300px
+width: 100%
+font_size: 12pt
 line_numbers: true
-show_invisibles: true
+show_invisibles: false
 print_margins: true
 auto_complete: true
+use_wrap_mode: true

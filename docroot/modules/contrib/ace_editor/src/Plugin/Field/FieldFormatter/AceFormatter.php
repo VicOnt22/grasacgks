@@ -110,9 +110,8 @@ class AceFormatter extends FormatterBase implements ContainerFactoryPluginInterf
     $summary[] = $this->t('Show line numbers:') . ' ' . ($settings['line_numbers'] ? $this->t('On') : $this->t('Off'));
     $summary[] = $this->t('Show print margin:') . ' ' . ($settings['print_margins'] ? $this->t('On') : $this->t('Off'));
     $summary[] = $this->t('Show invisible characters:') . ' ' . ($settings['show_invisibles'] ? $this->t('On') : $this->t('Off'));
-    if(isset($settings['use_wrap_mode'])) {
-      $summary[] = $this->t('Toggle word wrapping:') . ' ' . ($settings['use_wrap_mode'] ? $this->t('On') : $this->t('Off'));
-    }
+    $summary[] = $this->t('Toggle word wrapping:') . ' ' . ($settings['use_wrap_mode'] ? $this->t('On') : $this->t('Off'));
+
     return $summary;
   }
 
@@ -192,7 +191,7 @@ class AceFormatter extends FormatterBase implements ContainerFactoryPluginInterf
       'use_wrap_mode' => [
         '#type' => 'checkbox',
         '#title' => $this->t('Toggle word wrapping'),
-        '#default_value' => isset($settings['use_wrap_mode']) ? $settings['use_wrap_mode'] : $this->t('Off'),
+        '#default_value' => $settings['use_wrap_mode'],
       ],
     ];
   }

@@ -1,0 +1,36 @@
+{
+    "name": "drupal/facets_date_range",
+    "description": "Provides a Date Range widget in facets.",
+    "type": "drupal-module",
+    "authors": [
+        {
+            "name": "Alexandre Dias",
+            "homepage": "https://www.drupal.org/u/saidatom"
+        },
+        {
+            "name": "Claudiu Cristea",
+            "homepage": "https://www.drupal.org/u/claudiu.cristea"
+        },
+        {
+            "name": "Ilias Dimopoulos",
+            "homepage": "https://www.drupal.org/u/idimopoulos-0"
+        },
+        {
+            "name": "Pieter Frenssen",
+            "homepage": "https://www.drupal.org/u/pfrenssen"
+        }
+    ],
+    "license": "GPL-2.0+",
+    "homepage": "https://drupal.org/project/facets_date_range",
+    "support": {
+        "issues": "https://drupal.org/project/issues/facets_date_range"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.4 || ^8",
+        "drupal/facets": "^1.6 || ^2.0 || ^3.0"
+    },
+    "require-dev": {
+        "drupal/search_api": "^1.24"
+    }
+}

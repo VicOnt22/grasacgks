@@ -1,216 +1,253 @@
 // Test the rectangle element
 
 describe('Arc element tests', function() {
-	it ('Should be constructed', function() {
-		var arc = new Chart.elements.Arc({
-			_datasetIndex: 2,
-			_index: 1
-		});
+  it ('should determine if in range', function() {
+    // Mock out the arc as if the controller put it there
+    var arc = new Chart.elements.ArcElement({
+      startAngle: 0,
+      endAngle: Math.PI / 2,
+      x: 0,
+      y: 0,
+      innerRadius: 5,
+      outerRadius: 10,
+      options: {
+        spacing: 0,
+        offset: 0,
+      }
+    });
 
-		expect(arc).not.toBe(undefined);
-		expect(arc._datasetIndex).toBe(2);
-		expect(arc._index).toBe(1);
-	});
+    expect(arc.inRange(2, 2)).toBe(false);
+    expect(arc.inRange(7, 0)).toBe(true);
+    expect(arc.inRange(0, 11)).toBe(false);
+    expect(arc.inRange(Math.sqrt(32), Math.sqrt(32))).toBe(true);
+    expect(arc.inRange(-1.0 * Math.sqrt(7), Math.sqrt(7))).toBe(false);
+  });
 
-	it ('should determine if in range', function() {
-		var arc = new Chart.elements.Arc({
-			_datasetIndex: 2,
-			_index: 1
-		});
+  it ('should determine if in range when full circle', function() {
+    // Mock out the arc as if the controller put it there
+    var arc = new Chart.elements.ArcElement({
+      startAngle: 0,
+      endAngle: Math.PI * 2,
+      x: 0,
+      y: 0,
+      innerRadius: 5,
+      outerRadius: 10,
+      options: {
+        spacing: 0,
+        offset: 0,
+      }
+    });
 
-		// Make sure we can run these before the view is added
-		expect(arc.inRange(2, 2)).toBe(false);
-		expect(arc.inLabelRange(2)).toBe(false);
+    for (const radius of [5, 7.5, 10]) {
+      for (let angle = 0; angle <= 360; angle += 22.5) {
+        const rad = angle / 180 * Math.PI;
+        const x = Math.sin(rad) * radius;
+        const y = Math.cos(rad) * radius;
+        expect(arc.inRange(x, y)).withContext(`radius: ${radius}, angle: ${angle}`).toBeTrue();
+      }
+    }
+    for (const radius of [4, 11]) {
+      for (let angle = 0; angle <= 360; angle += 22.5) {
+        const rad = angle / 180 * Math.PI;
+        const x = Math.sin(rad) * radius;
+        const y = Math.cos(rad) * radius;
+        expect(arc.inRange(x, y)).withContext(`radius: ${radius}, angle: ${angle}`).toBeFalse();
+      }
+    }
+  });
 
-		// Mock out the view as if the controller put it there
-		arc._view = {
-			startAngle: 0,
-			endAngle: Math.PI / 2,
-			x: 0,
-			y: 0,
-			innerRadius: 5,
-			outerRadius: 10,
-		};
+  it ('should include spacing for in range check', function() {
+    // Mock out the arc as if the controller put it there
+    var arc = new Chart.elements.ArcElement({
+      startAngle: 0,
+      endAngle: Math.PI / 2,
+      x: 0,
+      y: 0,
+      innerRadius: 5,
+      outerRadius: 10,
+      options: {
+        spacing: 10,
+        offset: 0,
+      }
+    });
 
-		expect(arc.inRange(2, 2)).toBe(false);
-		expect(arc.inRange(7, 0)).toBe(true);
-		expect(arc.inRange(0, 11)).toBe(false);
-		expect(arc.inRange(Math.sqrt(32), Math.sqrt(32))).toBe(true);
-		expect(arc.inRange(-1.0 * Math.sqrt(7), Math.sqrt(7))).toBe(false);
-	});
+    expect(arc.inRange(7, 0)).toBe(false);
+    expect(arc.inRange(15, 0)).toBe(true);
+  });
 
-	it ('should get the tooltip position', function() {
-		var arc = new Chart.elements.Arc({
-			_datasetIndex: 2,
-			_index: 1
-		});
+  it ('should determine if in range, when full circle', function() {
+    // Mock out the arc as if the controller put it there
+    var arc = new Chart.elements.ArcElement({
+      startAngle: -Math.PI,
+      endAngle: Math.PI * 1.5,
+      x: 0,
+      y: 0,
+      innerRadius: 0,
+      outerRadius: 10,
+      circumference: Math.PI * 2,
+      options: {
+        spacing: 0,
+        offset: 0,
+      }
+    });
 
-		// Mock out the view as if the controller put it there
-		arc._view = {
-			startAngle: 0,
-			endAngle: Math.PI / 2,
-			x: 0,
-			y: 0,
-			innerRadius: 0,
-			outerRadius: Math.sqrt(2),
-		};
+    expect(arc.inRange(7, 7)).toBe(true);
+  });
 
-		var pos = arc.tooltipPosition();
-		expect(pos.x).toBeCloseTo(0.5);
-		expect(pos.y).toBeCloseTo(0.5);
-	});
+  it ('should get the tooltip position', function() {
+    // Mock out the arc as if the controller put it there
+    var arc = new Chart.elements.ArcElement({
+      startAngle: 0,
+      endAngle: Math.PI / 2,
+      x: 0,
+      y: 0,
+      innerRadius: 0,
+      outerRadius: Math.sqrt(2),
+      options: {
+        spacing: 0,
+        offset: 0,
+      }
+    });
 
-	it ('should get the area', function() {
-		var arc = new Chart.elements.Arc({
-			_datasetIndex: 2,
-			_index: 1
-		});
+    var pos = arc.tooltipPosition();
+    expect(pos.x).toBeCloseTo(0.5);
+    expect(pos.y).toBeCloseTo(0.5);
+  });
 
-		// Mock out the view as if the controller put it there
-		arc._view = {
-			startAngle: 0,
-			endAngle: Math.PI / 2,
-			x: 0,
-			y: 0,
-			innerRadius: 0,
-			outerRadius: Math.sqrt(2),
-		};
+  it ('should get the center', function() {
+    // Mock out the arc as if the controller put it there
+    var arc = new Chart.elements.ArcElement({
+      startAngle: 0,
+      endAngle: Math.PI / 2,
+      x: 0,
+      y: 0,
+      innerRadius: 0,
+      outerRadius: Math.sqrt(2),
+      options: {
+        spacing: 0,
+        offset: 0,
+      }
+    });
 
-		expect(arc.getArea()).toBeCloseTo(0.5 * Math.PI, 6);
-	});
+    var center = arc.getCenterPoint();
+    expect(center.x).toBeCloseTo(0.5, 6);
+    expect(center.y).toBeCloseTo(0.5, 6);
+  });
 
-	it ('should get the center', function() {
-		var arc = new Chart.elements.Arc({
-			_datasetIndex: 2,
-			_index: 1
-		});
+  it ('should get the center with offset and spacing', function() {
+    // Mock out the arc as if the controller put it there
+    var arc = new Chart.elements.ArcElement({
+      startAngle: 0,
+      endAngle: Math.PI / 2,
+      x: 0,
+      y: 0,
+      innerRadius: 0,
+      outerRadius: Math.sqrt(2),
+      options: {
+        spacing: 10,
+        offset: 10,
+      }
+    });
 
-		// Mock out the view as if the controller put it there
-		arc._view = {
-			startAngle: 0,
-			endAngle: Math.PI / 2,
-			x: 0,
-			y: 0,
-			innerRadius: 0,
-			outerRadius: Math.sqrt(2),
-		};
+    var center = arc.getCenterPoint();
+    expect(center.x).toBeCloseTo(7.57, 1);
+    expect(center.y).toBeCloseTo(7.57, 1);
+  });
 
-		var center = arc.getCenterPoint();
-		expect(center.x).toBeCloseTo(0.5, 6);
-		expect(center.y).toBeCloseTo(0.5, 6);
-	});
+  it ('should get the center of full circle before and after draw', function() {
+    // Mock out the arc as if the controller put it there
+    var arc = new Chart.elements.ArcElement({
+      startAngle: 0,
+      endAngle: Math.PI * 2,
+      x: 2,
+      y: 2,
+      innerRadius: 0,
+      outerRadius: 2,
+      options: {
+        spacing: 0,
+        offset: 0,
+      }
+    });
 
-	it ('should draw correctly with no border', function() {
-		var mockContext = window.createMockContext();
-		var arc = new Chart.elements.Arc({
-			_datasetIndex: 2,
-			_index: 1,
-			_chart: {
-				ctx: mockContext,
-			}
-		});
+    var center = arc.getCenterPoint();
+    expect(center.x).toBeCloseTo(1, 6);
+    expect(center.y).toBeCloseTo(2, 6);
 
-		// Mock out the view as if the controller put it there
-		arc._view = {
-			startAngle: 0,
-			endAngle: Math.PI / 2,
-			x: 10,
-			y: 5,
-			innerRadius: 1,
-			outerRadius: 3,
+    var ctx = window.createMockContext();
+    arc.draw(ctx);
 
-			backgroundColor: 'rgb(0, 0, 255)',
-			borderColor: 'rgb(255, 0, 0)',
-		};
+    center = arc.getCenterPoint();
+    expect(center.x).toBeCloseTo(1, 6);
+    expect(center.y).toBeCloseTo(2, 6);
+  });
 
-		arc.draw();
+  it('should not draw when radius < 0', function() {
+    var ctx = window.createMockContext();
 
-		expect(mockContext.getCalls()).toEqual([{
-			name: 'beginPath',
-			args: []
-		}, {
-			name: 'arc',
-			args: [10, 5, 3, 0, Math.PI / 2]
-		}, {
-			name: 'arc',
-			args: [10, 5, 1, Math.PI / 2, 0, true]
-		}, {
-			name: 'closePath',
-			args: []
-		}, {
-			name: 'setStrokeStyle',
-			args: ['rgb(255, 0, 0)']
-		}, {
-			name: 'setLineWidth',
-			args: [undefined]
-		}, {
-			name: 'setFillStyle',
-			args: ['rgb(0, 0, 255)']
-		}, {
-			name: 'fill',
-			args: []
-		}, {
-			name: 'setLineJoin',
-			args: ['bevel']
-		}]);
-	});
+    var arc = new Chart.elements.ArcElement({
+      startAngle: 0,
+      endAngle: Math.PI / 2,
+      x: 0,
+      y: 0,
+      innerRadius: -0.1,
+      outerRadius: Math.sqrt(2),
+      options: {
+        spacing: 0,
+        offset: 0,
+      }
+    });
 
-	it ('should draw correctly with a border', function() {
-		var mockContext = window.createMockContext();
-		var arc = new Chart.elements.Arc({
-			_datasetIndex: 2,
-			_index: 1,
-			_chart: {
-				ctx: mockContext,
-			}
-		});
+    arc.draw(ctx);
 
-		// Mock out the view as if the controller put it there
-		arc._view = {
-			startAngle: 0,
-			endAngle: Math.PI / 2,
-			x: 10,
-			y: 5,
-			innerRadius: 1,
-			outerRadius: 3,
+    expect(ctx.getCalls().length).toBe(0);
 
-			backgroundColor: 'rgb(0, 0, 255)',
-			borderColor: 'rgb(255, 0, 0)',
-			borderWidth: 5
-		};
+    arc = new Chart.elements.ArcElement({
+      startAngle: 0,
+      endAngle: Math.PI / 2,
+      x: 0,
+      y: 0,
+      innerRadius: 0,
+      outerRadius: -1,
+      options: {
+        spacing: 0,
+        offset: 0,
+      }
+    });
 
-		arc.draw();
+    arc.draw(ctx);
 
-		expect(mockContext.getCalls()).toEqual([{
-			name: 'beginPath',
-			args: []
-		}, {
-			name: 'arc',
-			args: [10, 5, 3, 0, Math.PI / 2]
-		}, {
-			name: 'arc',
-			args: [10, 5, 1, Math.PI / 2, 0, true]
-		}, {
-			name: 'closePath',
-			args: []
-		}, {
-			name: 'setStrokeStyle',
-			args: ['rgb(255, 0, 0)']
-		}, {
-			name: 'setLineWidth',
-			args: [5]
-		}, {
-			name: 'setFillStyle',
-			args: ['rgb(0, 0, 255)']
-		}, {
-			name: 'fill',
-			args: []
-		}, {
-			name: 'setLineJoin',
-			args: ['bevel']
-		}, {
-			name: 'stroke',
-			args: []
-		}]);
-	});
+    expect(ctx.getCalls().length).toBe(0);
+  });
+
+  it('should draw when circular: false', function() {
+    var arc = new Chart.elements.ArcElement({
+      startAngle: 0,
+      endAngle: Math.PI * 2,
+      x: 2,
+      y: 2,
+      innerRadius: 0,
+      outerRadius: 2,
+      options: {
+        spacing: 0,
+        offset: 0,
+        scales: {
+          r: {
+            grid: {
+              circular: false,
+            },
+          },
+        },
+        elements: {
+          arc: {
+            circular: false
+          },
+        },
+      }
+    });
+
+    var ctx = window.createMockContext();
+    arc.draw(ctx);
+
+    expect(ctx.getCalls().length).toBeGreaterThan(0);
+  });
 });

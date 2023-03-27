@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - filter.format.basic_html
     - filter.format.full_html
   module:
     - filter
@@ -30,6 +31,7 @@ permissions:
   - 'search heritage_item content'
   - 'search language_item content'
   - 'skip comment approval'
+  - 'use text format basic_html'
   - 'use text format full_html'
   - 'view files'
   - 'view icons'

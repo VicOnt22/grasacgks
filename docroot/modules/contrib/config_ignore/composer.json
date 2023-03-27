@@ -17,13 +17,14 @@
     }
   ],
   "support": {
-    "issues": "https://drupal.org/project/config_ignore",
+    "issues": "http://drupal.org/project/config_ignore",
     "irc": "irc://irc.freenode.org/drupal-contribute",
-    "source": "https://git.drupalcode.org/project/config_ignore"
+    "source": "http://cgit.drupalcode.org/config_ignore"
   },
-  "license": "GPL-2.0-or-later",
+  "license": "GPL-2.0+",
   "minimum-stability": "dev",
-  "require": {
-    "drupal/config_filter": "^1 || ^2"
+  "require-dev": {
+    "drupal/config_filter": "^1.8||^2.2",
+    "drush/drush": "^10 || ^11"
   }
 }

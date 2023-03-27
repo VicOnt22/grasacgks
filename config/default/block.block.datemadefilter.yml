@@ -1,0 +1,53 @@
+uuid: 11f314e4-128c-4126-8f74-8ce29a1ae741
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.date_made_filter_
+  module:
+    - block_class
+    - context
+    - facets
+    - system
+  theme:
+    - grasacgks
+third_party_settings:
+  block_class:
+    classes: password-strength__meter
+id: datemadefilter
+theme: grasacgks
+region: sidebar_first
+weight: -4
+provider: null
+plugin: 'facet_block:date_made_filter_'
+settings:
+  id: 'facet_block:date_made_filter_'
+  label: 'Date Made (Filter)'
+  label_display: '0'
+  provider: facets
+  context_mapping: {  }
+  block_id: datemadefilter
+visibility:
+  user_status:
+    id: user_status
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    user_status:
+      viewing_profile: '0'
+      logged_viewing_profile: '0'
+      own_page_true: '0'
+      field_value: '0'
+    user_fields: uid
+  context_all:
+    id: context_all
+    negate: null
+    values: ''
+  context:
+    id: context
+    negate: null
+    values: ''
+  request_path:
+    id: request_path
+    negate: false
+    pages: /search-page

@@ -55,6 +55,10 @@ class UserBlock extends DashboardBlockBase {
    *   The markup for the dashboard block.
    */
   public function build() {
+    if (!$this->currentUserHasRole()) {
+      return [];
+    }
+
     $config = $this->getConfiguration();
     $users = $this->getUsers($config);
 
@@ -222,6 +226,8 @@ class UserBlock extends DashboardBlockBase {
       '#default_value' => $block_configuration['plugin_specific_config']['blocked'] ?? TRUE,
     ];
 
+    $form['allowed_roles'] = $this->buildAllowedRolesSelectBox($block_configuration);
+
     return $form;
   }
 
@@ -250,7 +256,7 @@ class UserBlock extends DashboardBlockBase {
     return [
       '#type' => 'checkboxes',
       '#title' => $this->t('Which roles to display'),
-      '#description' => $this->t('Select which roles should be displayed in the block. If none are selected, all roles will be displayed.'),
+      '#description' => $this->t('The user roles that should be displayed in the widget. Leave blank to display all roles.'),
       '#options' => $options,
       '#default_value' => $block_configuration['plugin_specific_config']['roles'] ?? [],
     ];

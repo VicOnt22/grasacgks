@@ -1,75 +1,100 @@
-# Linear Cartesian Axis
+# Linear Axis
 
-The linear scale is use to chart numerical data. It can be placed on either the x or y axis. The scatter chart type automatically configures a line chart to use one of these scales for the x axis. As the name suggests, linear interpolation is used to determine where a value lies on the axis.
+The linear scale is used to chart numerical data. It can be placed on either the x or y-axis. The scatter chart type automatically configures a line chart to use one of these scales for the x-axis. As the name suggests, linear interpolation is used to determine where a value lies on the axis.
 
-## Tick Configuration Options
+## Configuration Options
 
-The following options are provided by the linear scale. They are all located in the `ticks` sub options. These options extend the [common tick configuration](README.md#tick-configuration).
+### Linear Axis specific options
 
-| Name | Type | Default | Description
-| -----| ---- | --------| -----------
-| `beginAtZero` | `Boolean` | | if true, scale will include 0 if it is not already included.
-| `min` | `Number` | | User defined minimum number for the scale, overrides minimum value from data. [more...](#axis-range-settings)
-| `max` | `Number` | | User defined maximum number for the scale, overrides maximum value from data. [more...](#axis-range-settings)
-| `maxTicksLimit` | `Number` | `11` | Maximum number of ticks and gridlines to show.
-| `precision` | `Number` | | if defined and `stepSize` is not specified, the step size will be rounded to this many decimal places.
-| `stepSize` | `Number` | | User defined fixed step size for the scale. [more...](#step-size)
-| `suggestedMax` | `Number` | | Adjustment used when calculating the maximum data value. [more...](#axis-range-settings)
-| `suggestedMin` | `Number` | | Adjustment used when calculating the minimum data value. [more...](#axis-range-settings)
+Namespace: `options.scales[scaleId]`
 
-## Axis Range Settings
+| Name | Type | Description
+| ---- | ---- | -----------
+| `beginAtZero` | `boolean` | if true, scale will include 0 if it is not already included.
+| `grace` | `number`\|`string` | Percentage (string ending with `%`) or amount (number) for added room in the scale range above and below data. [more...](#grace)
 
-Given the number of axis range settings, it is important to understand how they all interact with each other.
+!!!include(axes/cartesian/_common.md)!!!
 
-The `suggestedMax` and `suggestedMin` settings only change the data values that are used to scale the axis. These are useful for extending the range of the axis while maintaining the auto fit behaviour.
+!!!include(axes/_common.md)!!!
 
-```javascript
-let minDataValue = Math.min(mostNegativeValue, options.ticks.suggestedMin);
-let maxDataValue = Math.max(mostPositiveValue, options.ticks.suggestedMax);
-```
+## Tick Configuration
 
-In this example, the largest positive value is 50, but the data maximum is expanded out to 100. However, because the lowest data value is below the `suggestedMin` setting, it is ignored.
+### Linear Axis specific tick options
 
-```javascript
-let chart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        datasets: [{
-            label: 'First dataset',
-            data: [0, 20, 40, 50]
-        }],
-        labels: ['January', 'February', 'March', 'April']
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    suggestedMin: 50,
-                    suggestedMax: 100
-                }
-            }]
-        }
-    }
-});
-```
+Namespace: `options.scales[scaleId].ticks`
 
-In contrast to the `suggested*` settings, the `min` and `max` settings set explicit ends to the axes. When these are set, some data points may not be visible.
+| Name | Type | Scriptable | Default | Description
+| ---- | ---- | ------- | ------- | -----------
+| `count` | `number` | Yes | `undefined` | The number of ticks to generate. If specified, this overrides the automatic generation.
+| `format` | `object` | Yes | | The [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) options used by the default label formatter
+| `precision` | `number` | Yes | | if defined and `stepSize` is not specified, the step size will be rounded to this many decimal places.
+| `stepSize` | `number` | Yes | | User-defined fixed step size for the scale. [more...](#step-size)
+
+!!!include(axes/cartesian/_common_ticks.md)!!!
+
+!!!include(axes/_common_ticks.md)!!!
 
 ## Step Size
- If set, the scale ticks will be enumerated by multiple of stepSize, having one tick per increment. If not set, the ticks are labeled automatically using the nice numbers algorithm.
+
+If set, the scale ticks will be enumerated by multiple of `stepSize`, having one tick per increment. If not set, the ticks are labeled automatically using the nice numbers algorithm.
 
 This example sets up a chart with a y axis that creates ticks at `0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5`.
 
 ```javascript
 let options = {
     scales: {
-        yAxes: [{
+        y: {
+            max: 5,
+            min: 0,
             ticks: {
-                max: 5,
-                min: 0,
                 stepSize: 0.5
             }
-        }]
+        }
     }
 };
 ```
+
+## Grace
+
+If the value is string ending with `%`, its treat as percentage. If number, its treat as value.
+The value is added to the maximum data value and subtracted from the minimum data. This extends the scale range as if the data values were that much greater.
+
+```js chart-editor
+// <block:setup:1>
+const labels = Utils.months({count: 7});
+const data = {
+  labels: ['Positive', 'Negative'],
+  datasets: [{
+    data: [100, -50],
+    backgroundColor: 'rgb(255, 99, 132)'
+  }],
+};
+// </block:setup>
+
+// <block:config:0>
+const config = {
+  type: 'bar',
+  data,
+  options: {
+    scales: {
+      y: {
+        type: 'linear',
+        grace: '5%'
+      }
+    },
+    plugins: {
+      legend: false
+    }
+  }
+};
+// </block:config>
+
+module.exports = {
+  actions: [],
+  config: config,
+};
+```
+
+## Internal data format
+
+Internally, the linear scale uses numeric data

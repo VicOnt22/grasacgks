@@ -1,12 +1,13 @@
 # New Charts
 
-Chart.js 2.0 introduces the concept of controllers for each dataset. Like scales, new controllers can be written as needed.
+Chart.js 2.0 introduced the concept of controllers for each dataset. Like scales, new controllers can be written as needed.
 
 ```javascript
-Chart.controllers.MyType = Chart.DatasetController.extend({
+class MyType extends Chart.DatasetController {
 
-});
+}
 
+Chart.register(MyType);
 
 // Now we can create a new instance of our chart, using the Chart.js API
 new Chart(ctx, {
@@ -23,40 +24,46 @@ Dataset controllers must implement the following interface.
 
 ```javascript
 {
-    // Create elements for each piece of data in the dataset. Store elements in an array on the dataset as dataset.metaData
-    addElements: function() {},
+    // Defaults for charts of this type
+    defaults: {
+        // If set to `false` or `null`, no dataset level element is created.
+        // If set to a string, this is the type of element to create for the dataset.
+        // For example, a line create needs to create a line element so this is the string 'line'
+        datasetElementType: string | null | false,
 
-    // Create a single element for the data at the given index and reset its state
-    addElementAndReset: function(index) {},
+        // If set to `false` or `null`, no elements are created for each data value.
+        // If set to a string, this is the type of element to create for each data value.
+        // For example, a line create needs to create a point element so this is the string 'point'
+        dataElementType: string | null | false,
+    }
 
-    // Draw the representation of the dataset
-    // @param ease : if specified, this number represents how far to transition elements. See the implementation of draw() in any of the provided controllers to see how this should be used
-    draw: function(ease) {},
-
-    // Remove hover styling from the given element
-    removeHoverStyle: function(element) {},
-
-    // Add hover styling to the given element
-    setHoverStyle: function(element) {},
+    // ID of the controller
+    id: string;
 
     // Update the elements in response to new data
-    // @param reset : if true, put the elements into a reset state so they can animate to their final values
-    update: function(reset) {},
+    // @param mode : update mode, core calls this method using any of `'active'`, `'hide'`, `'reset'`, `'resize'`, `'show'` or `undefined`
+    update: function(mode) {}
 }
 ```
 
-The following methods may optionally be overridden by derived dataset controllers
+The following methods may optionally be overridden by derived dataset controllers.
+
 ```javascript
 {
+    // Draw the representation of the dataset. The base implementation works in most cases, and an example of a derived version
+    // can be found in the line controller
+    draw: function() {},
+
     // Initializes the controller
-    initialize: function(chart, datasetIndex) {},
+    initialize: function() {},
 
     // Ensures that the dataset represented by this controller is linked to a scale. Overridden to helpers.noop in the polar area and doughnut controllers as these
     // chart types using a single scale
     linkScales: function() {},
 
-    // Called by the main chart controller when an update is triggered. The default implementation handles the number of data points changing and creating elements appropriately.
-    buildOrUpdateElements: function() {}
+    // Parse the data into the controller meta data. The default implementation will work for cartesian parsing, but an example of an overridden
+    // version can be found in the doughnut controller
+    parse: function(start, count) {},
 }
 ```
 
@@ -65,52 +72,70 @@ The following methods may optionally be overridden by derived dataset controller
 Extending or replacing an existing controller type is easy. Simply replace the constructor for one of the built in types with your own.
 
 The built in controller types are:
-* `Chart.controllers.line`
-* `Chart.controllers.bar`
-* `Chart.controllers.radar`
-* `Chart.controllers.doughnut`
-* `Chart.controllers.polarArea`
-* `Chart.controllers.bubble`
+
+* `BarController`
+* `BubbleController`
+* `DoughnutController`
+* `LineController`
+* `PieController`
+* `PolarAreaController`
+* `RadarController`
+* `ScatterController`
+
+These controllers are also available in the UMD package, directly under `Chart`. Eg: `Chart.BarController`.
 
 For example, to derive a new chart type that extends from a bubble chart, you would do the following.
 
 ```javascript
-// Sets the default config for 'derivedBubble' to be the same as the bubble defaults.
-// We look for the defaults by doing Chart.defaults[chartType]
-// It looks like a bug exists when the defaults don't exist
-Chart.defaults.derivedBubble = Chart.defaults.bubble;
-
-// I think the recommend using Chart.controllers.bubble.extend({ extensions here });
-var custom = Chart.controllers.bubble.extend({
-    draw: function(ease) {
-        // Call super method first
-        Chart.controllers.bubble.prototype.draw.call(this, ease);
+import {BubbleController} from 'chart.js';
+class Custom extends BubbleController {
+    draw() {
+        // Call bubble controller method to draw all the points
+        super.draw(arguments);
 
         // Now we can do some custom drawing for this dataset. Here we'll draw a red box around the first point in each dataset
-        var meta = this.getMeta();
-        var pt0 = meta.data[0];
-        var radius = pt0._view.radius;
+        const meta = this.getMeta();
+        const pt0 = meta.data[0];
 
-        var ctx = this.chart.chart.ctx;
+        const {x, y} = pt0.getProps(['x', 'y']);
+        const {radius} = pt0.options;
+
+        const ctx = this.chart.ctx;
         ctx.save();
         ctx.strokeStyle = 'red';
         ctx.lineWidth = 1;
-        ctx.strokeRect(pt0._view.x - radius, pt0._view.y - radius, 2 * radius, 2 * radius);
+        ctx.strokeRect(x - radius, y - radius, 2 * radius, 2 * radius);
         ctx.restore();
     }
-});
+};
+Custom.id = 'derivedBubble';
+Custom.defaults = BubbleController.defaults;
 
-// Stores the controller so that the chart initialization routine can look it up with
-// Chart.controllers[type]
-Chart.controllers.derivedBubble = custom;
+// Stores the controller so that the chart initialization routine can look it up
+Chart.register(Custom);
 
 // Now we can create and use our new chart type
 new Chart(ctx, {
     type: 'derivedBubble',
     data: data,
-    options: options,
+    options: options
 });
 ```
 
-### Bar Controller
-The bar controller has a special property that you should be aware of. To correctly calculate the width of a bar, the controller must determine the number of datasets that map to bars. To do this, the bar controller attaches a property `bar` to the dataset during initialization. If you are creating a replacement or updated bar controller, you should do the same. This will ensure that charts with regular bars and your new derived bars will work seamlessly.
+## TypeScript Typings
+
+If you want your new chart type to be statically typed, you must provide a `.d.ts` TypeScript declaration file. Chart.js provides a way to augment built-in types with user-defined ones, by using the concept of "declaration merging".
+
+When adding a new chart type, `ChartTypeRegistry` must contain the declarations for the new type, either by extending an existing entry in `ChartTypeRegistry` or by creating a new one.
+
+For example, to provide typings for a new chart type that extends from a bubble chart, you would add a `.d.ts` containing:
+
+```typescript
+import { ChartTypeRegistry } from 'chart.js';
+
+declare module 'chart.js' {
+    interface ChartTypeRegistry {
+        derivedBubble: ChartTypeRegistry['bubble']
+    }
+}
+```

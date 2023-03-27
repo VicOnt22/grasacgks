@@ -32,6 +32,10 @@ abstract class ViewBlockBase extends DashboardBlockBase {
    *   The render for the views block.
    */
   public function build() {
+    if (!$this->currentUserHasRole()) {
+      return [];
+    }
+
     $content = [];
     $config = $this->getConfiguration();
 
@@ -82,6 +86,8 @@ abstract class ViewBlockBase extends DashboardBlockBase {
       '#required' => TRUE,
       '#default_value' => $view_default_value,
     ];
+
+    $form['allowed_roles'] = $this->buildAllowedRolesSelectBox($block_configuration);
 
     return $form;
   }

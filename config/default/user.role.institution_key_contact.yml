@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - filter.format.basic_html
     - filter.format.full_html
     - node.type.article
   module:
@@ -22,7 +23,6 @@ permissions:
   - 'access user contact forms'
   - 'access user profiles'
   - 'change own username'
-  - 'delete own article content'
   - 'download any audio files'
   - 'download any document files'
   - 'download any image files'
@@ -37,6 +37,7 @@ permissions:
   - 'search heritage_item content'
   - 'search language_item content'
   - 'use php in custom pagers'
+  - 'use text format basic_html'
   - 'use text format full_html'
   - 'view files'
   - 'view icons'

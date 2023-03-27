@@ -10,6 +10,7 @@ dependencies:
     - 'taxonomy_term:languages:2dfde9d3-07b4-484f-a661-41bad8040847'
     - 'taxonomy_term:languages:e4179196-f3f5-464e-8e03-b5bcdc5722b3'
   module:
+    - better_exposed_filters
     - blazy
     - node
     - smart_trim
@@ -923,6 +924,44 @@ display:
             offset: false
             offset_label: Offset
           quantity: 9
+      exposed_form:
+        type: bef
+        options:
+          submit_button: Apply
+          reset_button: true
+          reset_button_label: Reset
+          exposed_sorts_label: 'Trier par'
+          expose_sort_order: false
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+          text_input_required: 'Select any filter and click on Apply to see results'
+          text_input_required_format: full_html
+          bef:
+            general:
+              autosubmit: false
+              autosubmit_exclude_textfield: false
+              autosubmit_textfield_delay: 500
+              autosubmit_hide: false
+              input_required: false
+              allow_secondary: false
+              secondary_label: 'Advanced options'
+              secondary_open: false
+              reset_button_always_show: true
+            filter:
+              field_languages_target_id:
+                plugin_id: default
+                advanced:
+                  sort_options: false
+                  rewrite:
+                    filter_rewrite_values: ''
+                  collapsible: false
+                  is_secondary: false
+              field_part_of_speech_value:
+                plugin_id: default
+                advanced:
+                  placeholder_text: 'ex: vii, vti, vai, vta, ni, nv, na, av, ij'
+                  collapsible: false
+                  is_secondary: false
       filters:
         status:
           id: status
@@ -1039,6 +1078,58 @@ display:
           hierarchy: false
           limit: true
           error_message: true
+        field_part_of_speech_value:
+          id: field_part_of_speech_value
+          table: node__field_part_of_speech
+          field: field_part_of_speech_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: string
+          operator: starts
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_part_of_speech_value_op
+            label: 'Part of speech'
+            description: ''
+            use_operator: false
+            operator: field_part_of_speech_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_part_of_speech_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              editor: '0'
+              content_admin: '0'
+              seo_admin: '0'
+              site_admin: '0'
+              test_role: '0'
+              temp_test_role: '0'
+              guest_member: '0'
+              research_assistant: '0'
+              full_member: '0'
+              institution_key_contact: '0'
+              manager: '0'
+              administrator: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -1063,6 +1154,7 @@ display:
       defaults:
         title: false
         pager: false
+        exposed_form: false
         style: false
         row: false
         relationships: false

@@ -1,0 +1,14 @@
+uuid: 4d5e10a1-e46b-46cc-abee-5e40354e1d9f
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.folders
+id: taxonomy_vocabulary_folders
+entity_type_id: taxonomy_vocabulary
+entity_id: folders
+action: display_page
+allow_override: 1
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: access_denied

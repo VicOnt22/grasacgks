@@ -6,7 +6,7 @@ config_inspector:
     js/config_inspector.js: {}
   dependencies:
     - core/jquery
-    - core/jquery.once
+    - core/once
     - core/drupal
     - core/drupal.debounce
     - core/drupalSettings

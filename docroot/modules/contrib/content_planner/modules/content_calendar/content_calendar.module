@@ -30,6 +30,7 @@ function content_calendar_theme($existing, $type, $theme, $path) {
         'calendar' => [],
         'weekdays' => [],
         'node_type_creation_permissions' => [],
+        'add_content_set_schedule_date' => NULL,
       ],
     ],
 
@@ -89,10 +90,10 @@ function content_calendar_form_node_form_alter(&$form,
     $content_type_config_service = \Drupal::service('content_calendar.content_type_config_service');
 
     // If there is a creation date in the query string.
-    if ($content_type_config_service->loadEntityByContentType($node_type->id()) && \Drupal::request()->query->has('publish_on')) {
+    if ($content_type_config_service->loadEntityByContentType($node_type->id()) && \Drupal::request()->query->has('created')) {
 
       // Get date from query string.
-      $date = \Drupal::request()->query->get('publish_on');
+      $date = \Drupal::request()->query->get('created');
 
       // If the date is a valid MySQL Date.
       if (DateTimeHelper::dateIsMySqlDateOnly($date)) {
@@ -117,10 +118,12 @@ function content_calendar_form_node_form_alter(&$form,
         $form['created']['widget'][0]['value']['#default_value'] = $datetime;
 
         // Assign date to the scheduler date, if it exists.
-        if (\Drupal::currentUser()->hasPermission('schedule publishing of nodes')) {
-          if (array_key_exists('publish_on', $form)) {
-            $form['publish_on']['widget'][0]['value']['#default_value'] = $datetime;
-          }
+        if (
+          \Drupal::currentUser()->hasPermission('schedule publishing of nodes')
+          && array_key_exists('publish_on', $form)
+          && \Drupal::request()->query->get('schedule')
+        ) {
+          $form['publish_on']['widget'][0]['value']['#default_value'] = $datetime;
         }
       }
     }

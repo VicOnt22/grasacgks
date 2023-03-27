@@ -3,14 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
+    - filter.format.basic_html
     - filter.format.full_html
     - node.type.article
     - node.type.heritage_item
     - node.type.language_item
     - node.type.page
     - node.type.project
-    - node.type.resource
-    - node.type.secure_page
   module:
     - field_permissions
     - filter
@@ -32,7 +31,6 @@ permissions:
   - 'administer related items'
   - 'change own username'
   - 'create article content'
-  - 'create field_gks_id'
   - 'create field_make_role'
   - 'create files'
   - 'create heritage_item content'
@@ -40,8 +38,6 @@ permissions:
   - 'create page content'
   - 'create project content'
   - 'create relations'
-  - 'create resource content'
-  - 'create secure_page content'
   - 'create subuser 4'
   - 'create subuser 5'
   - 'delete any audio files'
@@ -54,8 +50,6 @@ permissions:
   - 'delete own image files'
   - 'delete own language_item content'
   - 'delete own project content'
-  - 'delete own resource content'
-  - 'delete own secure_page content'
   - 'delete own video files'
   - 'delete relations'
   - 'download any audio files'
@@ -73,22 +67,17 @@ permissions:
   - 'edit any image files'
   - 'edit any language_item content'
   - 'edit any project content'
-  - 'edit any resource content'
-  - 'edit any secure_page content'
   - 'edit any video files'
   - 'edit own article content'
   - 'edit own audio files'
   - 'edit own comments'
   - 'edit own document files'
-  - 'edit own field_gks_id'
   - 'edit own field_make_role'
   - 'edit own heritage_item content'
   - 'edit own image files'
   - 'edit own language_item content'
   - 'edit own page content'
   - 'edit own project content'
-  - 'edit own resource content'
-  - 'edit own secure_page content'
   - 'edit own video files'
   - 'edit relations'
   - 'edit terms in 10'
@@ -102,6 +91,7 @@ permissions:
   - 'search resource content'
   - 'select account cancellation method'
   - 'skip comment approval'
+  - 'use text format basic_html'
   - 'use text format filtered_html'
   - 'use text format full_html'
   - 'view advanced help index'

@@ -6,6 +6,7 @@ use Drupal\content_calendar\ContentTypeConfigService;
 use Drupal\content_calendar\ContentCalendarService;
 use Drupal\content_calendar\DateTimeHelper;
 use Drupal\content_planner\ContentModerationService;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Theme\ThemeManagerInterface;
 
@@ -27,6 +28,13 @@ class Calendar {
    * @var \Drupal\Core\Session\AccountProxyInterface
    */
   protected $currentUser;
+
+  /**
+   * The config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
 
   /**
    * The content moderatiom service.
@@ -77,6 +85,8 @@ class Calendar {
    *   The theme manager service.
    * @param \Drupal\Core\Session\AccountProxyInterface $currentUser
    *   The current user.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The config factory.
    * @param \Drupal\content_planner\ContentModerationService $contentModerationService
    *   The content moderation service.
    * @param \Drupal\content_calendar\ContentTypeConfigService $contentTypeConfigService
@@ -87,12 +97,14 @@ class Calendar {
   public function __construct(
     ThemeManagerInterface $themeManager,
     AccountProxyInterface $currentUser,
+    ConfigFactoryInterface $configFactory,
     ContentModerationService $contentModerationService,
     ContentTypeConfigService $contentTypeConfigService,
     ContentCalendarService $contentCalendarService
   ) {
     $this->themeManager = $themeManager;
     $this->currentUser = $currentUser;
+    $this->configFactory = $configFactory;
     $this->contentModerationService = $contentModerationService;
     $this->contentTypeConfigService = $contentTypeConfigService;
     $this->contentCalendarService = $contentCalendarService;
@@ -160,6 +172,9 @@ class Calendar {
       '#calendar' => $calendar,
       '#weekdays' => $weekdays,
       '#node_type_creation_permissions' => $this->getPermittedNodeTypeCreationActions(),
+      '#add_content_set_schedule_date' => $this->configFactory
+        ->get('content_calendar.settings')
+        ->get('add_content_set_schedule_date'),
       '#attached' => [
         'library' => ['content_calendar/calendar'],
       ],

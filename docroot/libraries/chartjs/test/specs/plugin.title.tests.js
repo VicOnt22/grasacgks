@@ -1,318 +1,358 @@
 // Test the rectangle element
 
-describe('Title block tests', function() {
-	it('Should have the correct default config', function() {
-		expect(Chart.defaults.global.title).toEqual({
-			display: false,
-			position: 'top',
-			fullWidth: true,
-			weight: 2000,
-			fontStyle: 'bold',
-			lineHeight: 1.2,
-			padding: 10,
-			text: ''
-		});
-	});
+var Title = Chart.registry.getPlugin('title')._element;
 
-	it('should update correctly', function() {
-		var chart = {};
+describe('Plugin.title', function() {
+  describe('auto', jasmine.fixture.specs('plugin.title'));
 
-		var options = Chart.helpers.clone(Chart.defaults.global.title);
-		options.text = 'My title';
+  it('Should have the correct default config', function() {
+    expect(Chart.defaults.plugins.title).toEqual({
+      align: 'center',
+      color: Chart.defaults.color,
+      display: false,
+      position: 'top',
+      fullSize: true,
+      weight: 2000,
+      font: {
+        weight: 'bold'
+      },
+      padding: 10,
+      text: ''
+    });
+  });
 
-		var title = new Chart.Title({
-			chart: chart,
-			options: options
-		});
+  it('should update correctly', function() {
+    var chart = {
+      options: Chart.helpers.clone(Chart.defaults)
+    };
 
-		var minSize = title.update(400, 200);
+    var options = Chart.helpers.clone(Chart.defaults.plugins.title);
+    options.text = 'My title';
 
-		expect(minSize).toEqual({
-			width: 400,
-			height: 0
-		});
+    var title = new Title({
+      chart: chart,
+      options: options
+    });
 
-		// Now we have a height since we display
-		title.options.display = true;
+    title.update(400, 200);
 
-		minSize = title.update(400, 200);
+    expect(title.width).toEqual(0);
+    expect(title.height).toEqual(0);
 
-		expect(minSize).toEqual({
-			width: 400,
-			height: 34.4
-		});
-	});
+    // Now we have a height since we display
+    title.options.display = true;
 
-	it('should update correctly when vertical', function() {
-		var chart = {};
+    title.update(400, 200);
 
-		var options = Chart.helpers.clone(Chart.defaults.global.title);
-		options.text = 'My title';
-		options.position = 'left';
+    expect(title.width).toEqual(400);
+    expect(title.height).toEqual(34.4);
+  });
 
-		var title = new Chart.Title({
-			chart: chart,
-			options: options
-		});
+  it('should update correctly when vertical', function() {
+    var chart = {
+      options: Chart.helpers.clone(Chart.defaults)
+    };
 
-		var minSize = title.update(200, 400);
+    var options = Chart.helpers.clone(Chart.defaults.plugins.title);
+    options.text = 'My title';
+    options.position = 'left';
 
-		expect(minSize).toEqual({
-			width: 0,
-			height: 400
-		});
+    var title = new Title({
+      chart: chart,
+      options: options
+    });
 
-		// Now we have a height since we display
-		title.options.display = true;
+    title.update(200, 400);
 
-		minSize = title.update(200, 400);
+    expect(title.width).toEqual(0);
+    expect(title.height).toEqual(0);
 
-		expect(minSize).toEqual({
-			width: 34.4,
-			height: 400
-		});
-	});
+    // Now we have a height since we display
+    title.options.display = true;
 
-	it('should have the correct size when there are multiple lines of text', function() {
-		var chart = {};
+    title.update(200, 400);
 
-		var options = Chart.helpers.clone(Chart.defaults.global.title);
-		options.text = ['line1', 'line2'];
-		options.position = 'left';
-		options.display = true;
-		options.lineHeight = 1.5;
+    expect(title.width).toEqual(34.4);
+    expect(title.height).toEqual(400);
+  });
 
-		var title = new Chart.Title({
-			chart: chart,
-			options: options
-		});
+  it('should have the correct size when there are multiple lines of text', function() {
+    var chart = {
+      options: Chart.helpers.clone(Chart.defaults)
+    };
 
-		var minSize = title.update(200, 400);
+    var options = Chart.helpers.clone(Chart.defaults.plugins.title);
+    options.text = ['line1', 'line2'];
+    options.position = 'left';
+    options.display = true;
+    options.font.lineHeight = 1.5;
 
-		expect(minSize).toEqual({
-			width: 56,
-			height: 400
-		});
-	});
+    var title = new Title({
+      chart: chart,
+      options: options
+    });
 
-	it('should draw correctly horizontally', function() {
-		var chart = {};
-		var context = window.createMockContext();
+    title.update(200, 400);
 
-		var options = Chart.helpers.clone(Chart.defaults.global.title);
-		options.text = 'My title';
+    expect(title.width).toEqual(56);
+    expect(title.height).toEqual(400);
+  });
 
-		var title = new Chart.Title({
-			chart: chart,
-			options: options,
-			ctx: context
-		});
+  it('should draw correctly horizontally', function() {
+    var chart = {
+      options: Chart.helpers.clone(Chart.defaults)
+    };
+    var context = window.createMockContext();
 
-		title.update(400, 200);
-		title.draw();
+    var options = Chart.helpers.clone(Chart.defaults.plugins.title);
+    options.text = 'My title';
 
-		expect(context.getCalls()).toEqual([]);
+    var title = new Title({
+      chart: chart,
+      options: options,
+      ctx: context
+    });
 
-		// Now we have a height since we display
-		title.options.display = true;
+    title.update(400, 200);
+    title.draw();
 
-		var minSize = title.update(400, 200);
-		title.top = 50;
-		title.left = 100;
-		title.bottom = title.top + minSize.height;
-		title.right = title.left + minSize.width;
-		title.draw();
+    expect(context.getCalls()).toEqual([]);
 
-		expect(context.getCalls()).toEqual([{
-			name: 'setFillStyle',
-			args: ['#666']
-		}, {
-			name: 'save',
-			args: []
-		}, {
-			name: 'translate',
-			args: [300, 67.2]
-		}, {
-			name: 'rotate',
-			args: [0]
-		}, {
-			name: 'fillText',
-			args: ['My title', 0, 0, 400]
-		}, {
-			name: 'restore',
-			args: []
-		}]);
-	});
+    // Now we have a height since we display
+    title.options.display = true;
 
-	it ('should draw correctly vertically', function() {
-		var chart = {};
-		var context = window.createMockContext();
+    title.update(400, 200);
+    title.top = 50;
+    title.left = 100;
+    title.bottom = title.top + title.height;
+    title.right = title.left + title.width;
+    title.draw();
 
-		var options = Chart.helpers.clone(Chart.defaults.global.title);
-		options.text = 'My title';
-		options.position = 'left';
+    expect(context.getCalls()).toEqual([{
+      name: 'save',
+      args: []
+    }, {
+      name: 'setFont',
+      args: ["normal bold 12px 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"],
+    }, {
+      name: 'translate',
+      args: [300, 67.2]
+    }, {
+      name: 'rotate',
+      args: [0]
+    }, {
+      name: 'setFillStyle',
+      args: ['#666']
+    }, {
+      name: 'setTextAlign',
+      args: ['center'],
+    }, {
+      name: 'setTextBaseline',
+      args: ['middle'],
+    }, {
+      name: 'fillText',
+      args: ['My title', 0, 0, 400]
+    }, {
+      name: 'restore',
+      args: []
+    }]);
+  });
 
-		var title = new Chart.Title({
-			chart: chart,
-			options: options,
-			ctx: context
-		});
+  it ('should draw correctly vertically', function() {
+    var chart = {
+      options: Chart.helpers.clone(Chart.defaults)
+    };
+    var context = window.createMockContext();
 
-		title.update(200, 400);
-		title.draw();
+    var options = Chart.helpers.clone(Chart.defaults.plugins.title);
+    options.text = 'My title';
+    options.position = 'left';
 
-		expect(context.getCalls()).toEqual([]);
+    var title = new Title({
+      chart: chart,
+      options: options,
+      ctx: context
+    });
 
-		// Now we have a height since we display
-		title.options.display = true;
+    title.update(200, 400);
+    title.draw();
 
-		var minSize = title.update(200, 400);
-		title.top = 50;
-		title.left = 100;
-		title.bottom = title.top + minSize.height;
-		title.right = title.left + minSize.width;
-		title.draw();
+    expect(context.getCalls()).toEqual([]);
 
-		expect(context.getCalls()).toEqual([{
-			name: 'setFillStyle',
-			args: ['#666']
-		}, {
-			name: 'save',
-			args: []
-		}, {
-			name: 'translate',
-			args: [117.2, 250]
-		}, {
-			name: 'rotate',
-			args: [-0.5 * Math.PI]
-		}, {
-			name: 'fillText',
-			args: ['My title', 0, 0, 400]
-		}, {
-			name: 'restore',
-			args: []
-		}]);
+    // Now we have a height since we display
+    title.options.display = true;
 
-		// Rotation is other way on right side
-		title.options.position = 'right';
+    title.update(200, 400);
+    title.top = 50;
+    title.left = 100;
+    title.bottom = title.top + title.height;
+    title.right = title.left + title.width;
+    title.draw();
 
-		// Reset call tracker
-		context.resetCalls();
+    expect(context.getCalls()).toEqual([{
+      name: 'save',
+      args: []
+    }, {
+      name: 'setFont',
+      args: ["normal bold 12px 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"],
+    }, {
+      name: 'translate',
+      args: [117.2, 250]
+    }, {
+      name: 'rotate',
+      args: [-0.5 * Math.PI]
+    }, {
+      name: 'setFillStyle',
+      args: ['#666']
+    }, {
+      name: 'setTextAlign',
+      args: ['center'],
+    }, {
+      name: 'setTextBaseline',
+      args: ['middle'],
+    }, {
+      name: 'fillText',
+      args: ['My title', 0, 0, 400]
+    }, {
+      name: 'restore',
+      args: []
+    }]);
 
-		minSize = title.update(200, 400);
-		title.top = 50;
-		title.left = 100;
-		title.bottom = title.top + minSize.height;
-		title.right = title.left + minSize.width;
-		title.draw();
+    // Rotation is other way on right side
+    title.options.position = 'right';
 
-		expect(context.getCalls()).toEqual([{
-			name: 'setFillStyle',
-			args: ['#666']
-		}, {
-			name: 'save',
-			args: []
-		}, {
-			name: 'translate',
-			args: [117.2, 250]
-		}, {
-			name: 'rotate',
-			args: [0.5 * Math.PI]
-		}, {
-			name: 'fillText',
-			args: ['My title', 0, 0, 400]
-		}, {
-			name: 'restore',
-			args: []
-		}]);
-	});
+    // Reset call tracker
+    context.resetCalls();
 
-	describe('config update', function() {
-		it ('should update the options', function() {
-			var chart = acquireChart({
-				type: 'line',
-				data: {
-					labels: ['A', 'B', 'C', 'D'],
-					datasets: [{
-						data: [10, 20, 30, 100]
-					}]
-				},
-				options: {
-					title: {
-						display: true
-					}
-				}
-			});
-			expect(chart.titleBlock.options.display).toBe(true);
+    title.update(200, 400);
+    title.top = 50;
+    title.left = 100;
+    title.bottom = title.top + title.height;
+    title.right = title.left + title.width;
+    title.draw();
 
-			chart.options.title.display = false;
-			chart.update();
-			expect(chart.titleBlock.options.display).toBe(false);
-		});
+    expect(context.getCalls()).toEqual([{
+      name: 'save',
+      args: []
+    }, {
+      name: 'setFont',
+      args: ["normal bold 12px 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"],
+    }, {
+      name: 'translate',
+      args: [117.2, 250]
+    }, {
+      name: 'rotate',
+      args: [0.5 * Math.PI]
+    }, {
+      name: 'setFillStyle',
+      args: ['#666']
+    }, {
+      name: 'setTextAlign',
+      args: ['center'],
+    }, {
+      name: 'setTextBaseline',
+      args: ['middle'],
+    }, {
+      name: 'fillText',
+      args: ['My title', 0, 0, 400]
+    }, {
+      name: 'restore',
+      args: []
+    }]);
+  });
 
-		it ('should update the associated layout item', function() {
-			var chart = acquireChart({
-				type: 'line',
-				data: {},
-				options: {
-					title: {
-						fullWidth: true,
-						position: 'top',
-						weight: 150
-					}
-				}
-			});
+  describe('config update', function() {
+    it ('should update the options', function() {
+      var chart = acquireChart({
+        type: 'line',
+        data: {
+          labels: ['A', 'B', 'C', 'D'],
+          datasets: [{
+            data: [10, 20, 30, 100]
+          }]
+        },
+        options: {
+          plugins: {
+            title: {
+              display: true
+            }
+          }
+        }
+      });
+      expect(chart.titleBlock.options.display).toBe(true);
 
-			expect(chart.titleBlock.fullWidth).toBe(true);
-			expect(chart.titleBlock.position).toBe('top');
-			expect(chart.titleBlock.weight).toBe(150);
+      chart.options.plugins.title.display = false;
+      chart.update();
+      expect(chart.titleBlock.options.display).toBe(false);
+    });
 
-			chart.options.title.fullWidth = false;
-			chart.options.title.position = 'left';
-			chart.options.title.weight = 42;
-			chart.update();
+    it ('should update the associated layout item', function() {
+      var chart = acquireChart({
+        type: 'line',
+        data: {},
+        options: {
+          plugins: {
+            title: {
+              fullSize: true,
+              position: 'top',
+              weight: 150
+            }
+          }
+        }
+      });
 
-			expect(chart.titleBlock.fullWidth).toBe(false);
-			expect(chart.titleBlock.position).toBe('left');
-			expect(chart.titleBlock.weight).toBe(42);
-		});
+      expect(chart.titleBlock.fullSize).toBe(true);
+      expect(chart.titleBlock.position).toBe('top');
+      expect(chart.titleBlock.weight).toBe(150);
 
-		it ('should remove the title if the new options are false', function() {
-			var chart = acquireChart({
-				type: 'line',
-				data: {
-					labels: ['A', 'B', 'C', 'D'],
-					datasets: [{
-						data: [10, 20, 30, 100]
-					}]
-				}
-			});
-			expect(chart.titleBlock).not.toBe(undefined);
+      chart.options.plugins.title.fullSize = false;
+      chart.options.plugins.title.position = 'left';
+      chart.options.plugins.title.weight = 42;
+      chart.update();
 
-			chart.options.title = false;
-			chart.update();
-			expect(chart.titleBlock).toBe(undefined);
-		});
+      expect(chart.titleBlock.fullSize).toBe(false);
+      expect(chart.titleBlock.position).toBe('left');
+      expect(chart.titleBlock.weight).toBe(42);
+    });
 
-		it ('should create the title if the title options are changed to exist', function() {
-			var chart = acquireChart({
-				type: 'line',
-				data: {
-					labels: ['A', 'B', 'C', 'D'],
-					datasets: [{
-						data: [10, 20, 30, 100]
-					}]
-				},
-				options: {
-					title: false
-				}
-			});
-			expect(chart.titleBlock).toBe(undefined);
+    it ('should remove the title if the new options are false', function() {
+      var chart = acquireChart({
+        type: 'line',
+        data: {
+          labels: ['A', 'B', 'C', 'D'],
+          datasets: [{
+            data: [10, 20, 30, 100]
+          }]
+        }
+      });
+      expect(chart.titleBlock).not.toBe(undefined);
 
-			chart.options.title = {};
-			chart.update();
-			expect(chart.titleBlock).not.toBe(undefined);
-			expect(chart.titleBlock.options).toEqual(jasmine.objectContaining(Chart.defaults.global.title));
-		});
-	});
+      chart.options.plugins.title = false;
+      chart.update();
+      expect(chart.titleBlock).toBe(undefined);
+    });
+
+    it ('should create the title if the title options are changed to exist', function() {
+      var chart = acquireChart({
+        type: 'line',
+        data: {
+          labels: ['A', 'B', 'C', 'D'],
+          datasets: [{
+            data: [10, 20, 30, 100]
+          }]
+        },
+        options: {
+          plugins: {
+            title: false
+          }
+        }
+      });
+      expect(chart.titleBlock).toBe(undefined);
+
+      chart.options.plugins.title = {};
+      chart.update();
+      expect(chart.titleBlock).not.toBe(undefined);
+      expect(chart.titleBlock.options).toEqualOptions(Chart.defaults.plugins.title);
+    });
+  });
 });

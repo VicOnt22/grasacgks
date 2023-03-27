@@ -24,6 +24,6 @@
         "drupal/security_review": "Site security and configuration review module."
     },
     "require": {
-        "php": ">=7.1"
+        "php": ">=7.2"
     }
 }

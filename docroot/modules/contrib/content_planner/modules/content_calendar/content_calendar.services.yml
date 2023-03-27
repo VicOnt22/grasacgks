@@ -5,6 +5,7 @@ services:
     arguments:
       - '@theme.manager'
       - '@current_user'
+      - '@config.factory'
       - '@content_planner.content_moderation_service'
       - '@content_calendar.content_type_config_service'
       - '@content_calendar.content_calendar_service'

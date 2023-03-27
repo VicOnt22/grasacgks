@@ -1,197 +1,309 @@
-'use strict';
-
-var helpers = require('../helpers/index');
-var Scale = require('../core/core.scale');
+import {isNullOrUndef} from '../helpers/helpers.core.js';
+import {almostEquals, almostWhole, niceNum, _decimalPlaces, _setMinAndMaxByKey, sign, toRadians} from '../helpers/helpers.math.js';
+import Scale from '../core/core.scale.js';
+import {formatNumber} from '../helpers/helpers.intl.js';
 
 /**
- * Generate a set of linear ticks
+ * Generate a set of linear ticks for an axis
+ * 1. If generationOptions.min, generationOptions.max, and generationOptions.step are defined:
+ *    if (max - min) / step is an integer, ticks are generated as [min, min + step, ..., max]
+ *    Note that the generationOptions.maxCount setting is respected in this scenario
+ *
+ * 2. If generationOptions.min, generationOptions.max, and generationOptions.count is defined
+ *    spacing = (max - min) / count
+ *    Ticks are generated as [min, min + spacing, ..., max]
+ *
+ * 3. If generationOptions.count is defined
+ *    spacing = (niceMax - niceMin) / count
+ *
+ * 4. Compute optimal spacing of ticks using niceNum algorithm
+ *
  * @param generationOptions the options used to generate the ticks
  * @param dataRange the range of the data
- * @returns {Array<Number>} array of tick values
+ * @returns {object[]} array of tick objects
  */
 function generateTicks(generationOptions, dataRange) {
-	var ticks = [];
-	// To get a "nice" value for the tick spacing, we will use the appropriately named
-	// "nice number" algorithm. See http://stackoverflow.com/questions/8506881/nice-label-algorithm-for-charts-with-minimum-ticks
-	// for details.
+  const ticks = [];
+  // To get a "nice" value for the tick spacing, we will use the appropriately named
+  // "nice number" algorithm. See https://stackoverflow.com/questions/8506881/nice-label-algorithm-for-charts-with-minimum-ticks
+  // for details.
 
-	var factor;
-	var precision;
-	var spacing;
+  const MIN_SPACING = 1e-14;
+  const {bounds, step, min, max, precision, count, maxTicks, maxDigits, includeBounds} = generationOptions;
+  const unit = step || 1;
+  const maxSpaces = maxTicks - 1;
+  const {min: rmin, max: rmax} = dataRange;
+  const minDefined = !isNullOrUndef(min);
+  const maxDefined = !isNullOrUndef(max);
+  const countDefined = !isNullOrUndef(count);
+  const minSpacing = (rmax - rmin) / (maxDigits + 1);
+  let spacing = niceNum((rmax - rmin) / maxSpaces / unit) * unit;
+  let factor, niceMin, niceMax, numSpaces;
 
-	if (generationOptions.stepSize && generationOptions.stepSize > 0) {
-		spacing = generationOptions.stepSize;
-	} else {
-		var niceRange = helpers.niceNum(dataRange.max - dataRange.min, false);
-		spacing = helpers.niceNum(niceRange / (generationOptions.maxTicks - 1), true);
+  // Beyond MIN_SPACING floating point numbers being to lose precision
+  // such that we can't do the math necessary to generate ticks
+  if (spacing < MIN_SPACING && !minDefined && !maxDefined) {
+    return [{value: rmin}, {value: rmax}];
+  }
 
-		precision = generationOptions.precision;
-		if (precision !== undefined) {
-			// If the user specified a precision, round to that number of decimal places
-			factor = Math.pow(10, precision);
-			spacing = Math.ceil(spacing * factor) / factor;
-		}
-	}
-	var niceMin = Math.floor(dataRange.min / spacing) * spacing;
-	var niceMax = Math.ceil(dataRange.max / spacing) * spacing;
+  numSpaces = Math.ceil(rmax / spacing) - Math.floor(rmin / spacing);
+  if (numSpaces > maxSpaces) {
+    // If the calculated num of spaces exceeds maxNumSpaces, recalculate it
+    spacing = niceNum(numSpaces * spacing / maxSpaces / unit) * unit;
+  }
 
-	// If min, max and stepSize is set and they make an evenly spaced scale use it.
-	if (!helpers.isNullOrUndef(generationOptions.min) && !helpers.isNullOrUndef(generationOptions.max) && generationOptions.stepSize) {
-		// If very close to our whole number, use it.
-		if (helpers.almostWhole((generationOptions.max - generationOptions.min) / generationOptions.stepSize, spacing / 1000)) {
-			niceMin = generationOptions.min;
-			niceMax = generationOptions.max;
-		}
-	}
+  if (!isNullOrUndef(precision)) {
+    // If the user specified a precision, round to that number of decimal places
+    factor = Math.pow(10, precision);
+    spacing = Math.ceil(spacing * factor) / factor;
+  }
 
-	var numSpaces = (niceMax - niceMin) / spacing;
-	// If very close to our rounded value, use it.
-	if (helpers.almostEquals(numSpaces, Math.round(numSpaces), spacing / 1000)) {
-		numSpaces = Math.round(numSpaces);
-	} else {
-		numSpaces = Math.ceil(numSpaces);
-	}
+  if (bounds === 'ticks') {
+    niceMin = Math.floor(rmin / spacing) * spacing;
+    niceMax = Math.ceil(rmax / spacing) * spacing;
+  } else {
+    niceMin = rmin;
+    niceMax = rmax;
+  }
 
-	precision = 1;
-	if (spacing < 1) {
-		precision = Math.pow(10, 1 - Math.floor(helpers.log10(spacing)));
-		niceMin = Math.round(niceMin * precision) / precision;
-		niceMax = Math.round(niceMax * precision) / precision;
-	}
-	ticks.push(generationOptions.min !== undefined ? generationOptions.min : niceMin);
-	for (var j = 1; j < numSpaces; ++j) {
-		ticks.push(Math.round((niceMin + j * spacing) * precision) / precision);
-	}
-	ticks.push(generationOptions.max !== undefined ? generationOptions.max : niceMax);
+  if (minDefined && maxDefined && step && almostWhole((max - min) / step, spacing / 1000)) {
+    // Case 1: If min, max and stepSize are set and they make an evenly spaced scale use it.
+    // spacing = step;
+    // numSpaces = (max - min) / spacing;
+    // Note that we round here to handle the case where almostWhole translated an FP error
+    numSpaces = Math.round(Math.min((max - min) / spacing, maxTicks));
+    spacing = (max - min) / numSpaces;
+    niceMin = min;
+    niceMax = max;
+  } else if (countDefined) {
+    // Cases 2 & 3, we have a count specified. Handle optional user defined edges to the range.
+    // Sometimes these are no-ops, but it makes the code a lot clearer
+    // and when a user defined range is specified, we want the correct ticks
+    niceMin = minDefined ? min : niceMin;
+    niceMax = maxDefined ? max : niceMax;
+    numSpaces = count - 1;
+    spacing = (niceMax - niceMin) / numSpaces;
+  } else {
+    // Case 4
+    numSpaces = (niceMax - niceMin) / spacing;
 
-	return ticks;
+    // If very close to our rounded value, use it.
+    if (almostEquals(numSpaces, Math.round(numSpaces), spacing / 1000)) {
+      numSpaces = Math.round(numSpaces);
+    } else {
+      numSpaces = Math.ceil(numSpaces);
+    }
+  }
+
+  // The spacing will have changed in cases 1, 2, and 3 so the factor cannot be computed
+  // until this point
+  const decimalPlaces = Math.max(
+    _decimalPlaces(spacing),
+    _decimalPlaces(niceMin)
+  );
+  factor = Math.pow(10, isNullOrUndef(precision) ? decimalPlaces : precision);
+  niceMin = Math.round(niceMin * factor) / factor;
+  niceMax = Math.round(niceMax * factor) / factor;
+
+  let j = 0;
+  if (minDefined) {
+    if (includeBounds && niceMin !== min) {
+      ticks.push({value: min});
+
+      if (niceMin < min) {
+        j++; // Skip niceMin
+      }
+      // If the next nice tick is close to min, skip it
+      if (almostEquals(Math.round((niceMin + j * spacing) * factor) / factor, min, relativeLabelSize(min, minSpacing, generationOptions))) {
+        j++;
+      }
+    } else if (niceMin < min) {
+      j++;
+    }
+  }
+
+  for (; j < numSpaces; ++j) {
+    ticks.push({value: Math.round((niceMin + j * spacing) * factor) / factor});
+  }
+
+  if (maxDefined && includeBounds && niceMax !== max) {
+    // If the previous tick is too close to max, replace it with max, else add max
+    if (ticks.length && almostEquals(ticks[ticks.length - 1].value, max, relativeLabelSize(max, minSpacing, generationOptions))) {
+      ticks[ticks.length - 1].value = max;
+    } else {
+      ticks.push({value: max});
+    }
+  } else if (!maxDefined || niceMax === max) {
+    ticks.push({value: niceMax});
+  }
+
+  return ticks;
 }
 
-module.exports = function(Chart) {
+function relativeLabelSize(value, minSpacing, {horizontal, minRotation}) {
+  const rad = toRadians(minRotation);
+  const ratio = (horizontal ? Math.sin(rad) : Math.cos(rad)) || 0.001;
+  const length = 0.75 * minSpacing * ('' + value).length;
+  return Math.min(minSpacing / ratio, length);
+}
 
-	var noop = helpers.noop;
+export default class LinearScaleBase extends Scale {
 
-	Chart.LinearScaleBase = Scale.extend({
-		getRightValue: function(value) {
-			if (typeof value === 'string') {
-				return +value;
-			}
-			return Scale.prototype.getRightValue.call(this, value);
-		},
+  constructor(cfg) {
+    super(cfg);
 
-		handleTickRangeOptions: function() {
-			var me = this;
-			var opts = me.options;
-			var tickOpts = opts.ticks;
+    /** @type {number} */
+    this.start = undefined;
+    /** @type {number} */
+    this.end = undefined;
+    /** @type {number} */
+    this._startValue = undefined;
+    /** @type {number} */
+    this._endValue = undefined;
+    this._valueRange = 0;
+  }
 
-			// If we are forcing it to begin at 0, but 0 will already be rendered on the chart,
-			// do nothing since that would make the chart weird. If the user really wants a weird chart
-			// axis, they can manually override it
-			if (tickOpts.beginAtZero) {
-				var minSign = helpers.sign(me.min);
-				var maxSign = helpers.sign(me.max);
+  parse(raw, index) { // eslint-disable-line no-unused-vars
+    if (isNullOrUndef(raw)) {
+      return null;
+    }
+    if ((typeof raw === 'number' || raw instanceof Number) && !isFinite(+raw)) {
+      return null;
+    }
 
-				if (minSign < 0 && maxSign < 0) {
-					// move the top up to 0
-					me.max = 0;
-				} else if (minSign > 0 && maxSign > 0) {
-					// move the bottom down to 0
-					me.min = 0;
-				}
-			}
+    return +raw;
+  }
 
-			var setMin = tickOpts.min !== undefined || tickOpts.suggestedMin !== undefined;
-			var setMax = tickOpts.max !== undefined || tickOpts.suggestedMax !== undefined;
+  handleTickRangeOptions() {
+    const {beginAtZero} = this.options;
+    const {minDefined, maxDefined} = this.getUserBounds();
+    let {min, max} = this;
 
-			if (tickOpts.min !== undefined) {
-				me.min = tickOpts.min;
-			} else if (tickOpts.suggestedMin !== undefined) {
-				if (me.min === null) {
-					me.min = tickOpts.suggestedMin;
-				} else {
-					me.min = Math.min(me.min, tickOpts.suggestedMin);
-				}
-			}
+    const setMin = v => (min = minDefined ? min : v);
+    const setMax = v => (max = maxDefined ? max : v);
 
-			if (tickOpts.max !== undefined) {
-				me.max = tickOpts.max;
-			} else if (tickOpts.suggestedMax !== undefined) {
-				if (me.max === null) {
-					me.max = tickOpts.suggestedMax;
-				} else {
-					me.max = Math.max(me.max, tickOpts.suggestedMax);
-				}
-			}
+    if (beginAtZero) {
+      const minSign = sign(min);
+      const maxSign = sign(max);
 
-			if (setMin !== setMax) {
-				// We set the min or the max but not both.
-				// So ensure that our range is good
-				// Inverted or 0 length range can happen when
-				// ticks.min is set, and no datasets are visible
-				if (me.min >= me.max) {
-					if (setMin) {
-						me.max = me.min + 1;
-					} else {
-						me.min = me.max - 1;
-					}
-				}
-			}
+      if (minSign < 0 && maxSign < 0) {
+        setMax(0);
+      } else if (minSign > 0 && maxSign > 0) {
+        setMin(0);
+      }
+    }
 
-			if (me.min === me.max) {
-				me.max++;
+    if (min === max) {
+      let offset = max === 0 ? 1 : Math.abs(max * 0.05);
 
-				if (!tickOpts.beginAtZero) {
-					me.min--;
-				}
-			}
-		},
-		getTickLimit: noop,
-		handleDirectionalChanges: noop,
+      setMax(max + offset);
 
-		buildTicks: function() {
-			var me = this;
-			var opts = me.options;
-			var tickOpts = opts.ticks;
+      if (!beginAtZero) {
+        setMin(min - offset);
+      }
+    }
+    this.min = min;
+    this.max = max;
+  }
 
-			// Figure out what the max number of ticks we can support it is based on the size of
-			// the axis area. For now, we say that the minimum tick spacing in pixels must be 50
-			// We also limit the maximum number of ticks to 11 which gives a nice 10 squares on
-			// the graph. Make sure we always have at least 2 ticks
-			var maxTicks = me.getTickLimit();
-			maxTicks = Math.max(2, maxTicks);
+  getTickLimit() {
+    const tickOpts = this.options.ticks;
+    // eslint-disable-next-line prefer-const
+    let {maxTicksLimit, stepSize} = tickOpts;
+    let maxTicks;
 
-			var numericGeneratorOptions = {
-				maxTicks: maxTicks,
-				min: tickOpts.min,
-				max: tickOpts.max,
-				precision: tickOpts.precision,
-				stepSize: helpers.valueOrDefault(tickOpts.fixedStepSize, tickOpts.stepSize)
-			};
-			var ticks = me.ticks = generateTicks(numericGeneratorOptions, me);
+    if (stepSize) {
+      maxTicks = Math.ceil(this.max / stepSize) - Math.floor(this.min / stepSize) + 1;
+      if (maxTicks > 1000) {
+        console.warn(`scales.${this.id}.ticks.stepSize: ${stepSize} would result generating up to ${maxTicks} ticks. Limiting to 1000.`);
+        maxTicks = 1000;
+      }
+    } else {
+      maxTicks = this.computeTickLimit();
+      maxTicksLimit = maxTicksLimit || 11;
+    }
 
-			me.handleDirectionalChanges();
+    if (maxTicksLimit) {
+      maxTicks = Math.min(maxTicksLimit, maxTicks);
+    }
 
-			// At this point, we need to update our max and min given the tick values since we have expanded the
-			// range of the scale
-			me.max = helpers.max(ticks);
-			me.min = helpers.min(ticks);
+    return maxTicks;
+  }
 
-			if (tickOpts.reverse) {
-				ticks.reverse();
+  /**
+	 * @protected
+	 */
+  computeTickLimit() {
+    return Number.POSITIVE_INFINITY;
+  }
 
-				me.start = me.max;
-				me.end = me.min;
-			} else {
-				me.start = me.min;
-				me.end = me.max;
-			}
-		},
-		convertTicksToLabels: function() {
-			var me = this;
-			me.ticksAsNumbers = me.ticks.slice();
-			me.zeroLineIndex = me.ticks.indexOf(0);
+  buildTicks() {
+    const opts = this.options;
+    const tickOpts = opts.ticks;
 
-			Scale.prototype.convertTicksToLabels.call(me);
-		}
-	});
-};
+    // Figure out what the max number of ticks we can support it is based on the size of
+    // the axis area. For now, we say that the minimum tick spacing in pixels must be 40
+    // We also limit the maximum number of ticks to 11 which gives a nice 10 squares on
+    // the graph. Make sure we always have at least 2 ticks
+    let maxTicks = this.getTickLimit();
+    maxTicks = Math.max(2, maxTicks);
+
+    const numericGeneratorOptions = {
+      maxTicks,
+      bounds: opts.bounds,
+      min: opts.min,
+      max: opts.max,
+      precision: tickOpts.precision,
+      step: tickOpts.stepSize,
+      count: tickOpts.count,
+      maxDigits: this._maxDigits(),
+      horizontal: this.isHorizontal(),
+      minRotation: tickOpts.minRotation || 0,
+      includeBounds: tickOpts.includeBounds !== false
+    };
+    const dataRange = this._range || this;
+    const ticks = generateTicks(numericGeneratorOptions, dataRange);
+
+    // At this point, we need to update our max and min given the tick values,
+    // since we probably have expanded the range of the scale
+    if (opts.bounds === 'ticks') {
+      _setMinAndMaxByKey(ticks, this, 'value');
+    }
+
+    if (opts.reverse) {
+      ticks.reverse();
+
+      this.start = this.max;
+      this.end = this.min;
+    } else {
+      this.start = this.min;
+      this.end = this.max;
+    }
+
+    return ticks;
+  }
+
+  /**
+	 * @protected
+	 */
+  configure() {
+    const ticks = this.ticks;
+    let start = this.min;
+    let end = this.max;
+
+    super.configure();
+
+    if (this.options.offset && ticks.length) {
+      const offset = (end - start) / Math.max(ticks.length - 1, 1) / 2;
+      start -= offset;
+      end += offset;
+    }
+    this._startValue = start;
+    this._endValue = end;
+    this._valueRange = end - start;
+  }
+
+  getLabelForValue(value) {
+    return formatNumber(value, this.chart.options.locale, this.options.ticks.format);
+  }
+}

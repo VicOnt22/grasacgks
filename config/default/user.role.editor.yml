@@ -7,13 +7,18 @@ dependencies:
     - filter.format.basic_html
     - filter.format.full_html
     - media.type.audio
+    - media.type.document
     - media.type.file
     - media.type.gallery
     - media.type.image
     - media.type.remote_video
     - media.type.video
+    - node.type.article
+    - node.type.heritage_item
     - node.type.landing_page_lb
+    - node.type.language_item
     - node.type.page
+    - node.type.project
     - node.type.varbase_heroslider_media
     - taxonomy.vocabulary.tags
     - workflows.workflow.varbase_editorial_workflow
@@ -21,19 +26,19 @@ dependencies:
   module:
     - block_content
     - coffee
+    - config_perms
     - content_moderation
     - content_translation
     - contextual
     - dropzonejs
     - entity_browser
-    - entity_clone
     - entityqueue
     - file
     - filter
-    - google_analytics_reports
     - layout_builder
     - media
     - media_bulk_upload
+    - menu_link_content
     - moderation_sidebar
     - node
     - panels
@@ -44,12 +49,12 @@ dependencies:
     - responsive_preview
     - scheduler
     - shortcut
+    - styleguide
     - system
     - taxonomy
     - taxonomy_access_fix
     - toolbar
     - total_control
-    - yoast_seo
 _core:
   default_config_hash: kXe1JL0tNsH62AOkORlgJS6nJppoSiT4fZYCobnIbr8
 id: editor
@@ -57,6 +62,12 @@ label: Editor
 weight: -8
 is_admin: null
 permissions:
+  - 'Flush all caches from admin toolbar'
+  - 'Flush css/js cache from admin toolbar'
+  - 'Flush static cache from admin toolbar'
+  - 'Flush twig cache from admin toolbar'
+  - 'Flush views cache from admin toolbar'
+  - 'Rebuild theme registry from admin toolbar'
   - 'access administration pages'
   - 'access carousels_media_browser entity browser pages'
   - 'access coffee'
@@ -66,7 +77,6 @@ permissions:
   - 'access editor_multiple_image_browser entity browser pages'
   - 'access editor_multiple_media_browser entity browser pages'
   - 'access files overview'
-  - 'access google analytics reports'
   - 'access heroslider_media_browser entity browser pages'
   - 'access image_browser entity browser pages'
   - 'access images_browser entity browser pages'
@@ -80,27 +90,30 @@ permissions:
   - 'access responsive preview'
   - 'access shortcuts'
   - 'access site in maintenance mode'
-  - 'access site reports'
   - 'access taxonomy overview'
   - 'access toolbar'
   - 'access user profiles'
   - 'access video_browser entity browser pages'
   - 'add terms in blog_categories'
   - 'add terms in tags'
-  - 'clone node entity'
   - 'clone paragraph entity'
   - 'configure all landing_page_lb node layout overrides'
   - 'create and edit custom blocks'
+  - 'create article content'
   - 'create audio media'
   - 'create content translations'
+  - 'create document media'
   - 'create faq content'
   - 'create file media'
   - 'create gallery media'
+  - 'create heritage_item content'
   - 'create image media'
   - 'create instagram media'
   - 'create landing_page_lb content'
+  - 'create language_item content'
   - 'create media'
   - 'create page content'
+  - 'create project content'
   - 'create remote_video media'
   - 'create terms in blog_categories'
   - 'create terms in tags'
@@ -109,7 +122,6 @@ permissions:
   - 'create varbase_blog content'
   - 'create varbase_heroslider_media content'
   - 'create video media'
-  - 'customize shortcut links'
   - 'delete any audio media'
   - 'delete any file media'
   - 'delete any gallery media'
@@ -119,56 +131,75 @@ permissions:
   - 'delete any tweet media'
   - 'delete any video media'
   - 'delete media'
+  - 'delete own article content'
   - 'delete own audio media'
+  - 'delete own document media'
   - 'delete own file media'
   - 'delete own gallery media'
+  - 'delete own heritage_item content'
   - 'delete own image media'
   - 'delete own instagram media'
   - 'delete own landing_page_lb content'
+  - 'delete own language_item content'
   - 'delete own page content'
+  - 'delete own project content'
   - 'delete own remote_video media'
   - 'delete own tweet media'
   - 'delete own varbase_blog content'
   - 'delete own varbase_heroslider_media content'
   - 'delete own video media'
   - 'delete terms in blog_categories'
-  - 'delete terms in tags'
   - 'dropzone upload files'
   - 'ds switch view mode'
+  - 'edit any article content'
   - 'edit any audio media'
+  - 'edit any document media'
   - 'edit any file media'
   - 'edit any gallery media'
+  - 'edit any heritage_item content'
   - 'edit any image media'
   - 'edit any instagram media'
   - 'edit any landing_page_lb content'
+  - 'edit any language_item content'
   - 'edit any page content'
+  - 'edit any project content'
   - 'edit any remote_video media'
   - 'edit any tweet media'
   - 'edit any varbase_blog content'
   - 'edit any varbase_heroslider_media content'
   - 'edit any video media'
+  - 'edit own article content'
   - 'edit own audio media'
+  - 'edit own document media'
   - 'edit own file media'
   - 'edit own gallery media'
+  - 'edit own heritage_item content'
   - 'edit own image media'
   - 'edit own instagram media'
   - 'edit own landing_page_lb content'
+  - 'edit own language_item content'
   - 'edit own page content'
+  - 'edit own project content'
   - 'edit own remote_video media'
   - 'edit own tweet media'
   - 'edit own varbase_blog content'
   - 'edit own varbase_heroslider_media content'
   - 'edit own video media'
   - 'edit terms in blog_categories'
-  - 'edit terms in tags'
   - 'have total control'
   - 'rabbit hole bypass node'
   - 'rabbit hole bypass taxonomy_term'
   - 'reorder terms in blog_categories'
   - 'reorder terms in tags'
+  - 'reorder terms in traditional_knowledge_tk_labels'
+  - 'schedule publishing of media'
   - 'schedule publishing of nodes'
+  - 'schedule publishing of taxonomy_term'
+  - 'switch shortcut sets'
+  - 'translate article node'
   - 'translate block_content'
   - 'translate landing_page_lb node'
+  - 'translate menu_link_content'
   - 'translate page node'
   - 'translate paragraph'
   - 'update any media'
@@ -189,21 +220,38 @@ permissions:
   - 'use varbase_simple_workflow transition archived_published'
   - 'use varbase_simple_workflow transition create_new_draft'
   - 'use varbase_simple_workflow transition publish'
-  - 'use yoast seo'
-  - 'view all media revisions'
-  - 'view all revisions'
   - 'view any unpublished content'
   - 'view content planner dashboard'
-  - 'view landing_page_lb revisions'
   - 'view latest version'
   - 'view media'
   - 'view own unpublished content'
-  - 'view page revisions'
+  - 'view own unpublished media'
   - 'view pane admin links'
   - 'view post access counter'
   - 'view scheduled content'
+  - 'view scheduled media'
+  - 'view scheduled taxonomy_term'
+  - 'view style guides'
   - 'view terms in blog_categories'
+  - 'view terms in collection'
+  - 'view terms in contributor_roles'
+  - 'view terms in contributors'
+  - 'view terms in exchange_types'
+  - 'view terms in folders'
+  - 'view terms in institution'
+  - 'view terms in interpretation'
+  - 'view terms in item_type'
+  - 'view terms in language_item_source'
+  - 'view terms in languages'
+  - 'view terms in local_origin'
+  - 'view terms in nations'
+  - 'view terms in project_status'
+  - 'view terms in record_status'
+  - 'view terms in regions'
   - 'view terms in tags'
+  - 'view terms in text_type'
+  - 'view terms in traditional_knowledge_tk_labels'
+  - 'view terms in transcription_status'
+  - 'view terms in translation_status'
   - 'view the administration theme'
   - 'view varbase_blog revisions'
-  - 'view varbase_heroslider_media revisions'

@@ -24,6 +24,13 @@ class DashboardBlockBase extends PluginBase implements DashboardBlockInterface, 
   protected $entityTypeManager;
 
   /**
+   * The current user.
+   *
+   * @var \Drupal\Core\Session\AccountProxyInterface
+   */
+  protected $currentUser;
+
+  /**
    * The database connection.
    *
    * @var \Drupal\Core\Database\Connection
@@ -36,6 +43,7 @@ class DashboardBlockBase extends PluginBase implements DashboardBlockInterface, 
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $instance = new static($configuration, $plugin_id, $plugin_definition);
     $instance->entityTypeManager = $container->get('entity_type.manager');
+    $instance->currentUser = $container->get('current_user');
     $instance->database = $container->get('database');
 
     return $instance;
@@ -141,5 +149,80 @@ class DashboardBlockBase extends PluginBase implements DashboardBlockInterface, 
    * {@inheritdoc}
    */
   public function submitSettingsForm(array &$form, FormStateInterface &$form_state) {}
+
+  /**
+   * Build the permissions select box.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The current request.
+   * @param array $block_configuration
+   *   The block configuration.
+   *
+   * @return array
+   *   The permissions checkboxes.
+   */
+  protected function buildAllowedRolesSelectBox(array $block_configuration): array {
+    $roles = $this->entityTypeManager
+      ->getStorage('user_role')
+      ->loadMultiple();
+    $options = [];
+
+    foreach ($roles as $role_id => $role) {
+      if ($role_id === 'anonymous') {
+        continue;
+      }
+
+      $options[$role_id] = $role->label();
+    }
+
+    return [
+      '#type' => 'checkboxes',
+      '#title' => $this->t('Display for roles'),
+      '#description' => $this->t('The user roles that can see this widget. Leave blank to allow all roles.'),
+      '#required' => FALSE,
+      '#options' => $options,
+      '#default_value' => $block_configuration['plugin_specific_config']['allowed_roles'] ?? [],
+    ];
+  }
+
+  /**
+   * Check if the user has permission to view the block.
+   *
+   * @return boolean
+   *   TRUE if user has permission to view the block, FALSE otherwise.
+   */
+  protected function currentUserHasRole(): bool {
+    if (!isset($this->getConfiguration()['plugin_specific_config']['allowed_roles'])) {
+      return TRUE;
+    }
+
+    if ($this->currentUser->id() == 1) {
+      return TRUE;
+    }
+
+    // Get configured roles.
+    $configured_roles = $this->getConfiguration()['plugin_specific_config']['allowed_roles'];
+    $user_roles = $this->currentUser->getRoles();
+    $display_for_all = TRUE;
+
+    foreach ($configured_roles as $key => $value) {
+      // Check if role was selected
+      if (empty($value)) {
+        continue;
+      }
+
+      // If a role was selected, we can't show the block for all users
+      $display_for_all = FALSE;
+
+      // Check if user has selected roles
+      if (in_array($key, $user_roles)) {
+        return TRUE;
+      }
+    }
+
+    return $display_for_all;
+  }
 
 }

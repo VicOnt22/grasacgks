@@ -1,23 +1,27 @@
-# Area Charts
+# Area Chart
 
-Both [line](line.md) and [radar](radar.md) charts support a `fill` option on the dataset object which can be used to create area between two datasets or a dataset and a boundary, i.e. the scale `origin`, `start` or `end` (see [filling modes](#filling-modes)).
+Both [line](./line.md) and [radar](./radar.md) charts support a `fill` option on the dataset object which can be used to create space between two datasets or a dataset and a boundary, i.e. the scale `origin`, `start,` or `end` (see [filling modes](#filling-modes)).
 
-> **Note:** this feature is implemented by the [`filler` plugin](https://github.com/chartjs/Chart.js/blob/master/src/plugins/plugin.filler.js).
+:::tip Note
+This feature is implemented by the [`filler` plugin](https://github.com/chartjs/Chart.js/blob/master/src/plugins/plugin.filler/index.js).
+:::
 
 ## Filling modes
 
 | Mode | Type | Values |
 | :--- | :--- | :--- |
-| Absolute dataset index <sup>1</sup> | `Number` | `1`, `2`, `3`, ... |
-| Relative dataset index <sup>1</sup> | `String` | `'-1'`, `'-2'`, `'+1'`, ... |
-| Boundary <sup>2</sup> | `String` | `'start'`, `'end'`, `'origin'` |
-| Disabled <sup>3</sup> | `Boolean` | `false` |
+| Absolute dataset index | `number` | `1`, `2`, `3`, ... |
+| Relative dataset index | `string` | `'-1'`, `'-2'`, `'+1'`, ... |
+| Boundary | `string` | `'start'`, `'end'`, `'origin'` |
+| Disabled <sup>1</sup> | `boolean` | `false` |
+| Stacked value below | `string` | `'stack'` |
+| Axis value | `object` | `{ value: number; }` |
+| Shape (fill inside line) | `string` | `'shape'` |
 
-> <sup>1</sup> dataset filling modes have been introduced in version 2.6.0<br>
-> <sup>2</sup> prior version 2.6.0, boundary values was `'zero'`, `'top'`, `'bottom'` (deprecated)<br>
-> <sup>3</sup> for backward compatibility, `fill: true` (default) is equivalent to `fill: 'origin'`<br>
+> <sup>1</sup> for backward compatibility, `fill: true` is equivalent to `fill: 'origin'`<br/>
 
-**Example**
+### Example
+
 ```javascript
 new Chart(ctx, {
     data: {
@@ -26,23 +30,56 @@ new Chart(ctx, {
             {fill: '+2'},          // 1: fill to dataset 3
             {fill: 1},             // 2: fill to dataset 1
             {fill: false},         // 3: no fill
-            {fill: '-2'}           // 4: fill to dataset 2
+            {fill: '-2'},          // 4: fill to dataset 2
+            {fill: {value: 25}}    // 5: fill to axis value 25
         ]
     }
-})
+});
+```
+
+If you need to support multiple colors when filling from one dataset to another, you may specify an object with the following option :
+
+| Param | Type | Description |
+| :--- | :--- | :--- |
+| `target` | `number`, `string`, `boolean`, `object` | The accepted values are the same as the filling mode values, so you may use absolute and relative dataset indexes and/or boundaries. |
+| `above` | `Color` | If no color is set, the default color will be the background color of the chart. |
+| `below` | `Color` | Same as the above. |
+
+### Example with multiple colors
+
+```javascript
+new Chart(ctx, {
+    data: {
+        datasets: [
+            {
+              fill: {
+                target: 'origin',
+                above: 'rgb(255, 0, 0)',   // Area will be red above the origin
+                below: 'rgb(0, 0, 255)'    // And blue below the origin
+              }
+            }
+        ]
+    }
+});
 ```
 
 ## Configuration
+
+Namespace: `options.plugins.filler`
+
 | Option | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| [`plugins.filler.propagate`](#propagate) | `Boolean` | `true` | Fill propagation when target is hidden
+| `drawTime` | `string` | `beforeDatasetDraw` | Filler draw time. Supported values: `'beforeDraw'`, `'beforeDatasetDraw'`, `'beforeDatasetsDraw'`
+| [`propagate`](#propagate) | `boolean` | `true` | Fill propagation when target is hidden.
 
 ### propagate
-Boolean (default: `true`)
+
+`propagate` takes a `boolean` value (default: `true`).
 
 If `true`, the fill area will be recursively extended to the visible target defined by the `fill` value of hidden dataset targets:
 
-**Example**
+#### Example using propagate
+
 ```javascript
 new Chart(ctx, {
     data: {
@@ -61,12 +98,12 @@ new Chart(ctx, {
             }
         }
     }
-})
+});
 ```
 
 `propagate: true`:
-- if dataset 2 is hidden, dataset 4 will fill to dataset 1
-- if dataset 2 and 1 are hidden, dataset 4 will fill to `'origin'`
+-if dataset 2 is hidden, dataset 4 will fill to dataset 1
+-if dataset 2 and 1 are hidden, dataset 4 will fill to `'origin'`
 
 `propagate: false`:
-- if dataset 2 and/or 4 are hidden, dataset 4 will not be filled
+-if dataset 2 and/or 4 are hidden, dataset 4 will not be filled

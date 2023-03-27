@@ -10,7 +10,7 @@ id: node.heritage_item.field_folders
 field_name: field_folders
 entity_type: node
 bundle: heritage_item
-label: Folders
+label: 'Folders (Special Projects)'
 description: ''
 required: false
 translatable: true

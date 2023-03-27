@@ -1,390 +1,571 @@
-// Test the category scale
+function getLabels(scale) {
+  return scale.ticks.map(t => t.label);
+}
 
 describe('Category scale tests', function() {
-	it('Should register the constructor with the scale service', function() {
-		var Constructor = Chart.scaleService.getScaleConstructor('category');
-		expect(Constructor).not.toBe(undefined);
-		expect(typeof Constructor).toBe('function');
-	});
+  describe('auto', jasmine.fixture.specs('scale.category'));
 
-	it('Should have the correct default config', function() {
-		var defaultConfig = Chart.scaleService.getScaleDefaults('category');
-		expect(defaultConfig).toEqual({
-			display: true,
+  it('Should register the constructor with the registry', function() {
+    var Constructor = Chart.registry.getScale('category');
+    expect(Constructor).not.toBe(undefined);
+    expect(typeof Constructor).toBe('function');
+  });
 
-			gridLines: {
-				color: 'rgba(0, 0, 0, 0.1)',
-				drawBorder: true,
-				drawOnChartArea: true,
-				drawTicks: true, // draw ticks extending towards the label
-				tickMarkLength: 10,
-				lineWidth: 1,
-				offsetGridLines: false,
-				display: true,
-				zeroLineColor: 'rgba(0,0,0,0.25)',
-				zeroLineWidth: 1,
-				zeroLineBorderDash: [],
-				zeroLineBorderDashOffset: 0.0,
-				borderDash: [],
-				borderDashOffset: 0.0
-			},
-			position: 'bottom',
-			offset: false,
-			scaleLabel: Chart.defaults.scale.scaleLabel,
-			ticks: {
-				beginAtZero: false,
-				minRotation: 0,
-				maxRotation: 50,
-				mirror: false,
-				padding: 0,
-				reverse: false,
-				display: true,
-				callback: defaultConfig.ticks.callback, // make this nicer, then check explicitly below
-				autoSkip: true,
-				autoSkipPadding: 0,
-				labelOffset: 0,
-				minor: {},
-				major: {},
-			}
-		});
+  it('Should have the correct default config', function() {
+    var defaultConfig = Chart.defaults.scales.category;
+    expect(defaultConfig).toEqual({
+      ticks: {
+        callback: Chart.registry.getScale('category').defaults.ticks.callback
+      }
+    });
+  });
 
-		// Is this actually a function
-		expect(defaultConfig.ticks.callback).toEqual(jasmine.any(Function));
-	});
+  it('Should generate ticks from the data xLabels', function() {
+    var labels = ['tick1', 'tick2', 'tick3', 'tick4', 'tick5'];
+    var chart = window.acquireChart({
+      type: 'line',
+      data: {
+        xLabels: labels,
+        datasets: [{
+          data: [10, 5, 0, 25, 78]
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'category',
+          }
+        }
+      }
+    });
 
-	it('Should generate ticks from the data labels', function() {
-		var scaleID = 'myScale';
+    var scale = chart.scales.x;
+    expect(getLabels(scale)).toEqual(labels);
+  });
 
-		var mockData = {
-			datasets: [{
-				yAxisID: scaleID,
-				data: [10, 5, 0, 25, 78]
-			}],
-			labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5']
-		};
+  it('Should generate ticks from the data yLabels', function() {
+    var labels = ['tick1', 'tick2', 'tick3', 'tick4', 'tick5'];
+    var chart = window.acquireChart({
+      type: 'line',
+      data: {
+        yLabels: labels,
+        datasets: [{
+          data: [10, 5, 0, 25, 78]
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            type: 'category'
+          }
+        }
+      }
+    });
 
-		var config = Chart.helpers.clone(Chart.scaleService.getScaleDefaults('category'));
-		var Constructor = Chart.scaleService.getScaleConstructor('category');
-		var scale = new Constructor({
-			ctx: {},
-			options: config,
-			chart: {
-				data: mockData
-			},
-			id: scaleID
-		});
+    var scale = chart.scales.y;
+    expect(getLabels(scale)).toEqual(labels);
+  });
 
-		scale.determineDataLimits();
-		scale.buildTicks();
-		expect(scale.ticks).toEqual(mockData.labels);
-	});
+  it('Should generate ticks from the axis labels', function() {
+    var labels = ['tick1', 'tick2', 'tick3', 'tick4', 'tick5'];
+    var chart = window.acquireChart({
+      type: 'line',
+      data: {
+        datasets: [{
+          data: [10, 5, 0, 25, 78]
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'category',
+            labels: labels
+          }
+        }
+      }
+    });
 
-	it('Should generate ticks from the data xLabels', function() {
-		var scaleID = 'myScale';
+    var scale = chart.scales.x;
+    expect(getLabels(scale)).toEqual(labels);
+  });
 
-		var mockData = {
-			datasets: [{
-				yAxisID: scaleID,
-				data: [10, 5, 0, 25, 78]
-			}],
-			xLabels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5']
-		};
+  it('Should generate missing labels', function() {
+    var labels = ['a', 'b', 'c', 'd'];
+    var chart = window.acquireChart({
+      type: 'line',
+      data: {
+        datasets: [{
+          data: {a: 1, b: 3, c: -1, d: 10}
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'category',
+            labels: ['a']
+          }
+        }
+      }
+    });
 
-		var config = Chart.helpers.clone(Chart.scaleService.getScaleDefaults('category'));
-		var Constructor = Chart.scaleService.getScaleConstructor('category');
-		var scale = new Constructor({
-			ctx: {},
-			options: config,
-			chart: {
-				data: mockData
-			},
-			id: scaleID
-		});
+    var scale = chart.scales.x;
+    expect(getLabels(scale)).toEqual(labels);
 
-		scale.determineDataLimits();
-		scale.buildTicks();
-		expect(scale.ticks).toEqual(mockData.xLabels);
-	});
+  });
 
-	it('Should generate ticks from the data yLabels', function() {
-		var scaleID = 'myScale';
+  it('should parse only to a valid index', function() {
+    var chart = window.acquireChart({
+      type: 'line',
+      data: {
+        datasets: [{
+          xAxisID: 'x',
+          yAxisID: 'y',
+          data: [10, 5, 0, 25, 78]
+        }],
+        labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5']
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'category',
+            position: 'bottom'
+          },
+          y: {
+            type: 'linear'
+          }
+        }
+      }
+    });
 
-		var mockData = {
-			datasets: [{
-				yAxisID: scaleID,
-				data: [10, 5, 0, 25, 78]
-			}],
-			yLabels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5']
-		};
+    var scale = chart.scales.x;
 
-		var config = Chart.helpers.clone(Chart.scaleService.getScaleDefaults('category'));
-		config.position = 'left'; // y axis
-		var Constructor = Chart.scaleService.getScaleConstructor('category');
-		var scale = new Constructor({
-			ctx: {},
-			options: config,
-			chart: {
-				data: mockData
-			},
-			id: scaleID
-		});
+    expect(scale.parse(-10)).toEqual(0);
+    expect(scale.parse(-0.1)).toEqual(0);
+    expect(scale.parse(4.1)).toEqual(4);
+    expect(scale.parse(5)).toEqual(4);
+    expect(scale.parse(1)).toEqual(1);
+    expect(scale.parse(1.4)).toEqual(1);
+    expect(scale.parse(1.5)).toEqual(2);
+    expect(scale.parse('tick2')).toEqual(1);
+  });
 
-		scale.determineDataLimits();
-		scale.buildTicks();
-		expect(scale.ticks).toEqual(mockData.yLabels);
-	});
+  it('should get the correct label for the index', function() {
+    var chart = window.acquireChart({
+      type: 'line',
+      data: {
+        datasets: [{
+          xAxisID: 'x',
+          yAxisID: 'y',
+          data: [10, 5, 0, 25, 78]
+        }],
+        labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5']
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'category',
+            position: 'bottom'
+          },
+          y: {
+            type: 'linear'
+          }
+        }
+      }
+    });
 
-	it('Should generate ticks from the axis labels', function() {
-		var labels = ['tick1', 'tick2', 'tick3', 'tick4', 'tick5'];
-		var chart = window.acquireChart({
-			type: 'line',
-			data: {
-				data: [10, 5, 0, 25, 78]
-			},
-			options: {
-				scales: {
-					xAxes: [{
-						id: 'x',
-						type: 'category',
-						labels: labels
-					}]
-				}
-			}
-		});
+    var scale = chart.scales.x;
 
-		var scale = chart.scales.x;
-		expect(scale.ticks).toEqual(labels);
-	});
+    expect(scale.getLabelForValue(1)).toBe('tick2');
+  });
 
-	it ('should get the correct label for the index', function() {
-		var scaleID = 'myScale';
+  it('Should get the correct pixel for a value when horizontal', function() {
+    var chart = window.acquireChart({
+      type: 'line',
+      data: {
+        datasets: [{
+          xAxisID: 'x',
+          yAxisID: 'y',
+          data: [10, 5, 0, 25, 78]
+        }],
+        labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick_last']
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'category',
+            position: 'bottom'
+          },
+          y: {
+            type: 'linear'
+          }
+        }
+      }
+    });
 
-		var mockData = {
-			datasets: [{
-				yAxisID: scaleID,
-				data: [10, 5, 0, 25, 78]
-			}],
-			labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5']
-		};
+    var xScale = chart.scales.x;
+    expect(xScale.getPixelForValue(0)).toBeCloseToPixel(23 + 6); // plus lineHeight
+    expect(xScale.getValueForPixel(23)).toBe(0);
 
-		var config = Chart.helpers.clone(Chart.scaleService.getScaleDefaults('category'));
-		var Constructor = Chart.scaleService.getScaleConstructor('category');
-		var scale = new Constructor({
-			ctx: {},
-			options: config,
-			chart: {
-				data: mockData
-			},
-			id: scaleID
-		});
+    expect(xScale.getPixelForValue(4)).toBeCloseToPixel(487);
+    expect(xScale.getValueForPixel(487)).toBe(4);
 
-		scale.determineDataLimits();
-		scale.buildTicks();
+    xScale.options.offset = true;
+    chart.update();
 
-		expect(scale.getLabelForIndex(1)).toBe('tick2');
-	});
+    expect(xScale.getPixelForValue(0)).toBeCloseToPixel(71 + 6); // plus lineHeight
+    expect(xScale.getValueForPixel(69)).toBe(0);
 
-	it ('Should get the correct pixel for a value when horizontal', function() {
-		var chart = window.acquireChart({
-			type: 'line',
-			data: {
-				datasets: [{
-					xAxisID: 'xScale0',
-					yAxisID: 'yScale0',
-					data: [10, 5, 0, 25, 78]
-				}],
-				labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick_last']
-			},
-			options: {
-				scales: {
-					xAxes: [{
-						id: 'xScale0',
-						type: 'category',
-						position: 'bottom'
-					}],
-					yAxes: [{
-						id: 'yScale0',
-						type: 'linear'
-					}]
-				}
-			}
-		});
+    expect(xScale.getPixelForValue(4)).toBeCloseToPixel(461);
+    expect(xScale.getValueForPixel(417)).toBe(4);
+  });
 
-		var xScale = chart.scales.xScale0;
-		expect(xScale.getPixelForValue(0, 0, 0)).toBeCloseToPixel(23 + 6); // plus lineHeight
-		expect(xScale.getValueForPixel(23)).toBe(0);
+  it('Should get the correct pixel for a value when there are repeated labels', function() {
+    var chart = window.acquireChart({
+      type: 'line',
+      data: {
+        datasets: [{
+          xAxisID: 'x',
+          yAxisID: 'y',
+          data: [10, 5, 0, 25, 78]
+        }],
+        labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick_last']
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'category',
+            position: 'bottom'
+          },
+          y: {
+            type: 'linear'
+          }
+        }
+      }
+    });
 
-		expect(xScale.getPixelForValue(0, 4, 0)).toBeCloseToPixel(487);
-		expect(xScale.getValueForPixel(487)).toBe(4);
+    var xScale = chart.scales.x;
+    expect(xScale.getPixelForValue('tick1')).toBeCloseToPixel(23 + 6); // plus lineHeight
+  });
 
-		xScale.options.offset = true;
-		chart.update();
+  it('Should get the correct pixel for a value when horizontal and zoomed', function() {
+    var chart = window.acquireChart({
+      type: 'line',
+      data: {
+        datasets: [{
+          xAxisID: 'x',
+          yAxisID: 'y',
+          data: [10, 5, 0, 25, 78]
+        }],
+        labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick_last']
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'category',
+            position: 'bottom',
+            min: 'tick2',
+            max: 'tick4'
+          },
+          y: {
+            type: 'linear'
+          }
+        }
+      }
+    });
 
-		expect(xScale.getPixelForValue(0, 0, 0)).toBeCloseToPixel(69 + 6); // plus lineHeight
-		expect(xScale.getValueForPixel(69)).toBe(0);
+    var xScale = chart.scales.x;
+    expect(xScale.getPixelForValue(1)).toBeCloseToPixel(23 + 6); // plus lineHeight
+    expect(xScale.getPixelForValue(3)).toBeCloseToPixel(496);
 
-		expect(xScale.getPixelForValue(0, 4, 0)).toBeCloseToPixel(441);
-		expect(xScale.getValueForPixel(397)).toBe(4);
-	});
+    xScale.options.offset = true;
+    chart.update();
 
-	it ('Should get the correct pixel for a value when there are repeated labels', function() {
-		var chart = window.acquireChart({
-			type: 'line',
-			data: {
-				datasets: [{
-					xAxisID: 'xScale0',
-					yAxisID: 'yScale0',
-					data: [10, 5, 0, 25, 78]
-				}],
-				labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick_last']
-			},
-			options: {
-				scales: {
-					xAxes: [{
-						id: 'xScale0',
-						type: 'category',
-						position: 'bottom'
-					}],
-					yAxes: [{
-						id: 'yScale0',
-						type: 'linear'
-					}]
-				}
-			}
-		});
+    expect(xScale.getPixelForValue(1)).toBeCloseToPixel(103 + 6); // plus lineHeight
+    expect(xScale.getPixelForValue(3)).toBeCloseToPixel(429);
+  });
 
-		var xScale = chart.scales.xScale0;
-		expect(xScale.getPixelForValue('tick_1', 0, 0)).toBeCloseToPixel(23 + 6); // plus lineHeight
-		expect(xScale.getPixelForValue('tick_1', 1, 0)).toBeCloseToPixel(143);
-	});
+  it('should get the correct pixel for a value when vertical', function() {
+    var chart = window.acquireChart({
+      type: 'line',
+      data: {
+        datasets: [{
+          xAxisID: 'x',
+          yAxisID: 'y',
+          data: ['3', '5', '1', '4', '2']
+        }],
+        labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5'],
+        yLabels: ['1', '2', '3', '4', '5']
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'category',
+            position: 'bottom',
+          },
+          y: {
+            type: 'category',
+            position: 'left'
+          }
+        }
+      }
+    });
 
-	it ('Should get the correct pixel for a value when horizontal and zoomed', function() {
-		var chart = window.acquireChart({
-			type: 'line',
-			data: {
-				datasets: [{
-					xAxisID: 'xScale0',
-					yAxisID: 'yScale0',
-					data: [10, 5, 0, 25, 78]
-				}],
-				labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick_last']
-			},
-			options: {
-				scales: {
-					xAxes: [{
-						id: 'xScale0',
-						type: 'category',
-						position: 'bottom',
-						ticks: {
-							min: 'tick2',
-							max: 'tick4'
-						}
-					}],
-					yAxes: [{
-						id: 'yScale0',
-						type: 'linear'
-					}]
-				}
-			}
-		});
+    var yScale = chart.scales.y;
+    expect(yScale.getPixelForValue(0)).toBeCloseToPixel(32);
+    expect(yScale.getValueForPixel(257)).toBe(2);
 
-		var xScale = chart.scales.xScale0;
-		expect(xScale.getPixelForValue(0, 1, 0)).toBeCloseToPixel(23 + 6); // plus lineHeight
-		expect(xScale.getPixelForValue(0, 3, 0)).toBeCloseToPixel(496);
+    expect(yScale.getPixelForValue(4)).toBeCloseToPixel(484);
+    expect(yScale.getValueForPixel(144)).toBe(1);
 
-		xScale.options.offset = true;
-		chart.update();
+    yScale.options.offset = true;
+    chart.update();
 
-		expect(xScale.getPixelForValue(0, 1, 0)).toBeCloseToPixel(102 + 6); // plus lineHeight
-		expect(xScale.getPixelForValue(0, 3, 0)).toBeCloseToPixel(417);
-	});
+    expect(yScale.getPixelForValue(0)).toBeCloseToPixel(77);
+    expect(yScale.getValueForPixel(256)).toBe(2);
 
-	it ('should get the correct pixel for a value when vertical', function() {
-		var chart = window.acquireChart({
-			type: 'line',
-			data: {
-				datasets: [{
-					xAxisID: 'xScale0',
-					yAxisID: 'yScale0',
-					data: ['3', '5', '1', '4', '2']
-				}],
-				labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5'],
-				yLabels: ['1', '2', '3', '4', '5']
-			},
-			options: {
-				scales: {
-					xAxes: [{
-						id: 'xScale0',
-						type: 'category',
-						position: 'bottom',
-					}],
-					yAxes: [{
-						id: 'yScale0',
-						type: 'category',
-						position: 'left'
-					}]
-				}
-			}
-		});
+    expect(yScale.getPixelForValue(4)).toBeCloseToPixel(438);
+    expect(yScale.getValueForPixel(167)).toBe(1);
+  });
 
-		var yScale = chart.scales.yScale0;
-		expect(yScale.getPixelForValue(0, 0, 0)).toBe(32);
-		expect(yScale.getValueForPixel(32)).toBe(0);
+  it('should get the correct pixel for a value when vertical and zoomed', function() {
+    var chart = window.acquireChart({
+      type: 'line',
+      data: {
+        datasets: [{
+          xAxisID: 'x',
+          yAxisID: 'y',
+          data: ['3', '5', '1', '4', '2']
+        }],
+        labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5'],
+        yLabels: ['1', '2', '3', '4', '5']
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'category',
+            position: 'bottom',
+          },
+          y: {
+            type: 'category',
+            position: 'left',
+            min: '2',
+            max: '4'
+          }
+        }
+      }
+    });
 
-		expect(yScale.getPixelForValue(0, 4, 0)).toBe(484);
-		expect(yScale.getValueForPixel(484)).toBe(4);
+    var yScale = chart.scales.y;
 
-		yScale.options.offset = true;
-		chart.update();
+    expect(yScale.getPixelForValue(1)).toBeCloseToPixel(32);
+    expect(yScale.getPixelForValue(3)).toBeCloseToPixel(482);
 
-		expect(yScale.getPixelForValue(0, 0, 0)).toBe(77);
-		expect(yScale.getValueForPixel(77)).toBe(0);
+    yScale.options.offset = true;
+    chart.update();
 
-		expect(yScale.getPixelForValue(0, 4, 0)).toBe(439);
-		expect(yScale.getValueForPixel(439)).toBe(4);
-	});
+    expect(yScale.getPixelForValue(1)).toBeCloseToPixel(107);
+    expect(yScale.getPixelForValue(3)).toBeCloseToPixel(407);
+  });
 
-	it ('should get the correct pixel for a value when vertical and zoomed', function() {
-		var chart = window.acquireChart({
-			type: 'line',
-			data: {
-				datasets: [{
-					xAxisID: 'xScale0',
-					yAxisID: 'yScale0',
-					data: ['3', '5', '1', '4', '2']
-				}],
-				labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5'],
-				yLabels: ['1', '2', '3', '4', '5']
-			},
-			options: {
-				scales: {
-					xAxes: [{
-						id: 'xScale0',
-						type: 'category',
-						position: 'bottom',
-					}],
-					yAxes: [{
-						id: 'yScale0',
-						type: 'category',
-						position: 'left',
-						ticks: {
-							min: '2',
-							max: '4'
-						}
-					}]
-				}
-			}
-		});
+  it('Should get the correct pixel for an object value when horizontal', function() {
+    var chart = window.acquireChart({
+      type: 'line',
+      data: {
+        datasets: [{
+          xAxisID: 'x',
+          yAxisID: 'y',
+          data: [
+            {x: 0, y: 10},
+            {x: 1, y: 5},
+            {x: 2, y: 0},
+            {x: 3, y: 25},
+            {x: 0, y: 78}
+          ]
+        }],
+        labels: [0, 1, 2, 3]
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'category',
+            position: 'bottom'
+          },
+          y: {
+            type: 'linear'
+          }
+        }
+      }
+    });
 
-		var yScale = chart.scales.yScale0;
+    var xScale = chart.scales.x;
+    expect(xScale.getPixelForValue(0)).toBeCloseToPixel(29);
+    expect(xScale.getPixelForValue(3)).toBeCloseToPixel(506);
+    expect(xScale.getPixelForValue(4)).toBeCloseToPixel(664);
+  });
 
-		expect(yScale.getPixelForValue(0, 1, 0)).toBe(32);
-		expect(yScale.getPixelForValue(0, 3, 0)).toBe(484);
+  it('Should get the correct pixel for an object value when vertical', function() {
+    var chart = window.acquireChart({
+      type: 'line',
+      data: {
+        datasets: [{
+          xAxisID: 'x',
+          yAxisID: 'y',
+          data: [
+            {x: 0, y: 2},
+            {x: 1, y: 4},
+            {x: 2, y: 0},
+            {x: 3, y: 3},
+            {x: 0, y: 1}
+          ]
+        }],
+        labels: [0, 1, 2, 3],
+        yLabels: [0, 1, 2, 3, 4]
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'category',
+            position: 'bottom'
+          },
+          y: {
+            type: 'category',
+            position: 'left'
+          }
+        }
+      }
+    });
 
-		yScale.options.offset = true;
-		chart.update();
+    var yScale = chart.scales.y;
+    expect(yScale.getPixelForValue(0)).toBeCloseToPixel(32);
+    expect(yScale.getPixelForValue(4)).toBeCloseToPixel(483);
+  });
 
-		expect(yScale.getPixelForValue(0, 1, 0)).toBe(107);
-		expect(yScale.getPixelForValue(0, 3, 0)).toBe(409);
-	});
+  it('Should get the correct pixel for an object value in a bar chart', function() {
+    var chart = window.acquireChart({
+      type: 'bar',
+      data: {
+        datasets: [{
+          xAxisID: 'x',
+          yAxisID: 'y',
+          data: [
+            {x: 0, y: 10},
+            {x: 1, y: 5},
+            {x: 2, y: 0},
+            {x: 3, y: 25},
+            {x: 0, y: 78}
+          ]
+        }],
+        labels: [0, 1, 2, 3]
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'category',
+            position: 'bottom'
+          },
+          y: {
+            type: 'linear'
+          }
+        }
+      }
+    });
+
+    var xScale = chart.scales.x;
+    expect(xScale.getPixelForValue(0)).toBeCloseToPixel(89);
+    expect(xScale.getPixelForValue(3)).toBeCloseToPixel(451);
+    expect(xScale.getPixelForValue(4)).toBeCloseToPixel(572);
+  });
+
+  it('Should get the correct pixel for an object value in a horizontal bar chart', function() {
+    var chart = window.acquireChart({
+      type: 'bar',
+      data: {
+        datasets: [{
+          data: [
+            {x: 10, y: 0},
+            {x: 5, y: 1},
+            {x: 0, y: 2},
+            {x: 25, y: 3},
+            {x: 78, y: 0}
+          ]
+        }],
+        labels: [0, 1, 2, 3]
+      },
+      options: {
+        indexAxis: 'y',
+        scales: {
+          x: {
+            type: 'linear',
+            position: 'bottom'
+          },
+          y: {
+            type: 'category'
+          }
+        }
+      }
+    });
+
+    var yScale = chart.scales.y;
+    expect(yScale.getPixelForValue(0)).toBeCloseToPixel(88);
+    expect(yScale.getPixelForValue(3)).toBeCloseToPixel(426);
+    expect(yScale.getPixelForValue(4)).toBeCloseToPixel(538);
+  });
+
+  it('Should be consistent on pixels and values with autoSkipped ticks', function() {
+    var labels = [];
+    for (let i = 0; i < 50; i++) {
+      labels.push('very long label ' + i);
+    }
+    var chart = window.acquireChart({
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        }]
+      }
+    });
+
+    var scale = chart.scales.x;
+    expect(scale.ticks.length).toBeLessThan(50);
+
+    let x = 0;
+    for (let i = 0; i < 50; i++) {
+      var x2 = scale.getPixelForValue(labels[i]);
+      var x3 = scale.getPixelForValue(i);
+      expect(x2).toEqual(x3);
+      expect(x2).toBeGreaterThan(x);
+      expect(scale.getValueForPixel(x2)).toBe(i);
+      x = x2;
+    }
+  });
+
+  it('Should bound to ticks/data', function() {
+    var chart = window.acquireChart({
+      type: 'line',
+      data: {
+        labels: ['a', 'b', 'c', 'd'],
+        datasets: [{
+          data: {b: 1, c: 99}
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'category',
+            bounds: 'data'
+          }
+        }
+      }
+    });
+
+    expect(chart.scales.x.min).toEqual(1);
+    expect(chart.scales.x.max).toEqual(2);
+
+    chart.options.scales.x.bounds = 'ticks';
+    chart.update();
+
+    expect(chart.scales.x.min).toEqual(0);
+    expect(chart.scales.x.max).toEqual(3);
+  });
 });

@@ -86,7 +86,9 @@ file.formatter.media:
     multiple_file_display_type:
       type: string
       label: 'Display of multiple files'
-
+    playsinline:
+      type: boolean
+      label: 'Plays inline'
 field.formatter.settings.file_audio:
   type: file.formatter.media
   label: 'Audio file display format settings'
@@ -98,6 +100,9 @@ field.formatter.settings.file_video:
     muted:
       type: boolean
       label: 'Muted'
+    playsinline:
+      type: boolean
+      label: 'Plays inline'
     width:
       type: integer
       label: 'Width'

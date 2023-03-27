@@ -1,0 +1,20 @@
+# Config schema for date range, you can find the implementation in
+# Drupal\facets_date_range\Plugin\facets\widget\DateRangeWidget.
+facet.widget.config.date_range:
+  type: facet.widget.default_config
+  label: 'Date Range widget configuration'
+  mapping:
+    min_label:
+      type: label
+      label: 'Minimum date label'
+    max_label:
+      type: label
+      label: 'Maximum date label'
+
+plugin.plugin_configuration.facets_processor.date_range:
+  type: mapping
+  label: 'Date Range Picker'
+  mapping:
+    max_inclusive:
+      type: boolean
+      label: 'Max inclusive'

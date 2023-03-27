@@ -1,6 +1,7 @@
 name: security_review_test
 type: module
-core_version_requirement: ^8 || ^9
+description: 'Test module for security review.'
+core_version_requirement: ^9 || ^10
 package: Testing
 dependencies:
   - security_review:security_review

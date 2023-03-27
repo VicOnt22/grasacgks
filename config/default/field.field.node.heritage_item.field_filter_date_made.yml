@@ -12,7 +12,7 @@ field_name: field_filter_date_made
 entity_type: node
 bundle: heritage_item
 label: 'Date Made (Filter)'
-description: ''
+description: "Info regarding Date Maid needed for Search. Min: 01-01-0001, Max: 01-01-2121 <br>\r\n<strong>Examples:</strong><br>\r\n<strong>Single date:</strong>  only Start Date   <strong>12-23-1850</strong>  End Date stay as-is: <strong>mm-dd-yyyy</strong> <br>\r\n<strong>Before 1700</strong> ~ as Start  Date  <strong>01-01-0001</strong> End Date: <strong>12-31-1699</strong> <br>\r\n<strong>After 1800</strong>   ~ as Start Date   <strong>01-01-1801</strong> End Date: <strong>01-01-2121</strong> <br>\r\n<strong>In 1850-s</strong>     ~ as Start Date   <strong>01-01-1850</strong> End Date: <strong>12-31-1859</strong> <br>\r\n<strong>19th Century</strong> ~as Start Date  <strong>01-01-1800</strong> End Date: <strong>12-31-1899</strong> <br>\r\n<strong>Between June - July 1840</strong> ~ as Start Date <strong>06-01-1840</strong> End  Date: <strong>07-30-1840</strong><br>\r\n<strong>Important: </strong>Search by Date works based on this field value. Item is excluded from the filter by Date if left empty.  \r\n      "
 required: false
 translatable: false
 default_value: {  }

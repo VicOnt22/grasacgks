@@ -7,6 +7,10 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
+use \Drupal\Core\Render\Markup;
 
 /**
  * Plugin implementation of the 'advanced_text_formatter' formatter.
@@ -28,11 +32,59 @@ use Drupal\Core\Field\FieldItemListInterface;
  * )
  */
 class AdvancedTextFormatter extends FormatterBase {
+
   const FORMAT_DRUPAL = 'drupal';
   const FORMAT_INPUT = 'input';
   const FORMAT_NONE = 'none';
   const FORMAT_PHP = 'php';
   const FORMAT_LIMIT_HTML = 'limit_html';
+
+  /**
+   * Entity type manger.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityManager;
+
+  /**
+   * Constructs a StringFormatter instance.
+   *
+   * @param string $plugin_id
+   *   The plugin_id for the formatter.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Field\FieldDefinitionInterface $field_definition
+   *   The definition of the field to which the formatter is associated.
+   * @param array $settings
+   *   The formatter settings.
+   * @param string $label
+   *   The formatter label display setting.
+   * @param string $view_mode
+   *   The view mode.
+   * @param array $third_party_settings
+   *   Any third party settings settings.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager
+   *   The entity type manager.
+   */
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, EntityTypeManagerInterface $entity_manager) {
+    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
+    $this->entityManager = $entity_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static($plugin_id,
+      $plugin_definition,
+      $configuration['field_definition'],
+      $configuration['settings'],
+      $configuration['label'],
+      $configuration['view_mode'],
+      $configuration['third_party_settings'],
+      $container->get('entity_type.manager')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -48,6 +100,7 @@ class AdvancedTextFormatter extends FormatterBase {
       'allowed_html' => '<a> <b> <br> <dd> <dl> <dt> <em> <i> <li> <ol> <p> <strong> <u> <ul>',
       'autop' => 0,
       'use_summary' => 0,
+      'link_to_entity' => FALSE,
     ] + parent::defaultSettings();
   }
 
@@ -57,6 +110,9 @@ class AdvancedTextFormatter extends FormatterBase {
   public function settingsForm(array $form, FormStateInterface $form_state) {
     $elTrimLengthId = Html::getUniqueId('advanced_text_formatter_trim');
     $elFilterId     = Html::getUniqueId('advanced_text_formatter_filter');
+    $entity_type    = $this->entityManager
+      ->getDefinition($this->fieldDefinition
+      ->getTargetEntityTypeId());
 
     $element['trim_length'] = [
       '#id'            => $elTrimLengthId,
@@ -109,6 +165,14 @@ class AdvancedTextFormatter extends FormatterBase {
       ]) . ' ' /*. $token_link*/,
       '#title'         => $this->t('Token Replace'),
       '#default_value' => $this->getSetting('token_replace'),
+    ];
+
+    $element['link_to_entity'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Link to the @entity_label', [
+        '@entity_label' => $entity_type->getLabel(),
+      ]),
+      '#default_value' => $this->getSetting('link_to_entity'),
     ];
 
     $element['filter'] = [
@@ -204,6 +268,15 @@ class AdvancedTextFormatter extends FormatterBase {
 
     $summary[] = $this->t('Token Replace: @token', ['@token' => $this->getSetting('token_replace') ? $yes : $no]);
 
+    if ($this->getSetting('link_to_entity')) {
+      $entity_type = $this->entityManager
+        ->getDefinition($this->fieldDefinition
+        ->getTargetEntityTypeId());
+      $summary[] = $this->t('Linked to the @entity_label', [
+        '@entity_label' => $entity_type->getLabel(),
+      ]);
+    }
+
     switch ($this->getSetting('filter')) {
       case static::FORMAT_DRUPAL:
         $formats = filter_formats();
@@ -268,6 +341,14 @@ class AdvancedTextFormatter extends FormatterBase {
       $items->getEntity()->getEntityTypeId() => $items->getEntity(),
     ];
 
+    $url = NULL;
+    if ($this->getSetting('link_to_entity')) {
+      // For the default revision this falls back to 'canonical'
+      $url = $items
+        ->getEntity()
+        ->toUrl('revision');
+    }
+
     foreach ($items as $delta => $item) {
       if ($this->getSetting('use_summary') && !empty($item->summary)) {
         $output = $item->summary;
@@ -314,10 +395,19 @@ class AdvancedTextFormatter extends FormatterBase {
         $output = advanced_text_formatter_trim_text($output, $options);
       }
 
-      $elements[$delta] = [
-        '#markup' => $output,
-        '#langcode' => $item->getLangcode(),
-      ];
+      if ($url) {
+        $elements[$delta] = [
+          '#type' => 'link',
+          '#title' => Markup::create($output),
+          '#url' => $url,
+        ];
+      }
+      else {
+        $elements[$delta] = [
+          '#markup' => $output,
+          '#langcode' => $item->getLangcode(),
+        ];
+      }
     }
 
     return $elements;

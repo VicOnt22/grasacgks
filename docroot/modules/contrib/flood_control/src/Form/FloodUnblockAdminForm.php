@@ -102,7 +102,7 @@ class FloodUnblockAdminForm extends FormBase {
     $identifier = $form_state->getValue('identifier');
 
     // Set default markup.
-    $top_markup = $this->t("List of IP addresses and user ID's that are blocked after multiple failed login attempts. You can remove separate entries.");
+    $top_markup = $this->t("List of IP addresses and user ID's that are recorded in Drupal's flood after multiple failed login attempts. You can remove separate entries.");
 
     // Add link to control settings page if current user has
     // permission to access it.

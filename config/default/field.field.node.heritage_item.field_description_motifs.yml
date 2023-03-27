@@ -9,8 +9,8 @@ id: node.heritage_item.field_description_motifs
 field_name: field_description_motifs
 entity_type: node
 bundle: heritage_item
-label: 'Motifs and Images'
-description: ''
+label: 'Motifs and Patterns'
+description: 'Description of motifs and patterns used for this item decoration'
 required: false
 translatable: true
 default_value: {  }

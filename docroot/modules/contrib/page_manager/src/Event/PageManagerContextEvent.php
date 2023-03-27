@@ -4,7 +4,6 @@ namespace Drupal\page_manager\Event;
 
 use Drupal\page_manager\PageInterface;
 use Symfony\Component\EventDispatcher\Event;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Wraps a page entity for event subscribers.
@@ -21,23 +20,13 @@ class PageManagerContextEvent extends Event {
   protected $page;
 
   /**
-   * The request for this event.
-   *
-   * @var null|\Symfony\Component\HttpFoundation\Request
-   */
-  protected $request;
-
-  /**
    * Creates a new PageManagerContextEvent.
    *
    * @param \Drupal\page_manager\PageInterface $page
    *   The page entity.
-   * @param \Symfony\Component\HttpFoundation\Request|null $request
-   *   The request for this event.
    */
-  public function __construct(PageInterface $page, Request $request = NULL) {
+  public function __construct(PageInterface $page) {
     $this->page = $page;
-    $this->request = $request;
   }
 
   /**
@@ -48,16 +37,6 @@ class PageManagerContextEvent extends Event {
    */
   public function getPage() {
     return $this->page;
-  }
-
-  /**
-   * Returns the request for this event.
-   *
-   * @return null|\Symfony\Component\HttpFoundation\Request
-   *   The request for this event
-   */
-  public function getRequest() {
-    return $this->request;
   }
 
 }

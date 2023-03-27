@@ -19,7 +19,6 @@ use Drupal\page_manager\PageInterface;
 use Drupal\page_manager\Plugin\DisplayVariant\PageBlockDisplayVariant;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Drupal\page_manager\PageManagerHelper;
 
 /**
  * Tests the block variant plugin.
@@ -51,9 +50,8 @@ class PageBlockDisplayVariantTest extends UnitTestCase {
     $block_manager = $this->prophesize(BlockManager::class);
     $condition_manager = $this->prophesize(ConditionManager::class);
     $module_handler = $this->prophesize(ModuleHandlerInterface::class);
-    $page_manager_helper = $this->prophesize(PageManagerHelper::class);
 
-    $variant_plugin = new PageBlockDisplayVariant([], '', [], $context_handler->reveal(), $account->reveal(), $uuid_generator->reveal(), $token->reveal(), $block_manager->reveal(), $condition_manager->reveal(), $module_handler->reveal(), $page_manager_helper->reveal());
+    $variant_plugin = new PageBlockDisplayVariant([], '', [], $context_handler->reveal(), $account->reveal(), $uuid_generator->reveal(), $token->reveal(), $block_manager->reveal(), $condition_manager->reveal(), $module_handler->reveal());
 
     // Empty block.
     $expected_build = [
@@ -141,7 +139,6 @@ class PageBlockDisplayVariantTest extends UnitTestCase {
     $context_handler->applyContextMapping($block2->reveal(), [])->shouldBeCalledTimes(1);
 
     $module_handler = $this->prophesize(ModuleHandlerInterface::class);
-    $page_manager_helper = $this->prophesize(PageManagerHelper::class);
     $module_handler->alter();
     $uuid_generator = $this->prophesize(UuidInterface::class);
     $page_title = 'Page title';
@@ -151,7 +148,7 @@ class PageBlockDisplayVariantTest extends UnitTestCase {
     $block_manager = $this->prophesize(BlockManager::class);
     $condition_manager = $this->prophesize(ConditionManager::class);
     $variant_plugin = $this->getMockBuilder(PageBlockDisplayVariant::class)
-      ->setConstructorArgs([['page_title' => $page_title, 'uuid' => 'UUID'], 'test', [], $context_handler->reveal(), $account->reveal(), $uuid_generator->reveal(), $token, $block_manager->reveal(), $condition_manager->reveal(), $module_handler->reveal(), $page_manager_helper->reveal()])
+      ->setConstructorArgs([['page_title' => $page_title, 'uuid' => 'UUID'], 'test', [], $context_handler->reveal(), $account->reveal(), $uuid_generator->reveal(), $token, $block_manager->reveal(), $condition_manager->reveal(), $module_handler->reveal()])
       ->setMethods(['renderPageTitle'])
       ->getMock();
 
@@ -218,7 +215,7 @@ class PageBlockDisplayVariantTest extends UnitTestCase {
     $condition_manager = $this->prophesize(ConditionManager::class);
     $module_handler = $this->prophesize(ModuleHandlerInterface::class);
 
-    $variant_plugin = new PageBlockDisplayVariant([], '', [], $context_handler->reveal(), $account->reveal(), $uuid_generator->reveal(), $token->reveal(), $block_manager->reveal(), $condition_manager->reveal(), $module_handler->reveal(), $page_manager_helper->reveal());
+    $variant_plugin = new PageBlockDisplayVariant([], '', [], $context_handler->reveal(), $account->reveal(), $uuid_generator->reveal(), $token->reveal(), $block_manager->reveal(), $condition_manager->reveal(), $module_handler->reveal());
 
     $values = ['page_title' => "Go hang a salami, I'm a lasagna hog!"];
 

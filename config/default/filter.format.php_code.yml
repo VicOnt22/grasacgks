@@ -3,7 +3,6 @@ langcode: en
 status: false
 dependencies:
   module:
-    - ace_editor
     - blazy
     - image_resize_filter
     - slick
@@ -44,22 +43,6 @@ filters:
       thumbnail_effect: ''
       thumbnail_position: ''
       override: false
-  ace_filter:
-    id: ace_filter
-    provider: ace_editor
-    status: false
-    weight: 0
-    settings:
-      theme: cobalt
-      syntax: html
-      height: 500px
-      width: 700px
-      font_size: 12pt
-      line_numbers: '1'
-      show_invisibles: '0'
-      print_margins: '1'
-      auto_complete: '1'
-      use_wrap_mode: '1'
   blazy_filter:
     id: blazy_filter
     provider: blazy

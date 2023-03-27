@@ -3,12 +3,10 @@ env:
 
 globals:
   acquireChart: true
+  afterEvent: true
   Chart: true
   moment: true
   waitForResize: true
 
-# http://eslint.org/docs/rules/
 rules:
-  # Best Practices
-  complexity: 0
-  max-statements: 0
+  max-statements: ["warn", 50]

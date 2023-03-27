@@ -153,8 +153,14 @@ class RemotePostWebformHandler extends WebformHandlerBase {
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
-    // @todo Determine why entity field manager dependency can't be injected.
-    $field_names = array_keys(\Drupal::service('entity_field.manager')->getBaseFieldDefinitions('webform_submission'));
+    // We can't inject the entity field manager dependency because
+    // RemotePostWebformHandler::defaultConfiguration() is called with in
+    // RemotePostWebformHandler::create().
+    // @see \Drupal\webform\Plugin\WebformHandlerBase::create
+    // @see https://www.drupal.org/project/webform/issues/3285846
+    /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager */
+    $entity_field_manager = \Drupal::service('entity_field.manager');
+    $field_names = array_keys($entity_field_manager->getBaseFieldDefinitions('webform_submission'));
     $excluded_data = array_combine($field_names, $field_names);
     return [
       'method' => 'POST',

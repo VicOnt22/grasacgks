@@ -32,3 +32,11 @@
 .facets-dropdown.js-facets-widget.js-facets-dropdown {
   width: 100%;
 }
+
+.item-list__date_range {
+  padding-left: inherit;
+}
+
+ul.item-list__date_range > li {
+  list-style-type: none;
+}

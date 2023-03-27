@@ -39,7 +39,6 @@ module:
   coffee: 0
   conditional_fields: 0
   config: 0
-  config_filter: 0
   config_ignore: 0
   config_perms: 0
   config_translation: 0
@@ -62,6 +61,7 @@ module:
   diff: 0
   dropzonejs: 0
   dropzonejs_eb_widget: 0
+  duration_field: 0
   dynamic_page_cache: 0
   easy_breadcrumb: 0
   editor: 0
@@ -81,6 +81,7 @@ module:
   entityqueue: 0
   entityqueue_form_widget: 0
   facets: 0
+  facets_date_range: 0
   facets_range_widget: 0
   facets_searchbox_widget: 0
   facets_summary: 0

@@ -941,6 +941,7 @@ pjpeg
 placeholdered
 placeholdering
 playsholdr
+playsinline
 plid
 pluggable
 pluralforms

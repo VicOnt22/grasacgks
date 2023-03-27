@@ -1,0 +1,10 @@
+# Plugin \Drupal\ckeditor_bidi\Plugin\CKEditor5Plugin\Direction
+ckeditor5.plugin.ckeditor_bidi_ckeditor5:
+  type: mapping
+  label: Default RTL
+  mapping:
+    rtl_default:
+      type: boolean
+      label: 'Default RTL'
+      constraints:
+        NotNull: []

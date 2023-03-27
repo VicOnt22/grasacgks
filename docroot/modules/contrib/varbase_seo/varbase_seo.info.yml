@@ -27,7 +27,7 @@ install:
   - yoast_seo
   - script_manager
 
-# Information added by Drupal.org packaging script on 2022-10-18
-version: '9.0.7'
+# Information added by Drupal.org packaging script on 2023-03-08
+version: '9.0.8'
 project: 'varbase_seo'
-datestamp: 1666099927
+datestamp: 1678275914

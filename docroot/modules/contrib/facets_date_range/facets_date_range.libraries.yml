@@ -1,0 +1,8 @@
+date-range:
+  version: VERSION
+  js:
+    js/date-range.js: { attributes: { defer: true } }
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings

@@ -201,7 +201,7 @@ options:
     $this->assertNull($sid);
 
     // Get confirmation number from JSON packet.
-    preg_match('/&quot;confirmation_number&quot;:&quot;([a-zA-z0-9]+)&quot;/', $this->getSession()->getPage()->getContent(), $match);
+    preg_match('/&quot;confirmation_number&quot;:&quot;([a-zA-Z0-9]+)&quot;/', $this->getSession()->getPage()->getContent(), $match);
     $assert_session->responseContains('Your confirmation number is ' . $match[1] . '.');
 
     // Set remote post error URL to homepage.
@@ -261,7 +261,7 @@ options:
     $assert_session->responseContains("message: &#039;Processed completed request.&#039;");
 
     // Get confirmation number from JSON packet.
-    preg_match('/&quot;confirmation_number&quot;:&quot;([a-zA-z0-9]+)&quot;/', $this->getSession()->getPage()->getContent(), $match);
+    preg_match('/&quot;confirmation_number&quot;:&quot;([a-zA-Z0-9]+)&quot;/', $this->getSession()->getPage()->getContent(), $match);
     $assert_session->responseContains('Your confirmation number is ' . $match[1] . '.');
 
     /* ********************************************************************** */

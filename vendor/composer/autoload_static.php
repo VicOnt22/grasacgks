@@ -144,7 +144,6 @@ class ComposerStaticInit9a23ef48a2a9329279c4a55d12ebb5f7
         'R' => 
         array (
             'Robo\\' => 5,
-            'Recurr\\' => 7,
             'React\\Promise\\' => 14,
             'ReCaptcha\\' => 10,
         ),
@@ -529,10 +528,6 @@ class ComposerStaticInit9a23ef48a2a9329279c4a55d12ebb5f7
         array (
             0 => __DIR__ . '/..' . '/consolidation/robo/src',
         ),
-        'Recurr\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/simshaun/recurr/src/Recurr',
-        ),
         'React\\Promise\\' => 
         array (
             0 => __DIR__ . '/..' . '/react/promise/src',
@@ -814,7 +809,7 @@ class ComposerStaticInit9a23ef48a2a9329279c4a55d12ebb5f7
         ),
         'Doctrine\\Common\\Collections\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections',
+            0 => __DIR__ . '/..' . '/doctrine/collections/src',
         ),
         'Doctrine\\Common\\Annotations\\' => 
         array (

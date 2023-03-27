@@ -1,72 +1,79 @@
 {
     "config": {
-        "type": "horizontalBar",
+        "type": "bar",
         "data": {
             "labels": ["January", "February", "March", "April", "May", "June", "July"],
 			"datasets": []
         },
         "options": {
-            "legend": false,
-            "title": false,
+            "indexAxis": "y",
             "scales": {
-                "xAxes": [{
+                "x": {
                     "type": "category",
                     "position": "top",
                     "id": "x-axis-1",
                     "ticks": {
                         "display": false
                     },
-                    "gridLines":{
+                    "border": {
+                        "display": false
+                    },
+                    "grid":{
                         "drawOnChartArea": false,
-                        "drawBorder": false,
-                        "color": "rgba(0, 0, 0, 1)",
-                        "zeroLineColor": "rgba(0, 0, 0, 1)"
+                        "color": "rgba(0, 0, 0, 1)"
                     }
-                }, {
+                },
+                "x2": {
                     "type": "category",
                     "position": "bottom",
-                    "id": "x-axis-2",
                     "ticks": {
                         "display": false
                     },
-                    "gridLines":{
+                    "border": {
+                        "display": false
+                    },
+                    "grid":{
                         "drawOnChartArea": false,
-                        "drawBorder": false,
-                        "color": "rgba(0, 0, 0, 1)",
-                        "zeroLineColor": "rgba(0, 0, 0, 1)"
+                        "color": "rgba(0, 0, 0, 1)"
                     }
-                }],
-                "yAxes": [{
+                },
+                "y": {
                     "position": "left",
                     "id": "y-axis-1",
                     "type": "linear",
+                    "offset": false,
+                    "min": -100,
+                    "max": 100,
                     "ticks": {
-                        "display": false,
-                        "min": -100,
-                        "max": 100
+                        "display": false
                     },
-                    "gridLines":{
+                    "border": {
+                        "display": false
+                    },
+                    "grid":{
+                        "offset": false,
                         "drawOnChartArea": false,
-                        "drawBorder": false,
-                        "color": "rgba(0, 0, 0, 1)",
-                        "zeroLineColor": "rgba(0, 0, 0, 1)"
+                        "color": "rgba(0, 0, 0, 1)"
                     }
-                }, {
+                },
+                "y2": {
                     "type": "linear",
-                    "id": "y-axis-2",
                     "position": "right",
+                    "offset": false,
+                    "min": 0,
+                    "max": 50,
                     "ticks": {
-                        "display": false,
-                        "min": 0,
-                        "max": 50
+                        "display": false
                     },
-                    "gridLines":{
+                    "border": {
+                        "display": false
+                    },
+                    "grid":{
+                        "offset": false,
                         "drawOnChartArea": false,
-                        "drawBorder": false,
-                        "color": "rgba(0, 0, 0, 1)",
-                        "zeroLineColor": "rgba(0, 0, 0, 1)"
+                        "color": "rgba(0, 0, 0, 1)"
                     }
-                }]
+                }
             }
         }
     },

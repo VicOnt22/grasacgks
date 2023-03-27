@@ -3,7 +3,7 @@
  * Config inspector behaviors.
  */
 
-(function ($, Drupal, debounce) {
+ (function ($, Drupal, debounce, once) {
 
   'use strict';
 
@@ -21,17 +21,17 @@
       const $rows = $('.config-inspector-list').find('tbody tr');
 
       // Run filters on page load if state is saved by browser.
-      $('.config-inspector-list', context).once('listIsLoaded').each(function () {
+      $(once('listIsLoaded', '.config-inspector-list', context)).each(function () {
         filterByText();
       });
 
       // Toggle table rows with schema errors.
-      $('#schema-has-errors', context).once('schemaHasErrorsLoaded').change(function () {
+      $(once('schemaHasErrorsLoaded', '#schema-has-errors', context)).change(function () {
         filterByText();
       });
 
       // Filter table rows with text input.
-      $('#schema-filter-text', context).once('schemaFilterText').keyup(function () {
+      $(once('schemaFilterText', '#schema-filter-text', context)).keyup(function () {
         debounce(filterByText, 200)();
       });
 
@@ -57,4 +57,4 @@
     }
   };
 
-}(jQuery, Drupal, Drupal.debounce));
+}(jQuery, Drupal, Drupal.debounce, once));

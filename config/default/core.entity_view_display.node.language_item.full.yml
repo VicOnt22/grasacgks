@@ -20,6 +20,7 @@ dependencies:
     - field.field.node.language_item.field_unique_id
     - node.type.language_item
   module:
+    - blazy
     - ds
     - layout_builder
     - text
@@ -49,15 +50,14 @@ third_party_settings:
     regions:
       main:
         - node_title
-        - links
+        - field_term_definition
         - body
+        - links
         - content_moderation_control
         - field_languages
         - field_part_of_speech
-        - field_term_definition
         - field_alternative_spellings
         - field_source
-        - field_audio_files
         - field_date_created
         - field_related_heritage_item
         - field_related_language_item
@@ -65,6 +65,7 @@ third_party_settings:
         - field_unique_id
         - field_record_editable_by
         - field_folders
+        - field_audio_video
     fields:
       node_title:
         plugin_id: node_title
@@ -81,19 +82,7 @@ mode: full
 content:
   body:
     type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 2
-    region: main
-  content_moderation_control:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
-    region: main
-  field_alternative_spellings:
-    type: basic_string
-    label: above
+    label: visually_hidden
     settings: {  }
     third_party_settings:
       ds:
@@ -101,8 +90,8 @@ content:
           id: expert
           settings:
             lb: ''
-            lbw: true
-            lbw-el: strong
+            lbw: false
+            lbw-el: ''
             lbw-cl: ''
             lbw-at: ''
             lb-col: false
@@ -124,13 +113,17 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 7
+    weight: 2
     region: main
-  field_date_created:
-    type: string
-    label: inline
-    settings:
-      link_to_entity: false
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: main
+  field_alternative_spellings:
+    type: basic_string
+    label: above
+    settings: {  }
     third_party_settings:
       ds:
         ft:
@@ -141,13 +134,13 @@ content:
             lbw-el: strong
             lbw-cl: ''
             lbw-at: ''
-            lb-col: false
-            ow: false
+            lb-col: true
+            ow: true
             ow-el: ''
             ow-cl: ''
             ow-at: ''
-            ow-def-at: false
-            ow-def-cl: false
+            ow-def-at: true
+            ow-def-cl: true
             fis: false
             fis-el: ''
             fis-cl: ''
@@ -160,16 +153,45 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 10
+    weight: 7
     region: main
-  field_folders:
-    type: entity_reference_label
-    label: inline
+  field_audio_video:
+    type: blazy_media
+    label: above
     settings:
-      link: true
+      caption:
+        field_media_cover_image: '0'
+        field_provider: '0'
+      class: ''
+      id: ''
+      image: ''
+      link: ''
+      overlay: ''
+      title: ''
+      vanilla: false
+      layout: ''
+      view_mode: default
+      cache: 0
+      skin: ''
+      lazy: ''
+      style: ''
+      background: false
+      box_caption: ''
+      box_caption_custom: ''
+      box_media_style: ''
+      loading: ''
+      preload: false
+      responsive_image_style: ''
+      box_style: ''
+      image_style: ''
+      media_switch: ''
+      ratio: ''
+      thumbnail_style: ''
+      grid: ''
+      grid_medium: ''
+      grid_small: ''
     third_party_settings:
       ds:
-        ds_limit: ''
         ft:
           id: expert
           settings:
@@ -199,7 +221,43 @@ content:
             suffix: ''
     weight: 16
     region: main
-  field_languages:
+  field_date_created:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      ds:
+        ft:
+          id: expert
+          settings:
+            lb: ''
+            lbw: true
+            lbw-el: strong
+            lbw-cl: ''
+            lbw-at: ''
+            lb-col: true
+            ow: false
+            ow-el: ''
+            ow-cl: ''
+            ow-at: ''
+            ow-def-at: false
+            ow-def-cl: false
+            fis: false
+            fis-el: ''
+            fis-cl: ''
+            fis-at: ''
+            fis-def-at: false
+            fi: false
+            fi-el: ''
+            fi-cl: ''
+            fi-at: ''
+            fi-def-at: false
+            prefix: ''
+            suffix: ''
+    weight: 9
+    region: main
+  field_folders:
     type: entity_reference_label
     label: inline
     settings:
@@ -215,7 +273,7 @@ content:
             lbw-el: strong
             lbw-cl: ''
             lbw-at: ''
-            lb-col: false
+            lb-col: true
             ow: true
             ow-el: ''
             ow-cl: ''
@@ -234,15 +292,16 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 4
+    weight: 15
     region: main
-  field_part_of_speech:
-    type: string
+  field_languages:
+    type: entity_reference_label
     label: inline
     settings:
-      link_to_entity: false
+      link: true
     third_party_settings:
       ds:
+        ds_limit: ''
         ft:
           id: expert
           settings:
@@ -251,7 +310,7 @@ content:
             lbw-el: strong
             lbw-cl: ''
             lbw-at: ''
-            lb-col: false
+            lb-col: true
             ow: true
             ow-el: ''
             ow-cl: ''
@@ -272,6 +331,42 @@ content:
             suffix: ''
     weight: 5
     region: main
+  field_part_of_speech:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      ds:
+        ft:
+          id: expert
+          settings:
+            lb: ''
+            lbw: true
+            lbw-el: strong
+            lbw-cl: ''
+            lbw-at: ''
+            lb-col: true
+            ow: true
+            ow-el: ''
+            ow-cl: ''
+            ow-at: ''
+            ow-def-at: true
+            ow-def-cl: true
+            fis: false
+            fis-el: ''
+            fis-cl: ''
+            fis-at: ''
+            fis-def-at: false
+            fi: false
+            fi-el: ''
+            fi-cl: ''
+            fi-at: ''
+            fi-def-at: false
+            prefix: ''
+            suffix: ''
+    weight: 6
+    region: main
   field_record_editable_by:
     type: entity_reference_label
     label: inline
@@ -288,13 +383,13 @@ content:
             lbw-el: strong
             lbw-cl: ''
             lbw-at: ''
-            lb-col: false
-            ow: false
+            lb-col: true
+            ow: true
             ow-el: ''
             ow-cl: ''
             ow-at: ''
-            ow-def-at: false
-            ow-def-cl: false
+            ow-def-at: true
+            ow-def-cl: true
             fis: false
             fis-el: ''
             fis-cl: ''
@@ -307,7 +402,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 15
+    weight: 14
     region: main
   field_related_heritage_item:
     type: entity_reference_label
@@ -325,7 +420,44 @@ content:
             lbw-el: strong
             lbw-cl: ''
             lbw-at: ''
-            lb-col: false
+            lb-col: true
+            ow: true
+            ow-el: ''
+            ow-cl: ''
+            ow-at: ''
+            ow-def-at: true
+            ow-def-cl: true
+            fis: false
+            fis-el: ''
+            fis-cl: ''
+            fis-at: ''
+            fis-def-at: false
+            fi: false
+            fi-el: ''
+            fi-cl: ''
+            fi-at: ''
+            fi-def-at: false
+            prefix: ''
+            suffix: ''
+    weight: 10
+    region: main
+  field_related_language_item:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings:
+      ds:
+        ds_limit: ''
+        ft:
+          id: expert
+          settings:
+            lb: ''
+            lbw: true
+            lbw-el: strong
+            lbw-cl: ''
+            lbw-at: ''
+            lb-col: true
             ow: true
             ow-el: ''
             ow-cl: ''
@@ -346,7 +478,7 @@ content:
             suffix: ''
     weight: 11
     region: main
-  field_related_language_item:
+  field_related_places:
     type: entity_reference_label
     label: above
     settings:
@@ -362,7 +494,7 @@ content:
             lbw-el: strong
             lbw-cl: ''
             lbw-at: ''
-            lb-col: false
+            lb-col: true
             ow: true
             ow-el: ''
             ow-cl: ''
@@ -383,43 +515,6 @@ content:
             suffix: ''
     weight: 12
     region: main
-  field_related_places:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings:
-      ds:
-        ds_limit: ''
-        ft:
-          id: expert
-          settings:
-            lb: ''
-            lbw: true
-            lbw-el: strong
-            lbw-cl: ''
-            lbw-at: ''
-            lb-col: false
-            ow: false
-            ow-el: ''
-            ow-cl: ''
-            ow-at: ''
-            ow-def-at: false
-            ow-def-cl: false
-            fis: false
-            fis-el: ''
-            fis-cl: ''
-            fis-at: ''
-            fis-def-at: false
-            fi: false
-            fi-el: ''
-            fi-cl: ''
-            fi-at: ''
-            fi-def-at: false
-            prefix: ''
-            suffix: ''
-    weight: 13
-    region: main
   field_source:
     type: entity_reference_label
     label: above
@@ -435,7 +530,7 @@ content:
             lbw-el: strong
             lbw-cl: ''
             lbw-at: ''
-            lb-col: false
+            lb-col: true
             ow: true
             ow-el: ''
             ow-cl: ''
@@ -470,7 +565,7 @@ content:
             lbw-el: strong
             lbw-cl: ''
             lbw-at: ''
-            lb-col: false
+            lb-col: true
             ow: true
             ow-el: ''
             ow-cl: ''
@@ -489,7 +584,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 6
+    weight: 1
     region: main
   field_unique_id:
     type: string
@@ -506,7 +601,7 @@ content:
             lbw-el: strong
             lbw-cl: ''
             lbw-at: ''
-            lb-col: false
+            lb-col: true
             ow: true
             ow-el: ''
             ow-cl: ''
@@ -525,14 +620,13 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 14
+    weight: 13
     region: main
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 3
     region: main
 hidden:
-  field_audio_video: true
   langcode: true
   search_api_excerpt: true

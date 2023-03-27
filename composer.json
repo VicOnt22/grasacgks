@@ -43,9 +43,9 @@
         "drupal/config_filter": "^2.4",
         "drupal/facets": "^3.0@beta",
         "bower-asset/jquery-ui-slider-pips": "^1.11",
-        "drupal/smart_date": "^4.0@beta",
-        "drupal/date_augmenter": "^1.1@beta",
-        "drupal/easy_breadcrumb": "^2.0"
+        "drupal/easy_breadcrumb": "^2.0",
+        "drupal/duration_field": "^2.1",
+        "drupal/facets_date_range": "^1.0@beta"
     },
     "conflict": {
         "drupal/ctools": "^3.10 || ^4.0.1",
@@ -221,7 +221,8 @@
                 "Migrate Module Notice - Undefined index plugin in Drupal migrate Plugin Migration": "https://www.drupal.org/files/issues/2021-11-09/3248350_1.patch",
                 "warning mb_strtolower() - Passing null to parameter #1": "https://www.drupal.org/files/issues/2022-08-23/3302838-13.patch",
                 "Warning array_flip() Can only flip STRING and INTEGER values": "https://www.drupal.org/files/issues/2021-11-15/3249389-array-flip-replaced-by-foreach-iteration.patch",
-                "Add a width $properties argument to FieldItemLi": "https://www.drupal.org/files/issues/2021-06-06/2941092-23.patch"
+                "Add a width $properties argument to FieldItemLi": "https://www.drupal.org/files/issues/2021-06-06/2941092-23.patch",
+                "project/drupal/issues/2794481 Allow optional End date": "https://www.drupal.org/files/issues/2022-06-16/drupal-datetime_range-allow_end_date_optional-2794481-139.patch"
             },
             "drupal/config_devel": {
                 "Add an extra.drush.services section to composer.json": "https://www.drupal.org/files/issues/2021-07-28/3225746-2--add-extra-drush-services-to-composer-json.patch"
@@ -229,14 +230,17 @@
             "drupal/og": {
                 "Default membership cannot be deleted /project/og/issues/3257557": "patches/og-membership.patch"
             },
-            "drupal/config_ignore": {
-                "issues/2857247 Support for export filtering via Drush": "https://www.drupal.org/files/issues/2021-08-18/config_ignore_2857247-75.patch"
-            },
             "drupal/geofield_map": {
                 "issues/3325733 and missing key workaround": "patches/geofield-map.patch"
             },
             "drupal/lang_dropdown": {
                 "issues/3348277 Fix TypeError array_keys() Argument #1 must be of type array": "https://www.drupal.org/files/issues/2023-03-16/lang_dropdown-2-0-0--3348277-16.patch"
+            },
+            "drupal/datetime_extras": {
+                "issues/3348793 D10 compatibility": "https://www.drupal.org/files/issues/2023-03-17/3348793_03_drupal10_compatibility.patch"
+            },
+            "drupal/ace_editor": {
+                "issues/3271278 Using ace editor with field ui throws error Using this when not in object context": "https://www.drupal.org/files/issues/2022-03-23/3271278_2.patch"
             }
         }
     },

@@ -2,5 +2,5 @@ name: 'Security Review'
 type: module
 description: 'Site security and configuration review module.'
 package: Security
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^9 || ^10
 configure: security_review.settings

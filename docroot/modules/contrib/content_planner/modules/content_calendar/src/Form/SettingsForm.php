@@ -39,40 +39,28 @@ class SettingsForm extends ConfigFormBase {
   protected $entityTypeManager;
 
   /**
+   * The content moderation information service.
+   *
+   * @var \Drupal\content_moderation\ModerationInformationInterface
+   */
+  protected $contentModerationInformation;
+
+  /**
    * Config name.
    */
   const CONFIG_NAME = 'content_calendar.settings';
 
   /**
-   * Constructor.
-   *
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The config factory service.
-   * @param \Drupal\content_calendar\ContentTypeConfigService $content_type_config_service
-   *   Implements ContentTypeConfigService class.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   Provides an interface for entity type managers.
-   */
-  public function __construct(ConfigFactoryInterface $config_factory, ContentTypeConfigService $content_type_config_service, EntityTypeManagerInterface $entity_type_manager) {
-
-    parent::__construct($config_factory);
-
-    $this->contentTypeConfigService = $content_type_config_service;
-    $this->entityTypeManager = $entity_type_manager;
-
-    // Get config.
-    $this->config = $this->config(self::CONFIG_NAME);
-  }
-
-  /**
    * {@inheritDoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('config.factory'),
-      $container->get('content_calendar.content_type_config_service'),
-      $container->get('entity_type.manager')
-    );
+    $instance = parent::create($container);
+    $instance->contentTypeConfigService = $container->get('content_calendar.content_type_config_service');
+    $instance->entityTypeManager = $container->get('entity_type.manager');
+    $instance->contentModerationInformation = $container->get('content_moderation.moderation_information');
+    $instance->config = $instance->config(self::CONFIG_NAME);
+
+    return $instance;
   }
 
   /**
@@ -105,16 +93,11 @@ class SettingsForm extends ConfigFormBase {
       return [];
     }
 
-    // Build Content Type configuration.
     $this->buildContentTypeConfiguration($form, $form_state);
-
-    // Build Calendar Options.
     $this->buildCalendarOptions($form, $form_state);
+    $this->buildSchedulingOptions($form, $form_state);
 
-    // Build form.
-    $build_form = parent::buildForm($form, $form_state);
-
-    return $build_form;
+    return parent::buildForm($form, $form_state);
   }
 
   /**
@@ -128,17 +111,27 @@ class SettingsForm extends ConfigFormBase {
     $display_options = [];
 
     // Load Node Type configurations.
-    $node_types = $this->entityTypeManager->getStorage('node_type')->loadMultiple();
+    $definition = $this->entityTypeManager
+      ->getDefinition('node');
+    $node_types = $this->entityTypeManager
+      ->getStorage('node_type')
+      ->loadMultiple();
 
     foreach ($node_types as $node_type_key => $node_type) {
-
-      if ($scheduler = $node_type->getThirdPartySettings('scheduler')) {
-
-        if ($scheduler['publish_enable'] == TRUE) {
-          $display_options[$node_type_key] = $node_type->label();
-        }
-
+      // Exclude node types without scheduler.
+      if (!$scheduler = $node_type->getThirdPartySettings('scheduler')) {
+        continue;
       }
+      if (empty($scheduler['publish_enable'])) {
+        continue;
+      }
+
+      // Exclude node types without content moderation.
+      if (!$this->contentModerationInformation->shouldModerateEntitiesOfBundle($definition, $node_type_key)) {
+        continue;
+      }
+
+      $display_options[$node_type_key] = $node_type->label();
     }
 
     return $display_options;
@@ -173,7 +166,7 @@ class SettingsForm extends ConfigFormBase {
     $form['content_type_configuration']['content_types'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Which Content Types need to be displayed?'),
-      '#description' => $this->t('Only Content Types enabled for Scheduler are listed here'),
+      '#description' => $this->t('Only content types with Scheduler and Content Moderation enabled are listed here.'),
       '#required' => TRUE,
       '#options' => $content_type_options,
       '#default_value' => $entity_keys,
@@ -264,6 +257,34 @@ class SettingsForm extends ConfigFormBase {
   }
 
   /**
+   * Build the form elements for the scheduling options.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   */
+  protected function buildSchedulingOptions(array &$form, FormStateInterface $form_state) {
+
+    // Fieldset.
+    $form['scheduling'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Scheduling options'),
+      '#collapsible' => FALSE,
+      '#collapsed' => FALSE,
+    ];
+
+    // Show user thumb checkbox.
+    $form['scheduling']['add_content_set_schedule_date'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Automatically schedule content when creating through the calendar'),
+      '#description' => $this->t('If enabled, both the created date and schedule date will be set when creating content through the add button on calendar dates. If disabled, only the created date will be set.'),
+      '#default_value' => $this->config->get('add_content_set_schedule_date'),
+    ];
+
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
@@ -275,6 +296,7 @@ class SettingsForm extends ConfigFormBase {
     $this->config(self::CONFIG_NAME)
       ->set('show_user_thumb', $values['show_user_thumb'])
       ->set('bg_color_unpublished_content', $values['bg_color_unpublished_content'])
+      ->set('add_content_set_schedule_date', $values['add_content_set_schedule_date'])
       ->save();
 
     // Get selected Content Types.
@@ -288,6 +310,8 @@ class SettingsForm extends ConfigFormBase {
 
     // Check which config entity needs to be deleted.
     $this->deleteObsoleteConfigEntities($selected_content_types, $config_entities);
+
+    $this->messenger()->addStatus('Settings successfully updated');
   }
 
   /**

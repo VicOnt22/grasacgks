@@ -2,13 +2,20 @@
 
 namespace Drupal\drd_agent\Form;
 
-use Drupal\Core\Form\ConfigFormBase;
+use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\State\StateInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Configure drd-agent settings for this site.
  */
-class Settings extends ConfigFormBase {
+class Settings extends FormBase {
+
+  /**
+   * @var \Drupal\Core\State\StateInterface
+   */
+  protected $state;
 
   /**
    * {@inheritdoc}
@@ -18,41 +25,53 @@ class Settings extends ConfigFormBase {
   }
 
   /**
+   * @param \Drupal\Core\State\StateInterface $state
+   *   The state factory.
+   */
+  public function __construct(StateInterface $state) {
+    $this->state = $state;
+  }
+
+  /**
    * {@inheritdoc}
    */
-  protected function getEditableConfigNames(): array {
-    return ['drd_agent.settings'];
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('state')
+    );
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
-    $config = $this->config('drd_agent.settings');
+    $state = \Drupal::state();
 
     $form['debug_mode'] = [
       '#type' => 'checkbox',
       '#title' => t('Debug mode'),
-      '#default_value' => $config->get('debug_mode'),
+      '#default_value' => $state->get('drd_agent.debug_mode', FALSE),
     ];
 
-    return parent::buildForm($form, $form_state);
+    $form['actions'] = [
+      '#type' => 'actions',
+    ];
+
+    $form['actions']['submit'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Submit')
+    ];
+
+    return $form;
   }
 
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $config = $this->configFactory()->getEditable('drd_agent.settings');
-
-    $form_state->cleanValues();
-    foreach ($form_state->getValues() as $key => $value) {
-      $config->set($key, $value);
-    }
-
-    $config->save();
-
-    parent::submitForm($form, $form_state);
+    $debug_mode = $form_state->getValue('debug_mode');
+    $this->state->set('drd_agent.debug_mode', $debug_mode);
+    $this->messenger()->addStatus($this->t('Settings saved'));
   }
 
 }

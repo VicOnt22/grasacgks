@@ -4,19 +4,16 @@
  * @file
  * Hooks related to genpass module and password generation.
  */
-
 /**
  * @addtogroup hooks
  * @{
  */
-
 /**
  * Generate a password of a given length and retur it.
  *
- * @param integer
- *   The length of the password to return.
+ * @param integer   The length of the password to return.
  *
- * @see user_password()
+ * @see \Drupal\Core\Password\DefaultPasswordGenerator::generate()
  */
 function hook_password($length) {
   // Generate a password using our method of $length.

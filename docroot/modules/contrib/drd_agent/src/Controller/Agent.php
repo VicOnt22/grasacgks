@@ -2,8 +2,8 @@
 
 namespace Drupal\drd_agent\Controller;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\State\StateInterface;
 use Drupal\drd_agent\Agent\Action\Base as ActionBase;
 use Drupal\drd_agent\Crypt\Base as CryptBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -23,12 +23,9 @@ class Agent extends ControllerBase {
   protected $container;
 
   /**
-   * The agent configuration.
-   *
-   * @var \Drupal\Core\Config\ImmutableConfig
+   * @var \Drupal\Core\State\StateInterface
    */
-  protected $config;
-
+  protected $state;
   /**
    * Get an array of http response headers.
    *
@@ -46,17 +43,17 @@ class Agent extends ControllerBase {
    * Agent constructor.
    *
    * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   * @param \Drupal\Core\State\StateInterface $state
    */
-  public function __construct(ContainerInterface $container, ConfigFactoryInterface $configFactory) {
+  public function __construct(ContainerInterface $container, StateInterface $state) {
     $this->container = $container;
-    $this->config = $configFactory->get('drd_agent.settings');
+    $this->state = $state;
   }
 
   public static function create(ContainerInterface $container) {
     return new static(
       $container,
-      $container->get('config.factory')
+      $container->get('state')
     );
   }
 
@@ -68,7 +65,7 @@ class Agent extends ControllerBase {
    * @throws \Exception
    */
   public function get(): Response {
-    return $this->deliver(ActionBase::create($this->container)->run((bool) $this->config->get('debug_mode')));
+    return $this->deliver(ActionBase::create($this->container)->run((bool) $this->state->get('drd_agent.debug_mode', FALSE)));
   }
 
   /**
@@ -90,7 +87,7 @@ class Agent extends ControllerBase {
    * @throws \Exception
    */
   public function authorizeBySecret(): Response {
-    return $this->deliver(ActionBase::create($this->container)->authorizeBySecret((bool) $this->config->get('debug_mode')));
+    return $this->deliver(ActionBase::create($this->container)->authorizeBySecret((bool) $this->state->get('drd_agent.debug_mode', FALSE)));
   }
 
   /**

@@ -35,3 +35,52 @@ body {
     display: none;
   }
 }
+// D7 language-item content type is using this fontN classes to color Body text
+
+.font11 {
+  color: purple;
+  font-weight: 700;
+  font-style: normal;
+  text-decoration: none;
+}
+.font10 {
+  color: navy;
+  font-weight: 700;
+  font-style: normal;
+  text-decoration: none;
+}
+.font9 {
+  color: #339966;
+  font-weight: 400;
+  font-style: italic;
+  text-decoration: none;
+}
+.font8 {
+  color: purple;
+  font-weight: 400;
+  font-style: italic;
+  text-decoration: none;
+}
+.font7 {
+  color: navy;
+  font-weight: 700;
+  font-style: normal;
+  text-decoration: none;
+}
+
+// search-page dropdown facet to have only heriatge and language-items
+.page-view-search-page {
+  #block-contenttype {
+    select option:nth-child(4){
+      display: none;
+    }
+    select option:nth-child(5){
+      display: none;
+    }
+  }
+}
+#navbar-collapse{
+  button#edit-reset{
+    display:  none;
+  }
+}

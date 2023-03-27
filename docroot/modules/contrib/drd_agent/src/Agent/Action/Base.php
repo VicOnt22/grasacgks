@@ -412,8 +412,7 @@ class Base implements BaseInterface, ContainerInjectionInterface {
    * {@inheritdoc}
    */
   public function getCryptInstance($uuid) {
-    $config = $this->configFactory->get('drd_agent.settings');
-    $authorised = $config->get('authorised') ?? [];
+    $authorised = $this->state->get('drd_agent.authorised', []);
     if (empty($authorised[$uuid])) {
       return FALSE;
     }
@@ -463,13 +462,12 @@ class Base implements BaseInterface, ContainerInjectionInterface {
    * {@inheritdoc}
    */
   public function ott($token, $remoteSetupToken): bool {
-    $config = $this->configFactory->getEditable('drd_agent.settings');
-    $ott = $config->get('ott');
+    $ott = $this->state->get('drd_agent.ott', FALSE);
     if (!$ott) {
       $this->watchdog('No OTT available', [], LogLevel::ERROR);
       return FALSE;
     }
-    $config->clear('ott');
+    $this->state->delete('drd_agent.ott');
     if (empty($ott['expires']) || $ott['expires'] < $this->time->getRequestTime()) {
       $this->watchdog('OTT expired', [], LogLevel::ERROR);
       return FALSE;

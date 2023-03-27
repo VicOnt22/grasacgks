@@ -3,12 +3,13 @@ langcode: en
 status: true
 dependencies:
   module:
-    - ace_editor
     - blazy
     - ckeditor_media_embed
     - editor
     - entity_embed
     - image_resize_filter
+    - linkit
+    - media
     - pathologic
     - slick
     - token_filter
@@ -18,39 +19,24 @@ name: 'HTML code'
 format: code_html
 weight: -8
 filters:
-  ace_filter:
-    id: ace_filter
-    provider: ace_editor
-    status: false
-    weight: -40
-    settings:
-      theme: cobalt
-      syntax: html
-      height: 500px
-      width: 700px
-      font_size: 10pt
-      line_numbers: '1'
-      print_margins: '1'
-      show_invisibles: '0'
-      use_wrap_mode: '1'
   filter_url:
     id: filter_url
     provider: filter
     status: false
-    weight: -43
+    weight: -42
     settings:
       filter_url_length: 72
   filter_htmlcorrector:
     id: filter_htmlcorrector
     provider: filter
     status: true
-    weight: -46
+    weight: -47
     settings: {  }
   filter_html:
     id: filter_html
     provider: filter
     status: false
-    weight: -44
+    weight: -43
     settings:
       allowed_html: '<em> <strong> <cite> <blockquote cite> <code> <ul type> <ol start type> <li> <dl> <dt> <dd> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <img src height width alt data-*> <hr> <table> <caption> <tbody> <thead> <tfoot> <th> <td> <tr> <a href hreflang !href accesskey id rel target title name> <p class="text-align-left text-align-center text-align-right text-align-justify red-background red-underline-border red-quote-underline-border red-rectangle-border red-exclamation-mark side-block left-side-block right-side-block"> <pre> <u> <s> <sub> <sup> <div class> <drupal-entity * data-*> <figure *> <picture *> <article *> <figcaption>'
       filter_html_help: true
@@ -59,7 +45,7 @@ filters:
     id: editor_file_reference
     provider: editor
     status: true
-    weight: -45
+    weight: -46
     settings: {  }
   entity_embed:
     id: entity_embed
@@ -82,8 +68,8 @@ filters:
   filter_pathologic:
     id: filter_pathologic
     provider: pathologic
-    status: true
-    weight: -47
+    status: false
+    weight: -44
     settings:
       settings_source: global
       local_settings:
@@ -93,7 +79,7 @@ filters:
     id: filter_image_resize
     provider: image_resize_filter
     status: false
-    weight: -42
+    weight: -41
     settings:
       image_locations:
         local: false
@@ -102,31 +88,31 @@ filters:
     id: filter_autop
     provider: filter
     status: false
-    weight: -39
+    weight: -38
     settings: {  }
   filter_html_escape:
     id: filter_html_escape
     provider: filter
     status: false
-    weight: -41
+    weight: -40
     settings: {  }
   filter_html_image_secure:
     id: filter_html_image_secure
     provider: filter
     status: false
-    weight: -37
+    weight: -36
     settings: {  }
   filter_image_link_to_source:
     id: filter_image_link_to_source
     provider: image_resize_filter
     status: false
-    weight: -38
+    weight: -37
     settings: {  }
   blazy_filter:
     id: blazy_filter
     provider: blazy
     status: false
-    weight: -35
+    weight: -34
     settings:
       media_switch: ''
       hybrid_style: ''
@@ -140,20 +126,20 @@ filters:
     id: filter_ckeditor_media_embed
     provider: ckeditor_media_embed
     status: false
-    weight: -36
+    weight: -35
     settings: {  }
   token_filter:
     id: token_filter
     provider: token_filter
     status: true
-    weight: 0
+    weight: -45
     settings:
       replace_empty: '1'
   slick_filter:
     id: slick_filter
     provider: slick
     status: false
-    weight: 4
+    weight: -32
     settings:
       optionset: default
       layout: ''
@@ -181,3 +167,19 @@ filters:
       thumbnail_effect: ''
       thumbnail_position: ''
       override: false
+  linkit:
+    id: linkit
+    provider: linkit
+    status: false
+    weight: -33
+    settings:
+      title: true
+  media_embed:
+    id: media_embed
+    provider: media
+    status: false
+    weight: -31
+    settings:
+      default_view_mode: default
+      allowed_view_modes: {  }
+      allowed_media_types: {  }

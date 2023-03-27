@@ -78,24 +78,30 @@ class Authorize extends FormBase {
    *   The form.
    */
   protected function buildFormConfirmation(array $form): array {
-    $form['attention'] = [
-      '#markup' => t('You are about to grant admin access to the Drupal Remote Dashboard on the following domain:'),
-      '#prefix' => '<div>',
-      '#suffix' => '</div>',
-    ];
-    $form['domain'] = [
-      '#markup' => $this->setupService->getDomain(),
+    if ($domain = $this->setupService->getDomain()) {
+      $form['attention'] = [
+        '#markup' => t('You are about to grant admin access to the Drupal Remote Dashboard on the following domain:'),
+        '#prefix' => '<div>',
+        '#suffix' => '</div>',
+      ];
+      $form['domain'] = [
+        '#markup' => $domain,
       '#prefix' => '<div class="domain">',
       '#suffix' => '</div>',
     ];
-    $form['cancel'] = [
-      '#type' => 'submit',
-      '#value' => t('Cancel'),
-    ];
-    $form['submit'] = [
-      '#type' => 'submit',
-      '#value' => t('Grant admin access'),
-    ];
+      $form['cancel'] = [
+        '#type' => 'submit',
+        '#value' => t('Cancel'),
+      ];
+      $form['submit'] = [
+        '#type' => 'submit',
+        '#value' => t('Grant admin access'),
+      ];
+    }
+    else {
+      unset($_SESSION['drd_agent_authorization_values']);
+      $form = $this->buildFormToken($form);
+    }
 
     return $form;
   }

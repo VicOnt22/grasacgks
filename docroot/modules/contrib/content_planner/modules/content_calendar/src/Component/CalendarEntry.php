@@ -121,7 +121,7 @@ class CalendarEntry extends BaseEntry {
    */
   public function formatSchedulingDateAsMySqlDateOnly() {
 
-    $datetime = DateTimeHelper::convertUnixTimestampToDatetime($this->node->created);
+    $datetime = DateTimeHelper::convertUnixTimestampToDatetime($this->getRelevantDate());
 
     return $datetime->format(DateTimeHelper::FORMAT_MYSQL_DATE_ONLY);
   }

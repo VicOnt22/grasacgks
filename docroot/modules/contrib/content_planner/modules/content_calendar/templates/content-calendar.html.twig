@@ -54,7 +54,11 @@
           {% for entity_key, content_type_entity in node_type_creation_permissions %}
             <li>
                   <span class="label">
-                    <a href="{{ path('node.add', {'node_type': entity_key}) }}?destination={{ path('content_calendar.calendar_redirect', {'year': calendar.year, 'month': calendar.month}) }}&publish_on={{ day.date }}">{{ content_type_entity.label }}</a>
+                    <a href="{{ path('node.add', {'node_type': entity_key}, {'query': {
+                      'destination': path('content_calendar.calendar_redirect', {'year': calendar.year, 'month': calendar.month}),
+                      'created': day.date,
+                      'schedule': add_content_set_schedule_date ? 1 : 0,
+                    }}) }}">{{ content_type_entity.label }}</a>
                   </span>
             </li>
           {% endfor %}

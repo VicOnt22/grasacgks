@@ -1,592 +1,572 @@
+function getLabels(scale) {
+  return scale.ticks.map(t => t.label);
+}
+
 describe('Chart.layouts', function() {
-	it('should be exposed through Chart.layouts', function() {
-		expect(Chart.layouts).toBeDefined();
-		expect(typeof Chart.layouts).toBe('object');
-		expect(Chart.layouts.defaults).toBeDefined();
-		expect(Chart.layouts.addBox).toBeDefined();
-		expect(Chart.layouts.removeBox).toBeDefined();
-		expect(Chart.layouts.configure).toBeDefined();
-		expect(Chart.layouts.update).toBeDefined();
-	});
+  describe('auto', jasmine.fixture.specs('core.layouts'));
 
-	// Disable tests which need to be rewritten based on changes introduced by
-	// the following changes: https://github.com/chartjs/Chart.js/pull/2346
-	// using xit marks the test as pending: http://jasmine.github.io/2.0/introduction.html#section-Pending_Specs
-	xit('should fit a simple chart with 2 scales', function() {
-		var chart = window.acquireChart({
-			type: 'bar',
-			data: {
-				datasets: [
-					{data: [10, 5, 0, 25, 78, -10]}
-				],
-				labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5', 'tick6']
-			},
-			options: {
-				scales: {
-					xAxes: [{
-						id: 'xScale',
-						type: 'category'
-					}],
-					yAxes: [{
-						id: 'yScale',
-						type: 'linear'
-					}]
-				}
-			}
-		}, {
-			canvas: {
-				height: 150,
-				width: 250
-			}
-		});
+  it('should be exposed through Chart.layouts', function() {
+    expect(Chart.layouts).toBeDefined();
+    expect(typeof Chart.layouts).toBe('object');
+    expect(Chart.layouts.addBox).toBeDefined();
+    expect(Chart.layouts.removeBox).toBeDefined();
+    expect(Chart.layouts.configure).toBeDefined();
+    expect(Chart.layouts.update).toBeDefined();
+  });
 
-		expect(chart.chartArea.bottom).toBeCloseToPixel(112);
-		expect(chart.chartArea.left).toBeCloseToPixel(41);
-		expect(chart.chartArea.right).toBeCloseToPixel(250);
-		expect(chart.chartArea.top).toBeCloseToPixel(32);
+  it('should fit a simple chart with 2 scales', function() {
+    var chart = window.acquireChart({
+      type: 'bar',
+      data: {
+        datasets: [
+          {data: [10, 5, 0, 25, 78, -10]}
+        ],
+        labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5', 'tick6']
+      }
+    }, {
+      canvas: {
+        height: 150,
+        width: 250
+      }
+    });
 
-		// Is xScale at the right spot
-		expect(chart.scales.xScale.bottom).toBeCloseToPixel(150);
-		expect(chart.scales.xScale.left).toBeCloseToPixel(41);
-		expect(chart.scales.xScale.right).toBeCloseToPixel(250);
-		expect(chart.scales.xScale.top).toBeCloseToPixel(112);
-		expect(chart.scales.xScale.labelRotation).toBeCloseTo(25);
+    expect(chart.chartArea.bottom).toBeCloseToPixel(120);
+    expect(chart.chartArea.left).toBeCloseToPixel(31);
+    expect(chart.chartArea.right).toBeCloseToPixel(250);
+    expect(chart.chartArea.top).toBeCloseToPixel(32);
 
-		// Is yScale at the right spot
-		expect(chart.scales.yScale.bottom).toBeCloseToPixel(112);
-		expect(chart.scales.yScale.left).toBeCloseToPixel(0);
-		expect(chart.scales.yScale.right).toBeCloseToPixel(41);
-		expect(chart.scales.yScale.top).toBeCloseToPixel(32);
-		expect(chart.scales.yScale.labelRotation).toBeCloseTo(0);
-	});
+    // Is xScale at the right spot
+    expect(chart.scales.x.bottom).toBeCloseToPixel(150);
+    expect(chart.scales.x.left).toBeCloseToPixel(31);
+    expect(chart.scales.x.right).toBeCloseToPixel(250);
+    expect(chart.scales.x.top).toBeCloseToPixel(120);
+    expect(chart.scales.x.labelRotation).toBeCloseTo(0);
 
-	xit('should fit scales that are in the top and right positions', function() {
-		var chart = window.acquireChart({
-			type: 'bar',
-			data: {
-				datasets: [
-					{data: [10, 5, 0, 25, 78, -10]}
-				],
-				labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5', 'tick6']
-			},
-			options: {
-				scales: {
-					xAxes: [{
-						id: 'xScale',
-						type: 'category',
-						position: 'top'
-					}],
-					yAxes: [{
-						id: 'yScale',
-						type: 'linear',
-						position: 'right'
-					}]
-				}
-			}
-		}, {
-			canvas: {
-				height: 150,
-				width: 250
-			}
-		});
+    // Is yScale at the right spot
+    expect(chart.scales.y.bottom).toBeCloseToPixel(120);
+    expect(chart.scales.y.left).toBeCloseToPixel(0);
+    expect(chart.scales.y.right).toBeCloseToPixel(31);
+    expect(chart.scales.y.top).toBeCloseToPixel(32);
+    expect(chart.scales.y.labelRotation).toBeCloseTo(0);
+  });
 
-		expect(chart.chartArea.bottom).toBeCloseToPixel(150);
-		expect(chart.chartArea.left).toBeCloseToPixel(0);
-		expect(chart.chartArea.right).toBeCloseToPixel(209);
-		expect(chart.chartArea.top).toBeCloseToPixel(71);
+  it('should fit scales that are in the top and right positions', function() {
+    var chart = window.acquireChart({
+      type: 'bar',
+      data: {
+        datasets: [
+          {data: [10, 5, 0, 25, 78, -10]}
+        ],
+        labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5', 'tick6']
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'category',
+            position: 'top'
+          },
+          y: {
+            type: 'linear',
+            position: 'right'
+          }
+        }
+      }
+    }, {
+      canvas: {
+        height: 150,
+        width: 250
+      }
+    });
 
-		// Is xScale at the right spot
-		expect(chart.scales.xScale.bottom).toBeCloseToPixel(71);
-		expect(chart.scales.xScale.left).toBeCloseToPixel(0);
-		expect(chart.scales.xScale.right).toBeCloseToPixel(209);
-		expect(chart.scales.xScale.top).toBeCloseToPixel(32);
-		expect(chart.scales.xScale.labelRotation).toBeCloseTo(25);
+    expect(chart.chartArea.bottom).toBeCloseToPixel(139);
+    expect(chart.chartArea.left).toBeCloseToPixel(0);
+    expect(chart.chartArea.right).toBeCloseToPixel(218);
+    expect(chart.chartArea.top).toBeCloseToPixel(62);
 
-		// Is yScale at the right spot
-		expect(chart.scales.yScale.bottom).toBeCloseToPixel(150);
-		expect(chart.scales.yScale.left).toBeCloseToPixel(209);
-		expect(chart.scales.yScale.right).toBeCloseToPixel(250);
-		expect(chart.scales.yScale.top).toBeCloseToPixel(71);
-		expect(chart.scales.yScale.labelRotation).toBeCloseTo(0);
-	});
+    // Is xScale at the right spot
+    expect(chart.scales.x.bottom).toBeCloseToPixel(62);
+    expect(chart.scales.x.left).toBeCloseToPixel(0);
+    expect(chart.scales.x.right).toBeCloseToPixel(218);
+    expect(chart.scales.x.top).toBeCloseToPixel(32);
+    expect(chart.scales.x.labelRotation).toBeCloseTo(0);
 
-	it('should fit scales that overlap the chart area', function() {
-		var chart = window.acquireChart({
-			type: 'radar',
-			data: {
-				datasets: [{
-					data: [10, 5, 0, 25, 78, -10]
-				}, {
-					data: [-19, -20, 0, -99, -50, 0]
-				}],
-				labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5', 'tick6']
-			}
-		});
+    // Is yScale at the right spot
+    expect(chart.scales.y.bottom).toBeCloseToPixel(139);
+    expect(chart.scales.y.left).toBeCloseToPixel(218);
+    expect(chart.scales.y.right).toBeCloseToPixel(250);
+    expect(chart.scales.y.top).toBeCloseToPixel(62);
+    expect(chart.scales.y.labelRotation).toBeCloseTo(0);
+  });
 
-		expect(chart.chartArea.bottom).toBeCloseToPixel(512);
-		expect(chart.chartArea.left).toBeCloseToPixel(0);
-		expect(chart.chartArea.right).toBeCloseToPixel(512);
-		expect(chart.chartArea.top).toBeCloseToPixel(32);
+  it('should fit scales that overlap the chart area', function() {
+    var chart = window.acquireChart({
+      type: 'radar',
+      data: {
+        datasets: [{
+          data: [10, 5, 0, 25, 78, -10]
+        }, {
+          data: [-19, -20, 0, -99, -50, 0]
+        }],
+        labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5', 'tick6']
+      }
+    });
 
-		expect(chart.scale.bottom).toBeCloseToPixel(512);
-		expect(chart.scale.left).toBeCloseToPixel(0);
-		expect(chart.scale.right).toBeCloseToPixel(512);
-		expect(chart.scale.top).toBeCloseToPixel(32);
-		expect(chart.scale.width).toBeCloseToPixel(512);
-		expect(chart.scale.height).toBeCloseToPixel(480);
-	});
+    expect(chart.chartArea.bottom).toBeCloseToPixel(512);
+    expect(chart.chartArea.left).toBeCloseToPixel(0);
+    expect(chart.chartArea.right).toBeCloseToPixel(512);
+    expect(chart.chartArea.top).toBeCloseToPixel(32);
 
-	xit('should fit multiple axes in the same position', function() {
-		var chart = window.acquireChart({
-			type: 'bar',
-			data: {
-				datasets: [{
-					yAxisID: 'yScale1',
-					data: [10, 5, 0, 25, 78, -10]
-				}, {
-					yAxisID: 'yScale2',
-					data: [-19, -20, 0, -99, -50, 0]
-				}],
-				labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5', 'tick6']
-			},
-			options: {
-				scales: {
-					xAxes: [{
-						id: 'xScale',
-						type: 'category'
-					}],
-					yAxes: [{
-						id: 'yScale1',
-						type: 'linear'
-					}, {
-						id: 'yScale2',
-						type: 'linear'
-					}]
-				}
-			}
-		}, {
-			canvas: {
-				height: 150,
-				width: 250
-			}
-		});
+    var scale = chart.scales.r;
+    expect(scale.bottom).toBeCloseToPixel(512);
+    expect(scale.left).toBeCloseToPixel(0);
+    expect(scale.right).toBeCloseToPixel(512);
+    expect(scale.top).toBeCloseToPixel(32);
+    expect(scale.width).toBeCloseToPixel(496);
+    expect(scale.height).toBeCloseToPixel(464);
+  });
 
-		expect(chart.chartArea.bottom).toBeCloseToPixel(102);
-		expect(chart.chartArea.left).toBeCloseToPixel(86);
-		expect(chart.chartArea.right).toBeCloseToPixel(250);
-		expect(chart.chartArea.top).toBeCloseToPixel(32);
+  it('should fit multiple axes in the same position', function() {
+    var chart = window.acquireChart({
+      type: 'bar',
+      data: {
+        datasets: [{
+          yAxisID: 'y',
+          data: [10, 5, 0, 25, 78, -10]
+        }, {
+          yAxisID: 'y2',
+          data: [-19, -20, 0, -99, -50, 0]
+        }],
+        labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5', 'tick6']
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'category'
+          },
+          y: {
+            type: 'linear'
+          },
+          y2: {
+            type: 'linear'
+          }
+        }
+      }
+    }, {
+      canvas: {
+        height: 150,
+        width: 250
+      }
+    });
 
-		// Is xScale at the right spot
-		expect(chart.scales.xScale.bottom).toBeCloseToPixel(150);
-		expect(chart.scales.xScale.left).toBeCloseToPixel(86);
-		expect(chart.scales.xScale.right).toBeCloseToPixel(250);
-		expect(chart.scales.xScale.top).toBeCloseToPixel(103);
-		expect(chart.scales.xScale.labelRotation).toBeCloseTo(50);
+    expect(chart.chartArea.bottom).toBeCloseToPixel(110);
+    expect(chart.chartArea.left).toBeCloseToPixel(70);
+    expect(chart.chartArea.right).toBeCloseToPixel(250);
+    expect(chart.chartArea.top).toBeCloseToPixel(32);
 
-		// Are yScales at the right spot
-		expect(chart.scales.yScale1.bottom).toBeCloseToPixel(102);
-		expect(chart.scales.yScale1.left).toBeCloseToPixel(0);
-		expect(chart.scales.yScale1.right).toBeCloseToPixel(41);
-		expect(chart.scales.yScale1.top).toBeCloseToPixel(32);
-		expect(chart.scales.yScale1.labelRotation).toBeCloseTo(0);
+    // Is xScale at the right spot
+    expect(chart.scales.x.bottom).toBeCloseToPixel(150);
+    expect(chart.scales.x.left).toBeCloseToPixel(70);
+    expect(chart.scales.x.right).toBeCloseToPixel(250);
+    expect(chart.scales.x.top).toBeCloseToPixel(110);
+    expect(chart.scales.x.labelRotation).toBeCloseTo(40, -1);
 
-		expect(chart.scales.yScale2.bottom).toBeCloseToPixel(102);
-		expect(chart.scales.yScale2.left).toBeCloseToPixel(41);
-		expect(chart.scales.yScale2.right).toBeCloseToPixel(86);
-		expect(chart.scales.yScale2.top).toBeCloseToPixel(32);
-		expect(chart.scales.yScale2.labelRotation).toBeCloseTo(0);
-	});
+    // Are yScales at the right spot
+    expect(chart.scales.y.bottom).toBeCloseToPixel(110);
+    expect(chart.scales.y.left).toBeCloseToPixel(38);
+    expect(chart.scales.y.right).toBeCloseToPixel(70);
+    expect(chart.scales.y.top).toBeCloseToPixel(32);
+    expect(chart.scales.y.labelRotation).toBeCloseTo(0);
 
-	xit ('should fix a full width box correctly', function() {
-		var chart = window.acquireChart({
-			type: 'bar',
-			data: {
-				datasets: [{
-					xAxisID: 'xScale1',
-					data: [10, 5, 0, 25, 78, -10]
-				}, {
-					xAxisID: 'xScale2',
-					data: [-19, -20, 0, -99, -50, 0]
-				}],
-				labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5', 'tick6']
-			},
-			options: {
-				scales: {
-					xAxes: [{
-						id: 'xScale1',
-						type: 'category'
-					}, {
-						id: 'xScale2',
-						type: 'category',
-						position: 'top',
-						fullWidth: true
-					}],
-					yAxes: [{
-						id: 'yScale',
-						type: 'linear'
-					}]
-				}
-			}
-		});
+    expect(chart.scales.y2.bottom).toBeCloseToPixel(110);
+    expect(chart.scales.y2.left).toBeCloseToPixel(0);
+    expect(chart.scales.y2.right).toBeCloseToPixel(38);
+    expect(chart.scales.y2.top).toBeCloseToPixel(32);
+    expect(chart.scales.y2.labelRotation).toBeCloseTo(0);
+  });
 
-		expect(chart.chartArea.bottom).toBeCloseToPixel(484);
-		expect(chart.chartArea.left).toBeCloseToPixel(45);
-		expect(chart.chartArea.right).toBeCloseToPixel(512);
-		expect(chart.chartArea.top).toBeCloseToPixel(60);
+  it ('should fit a full width box correctly', function() {
+    var chart = window.acquireChart({
+      type: 'bar',
+      data: {
+        datasets: [{
+          xAxisID: 'x',
+          data: [10, 5, 0, 25, 78, -10]
+        }, {
+          xAxisID: 'x2',
+          data: [-19, -20, 0, -99, -50, 0]
+        }],
+        labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5', 'tick6']
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'category',
+            offset: false
+          },
+          x2: {
+            type: 'category',
+            position: 'top',
+            fullSize: true,
+            offset: false
+          },
+          y: {
+            type: 'linear'
+          }
+        }
+      }
+    });
 
-		// Are xScales at the right spot
-		expect(chart.scales.xScale1.bottom).toBeCloseToPixel(512);
-		expect(chart.scales.xScale1.left).toBeCloseToPixel(45);
-		expect(chart.scales.xScale1.right).toBeCloseToPixel(512);
-		expect(chart.scales.xScale1.top).toBeCloseToPixel(484);
+    expect(chart.chartArea.bottom).toBeCloseToPixel(484);
+    expect(chart.chartArea.left).toBeCloseToPixel(39);
+    expect(chart.chartArea.right).toBeCloseToPixel(496);
+    expect(chart.chartArea.top).toBeCloseToPixel(62);
 
-		expect(chart.scales.xScale2.bottom).toBeCloseToPixel(60);
-		expect(chart.scales.xScale2.left).toBeCloseToPixel(0);
-		expect(chart.scales.xScale2.right).toBeCloseToPixel(512);
-		expect(chart.scales.xScale2.top).toBeCloseToPixel(32);
+    // Are xScales at the right spot
+    expect(chart.scales.x.bottom).toBeCloseToPixel(512);
+    expect(chart.scales.x.left).toBeCloseToPixel(39);
+    expect(chart.scales.x.right).toBeCloseToPixel(496);
+    expect(chart.scales.x.top).toBeCloseToPixel(484);
 
-		// Is yScale at the right spot
-		expect(chart.scales.yScale.bottom).toBeCloseToPixel(484);
-		expect(chart.scales.yScale.left).toBeCloseToPixel(0);
-		expect(chart.scales.yScale.right).toBeCloseToPixel(45);
-		expect(chart.scales.yScale.top).toBeCloseToPixel(60);
-	});
+    expect(chart.scales.x2.bottom).toBeCloseToPixel(62);
+    expect(chart.scales.x2.left).toBeCloseToPixel(0);
+    expect(chart.scales.x2.right).toBeCloseToPixel(512);
+    expect(chart.scales.x2.top).toBeCloseToPixel(32);
 
-	describe('padding settings', function() {
-		it('should apply a single padding to all dimensions', function() {
-			var chart = window.acquireChart({
-				type: 'bar',
-				data: {
-					datasets: [
-						{
-							data: [10, 5, 0, 25, 78, -10]
-						}
-					],
-					labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5', 'tick6']
-				},
-				options: {
-					scales: {
-						xAxes: [{
-							id: 'xScale',
-							type: 'category',
-							display: false
-						}],
-						yAxes: [{
-							id: 'yScale',
-							type: 'linear',
-							display: false
-						}]
-					},
-					legend: {
-						display: false
-					},
-					title: {
-						display: false
-					},
-					layout: {
-						padding: 10
-					}
-				}
-			}, {
-				canvas: {
-					height: 150,
-					width: 250
-				}
-			});
+    // Is yScale at the right spot
+    expect(chart.scales.y.bottom).toBeCloseToPixel(484);
+    expect(chart.scales.y.left).toBeCloseToPixel(0);
+    expect(chart.scales.y.right).toBeCloseToPixel(39);
+    expect(chart.scales.y.top).toBeCloseToPixel(62);
+  });
 
-			expect(chart.chartArea.bottom).toBeCloseToPixel(140);
-			expect(chart.chartArea.left).toBeCloseToPixel(10);
-			expect(chart.chartArea.right).toBeCloseToPixel(240);
-			expect(chart.chartArea.top).toBeCloseToPixel(10);
-		});
+  describe('padding settings', function() {
+    it('should apply a single padding to all dimensions', function() {
+      var chart = window.acquireChart({
+        type: 'bar',
+        data: {
+          datasets: [
+            {
+              data: [10, 5, 0, 25, 78, -10]
+            }
+          ],
+          labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5', 'tick6']
+        },
+        options: {
+          scales: {
+            x: {
+              type: 'category',
+              display: false
+            },
+            y: {
+              type: 'linear',
+              display: false
+            }
+          },
+          plugins: {
+            legend: false,
+            title: false
+          },
+          layout: {
+            padding: 10
+          }
+        }
+      }, {
+        canvas: {
+          height: 150,
+          width: 250
+        }
+      });
 
-		it('should apply padding in all positions', function() {
-			var chart = window.acquireChart({
-				type: 'bar',
-				data: {
-					datasets: [
-						{
-							data: [10, 5, 0, 25, 78, -10]
-						}
-					],
-					labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5', 'tick6']
-				},
-				options: {
-					scales: {
-						xAxes: [{
-							id: 'xScale',
-							type: 'category',
-							display: false
-						}],
-						yAxes: [{
-							id: 'yScale',
-							type: 'linear',
-							display: false
-						}]
-					},
-					legend: {
-						display: false
-					},
-					title: {
-						display: false
-					},
-					layout: {
-						padding: {
-							left: 5,
-							right: 15,
-							top: 8,
-							bottom: 12
-						}
-					}
-				}
-			}, {
-				canvas: {
-					height: 150,
-					width: 250
-				}
-			});
+      expect(chart.chartArea.bottom).toBeCloseToPixel(140);
+      expect(chart.chartArea.left).toBeCloseToPixel(10);
+      expect(chart.chartArea.right).toBeCloseToPixel(240);
+      expect(chart.chartArea.top).toBeCloseToPixel(10);
+    });
 
-			expect(chart.chartArea.bottom).toBeCloseToPixel(138);
-			expect(chart.chartArea.left).toBeCloseToPixel(5);
-			expect(chart.chartArea.right).toBeCloseToPixel(235);
-			expect(chart.chartArea.top).toBeCloseToPixel(8);
-		});
+    it('should apply padding in all positions', function() {
+      var chart = window.acquireChart({
+        type: 'bar',
+        data: {
+          datasets: [
+            {
+              data: [10, 5, 0, 25, 78, -10]
+            }
+          ],
+          labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5', 'tick6']
+        },
+        options: {
+          scales: {
+            x: {
+              type: 'category',
+              display: false
+            },
+            y: {
+              type: 'linear',
+              display: false
+            }
+          },
+          plugins: {
+            legend: false,
+            title: false
+          },
+          layout: {
+            padding: {
+              left: 5,
+              right: 15,
+              top: 8,
+              bottom: 12
+            }
+          }
+        }
+      }, {
+        canvas: {
+          height: 150,
+          width: 250
+        }
+      });
 
-		it('should default to 0 padding if no dimensions specified', function() {
-			var chart = window.acquireChart({
-				type: 'bar',
-				data: {
-					datasets: [
-						{
-							data: [10, 5, 0, 25, 78, -10]
-						}
-					],
-					labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5', 'tick6']
-				},
-				options: {
-					scales: {
-						xAxes: [{
-							id: 'xScale',
-							type: 'category',
-							display: false
-						}],
-						yAxes: [{
-							id: 'yScale',
-							type: 'linear',
-							display: false
-						}]
-					},
-					legend: {
-						display: false
-					},
-					title: {
-						display: false
-					},
-					layout: {
-						padding: {}
-					}
-				}
-			}, {
-				canvas: {
-					height: 150,
-					width: 250
-				}
-			});
+      expect(chart.chartArea.bottom).toBeCloseToPixel(138);
+      expect(chart.chartArea.left).toBeCloseToPixel(5);
+      expect(chart.chartArea.right).toBeCloseToPixel(235);
+      expect(chart.chartArea.top).toBeCloseToPixel(8);
+    });
 
-			expect(chart.chartArea.bottom).toBeCloseToPixel(150);
-			expect(chart.chartArea.left).toBeCloseToPixel(0);
-			expect(chart.chartArea.right).toBeCloseToPixel(250);
-			expect(chart.chartArea.top).toBeCloseToPixel(0);
-		});
-	});
+    it('should default to 0 padding if no dimensions specified', function() {
+      var chart = window.acquireChart({
+        type: 'bar',
+        data: {
+          datasets: [
+            {
+              data: [10, 5, 0, 25, 78, -10]
+            }
+          ],
+          labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5', 'tick6']
+        },
+        options: {
+          scales: {
+            x: {
+              type: 'category',
+              display: false
+            },
+            y: {
+              type: 'linear',
+              display: false
+            }
+          },
+          plugins: {
+            legend: false,
+            title: false
+          },
+          layout: {
+            padding: {}
+          }
+        }
+      }, {
+        canvas: {
+          height: 150,
+          width: 250
+        }
+      });
 
-	describe('ordering by weight', function() {
-		it('should keep higher weights outside', function() {
-			var chart = window.acquireChart({
-				type: 'bar',
-				data: {
-					datasets: [
-						{
-							data: [10, 5, 0, 25, 78, -10]
-						}
-					],
-					labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5', 'tick6']
-				},
-				options: {
-					legend: {
-						display: true,
-						position: 'left',
-					},
-					title: {
-						display: true,
-						position: 'bottom',
-					},
-				},
-			}, {
-				canvas: {
-					height: 150,
-					width: 250
-				}
-			});
+      expect(chart.chartArea.bottom).toBeCloseToPixel(150);
+      expect(chart.chartArea.left).toBeCloseToPixel(0);
+      expect(chart.chartArea.right).toBeCloseToPixel(250);
+      expect(chart.chartArea.top).toBeCloseToPixel(0);
+    });
+  });
 
-			var xAxis = chart.scales['x-axis-0'];
-			var yAxis = chart.scales['y-axis-0'];
-			var legend = chart.legend;
-			var title = chart.titleBlock;
+  describe('ordering by weight', function() {
+    it('should keep higher weights outside', function() {
+      var chart = window.acquireChart({
+        type: 'bar',
+        data: {
+          datasets: [
+            {
+              data: [10, 5, 0, 25, 78, -10]
+            }
+          ],
+          labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5', 'tick6']
+        },
+        options: {
+          plugins: {
+            legend: {
+              display: true,
+              position: 'left',
+            },
+            title: {
+              display: true,
+              position: 'bottom',
+            },
+          }
+        },
+      }, {
+        canvas: {
+          height: 150,
+          width: 250
+        }
+      });
 
-			expect(yAxis.left).toBe(legend.right);
-			expect(xAxis.bottom).toBe(title.top);
-		});
+      var xAxis = chart.scales.x;
+      var yAxis = chart.scales.y;
+      var legend = chart.legend;
+      var title = chart.titleBlock;
 
-		it('should correctly set weights of scales and order them', function() {
-			var chart = window.acquireChart({
-				type: 'bar',
-				data: {
-					datasets: [
-						{
-							data: [10, 5, 0, 25, 78, -10]
-						}
-					],
-					labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5', 'tick6']
-				},
-				options: {
-					scales: {
-						xAxes: [{
-							id: 'xScale0',
-							type: 'category',
-							display: true,
-							weight: 1
-						}, {
-							id: 'xScale1',
-							type: 'category',
-							display: true,
-							weight: 2
-						}, {
-							id: 'xScale2',
-							type: 'category',
-							display: true
-						}, {
-							id: 'xScale3',
-							type: 'category',
-							display: true,
-							position: 'top',
-							weight: 1
-						}, {
-							id: 'xScale4',
-							type: 'category',
-							display: true,
-							position: 'top',
-							weight: 2
-						}],
-						yAxes: [{
-							id: 'yScale0',
-							type: 'linear',
-							display: true,
-							weight: 1
-						}, {
-							id: 'yScale1',
-							type: 'linear',
-							display: true,
-							weight: 2
-						}, {
-							id: 'yScale2',
-							type: 'linear',
-							display: true
-						}, {
-							id: 'yScale3',
-							type: 'linear',
-							display: true,
-							position: 'right',
-							weight: 1
-						}, {
-							id: 'yScale4',
-							type: 'linear',
-							display: true,
-							position: 'right',
-							weight: 2
-						}]
-					}
-				}
-			}, {
-				canvas: {
-					height: 150,
-					width: 250
-				}
-			});
+      expect(yAxis.left).toBe(legend.right);
+      expect(xAxis.bottom).toBe(title.top);
+    });
 
-			var xScale0 = chart.scales.xScale0;
-			var xScale1 = chart.scales.xScale1;
-			var xScale2 = chart.scales.xScale2;
-			var xScale3 = chart.scales.xScale3;
-			var xScale4 = chart.scales.xScale4;
+    it('should correctly set weights of scales and order them', function() {
+      var chart = window.acquireChart({
+        type: 'bar',
+        data: {
+          datasets: [
+            {
+              data: [10, 5, 0, 25, 78, -10]
+            }
+          ],
+          labels: ['tick1', 'tick2', 'tick3', 'tick4', 'tick5', 'tick6']
+        },
+        options: {
+          scales: {
+            x: {
+              type: 'category',
+              position: 'bottom',
+              display: true,
+              weight: 1
+            },
+            x1: {
+              type: 'category',
+              position: 'bottom',
+              display: true,
+              weight: 2
+            },
+            x2: {
+              type: 'category',
+              position: 'bottom',
+              display: true
+            },
+            x3: {
+              type: 'category',
+              display: true,
+              position: 'top',
+              weight: 1
+            },
+            x4: {
+              type: 'category',
+              display: true,
+              position: 'top',
+              weight: 2
+            },
+            y: {
+              type: 'linear',
+              display: true,
+              weight: 1
+            },
+            y1: {
+              type: 'linear',
+              position: 'left',
+              display: true,
+              weight: 2
+            },
+            y2: {
+              type: 'linear',
+              position: 'left',
+              display: true
+            },
+            y3: {
+              type: 'linear',
+              display: true,
+              position: 'right',
+              weight: 1
+            },
+            y4: {
+              type: 'linear',
+              display: true,
+              position: 'right',
+              weight: 2
+            }
+          }
+        }
+      }, {
+        canvas: {
+          height: 150,
+          width: 250
+        }
+      });
 
-			var yScale0 = chart.scales.yScale0;
-			var yScale1 = chart.scales.yScale1;
-			var yScale2 = chart.scales.yScale2;
-			var yScale3 = chart.scales.yScale3;
-			var yScale4 = chart.scales.yScale4;
+      var xScale0 = chart.scales.x;
+      var xScale1 = chart.scales.x1;
+      var xScale2 = chart.scales.x2;
+      var xScale3 = chart.scales.x3;
+      var xScale4 = chart.scales.x4;
 
-			expect(xScale0.weight).toBe(1);
-			expect(xScale1.weight).toBe(2);
-			expect(xScale2.weight).toBe(0);
+      var yScale0 = chart.scales.y;
+      var yScale1 = chart.scales.y1;
+      var yScale2 = chart.scales.y2;
+      var yScale3 = chart.scales.y3;
+      var yScale4 = chart.scales.y4;
 
-			expect(xScale3.weight).toBe(1);
-			expect(xScale4.weight).toBe(2);
+      expect(xScale0.weight).toBe(1);
+      expect(xScale1.weight).toBe(2);
+      expect(xScale2.weight).toBe(0);
 
-			expect(yScale0.weight).toBe(1);
-			expect(yScale1.weight).toBe(2);
-			expect(yScale2.weight).toBe(0);
+      expect(xScale3.weight).toBe(1);
+      expect(xScale4.weight).toBe(2);
 
-			expect(yScale3.weight).toBe(1);
-			expect(yScale4.weight).toBe(2);
+      expect(yScale0.weight).toBe(1);
+      expect(yScale1.weight).toBe(2);
+      expect(yScale2.weight).toBe(0);
 
-			var isOrderCorrect = false;
+      expect(yScale3.weight).toBe(1);
+      expect(yScale4.weight).toBe(2);
 
-			// bottom axes
-			isOrderCorrect = xScale2.top < xScale0.top && xScale0.top < xScale1.top;
-			expect(isOrderCorrect).toBe(true);
+      var isOrderCorrect = false;
 
-			// top axes
-			isOrderCorrect = xScale4.top < xScale3.top;
-			expect(isOrderCorrect).toBe(true);
+      // bottom axes
+      isOrderCorrect = xScale2.top < xScale0.top && xScale0.top < xScale1.top;
+      expect(isOrderCorrect).toBe(true);
 
-			// left axes
-			isOrderCorrect = yScale1.left < yScale0.left && yScale0.left < yScale2.left;
-			expect(isOrderCorrect).toBe(true);
+      // top axes
+      isOrderCorrect = xScale4.top < xScale3.top;
+      expect(isOrderCorrect).toBe(true);
 
-			// right axes
-			isOrderCorrect = yScale3.left < yScale4.left;
-			expect(isOrderCorrect).toBe(true);
-		});
-	});
+      // left axes
+      isOrderCorrect = yScale1.left < yScale0.left && yScale0.left < yScale2.left;
+      expect(isOrderCorrect).toBe(true);
 
-	describe('box sizing', function() {
-		it('should correctly compute y-axis width to fit labels', function() {
-			var chart = window.acquireChart({
-				type: 'bar',
-				data: {
-					labels: ['tick 1', 'tick 2', 'tick 3', 'tick 4', 'tick 5'],
-					datasets: [{
-						data: [0, 2.25, 1.5, 1.25, 2.5]
-					}],
-				},
-				options: {
-					legend: {
-						display: false,
-					},
-				},
-			}, {
-				canvas: {
-					height: 256,
-					width: 256
-				}
-			});
-			var yAxis = chart.scales['y-axis-0'];
+      // right axes
+      isOrderCorrect = yScale3.left < yScale4.left;
+      expect(isOrderCorrect).toBe(true);
+    });
+  });
 
-			// issue #4441: y-axis labels partially hidden.
-			// minimum horizontal space required to fit labels
-			expect(yAxis.width).toBeCloseToPixel(33);
-			expect(yAxis.ticks).toEqual(['2.5', '2.0', '1.5', '1.0', '0.5', '0']);
-		});
-	});
+  describe('box sizing', function() {
+    it('should correctly compute y-axis width to fit labels', function() {
+      var chart = window.acquireChart({
+        type: 'bar',
+        data: {
+          labels: ['tick 1', 'tick 2', 'tick 3', 'tick 4', 'tick 5'],
+          datasets: [{
+            data: [0, 2.25, 1.5, 1.25, 2.5]
+          }],
+        },
+        options: {
+          plugins: {
+            legend: false
+          },
+        },
+      }, {
+        canvas: {
+          height: 256,
+          width: 256
+        }
+      });
+      var yAxis = chart.scales.y;
+
+      // issue #4441: y-axis labels partially hidden.
+      // minimum horizontal space required to fit labels
+      expect(yAxis.width).toBeCloseToPixel(30);
+      expect(getLabels(yAxis)).toEqual(['0', '0.5', '1.0', '1.5', '2.0', '2.5']);
+    });
+  });
 });

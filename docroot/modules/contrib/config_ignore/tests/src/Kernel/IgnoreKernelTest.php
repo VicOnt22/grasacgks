@@ -14,7 +14,7 @@ use Drupal\Tests\config_filter\Kernel\ConfigStorageTestTrait;
  *
  * This test is a bit more condensed and doesn't actually import the config.
  *
- * @group config_ignore_new
+ * @group config_ignore
  */
 class IgnoreKernelTest extends KernelTestBase {
 
@@ -31,7 +31,6 @@ class IgnoreKernelTest extends KernelTestBase {
     'config',
     'config_test',
     'config_ignore',
-    'config_filter',
   ];
 
   /**
@@ -66,11 +65,11 @@ class IgnoreKernelTest extends KernelTestBase {
    * @dataProvider importProvider
    */
   public function testImport(array $modes, array $patterns, array $active, array $sync, array $expected) {
-      $this->config('config_ignore.settings')->set('ignored_config_entities', $patterns)->save();
+    $this->config('config_ignore.settings')->set('ignored_config_entities', $patterns)->save();
 
-      $expectedStorage = $this->setUpStorages($active, $sync, $expected);
+    $expectedStorage = $this->setUpStorages($active, $sync, $expected);
 
-      static::assertStorageEquals($expectedStorage, $this->getImportStorage());
+    static::assertStorageEquals($expectedStorage, $this->getImportStorage());
   }
 
   /**
@@ -161,28 +160,28 @@ class IgnoreKernelTest extends KernelTestBase {
           ],
         ],
       ],
-//      'new config is not ignored in lenient mode' => [
-//        ['lenient'],
-//        ['config_test.*'],
-//        [
-//          '' => [
-//            'config_test.dynamic.exist' => ['id' => 'exist', 'label' => 'E'],
-//          ],
-//        ],
-//        [
-//          '' => [
-//            'config_test.dynamic.exist' => ['id' => 'exist', 'label' => 'N'],
-//            'config_test.dynamic.new' => ['id' => 'new', 'label' => 'N'],
-//            'config_test.system' => ['foo' => 'ignored']
-//          ],
-//        ],
-//        [
-//          '' => [
-//            'config_test.dynamic.exist' => ['id' => 'exist', 'label' => 'E'],
-//            'config_test.dynamic.new' => ['id' => 'new', 'label' => 'N'],
-//          ],
-//        ],
-//      ],
+      //      'new config is not ignored in lenient mode' => [
+      //        ['lenient'],
+      //        ['config_test.*'],
+      //        [
+      //          '' => [
+      //            'config_test.dynamic.exist' => ['id' => 'exist', 'label' => 'E'],
+      //          ],
+      //        ],
+      //        [
+      //          '' => [
+      //            'config_test.dynamic.exist' => ['id' => 'exist', 'label' => 'N'],
+      //            'config_test.dynamic.new' => ['id' => 'new', 'label' => 'N'],
+      //            'config_test.system' => ['foo' => 'ignored']
+      //          ],
+      //        ],
+      //        [
+      //          '' => [
+      //            'config_test.dynamic.exist' => ['id' => 'exist', 'label' => 'E'],
+      //            'config_test.dynamic.new' => ['id' => 'new', 'label' => 'N'],
+      //          ],
+      //        ],
+      //      ],
       'new config with only key ignored (issue 3137437)' => [
         ['strict'],
         ['config_test.*:label'],
@@ -190,13 +189,13 @@ class IgnoreKernelTest extends KernelTestBase {
         [],
         [],
       ],
-//      'new config with  only key ignored lenient (issue 3137437)' => [
-//        ['lenient'],
-//        ['config_test.*:label'],
-//        ['' => ['config_test.dynamic.exist' => ['id' => 'exist', 'label' => 'E']]],
-//        [],
-//        ['' => ['config_test.dynamic.exist' => ['id' => 'exist', 'label' => 'E']]],
-//      ],
+      //      'new config with  only key ignored lenient (issue 3137437)' => [
+      //        ['lenient'],
+      //        ['config_test.*:label'],
+      //        ['' => ['config_test.dynamic.exist' => ['id' => 'exist', 'label' => 'E']]],
+      //        [],
+      //        ['' => ['config_test.dynamic.exist' => ['id' => 'exist', 'label' => 'E']]],
+      //      ],
     ];
   }
 

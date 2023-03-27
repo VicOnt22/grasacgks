@@ -16,7 +16,6 @@ class Update extends Base {
     /** @noinspection PhpIncludeInspection */
     require_once DRUPAL_ROOT . '/core/includes/update.inc';
     drupal_load_updates();
-    update_fix_compatibility();
 
     // Pending hook_update_N() implementations.
     $pending = update_get_update_list();

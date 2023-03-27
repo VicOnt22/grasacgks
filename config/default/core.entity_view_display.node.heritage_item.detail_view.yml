@@ -21,7 +21,6 @@ dependencies:
     - field.field.node.heritage_item.field_date_seasonal_time
     - field.field.node.heritage_item.field_description_condition
     - field.field.node.heritage_item.field_description_materials
-    - field.field.node.heritage_item.field_description_medium
     - field.field.node.heritage_item.field_description_motifs
     - field.field.node.heritage_item.field_description_othernotes
     - field.field.node.heritage_item.field_description_source
@@ -42,7 +41,6 @@ dependencies:
     - field.field.node.heritage_item.field_item_type
     - field.field.node.heritage_item.field_local_origin_attribution
     - field.field.node.heritage_item.field_local_origin_tid
-    - field.field.node.heritage_item.field_make_role
     - field.field.node.heritage_item.field_maker_attribution
     - field.field.node.heritage_item.field_maker_name
     - field.field.node.heritage_item.field_maker_role
@@ -62,10 +60,10 @@ dependencies:
     - field.field.node.heritage_item.field_source_coll_his
     - field.field.node.heritage_item.field_sources_exhib_pub_his
     - field.field.node.heritage_item.field_subsequent_functions
-    - field.field.node.heritage_item.field_time_attribution
     - field.field.node.heritage_item.field_tk_label
     - node.type.heritage_item
   module:
+    - advanced_text_formatter
     - ds
     - layout_builder
     - text
@@ -95,8 +93,8 @@ third_party_settings:
     regions:
       main:
         - node_title
+        - field_abstract
         - links
-        - body
         - content_moderation_control
         - field_item_type
         - field_description_summary
@@ -115,31 +113,41 @@ targetEntityType: node
 bundle: heritage_item
 mode: detail_view
 content:
-  body:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 2
-    region: main
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 3
+    region: main
+  field_abstract:
+    type: advanced_text
+    label: above
+    settings:
+      trim_length: 600
+      ellipsis: 1
+      word_boundary: 1
+      token_replace: 0
+      filter: input
+      format: plain_text
+      allowed_html: '<a> <b> <br> <dd> <dl> <dt> <em> <i> <li> <ol> <p> <strong> <u> <ul>'
+      autop: 0
+      use_summary: 0
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
     region: main
   field_description_source:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 6
     region: main
   field_description_summary:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 5
     region: main
   field_item_type:
     type: entity_reference_label
@@ -147,15 +155,15 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 5
+    weight: 4
     region: main
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: main
 hidden:
-  field_abstract: true
+  body: true
   field_access_rationale: true
   field_acquired_from: true
   field_bibliographic_citation: true
@@ -171,7 +179,6 @@ hidden:
   field_date_seasonal_time: true
   field_description_condition: true
   field_description_materials: true
-  field_description_medium: true
   field_description_motifs: true
   field_description_othernotes: true
   field_description_symbols: true
@@ -189,7 +196,6 @@ hidden:
   field_imagemy_media: true
   field_local_origin_attribution: true
   field_local_origin_tid: true
-  field_make_role: true
   field_maker_attribution: true
   field_maker_name: true
   field_maker_role: true
@@ -209,7 +215,6 @@ hidden:
   field_source_coll_his: true
   field_sources_exhib_pub_his: true
   field_subsequent_functions: true
-  field_time_attribution: true
   field_tk_label: true
   langcode: true
   search_api_excerpt: true

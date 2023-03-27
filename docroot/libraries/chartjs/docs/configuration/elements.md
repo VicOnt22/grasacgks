@@ -1,35 +1,42 @@
 # Elements
 
-While chart types provide settings to configure the styling of each dataset, you sometimes want to style **all datasets the same way**. A common example would be to stroke all of the bars in a bar chart with the same colour but change the fill per dataset. Options can be configured for four different types of elements: **[arc](#arc-configuration)**, **[lines](#line-configuration)**, **[points](#point-configuration)**, and **[rectangles](#rectangle-configuration)**. When set, these options apply to all objects of that type unless specifically overridden by the configuration attached to a dataset.
+While chart types provide settings to configure the styling of each dataset, you sometimes want to style **all datasets the same way**. A common example would be to stroke all of the bars in a bar chart with the same colour but change the fill per dataset. Options can be configured for four different types of elements: **[arc](#arc-configuration)**, **[lines](#line-configuration)**, **[points](#point-configuration)**, and **[bars](#bar-configuration)**. When set, these options apply to all objects of that type unless specifically overridden by the configuration attached to a dataset.
 
 ## Global Configuration
 
-The element options can be specified per chart or globally. The global options for elements are defined in `Chart.defaults.global.elements`. For example, to set the border width of all bar charts globally you would do:
+The element options can be specified per chart or globally. The global options for elements are defined in `Chart.defaults.elements`. For example, to set the border width of all bar charts globally you would do:
 
 ```javascript
-Chart.defaults.global.elements.rectangle.borderWidth = 2;
+Chart.defaults.elements.bar.borderWidth = 2;
 ```
 
 ## Point Configuration
-Point elements are used to represent the points in a line chart or a bubble chart.
 
-Global point options: `Chart.defaults.global.elements.point`
+Point elements are used to represent the points in a line, radar or bubble chart.
+
+Namespace: `options.elements.point`, global point options: `Chart.defaults.elements.point`.
 
 | Name | Type | Default | Description
-| -----| ---- | --------| -----------
-| `radius` | `Number` | `3` | Point radius.
-| [`pointStyle`](#point-styles) | `String` | `circle` | Point style.
-| `rotation` | `Number` | `0` | Point rotation (in degrees).
-| `backgroundColor` | `Color` | `'rgba(0,0,0,0.1)'` | Point fill color.
-| `borderWidth` | `Number` | `1` | Point stroke width.
-| `borderColor` | `Color` | `'rgba(0,0,0,0.1)'` | Point stroke color.
-| `hitRadius` | `Number` | `1` | Extra radius added to point radius for hit detection.
-| `hoverRadius` | `Number` | `4` | Point radius when hovered.
-| `hoverBorderWidth` | `Number` | `1` | Stroke width when hovered.
+| ---- | ---- | ------- | -----------
+| `radius` | `number` | `3` | Point radius.
+| [`pointStyle`](#point-styles) | [`pointStyle`](#types) | `'circle'` | Point style.
+| `rotation` | `number` | `0` | Point rotation (in degrees).
+| `backgroundColor` | [`Color`](../general/colors.md) | `Chart.defaults.backgroundColor` | Point fill color.
+| `borderWidth` | `number` | `1` | Point stroke width.
+| `borderColor` | [`Color`](../general/colors.md) | `'Chart.defaults.borderColor` | Point stroke color.
+| `hitRadius` | `number` | `1` | Extra radius added to point radius for hit detection.
+| `hoverRadius` | `number` | `4` | Point radius when hovered.
+| `hoverBorderWidth` | `number` | `1` | Stroke width when hovered.
 
 ### Point Styles
 
-The following values are supported:
+#### Types
+
+The `pointStyle` argument accepts the following type of inputs: `string`, `Image` and `HTMLCanvasElement`
+
+#### Info
+When a string is provided, the following values are supported:
+
 - `'circle'`
 - `'cross'`
 - `'crossRot'`
@@ -40,47 +47,59 @@ The following values are supported:
 - `'rectRot'`
 - `'star'`
 - `'triangle'`
+- `false`
 
-If the value is an image, that image is drawn on the canvas using [drawImage](https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/drawImage).
+If the value is an image or a canvas element, that image or canvas element is drawn on the canvas using [drawImage](https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/drawImage).
 
 ## Line Configuration
+
 Line elements are used to represent the line in a line chart.
 
-Global line options: `Chart.defaults.global.elements.line`
+Namespace: `options.elements.line`, global line options: `Chart.defaults.elements.line`.
 
 | Name | Type | Default | Description
-| -----| ---- | --------| -----------
-| `tension` | `Number` | `0.4` | Bézier curve tension (`0` for no Bézier curves).
-| `backgroundColor` | `Color` | `'rgba(0,0,0,0.1)'` | Line fill color.
-| `borderWidth` | `Number` | `3` | Line stroke width.
-| `borderColor` | `Color` | `'rgba(0,0,0,0.1)'` | Line stroke color.
-| `borderCapStyle` | `String` | `'butt'` | Line cap style (see [MDN](https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineCap)).
-| `borderDash` | `Array` | `[]` | Line dash (see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/setLineDash)).
-| `borderDashOffset` | `Number` | `0` | Line dash offset (see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)).
-| `borderJoinStyle` | `String` | `'miter` | Line join style (see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin)).
-| `capBezierPoints` | `Boolean` | `true` | `true` to keep Bézier control inside the chart, `false` for no restriction.
-| `fill` | `Boolean/String` | `true` | Fill location: `'zero'`, `'top'`, `'bottom'`, `true` (eq. `'zero'`) or `false` (no fill).
-| `stepped` | `Boolean` | `false` | `true` to show the line as a stepped line (`tension` will be ignored).
+| ---- | ---- | ------- | -----------
+| `tension` | `number` | `0` | Bézier curve tension (`0` for no Bézier curves).
+| `backgroundColor` | [`Color`](/general/colors.md) | `Chart.defaults.backgroundColor` | Line fill color.
+| `borderWidth` | `number` | `3` | Line stroke width.
+| `borderColor` | [`Color`](/general/colors.md) | `Chart.defaults.borderColor` | Line stroke color.
+| `borderCapStyle` | `string` | `'butt'` | Line cap style. See [MDN](https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineCap).
+| `borderDash` | `number[]` | `[]` | Line dash. See [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/setLineDash).
+| `borderDashOffset` | `number` | `0.0` | Line dash offset. See [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset).
+| `borderJoinStyle` | `'round'`\|`'bevel'`\|`'miter'` | `'miter'` | Line join style. See [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin).
+| `capBezierPoints` | `boolean` | `true` | `true` to keep Bézier control inside the chart, `false` for no restriction.
+| `cubicInterpolationMode` | `string` | `'default'` |  Interpolation mode to apply. [See more...](/charts/line.md#cubicinterpolationmode)
+| `fill` | `boolean`\|`string` | `false` | How to fill the area under the line. See [area charts](/charts/area.md#filling-modes).
+| `stepped` | `boolean` | `false` | `true` to show the line as a stepped line (`tension` will be ignored).
 
-## Rectangle Configuration
-Rectangle elements are used to represent the bars in a bar chart.
+## Bar Configuration
 
-Global rectangle options: `Chart.defaults.global.elements.rectangle`
+Bar elements are used to represent the bars in a bar chart.
+
+Namespace: `options.elements.bar`, global bar options: `Chart.defaults.elements.bar`.
 
 | Name | Type | Default | Description
-| -----| ---- | --------| -----------
-| `backgroundColor` | `Color` | `'rgba(0,0,0,0.1)'` | Bar fill color.
-| `borderWidth` | `Number` | `0` | Bar stroke width.
-| `borderColor` | `Color` | `'rgba(0,0,0,0.1)'` | Bar stroke color.
-| `borderSkipped` | `String` | `'bottom'` | Skipped (excluded) border: `'bottom'`, `'left'`, `'top'` or `'right'`.
+| ---- | ---- | ------- | -----------
+| `backgroundColor` | [`Color`](/general/colors.md) | `Chart.defaults.backgroundColor` | Bar fill color.
+| `borderWidth` | `number` | `0` | Bar stroke width.
+| `borderColor` | [`Color`](/general/colors.md) | `Chart.defaults.borderColor` | Bar stroke color.
+| `borderSkipped` | `string` | `'start'` | Skipped (excluded) border: `'start'`, `'end'`, `'middle'`, `'bottom'`, `'left'`, `'top'`, `'right'` or `false`.
+| `borderRadius` | `number`\|`object` | `0` | The bar border radius (in pixels).
+| `inflateAmount` | `number`\|`'auto'` | `'auto'` | The amount of pixels to inflate the bar rectangle(s) when drawing.
+| [`pointStyle`](#point-styles) | `string`\|`Image`\|`HTMLCanvasElement` | `'circle'` | Style of the point for legend.
 
 ## Arc Configuration
+
 Arcs are used in the polar area, doughnut and pie charts.
 
-Global arc options: `Chart.defaults.global.elements.arc`.
+Namespace: `options.elements.arc`, global arc options: `Chart.defaults.elements.arc`.
 
 | Name | Type | Default | Description
-| -----| ---- | --------| -----------
-| `backgroundColor` | `Color` | `'rgba(0,0,0,0.1)'` | Arc fill color.
-| `borderColor` | `Color` | `'#fff'` | Arc stroke color.
-| `borderWidth`| `Number` | `2` | Arc stroke width.
+| ---- | ---- | ------- | -----------
+| `angle` - for polar only | `number` | `circumference / (arc count)` | Arc angle to cover.
+| `backgroundColor` | [`Color`](/general/colors.md) | `Chart.defaults.backgroundColor` | Arc fill color.
+| `borderAlign` | `'center'`\|`'inner'` | `'center'` | Arc stroke alignment.
+| `borderColor` | [`Color`](/general/colors.md) | `'#fff'` | Arc stroke color.
+| `borderJoinStyle` | `'round'`\|`'bevel'`\|`'miter'` | `'bevel'`\|`'round'` | Line join style. See [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin). The default is `'round'` when `borderAlign` is `'inner'`
+| `borderWidth`| `number` | `2` | Arc stroke width.
+| `circular` | `boolean` | `true` | By default the Arc is curved. If `circular: false` the Arc will be flat

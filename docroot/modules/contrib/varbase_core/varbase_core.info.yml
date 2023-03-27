@@ -4,16 +4,6 @@ type: module
 core_version_requirement: ^9 || ^10
 package: Varbase
 configure: varbase_core.settings_index
-components:
-  - varbase_admin
-  - varbase_default_content
-  - varbase_development
-  - varbase_internationalization
-  - varbase_page
-  - varbase_security
-  - varbase_tour
-  - varbase_webform
-  - varbase_update_helper
 dependencies:
   - drupal:user
   - drupal:node
@@ -87,9 +77,8 @@ install:
   - betterlogin
   - email_registration
   - jquery_ui_accordion
-  - varbase_update_helper
 
-# Information added by Drupal.org packaging script on 2023-01-19
-version: '9.0.46'
+# Information added by Drupal.org packaging script on 2023-03-23
+version: '9.0.53'
 project: 'varbase_core'
-datestamp: 1674148166
+datestamp: 1679566379

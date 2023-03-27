@@ -22,6 +22,9 @@ abstract class CustomHTMLBlockBase extends DashboardBlockBase {
    *   The render array for the block.
    */
   public function build() {
+    if (!$this->currentUserHasRole()) {
+      return [];
+    }
 
     $build = [];
 
@@ -59,6 +62,8 @@ abstract class CustomHTMLBlockBase extends DashboardBlockBase {
       '#format' => 'full_html',
       '#default_value' => $default_value,
     ];
+
+    $form['allowed_roles'] = $this->buildAllowedRolesSelectBox($block_configuration);
 
     return $form;
   }

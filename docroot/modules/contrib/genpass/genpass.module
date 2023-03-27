@@ -50,7 +50,7 @@ function genpass_generate() {
  *   simplistic way & check.
  *
  * @see genpass_form_alter()
- * @see user_password()
+ * @see \Drupal\Core\Password\DefaultPasswordGenerator::generate()
  */
 function genpass_password($length = 16) {
 
@@ -319,10 +319,14 @@ function genpass_algorithm_modules() {
   // Fetch a list of all modules which implement the password generation hook.
   // To be in this list, a module must implement a hook, and return random
   // passwords as strings.
+  $all_modules = \Drupal::moduleHandler()->getModuleList();
   $return = [];
-  foreach (\Drupal::moduleHandler()->getImplementations('password') as $module) {
-    $return[$module] = $module;
+  foreach ($all_modules as $module_name => $module) {
+    if (\Drupal::moduleHandler()->hasImplementations('password', $module_name)) {
+      $return[$module_name] = $module_name;
+    }
   }
+
   return $return;
 }
 

@@ -69,9 +69,6 @@ class PageVariantTest extends UnitTestCase {
     $this->assertSame($expected, $contexts);
   }
 
-  /**
-   * Provider Test Get Contexts.
-   */
   public function providerTestGetContexts() {
     $data = [];
     $data['empty'] = [

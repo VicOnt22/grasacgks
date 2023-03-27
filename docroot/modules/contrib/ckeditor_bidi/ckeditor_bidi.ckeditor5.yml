@@ -1,0 +1,14 @@
+ckeditor_bidi_ckeditor5:
+  ckeditor5:
+    plugins:
+      - direction.Direction
+  drupal:
+    label: RTL Direction
+    library: ckeditor_bidi/direction
+    admin_library: ckeditor_bidi/admin.direction
+    class: Drupal\ckeditor_bidi\Plugin\CKEditor5Plugin\Direction
+    toolbar_items:
+      direction:
+        label: Toggle Direction
+    elements:
+      - <$text-container dir="ltr rtl">

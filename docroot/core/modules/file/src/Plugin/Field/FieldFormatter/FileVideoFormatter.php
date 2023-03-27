@@ -31,6 +31,7 @@ class FileVideoFormatter extends FileMediaFormatterBase {
   public static function defaultSettings() {
     return [
       'muted' => FALSE,
+      'playsinline' => FALSE,
       'width' => 640,
       'height' => 480,
     ] + parent::defaultSettings();
@@ -45,6 +46,11 @@ class FileVideoFormatter extends FileMediaFormatterBase {
         '#title' => $this->t('Muted'),
         '#type' => 'checkbox',
         '#default_value' => $this->getSetting('muted'),
+      ],
+      'playsinline' => [
+        '#title' => $this->t('Plays Inline'),
+        '#type' => 'checkbox',
+        '#default_value' => $this->getSetting('playsinline'),
       ],
       'width' => [
         '#type' => 'number',
@@ -75,6 +81,7 @@ class FileVideoFormatter extends FileMediaFormatterBase {
   public function settingsSummary() {
     $summary = parent::settingsSummary();
     $summary[] = $this->t('Muted: %muted', ['%muted' => $this->getSetting('muted') ? $this->t('yes') : $this->t('no')]);
+    $summary[] = $this->t('Plays Inline: %playsinline', ['%playsinline' => $this->getSetting('playsinline') ? $this->t('yes') : $this->t('no')]);
     $summary[] = $this->t('Size: %width x %height pixels', [
       '%width' => $this->getSetting('width'),
       '%height' => $this->getSetting('height'),
@@ -86,7 +93,7 @@ class FileVideoFormatter extends FileMediaFormatterBase {
    * {@inheritdoc}
    */
   protected function prepareAttributes(array $additional_attributes = []) {
-    return parent::prepareAttributes(['muted'])
+    return parent::prepareAttributes(['muted', 'playsinline'])
       ->setAttribute('width', $this->getSetting('width'))
       ->setAttribute('height', $this->getSetting('height'));
   }

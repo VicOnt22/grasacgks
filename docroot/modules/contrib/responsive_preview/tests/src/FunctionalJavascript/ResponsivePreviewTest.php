@@ -39,7 +39,7 @@ class ResponsivePreviewTest extends WebDriverTestBase {
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
 
     NodeType::create(['type' => 'article', 'name' => 'Article'])->save();

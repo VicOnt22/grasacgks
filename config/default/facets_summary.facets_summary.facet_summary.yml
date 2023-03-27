@@ -68,3 +68,15 @@ facets:
     separator: ', '
     show_count: false
     weight: 0
+  folders_special_projects_:
+    checked: true
+    label: 'Folders (Special Projects)'
+    separator: ', '
+    show_count: false
+    weight: 0
+  date_made_filter_:
+    checked: true
+    label: 'Date Made (Filter)'
+    separator: ', '
+    show_count: false
+    weight: 0

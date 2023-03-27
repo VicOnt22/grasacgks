@@ -55,7 +55,7 @@ class BidiCKEditorButton extends CKEditorPluginBase {
   public function getButtons() {
     // Make sure that the path to the image matches the file structure of
     // the CKEditor plugin you are implementing.
-    $path = drupal_get_path('module', 'ckeditor_bidi') . '/js/plugins/bidi';
+    $path = \Drupal::service('extension.list.module')->getPath('ckeditor_bidi') . '/js/plugins/bidi';
 
     return [
       'BidiLtr' => [
@@ -73,7 +73,7 @@ class BidiCKEditorButton extends CKEditorPluginBase {
    * {@inheritdoc}
    */
   public function getFile() {
-    return drupal_get_path('module', 'ckeditor_bidi') . '/js/plugins/bidi/plugin.js';
+    return \Drupal::service('extension.list.module')->getPath('ckeditor_bidi') . '/js/plugins/bidi/plugin.js';
   }
 
   /**
