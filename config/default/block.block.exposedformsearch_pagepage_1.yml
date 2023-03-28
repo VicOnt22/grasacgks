@@ -50,7 +50,7 @@ visibility:
   request_path:
     id: request_path
     negate: true
-    pages: "<front>\r\n/search-page\r\n/fr/*\r\n/alg/*\r\n/iro/*\r\n/fr/language-items-glossary"
+    pages: "<front>\r\n/search-page\r\n\r\n"
   language:
     id: language
     negate: false
@@ -58,4 +58,5 @@ visibility:
       language: '@language.current_language_context:language_interface'
     langcodes:
       en: en
+      iro: iro
       alg: alg

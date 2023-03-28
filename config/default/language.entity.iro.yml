@@ -3,7 +3,7 @@ langcode: iro
 status: true
 dependencies: {  }
 id: iro
-label: Cayuga
+label: 'Gayogo̱ho:nǫ’'
 direction: ltr
 weight: 1
 locked: false
