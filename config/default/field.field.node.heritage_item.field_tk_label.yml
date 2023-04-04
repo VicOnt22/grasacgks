@@ -10,7 +10,7 @@ id: node.heritage_item.field_tk_label
 field_name: field_tk_label
 entity_type: node
 bundle: heritage_item
-label: 'TK Label'
+label: 'Traditional Knowledge Label'
 description: 'Traditional Knowledge Label on how this item may be used '
 required: false
 translatable: false

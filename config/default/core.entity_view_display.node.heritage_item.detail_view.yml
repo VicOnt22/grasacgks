@@ -20,6 +20,7 @@ dependencies:
     - field.field.node.heritage_item.field_date_made
     - field.field.node.heritage_item.field_date_seasonal_time
     - field.field.node.heritage_item.field_description_condition
+    - field.field.node.heritage_item.field_description_howtocite
     - field.field.node.heritage_item.field_description_materials
     - field.field.node.heritage_item.field_description_motifs
     - field.field.node.heritage_item.field_description_othernotes
@@ -55,11 +56,12 @@ dependencies:
     - field.field.node.heritage_item.field_record_creation_notes
     - field.field.node.heritage_item.field_region_of_origin
     - field.field.node.heritage_item.field_region_origin_attribution
+    - field.field.node.heritage_item.field_related_extern_lang_items
     - field.field.node.heritage_item.field_related_heritage_item
+    - field.field.node.heritage_item.field_related_heritage_out_gks
     - field.field.node.heritage_item.field_related_language_item
     - field.field.node.heritage_item.field_source_coll_his
     - field.field.node.heritage_item.field_sources_exhib_pub_his
-    - field.field.node.heritage_item.field_subsequent_functions
     - field.field.node.heritage_item.field_tk_label
     - node.type.heritage_item
   module:
@@ -178,6 +180,7 @@ hidden:
   field_date_made: true
   field_date_seasonal_time: true
   field_description_condition: true
+  field_description_howtocite: true
   field_description_materials: true
   field_description_motifs: true
   field_description_othernotes: true
@@ -210,11 +213,12 @@ hidden:
   field_record_creation_notes: true
   field_region_of_origin: true
   field_region_origin_attribution: true
+  field_related_extern_lang_items: true
   field_related_heritage_item: true
+  field_related_heritage_out_gks: true
   field_related_language_item: true
   field_source_coll_his: true
   field_sources_exhib_pub_his: true
-  field_subsequent_functions: true
   field_tk_label: true
   langcode: true
   search_api_excerpt: true

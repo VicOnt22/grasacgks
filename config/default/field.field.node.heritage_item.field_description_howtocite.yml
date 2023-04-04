@@ -1,0 +1,19 @@
+uuid: 4ef2e235-2b7a-460c-944d-76beb30da880
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_description_howtocite
+    - node.type.heritage_item
+id: node.heritage_item.field_description_howtocite
+field_name: field_description_howtocite
+entity_type: node
+bundle: heritage_item
+label: 'How to Cite this Item'
+description: 'bibliographic citation info'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

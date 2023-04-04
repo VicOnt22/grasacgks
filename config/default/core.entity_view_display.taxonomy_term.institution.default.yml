@@ -58,9 +58,9 @@ third_party_settings:
         label: hidden
         formatter: default
         settings:
-          link: false
+          link: true
           'link class': ''
-          wrapper: h1
+          wrapper: h2
           class: ''
         ft:
           id: default
@@ -89,21 +89,21 @@ content:
         ft:
           id: expert
           settings:
-            lb: Address
+            lb: 'Address: '
             lbw: true
             lbw-el: strong
-            lbw-cl: ''
+            lbw-cl: d-flex
             lbw-at: ''
-            lb-col: true
-            ow: true
+            lb-col: false
+            ow: false
             ow-el: ''
-            ow-cl: d-flex
+            ow-cl: ''
             ow-at: ''
             ow-def-at: true
             ow-def-cl: true
-            fis: false
+            fis: true
             fis-el: ''
-            fis-cl: ''
+            fis-cl: d-flex
             fis-at: ''
             fis-def-at: false
             fi: false

@@ -9,7 +9,7 @@ id: node.heritage_item.field_date_made
 field_name: field_date_made
 entity_type: node
 bundle: heritage_item
-label: 'Date Made or Date Range '
+label: 'Date Made or Date Range'
 description: "This value will be visible to users, yet it is not included in the Search by Date filter (because is just text).\r\nEditors have to<br> <strong>fill in the field \"Date made (Filter)\"</strong> below in order to make the Item searchable using the Date Filter."
 required: false
 translatable: true

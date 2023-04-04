@@ -7,12 +7,12 @@ dependencies:
 id: hierarchical_path_for_language_items_content_type
 label: 'Hierarchical path for Language Items content type'
 type: 'canonical_entities:node'
-pattern: '/language-items/[node:menu-link:parents:join-path]/[node:title]'
+pattern: '/language-items-glossary/[node:menu-link:parents:join-path]/[node:title]'
 selection_criteria:
-  6d7e07fa-a0d3-495b-8103-683359b7d1d3:
+  361fe388-5324-4003-813a-d11af7a40ec2:
     id: 'entity_bundle:node'
     negate: false
-    uuid: 6d7e07fa-a0d3-495b-8103-683359b7d1d3
+    uuid: 361fe388-5324-4003-813a-d11af7a40ec2
     context_mapping:
       node: node
     bundles:

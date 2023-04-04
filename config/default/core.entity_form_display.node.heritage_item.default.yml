@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.heritage_item.field_date_made
     - field.field.node.heritage_item.field_date_seasonal_time
     - field.field.node.heritage_item.field_description_condition
+    - field.field.node.heritage_item.field_description_howtocite
     - field.field.node.heritage_item.field_description_materials
     - field.field.node.heritage_item.field_description_motifs
     - field.field.node.heritage_item.field_description_othernotes
@@ -54,11 +55,12 @@ dependencies:
     - field.field.node.heritage_item.field_record_creation_notes
     - field.field.node.heritage_item.field_region_of_origin
     - field.field.node.heritage_item.field_region_origin_attribution
+    - field.field.node.heritage_item.field_related_extern_lang_items
     - field.field.node.heritage_item.field_related_heritage_item
+    - field.field.node.heritage_item.field_related_heritage_out_gks
     - field.field.node.heritage_item.field_related_language_item
     - field.field.node.heritage_item.field_source_coll_his
     - field.field.node.heritage_item.field_sources_exhib_pub_his
-    - field.field.node.heritage_item.field_subsequent_functions
     - field.field.node.heritage_item.field_tk_label
     - image.style.thumbnail
     - node.type.heritage_item
@@ -66,17 +68,146 @@ dependencies:
   module:
     - content_moderation
     - datetime_range
-    - geofield
+    - field_group
     - geolocation_leaflet
     - image
     - length_indicator
     - link
+    - maxlength
     - media_library
     - path
     - physical
     - scheduler
     - scheduler_content_moderation_integration
     - text
+third_party_settings:
+  field_group:
+    group_physical_description:
+      children:
+        - field_description_materials
+        - field_description_condition
+        - field_dimensions
+        - field_description_motifs
+        - field_description_techniques
+        - field_abstract
+        - field_description_symbols
+        - field_original_function
+        - field_description_othernotes
+      label: 'Physical Description'
+      region: content
+      parent_name: ''
+      weight: 25
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: edit_tab_physical_description
+        formatter: closed
+        description: 'Various physical data about this item'
+        required_fields: true
+    group_makers_and_origin:
+      children:
+        - field_maker_name
+        - field_maker_role
+        - field_nation_tid
+        - field_nation_rationale
+        - field_maker_attribution
+        - field_local_origin_tid
+        - field_local_origin_attribution
+      label: 'Makers and Origin'
+      region: content
+      parent_name: ''
+      weight: 24
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: edit_tab_makers_and_origin
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_item_history:
+      children:
+        - field_acquired_from
+        - field_contributor_collector
+        - field_provenance
+        - field_exhibition_notes
+        - field_publication_history
+        - field_bibliographic_citation
+        - field_sources_exhib_pub_his
+        - field_function_attribution
+      label: 'Item History'
+      region: content
+      parent_name: ''
+      weight: 26
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: edit_tab_item_history
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_about_this_grasac_record:
+      children:
+        - field_record_creation
+        - field_record_creation_notes
+        - field_tk_label
+        - field_access_rationale
+        - field_folders
+        - field_source_coll_his
+        - field_description_howtocite
+      label: 'About this Grasac Record'
+      region: content
+      parent_name: ''
+      weight: 27
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: edit_tab_about_grasac_record
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_related_items:
+      children:
+        - field_related_heritage_item
+        - field_related_language_item
+        - field_related_heritage_out_gks
+        - field_related_extern_lang_items
+      label: 'Related Items'
+      region: content
+      parent_name: ''
+      weight: 28
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: edit_tab_related__items
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_dayes_and_times_for_item:
+      children:
+        - field_date_collection
+        - field_date_acquisition
+        - field_date_made
+        - field_filter_date_made
+        - field_date_attribution
+        - field_date_seasonal_time
+        - field_date_ceremonial_time
+      label: 'Dates and Times for this item'
+      region: content
+      parent_name: ''
+      weight: 16
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: edit_tab_dates_and_times
+        formatter: closed
+        description: ''
+        required_fields: true
 id: node.heritage_item.default
 targetEntityType: node
 bundle: heritage_item
@@ -84,13 +215,13 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 3
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
   field_abstract:
     type: string_textarea
-    weight: 42
+    weight: 68
     region: content
     settings:
       rows: 5
@@ -98,7 +229,7 @@ content:
     third_party_settings: {  }
   field_access_rationale:
     type: string_textarea
-    weight: 60
+    weight: 33
     region: content
     settings:
       rows: 5
@@ -106,7 +237,7 @@ content:
     third_party_settings: {  }
   field_acquired_from:
     type: string_textarea
-    weight: 47
+    weight: 28
     region: content
     settings:
       rows: 5
@@ -114,7 +245,7 @@ content:
     third_party_settings: {  }
   field_bibliographic_citation:
     type: string_textarea
-    weight: 55
+    weight: 33
     region: content
     settings:
       rows: 5
@@ -129,34 +260,22 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_collection:
-    type: entity_reference_autocomplete
-    weight: 16
+    type: options_select
+    weight: 15
     region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   field_contributor_collector:
-    type: entity_reference_autocomplete
-    weight: 49
+    type: options_select
+    weight: 29
     region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   field_current_institution:
-    type: entity_reference_autocomplete
-    weight: 14
+    type: options_select
+    weight: 12
     region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   field_date_acquisition:
     type: string_textfield
@@ -168,7 +287,7 @@ content:
     third_party_settings: {  }
   field_date_attribution:
     type: string_textarea
-    weight: 22
+    weight: 21
     region: content
     settings:
       rows: 5
@@ -176,7 +295,7 @@ content:
     third_party_settings: {  }
   field_date_ceremonial_time:
     type: string_textfield
-    weight: 25
+    weight: 23
     region: content
     settings:
       size: 60
@@ -200,7 +319,7 @@ content:
     third_party_settings: {  }
   field_date_seasonal_time:
     type: string_textfield
-    weight: 24
+    weight: 22
     region: content
     settings:
       size: 60
@@ -208,21 +327,13 @@ content:
     third_party_settings: {  }
   field_description_condition:
     type: string_textarea
-    weight: 39
+    weight: 64
     region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_description_materials:
-    type: string_textarea
-    weight: 34
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_description_motifs:
+  field_description_howtocite:
     type: string_textarea
     weight: 36
     region: content
@@ -230,9 +341,25 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  field_description_materials:
+    type: string_textarea
+    weight: 63
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_description_motifs:
+    type: string_textarea
+    weight: 66
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   field_description_othernotes:
     type: string_textarea
-    weight: 40
+    weight: 71
     region: content
     settings:
       rows: 5
@@ -240,7 +367,7 @@ content:
     third_party_settings: {  }
   field_description_source:
     type: string_textarea
-    weight: 12
+    weight: 11
     region: content
     settings:
       rows: 5
@@ -248,7 +375,7 @@ content:
     third_party_settings: {  }
   field_description_summary:
     type: text_textarea_with_summary
-    weight: 11
+    weight: 10
     region: content
     settings:
       rows: 9
@@ -258,7 +385,7 @@ content:
     third_party_settings: {  }
   field_description_symbols:
     type: string_textarea
-    weight: 38
+    weight: 69
     region: content
     settings:
       rows: 5
@@ -266,7 +393,7 @@ content:
     third_party_settings: {  }
   field_description_techniques:
     type: string_textarea
-    weight: 37
+    weight: 67
     region: content
     settings:
       rows: 5
@@ -274,16 +401,23 @@ content:
     third_party_settings: {  }
   field_dimensions:
     type: physical_dimensions_default
-    weight: 41
+    weight: 65
     region: content
     settings:
-      default_unit: ''
+      default_unit: cm
       allow_unit_change: true
-      available_units: {  }
+      available_units:
+        mm: '0'
+        cm: '0'
+        m: '0'
+        km: '0'
+        in: '0'
+        ft: '0'
+        M: '0'
     third_party_settings: {  }
   field_exhibition_notes:
     type: string_textarea
-    weight: 53
+    weight: 31
     region: content
     settings:
       rows: 5
@@ -296,33 +430,22 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_folders:
-    type: entity_reference_autocomplete
-    weight: 63
+    type: options_buttons
+    weight: 34
     region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   field_function_attribution:
     type: string_textarea
-    weight: 44
+    weight: 35
     region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_geofield:
-    type: geofield_default
-    weight: 69
-    region: content
-    settings:
-      geometry_validation: false
-    third_party_settings: {  }
   field_geolocation:
     type: geolocation_leaflet
-    weight: 68
+    weight: 36
     region: content
     settings:
       auto_client_location: ''
@@ -891,49 +1014,31 @@ content:
     third_party_settings: {  }
   field_identifier_url:
     type: link_default
-    weight: 15
+    weight: 14
     region: content
     settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
+      placeholder_url: 'https://external-url-here...'
+      placeholder_title: 'Item name or link text here...'
+    third_party_settings:
+      maxlength:
+        maxlength_js: 200
+        maxlength_js_label: 'Content limited to @limit characters, remaining: <strong>@remaining</strong>'
+        maxlength_js_enforce: true
   field_image2:
     type: image_image
-    weight: 64
+    weight: 32
     region: content
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
   field_item_type:
-    type: entity_reference_autocomplete
-    weight: 10
+    type: options_select
+    weight: 9
     region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   field_local_origin_attribution:
-    type: string_textarea
-    weight: 33
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_local_origin_tid:
-    type: entity_reference_autocomplete
-    weight: 32
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_maker_attribution:
     type: string_textarea
     weight: 29
     region: content
@@ -941,9 +1046,23 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  field_local_origin_tid:
+    type: options_select
+    weight: 28
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_maker_attribution:
+    type: string_textarea
+    weight: 27
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   field_maker_name:
     type: string_textfield
-    weight: 26
+    weight: 23
     region: content
     settings:
       size: 60
@@ -951,26 +1070,98 @@ content:
     third_party_settings: {  }
   field_maker_role:
     type: options_buttons
-    weight: 27
+    weight: 24
     region: content
     settings: {  }
     third_party_settings: {  }
   field_media_audio_video_docs_:
     type: media_library_widget
-    weight: 65
+    weight: 33
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_nation_rationale:
     type: text_textarea
-    weight: 31
+    weight: 26
     region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
   field_nation_tid:
+    type: options_buttons
+    weight: 25
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_original_function:
+    type: string_textarea
+    weight: 70
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_provenance:
+    type: string_textarea
+    weight: 30
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_publication_history:
+    type: string_textarea
+    weight: 32
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_record_creation:
+    type: string_textarea
+    weight: 30
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_record_creation_notes:
+    type: string_textarea
+    weight: 31
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_region_of_origin:
+    type: options_select
+    weight: 34
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_region_origin_attribution:
+    type: text_textarea
+    weight: 35
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_related_extern_lang_items:
+    type: link_default
+    weight: 33
+    region: content
+    settings:
+      placeholder_url: 'https://external-url-here...'
+      placeholder_title: 'external language item name or link text here...'
+    third_party_settings:
+      maxlength:
+        maxlength_js: 200
+        maxlength_js_label: 'Content limited to @limit characters, remaining: <strong>@remaining</strong>'
+        maxlength_js_enforce: true
+  field_related_heritage_item:
     type: entity_reference_autocomplete
     weight: 30
     region: content
@@ -980,77 +1171,21 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_original_function:
-    type: string_textarea
-    weight: 43
+  field_related_heritage_out_gks:
+    type: link_default
+    weight: 32
     region: content
     settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_provenance:
-    type: string_textarea
-    weight: 50
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_publication_history:
-    type: string_textarea
-    weight: 54
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_record_creation:
-    type: string_textarea
-    weight: 57
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_record_creation_notes:
-    type: string_textarea
-    weight: 58
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_region_of_origin:
-    type: entity_reference_autocomplete
-    weight: 66
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_region_origin_attribution:
-    type: text_textarea
-    weight: 67
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_related_heritage_item:
-    type: entity_reference_autocomplete
-    weight: 61
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
+      placeholder_url: 'https://external-url-here...'
+      placeholder_title: 'external item name or link text here...'
+    third_party_settings:
+      maxlength:
+        maxlength_js: 200
+        maxlength_js_label: 'Content limited to @limit characters, remaining: <strong>@remaining</strong>'
+        maxlength_js_enforce: true
   field_related_language_item:
     type: entity_reference_autocomplete
-    weight: 62
+    weight: 31
     region: content
     settings:
       match_operator: CONTAINS
@@ -1060,7 +1195,7 @@ content:
     third_party_settings: {  }
   field_source_coll_his:
     type: string_textarea
-    weight: 52
+    weight: 35
     region: content
     settings:
       rows: 5
@@ -1068,15 +1203,7 @@ content:
     third_party_settings: {  }
   field_sources_exhib_pub_his:
     type: string_textarea
-    weight: 56
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_subsequent_functions:
-    type: string_textarea
-    weight: 45
+    weight: 34
     region: content
     settings:
       rows: 5
@@ -1084,54 +1211,47 @@ content:
     third_party_settings: {  }
   field_tk_label:
     type: options_buttons
-    weight: 59
+    weight: 32
     region: content
     settings: {  }
     third_party_settings: {  }
-  langcode:
-    type: language_select
-    weight: 1
-    region: content
-    settings:
-      include_locked: true
-    third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 8
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 48
+    weight: 31
     region: content
     settings: {  }
     third_party_settings: {  }
   publish_state:
     type: scheduler_moderation
-    weight: 51
+    weight: 29
     region: content
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 46
+    weight: 30
     region: content
     settings: {  }
     third_party_settings: {  }
   simple_sitemap:
-    weight: 4
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 9
+    weight: 8
     region: content
     settings:
       display_label: true
@@ -1151,13 +1271,13 @@ content:
           optimax: 50
           tolerance: 10
   translation:
-    weight: 6
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 1
     region: content
     settings:
       match_operator: CONTAINS
@@ -1166,15 +1286,17 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 7
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
   body: true
+  field_geofield: true
   field_gks_id: true
   field_imagemy_media: true
   field_media_image_twoc: true
+  langcode: true
   promote: true
   sticky: true
   unpublish_on: true

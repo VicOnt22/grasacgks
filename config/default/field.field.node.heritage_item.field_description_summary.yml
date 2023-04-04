@@ -16,7 +16,7 @@ field_name: field_description_summary
 entity_type: node
 bundle: heritage_item
 label: Introduction
-description: 'Description/Summary here'
+description: 'Type <b>Introduction:</b> Description for the current Item in the field above.'
 required: false
 translatable: true
 default_value: {  }
