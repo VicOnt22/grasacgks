@@ -1,0 +1,5 @@
+track-search:
+  js:
+    assets/js/track_search.js: {}
+  dependencies:
+    - core/jquery

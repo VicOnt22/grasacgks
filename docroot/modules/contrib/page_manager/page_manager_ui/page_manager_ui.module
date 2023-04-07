@@ -73,7 +73,7 @@ function page_manager_ui_theme() {
       'variables' => [
         'wizard' => NULL,
         'cached_values' => [],
-        'tree' => [],
+        'tree_structure' => [],
         'divider' => ' » ',
         'step' => NULL,
       ],
@@ -88,7 +88,7 @@ function template_preprocess_page_manager_wizard_tree(&$variables) {
   /** @var $wizard \Drupal\ctools\Wizard\FormWizardInterface|\Drupal\ctools\Wizard\EntityFormWizardInterface */
   $wizard = $variables['wizard'];
   $cached_values = $variables['cached_values'];
-  $tree = $variables['tree'];
+  $tree = $variables['tree_structure'];
   $variables['step'] = $wizard->getStep($cached_values);
 
   foreach ($wizard->getOperations($cached_values) as $step => $operation) {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d310b075e472abd651d73949f6a393b6",
+    "content-hash": "5bd8804bce16ffc1f2052a70a3893eca",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -13112,6 +13112,52 @@
             }
         },
         {
+            "name": "drupal/search_api_tracking",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/search_api_tracking.git",
+                "reference": "1.0.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/search_api_tracking-1.0.3.zip",
+                "reference": "1.0.3",
+                "shasum": "6276f5286f013ea1cdc6d956e68709948e49f2e1"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9",
+                "drupal/search_api": "*",
+                "drupal/views_filter_select": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.3",
+                    "datestamp": "1679643366",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Mschudders",
+                    "homepage": "https://www.drupal.org/user/1314320"
+                }
+            ],
+            "description": "Tracks searches from search api in the DB.",
+            "homepage": "https://www.drupal.org/project/search_api_tracking",
+            "support": {
+                "source": "https://git.drupalcode.org/project/search_api_tracking"
+            }
+        },
+        {
             "name": "drupal/seckit",
             "version": "2.0.1",
             "source": {
@@ -16884,6 +16930,50 @@
                 "source": "https://git.drupalcode.org/project/views_bulk_operations/-/tree/8.x-3.x",
                 "issues": "https://www.drupal.org/project/issues/views_bulk_operations?version=8.x",
                 "docs": "https://www.drupal.org/docs/8/modules/views-bulk-operations-vbo"
+            }
+        },
+        {
+            "name": "drupal/views_filter_select",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/views_filter_select.git",
+                "reference": "1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/views_filter_select-1.0.0.zip",
+                "reference": "1.0.0",
+                "shasum": "3e3ecefdea5b683768bf4ac432b68ed976e1736a"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0",
+                    "datestamp": "1631082549",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Mschudders",
+                    "homepage": "https://www.drupal.org/user/1314320"
+                }
+            ],
+            "description": "Allows exposing fields as a select for custom views. ",
+            "homepage": "https://www.drupal.org/project/views_filter_select",
+            "support": {
+                "source": "https://git.drupalcode.org/project/views_filter_select"
             }
         },
         {

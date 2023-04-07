@@ -1,0 +1,106 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function search_api_tracking_schema() {
+  $schema['search_api_tracking_stats'] = [
+    'description' => 'Table that contains a log of Search API queries and performance.',
+    'fields' => [
+      'qid' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique log ID.',
+      ],
+      'type' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'description' => 'Type of tracking',
+      ],
+      'timestamp' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Unix timestamp of when query occurred.',
+      ],
+      'numfound' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Number of results.',
+      ],
+      'uid' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {users}.uid of the user who triggered the query.',
+      ],
+      'keywords' => [
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => FALSE,
+        'default' => '',
+        'description' => 'Query keywords arguments.',
+      ],
+      'language' => [
+        'description' => 'The site languages of keywords when search was executed.',
+        'type' => 'varchar',
+        'length' => 12,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'sort_by' => [
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => FALSE,
+        'default' => '',
+        'description' => 'Sort by',
+      ],
+      'sort_order' => [
+        'type' => 'varchar',
+        'length' => 4,
+        'not null' => FALSE,
+        'default' => '',
+        'description' => 'Sort order.',
+      ],
+    ],
+    'primary key' => ['qid'],
+  ];
+
+  return $schema;
+}
+
+function search_api_tracking_update_8003() {
+  $schema = \Drupal\Core\Database\Database::getConnection()->schema();
+  $schema->createTable('search_api_tracking_stats', search_api_tracking_schema()['search_api_tracking_stats']);
+}
+
+function search_api_tracking_update_8004() {
+  $newSpecs = [
+    'sort_by' => [
+      'type' => 'varchar',
+      'length' => 128,
+      'not null' => FALSE,
+      'default' => '',
+      'description' => 'Sort by',
+    ],
+    'sort_order' => [
+      'type' => 'varchar',
+      'length' => 4,
+      'not null' => FALSE,
+      'default' => '',
+      'description' => 'Sort order.',
+    ],
+  ];
+  $schema = \Drupal\Core\Database\Database::getConnection()->schema();
+  $schema->addField('search_api_tracking_stats', 'sort_by', $newSpecs['sort_by']);
+  $schema->addField('search_api_tracking_stats', 'sort_order', $newSpecs['sort_order']);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function search_api_tracking_uninstall($is_syncing) {
+  \Drupal::configFactory()->getEditable('views.view.search_api_tracking_statistics')->delete();
+}

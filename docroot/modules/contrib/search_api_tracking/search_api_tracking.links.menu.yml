@@ -1,0 +1,5 @@
+search_api_tracking.settings_form:
+  title: 'Search API Tracking settings form'
+  parent: system.admin_config_search
+  description: 'Search APi tracking settings form.'
+  route_name: search_api_tracking.settings_form

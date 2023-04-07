@@ -45,7 +45,8 @@
         "bower-asset/jquery-ui-slider-pips": "^1.11",
         "drupal/easy_breadcrumb": "^2.0",
         "drupal/duration_field": "^2.1",
-        "drupal/facets_date_range": "^1.0@beta"
+        "drupal/facets_date_range": "^1.0@beta",
+        "drupal/search_api_tracking": "^1.0"
     },
     "conflict": {
         "drupal/ctools": "^3.10 || ^4.0.1",
@@ -222,7 +223,8 @@
                 "warning mb_strtolower() - Passing null to parameter #1": "https://www.drupal.org/files/issues/2022-08-23/3302838-13.patch",
                 "Warning array_flip() Can only flip STRING and INTEGER values": "https://www.drupal.org/files/issues/2021-11-15/3249389-array-flip-replaced-by-foreach-iteration.patch",
                 "Add a width $properties argument to FieldItemLi": "https://www.drupal.org/files/issues/2021-06-06/2941092-23.patch",
-                "project/drupal/issues/2794481 Allow optional End date": "https://www.drupal.org/files/issues/2022-06-16/drupal-datetime_range-allow_end_date_optional-2794481-139.patch"
+                "project/drupal/issues/2794481 Allow optional End date": "https://www.drupal.org/files/issues/2022-06-16/drupal-datetime_range-allow_end_date_optional-2794481-139.patch",
+                "issues/3344033 Deprecated function strlen() Passing null to parameter #1": "https://www.drupal.org/files/issues/2023-04-03/3344033-9.patch"
             },
             "drupal/config_devel": {
                 "Add an extra.drush.services section to composer.json": "https://www.drupal.org/files/issues/2021-07-28/3225746-2--add-extra-drush-services-to-composer-json.patch"
@@ -241,6 +243,12 @@
             },
             "drupal/ace_editor": {
                 "issues/3271278 Using ace editor with field ui throws error Using this when not in object context": "https://www.drupal.org/files/issues/2022-03-23/3271278_2.patch"
+            },
+            "drupal/page_manager": {
+                "issues/3263077 PHP 8.1 compatibility fixes for Page Manager": "https://www.drupal.org/files/issues/2022-07-03/page_manager-php_81_deprecation_fixes-3263077.patch"
+            },
+            "drupal/ctools": {
+                "issues/3294330 AjaxFormTrait PHP 8.1 issue": "https://www.drupal.org/files/issues/2022-08-26/3294330-10.patch"
             }
         }
     },

@@ -184,7 +184,7 @@ class FieldStorageAddForm extends FormBase {
       '#size' => 15,
     ];
 
-    $field_prefix = $this->config('field_ui.settings')->get('field_prefix');
+    $field_prefix = $this->config('field_ui.settings')->get('field_prefix') ?? 'field_';
     $form['new_storage_wrapper']['field_name'] = [
       '#type' => 'machine_name',
       '#field_prefix' => $field_prefix,

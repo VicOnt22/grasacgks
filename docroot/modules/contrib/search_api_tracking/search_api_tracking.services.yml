@@ -1,0 +1,13 @@
+services:
+  logger.channel.search_api_tracking:
+    parent: logger.channel_base
+    arguments: ['search_api_tracking']
+  search_api_tracking.storage:
+    class: Drupal\search_api_tracking\SearchApiDbTracking
+    arguments: ['@database',
+                'search_api_tracking_stats',
+                '@logger.channel.search_api_tracking',
+                '@language_manager',
+                '@datetime.time',
+                '@current_user'
+    ]

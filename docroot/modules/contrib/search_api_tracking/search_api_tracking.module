@@ -1,0 +1,27 @@
+<?php
+
+use Drupal\Component\Utility\Xss;
+
+/**
+ * Implements hook_page_attachments_alter().
+ *
+ * @param $page
+ */
+function search_api_tracking_page_attachments_alter(&$page) {
+  $searchApiTrackingSettings
+    = \Drupal::config(\Drupal\search_api_tracking\Form\SearchApiTrackingSettingsForm::SETTINGSNAME);
+  $page['#attached']['drupalSettings']['search_api_tracking']['search_form_selectors']
+    = Xss::filter($searchApiTrackingSettings->get('search_form_selectors'));
+  $page['#attached']['drupalSettings']['search_api_tracking']['autocomplete_selector']
+    = Xss::filter($searchApiTrackingSettings->get('autocomplete_selector'));
+  $page['#attached']['drupalSettings']['search_api_tracking']['search_empty_selector']
+    = Xss::filter($searchApiTrackingSettings->get('search_empty_selector'));
+  $page['#attached']['drupalSettings']['search_api_tracking']['did_you_mean_selector']
+    = Xss::filter($searchApiTrackingSettings->get('did_you_mean_selector'));
+  $page['#attached']['drupalSettings']['search_api_tracking']['sort_by_selector']
+    = Xss::filter($searchApiTrackingSettings->get('sort_by_selector'));
+  $page['#attached']['drupalSettings']['search_api_tracking']['sort_order_selector']
+    = Xss::filter($searchApiTrackingSettings->get('sort_order_selector'));
+
+  $page['#attached']['library'][] = 'search_api_tracking/track-search';
+}

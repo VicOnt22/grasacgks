@@ -1,8 +1,6 @@
 charts_default_settings:
   library: c3
   type: area
-  fields:
-    stacking: false
   display:
     title: ''
     title_position: ''
@@ -38,6 +36,7 @@ charts_default_settings:
       yellow_to: ''
       red_from: ''
       red_to: ''
+    color_changer: false
   xaxis:
     title: ''
     labels_rotation: '0'
@@ -49,6 +48,7 @@ charts_default_settings:
     suffix: ''
     decimal_count: ''
     labels_rotation: '0'
+  library_config: {  }
 advanced:
   debug: false
 library_config: null

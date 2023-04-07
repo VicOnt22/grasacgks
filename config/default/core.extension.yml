@@ -217,6 +217,7 @@ module:
   script_manager: 0
   search_api: 0
   search_api_db: 0
+  search_api_tracking: 0
   seckit: 0
   section_library: 0
   serialization: 0
@@ -256,6 +257,7 @@ module:
   views_bootstrap: 0
   views_bulk_edit: 0
   views_bulk_operations: 0
+  views_filter_select: 0
   views_infinite_scroll: 0
   views_ui: 0
   viewsreference: 0

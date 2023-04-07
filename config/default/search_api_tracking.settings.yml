@@ -1,0 +1,6 @@
+search_form_selectors: '.views-exposed-form-search-page-1, #views-exposed-form-search-page-page-1'
+autocomplete_selector: .ui-autocomplete-input
+search_empty_selector: '.overview--search .view-empty'
+did_you_mean_selector: '.sapi-did-you-mean a'
+sort_by_selector: edit-sort-by
+sort_order_selector: edit-sort-order

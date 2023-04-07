@@ -144,7 +144,13 @@ class Page extends ConfigEntityBase implements PageInterface {
    * {@inheritdoc}
    */
   public function usesAdminTheme() {
-    return isset($this->use_admin_theme) ? $this->use_admin_theme : strpos($this->getPath(), '/admin/') === 0;
+    if (isset($this->use_admin_theme)) {
+      return $this->use_admin_theme;
+    }
+
+    $path = $this->getPath();
+
+    return !empty($path) && strpos($path, '/admin/') === 0;
   }
 
   /**
@@ -296,7 +302,8 @@ class Page extends ConfigEntityBase implements PageInterface {
    * {@inheritdoc}
    */
   public function getParameterNames() {
-    if (preg_match_all('|\{(\w+)\}|', $this->getPath(), $matches)) {
+    $path = $this->getPath();
+    if (!empty($path) && preg_match_all('|\{(\w+)\}|', $path, $matches)) {
       return $matches[1];
     }
     return [];

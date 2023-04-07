@@ -1,0 +1,17 @@
+search_api_tracking.track_search:
+  path: 'tracking/search-api-tracking'
+  defaults:
+    _controller: '\Drupal\search_api_tracking\Controller\SearchApiTrackController::track'
+    _title: 'Track SEARCH API searches'
+  methods: [POST]
+  requirements:
+    _permission: 'access content'
+    _format: json
+
+search_api_tracking.settings_form:
+  path: '/admin/config/search/search-api-tracking-settings'
+  defaults:
+    _form: 'Drupal\search_api_tracking\Form\SearchApiTrackingSettingsForm'
+    _title: 'Search API - Tracking settings form'
+  requirements:
+    _permission: 'manage search api tracking settings'

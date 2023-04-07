@@ -6046,6 +6046,7 @@
                     "Warning array_flip() Can only flip STRING and INTEGER values": "https://www.drupal.org/files/issues/2021-11-15/3249389-array-flip-replaced-by-foreach-iteration.patch",
                     "Add a width $properties argument to FieldItemLi": "https://www.drupal.org/files/issues/2021-06-06/2941092-23.patch",
                     "project/drupal/issues/2794481 Allow optional End date": "https://www.drupal.org/files/issues/2022-06-16/drupal-datetime_range-allow_end_date_optional-2794481-139.patch",
+                    "issues/3344033 Deprecated function strlen() Passing null to parameter #1": "https://www.drupal.org/files/issues/2023-04-03/3344033-9.patch",
                     "Issue #2869592: Disabled update module shouldn't produce a status report warning": "https://www.drupal.org/files/issues/2869592-remove-update-warning-7.patch",
                     "Issue #2893892: Fixed Warning Invalid argument supplied for foreach() in Drupal": "https://www.drupal.org/files/issues/2018-12-10/core--getDerivatives-Invalid-argument-foreach--2893892-11-d8.patch",
                     "Issue #3044656: Add a helper method to strip subdirectories from URL paths": "https://www.drupal.org/files/issues/2019-03-31/3044656-2.patch",
@@ -6344,6 +6345,9 @@
                 },
                 "branch-alias": {
                     "dev-8.x-3.x": "3.x-dev"
+                },
+                "patches_applied": {
+                    "issues/3294330 AjaxFormTrait PHP 8.1 issue": "https://www.drupal.org/files/issues/2022-08-26/3294330-10.patch"
                 }
             },
             "installation-source": "dist",
@@ -13372,6 +13376,9 @@
                 },
                 "branch-alias": {
                     "dev-8.x-4.x": "4.x-dev"
+                },
+                "patches_applied": {
+                    "issues/3263077 PHP 8.1 compatibility fixes for Page Manager": "https://www.drupal.org/files/issues/2022-07-03/page_manager-php_81_deprecation_fixes-3263077.patch"
                 }
             },
             "installation-source": "dist",
@@ -15221,6 +15228,55 @@
                 "irc": "irc://irc.freenode.org/drupal-search-api"
             },
             "install-path": "../../docroot/modules/contrib/search_api"
+        },
+        {
+            "name": "drupal/search_api_tracking",
+            "version": "1.0.3",
+            "version_normalized": "1.0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/search_api_tracking.git",
+                "reference": "1.0.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/search_api_tracking-1.0.3.zip",
+                "reference": "1.0.3",
+                "shasum": "6276f5286f013ea1cdc6d956e68709948e49f2e1"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9",
+                "drupal/search_api": "*",
+                "drupal/views_filter_select": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.3",
+                    "datestamp": "1679643366",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Mschudders",
+                    "homepage": "https://www.drupal.org/user/1314320"
+                }
+            ],
+            "description": "Tracks searches from search api in the DB.",
+            "homepage": "https://www.drupal.org/project/search_api_tracking",
+            "support": {
+                "source": "https://git.drupalcode.org/project/search_api_tracking"
+            },
+            "install-path": "../../docroot/modules/contrib/search_api_tracking"
         },
         {
             "name": "drupal/seckit",
@@ -19158,6 +19214,53 @@
                 "docs": "https://www.drupal.org/docs/8/modules/views-bulk-operations-vbo"
             },
             "install-path": "../../docroot/modules/contrib/views_bulk_operations"
+        },
+        {
+            "name": "drupal/views_filter_select",
+            "version": "1.0.0",
+            "version_normalized": "1.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/views_filter_select.git",
+                "reference": "1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/views_filter_select-1.0.0.zip",
+                "reference": "1.0.0",
+                "shasum": "3e3ecefdea5b683768bf4ac432b68ed976e1736a"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0",
+                    "datestamp": "1631082549",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Mschudders",
+                    "homepage": "https://www.drupal.org/user/1314320"
+                }
+            ],
+            "description": "Allows exposing fields as a select for custom views. ",
+            "homepage": "https://www.drupal.org/project/views_filter_select",
+            "support": {
+                "source": "https://git.drupalcode.org/project/views_filter_select"
+            },
+            "install-path": "../../docroot/modules/contrib/views_filter_select"
         },
         {
             "name": "drupal/views_infinite_scroll",

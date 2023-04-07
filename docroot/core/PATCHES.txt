@@ -37,6 +37,10 @@ project/drupal/issues/2794481 Allow optional End date
 Source: https://www.drupal.org/files/issues/2022-06-16/drupal-datetime_range-allow_end_date_optional-2794481-139.patch
 
 
+issues/3344033 Deprecated function strlen() Passing null to parameter #1
+Source: https://www.drupal.org/files/issues/2023-04-03/3344033-9.patch
+
+
 Issue #2869592: Disabled update module shouldn't produce a status report warning
 Source: https://www.drupal.org/files/issues/2869592-remove-update-warning-7.patch
 
