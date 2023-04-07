@@ -11,7 +11,7 @@ id: node.heritage_item.field_geolocation
 field_name: field_geolocation
 entity_type: node
 bundle: heritage_item
-label: geolocation
+label: Geolocation
 description: ''
 required: false
 translatable: false
