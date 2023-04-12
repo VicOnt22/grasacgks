@@ -19,6 +19,7 @@ dependencies:
     - node.type.language_item
     - node.type.page
     - node.type.varbase_heroslider_media
+    - taxonomy.vocabulary.ceremonial_time
     - taxonomy.vocabulary.collection
     - taxonomy.vocabulary.contributor_roles
     - taxonomy.vocabulary.contributors
@@ -34,6 +35,7 @@ dependencies:
     - taxonomy.vocabulary.project_status
     - taxonomy.vocabulary.record_status
     - taxonomy.vocabulary.regions
+    - taxonomy.vocabulary.seasonal_time
     - taxonomy.vocabulary.tags
     - taxonomy.vocabulary.text_type
     - taxonomy.vocabulary.traditional_knowledge_tk_labels
@@ -150,6 +152,7 @@ permissions:
   - 'create media'
   - 'create page content'
   - 'create remote_video media'
+  - 'create terms in ceremonial_time'
   - 'create terms in collection'
   - 'create terms in contributor_roles'
   - 'create terms in contributors'
@@ -162,6 +165,7 @@ permissions:
   - 'create terms in local_origin'
   - 'create terms in nations'
   - 'create terms in regions'
+  - 'create terms in seasonal_time'
   - 'create terms in tags'
   - 'create terms in traditional_knowledge_tk_labels'
   - 'create tweet media'
@@ -224,6 +228,7 @@ permissions:
   - 'delete own webform'
   - 'delete own webform submission'
   - 'delete terms in categories'
+  - 'delete terms in ceremonial_time'
   - 'delete terms in collection'
   - 'delete terms in contributor_roles'
   - 'delete terms in contributors'
@@ -239,6 +244,7 @@ permissions:
   - 'delete terms in project_status'
   - 'delete terms in record_status'
   - 'delete terms in regions'
+  - 'delete terms in seasonal_time'
   - 'delete terms in tags'
   - 'delete terms in text_type'
   - 'delete terms in traditional_knowledge_tk_labels'
@@ -280,6 +286,7 @@ permissions:
   - 'edit own video media'
   - 'edit own webform'
   - 'edit terms in categories'
+  - 'edit terms in ceremonial_time'
   - 'edit terms in collection'
   - 'edit terms in contributor_roles'
   - 'edit terms in contributors'
@@ -295,6 +302,7 @@ permissions:
   - 'edit terms in project_status'
   - 'edit terms in record_status'
   - 'edit terms in regions'
+  - 'edit terms in seasonal_time'
   - 'edit terms in tags'
   - 'edit terms in text_type'
   - 'edit terms in traditional_knowledge_tk_labels'

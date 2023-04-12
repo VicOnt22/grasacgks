@@ -1,0 +1,14 @@
+uuid: b9b33599-5c9d-4ad7-8530-64987b76f1ff
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.seasonal_time
+id: taxonomy_vocabulary_seasonal_time
+entity_type_id: taxonomy_vocabulary
+entity_id: seasonal_time
+action: display_page
+allow_override: 1
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: access_denied

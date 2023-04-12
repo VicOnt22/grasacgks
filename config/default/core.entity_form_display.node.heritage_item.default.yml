@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.heritage_item.field_abstract
     - field.field.node.heritage_item.field_access_rationale
     - field.field.node.heritage_item.field_acquired_from
+    - field.field.node.heritage_item.field_associated_ceremonial_time
     - field.field.node.heritage_item.field_bibliographic_citation
     - field.field.node.heritage_item.field_catalog_id
     - field.field.node.heritage_item.field_collection
@@ -14,10 +15,8 @@ dependencies:
     - field.field.node.heritage_item.field_current_institution
     - field.field.node.heritage_item.field_date_acquisition
     - field.field.node.heritage_item.field_date_attribution
-    - field.field.node.heritage_item.field_date_ceremonial_time
     - field.field.node.heritage_item.field_date_collection
     - field.field.node.heritage_item.field_date_made
-    - field.field.node.heritage_item.field_date_seasonal_time
     - field.field.node.heritage_item.field_description_condition
     - field.field.node.heritage_item.field_description_howtocite
     - field.field.node.heritage_item.field_description_materials
@@ -59,6 +58,7 @@ dependencies:
     - field.field.node.heritage_item.field_related_heritage_item
     - field.field.node.heritage_item.field_related_heritage_out_gks
     - field.field.node.heritage_item.field_related_language_item
+    - field.field.node.heritage_item.field_related_seasonal_time
     - field.field.node.heritage_item.field_source_coll_his
     - field.field.node.heritage_item.field_sources_exhib_pub_his
     - field.field.node.heritage_item.field_tk_label
@@ -96,7 +96,7 @@ third_party_settings:
       label: 'Physical Description'
       region: content
       parent_name: ''
-      weight: 25
+      weight: 15
       format_type: tab
       format_settings:
         classes: ''
@@ -117,7 +117,7 @@ third_party_settings:
       label: 'Makers and Origin'
       region: content
       parent_name: ''
-      weight: 24
+      weight: 14
       format_type: tab
       format_settings:
         classes: ''
@@ -139,7 +139,7 @@ third_party_settings:
       label: 'Item History'
       region: content
       parent_name: ''
-      weight: 26
+      weight: 16
       format_type: tab
       format_settings:
         classes: ''
@@ -160,7 +160,7 @@ third_party_settings:
       label: 'About this Grasac Record'
       region: content
       parent_name: ''
-      weight: 27
+      weight: 17
       format_type: tab
       format_settings:
         classes: ''
@@ -178,7 +178,7 @@ third_party_settings:
       label: 'Related Items'
       region: content
       parent_name: ''
-      weight: 28
+      weight: 18
       format_type: tab
       format_settings:
         classes: ''
@@ -194,12 +194,13 @@ third_party_settings:
         - field_date_made
         - field_filter_date_made
         - field_date_attribution
+        - field_related_seasonal_time
         - field_date_seasonal_time
-        - field_date_ceremonial_time
+        - field_associated_ceremonial_time
       label: 'Dates and Times for this item'
       region: content
       parent_name: ''
-      weight: 16
+      weight: 13
       format_type: tab
       format_settings:
         classes: ''
@@ -208,6 +209,25 @@ third_party_settings:
         formatter: closed
         description: ''
         required_fields: true
+    group_item_identification:
+      children:
+        - field_description_source
+        - field_current_institution
+        - field_catalog_id
+        - field_identifier_url
+        - field_collection
+      label: 'Item Identification'
+      region: content
+      parent_name: ''
+      weight: 12
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: edit_tab_item_identification
+        formatter: closed
+        description: ''
+        required_fields: false
 id: node.heritage_item.default
 targetEntityType: node
 bundle: heritage_item
@@ -243,6 +263,12 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  field_associated_ceremonial_time:
+    type: options_select
+    weight: 24
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_bibliographic_citation:
     type: string_textarea
     weight: 33
@@ -253,7 +279,7 @@ content:
     third_party_settings: {  }
   field_catalog_id:
     type: string_textfield
-    weight: 13
+    weight: 14
     region: content
     settings:
       size: 60
@@ -261,7 +287,7 @@ content:
     third_party_settings: {  }
   field_collection:
     type: options_select
-    weight: 15
+    weight: 16
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -273,7 +299,7 @@ content:
     third_party_settings: {  }
   field_current_institution:
     type: options_select
-    weight: 12
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -293,14 +319,6 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_date_ceremonial_time:
-    type: string_textfield
-    weight: 23
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   field_date_collection:
     type: string_textfield
     weight: 17
@@ -312,14 +330,6 @@ content:
   field_date_made:
     type: string_textfield
     weight: 19
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_date_seasonal_time:
-    type: string_textfield
-    weight: 22
     region: content
     settings:
       size: 60
@@ -367,7 +377,7 @@ content:
     third_party_settings: {  }
   field_description_source:
     type: string_textarea
-    weight: 11
+    weight: 12
     region: content
     settings:
       rows: 5
@@ -375,7 +385,7 @@ content:
     third_party_settings: {  }
   field_description_summary:
     type: text_textarea_with_summary
-    weight: 10
+    weight: 11
     region: content
     settings:
       rows: 9
@@ -445,7 +455,7 @@ content:
     third_party_settings: {  }
   field_geolocation:
     type: geolocation_leaflet
-    weight: 36
+    weight: 26
     region: content
     settings:
       auto_client_location: ''
@@ -1014,7 +1024,7 @@ content:
     third_party_settings: {  }
   field_identifier_url:
     type: link_default
-    weight: 14
+    weight: 15
     region: content
     settings:
       placeholder_url: 'https://external-url-here...'
@@ -1026,7 +1036,7 @@ content:
         maxlength_js_enforce: true
   field_image2:
     type: image_image
-    weight: 32
+    weight: 22
     region: content
     settings:
       progress_indicator: throbber
@@ -1034,7 +1044,7 @@ content:
     third_party_settings: {  }
   field_item_type:
     type: options_select
-    weight: 9
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -1076,7 +1086,7 @@ content:
     third_party_settings: {  }
   field_media_audio_video_docs_:
     type: media_library_widget
-    weight: 33
+    weight: 23
     region: content
     settings:
       media_types: {  }
@@ -1137,13 +1147,13 @@ content:
     third_party_settings: {  }
   field_region_of_origin:
     type: options_select
-    weight: 34
+    weight: 24
     region: content
     settings: {  }
     third_party_settings: {  }
   field_region_origin_attribution:
     type: text_textarea
-    weight: 35
+    weight: 25
     region: content
     settings:
       rows: 5
@@ -1193,6 +1203,12 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_related_seasonal_time:
+    type: options_select
+    weight: 22
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_source_coll_his:
     type: string_textarea
     weight: 35
@@ -1229,18 +1245,18 @@ content:
     third_party_settings: {  }
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 31
+    weight: 21
     region: content
     settings: {  }
     third_party_settings: {  }
   publish_state:
     type: scheduler_moderation
-    weight: 29
+    weight: 19
     region: content
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 30
+    weight: 20
     region: content
     settings: {  }
     third_party_settings: {  }

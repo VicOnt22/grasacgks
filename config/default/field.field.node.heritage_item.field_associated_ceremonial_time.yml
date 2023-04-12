@@ -1,26 +1,26 @@
-uuid: b13af991-6321-44da-baf3-489d613de752
+uuid: 02687c50-fcc6-408e-8f39-ea8c5417b157
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_maker_role
+    - field.storage.node.field_associated_ceremonial_time
     - node.type.heritage_item
-    - taxonomy.vocabulary.contributor_roles
-id: node.heritage_item.field_maker_role
-field_name: field_maker_role
+    - taxonomy.vocabulary.ceremonial_time
+id: node.heritage_item.field_associated_ceremonial_time
+field_name: field_associated_ceremonial_time
 entity_type: node
 bundle: heritage_item
-label: 'Maker role'
+label: 'Associated Ceremonial Time'
 description: ''
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      contributor_roles: contributor_roles
+      ceremonial_time: ceremonial_time
     sort:
       field: name
       direction: asc

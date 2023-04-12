@@ -3,43 +3,41 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_acquired_from
-    - field.storage.node.field_date_ceremonial_time
-    - field.storage.node.field_collection
-    - field.storage.node.field_provenance
-    - field.storage.node.field_sources_exhib_pub_his
-    - field.storage.node.field_current_institution
-    - field.storage.node.field_filter_date_made
-    - field.storage.node.field_term_definition
     - field.storage.node.field_abstract
-    - field.storage.node.field_exhibition_notes
-    - field.storage.node.field_folders
-    - field.storage.node.field_description_techniques
+    - field.storage.node.field_acquired_from
+    - field.storage.taxonomy_term.field_associated_instituation
+    - field.storage.node.field_audio_video
+    - field.storage.node.field_collection
+    - field.storage.node.field_contributor_collector
+    - field.storage.node.field_current_institution
+    - field.storage.node.field_description_motifs
+    - field.storage.node.field_description_source
     - field.storage.node.field_description_summary
+    - field.storage.node.field_description_techniques
+    - field.storage.node.field_exhibition_notes
+    - field.storage.node.field_filter_date_made
+    - field.storage.node.field_folders
+    - field.storage.node.field_function_attribution
+    - field.storage.taxonomy_term.field_initials
     - field.storage.node.field_item_type
     - field.storage.node.field_languages
-    - field.storage.node.field_local_origin_tid
     - field.storage.node.field_local_origin_attribution
-    - field.storage.node.field_description_motifs
+    - field.storage.node.field_local_origin_tid
+    - field.storage.node.field_maker_attribution
     - field.storage.node.field_maker_name
-    - field.storage.node.field_nation_tid
     - field.storage.node.field_nation_rationale
-    - field.storage.node.field_contributor_collector
+    - field.storage.node.field_nation_tid
     - field.storage.node.field_part_of_speech
+    - field.storage.node.field_provenance
     - field.storage.node.field_publication_history
     - field.storage.node.field_region_of_origin
-    - field.storage.node.field_audio_video
     - field.storage.node.field_related_places
-    - field.storage.node.field_date_seasonal_time
-    - field.storage.node.field_description_source
-    - field.storage.node.field_function_attribution
-    - field.storage.node.field_maker_attribution
-    - field.storage.taxonomy_term.field_associated_instituation
-    - field.storage.taxonomy_term.field_initials
+    - field.storage.node.field_sources_exhib_pub_his
+    - field.storage.node.field_term_definition
     - search_api.server.database_server
   module:
-    - node
     - taxonomy
+    - node
     - search_api
 id: content
 name: Content
@@ -160,22 +158,6 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_current_institution
-  field_date_ceremonial_time:
-    label: 'Associated Ceremonial Time'
-    datasource_id: 'entity:node'
-    property_path: field_date_ceremonial_time
-    type: text
-    dependencies:
-      config:
-        - field.storage.node.field_date_ceremonial_time
-  field_date_seasonal_time:
-    label: 'Related Seasonal Time'
-    datasource_id: 'entity:node'
-    property_path: field_date_seasonal_time
-    type: text
-    dependencies:
-      config:
-        - field.storage.node.field_date_seasonal_time
   field_description_motifs:
     label: 'Motifs and Images'
     datasource_id: 'entity:node'
@@ -453,8 +435,6 @@ processor_settings:
       - aggregated_field
       - field_abstract
       - field_acquired_from
-      - field_date_ceremonial_time
-      - field_date_seasonal_time
       - field_description_motifs
       - field_description_source
       - field_description_summary
@@ -491,8 +471,6 @@ processor_settings:
       - aggregated_field
       - field_abstract
       - field_acquired_from
-      - field_date_ceremonial_time
-      - field_date_seasonal_time
       - field_description_motifs
       - field_description_source
       - field_description_summary
@@ -523,8 +501,6 @@ processor_settings:
       - aggregated_field
       - field_abstract
       - field_acquired_from
-      - field_date_ceremonial_time
-      - field_date_seasonal_time
       - field_description_motifs
       - field_description_source
       - field_description_summary
@@ -553,8 +529,6 @@ processor_settings:
       - aggregated_field
       - field_abstract
       - field_acquired_from
-      - field_date_ceremonial_time
-      - field_date_seasonal_time
       - field_description_motifs
       - field_description_source
       - field_description_summary
@@ -584,8 +558,6 @@ processor_settings:
       - aggregated_field
       - field_abstract
       - field_acquired_from
-      - field_date_ceremonial_time
-      - field_date_seasonal_time
       - field_description_motifs
       - field_description_source
       - field_description_summary

@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.heritage_item.field_abstract
     - field.field.node.heritage_item.field_access_rationale
     - field.field.node.heritage_item.field_acquired_from
+    - field.field.node.heritage_item.field_associated_ceremonial_time
     - field.field.node.heritage_item.field_bibliographic_citation
     - field.field.node.heritage_item.field_catalog_id
     - field.field.node.heritage_item.field_collection
@@ -15,10 +16,8 @@ dependencies:
     - field.field.node.heritage_item.field_current_institution
     - field.field.node.heritage_item.field_date_acquisition
     - field.field.node.heritage_item.field_date_attribution
-    - field.field.node.heritage_item.field_date_ceremonial_time
     - field.field.node.heritage_item.field_date_collection
     - field.field.node.heritage_item.field_date_made
-    - field.field.node.heritage_item.field_date_seasonal_time
     - field.field.node.heritage_item.field_description_condition
     - field.field.node.heritage_item.field_description_howtocite
     - field.field.node.heritage_item.field_description_materials
@@ -60,6 +59,7 @@ dependencies:
     - field.field.node.heritage_item.field_related_heritage_item
     - field.field.node.heritage_item.field_related_heritage_out_gks
     - field.field.node.heritage_item.field_related_language_item
+    - field.field.node.heritage_item.field_related_seasonal_time
     - field.field.node.heritage_item.field_source_coll_his
     - field.field.node.heritage_item.field_sources_exhib_pub_his
     - field.field.node.heritage_item.field_tk_label
@@ -168,6 +168,7 @@ hidden:
   body: true
   field_access_rationale: true
   field_acquired_from: true
+  field_associated_ceremonial_time: true
   field_bibliographic_citation: true
   field_catalog_id: true
   field_collection: true
@@ -175,10 +176,8 @@ hidden:
   field_current_institution: true
   field_date_acquisition: true
   field_date_attribution: true
-  field_date_ceremonial_time: true
   field_date_collection: true
   field_date_made: true
-  field_date_seasonal_time: true
   field_description_condition: true
   field_description_howtocite: true
   field_description_materials: true
@@ -217,6 +216,7 @@ hidden:
   field_related_heritage_item: true
   field_related_heritage_out_gks: true
   field_related_language_item: true
+  field_related_seasonal_time: true
   field_source_coll_his: true
   field_sources_exhib_pub_his: true
   field_tk_label: true

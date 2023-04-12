@@ -1,21 +1,20 @@
-uuid: 7d6642bd-38de-459a-965d-f86a583666e3
+uuid: 082dc261-6e88-47cf-a958-a33a124f9473
 langcode: en
 status: true
 dependencies:
   module:
     - field_permissions
     - node
+    - taxonomy
 third_party_settings:
   field_permissions:
     permission_type: public
-id: node.field_date_seasonal_time
-field_name: field_date_seasonal_time
+id: node.field_associated_ceremonial_time
+field_name: field_associated_ceremonial_time
 entity_type: node
-type: string
+type: entity_reference
 settings:
-  max_length: 255
-  case_sensitive: false
-  is_ascii: false
+  target_type: taxonomy_term
 module: core
 locked: false
 cardinality: 1

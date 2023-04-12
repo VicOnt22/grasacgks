@@ -1,26 +1,26 @@
-uuid: b13af991-6321-44da-baf3-489d613de752
+uuid: ddd3caa4-85d4-4c44-a002-6a925a5a9c7a
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_maker_role
+    - field.storage.node.field_related_seasonal_time
     - node.type.heritage_item
-    - taxonomy.vocabulary.contributor_roles
-id: node.heritage_item.field_maker_role
-field_name: field_maker_role
+    - taxonomy.vocabulary.seasonal_time
+id: node.heritage_item.field_related_seasonal_time
+field_name: field_related_seasonal_time
 entity_type: node
 bundle: heritage_item
-label: 'Maker role'
+label: 'Related Seasonal Time'
 description: ''
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      contributor_roles: contributor_roles
+      seasonal_time: seasonal_time
     sort:
       field: name
       direction: asc

@@ -1,0 +1,14 @@
+uuid: e6065f9d-045c-48b2-93b4-da5f9eef41b5
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.ceremonial_time
+id: taxonomy_vocabulary_ceremonial_time
+entity_type_id: taxonomy_vocabulary
+entity_id: ceremonial_time
+action: display_page
+allow_override: 1
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: access_denied

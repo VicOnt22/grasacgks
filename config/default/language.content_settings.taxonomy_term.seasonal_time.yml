@@ -1,0 +1,16 @@
+uuid: 3b03084f-6c77-4717-bc84-70a82762987e
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.seasonal_time
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: taxonomy_term.seasonal_time
+target_entity_type_id: taxonomy_term
+target_bundle: seasonal_time
+default_langcode: site_default
+language_alterable: false
