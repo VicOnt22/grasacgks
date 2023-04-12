@@ -9,12 +9,14 @@ dependencies:
     - node.type.heritage_item
     - node.type.language_item
     - node.type.page
-    - node.type.project
   module:
+    - dropzonejs
     - field_permissions
     - filter
     - node
+    - panels
     - system
+    - total_control
 id: full_member
 label: 'Full Member'
 weight: 0
@@ -38,7 +40,6 @@ permissions:
   - 'create heritage_item content'
   - 'create language_item content'
   - 'create page content'
-  - 'create project content'
   - 'create relations'
   - 'create subuser 4'
   - 'create subuser 5'
@@ -53,7 +54,6 @@ permissions:
   - 'delete own image files'
   - 'delete own language_item content'
   - 'delete own page content'
-  - 'delete own project content'
   - 'delete own video files'
   - 'delete relations'
   - 'delete revisions'
@@ -66,6 +66,7 @@ permissions:
   - 'download own document files'
   - 'download own image files'
   - 'download own video files'
+  - 'dropzone upload files'
   - 'edit any audio files'
   - 'edit any document files'
   - 'edit any image files'
@@ -79,7 +80,6 @@ permissions:
   - 'edit own image files'
   - 'edit own language_item content'
   - 'edit own page content'
-  - 'edit own project content'
   - 'edit own video files'
   - 'edit relations'
   - 'edit subusers'
@@ -103,6 +103,7 @@ permissions:
   - 'edit terms in 8'
   - 'edit terms in 9'
   - 'flush caches'
+  - 'have total control'
   - 'mass add and create users'
   - 'override subuser relation'
   - 'post comments'
@@ -115,6 +116,7 @@ permissions:
   - 'set user expiration'
   - 'skip comment approval'
   - 'use Rules component rules_og_massadd'
+  - 'use panels dashboard'
   - 'use php in custom pagers'
   - 'use text format basic_html'
   - 'use text format filtered_html'

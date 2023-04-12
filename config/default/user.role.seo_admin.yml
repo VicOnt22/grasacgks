@@ -9,7 +9,6 @@ dependencies:
     - node.type.landing_page_lb
     - node.type.language_item
     - node.type.page
-    - node.type.project
     - node.type.varbase_heroslider_media
     - taxonomy.vocabulary.tags
     - workflows.workflow.varbase_editorial_workflow
@@ -101,7 +100,6 @@ permissions:
   - 'create landing_page_lb content'
   - 'create language_item content'
   - 'create page content'
-  - 'create project content'
   - 'create terms in tags'
   - 'create url aliases'
   - 'create varbase_blog content'
@@ -113,7 +111,6 @@ permissions:
   - 'delete any landing_page_lb content'
   - 'delete any language_item content'
   - 'delete any page content'
-  - 'delete any project content'
   - 'delete any varbase_blog content'
   - 'delete any varbase_heroslider_media content'
   - 'delete any webform submission'
@@ -122,7 +119,6 @@ permissions:
   - 'delete own landing_page_lb content'
   - 'delete own language_item content'
   - 'delete own page content'
-  - 'delete own project content'
   - 'delete own varbase_blog content'
   - 'delete own varbase_heroslider_media content'
   - 'delete own webform'
@@ -133,7 +129,6 @@ permissions:
   - 'edit any landing_page_lb content'
   - 'edit any language_item content'
   - 'edit any page content'
-  - 'edit any project content'
   - 'edit any varbase_blog content'
   - 'edit any varbase_heroslider_media content'
   - 'edit own article content'
@@ -141,7 +136,6 @@ permissions:
   - 'edit own landing_page_lb content'
   - 'edit own language_item content'
   - 'edit own page content'
-  - 'edit own project content'
   - 'edit own varbase_blog content'
   - 'edit own varbase_heroslider_media content'
   - 'edit own webform'
@@ -187,7 +181,6 @@ permissions:
   - 'view own unpublished media'
   - 'view page revisions'
   - 'view post access counter'
-  - 'view project revisions'
   - 'view scheduled content'
   - 'view scheduled media'
   - 'view scheduled taxonomy_term'

@@ -9,13 +9,17 @@ dependencies:
     - node.type.heritage_item
     - node.type.language_item
     - node.type.page
-    - node.type.project
   module:
+    - dropzonejs
     - field_permissions
     - filter
     - node
+    - panels
     - path
+    - quickedit
+    - shortcut
     - system
+    - total_control
 id: research_assistant
 label: 'Research Assistant'
 weight: -1
@@ -25,8 +29,10 @@ permissions:
   - 'access comments'
   - 'access content'
   - 'access content overview'
+  - 'access in-place editing'
   - 'access media browser'
   - 'access relations'
+  - 'access shortcuts'
   - 'access site-wide contact form'
   - 'access user contact forms'
   - 'access user profiles'
@@ -57,6 +63,7 @@ permissions:
   - 'download own document files'
   - 'download own image files'
   - 'download own video files'
+  - 'dropzone upload files'
   - 'edit own article content'
   - 'edit own audio files'
   - 'edit own comments'
@@ -66,7 +73,6 @@ permissions:
   - 'edit own image files'
   - 'edit own language_item content'
   - 'edit own page content'
-  - 'edit own project content'
   - 'edit own tags'
   - 'edit own video files'
   - 'edit relations'
@@ -90,6 +96,7 @@ permissions:
   - 'edit terms in 8'
   - 'edit terms in 9'
   - 'flush caches'
+  - 'have total control'
   - 'post comments'
   - 'revert revisions'
   - 'search heritage_item content'
@@ -98,6 +105,7 @@ permissions:
   - 'search resource content'
   - 'skip comment approval'
   - 'use advanced search'
+  - 'use panels dashboard'
   - 'use php in custom pagers'
   - 'use text format basic_html'
   - 'use text format full_html'

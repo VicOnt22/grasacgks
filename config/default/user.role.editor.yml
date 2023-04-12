@@ -18,7 +18,6 @@ dependencies:
     - node.type.landing_page_lb
     - node.type.language_item
     - node.type.page
-    - node.type.project
     - node.type.varbase_heroslider_media
     - taxonomy.vocabulary.tags
     - workflows.workflow.varbase_editorial_workflow
@@ -98,6 +97,7 @@ permissions:
   - 'add terms in tags'
   - 'clone paragraph entity'
   - 'configure all landing_page_lb node layout overrides'
+  - 'configure editable landing_page_lb node layout overrides'
   - 'create and edit custom blocks'
   - 'create article content'
   - 'create audio media'
@@ -113,7 +113,6 @@ permissions:
   - 'create language_item content'
   - 'create media'
   - 'create page content'
-  - 'create project content'
   - 'create remote_video media'
   - 'create terms in blog_categories'
   - 'create terms in tags'
@@ -123,6 +122,7 @@ permissions:
   - 'create varbase_heroslider_media content'
   - 'create video media'
   - 'delete any audio media'
+  - 'delete any document media'
   - 'delete any file media'
   - 'delete any gallery media'
   - 'delete any image media'
@@ -142,7 +142,6 @@ permissions:
   - 'delete own landing_page_lb content'
   - 'delete own language_item content'
   - 'delete own page content'
-  - 'delete own project content'
   - 'delete own remote_video media'
   - 'delete own tweet media'
   - 'delete own varbase_blog content'
@@ -162,7 +161,6 @@ permissions:
   - 'edit any landing_page_lb content'
   - 'edit any language_item content'
   - 'edit any page content'
-  - 'edit any project content'
   - 'edit any remote_video media'
   - 'edit any tweet media'
   - 'edit any varbase_blog content'
@@ -179,7 +177,6 @@ permissions:
   - 'edit own landing_page_lb content'
   - 'edit own language_item content'
   - 'edit own page content'
-  - 'edit own project content'
   - 'edit own remote_video media'
   - 'edit own tweet media'
   - 'edit own varbase_blog content'
@@ -209,6 +206,7 @@ permissions:
   - 'use ipe with page manager'
   - 'use media_bulk_upload bulk upload form'
   - 'use moderation sidebar'
+  - 'use panels dashboard'
   - 'use text format basic_html'
   - 'use text format full_html'
   - 'use varbase_editorial_workflow transition archive'

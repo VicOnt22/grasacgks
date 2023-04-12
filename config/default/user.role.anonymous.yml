@@ -5,6 +5,7 @@ dependencies:
   module:
     - media
     - system
+    - taxonomy_access_fix
 _core:
   default_config_hash: o946uJlkxATOINv23-nWPvp8plQ52XpSv3tUZVv007g
 id: anonymous
@@ -17,3 +18,17 @@ permissions:
   - 'view files'
   - 'view media'
   - 'view own files'
+  - 'view terms in collection'
+  - 'view terms in contributor_roles'
+  - 'view terms in contributors'
+  - 'view terms in exchange_types'
+  - 'view terms in folders'
+  - 'view terms in institution'
+  - 'view terms in item_type'
+  - 'view terms in language_item_source'
+  - 'view terms in languages'
+  - 'view terms in local_origin'
+  - 'view terms in nations'
+  - 'view terms in regions'
+  - 'view terms in tags'
+  - 'view terms in traditional_knowledge_tk_labels'

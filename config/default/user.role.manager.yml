@@ -9,16 +9,18 @@ dependencies:
     - node.type.heritage_item
     - node.type.language_item
     - node.type.page
-    - node.type.project
-    - node.type.resource
-    - node.type.secure_page
   module:
+    - dropzonejs
     - field_permissions
     - filter
     - node
+    - panels
+    - panels_ipe
     - path
+    - shortcut
     - system
     - taxonomy
+    - total_control
 id: manager
 label: Manager
 weight: 2
@@ -30,7 +32,10 @@ permissions:
   - 'access content overview'
   - 'access dashboard'
   - 'access media browser'
+  - 'access panels in-place editing'
   - 'access relations'
+  - 'access shortcuts'
+  - 'access site in maintenance mode'
   - 'access site-wide contact form'
   - 'access user contact forms'
   - 'access user profiles'
@@ -51,7 +56,6 @@ permissions:
   - 'create heritage_item content'
   - 'create language_item content'
   - 'create page content'
-  - 'create project content'
   - 'create relations'
   - 'create subuser 2'
   - 'create subuser 3'
@@ -66,9 +70,6 @@ permissions:
   - 'delete any image files'
   - 'delete any language_item content'
   - 'delete any page content'
-  - 'delete any project content'
-  - 'delete any resource content'
-  - 'delete any secure_page content'
   - 'delete any video files'
   - 'delete own article content'
   - 'delete own audio files'
@@ -77,7 +78,6 @@ permissions:
   - 'delete own image files'
   - 'delete own language_item content'
   - 'delete own page content'
-  - 'delete own project content'
   - 'delete own video files'
   - 'delete relations'
   - 'delete revisions'
@@ -109,6 +109,7 @@ permissions:
   - 'download own document files'
   - 'download own image files'
   - 'download own video files'
+  - 'dropzone upload files'
   - 'edit any article content'
   - 'edit any audio files'
   - 'edit any document files'
@@ -116,7 +117,6 @@ permissions:
   - 'edit any image files'
   - 'edit any language_item content'
   - 'edit any page content'
-  - 'edit any project content'
   - 'edit any video files'
   - 'edit own article content'
   - 'edit own audio files'
@@ -126,7 +126,6 @@ permissions:
   - 'edit own image files'
   - 'edit own language_item content'
   - 'edit own page content'
-  - 'edit own project content'
   - 'edit own video files'
   - 'edit relations'
   - 'edit subusers'
@@ -150,6 +149,7 @@ permissions:
   - 'edit terms in 8'
   - 'edit terms in 9'
   - 'flush caches'
+  - 'have total control'
   - 'mass add and create users'
   - 'merge terms'
   - 'override subuser relation'
@@ -166,6 +166,7 @@ permissions:
   - 'skip comment approval'
   - 'use Rules component rules_og_massadd'
   - 'use advanced search'
+  - 'use panels dashboard'
   - 'use php in custom pagers'
   - 'use text format basic_html'
   - 'use text format full_html'
@@ -177,6 +178,7 @@ permissions:
   - 'view own files'
   - 'view own private files'
   - 'view own unpublished content'
+  - 'view pane admin links'
   - 'view private files'
   - 'view revisions'
   - 'view subusers'

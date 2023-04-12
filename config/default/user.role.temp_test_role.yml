@@ -9,7 +9,6 @@ dependencies:
     - node.type.heritage_item
     - node.type.language_item
     - node.type.page
-    - node.type.project
   module:
     - field_permissions
     - filter
@@ -36,7 +35,6 @@ permissions:
   - 'create heritage_item content'
   - 'create language_item content'
   - 'create page content'
-  - 'create project content'
   - 'create relations'
   - 'create subuser 4'
   - 'create subuser 5'
@@ -49,7 +47,6 @@ permissions:
   - 'delete own heritage_item content'
   - 'delete own image files'
   - 'delete own language_item content'
-  - 'delete own project content'
   - 'delete own video files'
   - 'delete relations'
   - 'download any audio files'
@@ -66,7 +63,6 @@ permissions:
   - 'edit any heritage_item content'
   - 'edit any image files'
   - 'edit any language_item content'
-  - 'edit any project content'
   - 'edit any video files'
   - 'edit own article content'
   - 'edit own audio files'
@@ -77,7 +73,6 @@ permissions:
   - 'edit own image files'
   - 'edit own language_item content'
   - 'edit own page content'
-  - 'edit own project content'
   - 'edit own video files'
   - 'edit relations'
   - 'edit terms in 10'

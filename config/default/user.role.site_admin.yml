@@ -19,7 +19,6 @@ dependencies:
     - node.type.landing_page_lb
     - node.type.language_item
     - node.type.page
-    - node.type.project
     - node.type.varbase_heroslider_media
     - taxonomy.vocabulary.collection
     - taxonomy.vocabulary.contributor_roles
@@ -210,6 +209,7 @@ permissions:
   - 'change layouts in place editing'
   - 'clone paragraph entity'
   - 'configure all landing_page_lb node layout overrides'
+  - 'configure editable landing_page_lb node layout overrides'
   - 'configure geofield_map'
   - 'configure geolocation'
   - 'create and edit custom blocks'
@@ -228,7 +228,6 @@ permissions:
   - 'create language_item content'
   - 'create media'
   - 'create page content'
-  - 'create project content'
   - 'create remote_video media'
   - 'create terms in collection'
   - 'create terms in contributor_roles'
@@ -241,7 +240,6 @@ permissions:
   - 'create terms in languages'
   - 'create terms in local_origin'
   - 'create terms in nations'
-  - 'create terms in project_status'
   - 'create terms in regions'
   - 'create terms in tags'
   - 'create terms in traditional_knowledge_tk_labels'
@@ -261,6 +259,7 @@ permissions:
   - 'delete any article content'
   - 'delete any audio media'
   - 'delete any basic block content'
+  - 'delete any document media'
   - 'delete any faq content'
   - 'delete any file media'
   - 'delete any gallery media'
@@ -271,7 +270,6 @@ permissions:
   - 'delete any language_item content'
   - 'delete any media'
   - 'delete any page content'
-  - 'delete any project content'
   - 'delete any remote_video media'
   - 'delete any tweet media'
   - 'delete any varbase_blog content'
@@ -299,7 +297,6 @@ permissions:
   - 'delete own landing_page_lb content'
   - 'delete own language_item content'
   - 'delete own page content'
-  - 'delete own project content'
   - 'delete own remote_video media'
   - 'delete own tweet media'
   - 'delete own varbase_blog content'
@@ -341,7 +338,6 @@ permissions:
   - 'edit any landing_page_lb content'
   - 'edit any language_item content'
   - 'edit any page content'
-  - 'edit any project content'
   - 'edit any remote_video media'
   - 'edit any tweet media'
   - 'edit any varbase_blog content'
@@ -359,7 +355,6 @@ permissions:
   - 'edit own landing_page_lb content'
   - 'edit own language_item content'
   - 'edit own page content'
-  - 'edit own project content'
   - 'edit own remote_video media'
   - 'edit own tweet media'
   - 'edit own varbase_blog content'
@@ -417,7 +412,6 @@ permissions:
   - 'revert landing_page_lb revisions'
   - 'revert language_item revisions'
   - 'revert page revisions'
-  - 'revert project revisions'
   - 'revert varbase_blog revisions'
   - 'revert varbase_heroslider_media revisions'
   - 'run cron jobs'
@@ -484,7 +478,6 @@ permissions:
   - 'view page revisions'
   - 'view pane admin links'
   - 'view post access counter'
-  - 'view project revisions'
   - 'view restricted block content'
   - 'view scheduled content'
   - 'view scheduled media'
