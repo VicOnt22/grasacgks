@@ -12,7 +12,7 @@ to quickly upload multiple files.
 You will now have the media bulk upload configuration at your disposal.
 Just go to the ``` /admin/config/media/media-bulk-config ``` page and
 configure a media bulk upload form. After creating the configuration you
-can go to `` /admin/content/media/media-bulk-config `` and use your configured
+can go to `` /media/bulk-upload `` and use your configured
 form.
 
 Maximum file size is currently determined based on the selected media

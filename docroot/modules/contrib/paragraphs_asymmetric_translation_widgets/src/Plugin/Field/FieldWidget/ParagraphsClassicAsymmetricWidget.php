@@ -2,6 +2,7 @@
 
 namespace Drupal\paragraphs_asymmetric_translation_widgets\Plugin\Field\FieldWidget;
 
+use Drupal\field_group\FormatterHelper;
 use Drupal\paragraphs\Plugin\Field\FieldWidget\InlineParagraphsWidget;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
@@ -472,8 +473,8 @@ class ParagraphsClassicAsymmetricWidget extends InlineParagraphsWidget {
         ];
 
         field_group_attach_groups($element['subform'], $context);
-        if (method_exists(\Drupal\field_group\FormatterHelper::class, 'formProcess')) {
-          $element['subform']['#process'][] = [\Drupal\field_group\FormatterHelper::class, 'formProcess'];
+        if (method_exists(FormatterHelper::class, 'formProcess')) {
+          $element['subform']['#process'][] = [FormatterHelper::class, 'formProcess'];
         }
         elseif (function_exists('field_group_form_process')) {
           $element['subform']['#process'][] = 'field_group_form_process';

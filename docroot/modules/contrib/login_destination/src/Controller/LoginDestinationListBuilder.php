@@ -47,7 +47,7 @@ class LoginDestinationListBuilder extends DraggableListBuilder {
    */
   public function buildRow(EntityInterface $entity) {
     /** @var \Drupal\login_destination\Entity\LoginDestination $entity */
-    $row['label'] = $entity->getLabel();
+    $row['label'] = $entity->label();
 
     if ($entity->isDestinationCurrent()) {
       $row['destination'] = [

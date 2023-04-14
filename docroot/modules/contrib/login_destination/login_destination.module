@@ -153,7 +153,7 @@ function login_destination_link_alter(&$variables) {
   if ($url->isRouted() && in_array($url->getRouteName(), $routes)) {
     // Get current path.
     $current = \Drupal::request()->getpathInfo(); /*with lang prefix*/
-    $variables['options']['query']['destination'] = $current;
+    $variables['options']['query']['current'] = $current;
   }
 }
 

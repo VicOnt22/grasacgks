@@ -15,7 +15,7 @@ interface LoginDestinationInterface extends ConfigEntityInterface {
    * @return string
    *   Login destination rule description.
    */
-  public function getLabel();
+  public function label();
 
   /**
    * Get machine name for destination rule.

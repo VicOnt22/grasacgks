@@ -161,7 +161,7 @@ class LoginDestination extends ConfigEntityBase implements LoginDestinationInter
   /**
    * {@inheritdoc}
    */
-  public function getLabel() {
+  public function label() {
     return $this->label;
   }
 

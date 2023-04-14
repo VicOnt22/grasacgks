@@ -113,24 +113,15 @@ class FileDeleteForm extends ContentEntityConfirmFormBase {
       return;
     }
 
-    $form_state->setRedirect('view.files.page_1');
-
-    // If $delete_immediately is TRUE, delete the file.
-    if ($delete_immediately) {
-      $this->entity->delete();
-      $this->messenger()->addMessage($this->t('The file %file_name has been deleted.', [
-        '%file_name' => $this->entity->getFilename(),
-      ]));
-
-      return;
-    }
-
     // Mark the file for removal by file_cron().
     $this->entity->setTemporary();
     $this->entity->save();
+
     $this->messenger()->addMessage($this->t('The file %file_name has been marked for deletion.', [
       '%file_name' => $this->entity->getFilename(),
     ]));
+
+    $form_state->setRedirect('view.files.page_1');
   }
 
   /**

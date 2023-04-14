@@ -16,6 +16,7 @@ use PHPStan\PhpDocParser\Ast\Type\ConstTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\GenericTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\IntersectionTypeNode;
+use PHPStan\PhpDocParser\Ast\Type\ObjectShapeNode;
 use PHPStan\PhpDocParser\Ast\Type\ThisTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
@@ -463,6 +464,10 @@ class AnnotationHelper
 			);
 		}
 
+		if ($annotation->getType() instanceof ObjectShapeNode) {
+			return false;
+		}
+
 		if ($annotation->getType() instanceof ConstTypeNode) {
 			return false;
 		}
@@ -497,7 +502,7 @@ class AnnotationHelper
 
 			if (in_array(
 				strtolower($annotationTypeNode->name),
-				['class-string', 'trait-string', 'callable-string', 'numeric-string', 'non-empty-string', 'literal-string', 'positive-int', 'negative-int'],
+				['class-string', 'trait-string', 'callable-string', 'numeric-string', 'non-empty-string', 'non-falsy-string', 'literal-string', 'positive-int', 'negative-int'],
 				true
 			)) {
 				return false;

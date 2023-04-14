@@ -14,7 +14,12 @@ class InstallTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [];
+  protected $defaultTheme = 'classy';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected static $modules = [];
 
   /**
    * Module handler to ensure installed modules.
@@ -33,7 +38,7 @@ class InstallTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
     $this->moduleHandler = $this->container->get('module_handler');
     $this->moduleInstaller = $this->container->get('module_installer');
@@ -79,7 +84,7 @@ class InstallTest extends BrowserTestBase {
     $this->drupalLogin($admin);
 
     // Assert that expanded links are present in the HTML.
-    $this->assertRaw('class="toolbar-icon toolbar-icon-user-admin-index"');
+    $this->assertSession()->responseContains('class="toolbar-icon toolbar-icon-user-admin-index"');
   }
 
 }

@@ -3,6 +3,4 @@ ignored_config_entities:
   - 'xmlsitemap.xmlsitemap.*'
   - 'varbase_core.general_settings.*'
   - 'geofield_map.settings.*'
-  - 'geolocation_google_maps.settings.*'
   - 'geocoder.geocoder_provider.googlemaps.*'
-  - 'geocoder.geocoder_provider.bingmaps.*'

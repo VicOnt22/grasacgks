@@ -57,8 +57,9 @@ class PathologicUITest extends BrowserTestBase {
     $this->assertText('The configuration options have been saved.');
     $this->assertFieldChecked('edit-protocol-style-proto-rel');
     $this->assertText('http://example.com/');
-    $this->clickLink('Pathologic’s documentation');
-    $this->assertResponse(200);
+    $docs_link = $this->getSession()->getPage()->findLink('Pathologic’s documentation');
+    $this->assertNotEmpty($docs_link);
+    $this->assertSame('https://www.drupal.org/node/257026', $docs_link->getAttribute('href'));
   }
 
   /**

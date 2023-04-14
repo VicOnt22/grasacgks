@@ -14,7 +14,12 @@ class UninstallTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['login_destination'];
+  protected $defaultTheme = 'classy';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected static $modules = ['login_destination'];
 
   /**
    * Tests module uninstallation.

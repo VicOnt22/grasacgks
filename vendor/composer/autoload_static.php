@@ -297,8 +297,8 @@ class ComposerStaticInit9a23ef48a2a9329279c4a55d12ebb5f7
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
         ),
         'lsolesen\\pel\\' => 
         array (
@@ -550,8 +550,8 @@ class ComposerStaticInit9a23ef48a2a9329279c4a55d12ebb5f7
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -603,8 +603,8 @@ class ComposerStaticInit9a23ef48a2a9329279c4a55d12ebb5f7
         ),
         'League\\Uri\\' => 
         array (
-            0 => __DIR__ . '/..' . '/league/uri/src',
-            1 => __DIR__ . '/..' . '/league/uri-interfaces/src',
+            0 => __DIR__ . '/..' . '/league/uri-interfaces/src',
+            1 => __DIR__ . '/..' . '/league/uri/src',
         ),
         'League\\OAuth2\\Server\\' => 
         array (
@@ -667,8 +667,8 @@ class ComposerStaticInit9a23ef48a2a9329279c4a55d12ebb5f7
         ),
         'Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/php-http/message/src',
-            1 => __DIR__ . '/..' . '/php-http/message-factory/src',
+            0 => __DIR__ . '/..' . '/php-http/message-factory/src',
+            1 => __DIR__ . '/..' . '/php-http/message/src',
         ),
         'Http\\Discovery\\' => 
         array (
@@ -817,9 +817,9 @@ class ComposerStaticInit9a23ef48a2a9329279c4a55d12ebb5f7
         ),
         'Doctrine\\Common\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/common/src',
-            1 => __DIR__ . '/..' . '/doctrine/event-manager/src',
-            2 => __DIR__ . '/..' . '/doctrine/reflection/lib/Doctrine/Common',
+            0 => __DIR__ . '/..' . '/doctrine/event-manager/src',
+            1 => __DIR__ . '/..' . '/doctrine/reflection/lib/Doctrine/Common',
+            2 => __DIR__ . '/..' . '/doctrine/common/src',
         ),
         'Dflydev\\DotAccessData\\' => 
         array (
@@ -907,8 +907,8 @@ class ComposerStaticInit9a23ef48a2a9329279c4a55d12ebb5f7
         ),
         'Behat\\Mink\\Driver\\' => 
         array (
-            0 => __DIR__ . '/..' . '/behat/mink-selenium2-driver/src',
-            1 => __DIR__ . '/..' . '/friends-of-behat/mink-browserkit-driver/src',
+            0 => __DIR__ . '/..' . '/friends-of-behat/mink-browserkit-driver/src',
+            1 => __DIR__ . '/..' . '/behat/mink-selenium2-driver/src',
         ),
         'Behat\\Mink\\' => 
         array (

@@ -65,7 +65,7 @@ class LoginDestinationRuleForm extends EntityForm {
     $form['label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Label'),
-      '#default_value' => $login_destination->getLabel(),
+      '#default_value' => $login_destination->label(),
       '#description' => $this->t('A short description of this login destination rule.'),
       '#required' => TRUE,
     ];
@@ -202,12 +202,12 @@ class LoginDestinationRuleForm extends EntityForm {
 
     if ($login_destination->save()) {
       $this->messenger()->addMessage($this->t('Saved the %label login destination.', [
-        '%label' => $login_destination->getLabel(),
+        '%label' => $login_destination->label(),
       ]));
     }
     else {
       $this->messenger()->addMessage($this->t('The %label login destination was not saved.', [
-        '%label' => $login_destination->getLabel(),
+        '%label' => $login_destination->label(),
       ]));
     }
     $form_state->setRedirect('login_destination.list');

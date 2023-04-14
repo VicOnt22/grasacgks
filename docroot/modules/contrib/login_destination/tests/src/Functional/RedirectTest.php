@@ -20,7 +20,12 @@ class RedirectTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['login_destination', 'node'];
+  protected $defaultTheme = 'classy';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected static $modules = ['login_destination', 'node'];
 
   /**
    * The account logging in or out.
@@ -32,7 +37,7 @@ class RedirectTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
 
     // Create a node page to redirect to.
@@ -100,7 +105,8 @@ class RedirectTest extends BrowserTestBase {
         'pass[pass2]' => $password,
       ];
     }
-    $this->drupalPostForm('user/register', $edit, 'Create new account');
+    $this->drupalGet('user/register');
+    $this->submitForm($edit, 'Create new account');
 
     $storage = $this->container->get('entity_type.manager')->getStorage('user');
     $storage->resetCache();
@@ -154,7 +160,7 @@ class RedirectTest extends BrowserTestBase {
 
     $this->createLoginDestinationToNode1([LoginDestination::TRIGGER_REGISTRATION]);
 
-    $this->register(user_password());
+    $this->register(\Drupal::service('password_generator')->generate());
     $this->assertSession()->pageTextContains('Registration successful. You are now logged in.');
 
     // Ensure that the redirect happened.
@@ -181,7 +187,7 @@ class RedirectTest extends BrowserTestBase {
       LoginDestination::TRIGGER_LOGOUT,
     ]);
 
-    $this->register(user_password());
+    $this->register(\Drupal::service('password_generator')->generate());
     $this->assertSession()->pageTextContains('Registration successful. You are now logged in.');
 
     // Ensure that no login destination redirect happened.
@@ -196,8 +202,9 @@ class RedirectTest extends BrowserTestBase {
 
     // Generate password reset URL.
     $url = user_pass_reset_url($this->account);
+    $this->drupalGet($url);
     // And use the one-time login link.
-    $this->drupalPostForm($url, NULL, 'Log in');
+    $this->submitForm(NULL, 'Log in');
     $this->assertSession()->pageTextContains('You have just used your one-time login link. It is no longer necessary to use this link to log in. Please change your password.');
     $this->assertSession()->titleEquals(strtr('@name | @site', [
       '@name' => $this->account->getAccountName(),
@@ -205,12 +212,12 @@ class RedirectTest extends BrowserTestBase {
     ]));
 
     // Set a new password.
-    $password = user_password();
+    $password = \Drupal::service('password_generator')->generate();
     $edit = [
       'pass[pass1]' => $password,
       'pass[pass2]' => $password,
     ];
-    $this->drupalPostForm(NULL, $edit, 'Save');
+    $this->submitForm($edit, 'Save');
     $this->assertSession()->pageTextContains('The changes have been saved.');
 
     // Assert that the redirect has happened now.
@@ -234,8 +241,9 @@ class RedirectTest extends BrowserTestBase {
 
     // Generate password reset URL.
     $url = user_pass_reset_url($this->account);
+    $this->drupalGet($url);
     // And use the one-time login link.
-    $this->drupalPostForm($url, NULL, 'Log in');
+    $this->submitForm(NULL, 'Log in');
     $this->assertSession()->pageTextContains('You have just used your one-time login link. It is no longer necessary to use this link to log in. Please change your password.');
     $this->assertSession()->titleEquals(strtr('@name | @site', [
       '@name' => $this->account->getAccountName(),
@@ -243,12 +251,12 @@ class RedirectTest extends BrowserTestBase {
     ]));
 
     // Set a new password.
-    $password = user_password();
+    $password = \Drupal::service('password_generator')->generate();
     $edit = [
       'pass[pass1]' => $password,
       'pass[pass2]' => $password,
     ];
-    $this->drupalPostForm(NULL, $edit, 'Save');
+    $this->submitForm($edit, 'Save');
     $this->assertSession()->pageTextContains('The changes have been saved.');
 
     // Ensure that no login destination redirect happened.
@@ -267,8 +275,9 @@ class RedirectTest extends BrowserTestBase {
 
     // Generate password reset URL.
     $url = user_pass_reset_url($this->account);
+    $this->drupalGet($url);
     // And use the one-time login link.
-    $this->drupalPostForm($url, NULL, 'Log in');
+    $this->submitForm(NULL, 'Log in');
 
     // Assert that the redirect happened immediately.
     $this->assertSession()->statusCodeEquals(200);
@@ -296,8 +305,9 @@ class RedirectTest extends BrowserTestBase {
 
     // Generate password reset URL.
     $url = user_pass_reset_url($this->account);
+    $this->drupalGet($url);
     // And use the one-time login link.
-    $this->drupalPostForm($url, NULL, 'Log in');
+    $this->submitForm(NULL, 'Log in');
 
     // Ensure that no login destination redirect happened.
     $this->assertSession()->addressEquals('/user/2/edit');
@@ -314,13 +324,14 @@ class RedirectTest extends BrowserTestBase {
     $this->drupalLogin($this->account);
 
     // Set password on account edit page.
-    $password = user_password();
+    $password = \Drupal::service('password_generator')->generate();
     $edit = [
       'current_pass' => $this->account->passRaw,
       'pass[pass1]' => $password,
       'pass[pass2]' => $password,
     ];
-    $this->drupalPostForm('user/2/edit', $edit, 'Save');
+    $this->drupalGet('user/2/edit');
+    $this->submitForm($edit, 'Save');
     $this->assertSession()->pageTextContains('The changes have been saved.');
 
     // Assert that the user is still on their account edit page.

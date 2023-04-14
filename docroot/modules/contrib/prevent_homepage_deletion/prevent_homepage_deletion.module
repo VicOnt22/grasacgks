@@ -51,9 +51,12 @@ function prevent_homepage_deletion_node_access(EntityInterface $entity, $operati
  * Helper function that checks if the current user can delete this node.
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   Current entity.
  * @param \Drupal\Core\Session\AccountInterface $account
+ *   User account.
  *
  * @return bool
+ *   True if the page can be deleted by this user.
  */
 function _prevent_homepage_deletion_check(EntityInterface $entity, AccountInterface $account) {
   $candelete = TRUE;

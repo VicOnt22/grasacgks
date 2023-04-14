@@ -16,12 +16,20 @@ class ParagraphsAsymmetricTranslationTest extends BrowserTestBase {
 
   use FieldUiTestTrait, ParagraphsCoreVersionUiTestTrait, ParagraphsTestBaseTrait;
 
-  public static $modules = [
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected static $modules = [
     'node',
     'paragraphs_demo',
     'content_translation',
     'block',
-    'paragraphs_asymmetric_translation_widgets'
+    'paragraphs_asymmetric_translation_widgets',
   ];
 
   /**
@@ -34,28 +42,38 @@ class ParagraphsAsymmetricTranslationTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->drupalPlaceBlock('local_tasks_block');
     $this->drupalPlaceBlock('page_title_block');
 
-    $this->adminUser = $this->drupalCreateUser(
-      [
-        'administer site configuration',
-        'administer nodes',
-        'create paragraphed_content_demo content',
-        'edit any paragraphed_content_demo content',
-        'delete any paragraphed_content_demo content',
-        'administer paragraph form display',
-        'administer node form display',
-        'administer paragraph fields',
-        'administer content translation',
-        'translate any entity',
-        'create content translations',
-        'administer languages',
-        'administer content types',
-      ]
-    );
+    $this->adminUser = $this->drupalCreateUser(array(
+      'administer site configuration',
+      'create paragraphed_content_demo content',
+      'edit any paragraphed_content_demo content',
+      'delete any paragraphed_content_demo content',
+      'administer nodes',
+      'administer content translation',
+      'create content translations',
+      'translate any entity',
+      'bypass node access',
+      'use editorial transition create_new_draft',
+      'use editorial transition publish',
+      'use editorial transition archived_published',
+      'use editorial transition archived_draft',
+      'use editorial transition archive',
+      'administer languages',
+      'administer content types',
+      'administer node fields',
+      'administer node display',
+      'administer paragraphs types',
+      'administer paragraph fields',
+      'administer paragraph display',
+      'administer paragraph form display',
+      'administer node form display',
+      'administer paragraphs library',
+      'use text format basic_html',
+    ));
 
     $this->drupalLogin($this->adminUser);
 
@@ -70,11 +88,8 @@ class ParagraphsAsymmetricTranslationTest extends BrowserTestBase {
       'settings[paragraph][text][settings][language][language_alterable]' => FALSE,
       'settings[paragraph][nested_paragraph][fields][field_paragraphs_demo]' => TRUE,
     ];
-    $this->drupalPostForm(
-      'admin/config/regional/content-language',
-      $edit,
-      t('Save configuration')
-    );
+    $this->drupalGet('admin/config/regional/content-language');
+    $this->submitForm($edit, 'Save configuration');
   }
 
   /**
@@ -89,24 +104,24 @@ class ParagraphsAsymmetricTranslationTest extends BrowserTestBase {
   public function testParagraphsMultilingualFieldTranslation() {
     // Set widget to assymetric one.
     $this->drupalGet('/admin/structure/types/manage/paragraphed_content_demo/form-display');
-    $this->drupalPostForm(NULL, array('fields[field_paragraphs_demo][type]' => 'paragraphs_classic_asymmetric'), t('Save'));
+    $this->submitForm(['fields[field_paragraphs_demo][type]' => 'paragraphs_classic_asymmetric'], 'Save');
 
     // 1. Translate node and create different paragraphs.
     // Add an English node.
     $this->drupalGet('node/add/paragraphed_content_demo');
-    $this->drupalPostForm(NULL, NULL, t('Add Text'));
+    $this->submitForm([], 'Add Text');
 
     $edit = [
       'title[0][value]' => 'Title in english',
       'field_paragraphs_demo[0][subform][field_text_demo][0][value]' => 'Text in english',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save'));
+    $this->submitForm($edit, 'Save');
 
     // Translate the node to French.
     $node = $this->drupalGetNodeByTitle('Title in english');
     $this->drupalGet('node/' . $node->id() . '/translations/add/en/fr');
 
-    $this->drupalPostForm(NULL, [], 'field_paragraphs_demo_0_edit');
+    $this->submitForm([], 'field_paragraphs_demo_0_edit');
 
     $edit = [
       'title[0][value]' => 'Title in french',
@@ -114,11 +129,7 @@ class ParagraphsAsymmetricTranslationTest extends BrowserTestBase {
       'revision' => TRUE,
       'revision_log[0][value]' => 'french 1',
     ];
-    $this->drupalPostForm(
-      NULL,
-      $edit,
-      t('Save (this translation)')
-    );
+    $this->submitForm($edit, 'Save (this translation)');
 
     // Check the english translation.
     $this->drupalGet('node/' . $node->id());
@@ -151,11 +162,11 @@ class ParagraphsAsymmetricTranslationTest extends BrowserTestBase {
     // Try to edit the paragraphs, to see if the correct translation gets
     // updated. Start with the english.
     $this->drupalGet('node/' . $node->id() . '/edit');
-    $this->drupalPostForm(NULL, [], 'field_paragraphs_demo_0_edit');
+    $this->submitForm([], 'field_paragraphs_demo_0_edit');
     $edit = [
       'field_paragraphs_demo[0][subform][field_text_demo][0][value]' => 'The updated english text',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save (this translation)'));
+    $this->submitForm($edit, 'Save (this translation)');
     // Check if only the english node had its paragraph text updated, and that
     // there has been no mixing-up of the paragraph entities.
     $this->drupalGet('node/' . $node->id());
@@ -170,11 +181,11 @@ class ParagraphsAsymmetricTranslationTest extends BrowserTestBase {
 
     // Now repeat for the french.
     $this->drupalGet('fr/node/' . $node->id() . '/edit');
-    $this->drupalPostForm(NULL, [], 'field_paragraphs_demo_0_edit');
+    $this->submitForm([], 'field_paragraphs_demo_0_edit');
     $edit = [
       'field_paragraphs_demo[0][subform][field_text_demo][0][value]' => 'The updated french text',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save (this translation)'));
+    $this->submitForm($edit, 'Save (this translation)');
     // Check if only the french node had its paragraph text updated, and that
     // there has been no mixing-up of the paragraph entities.
     $this->drupalGet('node/' . $node->id());
@@ -190,13 +201,13 @@ class ParagraphsAsymmetricTranslationTest extends BrowserTestBase {
     // 3. Add different number of paragraphs on each translation.
     // Add 2 more paragraphs on the english node.
     $this->drupalGet('node/' . $node->id() . '/edit');
-    $this->drupalPostForm(NULL, NULL, t('Add Text'));
-    $this->drupalPostForm(NULL, NULL, t('Add Text'));
+    $this->submitForm([], 'Add Text');
+    $this->submitForm([], 'Add Text');
     $edit = [
       'field_paragraphs_demo[1][subform][field_text_demo][0][value]' => 'Second text in english',
       'field_paragraphs_demo[2][subform][field_text_demo][0][value]' => 'Third text in english',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save (this translation)'));
+    $this->submitForm($edit, 'Save (this translation)');
 
     // Confirm that the english node has the new paragraphs, and the french
     // node is intact.
@@ -214,15 +225,15 @@ class ParagraphsAsymmetricTranslationTest extends BrowserTestBase {
 
     // Repeat the same, this time adding 3 new paragraphs on the french node.
     $this->drupalGet('fr/node/' . $node->id() . '/edit');
-    $this->drupalPostForm(NULL, NULL, t('Add Text'));
-    $this->drupalPostForm(NULL, NULL, t('Add Text'));
-    $this->drupalPostForm(NULL, NULL, t('Add Text'));
+    $this->submitForm([], 'Add Text');
+    $this->submitForm([], 'Add Text');
+    $this->submitForm([], 'Add Text');
     $edit = [
       'field_paragraphs_demo[1][subform][field_text_demo][0][value]' => 'Second text in french',
       'field_paragraphs_demo[2][subform][field_text_demo][0][value]' => 'Third text in french',
       'field_paragraphs_demo[3][subform][field_text_demo][0][value]' => 'Fourth text in french',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save (this translation)'));
+    $this->submitForm($edit, 'Save (this translation)');
 
     // Confirm that the french node has the new paragraphs, and the english
     // node is intact.
@@ -250,10 +261,10 @@ class ParagraphsAsymmetricTranslationTest extends BrowserTestBase {
     $this->drupalGet('node/' . $node->id() . '/edit');
 
     $this->assertNotNull($this->xpath('//*[@name="field_paragraphs_demo_1_remove"]'));
-    $this->drupalPostForm(NULL, [], 'field_paragraphs_demo_1_remove');
+    $this->submitForm([], 'field_paragraphs_demo_1_remove');
     $this->assertNotNull($this->xpath('//*[@name="field_paragraphs_demo_1_confirm_remove"]'));
-    $this->drupalPostForm(NULL, [], 'field_paragraphs_demo_1_confirm_remove');
-    $this->drupalPostForm(NULL, NULL, t('Save (this translation)'));
+    $this->submitForm([], 'field_paragraphs_demo_1_confirm_remove');
+    $this->submitForm([], 'Save (this translation)');
 
     $this->drupalGet('node/' . $node->id());
     $this->assertSession()->pageTextContains('The updated english text');
@@ -277,14 +288,14 @@ class ParagraphsAsymmetricTranslationTest extends BrowserTestBase {
     $this->drupalGet('fr/node/' . $node->id() . '/edit');
 
     $this->assertNotNull($this->xpath('//*[@name="field_paragraphs_demo_1_remove"]'));
-    $this->drupalPostForm(NULL, [], 'field_paragraphs_demo_1_remove');
+    $this->submitForm([], 'field_paragraphs_demo_1_remove');
     $this->assertNotNull($this->xpath('//*[@name="field_paragraphs_demo_1_confirm_remove"]'));
-    $this->drupalPostForm(NULL, [], 'field_paragraphs_demo_1_confirm_remove');
+    $this->submitForm([], 'field_paragraphs_demo_1_confirm_remove');
     $this->assertNotNull($this->xpath('//*[@name="field_paragraphs_demo_3_remove"]'));
-    $this->drupalPostForm(NULL, [], 'field_paragraphs_demo_3_remove');
+    $this->submitForm([], 'field_paragraphs_demo_3_remove');
     $this->assertNotNull($this->xpath('//*[@name="field_paragraphs_demo_3_confirm_remove"]'));
-    $this->drupalPostForm(NULL, [], 'field_paragraphs_demo_3_confirm_remove');
-    $this->drupalPostForm(NULL, NULL, t('Save (this translation)'));
+    $this->submitForm([], 'field_paragraphs_demo_3_confirm_remove');
+    $this->submitForm([], 'Save (this translation)');
 
     $this->drupalGet('fr/node/' . $node->id());
     $this->assertSession()->responseNotContains('The updated english text');
@@ -332,7 +343,7 @@ class ParagraphsAsymmetricTranslationTest extends BrowserTestBase {
       'field_paragraphs_demo[0][_weight]' => 2,
       'field_paragraphs_demo[1][_weight]' => -2,
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save (this translation)'));
+    $this->submitForm($edit, 'Save (this translation)');
 
     $this->drupalGet('node/' . $node->id());
     $regex = '/Third text in english.*The updated english text/s';
@@ -349,7 +360,7 @@ class ParagraphsAsymmetricTranslationTest extends BrowserTestBase {
       'field_paragraphs_demo[0][_weight]' => 2,
       'field_paragraphs_demo[1][_weight]' => -2,
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save (this translation)'));
+    $this->submitForm($edit, 'Save (this translation)');
 
     $this->drupalGet('fr/node/' . $node->id());
     $regex = '/Third text in french.*The updated french text/s';
@@ -366,34 +377,30 @@ class ParagraphsAsymmetricTranslationTest extends BrowserTestBase {
   public function testParagraphsMultilingualFieldTranslationNested() {
     // Set widget to assymetric one.
     $this->drupalGet('/admin/structure/types/manage/paragraphed_content_demo/form-display');
-    $this->drupalPostForm(NULL, array('fields[field_paragraphs_demo][type]' => 'paragraphs_classic_asymmetric'), t('Save'));
+    $this->submitForm(['fields[field_paragraphs_demo][type]' => 'paragraphs_classic_asymmetric'], 'Save');
 
     // 1. Translate node and create different paragraphs.
     // Add an English node.
     $this->drupalGet('node/add/paragraphed_content_demo');
-    $this->drupalPostForm(NULL, NULL, t('Add Nested Paragraph'), []);
-    $this->drupalPostForm(NULL, NULL, 'field_paragraphs_demo_0_subform_field_paragraphs_demo_text_add_more');
+    $this->submitForm([], 'Add Nested Paragraph');
+    $this->submitForm([], 'field_paragraphs_demo_0_subform_field_paragraphs_demo_text_add_more');
     $edit = [
       'title[0][value]' => 'Title in english',
       'field_paragraphs_demo[0][subform][field_paragraphs_demo][0][subform][field_text_demo][0][value]' => 'Text in english',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save'));
+    $this->submitForm($edit, 'Save');
 
     // Translate the node to French.
     $node = $this->drupalGetNodeByTitle('Title in english');
     $this->drupalGet('node/' . $node->id() . '/translations/add/en/fr');
 
-    $this->drupalPostForm(NULL, [], 'field_paragraphs_demo_0_edit');
+    $this->submitForm([], 'field_paragraphs_demo_0_edit');
 
     $edit = [
       'title[0][value]' => 'Title in french',
       'field_paragraphs_demo[0][subform][field_paragraphs_demo][0][subform][field_text_demo][0][value]' => 'Text in french',
     ];
-    $this->drupalPostForm(
-      NULL,
-      $edit,
-      t('Save (this translation)')
-    );
+    $this->submitForm($edit, 'Save (this translation)');
 
     // Check the english translation.
     $this->drupalGet('node/' . $node->id());
@@ -413,11 +420,11 @@ class ParagraphsAsymmetricTranslationTest extends BrowserTestBase {
     // Try to edit the paragraphs, to see if the correct translation gets
     // updated. Start with the english.
     $this->drupalGet('node/' . $node->id() . '/edit');
-    $this->drupalPostForm(NULL, [], 'field_paragraphs_demo_0_edit');
+    $this->submitForm([], 'field_paragraphs_demo_0_edit');
     $edit = [
       'field_paragraphs_demo[0][subform][field_paragraphs_demo][0][subform][field_text_demo][0][value]' => 'The updated english text',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save (this translation)'));
+    $this->submitForm($edit, 'Save (this translation)');
     // Check if only the english node had its paragraph text updated, and that
     // there has been no mixing-up of the paragraph entities.
     $this->drupalGet('node/' . $node->id());
@@ -433,16 +440,12 @@ class ParagraphsAsymmetricTranslationTest extends BrowserTestBase {
     // 3. Add different number of paragraphs on one translation.
     // Add one more paragraph on the english node.
     $this->drupalGet('node/' . $node->id() . '/edit');
-    $this->drupalPostForm(NULL, [], 'field_paragraphs_demo_0_edit');
-    $this->drupalPostForm(NULL, NULL, 'field_paragraphs_demo_0_subform_field_paragraphs_demo_text_add_more');
+    $this->submitForm([], 'field_paragraphs_demo_0_edit');
+    $this->submitForm([], 'field_paragraphs_demo_0_subform_field_paragraphs_demo_text_add_more');
     $edit = [
       'field_paragraphs_demo[0][subform][field_paragraphs_demo][1][subform][field_text_demo][0][value]' => 'New english text',
     ];
-    $this->drupalPostForm(
-      NULL,
-      $edit,
-      t('Save (this translation)')
-    );
+    $this->submitForm($edit, 'Save (this translation)');
 
     // Confirm that the english node has the new paragraphs, and the french
     // node is intact.
@@ -463,34 +466,30 @@ class ParagraphsAsymmetricTranslationTest extends BrowserTestBase {
   public function testParagraphsMultilingualFieldDeleteTranslation() {
     // Set widget to assymetric one.
     $this->drupalGet('/admin/structure/types/manage/paragraphed_content_demo/form-display');
-    $this->drupalPostForm(NULL, array('fields[field_paragraphs_demo][type]' => 'paragraphs_classic_asymmetric'), t('Save'));
+    $this->submitForm(['fields[field_paragraphs_demo][type]' => 'paragraphs_classic_asymmetric'], 'Save');
 
     // 1. Translate node and create different paragraphs. Delete the translation
     // and check if the original is intact.
     // Add an English node.
     $this->drupalGet('node/add/paragraphed_content_demo');
-    $this->drupalPostForm(NULL, NULL, t('Add Nested Paragraph'));
-    $this->drupalPostForm(NULL, NULL, 'field_paragraphs_demo_0_subform_field_paragraphs_demo_text_add_more');
+    $this->submitForm([], 'Add Nested Paragraph');
+    $this->submitForm([], 'field_paragraphs_demo_0_subform_field_paragraphs_demo_text_add_more');
     $edit = [
       'title[0][value]' => 'Title in english',
       'field_paragraphs_demo[0][subform][field_paragraphs_demo][0][subform][field_text_demo][0][value]' => 'Text in english',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save'));
+    $this->submitForm($edit, 'Save');
 
     // Translate the node to French.
     $node = $this->drupalGetNodeByTitle('Title in english');
     $this->drupalGet('node/' . $node->id() . '/translations/add/en/fr');
-    $this->drupalPostForm(NULL, [], 'field_paragraphs_demo_0_edit');
+    $this->submitForm([], 'field_paragraphs_demo_0_edit');
 
     $edit = [
       'title[0][value]' => 'Title in french',
       'field_paragraphs_demo[0][subform][field_paragraphs_demo][0][subform][field_text_demo][0][value]' => 'Text in french',
     ];
-    $this->drupalPostForm(
-      NULL,
-      $edit,
-      t('Save (this translation)')
-    );
+    $this->submitForm($edit, 'Save (this translation)');
 
     // Check the english translation.
     $this->drupalGet('node/' . $node->id());
@@ -508,7 +507,7 @@ class ParagraphsAsymmetricTranslationTest extends BrowserTestBase {
 
     // Now delete the french translation.
     $this->drupalGet('fr/node/' . $node->id() . '/delete');
-    $this->drupalPostForm(NULL, NULL, t('Delete French translation'));
+    $this->submitForm([], 'Delete French translation');
 
     // Check the english translation.
     $this->drupalGet('node/' . $node->id());

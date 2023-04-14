@@ -15,7 +15,12 @@ class UrlParameterTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['login_destination'];
+  protected $defaultTheme = 'classy';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected static $modules = ['login_destination'];
 
   /**
    * Ensure no "current" query parameter is added to unrouted link elements.

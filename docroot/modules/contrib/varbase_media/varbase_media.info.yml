@@ -46,7 +46,7 @@ install:
   - slick
   - webp
 
-# Information added by Drupal.org packaging script on 2023-01-19
-version: '9.0.17'
+# Information added by Drupal.org packaging script on 2023-04-09
+version: '9.0.18'
 project: 'varbase_media'
-datestamp: 1674157479
+datestamp: 1681031491

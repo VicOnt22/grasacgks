@@ -18,6 +18,8 @@ use PHPStan\PhpDocParser\Ast\Type\GenericTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\IntersectionTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\NullableTypeNode;
+use PHPStan\PhpDocParser\Ast\Type\ObjectShapeItemNode;
+use PHPStan\PhpDocParser\Ast\Type\ObjectShapeNode;
 use PHPStan\PhpDocParser\Ast\Type\OffsetAccessTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\ThisTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
@@ -45,10 +47,10 @@ class AnnotationTypeHelper
 			return self::getIdentifierTypeNodes($typeNode->type);
 		}
 
-		if ($typeNode instanceof ArrayShapeNode) {
+		if ($typeNode instanceof ArrayShapeNode || $typeNode instanceof ObjectShapeNode) {
 			$identifierTypeNodes = [];
-			foreach ($typeNode->items as $arrayShapeItemNode) {
-				$identifierTypeNodes = array_merge($identifierTypeNodes, self::getIdentifierTypeNodes($arrayShapeItemNode->valueType));
+			foreach ($typeNode->items as $shapeItemNode) {
+				$identifierTypeNodes = array_merge($identifierTypeNodes, self::getIdentifierTypeNodes($shapeItemNode->valueType));
 			}
 			return $identifierTypeNodes;
 		}
@@ -126,10 +128,10 @@ class AnnotationTypeHelper
 			return self::getConstantTypeNodes($typeNode->type);
 		}
 
-		if ($typeNode instanceof ArrayShapeNode) {
+		if ($typeNode instanceof ArrayShapeNode || $typeNode instanceof ObjectShapeNode) {
 			$constTypeNodes = [];
-			foreach ($typeNode->items as $arrayShapeItemNode) {
-				$constTypeNodes = array_merge($constTypeNodes, self::getConstantTypeNodes($arrayShapeItemNode->valueType));
+			foreach ($typeNode->items as $shapeItemNode) {
+				$constTypeNodes = array_merge($constTypeNodes, self::getConstantTypeNodes($shapeItemNode->valueType));
 			}
 			return $constTypeNodes;
 		}
@@ -213,10 +215,10 @@ class AnnotationTypeHelper
 			return self::getUnionTypeNodes($typeNode->type);
 		}
 
-		if ($typeNode instanceof ArrayShapeNode) {
+		if ($typeNode instanceof ArrayShapeNode || $typeNode instanceof ObjectShapeNode) {
 			$unionTypeNodes = [];
-			foreach ($typeNode->items as $arrayShapeItemNode) {
-				$unionTypeNodes = array_merge($unionTypeNodes, self::getUnionTypeNodes($arrayShapeItemNode->valueType));
+			foreach ($typeNode->items as $shapeItemNode) {
+				$unionTypeNodes = array_merge($unionTypeNodes, self::getUnionTypeNodes($shapeItemNode->valueType));
 			}
 			return $unionTypeNodes;
 		}
@@ -281,10 +283,10 @@ class AnnotationTypeHelper
 			return array_merge([$typeNode], self::getArrayTypeNodes($typeNode->type));
 		}
 
-		if ($typeNode instanceof ArrayShapeNode) {
+		if ($typeNode instanceof ArrayShapeNode || $typeNode instanceof ObjectShapeNode) {
 			$arrayTypeNodes = [];
-			foreach ($typeNode->items as $arrayShapeItemNode) {
-				$arrayTypeNodes = array_merge($arrayTypeNodes, self::getArrayTypeNodes($arrayShapeItemNode->valueType));
+			foreach ($typeNode->items as $shapeItemNode) {
+				$arrayTypeNodes = array_merge($arrayTypeNodes, self::getArrayTypeNodes($shapeItemNode->valueType));
 			}
 			return $arrayTypeNodes;
 		}
@@ -420,11 +422,28 @@ class AnnotationTypeHelper
 				$arrayShapeItemNodes[] = self::change($arrayShapeItemNode, $typeNodeToChange, $changedTypeNode);
 			}
 
-			return new ArrayShapeNode($arrayShapeItemNodes, $masterTypeNode->sealed);
+			return new ArrayShapeNode($arrayShapeItemNodes, $masterTypeNode->sealed, $masterTypeNode->kind);
 		}
 
 		if ($masterTypeNode instanceof ArrayShapeItemNode) {
 			return new ArrayShapeItemNode(
+				$masterTypeNode->keyName,
+				$masterTypeNode->optional,
+				self::change($masterTypeNode->valueType, $typeNodeToChange, $changedTypeNode)
+			);
+		}
+
+		if ($masterTypeNode instanceof ObjectShapeNode) {
+			$objectShapeItemNodes = [];
+			foreach ($masterTypeNode->items as $objectShapeItemNode) {
+				$objectShapeItemNodes[] = self::change($objectShapeItemNode, $typeNodeToChange, $changedTypeNode);
+			}
+
+			return new ObjectShapeNode($objectShapeItemNodes);
+		}
+
+		if ($masterTypeNode instanceof ObjectShapeItemNode) {
+			return new ObjectShapeItemNode(
 				$masterTypeNode->keyName,
 				$masterTypeNode->optional,
 				self::change($masterTypeNode->valueType, $typeNodeToChange, $changedTypeNode)
@@ -528,6 +547,10 @@ class AnnotationTypeHelper
 			return true;
 		}
 
+		if ($typeNode instanceof ObjectShapeNode) {
+			return true;
+		}
+
 		if ($typeNode instanceof ArrayShapeNode) {
 			return true;
 		}
@@ -576,6 +599,10 @@ class AnnotationTypeHelper
 	{
 		if ($typeNode instanceof GenericTypeNode) {
 			return true;
+		}
+
+		if ($typeNode instanceof ObjectShapeNode) {
+			return false;
 		}
 
 		if ($typeNode instanceof ArrayShapeNode) {
@@ -722,7 +749,7 @@ class AnnotationTypeHelper
 	}
 
 	/**
-	 * @param CallableTypeNode|GenericTypeNode|IdentifierTypeNode|ThisTypeNode|ArrayTypeNode|ArrayShapeNode|ConstTypeNode $typeNode
+	 * @param CallableTypeNode|GenericTypeNode|IdentifierTypeNode|ThisTypeNode|ArrayTypeNode|ArrayShapeNode|ObjectShapeNode|ConstTypeNode $typeNode
 	 */
 	public static function getTypeHintFromOneType(
 		TypeNode $typeNode,
@@ -733,7 +760,7 @@ class AnnotationTypeHelper
 		if ($typeNode instanceof GenericTypeNode) {
 			$genericName = $typeNode->type->name;
 
-			if (strtolower($genericName) === 'non-empty-array') {
+			if (in_array(strtolower($genericName), ['non-empty-array', 'list', 'non-empty-list'], true)) {
 				return 'array';
 			}
 
@@ -755,7 +782,7 @@ class AnnotationTypeHelper
 
 			if (in_array(
 				strtolower($typeNode->name),
-				['class-string', 'trait-string', 'callable-string', 'numeric-string', 'non-empty-string', 'literal-string'],
+				['class-string', 'trait-string', 'callable-string', 'numeric-string', 'non-empty-string', 'non-falsy-string', 'literal-string'],
 				true
 			)) {
 				return 'string';
@@ -774,6 +801,10 @@ class AnnotationTypeHelper
 
 		if ($typeNode instanceof ArrayShapeNode) {
 			return 'array';
+		}
+
+		if ($typeNode instanceof ObjectShapeNode) {
+			return 'object';
 		}
 
 		if ($typeNode instanceof ConstTypeNode) {

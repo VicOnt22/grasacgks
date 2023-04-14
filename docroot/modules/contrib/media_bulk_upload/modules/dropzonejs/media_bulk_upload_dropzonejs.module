@@ -30,9 +30,9 @@ function media_bulk_upload_dropzonejs_media_bulk_upload_file_ids_alter(array &$f
     $fileEntity = $fileStorage->create([
       'uri' => $fileData['path'],
       'uid' => \Drupal::currentUser()->id(),
-      'status' => FILE_STATUS_PERMANENT,
       'filename' => $fileData['filename'],
     ]);
+    $fileEntity->setPermanent();
     $fileEntity->save();
     $fileIds[] = $fileEntity->id();
   }

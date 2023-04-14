@@ -11,6 +11,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
+use Drupal\file\Entity\File;
 use Drupal\file\FileInterface;
 use Drupal\file\FileRepositoryInterface;
 use Drupal\media\MediaInterface;
@@ -114,6 +115,7 @@ class MediaBulkUploadForm extends FormBase {
     $this->currentUser = $currentUser;
     $this->messenger = $messenger;
     $this->fileRepository = $fileRepository;
+    $this->maxFileSizeForm = '';
   }
 
   /**
@@ -231,7 +233,7 @@ class MediaBulkUploadForm extends FormBase {
       '#multiple' => TRUE,
       '#title' => $this->t('File Upload'),
       '#required' => TRUE,
-      '#description' => $this->t('Click or drop your files here'),
+      '#description' => $this->t('Click or drop your files here. You can upload up to <strong>@limit</strong> files at once.', ['@limit' => ini_get('max_file_uploads')]),
       '#upload_validators' => $validators,
       '#upload_location' => $mediaBulkConfig->get('upload_location'),
     ];
@@ -482,6 +484,14 @@ class MediaBulkUploadForm extends FormBase {
       throw new Exception("File $filename exceeds the maximum file size of $fileSizeSetting for media type $mediaTypeLabel exceeded.");
     }
 
+    if ($mediaType->getSource()->getPluginId() == 'image') {
+      $errors = $this->validateImageResolution($mediaType, $file);
+      if (!empty($errors)) {
+        $this->messenger()->addError($this->t('File :filename has image resolution errors. Check the logs for more details.', [':filename' => $filename]));
+        throw new \Exception('File image resolution errors: ' . implode(', ', $errors));
+      }
+    }
+
     $uri_scheme = $this->mediaSubFormManager->getTargetFieldDirectory($mediaType);
     $destination = $uri_scheme . '/' . $file->getFilename();
     $file_default_scheme = Drupal::config('system.file')->get('default_scheme') . '://';
@@ -534,6 +544,30 @@ class MediaBulkUploadForm extends FormBase {
     }
 
     return $fileSize <= $maxFileSize;
+  }
+
+  /**
+   * Validates the resolution of an image.
+   *
+   * @param \Drupal\media\MediaTypeInterface $mediaType
+   *   The media type entity.
+   * @param \Drupal\file\FileInterface $file
+   *   The file entity.
+   *
+   * @return array
+   *   Array of errors provided by file_validate_image_resolution.
+   */
+  protected function validateImageResolution(MediaTypeInterface $mediaType, FileInterface $file) : array {
+    $field_settings = $this->mediaSubFormManager
+      ->getMediaTypeManager()
+      ->getTargetFieldSettings($mediaType);
+    $errors = file_validate_image_resolution(
+      File::create(['uri' => $file->getFileUri()]),
+      $field_settings['max_resolution'] ?? 0,
+      $field_settings['min_resolution'] ?? 0
+    );
+
+    return $errors;
   }
 
   /**
@@ -598,4 +632,43 @@ class MediaBulkUploadForm extends FormBase {
     }
     return $this;
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    // Validate all uploaded files.
+    $uploaded_files = $form_state->getValue(['file_upload', 'uploaded_files']);
+    if (empty($uploaded_files)) {
+      $form_state->setErrorByName('file_upload', $this->t('No media files have been provided.'));
+    }
+    else {
+      foreach ($uploaded_files as $uploaded_file) {
+        // Create a new file entity since some modules only validate new files.
+        $file = $this->fileStorage->create([
+          'uri' => $uploaded_file['path']
+        ]);
+
+        // Let other modules perform validation on the new file.
+        $errors = \Drupal::moduleHandler()->invokeAll('file_validate', [
+          $file
+        ]);
+
+        // Process any reported errors.
+        if (!empty($errors)) {
+          $form_state->setErrorByName('file_upload', 'Errors for file ' . $file->getFilename() . ': ' . implode(', ', $errors));
+
+          try {
+            // Delete the uploaded file if it has validation errors.
+            $file_system = \Drupal::service('file_system');
+            $file_system->delete($uploaded_file['path']);
+          }
+          catch (Exception $e) {
+            watchdog_exception('media_bulk_upload', $e);
+          }
+        }
+      }
+    }
+  }
+
 }

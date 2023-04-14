@@ -5,6 +5,7 @@ namespace PHPStan\PhpDocParser\Parser;
 use LogicException;
 use PHPStan\PhpDocParser\Ast;
 use PHPStan\PhpDocParser\Lexer\Lexer;
+use function in_array;
 use function strpos;
 use function trim;
 
@@ -123,8 +124,12 @@ class TypeParser
 				} elseif ($tokens->isCurrentTokenType(Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
 					$type = $this->tryParseArrayOrOffsetAccess($tokens, $type);
 
-				} elseif ($type->name === 'array' && $tokens->isCurrentTokenType(Lexer::TOKEN_OPEN_CURLY_BRACKET) && !$tokens->isPrecededByHorizontalWhitespace()) {
-					$type = $this->parseArrayShape($tokens, $type);
+				} elseif (in_array($type->name, ['array', 'list', 'object'], true) && $tokens->isCurrentTokenType(Lexer::TOKEN_OPEN_CURLY_BRACKET) && !$tokens->isPrecededByHorizontalWhitespace()) {
+					if ($type->name === 'object') {
+						$type = $this->parseObjectShape($tokens);
+					} else {
+						$type = $this->parseArrayShape($tokens, $type, $type->name);
+					}
 
 					if ($tokens->isCurrentTokenType(Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
 						$type = $this->tryParseArrayOrOffsetAccess($tokens, $type);
@@ -439,8 +444,8 @@ class TypeParser
 			if ($tokens->isCurrentTokenType(Lexer::TOKEN_OPEN_ANGLE_BRACKET)) {
 				$type = $this->parseGeneric($tokens, $type);
 
-			} elseif ($type->name === 'array' && $tokens->isCurrentTokenType(Lexer::TOKEN_OPEN_CURLY_BRACKET) && !$tokens->isPrecededByHorizontalWhitespace()) {
-				$type = $this->parseArrayShape($tokens, $type);
+			} elseif (in_array($type->name, ['array', 'list'], true) && $tokens->isCurrentTokenType(Lexer::TOKEN_OPEN_CURLY_BRACKET) && !$tokens->isPrecededByHorizontalWhitespace()) {
+				$type = $this->parseArrayShape($tokens, $type, $type->name);
 			}
 		}
 
@@ -499,8 +504,11 @@ class TypeParser
 	}
 
 
-	/** @phpstan-impure */
-	private function parseArrayShape(TokenIterator $tokens, Ast\Type\TypeNode $type): Ast\Type\ArrayShapeNode
+	/**
+	 * @phpstan-impure
+	 * @param Ast\Type\ArrayShapeNode::KIND_* $kind
+	 */
+	private function parseArrayShape(TokenIterator $tokens, Ast\Type\TypeNode $type, string $kind): Ast\Type\ArrayShapeNode
 	{
 		$tokens->consumeTokenType(Lexer::TOKEN_OPEN_CURLY_BRACKET);
 
@@ -511,7 +519,7 @@ class TypeParser
 			$tokens->tryConsumeTokenType(Lexer::TOKEN_PHPDOC_EOL);
 
 			if ($tokens->tryConsumeTokenType(Lexer::TOKEN_CLOSE_CURLY_BRACKET)) {
-				return new Ast\Type\ArrayShapeNode($items);
+				return new Ast\Type\ArrayShapeNode($items, true, $kind);
 			}
 
 			if ($tokens->tryConsumeTokenType(Lexer::TOKEN_VARIADIC)) {
@@ -528,7 +536,7 @@ class TypeParser
 		$tokens->tryConsumeTokenType(Lexer::TOKEN_PHPDOC_EOL);
 		$tokens->consumeTokenType(Lexer::TOKEN_CLOSE_CURLY_BRACKET);
 
-		return new Ast\Type\ArrayShapeNode($items, $sealed);
+		return new Ast\Type\ArrayShapeNode($items, $sealed, $kind);
 	}
 
 
@@ -563,6 +571,66 @@ class TypeParser
 			$tokens->next();
 
 		} elseif ($tokens->isCurrentTokenType(Lexer::TOKEN_SINGLE_QUOTED_STRING)) {
+			$key = new Ast\ConstExpr\ConstExprStringNode(trim($tokens->currentTokenValue(), "'"));
+			$tokens->next();
+
+		} elseif ($tokens->isCurrentTokenType(Lexer::TOKEN_DOUBLE_QUOTED_STRING)) {
+			$key = new Ast\ConstExpr\ConstExprStringNode(trim($tokens->currentTokenValue(), '"'));
+			$tokens->next();
+
+		} else {
+			$key = new Ast\Type\IdentifierTypeNode($tokens->currentTokenValue());
+			$tokens->consumeTokenType(Lexer::TOKEN_IDENTIFIER);
+		}
+
+		return $key;
+	}
+
+	/**
+	 * @phpstan-impure
+	 */
+	private function parseObjectShape(TokenIterator $tokens): Ast\Type\ObjectShapeNode
+	{
+		$tokens->consumeTokenType(Lexer::TOKEN_OPEN_CURLY_BRACKET);
+
+		$items = [];
+
+		do {
+			$tokens->tryConsumeTokenType(Lexer::TOKEN_PHPDOC_EOL);
+
+			if ($tokens->tryConsumeTokenType(Lexer::TOKEN_CLOSE_CURLY_BRACKET)) {
+				return new Ast\Type\ObjectShapeNode($items);
+			}
+
+			$items[] = $this->parseObjectShapeItem($tokens);
+
+			$tokens->tryConsumeTokenType(Lexer::TOKEN_PHPDOC_EOL);
+		} while ($tokens->tryConsumeTokenType(Lexer::TOKEN_COMMA));
+
+		$tokens->tryConsumeTokenType(Lexer::TOKEN_PHPDOC_EOL);
+		$tokens->consumeTokenType(Lexer::TOKEN_CLOSE_CURLY_BRACKET);
+
+		return new Ast\Type\ObjectShapeNode($items);
+	}
+
+	/** @phpstan-impure */
+	private function parseObjectShapeItem(TokenIterator $tokens): Ast\Type\ObjectShapeItemNode
+	{
+		$key = $this->parseObjectShapeKey($tokens);
+		$optional = $tokens->tryConsumeTokenType(Lexer::TOKEN_NULLABLE);
+		$tokens->consumeTokenType(Lexer::TOKEN_COLON);
+		$value = $this->parse($tokens);
+
+		return new Ast\Type\ObjectShapeItemNode($key, $optional, $value);
+	}
+
+	/**
+	 * @phpstan-impure
+	 * @return Ast\ConstExpr\ConstExprStringNode|Ast\Type\IdentifierTypeNode
+	 */
+	private function parseObjectShapeKey(TokenIterator $tokens)
+	{
+		if ($tokens->isCurrentTokenType(Lexer::TOKEN_SINGLE_QUOTED_STRING)) {
 			$key = new Ast\ConstExpr\ConstExprStringNode(trim($tokens->currentTokenValue(), "'"));
 			$tokens->next();
 
