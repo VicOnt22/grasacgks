@@ -10,7 +10,7 @@ id: user.user.field_name_first_last
 field_name: field_name_first_last
 entity_type: user
 bundle: user
-label: 'Name: First Last'
+label: 'Name/First Last'
 description: 'First and Last names'
 required: true
 translatable: false

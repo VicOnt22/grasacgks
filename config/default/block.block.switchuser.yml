@@ -1,0 +1,63 @@
+uuid: 1464bf7b-0c32-432b-b9a4-3a43335fe40a
+langcode: en
+status: true
+dependencies:
+  module:
+    - context
+    - devel
+    - system
+    - user
+  theme:
+    - grasacgks
+id: switchuser
+theme: grasacgks
+region: sidebar_first
+weight: 0
+provider: null
+plugin: devel_switch_user
+settings:
+  id: devel_switch_user
+  label: 'Switch user'
+  label_display: visible
+  provider: devel
+  list_size: 10
+  include_anon: false
+  show_form: true
+visibility:
+  user_status:
+    id: user_status
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    user_status:
+      viewing_profile: '0'
+      logged_viewing_profile: '0'
+      own_page_true: '0'
+      field_value: '0'
+    user_fields: uid
+  context_all:
+    id: context_all
+    negate: null
+    values: ''
+  context:
+    id: context
+    negate: null
+    values: ''
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      editor: editor
+      site_admin: site_admin
+      guest_member: guest_member
+      research_assistant: research_assistant
+      full_member: full_member
+      institution_key_contact: institution_key_contact
+      manager: manager
+      administrator: administrator
+  request_path:
+    id: request_path
+    negate: false
+    pages: /search-page

@@ -1,28 +1,28 @@
-uuid: 5dad4837-af0f-4c1a-a66e-8e7aad041505
+uuid: 59bacd8f-13be-48ba-ae7f-703e8bb88c49
 langcode: en
 status: true
 dependencies:
   config:
-    - facets.facet.item_type
+    - facets.facet.related_season_facet
   module:
     - context
     - facets
     - system
   theme:
     - grasacgks
-id: itemtype
+id: relatedseason
 theme: grasacgks
 region: sidebar_first
-weight: -5
+weight: -6
 provider: null
-plugin: 'facet_block:item_type'
+plugin: 'facet_block:related_season_facet'
 settings:
-  id: 'facet_block:item_type'
-  label: 'Item Type'
+  id: 'facet_block:related_season_facet'
+  label: 'Related Season'
   label_display: '0'
   provider: facets
   context_mapping: {  }
-  block_id: itemtype
+  block_id: relatedseason
 visibility:
   user_status:
     id: user_status

@@ -1,4 +1,4 @@
-uuid: cc0af466-778e-42e4-baed-ffd47824d3b1
+uuid: 3c00c9a3-29da-4dbb-85ec-2ee87db703e3
 langcode: en
 status: true
 dependencies:
@@ -7,15 +7,15 @@ dependencies:
     - views.view.search_page
   module:
     - search_api
-id: languages
-name: Languages
+id: related_season_facet
+name: 'Related Season'
 weight: 0
 min_count: 1
 missing: false
 missing_label: others
-url_alias: languages
+url_alias: related_season_facet
 facet_source_id: 'search_api:views_page__search_page__page_1'
-field_identifier: field_languages
+field_identifier: field_related_seasonal_time
 query_operator: or
 hard_limit: 0
 exclude: false
@@ -30,7 +30,7 @@ widget:
   type: dropdown
   config:
     show_numbers: false
-    default_option_label: 'All Items'' languages'
+    default_option_label: 'All Related Seasons'
 empty_behavior:
   behavior: none
 only_visible_when_facet_source_is_visible: true

@@ -1,21 +1,25 @@
-uuid: 6024afad-d3d9-4fdd-8505-9617959495c4
+uuid: f3109d70-67a3-4cfc-8e21-2d9e05b7b8b7
 langcode: en
 status: true
 dependencies:
   config:
-    - taxonomy.vocabulary.institution
+    - core.entity_view_mode.user.list_item
+    - user.role.administrator
+    - user.role.full_member
+    - user.role.guest_member
+    - user.role.manager
+    - user.role.site_admin
   module:
     - blazy
     - ds
-    - taxonomy
     - user
-id: institutions
-label: Institutions
+id: grasac_members
+label: 'Grasac Members'
 module: views
 description: ''
 tag: ''
-base_table: taxonomy_term_field_data
-base_field: tid
+base_table: users_field_data
+base_field: uid
 display:
   default:
     id: default
@@ -23,18 +27,18 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: Institutions
+      title: 'Grasac Members'
       fields:
         name:
           id: name
-          table: taxonomy_term_field_data
+          table: users_field_data
           field: name
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: taxonomy_term
+          entity_type: user
           entity_field: name
-          plugin_id: term_name
+          plugin_id: field
           label: ''
           exclude: false
           alter:
@@ -59,9 +63,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: true
+          type: user_name
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -72,12 +75,11 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          convert_spaces: false
       pager:
         type: full
         options:
           offset: 0
-          items_per_page: 12
+          items_per_page: 28
           total_pages: null
           id: 0
           tags:
@@ -105,21 +107,39 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access content'
+          role:
+            site_admin: site_admin
+            guest_member: guest_member
+            full_member: full_member
+            manager: manager
+            administrator: administrator
       cache:
         type: tag
         options: {  }
       empty: {  }
-      sorts: {  }
+      sorts:
+        field_name_first_last_value:
+          id: field_name_first_last_value
+          table: user__field_name_first_last
+          field: field_name_first_last_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
       arguments: {  }
       filters:
         status:
           id: status
-          table: taxonomy_term_field_data
+          table: users_field_data
           field: status
-          entity_type: taxonomy_term
+          entity_type: user
           entity_field: status
           plugin_id: boolean
           value: '1'
@@ -128,41 +148,71 @@ display:
             operator: ''
             operator_limit_selection: false
             operator_list: {  }
-        vid:
-          id: vid
-          table: taxonomy_term_field_data
-          field: vid
-          entity_type: taxonomy_term
-          entity_field: vid
-          plugin_id: bundle
-          value:
-            institution: institution
-          expose:
-            operator_limit_selection: false
-            operator_list: {  }
-        name:
-          id: name
-          table: taxonomy_term_field_data
-          field: name
+        roles_target_id:
+          id: roles_target_id
+          table: user__roles
+          field: roles_target_id
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: taxonomy_term
-          entity_field: name
+          entity_type: user
+          entity_field: roles
+          plugin_id: user_roles
+          operator: or
+          value:
+            full_member: full_member
+            manager: manager
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+        field_name_first_last_value:
+          id: field_name_first_last_value
+          table: user__field_name_first_last
+          field: field_name_first_last_value
+          relationship: none
+          group_type: group
+          admin_label: ''
           plugin_id: string
           operator: contains
           value: ''
           group: 1
           exposed: true
           expose:
-            operator_id: name_op
+            operator_id: field_name_first_last_value_op
             label: ''
             description: ''
             use_operator: false
-            operator: name_op
+            operator: field_name_first_last_value_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: name
+            identifier: field_name_first_last_value
             required: false
             remember: false
             multiple: false
@@ -198,11 +248,43 @@ display:
         type: blazy
         options:
           style: column
-          grid: '2'
+          grid: '4'
           grid_medium: '2'
           grid_small: '1'
       row:
-        type: 'ds_entity:taxonomy_term'
+        type: 'ds_entity:user'
+        options:
+          relationship: none
+          view_mode: list_item
+          alternating_fieldset:
+            alternating: false
+            allpages: false
+            item_0: default
+            item_1: default
+            item_2: default
+            item_3: default
+            item_4: default
+            item_5: default
+            item_6: default
+            item_7: default
+            item_8: default
+            item_9: default
+            item_10: default
+            item_11: default
+            item_12: default
+            item_13: default
+            item_14: default
+            item_15: default
+            item_16: default
+            item_17: default
+            item_18: default
+            item_19: default
+          grouping_fieldset:
+            group: false
+          advanced_fieldset:
+            advanced: false
+          delta_fieldset:
+            delta_fields: {  }
       query:
         type: views_query
         options:
@@ -212,20 +294,7 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      header:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: text
-          empty: false
-          content:
-            value: '<h1>Institutions</h1>'
-            format: full_html
-          tokenize: false
+      header: {  }
       footer: {  }
       display_extenders: {  }
     cache_metadata:
@@ -235,7 +304,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.permissions
+        - user.roles
       tags: {  }
   page_1:
     id: page_1
@@ -247,7 +316,7 @@ display:
         metatag_display_extender:
           metatags: {  }
           tokenize: false
-      path: institutions
+      path: grasac-members
     cache_metadata:
       max-age: -1
       contexts:
@@ -255,5 +324,5 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.permissions
+        - user.roles
       tags: {  }

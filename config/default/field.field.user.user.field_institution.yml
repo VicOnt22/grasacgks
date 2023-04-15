@@ -11,7 +11,7 @@ id: user.user.field_institution
 field_name: field_institution
 entity_type: user
 bundle: user
-label: Institution
+label: 'Associated Grasac Institution'
 description: ''
 required: false
 translatable: false

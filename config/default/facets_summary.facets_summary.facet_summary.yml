@@ -80,3 +80,9 @@ facets:
     separator: ', '
     show_count: false
     weight: 0
+  related_season_facet:
+    checked: true
+    label: 'Related Season'
+    separator: ', '
+    show_count: false
+    weight: 0

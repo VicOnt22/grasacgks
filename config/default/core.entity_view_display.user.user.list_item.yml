@@ -18,12 +18,122 @@ dependencies:
     - field.field.user.user.field_research_interests
     - field.field.user.user.user_picture
   module:
+    - ds
     - user
+third_party_settings:
+  ds:
+    layout:
+      id: bs_1col
+      library: null
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        label: ''
+        layout:
+          wrapper: div
+          classes:
+            row: row
+          add_layout_class: 1
+          attributes: ''
+        regions:
+          main:
+            wrapper: div
+            classes:
+              col-sm-12: col-sm-12
+            add_region_classes: 1
+            attributes: ''
+    regions:
+      main:
+        - field_name_first_last
+        - field_occupation
+        - field_institution_name
+        - field_institution
+        - masquerade
 id: user.user.list_item
 targetEntityType: user
 bundle: user
 mode: list_item
 content:
+  field_institution:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings:
+      ds:
+        ft:
+          id: expert
+          settings:
+            lb: ''
+            lbw: true
+            lbw-el: strong
+            lbw-cl: ''
+            lbw-at: ''
+            lb-col: true
+            ow: false
+            ow-el: ''
+            ow-cl: ''
+            ow-at: ''
+            ow-def-at: true
+            ow-def-cl: true
+            fis: true
+            fis-el: ''
+            fis-cl: ''
+            fis-at: ''
+            fis-def-at: true
+            fi: false
+            fi-el: ''
+            fi-cl: ''
+            fi-at: ''
+            fi-def-at: false
+            prefix: ''
+            suffix: ''
+    weight: 3
+    region: main
+  field_institution_name:
+    type: string
+    label: visually_hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: main
+  field_name_first_last:
+    type: string
+    label: visually_hidden
+    settings:
+      link_to_entity: true
+    third_party_settings:
+      ds:
+        ft:
+          id: expert
+          settings:
+            lb: ''
+            lbw: false
+            lbw-el: ''
+            lbw-cl: ''
+            lbw-at: ''
+            lb-col: false
+            ow: false
+            ow-el: ''
+            ow-cl: ''
+            ow-at: ''
+            ow-def-at: false
+            ow-def-cl: false
+            fis: true
+            fis-el: h5
+            fis-cl: ''
+            fis-at: ''
+            fis-def-at: false
+            fi: false
+            fi-el: ''
+            fi-cl: ''
+            fi-at: ''
+            fi-def-at: false
+            prefix: ''
+            suffix: ''
+    weight: 0
+    region: main
   field_occupation:
     type: string
     label: hidden
@@ -31,36 +141,22 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 1
-    region: content
-  field_phone:
-    type: string
-    label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 2
-    region: content
+    region: main
   masquerade:
     settings: {  }
     third_party_settings: {  }
-    weight: 50
-    region: content
-  member_for:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 5
-    region: content
+    weight: 4
+    region: main
 hidden:
   field_address: true
   field_created_by: true
   field_fax: true
-  field_institution: true
-  field_institution_name: true
   field_last_password_reset: true
-  field_name_first_last: true
   field_password_expiration: true
   field_pending_expire_sent: true
+  field_phone: true
   field_research_interests: true
   langcode: true
+  member_for: true
   search_api_excerpt: true
   user_picture: true
