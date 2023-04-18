@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - filter.format.basic_html
-    - filter.format.full_html
     - node.type.article
     - node.type.heritage_item
     - node.type.language_item
@@ -88,7 +87,6 @@ permissions:
   - 'skip comment approval'
   - 'use text format basic_html'
   - 'use text format filtered_html'
-  - 'use text format full_html'
   - 'view advanced help index'
   - 'view advanced help popup'
   - 'view advanced help topic'

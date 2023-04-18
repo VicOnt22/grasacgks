@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - field_permissions
     - media
     - system
     - taxonomy_access_fix
@@ -43,6 +44,7 @@ permissions:
   - 'view icons'
   - 'view media'
   - 'view own field_make_role'
+  - 'view own field_record_editable_by'
   - 'view own files'
   - 'view terms in ceremonial_time'
   - 'view terms in collection'

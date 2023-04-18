@@ -6,6 +6,7 @@ dependencies:
     - filter.format.basic_html
     - filter.format.full_html
   module:
+    - field_permissions
     - filter
     - node
 id: guest_member
@@ -18,6 +19,7 @@ permissions:
   - 'access relations'
   - 'access site-wide contact form'
   - 'access user contact forms'
+  - 'create field_record_editable_by'
   - 'download any audio files'
   - 'download any document files'
   - 'download any image files'
@@ -27,11 +29,13 @@ permissions:
   - 'download own image files'
   - 'download own video files'
   - 'edit own comments'
+  - 'edit own field_record_editable_by'
   - 'post comments'
   - 'search heritage_item content'
   - 'search language_item content'
   - 'skip comment approval'
   - 'use text format basic_html'
   - 'use text format full_html'
+  - 'view field_record_editable_by'
   - 'view files'
   - 'view icons'

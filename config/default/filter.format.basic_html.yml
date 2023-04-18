@@ -6,8 +6,19 @@ dependencies:
     - core.entity_view_mode.media.large
     - core.entity_view_mode.media.medium
     - core.entity_view_mode.media.original
+    - core.entity_view_mode.media.s01
+    - core.entity_view_mode.media.s02
+    - core.entity_view_mode.media.s03
+    - core.entity_view_mode.media.s04
+    - core.entity_view_mode.media.s05
+    - core.entity_view_mode.media.s06
+    - core.entity_view_mode.media.s07
+    - core.entity_view_mode.media.s08
+    - core.entity_view_mode.media.s09
+    - core.entity_view_mode.media.s10
     - core.entity_view_mode.media.small
   module:
+    - ace_editor
     - blazy
     - ckeditor_media_embed
     - editor
@@ -143,6 +154,16 @@ filters:
         large: large
         medium: medium
         original: original
+        s01: s01
+        s02: s02
+        s03: s03
+        s04: s04
+        s05: s05
+        s06: s06
+        s07: s07
+        s08: s08
+        s09: s09
+        s10: s10
         small: small
       allowed_media_types:
         audio: audio
@@ -189,3 +210,18 @@ filters:
       thumbnail_effect: ''
       thumbnail_position: ''
       override: false
+  ace_filter:
+    id: ace_filter
+    provider: ace_editor
+    status: false
+    weight: 0
+    settings:
+      theme: cobalt
+      syntax: html
+      height: 500px
+      width: 700px
+      font_size: 12pt
+      line_numbers: '1'
+      print_margins: '1'
+      show_invisibles: '0'
+      use_wrap_mode: '1'

@@ -28,6 +28,7 @@ settings:
       role:
         research_assistant: research_assistant
         full_member: full_member
+        manager: manager
         editor: '0'
         content_admin: '0'
         seo_admin: '0'
@@ -36,7 +37,6 @@ settings:
         temp_test_role: '0'
         guest_member: '0'
         institution_key_contact: '0'
-        manager: '0'
         administrator: '0'
     include_anonymous: false
 field_type: entity_reference

@@ -8,7 +8,7 @@ dependencies:
     - user
 third_party_settings:
   field_permissions:
-    permission_type: public
+    permission_type: custom
 id: node.field_record_editable_by
 field_name: field_record_editable_by
 entity_type: node

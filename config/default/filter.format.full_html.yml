@@ -6,7 +6,19 @@ dependencies:
     - core.entity_view_mode.media.browser_teaser
     - core.entity_view_mode.media.media_library
     - core.entity_view_mode.media.original
+    - core.entity_view_mode.media.s01
+    - core.entity_view_mode.media.s02
+    - core.entity_view_mode.media.s03
+    - core.entity_view_mode.media.s04
+    - core.entity_view_mode.media.s05
+    - core.entity_view_mode.media.s06
+    - core.entity_view_mode.media.s07
+    - core.entity_view_mode.media.s08
+    - core.entity_view_mode.media.s09
+    - core.entity_view_mode.media.s10
+    - core.entity_view_mode.media.small
   module:
+    - ace_editor
     - blazy
     - image_resize_filter
     - media
@@ -89,7 +101,7 @@ filters:
     status: false
     weight: -10
     settings:
-      allowed_html: '<em> <strong> <cite> <blockquote cite> <code> <ul type> <ol type start> <li> <dl> <dt> <dd> <h5 id> <h6 id> <drupal-media data-entity-type data-entity-uuid data-view-mode data-align data-caption alt title> <drupal-entity data-entity-type data-entity-uuid data-entity-embed-display data-entity-embed-display-settings data-align data-caption data-embed-button data-langcode alt title> <div data-oembed-url class="bs-callout bs-callout bs-callout-danger bs-callout bs-callout-warning bs-callout bs-callout-info well well well-lg well well-sm alert alert-success alert alert-info alert alert-warning alert alert-danger panel panel-primary panel panel-success panel panel-info panel panel-warning panel panel-danger panel-heading panel-title panel-body panel-footer"> <hr> <table> <caption> <tbody> <thead> <tfoot> <th> <td> <tr> <a href hreflang name> <h2 id class="display-1 display-2"> <h3 id class="display-3"> <h4 id class="display-4"> <p> <u> <s> <sub> <sup> <h1> <pre>'
+      allowed_html: '<em> <strong> <cite> <blockquote cite> <code> <ul type> <ol type start> <li> <dl> <dt> <dd> <h5 id> <h6 id> <drupal-media data-entity-type data-entity-uuid data-view-mode data-align data-caption alt title> <drupal-entity data-entity-type data-entity-uuid data-entity-embed-display data-entity-embed-display-settings data-align data-caption data-embed-button data-langcode alt title> <div data-oembed-url class="bs-callout bs-callout bs-callout-danger bs-callout bs-callout-warning bs-callout bs-callout-info well well well-lg well well-sm alert alert-success alert alert-info alert alert-warning alert alert-danger panel panel-primary panel panel-success panel panel-info panel panel-warning panel panel-danger panel-heading panel-title panel-body panel-footer"> <hr> <table> <caption> <tbody> <thead> <tfoot> <th> <td> <tr> <a href hreflang name> <h2 id class="display-1 display-2"> <h3 id class="display-3"> <h4 id class="display-4"> <p> <u> <s> <sub> <sup> <h1> <pre> <font class="font7 font9 font11 font8 font5 font7 font9 font11 font8"> <body>'
       filter_html_help: true
       filter_html_nofollow: false
   filter_image_resize:
@@ -113,6 +125,17 @@ filters:
         browser_teaser: browser_teaser
         media_library: media_library
         original: original
+        s01: s01
+        s02: s02
+        s03: s03
+        s04: s04
+        s05: s05
+        s06: s06
+        s07: s07
+        s08: s08
+        s09: s09
+        s10: s10
+        small: small
       allowed_media_types:
         audio: audio
         document: document
@@ -125,3 +148,18 @@ filters:
     weight: 0
     settings:
       replace_empty: '0'
+  ace_filter:
+    id: ace_filter
+    provider: ace_editor
+    status: false
+    weight: 0
+    settings:
+      theme: cobalt
+      syntax: html
+      height: 500px
+      width: 700px
+      font_size: 12pt
+      line_numbers: '1'
+      print_margins: '1'
+      show_invisibles: '0'
+      use_wrap_mode: '1'

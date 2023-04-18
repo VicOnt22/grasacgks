@@ -120,7 +120,6 @@ third_party_settings:
         - field_date_collection
         - field_date_made
         - field_date_attribution
-        - field_date_seasonal_time
         - field_related_seasonal_time
         - field_description_condition
         - field_description_materials
@@ -274,12 +273,12 @@ content:
             lbw-cl: ''
             lbw-at: ''
             lb-col: false
-            ow: false
+            ow: true
             ow-el: ''
             ow-cl: ''
             ow-at: ''
-            ow-def-at: false
-            ow-def-cl: false
+            ow-def-at: true
+            ow-def-cl: true
             fis: false
             fis-el: ''
             fis-cl: ''

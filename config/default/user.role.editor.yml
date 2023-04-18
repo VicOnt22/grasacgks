@@ -32,6 +32,7 @@ dependencies:
     - dropzonejs
     - entity_browser
     - entityqueue
+    - field_permissions
     - file
     - filter
     - layout_builder
@@ -104,6 +105,7 @@ permissions:
   - 'create content translations'
   - 'create document media'
   - 'create faq content'
+  - 'create field_record_editable_by'
   - 'create file media'
   - 'create gallery media'
   - 'create heritage_item content'
@@ -169,6 +171,7 @@ permissions:
   - 'edit own article content'
   - 'edit own audio media'
   - 'edit own document media'
+  - 'edit own field_record_editable_by'
   - 'edit own file media'
   - 'edit own gallery media'
   - 'edit own heritage_item content'
@@ -220,6 +223,7 @@ permissions:
   - 'use varbase_simple_workflow transition publish'
   - 'view any unpublished content'
   - 'view content planner dashboard'
+  - 'view field_record_editable_by'
   - 'view latest version'
   - 'view media'
   - 'view own unpublished content'
