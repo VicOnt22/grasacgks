@@ -19,6 +19,7 @@ dependencies:
     - node.type.landing_page_lb
     - node.type.language_item
     - node.type.page
+    - node.type.project
     - node.type.varbase_heroslider_media
     - taxonomy.vocabulary.ceremonial_time
     - taxonomy.vocabulary.collection
@@ -43,15 +44,11 @@ dependencies:
     - taxonomy.vocabulary.transcription_status
     - taxonomy.vocabulary.translation_status
     - user.role.authenticated
-    - user.role.content_admin
-    - user.role.editor
     - user.role.full_member
     - user.role.guest_member
-    - user.role.institution_key_contact
     - user.role.manager
     - user.role.research_assistant
     - user.role.seo_admin
-    - user.role.temp_test_role
     - user.role.test_role
     - workflows.workflow.varbase_editorial_workflow
     - workflows.workflow.varbase_simple_workflow
@@ -79,8 +76,10 @@ dependencies:
     - geolocation
     - google_analytics
     - google_analytics_reports
+    - google_analytics_reports_api
     - google_tag
     - layout_builder
+    - locale
     - mailsystem
     - masquerade
     - media
@@ -180,7 +179,6 @@ permissions:
   - 'add terms in categories'
   - 'add terms in tags'
   - 'administer account menu items'
-  - 'administer account settings'
   - 'administer admin menu items'
   - 'administer block classes'
   - 'administer blocks'
@@ -188,16 +186,15 @@ permissions:
   - 'administer devel menu items'
   - 'administer faq'
   - 'administer faq order'
-  - 'administer flood unblock'
   - 'administer footer menu items'
   - 'administer google analytics'
+  - 'administer google analytics reports api'
   - 'administer google tag manager'
   - 'administer mail templates'
   - 'administer main menu items'
   - 'administer menu'
   - 'administer meta tags'
   - 'administer pages'
-  - 'administer permissions'
   - 'administer redirect settings'
   - 'administer redirects'
   - 'administer scripts'
@@ -210,6 +207,7 @@ permissions:
   - 'assign roles'
   - 'break content lock'
   - 'change layouts in place editing'
+  - 'change own username'
   - 'clone paragraph entity'
   - 'configure all landing_page_lb node layout overrides'
   - 'configure editable landing_page_lb node layout overrides'
@@ -222,6 +220,7 @@ permissions:
   - 'create content translations'
   - 'create document media'
   - 'create faq content'
+  - 'create field_gks_id'
   - 'create field_record_editable_by'
   - 'create file media'
   - 'create gallery media'
@@ -356,6 +355,7 @@ permissions:
   - 'edit own article content'
   - 'edit own audio media'
   - 'edit own document media'
+  - 'edit own field_gks_id'
   - 'edit own field_record_editable_by'
   - 'edit own file media'
   - 'edit own gallery media'
@@ -365,6 +365,7 @@ permissions:
   - 'edit own landing_page_lb content'
   - 'edit own language_item content'
   - 'edit own page content'
+  - 'edit own project content'
   - 'edit own remote_video media'
   - 'edit own tweet media'
   - 'edit own varbase_blog content'
@@ -399,23 +400,17 @@ permissions:
   - 'have total control'
   - 'manage password reset'
   - 'masquerade as authenticated'
-  - 'masquerade as content_admin'
-  - 'masquerade as editor'
   - 'masquerade as full_member'
   - 'masquerade as guest_member'
-  - 'masquerade as institution_key_contact'
   - 'masquerade as manager'
   - 'masquerade as research_assistant'
   - 'masquerade as seo_admin'
-  - 'masquerade as temp_test_role'
   - 'masquerade as test_role'
   - 'opt-in or out of google analytics tracking'
   - 'rabbit hole bypass node'
   - 'rabbit hole bypass taxonomy_term'
   - 'reorder terms in blog_categories'
   - 'reorder terms in categories'
-  - 'reorder terms in tags'
-  - 'reorder terms in traditional_knowledge_tk_labels'
   - 'revert all media revisions'
   - 'revert all revisions'
   - 'revert article revisions'
@@ -424,6 +419,7 @@ permissions:
   - 'revert landing_page_lb revisions'
   - 'revert language_item revisions'
   - 'revert page revisions'
+  - 'revert project revisions'
   - 'revert varbase_blog revisions'
   - 'revert varbase_heroslider_media revisions'
   - 'run cron jobs'
@@ -434,10 +430,32 @@ permissions:
   - 'translate any entity'
   - 'translate article node'
   - 'translate block_content'
+  - 'translate ceremonial_time taxonomy_term'
+  - 'translate collection taxonomy_term'
+  - 'translate contributor_roles taxonomy_term'
+  - 'translate contributors taxonomy_term'
+  - 'translate document media'
+  - 'translate exchange_types taxonomy_term'
+  - 'translate file media'
+  - 'translate folders taxonomy_term'
+  - 'translate heritage_item node'
+  - 'translate institution taxonomy_term'
+  - 'translate interface'
+  - 'translate item_type taxonomy_term'
   - 'translate landing_page_lb node'
+  - 'translate language_item node'
+  - 'translate language_item_source taxonomy_term'
+  - 'translate languages taxonomy_term'
+  - 'translate local_origin taxonomy_term'
   - 'translate menu_link_content'
+  - 'translate nations taxonomy_term'
   - 'translate page node'
   - 'translate paragraph'
+  - 'translate project node'
+  - 'translate regions taxonomy_term'
+  - 'translate seasonal_time taxonomy_term'
+  - 'translate tags taxonomy_term'
+  - 'translate traditional_knowledge_tk_labels taxonomy_term'
   - 'update any basic block content'
   - 'update any media'
   - 'update any varbase_carousel_block block content'
@@ -480,12 +498,15 @@ permissions:
   - 'view content planner dashboard'
   - 'view faq page'
   - 'view faq revisions'
+  - 'view field_bulk_import_key'
+  - 'view field_gks_id'
   - 'view field_record_editable_by'
   - 'view heritage_item revisions'
   - 'view landing_page_lb revisions'
   - 'view language_item revisions'
   - 'view latest version'
   - 'view media'
+  - 'view own field_gks_id'
   - 'view own unpublished content'
   - 'view own unpublished media'
   - 'view page revisions'
@@ -504,21 +525,14 @@ permissions:
   - 'view terms in exchange_types'
   - 'view terms in folders'
   - 'view terms in institution'
-  - 'view terms in interpretation'
   - 'view terms in item_type'
   - 'view terms in language_item_source'
   - 'view terms in languages'
   - 'view terms in local_origin'
   - 'view terms in nations'
-  - 'view terms in project_status'
-  - 'view terms in record_status'
   - 'view terms in regions'
   - 'view terms in tags'
-  - 'view terms in text_type'
   - 'view terms in traditional_knowledge_tk_labels'
-  - 'view terms in transcription_status'
-  - 'view terms in translation_status'
   - 'view the administration theme'
   - 'view user email addresses'
   - 'view varbase_blog revisions'
-  - 'view varbase_heroslider_media revisions'

@@ -4,82 +4,275 @@ status: true
 dependencies:
   config:
     - filter.format.basic_html
+    - filter.format.code_html
     - filter.format.full_html
+    - media.type.audio
+    - media.type.document
+    - media.type.file
+    - media.type.gallery
+    - media.type.image
+    - media.type.remote_video
+    - media.type.video
     - node.type.article
     - node.type.heritage_item
+    - node.type.landing_page_lb
     - node.type.language_item
     - node.type.page
+    - node.type.project
+    - node.type.varbase_heroslider_media
+    - taxonomy.vocabulary.ceremonial_time
+    - taxonomy.vocabulary.collection
+    - taxonomy.vocabulary.contributor_roles
+    - taxonomy.vocabulary.contributors
+    - taxonomy.vocabulary.exchange_types
+    - taxonomy.vocabulary.folders
+    - taxonomy.vocabulary.institution
+    - taxonomy.vocabulary.interpretation
+    - taxonomy.vocabulary.item_type
+    - taxonomy.vocabulary.language_item_source
+    - taxonomy.vocabulary.languages
+    - taxonomy.vocabulary.local_origin
+    - taxonomy.vocabulary.nations
+    - taxonomy.vocabulary.project_status
+    - taxonomy.vocabulary.record_status
+    - taxonomy.vocabulary.regions
+    - taxonomy.vocabulary.seasonal_time
+    - taxonomy.vocabulary.tags
+    - taxonomy.vocabulary.text_type
+    - taxonomy.vocabulary.traditional_knowledge_tk_labels
+    - taxonomy.vocabulary.transcription_status
+    - taxonomy.vocabulary.translation_status
+    - workflows.workflow.varbase_editorial_workflow
+    - workflows.workflow.varbase_simple_workflow
   module:
+    - block
+    - block_class
+    - block_content
+    - block_content_permissions
+    - coffee
+    - config_perms
+    - content_lock
+    - content_moderation
+    - content_translation
+    - contextual
     - dropzonejs
+    - entity_browser
+    - entity_usage
+    - entityqueue
     - field_permissions
+    - file
     - filter
+    - flood_control
+    - geocoder
+    - geofield_map
+    - geolocation
+    - google_analytics
+    - google_analytics_reports
+    - google_analytics_reports_api
+    - google_tag
+    - layout_builder
+    - locale
+    - mailsystem
+    - media
+    - media_bulk_upload
+    - media_revisions_ui
+    - menu_admin_per_menu
+    - menu_link_content
+    - metatag
+    - moderation_sidebar
     - node
+    - page_manager
     - panels
     - panels_ipe
+    - password_policy
     - path
+    - persistent_login
+    - quickedit
+    - rabbit_hole
+    - redirect
+    - responsive_preview
+    - roleassign
+    - scheduler
+    - script_manager
+    - search_api
     - shortcut
+    - simple_sitemap
+    - styleguide
     - system
     - taxonomy
+    - taxonomy_access_fix
+    - toolbar
     - total_control
+    - ultimate_cron
+    - userprotect
+    - webform
 id: manager
 label: Manager
 weight: 2
 is_admin: null
 permissions:
+  - 'Flush all caches from admin toolbar'
+  - 'Flush css/js cache from admin toolbar'
+  - 'Flush menu cache from admin toolbar'
+  - 'Flush plugin cache from admin toolbar'
+  - 'Flush render cache from admin toolbar'
+  - 'Flush static cache from admin toolbar'
+  - 'Flush twig cache from admin toolbar'
+  - 'Flush views cache from admin toolbar'
+  - 'Rebuild theme registry from admin toolbar'
+  - 'access administration pages'
   - 'access all views'
+  - 'access coffee'
   - 'access comments'
   - 'access content'
   - 'access content overview'
+  - 'access contextual links'
   - 'access dashboard'
+  - 'access editor_media_browser entity browser pages'
+  - 'access editor_multiple_image_browser entity browser pages'
+  - 'access editor_multiple_media_browser entity browser pages'
+  - 'access entity usage statistics'
+  - 'access files overview'
+  - 'access geocoder api endpoints'
+  - 'access google analytics reports'
+  - 'access image_browser entity browser pages'
+  - 'access in-place editing'
   - 'access media browser'
+  - 'access media overview'
+  - 'access media_browser entity browser pages'
+  - 'access multiple_image_browser entity browser pages'
+  - 'access multiple_media_browser entity browser pages'
   - 'access panels in-place editing'
+  - 'access paragraphs_library_items entity browser pages'
+  - 'access persistent logins tab'
   - 'access relations'
+  - 'access responsive preview'
   - 'access shortcuts'
   - 'access site in maintenance mode'
+  - 'access site reports'
   - 'access site-wide contact form'
+  - 'access taxonomy overview'
+  - 'access toolbar'
   - 'access user contact forms'
   - 'access user profiles'
+  - 'access video_browser entity browser pages'
+  - 'access webform overview'
+  - 'access webform submission user'
+  - 'add JS snippets for google analytics'
+  - 'administer block classes'
+  - 'administer blocks'
   - 'administer comments'
   - 'administer files'
+  - 'administer footer menu items'
+  - 'administer google analytics'
+  - 'administer google analytics reports api'
+  - 'administer google tag manager'
+  - 'administer main menu items'
+  - 'administer menu'
+  - 'administer meta tags'
+  - 'administer pages'
+  - 'administer redirect settings'
+  - 'administer redirects'
   - 'administer related items'
   - 'administer relation types'
   - 'administer relations'
+  - 'administer scripts'
+  - 'administer search_api'
+  - 'administer sitemap settings'
   - 'administer subusers'
   - 'administer taxonomy'
   - 'administer user expire settings'
   - 'administer users'
-  - 'cancel account'
-  - 'change own username'
+  - administer_mailsystem
+  - 'assign roles'
+  - 'break content lock'
+  - 'configure geofield_map'
+  - 'configure geolocation'
+  - 'create and edit custom blocks'
   - 'create article content'
+  - 'create audio media'
+  - 'create basic block content'
+  - 'create content translations'
+  - 'create document media'
+  - 'create field_gks_id'
   - 'create field_make_role'
   - 'create field_record_editable_by'
+  - 'create file media'
   - 'create files'
   - 'create heritage_item content'
+  - 'create image media'
   - 'create language_item content'
+  - 'create media'
   - 'create page content'
   - 'create relations'
+  - 'create remote_video media'
   - 'create subuser 2'
   - 'create subuser 3'
   - 'create subuser 4'
   - 'create subuser 5'
   - 'create subuser 6'
+  - 'create terms in ceremonial_time'
+  - 'create terms in collection'
+  - 'create terms in contributor_roles'
+  - 'create terms in contributors'
+  - 'create terms in exchange_types'
+  - 'create terms in folders'
+  - 'create terms in institution'
+  - 'create terms in item_type'
+  - 'create terms in language_item_source'
+  - 'create terms in languages'
+  - 'create terms in local_origin'
+  - 'create terms in nations'
+  - 'create terms in project_status'
+  - 'create terms in regions'
+  - 'create terms in seasonal_time'
+  - 'create terms in tags'
+  - 'create terms in traditional_knowledge_tk_labels'
   - 'create url aliases'
+  - 'create video media'
+  - 'create webform'
+  - 'customize shortcut links'
+  - 'delete all media revisions'
   - 'delete any article content'
   - 'delete any audio files'
+  - 'delete any audio media'
   - 'delete any document files'
+  - 'delete any document media'
+  - 'delete any file media'
   - 'delete any heritage_item content'
   - 'delete any image files'
+  - 'delete any image media'
   - 'delete any language_item content'
+  - 'delete any media'
   - 'delete any page content'
+  - 'delete any remote_video media'
   - 'delete any video files'
+  - 'delete any video media'
+  - 'delete any webform submission'
+  - 'delete article revisions'
+  - 'delete content translations'
+  - 'delete heritage_item revisions'
+  - 'delete language_item revisions'
+  - 'delete media'
   - 'delete own article content'
   - 'delete own audio files'
+  - 'delete own audio media'
   - 'delete own document files'
+  - 'delete own document media'
+  - 'delete own file media'
+  - 'delete own gallery media'
   - 'delete own heritage_item content'
   - 'delete own image files'
+  - 'delete own image media'
   - 'delete own language_item content'
   - 'delete own page content'
+  - 'delete own remote_video media'
   - 'delete own video files'
+  - 'delete own video media'
+  - 'delete own webform'
+  - 'delete own webform submission'
+  - 'delete page revisions'
+  - 'delete project revisions'
   - 'delete relations'
   - 'delete revisions'
   - 'delete subusers'
@@ -102,6 +295,28 @@ permissions:
   - 'delete terms in 7'
   - 'delete terms in 8'
   - 'delete terms in 9'
+  - 'delete terms in ceremonial_time'
+  - 'delete terms in collection'
+  - 'delete terms in contributor_roles'
+  - 'delete terms in contributors'
+  - 'delete terms in exchange_types'
+  - 'delete terms in folders'
+  - 'delete terms in institution'
+  - 'delete terms in interpretation'
+  - 'delete terms in item_type'
+  - 'delete terms in language_item_source'
+  - 'delete terms in languages'
+  - 'delete terms in local_origin'
+  - 'delete terms in nations'
+  - 'delete terms in project_status'
+  - 'delete terms in record_status'
+  - 'delete terms in regions'
+  - 'delete terms in seasonal_time'
+  - 'delete terms in tags'
+  - 'delete terms in text_type'
+  - 'delete terms in traditional_knowledge_tk_labels'
+  - 'delete terms in transcription_status'
+  - 'delete terms in translation_status'
   - 'download any audio files'
   - 'download any document files'
   - 'download any image files'
@@ -113,22 +328,42 @@ permissions:
   - 'dropzone upload files'
   - 'edit any article content'
   - 'edit any audio files'
+  - 'edit any audio media'
   - 'edit any document files'
+  - 'edit any document media'
+  - 'edit any file media'
+  - 'edit any gallery media'
   - 'edit any heritage_item content'
   - 'edit any image files'
+  - 'edit any image media'
+  - 'edit any landing_page_lb content'
   - 'edit any language_item content'
   - 'edit any page content'
+  - 'edit any remote_video media'
   - 'edit any video files'
+  - 'edit any video media'
+  - 'edit field_gks_id'
   - 'edit field_record_editable_by'
   - 'edit own article content'
   - 'edit own audio files'
+  - 'edit own audio media'
   - 'edit own comments'
   - 'edit own document files'
+  - 'edit own document media'
+  - 'edit own field_gks_id'
+  - 'edit own field_record_editable_by'
+  - 'edit own file media'
   - 'edit own heritage_item content'
   - 'edit own image files'
+  - 'edit own image media'
+  - 'edit own landing_page_lb content'
   - 'edit own language_item content'
   - 'edit own page content'
+  - 'edit own project content'
+  - 'edit own remote_video media'
   - 'edit own video files'
+  - 'edit own video media'
+  - 'edit own webform'
   - 'edit relations'
   - 'edit subusers'
   - 'edit terms in 1'
@@ -150,38 +385,171 @@ permissions:
   - 'edit terms in 7'
   - 'edit terms in 8'
   - 'edit terms in 9'
+  - 'edit terms in ceremonial_time'
+  - 'edit terms in collection'
+  - 'edit terms in contributor_roles'
+  - 'edit terms in contributors'
+  - 'edit terms in exchange_types'
+  - 'edit terms in folders'
+  - 'edit terms in institution'
+  - 'edit terms in interpretation'
+  - 'edit terms in item_type'
+  - 'edit terms in language_item_source'
+  - 'edit terms in languages'
+  - 'edit terms in local_origin'
+  - 'edit terms in nations'
+  - 'edit terms in project_status'
+  - 'edit terms in record_status'
+  - 'edit terms in regions'
+  - 'edit terms in seasonal_time'
+  - 'edit terms in tags'
+  - 'edit terms in text_type'
+  - 'edit terms in traditional_knowledge_tk_labels'
+  - 'edit terms in transcription_status'
+  - 'edit terms in translation_status'
+  - 'flood unblock ips'
   - 'flush caches'
   - 'have total control'
+  - 'manage password reset'
   - 'mass add and create users'
   - 'merge terms'
+  - 'opt-in or out of google analytics tracking'
   - 'override subuser relation'
   - 'post comments'
+  - 'rabbit hole bypass node'
+  - 'rabbit hole bypass taxonomy_term'
+  - 'revert all media revisions'
+  - 'revert all revisions'
+  - 'revert article revisions'
+  - 'revert audio media revisions'
+  - 'revert document media revisions'
+  - 'revert file media revisions'
+  - 'revert gallery media revisions'
+  - 'revert heritage_item revisions'
+  - 'revert image media revisions'
+  - 'revert landing_page_lb revisions'
+  - 'revert language_item revisions'
+  - 'revert page revisions'
+  - 'revert project revisions'
+  - 'revert remote_video media revisions'
   - 'revert revisions'
+  - 'revert varbase_heroslider_media revisions'
+  - 'revert video media revisions'
+  - 'run cron jobs'
+  - 'schedule publishing of taxonomy_term'
   - 'search all excluded entities'
   - 'search content'
   - 'search heritage_item content'
   - 'search language_item content'
   - 'search project content'
   - 'search resource content'
-  - 'select account cancellation method'
   - 'set user expiration'
   - 'skip comment approval'
+  - 'switch shortcut sets'
+  - 'translate any entity'
+  - 'translate article node'
+  - 'translate audio media'
+  - 'translate block_content'
+  - 'translate ceremonial_time taxonomy_term'
+  - 'translate collection taxonomy_term'
+  - 'translate contributor_roles taxonomy_term'
+  - 'translate contributors taxonomy_term'
+  - 'translate document media'
+  - 'translate editable entities'
+  - 'translate exchange_types taxonomy_term'
+  - 'translate file media'
+  - 'translate folders taxonomy_term'
+  - 'translate heritage_item node'
+  - 'translate institution taxonomy_term'
+  - 'translate interface'
+  - 'translate item_type taxonomy_term'
+  - 'translate landing_page_lb node'
+  - 'translate language_item node'
+  - 'translate language_item_source taxonomy_term'
+  - 'translate languages taxonomy_term'
+  - 'translate local_origin taxonomy_term'
+  - 'translate menu_link_content'
+  - 'translate nations taxonomy_term'
+  - 'translate page node'
+  - 'translate project node'
+  - 'translate regions taxonomy_term'
+  - 'translate seasonal_time taxonomy_term'
+  - 'translate tags taxonomy_term'
+  - 'translate traditional_knowledge_tk_labels taxonomy_term'
+  - 'translate varbase_heroslider_media node'
+  - 'update any basic block content'
+  - 'update any media'
+  - 'update any varbase_html_code_block block content'
+  - 'update any varbase_media_block block content'
+  - 'update any varbase_rich_text_block block content'
+  - 'update content translations'
+  - 'update media'
+  - 'update varbase_heroslider_media entityqueue'
   - 'use Rules component rules_og_massadd'
   - 'use advanced search'
+  - 'use ipe with page manager'
+  - 'use media_bulk_upload bulk upload form'
+  - 'use moderation sidebar'
   - 'use panels dashboard'
+  - 'use panels locks'
   - 'use php in custom pagers'
   - 'use text format basic_html'
+  - 'use text format code_html'
   - 'use text format full_html'
+  - 'use varbase_editorial_workflow transition archive'
+  - 'use varbase_editorial_workflow transition archived_published'
+  - 'use varbase_editorial_workflow transition create_new_draft'
+  - 'use varbase_editorial_workflow transition publish'
+  - 'use varbase_editorial_workflow transition review'
+  - 'use varbase_simple_workflow transition archive'
+  - 'use varbase_simple_workflow transition archived_published'
+  - 'use varbase_simple_workflow transition create_new_draft'
+  - 'use varbase_simple_workflow transition publish'
+  - userprotect.account.edit
+  - userprotect.mail.edit
+  - userprotect.pass.edit
+  - 'view all media revisions'
+  - 'view all revisions'
+  - 'view any unpublished content'
+  - 'view any webform submission'
+  - 'view article revisions'
+  - 'view audio media revisions'
+  - 'view document media revisions'
+  - 'view document_private media revisions'
   - 'view expiring users report'
+  - 'view field_bulk_import_key'
   - 'view field_gks_id'
   - 'view field_record_editable_by'
+  - 'view file media revisions'
   - 'view files'
+  - 'view gallery media revisions'
+  - 'view heritage_item revisions'
   - 'view icons'
+  - 'view image media revisions'
+  - 'view landing_page_lb revisions'
+  - 'view language_item revisions'
+  - 'view latest version'
   - 'view own field_gks_id'
   - 'view own files'
   - 'view own private files'
   - 'view own unpublished content'
+  - 'view own unpublished media'
+  - 'view page revisions'
   - 'view pane admin links'
   - 'view private files'
+  - 'view remote_video media revisions'
   - 'view revisions'
+  - 'view scheduled content'
+  - 'view scheduled media'
+  - 'view scheduled taxonomy_term'
+  - 'view style guides'
   - 'view subusers'
+  - 'view terms in interpretation'
+  - 'view terms in project_status'
+  - 'view terms in record_status'
+  - 'view terms in text_type'
+  - 'view terms in transcription_status'
+  - 'view terms in translation_status'
+  - 'view the administration theme'
+  - 'view user email addresses'
+  - 'view video media revisions'

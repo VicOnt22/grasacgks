@@ -7,6 +7,7 @@ dependencies:
     - media
     - system
     - taxonomy_access_fix
+    - userprotect
 _core:
   default_config_hash: D8GiER5rX7kzimb-u9Q0Pc3LKEFzKvKgjp2OpYPDafs
 id: authenticated
@@ -36,6 +37,7 @@ permissions:
   - 'tag content'
   - 'use advanced search'
   - 'use text format filtered_html'
+  - userprotect.account.edit
   - 'view advanced help index'
   - 'view advanced help popup'
   - 'view advanced help topic'

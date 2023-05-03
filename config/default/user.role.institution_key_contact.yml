@@ -5,11 +5,17 @@ dependencies:
   config:
     - filter.format.basic_html
     - filter.format.full_html
-    - node.type.article
+    - media.type.image
+    - media.type.remote_video
+    - media.type.video
   module:
+    - content_moderation
     - field_permissions
     - filter
+    - media
     - node
+    - toolbar
+    - total_control
 id: institution_key_contact
 label: 'Institution Key Contact'
 weight: 1
@@ -19,11 +25,14 @@ permissions:
   - 'access comments'
   - 'access content overview'
   - 'access media browser'
+  - 'access media overview'
   - 'access relations'
   - 'access site-wide contact form'
+  - 'access toolbar'
   - 'access user contact forms'
   - 'access user profiles'
-  - 'change own username'
+  - 'create media'
+  - 'delete media'
   - 'download any audio files'
   - 'download any document files'
   - 'download any image files'
@@ -32,16 +41,24 @@ permissions:
   - 'download own document files'
   - 'download own image files'
   - 'download own video files'
-  - 'edit own article content'
   - 'edit own comments'
+  - 'edit own image media'
+  - 'edit own remote_video media'
+  - 'edit own video media'
+  - 'have total control'
   - 'post comments'
   - 'search heritage_item content'
   - 'search language_item content'
+  - 'update any media'
+  - 'update media'
   - 'use php in custom pagers'
   - 'use text format basic_html'
   - 'use text format full_html'
+  - 'view any unpublished content'
   - 'view field_record_editable_by'
   - 'view files'
   - 'view icons'
+  - 'view latest version'
   - 'view own unpublished content'
+  - 'view own unpublished media'
   - 'view revisions'

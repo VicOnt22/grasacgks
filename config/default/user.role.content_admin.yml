@@ -18,6 +18,7 @@ dependencies:
     - node.type.landing_page_lb
     - node.type.language_item
     - node.type.page
+    - node.type.project
     - node.type.varbase_heroslider_media
     - taxonomy.vocabulary.ceremonial_time
     - taxonomy.vocabulary.collection
@@ -55,10 +56,12 @@ dependencies:
     - contextual
     - dropzonejs
     - entity_browser
+    - entity_usage
     - entityqueue
     - field_permissions
     - file
     - filter
+    - google_analytics_reports
     - layout_builder
     - media
     - media_bulk_upload
@@ -81,6 +84,7 @@ dependencies:
     - taxonomy_access_fix
     - toolbar
     - total_control
+    - userprotect
     - webform
 _core:
   default_config_hash: W8SfDcp6fJlMLOE4OHdC1z1qYPt_pf7-QnYxnwuCWpY
@@ -103,7 +107,9 @@ permissions:
   - 'access editor_media_browser entity browser pages'
   - 'access editor_multiple_image_browser entity browser pages'
   - 'access editor_multiple_media_browser entity browser pages'
+  - 'access entity usage statistics'
   - 'access files overview'
+  - 'access google analytics reports'
   - 'access heroslider_media_browser entity browser pages'
   - 'access image_browser entity browser pages'
   - 'access images_browser entity browser pages'
@@ -143,6 +149,7 @@ permissions:
   - 'create content translations'
   - 'create document media'
   - 'create faq content'
+  - 'create field_gks_id'
   - 'create field_record_editable_by'
   - 'create file media'
   - 'create gallery media'
@@ -181,7 +188,6 @@ permissions:
   - 'create varbase_rich_text_block block content'
   - 'create video media'
   - 'create webform'
-  - 'customize shortcut links'
   - 'delete any article content'
   - 'delete any audio media'
   - 'delete any basic block content'
@@ -273,6 +279,7 @@ permissions:
   - 'edit own article content'
   - 'edit own audio media'
   - 'edit own document media'
+  - 'edit own field_gks_id'
   - 'edit own field_record_editable_by'
   - 'edit own file media'
   - 'edit own gallery media'
@@ -282,6 +289,7 @@ permissions:
   - 'edit own landing_page_lb content'
   - 'edit own language_item content'
   - 'edit own page content'
+  - 'edit own project content'
   - 'edit own remote_video media'
   - 'edit own tweet media'
   - 'edit own varbase_blog content'
@@ -316,8 +324,6 @@ permissions:
   - 'rabbit hole bypass taxonomy_term'
   - 'reorder terms in blog_categories'
   - 'reorder terms in categories'
-  - 'reorder terms in tags'
-  - 'reorder terms in traditional_knowledge_tk_labels'
   - 'revert all media revisions'
   - 'revert all revisions'
   - 'revert article revisions'
@@ -335,10 +341,31 @@ permissions:
   - 'translate any entity'
   - 'translate article node'
   - 'translate block_content'
+  - 'translate ceremonial_time taxonomy_term'
+  - 'translate collection taxonomy_term'
+  - 'translate contributor_roles taxonomy_term'
+  - 'translate contributors taxonomy_term'
+  - 'translate document media'
+  - 'translate exchange_types taxonomy_term'
+  - 'translate file media'
+  - 'translate folders taxonomy_term'
+  - 'translate heritage_item node'
+  - 'translate institution taxonomy_term'
+  - 'translate item_type taxonomy_term'
   - 'translate landing_page_lb node'
+  - 'translate language_item node'
+  - 'translate language_item_source taxonomy_term'
+  - 'translate languages taxonomy_term'
+  - 'translate local_origin taxonomy_term'
   - 'translate menu_link_content'
+  - 'translate nations taxonomy_term'
   - 'translate page node'
   - 'translate paragraph'
+  - 'translate project node'
+  - 'translate regions taxonomy_term'
+  - 'translate seasonal_time taxonomy_term'
+  - 'translate tags taxonomy_term'
+  - 'translate traditional_knowledge_tk_labels taxonomy_term'
   - 'update any basic block content'
   - 'update any media'
   - 'update any varbase_carousel_block block content'
@@ -365,6 +392,7 @@ permissions:
   - 'use varbase_simple_workflow transition archived_published'
   - 'use varbase_simple_workflow transition create_new_draft'
   - 'use varbase_simple_workflow transition publish'
+  - userprotect.account.edit
   - 'view all media revisions'
   - 'view all revisions'
   - 'view any unpublished content'
@@ -372,6 +400,8 @@ permissions:
   - 'view article revisions'
   - 'view content planner dashboard'
   - 'view faq revisions'
+  - 'view field_bulk_import_key'
+  - 'view field_gks_id'
   - 'view field_record_editable_by'
   - 'view heritage_item revisions'
   - 'view landing_page_lb revisions'
@@ -394,20 +424,13 @@ permissions:
   - 'view terms in exchange_types'
   - 'view terms in folders'
   - 'view terms in institution'
-  - 'view terms in interpretation'
   - 'view terms in item_type'
   - 'view terms in language_item_source'
   - 'view terms in languages'
   - 'view terms in local_origin'
   - 'view terms in nations'
-  - 'view terms in project_status'
-  - 'view terms in record_status'
   - 'view terms in regions'
   - 'view terms in tags'
-  - 'view terms in text_type'
   - 'view terms in traditional_knowledge_tk_labels'
-  - 'view terms in transcription_status'
-  - 'view terms in translation_status'
   - 'view the administration theme'
   - 'view varbase_blog revisions'
-  - 'view varbase_heroslider_media revisions'

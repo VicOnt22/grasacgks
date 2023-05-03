@@ -18,8 +18,24 @@ dependencies:
     - node.type.landing_page_lb
     - node.type.language_item
     - node.type.page
+    - node.type.project
     - node.type.varbase_heroslider_media
+    - taxonomy.vocabulary.ceremonial_time
+    - taxonomy.vocabulary.collection
+    - taxonomy.vocabulary.contributor_roles
+    - taxonomy.vocabulary.contributors
+    - taxonomy.vocabulary.exchange_types
+    - taxonomy.vocabulary.folders
+    - taxonomy.vocabulary.institution
+    - taxonomy.vocabulary.item_type
+    - taxonomy.vocabulary.language_item_source
+    - taxonomy.vocabulary.languages
+    - taxonomy.vocabulary.local_origin
+    - taxonomy.vocabulary.nations
+    - taxonomy.vocabulary.regions
+    - taxonomy.vocabulary.seasonal_time
     - taxonomy.vocabulary.tags
+    - taxonomy.vocabulary.traditional_knowledge_tk_labels
     - workflows.workflow.varbase_editorial_workflow
     - workflows.workflow.varbase_simple_workflow
   module:
@@ -55,6 +71,7 @@ dependencies:
     - taxonomy_access_fix
     - toolbar
     - total_control
+    - userprotect
 _core:
   default_config_hash: kXe1JL0tNsH62AOkORlgJS6nJppoSiT4fZYCobnIbr8
 id: editor
@@ -90,6 +107,7 @@ permissions:
   - 'access responsive preview'
   - 'access shortcuts'
   - 'access site in maintenance mode'
+  - 'access site reports'
   - 'access taxonomy overview'
   - 'access toolbar'
   - 'access user profiles'
@@ -105,6 +123,7 @@ permissions:
   - 'create content translations'
   - 'create document media'
   - 'create faq content'
+  - 'create field_gks_id'
   - 'create field_record_editable_by'
   - 'create file media'
   - 'create gallery media'
@@ -121,7 +140,6 @@ permissions:
   - 'create tweet media'
   - 'create url aliases'
   - 'create varbase_blog content'
-  - 'create varbase_heroslider_media content'
   - 'create video media'
   - 'delete any audio media'
   - 'delete any document media'
@@ -180,6 +198,7 @@ permissions:
   - 'edit own landing_page_lb content'
   - 'edit own language_item content'
   - 'edit own page content'
+  - 'edit own project content'
   - 'edit own remote_video media'
   - 'edit own tweet media'
   - 'edit own varbase_blog content'
@@ -190,18 +209,37 @@ permissions:
   - 'rabbit hole bypass node'
   - 'rabbit hole bypass taxonomy_term'
   - 'reorder terms in blog_categories'
-  - 'reorder terms in tags'
-  - 'reorder terms in traditional_knowledge_tk_labels'
   - 'schedule publishing of media'
   - 'schedule publishing of nodes'
   - 'schedule publishing of taxonomy_term'
   - 'switch shortcut sets'
   - 'translate article node'
   - 'translate block_content'
+  - 'translate ceremonial_time taxonomy_term'
+  - 'translate collection taxonomy_term'
+  - 'translate contributor_roles taxonomy_term'
+  - 'translate contributors taxonomy_term'
+  - 'translate document media'
+  - 'translate exchange_types taxonomy_term'
+  - 'translate file media'
+  - 'translate folders taxonomy_term'
+  - 'translate heritage_item node'
+  - 'translate institution taxonomy_term'
+  - 'translate item_type taxonomy_term'
   - 'translate landing_page_lb node'
+  - 'translate language_item node'
+  - 'translate language_item_source taxonomy_term'
+  - 'translate languages taxonomy_term'
+  - 'translate local_origin taxonomy_term'
   - 'translate menu_link_content'
+  - 'translate nations taxonomy_term'
   - 'translate page node'
   - 'translate paragraph'
+  - 'translate project node'
+  - 'translate regions taxonomy_term'
+  - 'translate seasonal_time taxonomy_term'
+  - 'translate tags taxonomy_term'
+  - 'translate traditional_knowledge_tk_labels taxonomy_term'
   - 'update any media'
   - 'update content translations'
   - 'update media'
@@ -221,6 +259,7 @@ permissions:
   - 'use varbase_simple_workflow transition archived_published'
   - 'use varbase_simple_workflow transition create_new_draft'
   - 'use varbase_simple_workflow transition publish'
+  - userprotect.account.edit
   - 'view any unpublished content'
   - 'view content planner dashboard'
   - 'view field_record_editable_by'
@@ -241,19 +280,13 @@ permissions:
   - 'view terms in exchange_types'
   - 'view terms in folders'
   - 'view terms in institution'
-  - 'view terms in interpretation'
   - 'view terms in item_type'
   - 'view terms in language_item_source'
   - 'view terms in languages'
   - 'view terms in local_origin'
   - 'view terms in nations'
-  - 'view terms in project_status'
-  - 'view terms in record_status'
   - 'view terms in regions'
   - 'view terms in tags'
-  - 'view terms in text_type'
   - 'view terms in traditional_knowledge_tk_labels'
-  - 'view terms in transcription_status'
-  - 'view terms in translation_status'
   - 'view the administration theme'
   - 'view varbase_blog revisions'

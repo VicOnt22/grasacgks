@@ -5,21 +5,117 @@ dependencies:
   config:
     - filter.format.basic_html
     - filter.format.full_html
+    - media.type.audio
+    - media.type.document
+    - media.type.file
+    - media.type.gallery
+    - media.type.image
+    - media.type.remote_video
+    - media.type.video
+    - node.type.article
+    - node.type.heritage_item
+    - node.type.landing_page_lb
+    - node.type.language_item
+    - node.type.page
+    - node.type.project
+    - taxonomy.vocabulary.ceremonial_time
+    - taxonomy.vocabulary.collection
+    - taxonomy.vocabulary.contributor_roles
+    - taxonomy.vocabulary.contributors
+    - taxonomy.vocabulary.exchange_types
+    - taxonomy.vocabulary.folders
+    - taxonomy.vocabulary.institution
+    - taxonomy.vocabulary.item_type
+    - taxonomy.vocabulary.language_item_source
+    - taxonomy.vocabulary.languages
+    - taxonomy.vocabulary.local_origin
+    - taxonomy.vocabulary.nations
+    - taxonomy.vocabulary.regions
+    - taxonomy.vocabulary.seasonal_time
+    - taxonomy.vocabulary.tags
+    - taxonomy.vocabulary.traditional_knowledge_tk_labels
+    - workflows.workflow.varbase_editorial_workflow
   module:
+    - block_content
+    - config_perms
+    - content_moderation
+    - content_translation
+    - contextual
+    - entity_browser
     - field_permissions
+    - file
     - filter
+    - google_analytics_reports
+    - media
+    - media_bulk_upload
+    - menu_link_content
+    - moderation_sidebar
     - node
+    - panels
+    - path
+    - quickedit
+    - rabbit_hole
+    - responsive_preview
+    - scheduler
+    - shortcut
+    - system
+    - taxonomy
+    - toolbar
+    - total_control
+    - webform
 id: guest_member
 label: 'Guest Member'
 weight: -2
 is_admin: null
 permissions:
+  - 'Flush all caches from admin toolbar'
   - 'access comments'
   - 'access content overview'
+  - 'access contextual links'
+  - 'access editor_media_browser entity browser pages'
+  - 'access editor_multiple_image_browser entity browser pages'
+  - 'access editor_multiple_media_browser entity browser pages'
+  - 'access files overview'
+  - 'access google analytics reports'
+  - 'access image_browser entity browser pages'
+  - 'access in-place editing'
+  - 'access media overview'
+  - 'access media_browser entity browser pages'
+  - 'access multiple_image_browser entity browser pages'
+  - 'access multiple_media_browser entity browser pages'
+  - 'access paragraphs_library_items entity browser pages'
   - 'access relations'
+  - 'access responsive preview'
+  - 'access shortcuts'
   - 'access site-wide contact form'
+  - 'access taxonomy overview'
+  - 'access toolbar'
   - 'access user contact forms'
+  - 'access user profiles'
+  - 'access video_browser entity browser pages'
+  - 'access webform overview'
+  - 'access webform submission user'
+  - 'create audio media'
+  - 'create content translations'
+  - 'create document media'
+  - 'create field_gks_id'
   - 'create field_record_editable_by'
+  - 'create file media'
+  - 'create image media'
+  - 'create language_item content'
+  - 'create media'
+  - 'create remote_video media'
+  - 'create terms in tags'
+  - 'create url aliases'
+  - 'create video media'
+  - 'delete media'
+  - 'delete own file media'
+  - 'delete own gallery media'
+  - 'delete own heritage_item content'
+  - 'delete own image media'
+  - 'delete own language_item content'
+  - 'delete own remote_video media'
+  - 'delete own video media'
   - 'download any audio files'
   - 'download any document files'
   - 'download any image files'
@@ -28,14 +124,86 @@ permissions:
   - 'download own document files'
   - 'download own image files'
   - 'download own video files'
+  - 'edit any audio media'
+  - 'edit any document media'
+  - 'edit any image media'
+  - 'edit any remote_video media'
+  - 'edit any video media'
+  - 'edit own article content'
+  - 'edit own audio media'
   - 'edit own comments'
+  - 'edit own document media'
   - 'edit own field_record_editable_by'
+  - 'edit own file media'
+  - 'edit own heritage_item content'
+  - 'edit own image media'
+  - 'edit own language_item content'
+  - 'edit own page content'
+  - 'edit own project content'
+  - 'edit own remote_video media'
+  - 'edit own video media'
+  - 'have total control'
   - 'post comments'
+  - 'rabbit hole bypass node'
+  - 'rabbit hole bypass taxonomy_term'
+  - 'schedule publishing of media'
+  - 'schedule publishing of nodes'
+  - 'schedule publishing of taxonomy_term'
   - 'search heritage_item content'
   - 'search language_item content'
   - 'skip comment approval'
+  - 'translate article node'
+  - 'translate block_content'
+  - 'translate ceremonial_time taxonomy_term'
+  - 'translate collection taxonomy_term'
+  - 'translate contributor_roles taxonomy_term'
+  - 'translate contributors taxonomy_term'
+  - 'translate document media'
+  - 'translate exchange_types taxonomy_term'
+  - 'translate file media'
+  - 'translate folders taxonomy_term'
+  - 'translate heritage_item node'
+  - 'translate institution taxonomy_term'
+  - 'translate item_type taxonomy_term'
+  - 'translate landing_page_lb node'
+  - 'translate language_item node'
+  - 'translate language_item_source taxonomy_term'
+  - 'translate languages taxonomy_term'
+  - 'translate local_origin taxonomy_term'
+  - 'translate menu_link_content'
+  - 'translate nations taxonomy_term'
+  - 'translate page node'
+  - 'translate project node'
+  - 'translate regions taxonomy_term'
+  - 'translate seasonal_time taxonomy_term'
+  - 'translate tags taxonomy_term'
+  - 'translate traditional_knowledge_tk_labels taxonomy_term'
+  - 'update any media'
+  - 'update content translations'
+  - 'update media'
+  - 'use media_bulk_upload bulk upload form'
+  - 'use moderation sidebar'
+  - 'use panels dashboard'
   - 'use text format basic_html'
   - 'use text format full_html'
+  - 'use varbase_editorial_workflow transition archive'
+  - 'use varbase_editorial_workflow transition archived_published'
+  - 'use varbase_editorial_workflow transition create_new_draft'
+  - 'use varbase_editorial_workflow transition publish'
+  - 'use varbase_editorial_workflow transition review'
+  - 'view any unpublished content'
+  - 'view any webform submission'
+  - 'view article revisions'
   - 'view field_record_editable_by'
   - 'view files'
+  - 'view heritage_item revisions'
   - 'view icons'
+  - 'view language_item revisions'
+  - 'view latest version'
+  - 'view own unpublished content'
+  - 'view own unpublished media'
+  - 'view page revisions'
+  - 'view scheduled content'
+  - 'view scheduled media'
+  - 'view scheduled taxonomy_term'
+  - 'view the administration theme'
