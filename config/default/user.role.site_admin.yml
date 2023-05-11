@@ -103,6 +103,7 @@ dependencies:
     - roleassign
     - scheduler
     - script_manager
+    - search_api_tracking
     - section_library
     - shortcut
     - simple_sitemap
@@ -399,6 +400,7 @@ permissions:
   - 'flood unblock ips'
   - 'have total control'
   - 'manage password reset'
+  - 'manage search api tracking settings'
   - 'masquerade as authenticated'
   - 'masquerade as full_member'
   - 'masquerade as guest_member'
@@ -429,6 +431,7 @@ permissions:
   - 'switch shortcut sets'
   - 'translate any entity'
   - 'translate article node'
+  - 'translate audio media'
   - 'translate block_content'
   - 'translate ceremonial_time taxonomy_term'
   - 'translate collection taxonomy_term'
@@ -439,6 +442,7 @@ permissions:
   - 'translate file media'
   - 'translate folders taxonomy_term'
   - 'translate heritage_item node'
+  - 'translate image media'
   - 'translate institution taxonomy_term'
   - 'translate interface'
   - 'translate item_type taxonomy_term'
@@ -453,9 +457,11 @@ permissions:
   - 'translate paragraph'
   - 'translate project node'
   - 'translate regions taxonomy_term'
+  - 'translate remote_video media'
   - 'translate seasonal_time taxonomy_term'
   - 'translate tags taxonomy_term'
   - 'translate traditional_knowledge_tk_labels taxonomy_term'
+  - 'translate video media'
   - 'update any basic block content'
   - 'update any media'
   - 'update any varbase_carousel_block block content'

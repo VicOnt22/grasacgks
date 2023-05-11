@@ -12,6 +12,7 @@ dependencies:
     - content_moderation
     - field_permissions
     - filter
+    - google_analytics_reports
     - media
     - node
     - toolbar
@@ -24,6 +25,7 @@ permissions:
   - 'access all views'
   - 'access comments'
   - 'access content overview'
+  - 'access google analytics reports'
   - 'access media browser'
   - 'access media overview'
   - 'access relations'
@@ -59,6 +61,7 @@ permissions:
   - 'view files'
   - 'view icons'
   - 'view latest version'
+  - 'view own field_gks_id'
   - 'view own unpublished content'
   - 'view own unpublished media'
   - 'view revisions'
