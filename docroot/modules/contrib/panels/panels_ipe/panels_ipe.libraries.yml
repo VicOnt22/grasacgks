@@ -24,12 +24,12 @@ panels_ipe:
       css/panels_ipe.css: {}
   dependencies:
     - core/jquery
-    - core/once
+    - core/jquery.once
     - jquery_ui/core
     - jquery_ui_draggable/draggable
     - jquery_ui_droppable/droppable
-    - core/internal.underscore
-    - core/internal.backbone
+    - core/underscore
+    - core/backbone
     - core/drupal
     - core/drupal.form
     - core/drupal.ajax

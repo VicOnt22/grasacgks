@@ -499,3 +499,21 @@ function inline_entity_form_migration_plugins_alter(array &$migrations) {
   \Drupal::classResolver(MigrationHelper::class)
     ->alterPlugins($migrations);
 }
+
+/**
+ * Change text button by type of bundle.
+ *
+ * @param $form
+ *   The complete parent form.
+ * @param $form_state
+ *   The form state of the parent form.
+ */
+function inline_entity_form_change_bundle_form($form, FormStateInterface $form_state) {
+  $element = inline_entity_form_get_element($form, $form_state);
+  $elements = $form_state->getTriggeringElement();
+
+  $element['actions']['ief_add']['#value'] = t('Add new @type', [
+    '@type' => $elements['#options'][$elements['#value']],
+  ]);
+  return $element;
+}

@@ -197,13 +197,17 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
   /**
    * Gets the bundles for which the current user has create access.
    *
+   * @param array $context
+   *   (optional) An array of key-value pairs to pass additional context when
+   *   needed.
+   *
    * @return string[]
    *   The list of bundles.
    */
-  protected function getCreateBundles() {
+  protected function getCreateBundles(array $context = []) {
     $create_bundles = [];
     foreach ($this->getTargetBundles() as $bundle) {
-      if ($this->getAccessHandler()->createAccess($bundle)) {
+      if ($this->getAccessHandler()->createAccess($bundle, NULL, $context)) {
         $create_bundles[] = $bundle;
       }
     }
@@ -219,8 +223,10 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
       'form_mode' => 'default',
       'revision' => FALSE,
       'override_labels' => FALSE,
+      'config_labels_button' => '_none',
       'label_singular' => '',
       'label_plural' => '',
+      'labels' => [],
       'hide_fieldset' => FALSE,
       'hide_title' => FALSE,
       'collapsible' => FALSE,
@@ -252,6 +258,44 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
       '#title' => $this->t('Override labels'),
       '#default_value' => $this->getSetting('override_labels'),
     ];
+    $element['config_labels_button'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Choose config labels buttons'),
+      '#default_value' => $this->getSetting('config_labels_button'),
+      '#options' => $this->getLabelButtonsOptions(),
+      '#states' => [
+        'visible' => [
+          ':input[name="' . $states_prefix . '[override_labels]"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+    $element['labels'] = [
+      '#type' => 'container',
+    ];
+
+    foreach ($this->getCreateBundles() as $bundle) {
+      $labels = $this->getSetting('labels');
+      $element['labels']['label_singular_' . $bundle] = [
+        '#type' => 'textfield',
+        '#title' => $this->t('Singular label ' . $bundle),
+        '#default_value' => ($labels ? $labels['label_singular_' . $bundle] : NULL),
+        '#states' => [
+          'visible' => [
+            ':input[name="' . $states_prefix . '[config_labels_button]"]' => ['value' => 'complex_label'],
+          ],
+        ],
+      ];
+      $element['labels']['label_plural_' . $bundle] = [
+        '#type' => 'textfield',
+        '#title' => $this->t('Plural label ' . $bundle),
+        '#default_value' => ($labels ? $labels['label_plural_' . $bundle] : NULL),
+        '#states' => [
+          'visible' => [
+            ':input[name="' . $states_prefix . '[config_labels_button]"]' => ['value' => 'complex_label'],
+          ],
+        ],
+      ];
+    }
     $element['label_singular'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Singular label'),
@@ -259,6 +303,8 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
       '#states' => [
         'visible' => [
           ':input[name="' . $states_prefix . '[override_labels]"]' => ['checked' => TRUE],
+          'and',
+          ':input[name="' . $states_prefix . '[config_labels_button]"]' => ['!value' => 'complex_label'],
         ],
       ],
     ];
@@ -269,6 +315,8 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
       '#states' => [
         'visible' => [
           ':input[name="' . $states_prefix . '[override_labels]"]' => ['checked' => TRUE],
+          'and',
+          ':input[name="' . $states_prefix . '[config_labels_button]"]' => ['!value' => 'complex_label'],
         ],
       ],
     ];
@@ -644,12 +692,29 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
   /**
    * Determines if the current user can add any new entities.
    *
+   * @param array $context
+   *   (optional) An array of key-value pairs to pass additional context when
+   *   needed.
+   *
    * @return bool
    *   Returns bool to allow or not new entity additions.
    */
-  protected function canAddNew() {
-    $create_bundles = $this->getCreateBundles();
+  protected function canAddNew(array $context = []) {
+    $create_bundles = $this->getCreateBundles($context);
     return !empty($create_bundles);
+  }
+
+  /**
+   * Returns the options for the settings label bundles.
+   *
+   * @return array
+   *   List of options.
+   */
+  protected function getLabelButtonsOptions() {
+    return [
+      'simple_label' => $this->t('Configure simple text'),
+      'complex_label' => $this->t('Configure label button for each type'),
+    ];
   }
 
 }

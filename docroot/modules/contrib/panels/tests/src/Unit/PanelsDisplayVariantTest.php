@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\panels\Unit;
 
-use Prophecy\PhpUnit\ProphecyTrait;
 use Drupal\Component\Uuid\UuidInterface;
 use Drupal\Core\Block\BlockManager;
 use Drupal\Core\Condition\ConditionManager;
@@ -25,7 +24,6 @@ use Prophecy\Argument;
  */
 class PanelsDisplayVariantTest extends UnitTestCase {
 
-  use ProphecyTrait;
   /**
    * @var \Drupal\Core\Session\AccountInterface
    */
@@ -81,12 +79,7 @@ class PanelsDisplayVariantTest extends UnitTestCase {
    */
   protected $variant;
 
-  /**
-   * {@inheritdoc}
-   */
-  public function setUp(): void {
-    parent::setUp();
-
+  public function setUp() {
     $this->account = $this->prophesize(AccountInterface::class);
     $this->contextHandler = $this->prophesize(ContextHandlerInterface::class);
     $this->uuidGenerator = $this->prophesize(UuidInterface::class);

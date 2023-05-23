@@ -3,6 +3,7 @@
 namespace Drupal\inline_entity_form\Tests;
 
 use Drupal\node\Entity\Node;
+use Drupal\Tests\inline_entity_form\FunctionalJavascript\InlineEntityFormTestBase;
 
 /**
  * Tests translating inline entities with content moderation enabled.
@@ -57,7 +58,7 @@ class ContentModerationTranslationTest extends InlineEntityFormTestBase {
       $edit['settings[node][' . $node_type . '][translatable]'] = TRUE;
       $edit['settings[node][' . $node_type . '][settings][language][language_alterable]'] = TRUE;
     }
-    $this->drupalPostForm('admin/config/regional/content-language', $edit, t('Save configuration'));
+    $this->submitForm('admin/config/regional/content-language', $edit, t('Save configuration'));
 
     // Allow referencing existing entities.
     $form_display_storage = $this->container->get('entity_type.manager')->getStorage('entity_form_display');
@@ -93,7 +94,7 @@ class ContentModerationTranslationTest extends InlineEntityFormTestBase {
       'multi[form][entity_id]' => 'An inline node (' . $first_inline_node->id() . ')',
     ];
     $this->drupalPostAjaxForm(NULL, $edit, $this->getButtonName('//input[@type="submit" and @data-drupal-selector="edit-multi-form-actions-ief-reference-save"]'));
-    $this->assertResponse(200, 'Adding a new referenced entity was successful.');
+    $this->assertSession()->statusCodeEquals(200, 'Adding a new referenced entity was successful.');
 
     // Add a new English inline node.
     $this->drupalPostAjaxForm(NULL, [], $this->getButtonName('//input[@type="submit" and @value="Add new node" and @data-drupal-selector="edit-multi-actions-ief-add"]'));
@@ -104,20 +105,20 @@ class ContentModerationTranslationTest extends InlineEntityFormTestBase {
       'multi[form][inline_entity_form][moderation_state][0][state]' => 'published',
     ];
     $this->drupalPostAjaxForm(NULL, $edit, $this->getButtonName('//input[@type="submit" and @value="Create node" and @data-drupal-selector="edit-multi-form-inline-entity-form-actions-ief-add-save"]'));
-    $this->assertResponse(200, 'Creating a new inline entity was successful.');
+    $this->assertSession()->statusCodeEquals(200, 'Creating a new inline entity was successful.');
 
     $edit = [
       'title[0][value]' => 'A node',
       'langcode[0][value]' => 'en',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save'));
-    $this->assertResponse(200, 'Saving the parent entity was successful.');
+    $this->submitForm(NULL, $edit, t('Save'));
+    $this->assertSession()->statusCodeEquals(200, 'Saving the parent entity was successful.');
 
     // Both inline nodes should now be in English.
     $first_inline_node = $this->drupalGetNodeByTitle('An inline node');
     $second_inline_node = $this->drupalGetNodeByTitle('Another inline node');
-    $this->assertEqual($first_inline_node->get('langcode')->value, 'en', 'The first inline entity has the correct langcode.');
-    $this->assertEqual($second_inline_node->get('langcode')->value, 'en', 'The second inline entity has the correct langcode.');
+    $this->assertEquals($first_inline_node->get('langcode')->value, 'en', 'The first inline entity has the correct langcode.');
+    $this->assertEquals($second_inline_node->get('langcode')->value, 'en', 'The second inline entity has the correct langcode.');
 
     // Edit the node, change the source language to German.
     $node = $this->drupalGetNodeByTitle('A node');
@@ -125,14 +126,14 @@ class ContentModerationTranslationTest extends InlineEntityFormTestBase {
     $edit = [
       'langcode[0][value]' => 'de',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save'));
-    $this->assertResponse(200, 'Saving the parent entity was successful.');
+    $this->submitForm(NULL, $edit, t('Save'));
+    $this->assertSession()->statusCodeEquals(200, 'Saving the parent entity was successful.');
 
     // Both inline nodes should now be in German.
     $first_inline_node = $this->drupalGetNodeByTitle('An inline node', TRUE);
     $second_inline_node = $this->drupalGetNodeByTitle('Another inline node', TRUE);
-    $this->assertEqual($first_inline_node->get('langcode')->value, 'de', 'The first inline entity has the correct langcode.');
-    $this->assertEqual($second_inline_node->get('langcode')->value, 'de', 'The second inline entity has the correct langcode.');
+    $this->assertEquals($first_inline_node->get('langcode')->value, 'de', 'The first inline entity has the correct langcode.');
+    $this->assertEquals($second_inline_node->get('langcode')->value, 'de', 'The second inline entity has the correct langcode.');
 
     // Add a German -> French translation.
     $this->drupalGet('node/' . $node->id() . '/translations/add/de/fr');
@@ -141,7 +142,7 @@ class ContentModerationTranslationTest extends InlineEntityFormTestBase {
     $this->assertTrue((bool) $this->xpath('//fieldset[@id="edit-multi"]/legend/span'), 'IEF field is present in the node translation form');
     // Confirm that the translatability clue has been removed.
     $widget_title_element = $this->xpath('//fieldset[@id="edit-multi"]/legend/span');
-    $this->assertEqual((string) $widget_title_element[0], 'Multiple nodes', 'The widget has the expected title.');
+    $this->assertEquals((string) $widget_title_element[0], 'Multiple nodes', 'The widget has the expected title.');
     // Confirm that the add and remove buttons are not present.
     $this->assertFalse((bool) $this->xpath('//input[@type="submit" and @value="Add new node" and @data-drupal-selector="edit-multi-actions-ief-add"]'), 'Add new node button does not appear in the table.');
     $this->assertFalse((bool) $this->xpath('//input[@type="submit" and @value="Remove"]'), 'Remove button does not appear in the table.');
@@ -151,7 +152,7 @@ class ContentModerationTranslationTest extends InlineEntityFormTestBase {
 
     // Edit the translations of both inline entities.
     $this->drupalPostAjaxForm(NULL, [], $this->getButtonName('//input[@type="submit" and @value="Edit" and @data-drupal-selector="edit-multi-entities-0-actions-ief-entity-edit"]'));
-    $this->assertNoText('Last name', 'The non-translatable last_name field is hidden.');
+    $this->assertSession()->pageTextNotContains('Last name', 'The non-translatable last_name field is hidden.');
     $edit = [
       'multi[form][inline_entity_form][entities][0][form][title][0][value]' => 'An inline node in French!',
       'multi[form][inline_entity_form][entities][0][form][first_name][0][value]' => 'Damien',
@@ -165,8 +166,8 @@ class ContentModerationTranslationTest extends InlineEntityFormTestBase {
     ];
     $this->drupalPostAjaxForm(NULL, $edit, $this->getButtonName('//input[@type="submit" and @value="Update node" and @data-drupal-selector="edit-multi-form-inline-entity-form-entities-1-form-actions-ief-edit-save"]'));
 
-    $this->drupalPostForm(NULL, [], t('Save (this translation)'));
-    $this->assertResponse(200, 'Saving the parent entity was successful.');
+    $this->submitForm(NULL, [], t('Save (this translation)'));
+    $this->assertSession()->statusCodeEquals(200, 'Saving the parent entity was successful.');
 
     // Load using the original titles, confirming they haven't changed.
     $first_inline_node = $this->drupalGetNodeByTitle('An inline node', TRUE);
@@ -175,11 +176,11 @@ class ContentModerationTranslationTest extends InlineEntityFormTestBase {
     $this->assertTrue($first_inline_node->hasTranslation('fr'), 'The first inline entity has a FR translation');
     $this->assertTrue($second_inline_node->hasTranslation('fr'), 'The second inline entity has a FR translation');
     $first_translation = $first_inline_node->getTranslation('fr');
-    $this->assertEqual($first_translation->title->value, 'An inline node in French!');
-    $this->assertEqual($first_translation->first_name->value, 'Damien');
+    $this->assertEquals($first_translation->title->value, 'An inline node in French!');
+    $this->assertEquals($first_translation->first_name->value, 'Damien');
     $second_translation = $second_inline_node->getTranslation('fr');
-    $this->assertEqual($second_translation->title->value, 'Another inline node in French!');
-    $this->assertEqual($second_translation->first_name->value, 'Jacques');
+    $this->assertEquals($second_translation->title->value, 'Another inline node in French!');
+    $this->assertEquals($second_translation->first_name->value, 'Jacques');
   }
 
 }

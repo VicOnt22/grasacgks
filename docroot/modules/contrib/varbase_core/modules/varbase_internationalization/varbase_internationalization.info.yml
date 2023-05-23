@@ -10,7 +10,7 @@ install:
   - config_translation
   - content_translation
 
-# Information added by Drupal.org packaging script on 2023-05-14
-version: '9.0.55'
+# Information added by Drupal.org packaging script on 2023-05-21
+version: '9.0.56'
 project: 'varbase_core'
-datestamp: 1684062449
+datestamp: 1684679755

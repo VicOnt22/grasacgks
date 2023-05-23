@@ -254,7 +254,7 @@
       // Filter our collection based on the input.
       var results = this.collection.filter(function (model) {
         var attribute = model.get(this.searchAttribute);
-        return attribute ? attribute.toLowerCase().indexOf(search) !== -1 : false;
+        return attribute.toLowerCase().indexOf(search) !== -1;
       }, this);
 
       // Empty ourselves.

@@ -98,10 +98,10 @@ class PanelsStorageManager extends DefaultPluginManager implements PanelsStorage
     // Allow event subscribers to react to the variant being saved.
     $event = new PanelsVariantEvent($panels_display);
 
-    $this->eventDispatcher->dispatch($event, PanelsEvents::VARIANT_PRE_SAVE);
+    $this->eventDispatcher->dispatch(PanelsEvents::VARIANT_PRE_SAVE, $event);
     $storage = $this->getStorage($panels_display->getStorageType());
     $storage->save($panels_display);
-    $this->eventDispatcher->dispatch($event, PanelsEvents::VARIANT_POST_SAVE);
+    $this->eventDispatcher->dispatch(PanelsEvents::VARIANT_POST_SAVE, $event);
   }
 
   /**

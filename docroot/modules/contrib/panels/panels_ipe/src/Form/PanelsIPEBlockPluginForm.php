@@ -10,6 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\Context\ContextHandlerInterface;
 use Drupal\Core\Plugin\ContextAwarePluginAssignmentTrait;
 use Drupal\Core\Plugin\ContextAwarePluginInterface;
+use Drupal\Core\Render\Element;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
 use Drupal\panels_ipe\PanelsIPEBlockRendererTrait;
@@ -29,12 +30,12 @@ class PanelsIPEBlockPluginForm extends FormBase {
   use PanelsIPEBlockRendererTrait;
 
   /**
-   * @var \Drupal\Component\Plugin\PluginManagerInterface
+   * @var \Drupal\Component\Plugin\PluginManagerInterface $blockManager
    */
   protected $blockManager;
 
   /**
-   * @var \Drupal\Core\Render\RendererInterface
+   * @var \Drupal\Core\Render\RendererInterface $renderer
    */
   protected $renderer;
 
@@ -275,7 +276,7 @@ class PanelsIPEBlockPluginForm extends FormBase {
 
     // Set the block region appropriately.
     $block_config = $block_instance->getConfiguration();
-    $block_config['region'] = $form_state->getValue(['settings', 'region']);
+    $block_config['region'] = $form_state->getValue(array('settings', 'region'));
 
     // Determine if we need to update or add this block.
     if ($uuid = $form_state->getValue('uuid')) {
@@ -326,7 +327,7 @@ class PanelsIPEBlockPluginForm extends FormBase {
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
    *
-   * @return array
+   * @return array $form
    *   The form structure.
    */
   public function submitPreview(array &$form, FormStateInterface $form_state) {

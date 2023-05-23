@@ -7,6 +7,7 @@ use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
 use Drupal\panels\Storage\PanelsStorageManagerInterface;
 use Drupal\Core\TempStore\SharedTempStore;
 use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_MockObject_MockObject;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -20,31 +21,35 @@ abstract class RequestHandlerTestBase extends TestCase {
   protected $sut;
 
   /**
-   * @var \PHPUnit\Framework\MockObject\MockObject */
+   * @var PHPUnit_Framework_MockObject_MockObject */
   protected $moduleHandler;
 
   /**
-   * @var \PHPUnit\Framework\MockObject\MockObject */
+   * @var PHPUnit_Framework_MockObject_MockObject */
   protected $panelsStore;
 
   /**
-   * @var \PHPUnit\Framework\MockObject\MockObject */
+   * @var PHPUnit_Framework_MockObject_MockObject */
   protected $tempStore;
 
   /**
-   * @var \PHPUnit\Framework\MockObject\MockObject */
+   * @var PHPUnit_Framework_MockObject_MockObject */
   protected $panelsDisplay;
 
   /**
    *
    */
-  public function setUp(): void {
+  public function setUp() {
     parent::setUp();
     $this->moduleHandler = $this->getMockForAbstractClass(ModuleHandlerInterface::class);
     $this->panelsStore = $this->getMockForAbstractClass(PanelsStorageManagerInterface::class);
-    $this->tempStore = $this->createMock(SharedTempStore::class);
+    $this->tempStore = $this->getMockBuilder(SharedTempStore::class)
+      ->disableOriginalConstructor()
+      ->getMock();
 
-    $this->panelsDisplay = $this->createMock(PanelsDisplayVariant::class);
+    $this->panelsDisplay = $this->getMockBuilder(PanelsDisplayVariant::class)
+      ->disableOriginalConstructor()
+      ->getMock();
   }
 
   protected function createRequest($content = NULL) {

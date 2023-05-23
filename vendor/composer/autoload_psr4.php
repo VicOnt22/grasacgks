@@ -122,6 +122,7 @@ return array(
     'EasyRdf\\' => array($vendorDir . '/easyrdf/easyrdf/lib'),
     'Drush\\' => array($vendorDir . '/drush/drush/src'),
     'Drupal\\sophron\\' => array($baseDir . '/docroot/modules/contrib/sophron/src'),
+    'Drupal\\rat\\' => array($vendorDir . '/drupal/rat/src'),
     'Drupal\\Driver\\' => array($baseDir . '/docroot/drivers/lib/Drupal/Driver'),
     'Drupal\\Core\\' => array($baseDir . '/docroot/core/lib/Drupal/Core'),
     'Drupal\\Composer\\Plugin\\Scaffold\\' => array($vendorDir . '/drupal/core-composer-scaffold'),

@@ -46,11 +46,9 @@
         "sibyx/phpgpx": "^1.2",
         "vardot/varbase": "~9.0",
         "vardot/varbase-updater": "~2.0",
-        "webflo/drupal-finder": "~1.0",
-        "drupal/ctools": "^3.0"
+        "webflo/drupal-finder": "~1.0"
     },
     "conflict": {
-        "drupal/ctools": "^4.0.1",
         "drupal/drupal": "*"
     },
     "require-dev": {

@@ -16,6 +16,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Theme\ThemeManagerInterface;
 use Drupal\inline_entity_form\InlineFormInterface;
+use Drupal\rat\v1\RenderArray;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -191,13 +192,15 @@ class EntityInlineForm implements InlineFormInterface {
     // Inline entities inherit the parent language.
     $langcode_key = $this->entityType->getKey('langcode');
     if ($langcode_key && isset($entity_form[$langcode_key])) {
-      $entity_form[$langcode_key]['#access'] = FALSE;
+      // Safely restrict access. Entity cacheability already set.
+      RenderArray::alter($entity_form[$langcode_key])->restrictAccess(FALSE, NULL);
     }
     if (!empty($entity_form['#translating'])) {
       // Hide the non-translatable fields.
       foreach ($entity->getFieldDefinitions() as $field_name => $definition) {
         if (isset($entity_form[$field_name]) && $field_name != $langcode_key) {
-          $entity_form[$field_name]['#access'] = $definition->isTranslatable();
+          // Safely restrict access. Field definition cacheability already set.
+          RenderArray::alter($entity_form[$field_name])->restrictAccess($definition->isTranslatable(), NULL);
         }
       }
     }
@@ -206,7 +209,8 @@ class EntityInlineForm implements InlineFormInterface {
     // disabled in UI and does not make sense in inline entity form context.
     if (($this->entityType instanceof ContentEntityTypeInterface)) {
       if ($log_message_key = $this->entityType->getRevisionMetadataKey('revision_log_message')) {
-        $entity_form[$log_message_key]['#access'] = FALSE;
+        // Safely restrict access. Entity type cacheability already set.
+        RenderArray::alter($entity_form[$log_message_key])->restrictAccess(FALSE, NULL);
       }
     }
 

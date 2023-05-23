@@ -8,6 +8,7 @@ use Drupal\Core\Block\BlockManagerInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Layout\LayoutPluginManagerInterface;
 use Drupal\Core\Plugin\Context\ContextHandlerInterface;
+use Drupal\Core\Render\Element;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\panels\Storage\PanelsStorageManagerInterface;
 use Drupal\panels_ipe\Helpers\RemoveBlockRequestHandler;
@@ -15,6 +16,7 @@ use Drupal\panels_ipe\Helpers\UpdateLayoutRequestHandler;
 use Drupal\panels_ipe\PanelsIPEBlockRendererTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -110,7 +112,7 @@ class PanelsIPEPageController extends ControllerBase {
    * @param string $panels_storage_id
    *   The id within the Panels storage plugin for this Panels display.
    *
-   * @return \Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant|null
+   * @return \Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant|NULL
    */
   protected function loadPanelsDisplay($panels_storage_type, $panels_storage_id) {
     /** @var \Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant $panels_display */
@@ -170,7 +172,7 @@ class PanelsIPEPageController extends ControllerBase {
     $base_path = base_path();
     $data = [];
     foreach ($layouts as $id => $layout) {
-      $icon = $layout->getIconPath() ?: $this->moduleHandler()->getModule('panels')->getPath() . '/layouts/no-layout-preview.png';
+      $icon = $layout->getIconPath() ?: drupal_get_path('module', 'panels') . '/layouts/no-layout-preview.png';
       $data[] = [
         'id' => $id,
         'label' => $layout->getLabel(),
@@ -182,7 +184,7 @@ class PanelsIPEPageController extends ControllerBase {
 
     // Trigger hook_panels_ipe_layouts_alter(). Allows other modules to change
     // the list of layouts that are visible.
-    $this->moduleHandler()->alter('panels_ipe_layouts', $data, $panels_display);
+    \Drupal::moduleHandler()->alter('panels_ipe_layouts', $data, $panels_display);
 
     // Reindex the blocks after they were altered in case one of them was
     // removed.
@@ -339,7 +341,7 @@ class PanelsIPEPageController extends ControllerBase {
 
     // Trigger hook_panels_ipe_blocks_alter(). Allows other modules to change
     // the list of blocks that are visible.
-    $this->moduleHandler()->alter('panels_ipe_blocks', $blocks, $panels_display);
+    \Drupal::moduleHandler()->alter('panels_ipe_blocks', $blocks, $panels_display);
     // We need to re-index our return value, in case a hook unset a block.
     $blocks = array_values($blocks);
 
@@ -376,7 +378,7 @@ class PanelsIPEPageController extends ControllerBase {
    * @param string $block_uuid
    *   The Block UUID, if this is an existing Block.
    *
-   * @return \Symfony\Component\HttpFoundation\Response
+   * @return Response
    */
   public function getBlockPluginForm($panels_storage_type, $panels_storage_id, $plugin_id, $block_uuid = NULL) {
     $panels_display = $this->loadPanelsDisplay($panels_storage_type, $panels_storage_id);

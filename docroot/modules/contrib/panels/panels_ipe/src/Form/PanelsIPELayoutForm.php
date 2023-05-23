@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class PanelsIPELayoutForm extends FormBase {
 
   /**
-   * @var \Drupal\Core\Render\RendererInterface
+   * @var \Drupal\Core\Render\RendererInterface $renderer
    */
   protected $renderer;
 

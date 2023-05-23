@@ -12,10 +12,10 @@ interface PanelsDisplayManagerInterface {
   /**
    * Create a new panels display.
    *
-   * @param string|\Drupal\Core\Layout\LayoutInterface|null $layout
+   * @param string|\Drupal\Core\Layout\LayoutInterface|NULL $layout
    *   The layout plugin object or plugin id. If omitted, the default Panels
    *   layout will be used.
-   * @param string|\Drupal\panels\Plugin\DisplayBuilder\DisplayBuilderInterface|null $builder
+   * @param string|\Drupal\panels\Plugin\DisplayBuilder\DisplayBuilderInterface|NULL $builder
    *   The builder object or plugin id. If omitted, the default Panels builder
    *   will be used.
    *

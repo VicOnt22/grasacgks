@@ -19,7 +19,7 @@ class PanelsContentForm extends FormBase {
   /**
    * Tempstore factory.
    *
-   * @var \Drupal\Core\TempStore\SharedTempStoreFactory
+   * @var \Drupal\Core\TempStore\SharedTempStoreFactory $tempstore
    */
   protected $tempstore;
 

@@ -17,7 +17,7 @@ class PanelsStorageManagerTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected static $modules = ['ctools', 'layout_discovery', 'page_manager', 'panels', 'user'];
+  public static $modules = ['ctools', 'layout_discovery', 'page_manager', 'panels', 'user'];
 
   /**
    * Tests that events are fired by the storage manager.

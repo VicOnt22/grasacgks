@@ -110,6 +110,11 @@ class SimpleWidgetTest extends InlineEntityFormTestBase {
         $assert_session->elementExists('xpath', $second_nested_title_field_xpath)->setValue('Nested single node 5');
         $assert_session->elementExists('xpath', $second_positive_int_field_xpath)->setValue(42);
 
+        // Check that an unrelated AJAX call with #executes_submit_callback set
+        // to FALSE doesn't interfere.
+        $assert_session->buttonExists('No submit callbacks')->press();
+        $assert_session->waitForText('AJAX complete');
+
         // Press the 'add another item' button and add a third item.
         $assert_session->buttonExists('Add another item')->press();
         $this->assertNotEmpty($assert_session->waitForElement('xpath', $third_nested_title_field_xpath));

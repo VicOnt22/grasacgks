@@ -8,7 +8,6 @@ use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
  * Provides the IPE Access plugin manager.
  */
 interface IPEAccessManagerInterface {
-
   /**
    * @param \Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant $display
    *

@@ -177,13 +177,17 @@ class InlineEntityForm extends RenderElement {
    *   The entity form.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
+   * 
+   * @return Drupal\Core\Entity\EntityInterface\null
    */
   public static function submitEntityForm(array &$entity_form, FormStateInterface $form_state) {
     $inline_form_handler = static::getInlineFormHandler($entity_form['#entity_type']);
     $inline_form_handler->entityFormSubmit($entity_form, $form_state);
     if ($entity_form['#save_entity']) {
       $inline_form_handler->save($entity_form['#entity']);
+      return $entity_form['#entity'];
     }
+    return NULL;
   }
 
   /**
