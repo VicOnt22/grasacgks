@@ -171,6 +171,7 @@ class Requirements extends Base {
       $admin_roles = $this->entityTypeManager->getStorage('user_role')
         ->getQuery()
         ->condition('is_admin', TRUE)
+        ->accessCheck(FALSE)
         ->execute();
     } catch (InvalidPluginDefinitionException $e) {
     } catch (PluginNotFoundException $e) {

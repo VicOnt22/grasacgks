@@ -1,0 +1,7 @@
+{
+    "name": "drupal/ckeditor_paste_filter",
+    "type": "drupal-module",
+    "description": "Extra plugins for ckeditor. Filter text pasted into editor.",
+    "homepage": "http://drupal.org/project/ckeditor_paste_filter",
+    "license": "GPL-2.0-or-later"
+}

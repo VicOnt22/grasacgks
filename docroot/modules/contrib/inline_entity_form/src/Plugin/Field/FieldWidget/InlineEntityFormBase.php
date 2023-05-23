@@ -2,6 +2,7 @@
 
 namespace Drupal\inline_entity_form\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityDisplayRepositoryInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
@@ -220,6 +221,8 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
       'override_labels' => FALSE,
       'label_singular' => '',
       'label_plural' => '',
+      'hide_fieldset' => FALSE,
+      'hide_title' => FALSE,
       'collapsible' => FALSE,
       'collapsed' => FALSE,
     ];
@@ -269,10 +272,30 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
         ],
       ],
     ];
+    $element['hide_fieldset'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Hide fieldset'),
+      '#default_value' => $this->getSetting('hide_fieldset'),
+    ];
+    $element['hide_title'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Hide element title'),
+      '#default_value' => $this->getSetting('hide_title'),
+      '#states' => [
+        'visible' => [
+          ':input[name="' . $states_prefix . '[hide_fieldset]"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
     $element['collapsible'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Collapsible'),
       '#default_value' => $this->getSetting('collapsible'),
+      '#states' => [
+        'visible' => [
+          ':input[name="' . $states_prefix . '[hide_fieldset]"]' => ['checked' => FALSE],
+        ],
+      ],
     ];
     $element['collapsed'] = [
       '#type' => 'checkbox',
@@ -317,8 +340,13 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
       $summary[] = $this->t('Create new revision');
     }
 
-    if ($this->getSetting('collapsible')) {
-      $summary[] = $this->getSetting('collapsed') ? $this->t('Collapsible, collapsed by default') : $this->t('Collapsible');
+    if ($this->getSetting('hide_fieldset')) {
+      $summary[] = $this->getSetting('hide_title') ? $this->t('Hide fieldset and title.') : $this->t('Hide fieldset and title.');
+    }
+    else {
+      $summary[] = $this->t('Display in a %state fieldset.',
+        ['%state' => $this->getSetting('collapsible') ? ($this->getSetting('collapsed') ? $this->t('collapsed') : $this->t('collapsible')) : $this->t('plain')]
+      );
     }
 
     return $summary;
@@ -375,10 +403,8 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
    *   The form state.
    * @param \Drupal\Core\Field\FieldItemListInterface $items
    *   The field values.
-   * @param bool $translating
-   *   Whether there's a translation in progress.
    */
-  protected function prepareFormState(FormStateInterface $form_state, FieldItemListInterface $items, $translating = FALSE) {
+  protected function prepareFormState(FormStateInterface $form_state, FieldItemListInterface $items) {
     $widget_state = $form_state->get(['inline_entity_form', $this->iefId]);
     if (empty($widget_state)) {
       $widget_state = [
@@ -391,18 +417,33 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
       // manipulation.
       foreach ($items->referencedEntities() as $delta => $entity) {
         // Display the entity in the correct translation.
-        if ($translating) {
-          $entity = TranslationHelper::prepareEntity($entity, $form_state);
-        }
+        $entity = TranslationHelper::prepareEntity($entity, $form_state);
+
         $widget_state['entities'][$delta] = [
           'entity' => $entity,
           'weight' => $delta,
-          'form' => NULL,
+          'form' => self::entityIsOpenFromQuery($entity, $form_state) ? 'edit' : NULL,
           'needs_save' => $entity->isNew(),
         ];
       }
       $form_state->set(['inline_entity_form', $this->iefId], $widget_state);
     }
+  }
+
+  /**
+   *
+   */
+  public static function entityIsOpenFromQuery(ContentEntityInterface $entity, FormStateInterface $form_state) {
+    $query = \Drupal::request()->query;
+    if ($query->has('ief_open') && !$form_state->has('inline_entity_form_open')) {
+      $form_state->set('inline_entity_form_open', $query->get('ief_open'));
+    }
+    if ($form_state->has('inline_entity_form_open')) {
+      $ief_open = $form_state->get('inline_entity_form_open');
+      $query_value = sprintf('%s:%s', $entity->getEntityTypeId(), $entity->id());
+      return in_array($query_value, $ief_open);
+    }
+    return FALSE;
   }
 
   /**
@@ -590,7 +631,12 @@ abstract class InlineEntityFormBase extends WidgetBase implements ContainerFacto
    */
   public function form(FieldItemListInterface $items, array &$form, FormStateInterface $form_state, $get_delta = NULL) {
     if ($this->canBuildForm($form_state)) {
-      return parent::form($items, $form, $form_state, $get_delta);
+      $elements = parent::form($items, $form, $form_state, $get_delta);
+      // Signal to content_translation that this field should be treated as
+      // multilingual and not be hidden, see
+      // \Drupal\content_translation\ContentTranslationHandler::entityFormSharedElements().
+      $elements['#multilingual'] = TRUE;
+      return $elements;
     }
     return [];
   }

@@ -7,7 +7,7 @@ core_version_requirement: ^8 || ^9 || ^10
 dependencies:
   - entity_browser:entity_browser
 
-# Information added by Drupal.org packaging script on 2023-01-08
-version: '8.x-1.1'
+# Information added by Drupal.org packaging script on 2023-05-18
+version: '8.x-1.2'
 project: 'entity_browser_enhanced'
-datestamp: 1673189792
+datestamp: 1684398447

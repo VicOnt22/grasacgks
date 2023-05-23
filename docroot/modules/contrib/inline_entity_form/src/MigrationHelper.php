@@ -2,6 +2,7 @@
 
 namespace Drupal\inline_entity_form;
 
+use Drupal\migrate_plus\Entity\MigrationGroup;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\field\Plugin\migrate\source\d7\FieldInstance;
 use Drupal\field\Plugin\migrate\source\d7\FieldInstancePerFormDisplay;
@@ -151,8 +152,8 @@ class MigrationHelper {
    */
   protected function getMigrationWithSharedConfiguration(array &$migration) {
     // Integrate shared group configuration into the migration.
-    if (!empty($migration['migration_group'])) {
-      $group = \Drupal\migrate_plus\Entity\MigrationGroup::load($migration['migration_group']);
+    if (!empty($migration['migration_group']) && class_exists('\Drupal\migrate_plus\Entity\MigrationGroup')) {
+      $group = MigrationGroup::load($migration['migration_group']);
       $shared_configuration = !empty($group) ? $group->get('shared_configuration') : [];
       if (!empty($shared_configuration)) {
         foreach ($shared_configuration as $key => $group_value) {

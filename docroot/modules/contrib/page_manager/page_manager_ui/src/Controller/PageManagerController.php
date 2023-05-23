@@ -106,8 +106,10 @@ class PageManagerController extends ControllerBase {
   public function editPageTitle($machine_name, $tempstore_id) {
     $cached_values = $this->tempstore->get($tempstore_id)->get($machine_name);
     /** @var \Drupal\page_manager\PageInterface $page */
-    $page = $cached_values['page'];
-    return $this->t('Edit %label page', ['%label' => $page->label()]);
+//    if (isset($cached_values['page'])) {
+      $page = $cached_values['page'];
+      return $this->t('Edit %label page', ['%label' => $page->label()]);
+//    }
   }
 
   /**
@@ -167,7 +169,7 @@ class PageManagerController extends ControllerBase {
    *   The title for the parameter edit form.
    */
   public function editParameterTitle(PageInterface $page, $name) {
-    return $this->t('Edit @label parameter', ['@label' => $page->getParameter($name)['label']]);
+    return $this->t('Edit @label parameter', ['@label' => $page->getParameter($name)['label'] ?? '']);
   }
 
   /**

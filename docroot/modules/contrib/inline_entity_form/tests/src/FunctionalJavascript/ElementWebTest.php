@@ -56,6 +56,7 @@ class ElementWebTest extends InlineEntityFormTestBase {
 
       $page->pressButton('Save');
       $assert_session->pageTextNotContains("Created Content $title");
+
       // @todo How do we test Chrome's HTML 5 validation?
       // $assert_session->pageTextContains('Please fill out this field.');
       // Fix in https://www.drupal.org/project/inline_entity_form/issues/3100883
@@ -75,6 +76,7 @@ class ElementWebTest extends InlineEntityFormTestBase {
       $node = $this->getNodeByTitle($title);
 
       $this->drupalGet("ief-test/$form_mode_possibility/{$node->id()}");
+
       // Assert node title appears in form.
       $assert_session->elementExists('xpath', $title_field_xpath);
       $this->checkFormDisplayFields("node.ief_test_custom.$form_mode_possibility", 'inline_entity_form');

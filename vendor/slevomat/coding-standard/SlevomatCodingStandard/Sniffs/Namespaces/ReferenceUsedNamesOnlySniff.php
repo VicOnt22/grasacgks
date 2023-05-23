@@ -40,6 +40,7 @@ use function in_array;
 use function preg_quote;
 use function preg_replace;
 use function sprintf;
+use function strpos;
 use function strtolower;
 use function substr;
 use const T_DECLARE;
@@ -87,10 +88,10 @@ class ReferenceUsedNamesOnlySniff implements Sniff
 	/** @var bool */
 	public $allowFallbackGlobalConstants = true;
 
-	/** @var string[] */
+	/** @var list<string> */
 	public $specialExceptionNames = [];
 
-	/** @var string[] */
+	/** @var list<string> */
 	public $ignoredNames = [];
 
 	/** @var bool */
@@ -99,7 +100,7 @@ class ReferenceUsedNamesOnlySniff implements Sniff
 	/**
 	 * If empty, all namespaces are required to be used
 	 *
-	 * @var string[]
+	 * @var list<string>
 	 */
 	public $namespacesRequiredToUse = [];
 
@@ -112,13 +113,13 @@ class ReferenceUsedNamesOnlySniff implements Sniff
 	/** @var bool */
 	public $allowFullyQualifiedNameForCollidingConstants = false;
 
-	/** @var string[]|null */
+	/** @var list<string>|null */
 	private $normalizedSpecialExceptionNames;
 
-	/** @var string[]|null */
+	/** @var list<string>|null */
 	private $normalizedIgnoredNames;
 
-	/** @var string[]|null */
+	/** @var list<string>|null */
 	private $normalizedNamespacesRequiredToUse;
 
 	/**
@@ -187,7 +188,18 @@ class ReferenceUsedNamesOnlySniff implements Sniff
 
 			$collidingUseStatementUniqueId = UseStatement::getUniqueId($reference->type, $unqualifiedName);
 
-			$isFullyQualified = NamespaceHelper::isFullyQualifiedName($name);
+			$isPartialUse = false;
+			foreach ($useStatements as $useStatement) {
+				$useStatementName = $useStatement->getAlias() ?? $useStatement->getNameAsReferencedInFile();
+				if (strpos($name, $useStatementName . '\\') === 0) {
+					$isPartialUse = true;
+					break;
+				}
+			}
+
+			$isFullyQualified = NamespaceHelper::isFullyQualifiedName($name)
+				|| ($namespacePointers === [] && NamespaceHelper::hasNamespace($name) && !$isPartialUse);
+
 			$isGlobalFallback = !$isFullyQualified
 				&& !NamespaceHelper::hasNamespace($name)
 				&& $namespacePointers !== []
@@ -524,7 +536,7 @@ class ReferenceUsedNamesOnlySniff implements Sniff
 	}
 
 	/**
-	 * @return string[]
+	 * @return list<string>
 	 */
 	private function getSpecialExceptionNames(): array
 	{
@@ -536,7 +548,7 @@ class ReferenceUsedNamesOnlySniff implements Sniff
 	}
 
 	/**
-	 * @return string[]
+	 * @return list<string>
 	 */
 	private function getIgnoredNames(): array
 	{
@@ -548,7 +560,7 @@ class ReferenceUsedNamesOnlySniff implements Sniff
 	}
 
 	/**
-	 * @return string[]
+	 * @return list<string>
 	 */
 	private function getNamespacesRequiredToUse(): array
 	{
@@ -560,7 +572,7 @@ class ReferenceUsedNamesOnlySniff implements Sniff
 	}
 
 	/**
-	 * @param UseStatement[] $useStatements
+	 * @param array<string, UseStatement> $useStatements
 	 */
 	private function getUseStatementPlacePointer(File $phpcsFile, int $openTagPointer, array $useStatements): int
 	{
@@ -633,7 +645,7 @@ class ReferenceUsedNamesOnlySniff implements Sniff
 	}
 
 	/**
-	 * @return stdClass[]
+	 * @return list<stdClass>
 	 */
 	private function getReferences(File $phpcsFile, int $openTagPointer): array
 	{

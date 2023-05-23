@@ -3,6 +3,8 @@
 namespace Drupal\inline_entity_form\Form;
 
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * Node inline form handler.

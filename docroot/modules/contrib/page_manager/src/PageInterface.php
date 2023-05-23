@@ -5,6 +5,7 @@ namespace Drupal\page_manager;
 use Drupal\Component\Plugin\Context\ContextInterface;
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Entity\EntityWithPluginCollectionInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Provides an interface for page entities.
@@ -168,10 +169,12 @@ interface PageInterface extends ConfigEntityInterface, EntityWithPluginCollectio
    *   The parameter context type.
    * @param string $label
    *   (optional) The parameter context label.
+   * @param bool $optional
+   *   (optional) If the parameter context is optional.
    *
    * @return $this
    */
-  public function setParameter($name, $type, $label = '');
+  public function setParameter($name, $type, $label = '', $optional = FALSE);
 
   /**
    * Removes a specific parameter context.
@@ -192,11 +195,16 @@ interface PageInterface extends ConfigEntityInterface, EntityWithPluginCollectio
 
   /**
    * Gets the values for all defined contexts.
+   * 
+   * @param \Symfony\Component\HttpFoundation\Request| null $request
+   *   The request to fetch contexts for.
+   * @param bool $reset_cache
+   *   Boolean indicating whether or not to reset the internal contexts cache.
    *
    * @return \Drupal\Core\Plugin\Context\ContextInterface[]
    *   An array of set context values, keyed by context name.
    */
-  public function getContexts();
+  public function getContexts(Request $request = NULL, $reset_cache = FALSE);
 
   /**
    * Sets the context for a given name.

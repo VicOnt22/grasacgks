@@ -10,7 +10,7 @@ dependencies:
   - varbase_core:varbase_core
   - varbase_workflow:varbase_workflow
 
-# Information added by Drupal.org packaging script on 2022-12-15
-version: '2.0.12'
+# Information added by Drupal.org packaging script on 2023-05-03
+version: '2.0.13'
 project: 'varbase_workflow'
-datestamp: 1671129572
+datestamp: 1683130568

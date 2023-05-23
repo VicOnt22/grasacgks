@@ -42,7 +42,7 @@ Namespace: `options.plugins.tooltip`, the global options for the chart tooltips 
 | `borderColor` | [`Color`](../general/colors.md) | `'rgba(0, 0, 0, 0)'` | Color of the border.
 | `borderWidth` | `number` | `0` | Size of the border.
 | `rtl` | `boolean` | | `true` for rendering the tooltip from right to left.
-| `textDirection` | `string` | canvas' default | This will force the text direction `'rtl' or 'ltr` on the canvas for rendering the tooltips, regardless of the css specified on the canvas
+| `textDirection` | `string` | canvas' default | This will force the text direction `'rtl'` or `'ltr'` on the canvas for rendering the tooltips, regardless of the css specified on the canvas
 | `xAlign` | `string` | `undefined` | Position of the tooltip caret in the X direction. [more](#tooltip-alignment)
 | `yAlign` | `string` | `undefined` | Position of the tooltip caret in the Y direction. [more](#tooltip-alignment)
 
@@ -377,9 +377,10 @@ The tooltip model contains parameters that can be used to render the tooltip.
     // lines of text that form the footer
     footer: string[],
 
-    // colors to render for each item in body[]. This is the color of the squares in the tooltip
-    labelColors: Color[],
+    // style to render for each item in body[]. This is the style of the squares in the tooltip
+    labelColors: TooltipLabelStyle[],
     labelTextColors: Color[],
+    labelPointStyles: { pointStyle: PointStyle; rotation: number }[],
 
     // 0 opacity is a hidden tooltip
     opacity: number,

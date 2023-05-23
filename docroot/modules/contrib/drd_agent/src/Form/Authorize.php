@@ -132,7 +132,7 @@ class Authorize extends FormBase {
     else {
       if ($form_state->getValue('op') === $form['submit']['#value']) {
         $values = $this->setupService->execute();
-        $form_state->setResponse(TrustedRedirectResponse::create($values['redirect']));
+        $form_state->setResponse(new TrustedRedirectResponse($values['redirect']));
       }
       unset($_SESSION['drd_agent_authorization_values']);
     }

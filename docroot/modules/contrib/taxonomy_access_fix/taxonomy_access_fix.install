@@ -5,16 +5,66 @@
  * Install, uninstall and update hooks for taxonomy_access_fix module.
  */
 
+use Drupal\taxonomy\Entity\Vocabulary;
+use Drupal\user\Entity\Role;
+
 /**
- * Empty update hook to fix issue 3226641.
+ * Implements hook_update_last_removed().
  */
-function taxonomy_access_fix_update_8201() {
-  // @see https://www.drupal.org/project/taxonomy_access_fix/issues/3226641
+function taxonomy_access_fix_update_last_removed() {
+  return 8202;
 }
 
 /**
- * Empty update hook to fix issue 3226641.
+ * Populate 'VOCABULARY: View published term names' permission.
  */
-function taxonomy_access_fix_update_8202() {
-  // @see https://www.drupal.org/project/taxonomy_access_fix/issues/3226641
+function taxonomy_access_fix_update_9401() {
+  $vocabularies = Vocabulary::loadMultiple();
+
+  foreach (Role::loadMultiple() as $role) {
+    foreach ($vocabularies as $vocabulary) {
+      if (!$role->hasPermission('view terms in ' . $vocabulary->id())) {
+        continue;
+      }
+      $role
+        ->grantPermission('view term names in ' . $vocabulary->id())
+        ->save();
+    }
+  }
+  return t('The new per-vocabulary permission %new_permission_label has been granted to roles with permission %old_permission_label, which was required to perform this operation previously. You may want to review the updated permissions.', [
+    '%new_permission_label' => t('%vocabulary: View published term names', [
+      '%vocabulary' => t('Vocabulary label'),
+    ]),
+    '%old_permission_label' => t('%vocabulary: View published terms', [
+      '%vocabulary' => t('Vocabulary label'),
+    ]),
+  ]);
+}
+
+/**
+ * Populate 'VOCABULARY: Select published terms' permission.
+ */
+function taxonomy_access_fix_update_9402() {
+  $vocabularies = Vocabulary::loadMultiple();
+
+  foreach (Role::loadMultiple() as $role) {
+    foreach ($vocabularies as $vocabulary) {
+      if (!$role->hasPermission('view terms in ' . $vocabulary->id())) {
+        continue;
+      }
+      $role
+        ->grantPermission('select terms in ' . $vocabulary->id())
+        ->save();
+    }
+  }
+
+  return t('The new per-vocabulary permission %new_permission_label has been granted to roles with permission %old_permission_label, which was required to perform this operation previously. You may want to review the updated permissions.', [
+    '%new_permission_label' => t('%vocabulary: Select published terms', [
+      '%vocabulary' => t('Vocabulary label'),
+    ]),
+    '%old_permission_label' => t('%vocabulary: View published terms', [
+      '%vocabulary' => t('Vocabulary label'),
+    ]),
+    '@module_name' => t('Taxonomy Access Fix'),
+  ]);
 }

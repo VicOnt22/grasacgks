@@ -4,6 +4,7 @@ namespace Drupal\page_manager;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Entity\EntityWithPluginCollectionInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Provides an interface defining a PageVariant entity.
@@ -21,12 +22,13 @@ interface PageVariantInterface extends ConfigEntityInterface, EntityWithPluginCo
    * Gets the plugin ID of the variant plugin.
    *
    * @return string
+   *   Returns the string with ID.
    */
   public function getVariantPluginId();
 
   /**
    * Sets the plugin ID of the variant plugin without loading the Plugin
-   *   collections.
+   * collections.
    *
    * @param string $variant
    *   The plugin ID of the variant plugin.
@@ -38,9 +40,17 @@ interface PageVariantInterface extends ConfigEntityInterface, EntityWithPluginCo
   public function setVariantPluginId($variant);
 
   /**
+   * Retrieves the display title of the variant.
+   *
+   * @return string
+   *   The translated title for variant instance.
+   */
+  public function getTitle();
+
+  /**
    * Gets the page this variant is on.
    *
-   * @return \Drupal\page_manager\PageInterface
+   * @return \Drupal\page_manager\PageInterface object
    */
   public function getPage();
 
@@ -60,10 +70,15 @@ interface PageVariantInterface extends ConfigEntityInterface, EntityWithPluginCo
   /**
    * Gets the values for all defined contexts.
    *
+   * @param \Symfony\Component\HttpFoundation\Request| null $request
+   *   The request to fetch contexts for.
+   * @param bool $reset_cache
+   *   Boolean indicating whether or not to reset the internal contexts cache.
+   *
    * @return \Drupal\Core\Plugin\Context\ContextInterface[]
    *   An array of set context values, keyed by context name.
    */
-  public function getContexts();
+  public function getContexts(Request $request = NULL, $reset_cache = FALSE);
 
   /**
    * Resets the collected contexts.
@@ -93,6 +108,7 @@ interface PageVariantInterface extends ConfigEntityInterface, EntityWithPluginCo
    * Gets the selection condition collection.
    *
    * @return \Drupal\Core\Condition\ConditionInterface[]|\Drupal\Core\Condition\ConditionPluginCollection
+   *   An array of configured condition plugins.
    */
   public function getSelectionConditions();
 
@@ -113,7 +129,7 @@ interface PageVariantInterface extends ConfigEntityInterface, EntityWithPluginCo
    * @param string $condition_id
    *   The ID of the condition.
    *
-   * @return \Drupal\Core\Condition\ConditionInterface
+   * @return \Drupal\Core\Condition\ConditionInterface object
    */
   public function getSelectionCondition($condition_id);
 
@@ -164,7 +180,7 @@ interface PageVariantInterface extends ConfigEntityInterface, EntityWithPluginCo
    *
    * @return $this
    */
-  public function setStaticContext($name, $configuration);
+  public function setStaticContext($name, array $configuration);
 
   /**
    * Removes a specific static context.

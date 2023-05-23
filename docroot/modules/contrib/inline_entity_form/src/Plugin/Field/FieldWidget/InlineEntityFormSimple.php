@@ -37,13 +37,20 @@ class InlineEntityFormSimple extends InlineEntityFormBase {
     $form_state->set(['inline_entity_form', $ief_id], []);
 
     $element = [
-      '#type' => $this->getSetting('collapsible') ? 'details' : 'fieldset',
+      '#type' => 'fieldset',
       '#field_title' => $this->fieldDefinition->getLabel(),
       '#after_build' => [
         [get_class($this), 'removeTranslatabilityClue'],
       ],
     ] + $element;
-    if ($element['#type'] == 'details') {
+    if ($this->getSetting('hide_fieldset')) {
+      $element['#attributes']['style'] = 'display: contents';
+      if ($this->getSetting('hide_title')) {
+        $element['#title_display'] = 'invisible';
+      }
+    }
+    elseif ($this->getSetting('collapsible')) {
+      $element['#type'] = 'details';
       // If there's user input, keep the details open. Otherwise, use settings.
       $element['#open'] = $form_state->getUserInput() ?: !$this->getSetting('collapsed');
     }

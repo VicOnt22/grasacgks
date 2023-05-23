@@ -10,6 +10,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Plugin\DefaultSingleLazyPluginCollection;
 use Drupal\page_manager\PageInterface;
 use Drupal\page_manager\PageVariantInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Defines the page variant entity.
@@ -248,6 +249,14 @@ class PageVariant extends ConfigEntityBase implements PageVariantInterface {
   /**
    * {@inheritdoc}
    */
+  public function getTitle() {
+    $config = $this->getVariantPluginCollection()->getConfiguration();
+    return isset($config['page_title']) ? $config['page_title'] : $this->label();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getPage() {
     if (!$this->pageEntity) {
       if (!$this->page) {
@@ -274,10 +283,10 @@ class PageVariant extends ConfigEntityBase implements PageVariantInterface {
   /**
    * {@inheritdoc}
    */
-  public function getContexts() {
+  public function getContexts(Request $request = NULL, $reset_cache = FALSE) {
     if (is_null($this->contexts)) {
       $static_contexts = $this->getContextMapper()->getContextValues($this->getStaticContexts());
-      $page_contexts = $this->getPage()->getContexts();
+      $page_contexts = $this->getPage()->getContexts($request, $reset_cache);
       $this->contexts = $page_contexts + $static_contexts;
     }
     return $this->contexts;
@@ -374,7 +383,7 @@ class PageVariant extends ConfigEntityBase implements PageVariantInterface {
   /**
    * {@inheritdoc}
    */
-  public function setStaticContext($name, $configuration) {
+  public function setStaticContext($name, array $configuration) {
     $this->static_context[$name] = $configuration;
     $this->resetCollectedContexts();
     return $this;
@@ -427,7 +436,7 @@ class PageVariant extends ConfigEntityBase implements PageVariantInterface {
   /**
    * Wraps the condition plugin manager.
    *
-   * @return \Drupal\Core\Condition\ConditionManager
+   * @return \Drupal\Core\Condition\ConditionManager object
    *   The condition manager service.
    */
   protected function getConditionManager() {
@@ -437,7 +446,7 @@ class PageVariant extends ConfigEntityBase implements PageVariantInterface {
   /**
    * Wraps the context mapper.
    *
-   * @return \Drupal\page_manager\ContextMapperInterface
+   * @return \Drupal\page_manager\ContextMapperInterface object
    *   The context mapper service.
    */
   protected function getContextMapper() {
@@ -447,7 +456,7 @@ class PageVariant extends ConfigEntityBase implements PageVariantInterface {
   /**
    * Wraps the page entity storage.
    *
-   * @return \Drupal\Core\Entity\EntityStorageInterface
+   * @return \Drupal\Core\Entity\EntityStorageInterface object
    *   The Page entity storage service.
    */
   protected function getPageStorage() {

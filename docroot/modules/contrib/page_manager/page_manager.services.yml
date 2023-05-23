@@ -1,4 +1,7 @@
 services:
+  page_manager.page_manager_helper:
+    class: Drupal\page_manager\PageManagerHelper
+    arguments: ['@token', '@entity_type.manager', '@entity.repository']
   page_manager.current_user_context:
     class: Drupal\page_manager\EventSubscriber\CurrentUserContext
     arguments: ['@context.repository']

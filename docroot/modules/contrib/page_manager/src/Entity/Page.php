@@ -13,6 +13,7 @@ use Drupal\Core\Condition\ConditionPluginCollection;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\page_manager\PageVariantInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Defines a Page entity class.
@@ -121,6 +122,7 @@ class Page extends ConfigEntityBase implements PageInterface {
    * - machine_name: Machine-readable context name.
    * - label: Human-readable context name.
    * - type: Context type.
+   * - optional: Whether the parameter is optional.
    *
    * @var array[]
    */
@@ -137,20 +139,14 @@ class Page extends ConfigEntityBase implements PageInterface {
    * {@inheritdoc}
    */
   public function getPath() {
-    return $this->path;
+    return $this->path ?? '';
   }
 
   /**
    * {@inheritdoc}
    */
   public function usesAdminTheme() {
-    if (isset($this->use_admin_theme)) {
-      return $this->use_admin_theme;
-    }
-
-    $path = $this->getPath();
-
-    return !empty($path) && strpos($path, '/admin/') === 0;
+    return $this->use_admin_theme ?? strpos((string) $this->getPath(), '/admin/') === 0;
   }
 
   /**
@@ -250,6 +246,21 @@ class Page extends ConfigEntityBase implements PageInterface {
   }
 
   /**
+   * Defaults for new parameters.
+   *
+   * @return array
+   *   An array of default parameter values.
+   */
+  public function parameterDefaults() {
+    return [
+      'type' => '',
+      'machine_name' => '',
+      'label' => '',
+      'optional' => FALSE,
+    ];
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getParameter($name) {
@@ -269,11 +280,12 @@ class Page extends ConfigEntityBase implements PageInterface {
   /**
    * {@inheritdoc}
    */
-  public function setParameter($name, $type, $label = '') {
+  public function setParameter($name, $type, $label = '', $optional = FALSE) {
     $this->parameters[$name] = [
       'machine_name' => $name,
       'type' => $type,
       'label' => $label,
+      'optional' => $optional,
     ];
     // Reset contexts when a parameter is added or changed.
     $this->contexts = [];
@@ -302,8 +314,7 @@ class Page extends ConfigEntityBase implements PageInterface {
    * {@inheritdoc}
    */
   public function getParameterNames() {
-    $path = $this->getPath();
-    if (!empty($path) && preg_match_all('|\{(\w+)\}|', $path, $matches)) {
+    if ($this->getPath() && preg_match_all('|\{(\w+)\}|', (string) $this->getPath(), $matches)) {
       return $matches[1];
     }
     return [];
@@ -345,14 +356,18 @@ class Page extends ConfigEntityBase implements PageInterface {
   /**
    * {@inheritdoc}
    */
-  public function getContexts() {
+  public function getContexts(Request $request = NULL, $reset_cache = FALSE) {
+    if ($reset_cache) {
+      // Reset contexts when requested.
+      $this->contexts = [];
+    }
     // @todo add the other global contexts here as they are added
     // @todo maybe come up with a non-hardcoded way of doing this?
     $global_contexts = [
       'current_user',
     ];
     if (!$this->contexts) {
-      $this->eventDispatcher()->dispatch(PageManagerEvents::PAGE_CONTEXT, new PageManagerContextEvent($this));
+      $this->eventDispatcher()->dispatch(new PageManagerContextEvent($this, $request), PageManagerEvents::PAGE_CONTEXT);
       foreach ($this->getParameters() as $machine_name => $configuration) {
         // Parameters can be updated in the UI, so unless it's a global context
         // we'll need to rely on the current settings in the tempstore instead
@@ -364,7 +379,8 @@ class Page extends ConfigEntityBase implements PageInterface {
             $cacheability->setCacheContexts(['route']);
 
             $context_definition = ContextDefinitionFactory::create($configuration['type'])
-              ->setLabel($configuration['label']);
+              ->setLabel($configuration['label'])
+              ->setRequired(empty($configuration['optional']));
             $context = new Context($context_definition);
             $context->addCacheableDependency($cacheability);
             $this->contexts[$machine_name] = $context;

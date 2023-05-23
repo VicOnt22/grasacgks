@@ -85,8 +85,8 @@ class DefaultContentCommands extends DrushCommands {
    * @aliases dcem
    */
   public function contentExportModule($module) {
-    $module_folder = \Drupal::moduleHandler()
-      ->getModule($module)
+    $module_folder = \Drupal::service('extension.list.module')
+      ->get($module)
       ->getPath() . '/content';
     $this->defaultContentExporter->exportModuleContent($module, $module_folder);
   }

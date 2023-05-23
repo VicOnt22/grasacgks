@@ -21,7 +21,7 @@ class PasteFilter extends CKEditorPluginBase implements CKEditorPluginContextual
    * {@inheritdoc}
    */
   public function getFile() {
-    return drupal_get_path('module', 'ckeditor_paste_filter') . '/js/plugins/paste-filter/plugin.js';
+    return \Drupal::service('extension.list.module')->getPath('ckeditor_paste_filter') . '/js/plugins/paste-filter/plugin.js';
   }
 
   /**
@@ -32,16 +32,17 @@ class PasteFilter extends CKEditorPluginBase implements CKEditorPluginContextual
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function getButtons() {
     return [];
   }
 
   /**
-   * @inheritDoc
+   * {@inheritdoc}
    */
   public function isEnabled(Editor $editor) {
     return TRUE;
   }
+
 }

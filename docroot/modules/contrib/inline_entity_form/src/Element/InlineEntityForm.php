@@ -6,6 +6,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\RevisionLogInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\RenderElement;
+use Drupal\Core\TypedData\TranslatableInterface;
 use Drupal\inline_entity_form\ElementSubmit;
 use Drupal\inline_entity_form\TranslationHelper;
 
@@ -131,8 +132,10 @@ class InlineEntityForm extends RenderElement {
       }
     }
     // Prepare the entity form and the entity itself for translating.
-    $entity_form['#entity'] = TranslationHelper::prepareEntity($entity_form['#entity'], $form_state);
-    $entity_form['#translating'] = TranslationHelper::isTranslating($form_state) && $entity_form['#entity']->isTranslatable();
+    if ($entity_form['#entity'] instanceof TranslatableInterface) {
+      $entity_form['#entity'] = TranslationHelper::prepareEntity($entity_form['#entity'], $form_state);
+      $entity_form['#translating'] = TranslationHelper::isTranslating($form_state) && $entity_form['#entity']->isTranslatable();
+    }
 
     // Handle revisioning if the entity supports it.
     if ($entity_type->isRevisionable() && $entity_form['#revision']) {

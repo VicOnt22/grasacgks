@@ -23,6 +23,9 @@ class RouteAttributesTest extends UnitTestCase {
     $this->assertEquals($expected, RouteAttributes::extractRawAttributes($route, $name, $path));
   }
 
+  /**
+   * Provider Test Extract Raw Attributes.
+   */
   public function providerTestExtractRawAttributes() {
     $data = [];
     $data['no-parameters'] = [new Route('/prefix/a'), 'a_route', '/prefix', []];

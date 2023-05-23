@@ -274,7 +274,6 @@ module:
   menu_admin_per_menu: 1
   pathauto: 1
   varbase_api: 1
-  varbase_development: 1
   varbase_email: 1
   varbase_heroslider_media: 1
   varbase_layout_builder: 1

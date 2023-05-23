@@ -2,6 +2,23 @@ uuid: 03477de0-e4ff-414c-b3bd-7af232bcf44c
 langcode: en
 status: true
 dependencies:
+  config:
+    - taxonomy.vocabulary.ceremonial_time
+    - taxonomy.vocabulary.collection
+    - taxonomy.vocabulary.contributor_roles
+    - taxonomy.vocabulary.contributors
+    - taxonomy.vocabulary.exchange_types
+    - taxonomy.vocabulary.folders
+    - taxonomy.vocabulary.institution
+    - taxonomy.vocabulary.item_type
+    - taxonomy.vocabulary.language_item_source
+    - taxonomy.vocabulary.languages
+    - taxonomy.vocabulary.local_origin
+    - taxonomy.vocabulary.nations
+    - taxonomy.vocabulary.regions
+    - taxonomy.vocabulary.seasonal_time
+    - taxonomy.vocabulary.tags
+    - taxonomy.vocabulary.traditional_knowledge_tk_labels
   module:
     - media
     - system
@@ -14,10 +31,42 @@ weight: -10
 is_admin: false
 permissions:
   - 'access content'
+  - 'select terms in ceremonial_time'
+  - 'select terms in collection'
+  - 'select terms in contributor_roles'
+  - 'select terms in contributors'
+  - 'select terms in exchange_types'
+  - 'select terms in folders'
+  - 'select terms in institution'
+  - 'select terms in item_type'
+  - 'select terms in language_item_source'
+  - 'select terms in languages'
+  - 'select terms in local_origin'
+  - 'select terms in nations'
+  - 'select terms in regions'
+  - 'select terms in seasonal_time'
+  - 'select terms in tags'
+  - 'select terms in traditional_knowledge_tk_labels'
   - 'use text format filtered_html'
   - 'view files'
   - 'view media'
   - 'view own files'
+  - 'view term names in ceremonial_time'
+  - 'view term names in collection'
+  - 'view term names in contributor_roles'
+  - 'view term names in contributors'
+  - 'view term names in exchange_types'
+  - 'view term names in folders'
+  - 'view term names in institution'
+  - 'view term names in item_type'
+  - 'view term names in language_item_source'
+  - 'view term names in languages'
+  - 'view term names in local_origin'
+  - 'view term names in nations'
+  - 'view term names in regions'
+  - 'view term names in seasonal_time'
+  - 'view term names in tags'
+  - 'view term names in traditional_knowledge_tk_labels'
   - 'view terms in ceremonial_time'
   - 'view terms in collection'
   - 'view terms in contributor_roles'

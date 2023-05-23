@@ -33,6 +33,7 @@ Slevomat Coding Standard for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_
  - [SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation](doc/arrays.md#slevomatcodingstandardarraysdisallowimplicitarraycreation)
  - [SlevomatCodingStandard.Arrays.DisallowPartiallyKeyed](doc/arrays.md#slevomatcodingstandardarraysdisallowpartiallykeyed) 🚧
  - [SlevomatCodingStandard.Arrays.MultiLineArrayEndBracketPlacement](doc/arrays.md#slevomatcodingstandardarraysmultilinearrayendbracketplacement-) 🔧
+ - [SlevomatCodingStandard.Arrays.ArrayAccessSniff.php](doc/arrays.md#slevomatcodingstandardarraysarrayaccess-) 🔧
  - [SlevomatCodingStandard.Arrays.SingleLineArrayWhitespace](doc/arrays.md#slevomatcodingstandardarrayssinglelinearraywhitespace-) 🔧
  - [SlevomatCodingStandard.Arrays.TrailingArrayComma](doc/arrays.md#slevomatcodingstandardarraystrailingarraycomma-) 🔧
  - [SlevomatCodingStandard.Attributes.AttributeAndTargetSpacing](doc/attributes.md#slevomatcodingstandardattributesattributeandtargetspacing-) 🔧
@@ -72,6 +73,7 @@ Slevomat Coding Standard for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_
  - [SlevomatCodingStandard.Classes.TraitUseDeclaration](doc/classes.md#slevomatcodingstandardclassestraitusedeclaration-) 🔧
  - [SlevomatCodingStandard.Classes.TraitUseSpacing](doc/classes.md#slevomatcodingstandardclassestraitusespacing-) 🔧
  - [SlevomatCodingStandard.Classes.UselessLateStaticBinding](doc/classes.md#slevomatcodingstandardclassesuselesslatestaticbinding-) 🔧
+ - [SlevomatCodingStandard.Commenting.AnnotationName](doc/commenting.md#slevomatcodingstandardcommentingannotationname-)
  - [SlevomatCodingStandard.Commenting.DeprecatedAnnotationDeclaration](doc/commenting.md#slevomatcodingstandardcommentingdeprecatedannotationdeclaration)
  - [SlevomatCodingStandard.Commenting.DisallowCommentAfterCode](doc/commenting.md#slevomatcodingstandardcommentingdisallowcommentaftercode-) 🔧
  - [SlevomatCodingStandard.Commenting.DisallowOneLinePropertyDocComment](doc/commenting.md#slevomatcodingstandardcommentingdisallowonelinepropertydoccomment-) 🔧
