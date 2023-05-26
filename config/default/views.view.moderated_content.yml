@@ -2,7 +2,14 @@ uuid: 35e5d3a5-a6c3-4943-8d86-ca403a479070
 langcode: en
 status: true
 dependencies:
+  config:
+    - node.type.article
+    - node.type.heritage_item
+    - node.type.landing_page_lb
+    - node.type.language_item
+    - node.type.page
   module:
+    - content_moderation
     - node
     - user
   enforced:
@@ -547,7 +554,12 @@ display:
           entity_field: type
           plugin_id: bundle
           operator: in
-          value: {  }
+          value:
+            article: article
+            page: page
+            landing_page_lb: landing_page_lb
+            language_item: language_item
+            heritage_item: heritage_item
           group: 1
           exposed: true
           expose:
@@ -565,8 +577,18 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              editor: '0'
+              content_admin: '0'
+              seo_admin: '0'
+              site_admin: '0'
+              test_role: '0'
+              guest_member: '0'
+              research_assistant: '0'
+              full_member: '0'
+              institution_key_contact: '0'
+              manager: '0'
               administrator: '0'
-            reduce: false
+            reduce: true
           is_grouped: false
           group_info:
             label: ''
@@ -590,8 +612,7 @@ display:
           plugin_id: moderation_state_filter
           operator: in
           value:
-            editorial-draft: editorial-draft
-            editorial-archived: editorial-archived
+            all: all
           group: 1
           exposed: true
           expose:
@@ -609,6 +630,16 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              editor: '0'
+              content_admin: '0'
+              seo_admin: '0'
+              site_admin: '0'
+              test_role: '0'
+              guest_member: '0'
+              research_assistant: '0'
+              full_member: '0'
+              institution_key_contact: '0'
+              manager: '0'
               administrator: '0'
             reduce: true
           is_grouped: false
@@ -634,7 +665,11 @@ display:
           entity_field: langcode
           plugin_id: language
           operator: in
-          value: {  }
+          value:
+            en: en
+            fr: fr
+            iro: iro
+            alg: alg
           group: 1
           exposed: true
           expose:
@@ -652,8 +687,18 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              editor: '0'
+              content_admin: '0'
+              seo_admin: '0'
+              site_admin: '0'
+              test_role: '0'
+              guest_member: '0'
+              research_assistant: '0'
+              full_member: '0'
+              institution_key_contact: '0'
+              manager: '0'
               administrator: '0'
-            reduce: false
+            reduce: true
           is_grouped: false
           group_info:
             label: ''
@@ -675,9 +720,8 @@ display:
           admin_label: ''
           entity_type: node
           plugin_id: moderation_state_filter
-          operator: 'not in'
-          value:
-            editorial-published: editorial-published
+          operator: 'not empty'
+          value: {  }
           group: 1
           exposed: false
           expose:
@@ -811,7 +855,8 @@ display:
         - url.query_args
         - 'user.node_grants:view'
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:workflow_list'
   moderated_content:
     id: moderated_content
     display_title: 'Moderated content'
@@ -830,4 +875,5 @@ display:
         - url.query_args
         - 'user.node_grants:view'
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:workflow_list'

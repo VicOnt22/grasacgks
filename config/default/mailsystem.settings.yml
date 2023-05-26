@@ -2,3 +2,8 @@ theme: current
 defaults:
   sender: swiftmailer
   formatter: swiftmailer
+modules:
+  webform:
+    none:
+      sender: swiftmailer
+      formatter: swiftmailer

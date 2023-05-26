@@ -10,8 +10,8 @@ id: node.language_item.field_folders
 field_name: field_folders
 entity_type: node
 bundle: language_item
-label: Folders
-description: 'Let "Folders (Special Projects)" field empty when not sure if it belongs to any Grasac special project'
+label: 'Folders (Special Projects)'
+description: 'Don''t check - let the "Folders (Special projects)" field empty when not sure if it belongs to any Grasac special project'
 required: false
 translatable: true
 default_value: {  }

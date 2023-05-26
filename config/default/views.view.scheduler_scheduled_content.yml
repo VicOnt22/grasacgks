@@ -3,6 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
+    - node.type.article
+    - node.type.heritage_item
+    - node.type.landing_page_lb
+    - node.type.language_item
+    - node.type.page
+    - node.type.varbase_heroslider_media
     - system.menu.admin
   module:
     - node
@@ -649,7 +655,13 @@ display:
           entity_field: type
           plugin_id: bundle
           operator: in
-          value: {  }
+          value:
+            article: article
+            page: page
+            varbase_heroslider_media: varbase_heroslider_media
+            landing_page_lb: landing_page_lb
+            language_item: language_item
+            heritage_item: heritage_item
           group: 1
           exposed: true
           expose:
@@ -667,8 +679,18 @@ display:
             remember_roles:
               anonymous: '0'
               authenticated: '0'
+              editor: '0'
+              content_admin: '0'
+              seo_admin: '0'
+              site_admin: '0'
+              test_role: '0'
+              guest_member: '0'
+              research_assistant: '0'
+              full_member: '0'
+              institution_key_contact: '0'
+              manager: '0'
               administrator: '0'
-            reduce: false
+            reduce: true
           is_grouped: false
           group_info:
             label: ''
@@ -742,7 +764,11 @@ display:
           entity_field: langcode
           plugin_id: language
           operator: in
-          value: {  }
+          value:
+            en: en
+            fr: fr
+            iro: iro
+            alg: alg
           group: 1
           exposed: true
           expose:
@@ -760,8 +786,18 @@ display:
             remember_roles:
               anonymous: '0'
               authenticated: '0'
+              editor: '0'
+              content_admin: '0'
+              seo_admin: '0'
+              site_admin: '0'
+              test_role: '0'
+              guest_member: '0'
+              research_assistant: '0'
+              full_member: '0'
+              institution_key_contact: '0'
+              manager: '0'
               administrator: '0'
-            reduce: false
+            reduce: true
           is_grouped: false
           group_info:
             label: ''
