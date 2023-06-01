@@ -45,7 +45,6 @@ dependencies:
     - taxonomy.vocabulary.translation_status
     - user.role.authenticated
     - user.role.full_member
-    - user.role.guest_member
     - user.role.manager
     - user.role.research_assistant
     - user.role.seo_admin
@@ -403,7 +402,6 @@ permissions:
   - 'manage search api tracking settings'
   - 'masquerade as authenticated'
   - 'masquerade as full_member'
-  - 'masquerade as guest_member'
   - 'masquerade as manager'
   - 'masquerade as research_assistant'
   - 'masquerade as seo_admin'

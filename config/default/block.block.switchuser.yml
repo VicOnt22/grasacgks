@@ -51,7 +51,6 @@ visibility:
     roles:
       editor: editor
       site_admin: site_admin
-      guest_member: guest_member
       research_assistant: research_assistant
       full_member: full_member
       institution_key_contact: institution_key_contact

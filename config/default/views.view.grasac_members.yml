@@ -6,7 +6,6 @@ dependencies:
     - core.entity_view_mode.user.list_item
     - user.role.administrator
     - user.role.full_member
-    - user.role.guest_member
     - user.role.manager
     - user.role.site_admin
   module:
@@ -111,7 +110,6 @@ display:
         options:
           role:
             site_admin: site_admin
-            guest_member: guest_member
             full_member: full_member
             manager: manager
             administrator: administrator
