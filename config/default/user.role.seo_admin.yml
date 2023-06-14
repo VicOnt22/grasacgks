@@ -29,9 +29,7 @@ dependencies:
     - workflows.workflow.varbase_simple_workflow
   module:
     - block_content_permissions
-    - coffee
     - config_perms
-    - content_lock
     - content_moderation
     - content_translation
     - contextual
@@ -79,7 +77,6 @@ permissions:
   - 'Flush views cache from admin toolbar'
   - 'Rebuild theme registry from admin toolbar'
   - 'access administration pages'
-  - 'access coffee'
   - 'access content overview'
   - 'access contextual links'
   - 'access editor_media_browser entity browser pages'
@@ -109,7 +106,6 @@ permissions:
   - 'administer redirect settings'
   - 'administer redirects'
   - 'administer sitemap settings'
-  - 'break content lock'
   - 'create and edit custom blocks'
   - 'create article content'
   - 'create heritage_item content'
@@ -176,7 +172,6 @@ permissions:
   - 'update any varbase_carousel_block block content'
   - 'update any varbase_gallery_block block content'
   - 'update any varbase_html_code_block block content'
-  - 'update any varbase_media_block block content'
   - 'update any varbase_modal_block block content'
   - 'update any varbase_rich_text_block block content'
   - 'update content translations'

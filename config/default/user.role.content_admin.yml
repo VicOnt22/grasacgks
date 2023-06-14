@@ -48,9 +48,7 @@ dependencies:
     - block_class
     - block_content
     - block_content_permissions
-    - coffee
     - config_perms
-    - content_lock
     - content_moderation
     - content_translation
     - contextual
@@ -101,7 +99,6 @@ permissions:
   - 'Rebuild theme registry from admin toolbar'
   - 'access administration pages'
   - 'access carousels_media_browser entity browser pages'
-  - 'access coffee'
   - 'access content overview'
   - 'access contextual links'
   - 'access editor_media_browser entity browser pages'
@@ -137,7 +134,6 @@ permissions:
   - 'administer main menu items'
   - 'administer menu'
   - 'administer taxonomy'
-  - 'break content lock'
   - 'change layouts in place editing'
   - 'clone paragraph entity'
   - 'configure all landing_page_lb node layout overrides'

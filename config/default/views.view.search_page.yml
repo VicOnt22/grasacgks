@@ -616,7 +616,20 @@ display:
       cache:
         type: none
         options: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: "Your search didn't return any results.<br>\r\n<h4>Search Tips</h4>\r\n<ul>\r\n<li>try searching by item's type, region, collection or maker's nationality.</li>\r\n<li>check your spelling</li>\r\n<li>broaden your search by using single or more general word</li>\r\n</ul>"
+            format: full_html
+          tokenize: false
       sorts:
         search_api_relevance:
           id: search_api_relevance
@@ -735,6 +748,7 @@ display:
         - 'config:field.storage.node.field_local_origin_tid'
         - 'config:field.storage.node.field_term_definition'
         - 'config:search_api.index.content'
+        - 'search_api_list:content'
   page_1:
     id: page_1
     display_title: Page
@@ -766,3 +780,4 @@ display:
         - 'config:field.storage.node.field_local_origin_tid'
         - 'config:field.storage.node.field_term_definition'
         - 'config:search_api.index.content'
+        - 'search_api_list:content'

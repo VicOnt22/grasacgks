@@ -21,4 +21,4 @@ third_party_settings:
 name: 'Seasonal Time'
 vid: seasonal_time
 description: 'Associated seasonal time'
-weight: 0
+weight: 8

@@ -13,7 +13,7 @@ dependencies:
 id: originalcollector
 theme: grasacgks
 region: sidebar_first
-weight: -9
+weight: -7
 provider: null
 plugin: 'facet_block:original_collector'
 settings:

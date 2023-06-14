@@ -49,7 +49,6 @@ dependencies:
     - block_class
     - block_content
     - block_content_permissions
-    - coffee
     - config_perms
     - content_lock
     - content_moderation
@@ -108,7 +107,7 @@ dependencies:
     - userprotect
     - webform
 id: manager
-label: Manager
+label: 'GKS Manager'
 weight: 2
 is_admin: null
 permissions:
@@ -123,7 +122,6 @@ permissions:
   - 'Rebuild theme registry from admin toolbar'
   - 'access administration pages'
   - 'access all views'
-  - 'access coffee'
   - 'access comments'
   - 'access content'
   - 'access content overview'
@@ -233,7 +231,6 @@ permissions:
   - 'create terms in traditional_knowledge_tk_labels'
   - 'create url aliases'
   - 'create varbase_html_code_block block content'
-  - 'create varbase_media_block block content'
   - 'create varbase_rich_text_block block content'
   - 'create video media'
   - 'create webform'
@@ -254,7 +251,7 @@ permissions:
   - 'delete any media'
   - 'delete any page content'
   - 'delete any remote_video media'
-  - 'delete any varbase_media_block block content'
+  - 'delete any varbase_html_code_block block content'
   - 'delete any varbase_rich_text_block block content'
   - 'delete any video files'
   - 'delete any video media'
@@ -503,7 +500,6 @@ permissions:
   - 'update any basic block content'
   - 'update any media'
   - 'update any varbase_html_code_block block content'
-  - 'update any varbase_media_block block content'
   - 'update any varbase_rich_text_block block content'
   - 'update content translations'
   - 'update media'

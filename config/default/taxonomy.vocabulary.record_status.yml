@@ -5,4 +5,4 @@ dependencies: {  }
 name: 'HI Record Status'
 vid: record_status
 description: ''
-weight: 0
+weight: -2

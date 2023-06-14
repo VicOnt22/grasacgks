@@ -56,7 +56,6 @@ dependencies:
     - block_class
     - block_content
     - block_content_permissions
-    - coffee
     - config_perms
     - content_lock
     - content_moderation
@@ -135,7 +134,6 @@ permissions:
   - 'Rebuild theme registry from admin toolbar'
   - 'access administration pages'
   - 'access carousels_media_browser entity browser pages'
-  - 'access coffee'
   - 'access content overview'
   - 'access contextual links'
   - 'access editor_media_browser entity browser pages'

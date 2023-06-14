@@ -21,4 +21,4 @@ third_party_settings:
 name: 'Traditional Knowledge - TK Labels'
 vid: traditional_knowledge_tk_labels
 description: 'the Labels allow communities to express local and specific conditions for using, sharing and circulating knowledge and data.'
-weight: 0
+weight: 10

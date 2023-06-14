@@ -5,4 +5,4 @@ dependencies: {  }
 name: 'HI Text Type'
 vid: text_type
 description: ''
-weight: 0
+weight: -1

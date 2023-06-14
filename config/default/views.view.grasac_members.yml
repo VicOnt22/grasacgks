@@ -6,7 +6,9 @@ dependencies:
     - core.entity_view_mode.user.list_item
     - user.role.administrator
     - user.role.full_member
+    - user.role.institution_key_contact
     - user.role.manager
+    - user.role.research_assistant
     - user.role.site_admin
   module:
     - blazy
@@ -110,7 +112,9 @@ display:
         options:
           role:
             site_admin: site_admin
+            research_assistant: research_assistant
             full_member: full_member
+            institution_key_contact: institution_key_contact
             manager: manager
             administrator: administrator
       cache:

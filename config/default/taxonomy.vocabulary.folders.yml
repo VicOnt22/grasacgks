@@ -21,4 +21,4 @@ third_party_settings:
 name: Folders
 vid: folders
 description: 'Folders use to categories GKS content for use in the special projects.'
-weight: 0
+weight: -5

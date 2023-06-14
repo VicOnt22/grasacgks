@@ -596,7 +596,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: "<p>Sorry, no results for this filter. Click Reset and try other filter.</p>\r\n"
+            value: "<p>Sorry, no results for this filter. Click Reset and try other filter.</p>\r\n<h4>Search Tips</h4>\r\n<ul>\r\n<li>try filtering by other, more general, region, collection or institution.</li>\r\n<li>use specialized Search on top of the page and use single or more general word</li>\r\n"
             format: full_html
           tokenize: false
       defaults:

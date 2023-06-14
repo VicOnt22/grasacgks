@@ -21,4 +21,4 @@ third_party_settings:
 name: 'Ceremonial Time'
 vid: ceremonial_time
 description: 'Associated ceremonial time of the year'
-weight: 0
+weight: -10

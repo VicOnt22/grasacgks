@@ -13,7 +13,7 @@ dependencies:
 id: relatedseason
 theme: grasacgks
 region: sidebar_first
-weight: -6
+weight: -11
 provider: null
 plugin: 'facet_block:related_season_facet'
 settings:

@@ -5,4 +5,4 @@ dependencies: {  }
 name: 'Contributor Roles'
 vid: contributor_roles
 description: ''
-weight: 0
+weight: -8

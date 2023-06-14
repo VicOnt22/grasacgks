@@ -39,9 +39,7 @@ dependencies:
   module:
     - block_content
     - block_content_permissions
-    - coffee
     - config_perms
-    - content_lock
     - content_moderation
     - content_translation
     - contextual
@@ -88,7 +86,6 @@ permissions:
   - 'Flush views cache from admin toolbar'
   - 'Rebuild theme registry from admin toolbar'
   - 'access administration pages'
-  - 'access coffee'
   - 'access content overview'
   - 'access contextual links'
   - 'access editor_media_browser entity browser pages'
@@ -115,7 +112,6 @@ permissions:
   - 'access video_browser entity browser pages'
   - 'access webform overview'
   - 'access webform submission user'
-  - 'break content lock'
   - 'create and edit custom blocks'
   - 'create article content'
   - 'create audio media'
@@ -219,7 +215,6 @@ permissions:
   - 'update any basic block content'
   - 'update any media'
   - 'update any varbase_html_code_block block content'
-  - 'update any varbase_media_block block content'
   - 'update any varbase_rich_text_block block content'
   - 'update content translations'
   - 'update media'

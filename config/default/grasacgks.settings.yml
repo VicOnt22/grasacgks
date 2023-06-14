@@ -8,7 +8,7 @@ features:
   favicon: true
   node_user_picture: true
 logo:
-  path: 'public://grasac-logo1_0.png'
+  path: 'public://grasac-logo_transparent.png'
   use_default: false
 bootstrap_barrio_library: production
 bootstrap_barrio_source: bootstrap_barrio/bootstrap_cdn

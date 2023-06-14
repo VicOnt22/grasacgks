@@ -13,7 +13,7 @@ media_types:
   video: video
   gallery: 0
   remote_video: 0
-show_alt: null
-show_title: null
 form_mode: bulk_upload
 upload_location: null
+show_alt: null
+show_title: null

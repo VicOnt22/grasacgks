@@ -39,7 +39,6 @@ dependencies:
   module:
     - block_content
     - block_content_permissions
-    - coffee
     - config_perms
     - content_moderation
     - content_translation
@@ -73,7 +72,7 @@ dependencies:
     - total_control
     - webform
 id: research_assistant
-label: 'Research Assistant'
+label: Caretaker
 weight: -1
 is_admin: null
 permissions:
@@ -87,7 +86,6 @@ permissions:
   - 'Flush views cache from admin toolbar'
   - 'Rebuild theme registry from admin toolbar'
   - 'access all views'
-  - 'access coffee'
   - 'access comments'
   - 'access content'
   - 'access content overview'
@@ -274,7 +272,6 @@ permissions:
   - 'update any basic block content'
   - 'update any media'
   - 'update any varbase_html_code_block block content'
-  - 'update any varbase_media_block block content'
   - 'update any varbase_rich_text_block block content'
   - 'update content translations'
   - 'update media'

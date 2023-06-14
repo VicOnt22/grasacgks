@@ -1,6 +1,6 @@
 uuid: 3a6b3ac7-2fda-4858-892b-7ddb7fb87f9a
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - facets.facet.folders_special_projects_
@@ -13,7 +13,7 @@ dependencies:
 id: foldersspecialprojects
 theme: grasacgks
 region: sidebar_first
-weight: -7
+weight: -4
 provider: null
 plugin: 'facet_block:folders_special_projects_'
 settings:

@@ -104,6 +104,7 @@ third_party_settings:
         - links
         - content_moderation_control
         - field_item_type
+        - field_image2
         - field_description_summary
         - field_description_source
         - field_abstract
@@ -151,7 +152,6 @@ third_party_settings:
         - field_sources_exhib_pub_his
         - field_source_coll_his
         - field_description_howtocite
-        - field_image2
         - field_media_audio_video_docs_
         - field_region_of_origin
         - field_local_origin_tid
@@ -232,7 +232,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 6
+    weight: 7
     region: main
   field_access_rationale:
     type: advanced_text
@@ -291,7 +291,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 8
+    weight: 9
     region: main
   field_acquired_from:
     type: basic_string
@@ -326,7 +326,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 9
+    weight: 10
     region: main
   field_associated_ceremonial_time:
     type: entity_reference_label
@@ -362,7 +362,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 16
+    weight: 17
     region: main
   field_bibliographic_citation:
     type: advanced_text
@@ -421,7 +421,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 10
+    weight: 11
     region: main
   field_catalog_id:
     type: string
@@ -457,7 +457,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 11
+    weight: 12
     region: main
   field_collection:
     type: entity_reference_label
@@ -493,7 +493,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 12
+    weight: 13
     region: main
   field_contributor_collector:
     type: entity_reference_label
@@ -530,7 +530,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 13
+    weight: 14
     region: main
   field_current_institution:
     type: entity_reference_label
@@ -566,7 +566,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 14
+    weight: 15
     region: main
   field_date_acquisition:
     type: string
@@ -602,7 +602,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 15
+    weight: 16
     region: main
   field_date_attribution:
     type: advanced_text
@@ -661,7 +661,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 19
+    weight: 20
     region: main
   field_date_collection:
     type: string
@@ -697,7 +697,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 17
+    weight: 18
     region: main
   field_date_made:
     type: string
@@ -733,7 +733,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 18
+    weight: 19
     region: main
   field_description_condition:
     type: basic_string
@@ -1039,7 +1039,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 5
+    weight: 6
     region: main
   field_description_summary:
     type: text_default
@@ -1074,7 +1074,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 4
+    weight: 5
     region: main
   field_description_symbols:
     type: advanced_text
@@ -1987,7 +1987,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 56
+    weight: 55
     region: main
   field_identifier_url:
     type: link
@@ -2065,7 +2065,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 52
+    weight: 4
     region: main
   field_item_type:
     type: entity_reference_label
@@ -2083,12 +2083,12 @@ content:
             lbw-cl: ''
             lbw-at: ''
             lb-col: true
-            ow: false
+            ow: true
             ow-el: ''
             ow-cl: ''
             ow-at: ''
-            ow-def-at: false
-            ow-def-cl: false
+            ow-def-at: true
+            ow-def-cl: true
             fis: false
             fis-el: ''
             fis-cl: ''
@@ -2196,7 +2196,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 55
+    weight: 54
     region: main
   field_maker_attribution:
     type: advanced_text
@@ -2366,7 +2366,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 53
+    weight: 52
     region: main
   field_nation_rationale:
     type: smart_trim
@@ -2783,7 +2783,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 54
+    weight: 53
     region: main
   field_region_origin_attribution:
     type: advanced_text
@@ -3190,7 +3190,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 7
+    weight: 8
     region: main
   links:
     settings: {  }
