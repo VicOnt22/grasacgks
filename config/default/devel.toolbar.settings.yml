@@ -2,9 +2,4 @@ _core:
   default_config_hash: IQjf_ytthngZTAk_MU8-74VecArWD3G5g0oEH6PM6GA
 toolbar_items:
   - devel.configs_list
-  - devel.container_info.service
   - devel.admin_settings_link
-  - devel.entity_info_page
-  - devel.menu_rebuild
-  - devel.reinstall
-  - devel.switch_user
