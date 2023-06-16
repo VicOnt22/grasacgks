@@ -346,4 +346,42 @@ function change_update_fields_cron() {
 //    $node->save();
 //  }
 //  \Drupal::messenger()->addMessage('Nodes updated');
+  //// end of update Title
+
+//// start of cron job deleting table records when function is in an external file
+//  \Drupal::moduleHandler()->loadInclude($module, $type, $name = NULL);
+  \Drupal::moduleHandler()->loadInclude('change_update_fields', 'inc', 'delete_table_rows');
+   delete_tracking_stats_rows();
 }
+
+
+
+
+//// outdated ver for D8 below. In D9 we use annotation and services.yml to create drush custom-commands
+//// see: https://www.specbee.com/blogs/writing-your-own-custom-drush-9-and-10-commands
+
+///**
+// * Implements hook_drush_command().
+// */
+//function change_update_fields_drush_command() {
+//  return array(
+//    'delete-tracking-stats-rows' => array(
+//      'description' => dts('Remove rows from search_api_tracking_stats table.'),
+//      'alias' => array('dts'),
+//    ),
+//  );
+//}
+//
+//
+//
+///**
+// * Process search_api_tracking_stats table.
+// * Drush command logic.
+// * drush_[MODULE_NAME]_[COMMAND_NAME]().
+// */
+//function drush_change_update_fields_delete_tracking_stats_rows() {
+//  \Drupal::moduleHandler()->loadInclude('change_update_fields', 'inc', 'delete_table_rows');
+//  delete_tracking_stats_rows();
+//}
+
+

@@ -30,7 +30,7 @@ widget:
   type: date_range
   config:
     show_numbers: false
-    min_label: 'Date Made From (min: 01-01-0001)'
+    min_label: '<strong>Date Made filter.</strong></br>Type Date using keyboard or</br>use mouse with calendar.</br> Date From (min: 01/01/0001)'
     max_label: 'Date Made To'
 empty_behavior:
   behavior: none
@@ -41,42 +41,42 @@ processor_configs:
   active_widget_order:
     processor_id: active_widget_order
     weights:
-      sort: 20
+      sort: -10
     settings:
       sort: DESC
   count_widget_order:
     processor_id: count_widget_order
     weights:
-      sort: 30
+      sort: 0
     settings:
       sort: DESC
   date_range:
     processor_id: date_range
     weights:
       pre_query: -9
-      build: 20
+      build: -10
     settings:
       max_inclusive: true
   display_value_widget_order:
     processor_id: display_value_widget_order
     weights:
-      sort: 40
+      sort: -10
     settings:
       sort: ASC
   hierarchy_processor:
     processor_id: hierarchy_processor
     weights:
-      build: 100
+      build: 10
     settings: {  }
   raw_value_widget_order:
     processor_id: raw_value_widget_order
     weights:
-      sort: 50
+      sort: -10
     settings:
       sort: ASC
   url_processor_handler:
     processor_id: url_processor_handler
     weights:
       pre_query: -10
-      build: 15
+      build: -10
     settings: {  }
