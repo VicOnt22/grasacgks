@@ -37,9 +37,9 @@ settings:
   title_field: false
   title_field_required: false
   default_image:
-    uuid: c71d5045-1242-41c7-9fa1-c1326d22d6d5
-    alt: 'grasac default image'
+    uuid: f1854826-0149-4bde-876a-c6f4cddfc02b
+    alt: 'image not available'
     title: ''
-    width: 200
-    height: 146
+    width: 192
+    height: 183
 field_type: image
