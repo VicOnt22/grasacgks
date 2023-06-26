@@ -10,7 +10,7 @@ id: node.heritage_item.field_local_origin_tid
 field_name: field_local_origin_tid
 entity_type: node
 bundle: heritage_item
-label: 'Local Origin'
+label: 'Place of Origin'
 description: ''
 required: false
 translatable: true

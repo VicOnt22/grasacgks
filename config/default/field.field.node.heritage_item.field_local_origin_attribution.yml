@@ -9,7 +9,7 @@ id: node.heritage_item.field_local_origin_attribution
 field_name: field_local_origin_attribution
 entity_type: node
 bundle: heritage_item
-label: 'Local Origin Reason for Attribution'
+label: 'Place of Origin Reason for Attribution'
 description: ''
 required: false
 translatable: true
