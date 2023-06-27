@@ -153,7 +153,6 @@ third_party_settings:
         - field_source_coll_his
         - field_description_howtocite
         - field_media_audio_video_docs_
-        - field_region_of_origin
         - field_local_origin_tid
         - field_geolocation
     fields:
@@ -1987,7 +1986,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 55
+    weight: 54
     region: main
   field_identifier_url:
     type: link
@@ -2196,7 +2195,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 54
+    weight: 53
     region: main
   field_maker_attribution:
     type: advanced_text
@@ -2749,42 +2748,6 @@ content:
             suffix: ''
     weight: 43
     region: main
-  field_region_of_origin:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings:
-      ds:
-        ft:
-          id: expert
-          settings:
-            lb: ''
-            lbw: true
-            lbw-el: strong
-            lbw-cl: ''
-            lbw-at: ''
-            lb-col: true
-            ow: true
-            ow-el: ''
-            ow-cl: ''
-            ow-at: ''
-            ow-def-at: true
-            ow-def-cl: true
-            fis: false
-            fis-el: ''
-            fis-cl: ''
-            fis-at: ''
-            fis-def-at: false
-            fi: false
-            fi-el: ''
-            fi-cl: ''
-            fi-at: ''
-            fi-def-at: false
-            prefix: ''
-            suffix: ''
-    weight: 53
-    region: main
   field_region_origin_attribution:
     type: advanced_text
     label: above
@@ -3204,5 +3167,6 @@ hidden:
   field_gks_id: true
   field_imagemy_media: true
   field_media_image_twoc: true
+  field_region_of_origin: true
   langcode: true
   search_api_excerpt: true

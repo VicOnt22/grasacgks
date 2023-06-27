@@ -9,6 +9,7 @@ url:
     fr: fr
     iro: iro
     alg: alg
+    '': null
   domains:
     en: ''
     fr: ''

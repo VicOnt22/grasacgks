@@ -37,9 +37,9 @@ settings:
   title_field: false
   title_field_required: false
   default_image:
-    uuid: f1854826-0149-4bde-876a-c6f4cddfc02b
+    uuid: aafd288b-2cc4-4984-b6f2-68db0a166a2f
     alt: 'image not available'
     title: ''
     width: 192
-    height: 183
+    height: 121
 field_type: image
