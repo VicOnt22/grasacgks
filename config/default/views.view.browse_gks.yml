@@ -626,122 +626,6 @@ display:
           expose:
             operator_limit_selection: false
             operator_list: {  }
-        field_region_of_origin_target_id:
-          id: field_region_of_origin_target_id
-          table: node__field_region_of_origin
-          field: field_region_of_origin_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_region_of_origin_target_id_op
-            label: 'Region of Origin'
-            description: ''
-            use_operator: false
-            operator: field_region_of_origin_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_region_of_origin_target_id
-            required: false
-            remember: true
-            multiple: true
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              editor: '0'
-              content_admin: '0'
-              seo_admin: '0'
-              site_admin: '0'
-              test_role: '0'
-              temp_test_role: '0'
-              guest_member: '0'
-              research_assistant: '0'
-              full_member: '0'
-              institution_key_contact: '0'
-              manager: '0'
-              administrator: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: regions
-          type: select
-          hierarchy: false
-          limit: true
-          error_message: true
-        field_nation_tid_target_id:
-          id: field_nation_tid_target_id
-          table: node__field_nation_tid
-          field: field_nation_tid_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_nation_tid_target_id_op
-            label: 'Nation of Maker'
-            description: ''
-            use_operator: false
-            operator: field_nation_tid_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_nation_tid_target_id
-            required: false
-            remember: true
-            multiple: true
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              editor: '0'
-              content_admin: '0'
-              seo_admin: '0'
-              site_admin: '0'
-              test_role: '0'
-              temp_test_role: '0'
-              guest_member: '0'
-              research_assistant: '0'
-              full_member: '0'
-              institution_key_contact: '0'
-              manager: '0'
-              administrator: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: nations
-          type: select
-          hierarchy: true
-          limit: true
-          error_message: true
         field_description_materials_value:
           id: field_description_materials_value
           table: node__field_description_materials
@@ -781,7 +665,7 @@ display:
               institution_key_contact: '0'
               manager: '0'
               administrator: '0'
-            placeholder: 'Type material made of (optional)'
+            placeholder: 'Type made of material (optional)'
           is_grouped: false
           group_info:
             label: ''
@@ -794,6 +678,62 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_nation_tid_target_id:
+          id: field_nation_tid_target_id
+          table: node__field_nation_tid
+          field: field_nation_tid_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_nation_tid_target_id_op
+            label: 'Nation of Maker'
+            description: ''
+            use_operator: false
+            operator: field_nation_tid_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_nation_tid_target_id
+            required: false
+            remember: true
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              editor: '0'
+              content_admin: '0'
+              seo_admin: '0'
+              site_admin: '0'
+              test_role: '0'
+              research_assistant: '0'
+              full_member: '0'
+              institution_key_contact: '0'
+              manager: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: nations
+          type: select
+          hierarchy: true
+          limit: true
+          error_message: true
       filter_groups:
         operator: AND
         groups:

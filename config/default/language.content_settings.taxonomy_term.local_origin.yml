@@ -15,4 +15,4 @@ id: taxonomy_term.local_origin
 target_entity_type_id: taxonomy_term
 target_bundle: local_origin
 default_langcode: site_default
-language_alterable: true
+language_alterable: false

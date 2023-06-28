@@ -1,0 +1,14 @@
+uuid: 9d6570b3-f56c-4b69-803d-d693d49f3741
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.local_origin
+id: taxonomy_vocabulary_local_origin
+entity_type_id: taxonomy_vocabulary
+entity_id: local_origin
+action: display_page
+allow_override: 0
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: access_denied
