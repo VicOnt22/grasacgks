@@ -22,7 +22,6 @@ dependencies:
     - taxonomy.vocabulary.collection
     - taxonomy.vocabulary.contributor_roles
     - taxonomy.vocabulary.contributors
-    - taxonomy.vocabulary.exchange_types
     - taxonomy.vocabulary.folders
     - taxonomy.vocabulary.institution
     - taxonomy.vocabulary.item_type
@@ -190,7 +189,6 @@ permissions:
   - 'translate contributor_roles taxonomy_term'
   - 'translate contributors taxonomy_term'
   - 'translate document media'
-  - 'translate exchange_types taxonomy_term'
   - 'translate file media'
   - 'translate folders taxonomy_term'
   - 'translate heritage_item node'

@@ -458,29 +458,10 @@ content:
     region: content
     settings:
       auto_client_location: ''
-      auto_client_location_marker: '1'
+      auto_client_location_marker: '0'
       allow_override_map_settings: 0
       hide_textfield_form: false
       centre:
-        fixed_value:
-          enable: false
-          weight: 0
-          settings:
-            location_option_id: fixed_value
-            latitude: null
-            longitude: null
-          map_center_id: location_plugins
-        ipstack:
-          enable: false
-          weight: 0
-          settings:
-            location_option_id: ipstack
-            access_key: ''
-          map_center_id: location_plugins
-        client_location:
-          enable: true
-          weight: 0
-          map_center_id: client_location
         fixed_boundaries:
           enable: false
           weight: 0
@@ -490,6 +471,25 @@ content:
             north: ''
             east: ''
           map_center_id: fixed_boundaries
+        ipstack:
+          enable: false
+          weight: 0
+          settings:
+            location_option_id: ipstack
+            access_key: ''
+          map_center_id: location_plugins
+        fixed_value:
+          enable: false
+          weight: 0
+          settings:
+            location_option_id: fixed_value
+            latitude: null
+            longitude: null
+          map_center_id: location_plugins
+        client_location:
+          enable: false
+          weight: 0
+          map_center_id: client_location
         fit_bounds:
           enable: true
           weight: 0
@@ -874,7 +874,7 @@ content:
                   app_code: ''
                 GeoportailFrance:
                   apikey: ''
-            enabled: true
+            enabled: false
           leaflet_control_zoom:
             weight: 0
             settings:

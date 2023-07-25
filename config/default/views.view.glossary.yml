@@ -1091,58 +1091,6 @@ display:
           hierarchy: false
           limit: true
           error_message: true
-        field_part_of_speech_value:
-          id: field_part_of_speech_value
-          table: node__field_part_of_speech
-          field: field_part_of_speech_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: string
-          operator: starts
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_part_of_speech_value_op
-            label: 'Part of speech'
-            description: ''
-            use_operator: false
-            operator: field_part_of_speech_value_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_part_of_speech_value
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              editor: '0'
-              content_admin: '0'
-              seo_admin: '0'
-              site_admin: '0'
-              test_role: '0'
-              temp_test_role: '0'
-              guest_member: '0'
-              research_assistant: '0'
-              full_member: '0'
-              institution_key_contact: '0'
-              manager: '0'
-              administrator: '0'
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
       filter_groups:
         operator: AND
         groups:

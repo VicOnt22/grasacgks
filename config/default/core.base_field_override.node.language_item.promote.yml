@@ -1,20 +1,20 @@
-uuid: a60997dd-78b4-458f-9543-d35a3f735bea
+uuid: e677fecf-3a07-4662-9617-817e193b3b4e
 langcode: en
 status: true
 dependencies:
   config:
-    - taxonomy.vocabulary.text_type
-id: taxonomy_term.text_type.status
-field_name: status
-entity_type: taxonomy_term
-bundle: text_type
-label: Published
+    - node.type.language_item
+id: node.language_item.promote
+field_name: promote
+entity_type: node
+bundle: language_item
+label: 'Promoted to front page'
 description: ''
 required: false
 translatable: true
 default_value:
   -
-    value: 1
+    value: 0
 default_value_callback: ''
 settings:
   on_label: 'On'

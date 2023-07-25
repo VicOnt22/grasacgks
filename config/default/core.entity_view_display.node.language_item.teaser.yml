@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.language_item.field_folders
     - field.field.node.language_item.field_languages
     - field.field.node.language_item.field_part_of_speech
+    - field.field.node.language_item.field_part_ofspeech
     - field.field.node.language_item.field_record_editable_by
     - field.field.node.language_item.field_related_heritage_item
     - field.field.node.language_item.field_related_language_item
@@ -20,6 +21,7 @@ dependencies:
     - field.field.node.language_item.field_unique_id
     - node.type.language_item
   module:
+    - advanced_text_formatter
     - ds
     - layout_builder
     - text
@@ -49,6 +51,7 @@ third_party_settings:
     regions:
       main:
         - node_title
+        - field_term_definition
         - body
         - links
         - content_moderation_control
@@ -111,17 +114,34 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 1
+    weight: 2
     region: main
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 4
+    region: main
+  field_term_definition:
+    type: advanced_text
+    label: hidden
+    settings:
+      trim_length: 600
+      ellipsis: 1
+      word_boundary: 1
+      token_replace: 0
+      filter: input
+      format: plain_text
+      allowed_html: '<a> <b> <br> <dd> <dl> <dt> <em> <i> <li> <ol> <p> <strong> <u> <ul>'
+      autop: 0
+      use_summary: 0
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
     region: main
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: main
 hidden:
   field_alternative_spellings: true
@@ -130,12 +150,12 @@ hidden:
   field_folders: true
   field_languages: true
   field_part_of_speech: true
+  field_part_ofspeech: true
   field_record_editable_by: true
   field_related_heritage_item: true
   field_related_language_item: true
   field_related_places: true
   field_source: true
-  field_term_definition: true
   field_unique_id: true
   langcode: true
   search_api_excerpt: true

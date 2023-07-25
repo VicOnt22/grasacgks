@@ -1,15 +1,15 @@
-uuid: 789bb170-d822-4297-a58d-0a8b0447c8b2
+uuid: f9d7ecc6-2f8f-4d5f-9a6e-752d58976b01
 langcode: en
 status: true
 dependencies:
   config:
-    - taxonomy.vocabulary.record_status
+    - taxonomy.vocabulary.part_of_speech
   module:
     - path
     - text
-id: taxonomy_term.record_status.default
+id: taxonomy_term.part_of_speech.default
 targetEntityType: taxonomy_term
-bundle: record_status
+bundle: part_of_speech
 mode: default
 content:
   description:
@@ -52,11 +52,6 @@ content:
     region: content
     settings:
       display_label: true
-    third_party_settings: {  }
-  translation:
-    weight: 10
-    region: content
-    settings: {  }
     third_party_settings: {  }
 hidden:
   publish_on: true

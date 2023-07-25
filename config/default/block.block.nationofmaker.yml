@@ -13,7 +13,7 @@ dependencies:
 id: nationofmaker
 theme: grasacgks
 region: sidebar_first
-weight: -13
+weight: -12
 provider: null
 plugin: 'facet_block:nation_of_maker'
 settings:

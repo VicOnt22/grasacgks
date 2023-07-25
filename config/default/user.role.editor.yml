@@ -24,7 +24,6 @@ dependencies:
     - taxonomy.vocabulary.collection
     - taxonomy.vocabulary.contributor_roles
     - taxonomy.vocabulary.contributors
-    - taxonomy.vocabulary.exchange_types
     - taxonomy.vocabulary.folders
     - taxonomy.vocabulary.institution
     - taxonomy.vocabulary.item_type
@@ -214,7 +213,6 @@ permissions:
   - 'select terms in collection'
   - 'select terms in contributor_roles'
   - 'select terms in contributors'
-  - 'select terms in exchange_types'
   - 'select terms in folders'
   - 'select terms in institution'
   - 'select terms in item_type'
@@ -234,7 +232,6 @@ permissions:
   - 'translate contributor_roles taxonomy_term'
   - 'translate contributors taxonomy_term'
   - 'translate document media'
-  - 'translate exchange_types taxonomy_term'
   - 'translate file media'
   - 'translate folders taxonomy_term'
   - 'translate heritage_item node'
@@ -293,7 +290,6 @@ permissions:
   - 'view term names in collection'
   - 'view term names in contributor_roles'
   - 'view term names in contributors'
-  - 'view term names in exchange_types'
   - 'view term names in folders'
   - 'view term names in institution'
   - 'view term names in item_type'
@@ -308,7 +304,6 @@ permissions:
   - 'view terms in collection'
   - 'view terms in contributor_roles'
   - 'view terms in contributors'
-  - 'view terms in exchange_types'
   - 'view terms in folders'
   - 'view terms in institution'
   - 'view terms in item_type'

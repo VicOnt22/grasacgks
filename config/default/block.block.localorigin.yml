@@ -1,27 +1,28 @@
-uuid: 5bb387ec-8d53-44ed-929f-d8959b20bc4f
+uuid: aaf3b463-53f7-40f5-a2ef-c98a8844457d
 langcode: en
 status: true
 dependencies:
   config:
-    - facets_summary.facets_summary.facet_summary
+    - facets.facet.local_origin
   module:
     - context
-    - facets_summary
+    - facets
     - system
   theme:
     - grasacgks
-id: facetsummary
+id: localorigin
 theme: grasacgks
 region: sidebar_first
-weight: -15
+weight: -7
 provider: null
-plugin: 'facets_summary_block:facet_summary'
+plugin: 'facet_block:local_origin'
 settings:
-  id: 'facets_summary_block:facet_summary'
-  label: 'Facet summary'
+  id: 'facet_block:local_origin'
+  label: 'Local Origin'
   label_display: '0'
-  provider: facets_summary
+  provider: facets
   context_mapping: {  }
+  block_id: localorigin
 visibility:
   user_status:
     id: user_status

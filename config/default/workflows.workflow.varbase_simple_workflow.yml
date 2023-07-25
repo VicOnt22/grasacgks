@@ -112,4 +112,6 @@ type_settings:
       - heritage_item
       - heritage_item
       - heritage_item
+      - language_item
+      - language_item
   default_moderation_state: draft

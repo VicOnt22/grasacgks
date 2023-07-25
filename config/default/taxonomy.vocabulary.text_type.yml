@@ -1,8 +1,0 @@
-uuid: 8f52e2ed-96d9-4d6d-94f9-54f498683890
-langcode: en
-status: true
-dependencies: {  }
-name: 'HI Text Type'
-vid: text_type
-description: ''
-weight: -1

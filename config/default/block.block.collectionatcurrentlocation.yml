@@ -13,7 +13,7 @@ dependencies:
 id: collectionatcurrentlocation
 theme: grasacgks
 region: sidebar_first
-weight: -8
+weight: -6
 provider: null
 plugin: 'facet_block:collection_at_current_location'
 settings:

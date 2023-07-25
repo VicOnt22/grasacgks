@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.language_item.field_folders
     - field.field.node.language_item.field_languages
     - field.field.node.language_item.field_part_of_speech
+    - field.field.node.language_item.field_part_ofspeech
     - field.field.node.language_item.field_record_editable_by
     - field.field.node.language_item.field_related_heritage_item
     - field.field.node.language_item.field_related_language_item
@@ -55,6 +56,7 @@ third_party_settings:
         - content_moderation_control
         - field_languages
         - field_part_of_speech
+        - field_part_ofspeech
         - field_alternative_spellings
         - field_source
         - field_date_created
@@ -152,7 +154,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 7
+    weight: 8
     region: main
   field_audio_video:
     type: entity_reference_entity_view
@@ -189,7 +191,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 16
+    weight: 17
     region: main
   field_date_created:
     type: string
@@ -225,7 +227,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 9
+    weight: 10
     region: main
   field_folders:
     type: entity_reference_label
@@ -262,7 +264,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 15
+    weight: 16
     region: main
   field_languages:
     type: entity_reference_label
@@ -337,6 +339,43 @@ content:
             suffix: ''
     weight: 6
     region: main
+  field_part_ofspeech:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings:
+      ds:
+        ds_limit: ''
+        ft:
+          id: expert
+          settings:
+            lb: ''
+            lbw: true
+            lbw-el: strong
+            lbw-cl: ''
+            lbw-at: ''
+            lb-col: true
+            ow: true
+            ow-el: ''
+            ow-cl: ''
+            ow-at: ''
+            ow-def-at: true
+            ow-def-cl: true
+            fis: false
+            fis-el: ''
+            fis-cl: ''
+            fis-at: ''
+            fis-def-at: false
+            fi: false
+            fi-el: ''
+            fi-cl: ''
+            fi-at: ''
+            fi-def-at: false
+            prefix: ''
+            suffix: ''
+    weight: 7
+    region: main
   field_record_editable_by:
     type: entity_reference_label
     label: inline
@@ -372,7 +411,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 14
+    weight: 15
     region: main
   field_related_heritage_item:
     type: entity_reference_label
@@ -409,7 +448,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 10
+    weight: 11
     region: main
   field_related_language_item:
     type: entity_reference_label
@@ -446,7 +485,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 11
+    weight: 12
     region: main
   field_related_places:
     type: entity_reference_label
@@ -483,7 +522,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 12
+    weight: 13
     region: main
   field_source:
     type: entity_reference_label
@@ -519,7 +558,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 8
+    weight: 9
     region: main
   field_term_definition:
     type: basic_string
@@ -590,7 +629,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 13
+    weight: 14
     region: main
   links:
     settings: {  }

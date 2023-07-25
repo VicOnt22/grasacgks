@@ -1,0 +1,29 @@
+uuid: c52bc56d-93ce-4308-8065-8dd6bee8740a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_part_ofspeech
+    - node.type.language_item
+    - taxonomy.vocabulary.part_of_speech
+id: node.language_item.field_part_ofspeech
+field_name: field_part_ofspeech
+entity_type: node
+bundle: language_item
+label: 'Part of speech'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      part_of_speech: part_of_speech
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

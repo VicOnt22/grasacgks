@@ -1,27 +1,28 @@
-uuid: 5bb387ec-8d53-44ed-929f-d8959b20bc4f
+uuid: 3d6bb7b7-15de-41ef-8edf-67ea2c718fd4
 langcode: en
 status: true
 dependencies:
   config:
-    - facets_summary.facets_summary.facet_summary
+    - facets.facet.part_of_speech
   module:
     - context
-    - facets_summary
+    - facets
     - system
   theme:
     - grasacgks
-id: facetsummary
+id: partofspeech
 theme: grasacgks
 region: sidebar_first
-weight: -15
+weight: -9
 provider: null
-plugin: 'facets_summary_block:facet_summary'
+plugin: 'facet_block:part_of_speech'
 settings:
-  id: 'facets_summary_block:facet_summary'
-  label: 'Facet summary'
+  id: 'facet_block:part_of_speech'
+  label: 'Part of speech'
   label_display: '0'
-  provider: facets_summary
+  provider: facets
   context_mapping: {  }
+  block_id: partofspeech
 visibility:
   user_status:
     id: user_status

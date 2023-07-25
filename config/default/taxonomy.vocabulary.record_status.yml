@@ -1,8 +1,0 @@
-uuid: e225a5c6-02ee-47c3-975f-5a9c227619c9
-langcode: en
-status: true
-dependencies: {  }
-name: 'HI Record Status'
-vid: record_status
-description: ''
-weight: -2

@@ -1,0 +1,14 @@
+uuid: 3219753a-b92f-4a56-ad16-3eb46442adc2
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.part_of_speech
+id: taxonomy_vocabulary_part_of_speech
+entity_type_id: taxonomy_vocabulary
+entity_id: part_of_speech
+action: display_page
+allow_override: 1
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: access_denied

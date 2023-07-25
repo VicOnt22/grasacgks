@@ -9,7 +9,7 @@ dependencies:
     - search_api
 id: collection_at_current_location
 name: 'Collection at Current Location'
-weight: 0
+weight: -5
 min_count: 1
 missing: false
 missing_label: others

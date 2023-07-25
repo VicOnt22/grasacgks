@@ -1,18 +1,16 @@
-uuid: 5b741275-b567-4031-81eb-891be0779a41
+uuid: c6e670d8-6e2b-4b2f-baf4-13cf5db8cc09
 langcode: en
 status: true
 dependencies:
   config:
-    - taxonomy.vocabulary.text_type
+    - taxonomy.vocabulary.part_of_speech
   module:
     - content_translation
 third_party_settings:
   content_translation:
     enabled: true
-    bundle_settings:
-      untranslatable_fields_hide: '0'
-id: taxonomy_term.text_type
+id: taxonomy_term.part_of_speech
 target_entity_type_id: taxonomy_term
-target_bundle: text_type
+target_bundle: part_of_speech
 default_langcode: site_default
-language_alterable: true
+language_alterable: false

@@ -1,8 +1,0 @@
-uuid: c33d3b0d-057c-4b24-9c78-6760578579ed
-langcode: en
-status: true
-dependencies: {  }
-name: 'HI Transcription Status'
-vid: transcription_status
-description: ''
-weight: 0

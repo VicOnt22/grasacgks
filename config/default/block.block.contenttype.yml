@@ -13,7 +13,7 @@ dependencies:
 id: contenttype
 theme: grasacgks
 region: sidebar_first
-weight: -15
+weight: -14
 provider: null
 plugin: 'facet_block:content_type'
 settings:

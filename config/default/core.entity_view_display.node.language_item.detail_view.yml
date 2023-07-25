@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.language_item.field_folders
     - field.field.node.language_item.field_languages
     - field.field.node.language_item.field_part_of_speech
+    - field.field.node.language_item.field_part_ofspeech
     - field.field.node.language_item.field_record_editable_by
     - field.field.node.language_item.field_related_heritage_item
     - field.field.node.language_item.field_related_language_item
@@ -228,5 +229,6 @@ content:
     weight: 1
     region: main
 hidden:
+  field_part_ofspeech: true
   langcode: true
   search_api_excerpt: true

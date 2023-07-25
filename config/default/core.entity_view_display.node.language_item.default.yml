@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.language_item.field_folders
     - field.field.node.language_item.field_languages
     - field.field.node.language_item.field_part_of_speech
+    - field.field.node.language_item.field_part_ofspeech
     - field.field.node.language_item.field_record_editable_by
     - field.field.node.language_item.field_related_heritage_item
     - field.field.node.language_item.field_related_language_item
@@ -52,6 +53,7 @@ third_party_settings:
         - content_moderation_control
         - field_languages
         - field_part_of_speech
+        - field_part_ofspeech
         - field_term_definition
         - field_alternative_spellings
         - field_source
@@ -67,7 +69,7 @@ third_party_settings:
     fields:
       node_links:
         plugin_id: node_links
-        weight: 17
+        weight: 18
         label: hidden
         formatter: default
       node_title:
@@ -97,7 +99,7 @@ content:
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 8
     region: main
   field_audio_video:
     type: entity_reference_entity_view
@@ -106,7 +108,7 @@ content:
       view_mode: default
       link: false
     third_party_settings: {  }
-    weight: 10
+    weight: 11
     region: main
   field_date_created:
     type: string
@@ -114,7 +116,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 9
+    weight: 10
     region: main
   field_folders:
     type: entity_reference_label
@@ -122,7 +124,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 16
+    weight: 17
     region: main
   field_languages:
     type: entity_reference_label
@@ -140,13 +142,21 @@ content:
     third_party_settings: {  }
     weight: 5
     region: main
+  field_part_ofspeech:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 6
+    region: main
   field_record_editable_by:
     type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    weight: 15
+    weight: 16
     region: main
   field_related_heritage_item:
     type: entity_reference_label
@@ -154,7 +164,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 11
+    weight: 12
     region: main
   field_related_language_item:
     type: entity_reference_label
@@ -162,7 +172,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 12
+    weight: 13
     region: main
   field_related_places:
     type: entity_reference_label
@@ -170,7 +180,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 13
+    weight: 14
     region: main
   field_source:
     type: entity_reference_label
@@ -178,14 +188,14 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 8
+    weight: 9
     region: main
   field_term_definition:
     type: basic_string
     label: inline
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: main
   field_unique_id:
     type: string
@@ -193,7 +203,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 14
+    weight: 15
     region: main
   links:
     settings: {  }

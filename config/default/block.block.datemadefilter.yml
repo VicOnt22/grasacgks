@@ -17,7 +17,7 @@ third_party_settings:
 id: datemadefilter
 theme: grasacgks
 region: sidebar_first
-weight: -6
+weight: -4
 provider: null
 plugin: 'facet_block:date_made_filter_'
 settings:

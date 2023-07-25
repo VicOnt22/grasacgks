@@ -86,3 +86,15 @@ facets:
     separator: ', '
     show_count: false
     weight: 0
+  local_origin:
+    checked: true
+    label: 'Local Origin'
+    separator: ', '
+    show_count: false
+    weight: 0
+  part_of_speech:
+    checked: true
+    label: 'Part of speech'
+    separator: ', '
+    show_count: false
+    weight: 0

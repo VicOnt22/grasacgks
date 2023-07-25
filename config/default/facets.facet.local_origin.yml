@@ -1,4 +1,4 @@
-uuid: c96c87dc-8a88-4cc0-8bae-efe5f12a2c7a
+uuid: 7e75d730-df0f-4f48-b54b-f9de83d781d7
 langcode: en
 status: true
 dependencies:
@@ -7,15 +7,15 @@ dependencies:
     - views.view.search_page
   module:
     - search_api
-id: original_collector
-name: 'Original Collector'
-weight: 3
+id: local_origin
+name: 'Local Origin'
+weight: 2
 min_count: 1
 missing: false
 missing_label: others
-url_alias: original_collector
+url_alias: local_origin
 facet_source_id: 'search_api:views_page__search_page__page_1'
-field_identifier: field_contributor_collector
+field_identifier: field_local_origin_tid
 query_operator: or
 hard_limit: 0
 exclude: false
@@ -30,7 +30,7 @@ widget:
   type: dropdown
   config:
     show_numbers: false
-    default_option_label: 'All Original Collectors'
+    default_option_label: 'All Places of origin'
 empty_behavior:
   behavior: none
 only_visible_when_facet_source_is_visible: true
