@@ -38,7 +38,7 @@ third_party_settings:
       label: 'About this record'
       region: content
       parent_name: ''
-      weight: 21
+      weight: 20
       format_type: tab
       format_settings:
         classes: ''
@@ -70,7 +70,7 @@ content:
     third_party_settings: {  }
   field_alternative_spellings:
     type: string_textarea
-    weight: 15
+    weight: 14
     region: content
     settings:
       rows: 5
@@ -78,7 +78,7 @@ content:
     third_party_settings: {  }
   field_audio_video:
     type: media_library_widget
-    weight: 20
+    weight: 19
     region: content
     settings:
       media_types: {  }
@@ -103,17 +103,9 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_part_of_speech:
-    type: string_textfield
-    weight: 12
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   field_part_ofspeech:
     type: options_buttons
-    weight: 13
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -129,7 +121,7 @@ content:
     third_party_settings: {  }
   field_related_heritage_item:
     type: entity_reference_autocomplete
-    weight: 17
+    weight: 16
     region: content
     settings:
       match_operator: CONTAINS
@@ -139,7 +131,7 @@ content:
     third_party_settings: {  }
   field_related_language_item:
     type: entity_reference_autocomplete
-    weight: 18
+    weight: 17
     region: content
     settings:
       match_operator: CONTAINS
@@ -149,7 +141,7 @@ content:
     third_party_settings: {  }
   field_related_places:
     type: entity_reference_autocomplete
-    weight: 19
+    weight: 18
     region: content
     settings:
       match_operator: CONTAINS
@@ -159,13 +151,13 @@ content:
     third_party_settings: {  }
   field_source:
     type: options_select
-    weight: 16
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
   field_term_definition:
     type: string_textarea
-    weight: 14
+    weight: 13
     region: content
     settings:
       rows: 5
@@ -245,6 +237,7 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_part_of_speech: true
   promote: true
   publish_on: true
   publish_state: true

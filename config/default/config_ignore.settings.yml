@@ -4,3 +4,7 @@ ignored_config_entities:
   - 'varbase_core.general_settings.*'
   - 'geofield_map.settings.*'
   - 'geocoder.geocoder_provider.googlemaps.*'
+  - system.logging
+  - system.performance
+  - system.site
+  - update.settings

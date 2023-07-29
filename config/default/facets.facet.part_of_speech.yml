@@ -19,13 +19,13 @@ field_identifier: field_part_ofspeech
 query_operator: or
 hard_limit: 0
 exclude: false
-use_hierarchy: false
+use_hierarchy: true
 keep_hierarchy_parents_active: false
 hierarchy:
   type: taxonomy
   config: {  }
-expand_hierarchy: false
-enable_parent_when_child_gets_disabled: true
+expand_hierarchy: true
+enable_parent_when_child_gets_disabled: false
 widget:
   type: dropdown
   config:
@@ -40,30 +40,41 @@ processor_configs:
   active_widget_order:
     processor_id: active_widget_order
     weights:
-      sort: 20
+      sort: -10
     settings:
       sort: DESC
   count_widget_order:
     processor_id: count_widget_order
     weights:
-      sort: 30
+      sort: -9
     settings:
       sort: DESC
   display_value_widget_order:
     processor_id: display_value_widget_order
     weights:
-      sort: 40
+      sort: -6
     settings:
       sort: ASC
+  hide_inactive_siblings_processor:
+    processor_id: hide_inactive_siblings_processor
+    weights:
+      build: 10
+    settings: {  }
   hierarchy_processor:
     processor_id: hierarchy_processor
     weights:
       build: 100
     settings: {  }
-  raw_value_widget_order:
-    processor_id: raw_value_widget_order
+  show_siblings_processor:
+    processor_id: show_siblings_processor
     weights:
-      sort: 50
+      build: 11
+    settings:
+      show_parent_siblings: true
+  term_weight_widget_order:
+    processor_id: term_weight_widget_order
+    weights:
+      sort: -7
     settings:
       sort: ASC
   translate_entity:
