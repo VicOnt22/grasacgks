@@ -192,7 +192,6 @@ module:
   persistent_login: 0
   physical: 0
   prevent_homepage_deletion: 0
-  quickedit: 0
   rabbit_hole: 0
   redirect: 0
   redirect_404: 0

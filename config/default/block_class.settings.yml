@@ -1,7 +1,7 @@
 maxlength_block_class_field: 255
 field_type: textfield
 default_case: standard
-block_classes_stored: '{"ml-auto":"ml-auto","float-left":"float-left","text-muted":"text-muted","col-12":"col-12","text-uppercase":"text-uppercase","col-4":"col-4","password-strength__meter":"password-strength__meter"}'
+block_classes_stored: '{"ml-auto":"ml-auto","float-left":"float-left","text-muted":"text-muted","col-12":"col-12","text-uppercase":"text-uppercase","col-4":"col-4","password-strength__meter":"password-strength__meter","col-6":"col-6"}'
 enable_attributes: false
 enable_auto_complete: false
 qty_classes_per_block: 10

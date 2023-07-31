@@ -12,7 +12,7 @@ dependencies:
     - grasacgks
 third_party_settings:
   block_class:
-    classes: 'text-uppercase col-4'
+    classes: 'text-uppercase col-6'
 _core:
   default_config_hash: uRh51-A6Cfi4fE_ZAweDwDX2ya1aLIgHfQTQUo5LcJM
 id: grasacgks_footer

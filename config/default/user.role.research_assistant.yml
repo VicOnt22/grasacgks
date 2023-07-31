@@ -59,7 +59,6 @@ dependencies:
     - panels
     - panels_ipe
     - path
-    - quickedit
     - rabbit_hole
     - responsive_preview
     - scheduler
@@ -96,7 +95,6 @@ permissions:
   - 'access files overview'
   - 'access google analytics reports'
   - 'access image_browser entity browser pages'
-  - 'access in-place editing'
   - 'access media browser'
   - 'access media overview'
   - 'access media_browser entity browser pages'

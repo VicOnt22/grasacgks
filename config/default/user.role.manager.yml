@@ -79,7 +79,6 @@ dependencies:
     - password_policy
     - path
     - persistent_login
-    - quickedit
     - rabbit_hole
     - redirect
     - responsive_preview
@@ -127,7 +126,6 @@ permissions:
   - 'access geocoder api endpoints'
   - 'access google analytics reports'
   - 'access image_browser entity browser pages'
-  - 'access in-place editing'
   - 'access media browser'
   - 'access media overview'
   - 'access media_browser entity browser pages'
