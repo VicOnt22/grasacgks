@@ -2232,6 +2232,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'drupal/scroll_top_button' => array(
+            'pretty_version' => '2.0.1',
+            'version' => '2.0.1.0',
+            'reference' => '2.0.1',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../docroot/modules/contrib/scroll_top_button',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'drupal/search_api' => array(
             'pretty_version' => '1.29.0',
             'version' => '1.29.0.0',

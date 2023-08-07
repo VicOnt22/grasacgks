@@ -46,7 +46,8 @@
         "sibyx/phpgpx": "^1.2",
         "vardot/varbase": "~9.0",
         "vardot/varbase-updater": "~2.0",
-        "webflo/drupal-finder": "~1.0"
+        "webflo/drupal-finder": "~1.0",
+        "drupal/scroll_top_button": "^2.0"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -248,6 +249,9 @@
             },
             "drupal/ctools": {
                 "issues/3294330 AjaxFormTrait PHP 8.1 issue": "https://www.drupal.org/files/issues/2022-08-26/3294330-10.patch"
+            },
+            "drupal/scroll_top_button": {
+                "issues/3327879 button text cannot be translated": "https://www.drupal.org/files/issues/2022-12-20/3327889-2.patch"
             }
         }
     },
