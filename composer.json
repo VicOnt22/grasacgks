@@ -47,7 +47,8 @@
         "vardot/varbase": "~9.0",
         "vardot/varbase-updater": "~2.0",
         "webflo/drupal-finder": "~1.0",
-        "drupal/scroll_top_button": "^2.0"
+        "drupal/scroll_top_button": "^2.0",
+        "drupal/views_display_switch": "^1.1"
     },
     "conflict": {
         "drupal/drupal": "*"

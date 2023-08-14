@@ -3,7 +3,9 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_description_summary
     - field.storage.node.field_image2
+    - image.style.d01_square
     - image.style.d02
     - node.type.heritage_item
     - taxonomy.vocabulary.collection
@@ -15,8 +17,11 @@ dependencies:
     - blazy
     - image
     - node
+    - smart_trim
     - taxonomy
     - user
+    - views_display_switch
+    - views_infinite_scroll
 id: browse_gks
 label: 'Browse GKS'
 module: views
@@ -745,6 +750,25 @@ display:
         filter_groups: false
         header: false
       header:
+        display_switch:
+          id: display_switch
+          table: views
+          field: display_switch
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: display_switch
+          empty: false
+          displays:
+            block_1:
+              enabled: 0
+              label: ''
+            page_1:
+              enabled: 1
+              label: 'View mode: Grid'
+            page_2:
+              enabled: 1
+              label: 'or List'
         result:
           id: result
           table: views
@@ -781,4 +805,538 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.node.field_image2'
+  page_2:
+    id: page_2
+    display_title: 'Page rows'
+    display_plugin: page
+    position: 1
+    display_options:
+      title: 'Browse Relatives/Heritage'
+      fields:
+        field_image2:
+          id: field_image2
+          table: node__field_image2
+          field: field_image2
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: false
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: image
+          settings:
+            image_link: content
+            image_style: d01_square
+            image_loading:
+              attribute: lazy
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 1
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: ul
+          separator: ', '
+          field_api_classes: false
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: false
+            ellipsis: false
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_description_summary:
+          id: field_description_summary
+          table: node__field_description_summary
+          field: field_description_summary
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: smart_trim
+          settings:
+            trim_length: 45
+            trim_type: words
+            trim_suffix: ''
+            wrap_output: true
+            wrap_class: trimmed
+            more_link: false
+            more_class: more-link
+            more_text: More
+            more_aria_label: 'Read more about [node:title]'
+            summary_handler: ignore
+            trim_options:
+              text: false
+              trim_zero: false
+              replace_tokens: false
+            token_browser: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        nothing:
+          id: nothing
+          table: views
+          field: nothing
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: custom
+          label: ''
+          exclude: false
+          alter:
+            alter_text: true
+            text: "<div class=\"col-2\">{{ field_image2 }}  {# #}</div>\r\n<div class=\"col-10\"> {{ title }} &nbsp; {# #} {{- field_description_summary -}} {# #}</div>\r\n\r\n"
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: span
+          element_class: row
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: false
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: false
+      pager:
+        type: infinite_scroll
+        options:
+          offset: 0
+          items_per_page: 20
+          total_pages: null
+          id: 0
+          tags:
+            next: 'Next ›'
+            previous: '‹ Previous'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          views_infinite_scroll:
+            button_text: 'Load More'
+            automatically_load_content: true
+            initially_load_all_pages: false
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: "<p>Sorry, no results for this filter. Click Reset and try other filter.</p>\r\n<h4>Search Tips</h4>\r\n<ul>\r\n<li>try filtering by other, more general, region, collection or institution.</li>\r\n<li>use specialized Search on top of the page and use single or more general word</li>\r\n"
+            format: full_html
+          tokenize: false
+      filters:
+        status:
+          id: status
+          table: node_field_data
+          field: status
+          entity_type: node
+          entity_field: status
+          plugin_id: boolean
+          value: '1'
+          group: 1
+          expose:
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          value:
+            heritage_item: heritage_item
+          group: 1
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
+        field_description_materials_value:
+          id: field_description_materials_value
+          table: node__field_description_materials
+          field: field_description_materials_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: string
+          operator: word
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_description_materials_value_op
+            label: ''
+            description: ''
+            use_operator: false
+            operator: field_description_materials_value_op
+            operator_limit_selection: false
+            operator_list:
+              word: word
+              allwords: allwords
+            identifier: field_description_materials_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              editor: '0'
+              content_admin: '0'
+              seo_admin: '0'
+              site_admin: '0'
+              test_role: '0'
+              research_assistant: '0'
+              full_member: '0'
+              institution_key_contact: '0'
+              manager: '0'
+              administrator: '0'
+            placeholder: 'Type made of material (optional)'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_nation_tid_target_id:
+          id: field_nation_tid_target_id
+          table: node__field_nation_tid
+          field: field_nation_tid_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_nation_tid_target_id_op
+            label: 'Nation of Maker'
+            description: ''
+            use_operator: false
+            operator: field_nation_tid_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_nation_tid_target_id
+            required: false
+            remember: true
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              editor: '0'
+              content_admin: '0'
+              seo_admin: '0'
+              site_admin: '0'
+              test_role: '0'
+              research_assistant: '0'
+              full_member: '0'
+              institution_key_contact: '0'
+              manager: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: nations
+          type: select
+          hierarchy: true
+          limit: true
+          error_message: true
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      style:
+        type: default
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+      row:
+        type: fields
+        options:
+          default_field_elements: true
+          inline:
+            field_image2: field_image2
+            title: title
+            field_description_summary: field_description_summary
+            nothing: nothing
+          separator: ' '
+          hide_empty: false
+      defaults:
+        empty: false
+        title: false
+        use_ajax: false
+        pager: false
+        use_more: false
+        use_more_always: false
+        use_more_text: false
+        style: false
+        row: false
+        fields: false
+        filters: false
+        filter_groups: false
+        header: false
+      use_ajax: true
+      display_description: ''
+      use_more: true
+      use_more_always: true
+      use_more_text: more
+      header:
+        display_switch:
+          id: display_switch
+          table: views
+          field: display_switch
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: display_switch
+          empty: false
+          displays:
+            block_1:
+              enabled: 0
+              label: ''
+            page_1:
+              enabled: 1
+              label: 'View mode: Grid'
+            page_2:
+              enabled: 1
+              label: ' or List'
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: result
+          empty: true
+          content: "<h1>Relatives/Heritage items</h1>\r\nDisplaying @start - @end of @total Relatives\r\n<p>&nbsp;</p>"
+      exposed_block: false
+      display_extenders:
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
+      path: relatives-heritage-list
+      menu:
+        type: none
+        title: 'Browse Relatives-Heritage'
+        description: ''
+        weight: -50
+        expanded: false
+        menu_name: main
+        parent: 'menu_link_content:41707dfe-e60a-46c5-ac08-edf2e7107396'
+        context: '0'
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_description_summary'
         - 'config:field.storage.node.field_image2'

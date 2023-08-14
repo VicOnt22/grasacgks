@@ -2736,6 +2736,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'drupal/views_display_switch' => array(
+            'pretty_version' => '1.1.4',
+            'version' => '1.1.4.0',
+            'reference' => '1.1.4',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../docroot/modules/contrib/views_display_switch',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'drupal/views_filter_select' => array(
             'pretty_version' => '1.0.0',
             'version' => '1.0.0.0',

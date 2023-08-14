@@ -19377,6 +19377,54 @@
             "install-path": "../../docroot/modules/contrib/views_bulk_operations"
         },
         {
+            "name": "drupal/views_display_switch",
+            "version": "1.1.4",
+            "version_normalized": "1.1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/views_display_switch.git",
+                "reference": "1.1.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/views_display_switch-1.1.4.zip",
+                "reference": "1.1.4",
+                "shasum": "4482e2f0c494401a4cb5daecff475be894bffc8b"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.1.4",
+                    "datestamp": "1671403145",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Lukas von Blarer",
+                    "homepage": "https://www.drupal.org/user/598412"
+                }
+            ],
+            "description": "Provides links to switch between displays in views",
+            "homepage": "https://www.drupal.org/project/views_display_switch",
+            "support": {
+                "source": "http://cgit.drupalcode.org/views_display_switch",
+                "issues": "https://www.drupal.org/project/issues/views_display_switch"
+            },
+            "install-path": "../../docroot/modules/contrib/views_display_switch"
+        },
+        {
             "name": "drupal/views_filter_select",
             "version": "1.0.0",
             "version_normalized": "1.0.0.0",

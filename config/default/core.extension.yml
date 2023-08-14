@@ -256,6 +256,7 @@ module:
   views_bootstrap: 0
   views_bulk_edit: 0
   views_bulk_operations: 0
+  views_display_switch: 0
   views_filter_select: 0
   views_infinite_scroll: 0
   views_ui: 0
