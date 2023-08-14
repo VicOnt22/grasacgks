@@ -14,6 +14,7 @@ dependencies:
     - taxonomy.vocabulary.languages
     - taxonomy.vocabulary.local_origin
     - taxonomy.vocabulary.nations
+    - taxonomy.vocabulary.part_of_speech
     - taxonomy.vocabulary.regions
     - taxonomy.vocabulary.seasonal_time
     - taxonomy.vocabulary.tags
@@ -41,6 +42,7 @@ permissions:
   - 'select terms in languages'
   - 'select terms in local_origin'
   - 'select terms in nations'
+  - 'select terms in part_of_speech'
   - 'select terms in regions'
   - 'select terms in seasonal_time'
   - 'select terms in tags'
@@ -60,6 +62,7 @@ permissions:
   - 'view term names in languages'
   - 'view term names in local_origin'
   - 'view term names in nations'
+  - 'view term names in part_of_speech'
   - 'view term names in regions'
   - 'view term names in seasonal_time'
   - 'view term names in tags'
@@ -75,6 +78,7 @@ permissions:
   - 'view terms in languages'
   - 'view terms in local_origin'
   - 'view terms in nations'
+  - 'view terms in part_of_speech'
   - 'view terms in regions'
   - 'view terms in seasonal_time'
   - 'view terms in tags'

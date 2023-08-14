@@ -140,14 +140,10 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_related_places:
-    type: entity_reference_autocomplete
+    type: options_buttons
     weight: 18
     region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   field_source:
     type: options_select

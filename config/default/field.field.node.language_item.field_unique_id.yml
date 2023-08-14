@@ -10,7 +10,7 @@ field_name: field_unique_id
 entity_type: node
 bundle: language_item
 label: 'Unique ID'
-description: ''
+description: 'A dictionary word or DB record may have a distinct ID. If not - let it empty.'
 required: false
 translatable: true
 default_value: {  }

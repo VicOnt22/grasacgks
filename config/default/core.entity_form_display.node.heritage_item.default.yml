@@ -937,11 +937,11 @@ content:
           leaflet_max_bounds:
             weight: 0
             settings:
-              north: null
-              south: null
-              east: null
-              west: null
-            enabled: false
+              north: !!float 75
+              south: !!float 33
+              east: !!float -51
+              west: !!float -170
+            enabled: true
           leaflet_custom_tile_layer:
             weight: 0
             settings:
@@ -984,7 +984,7 @@ content:
             enabled: false
         zoom: '5'
         height: 400px
-        width: 50%
+        width: 90%
         minZoom: '0'
         maxZoom: '0'
         maxBounds:

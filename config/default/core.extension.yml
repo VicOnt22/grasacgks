@@ -213,6 +213,7 @@ module:
   schemata: 0
   schemata_json_schema: 0
   script_manager: 0
+  scroll_top_button: 0
   search_api: 0
   search_api_db: 0
   search_api_tracking: 0

@@ -1,0 +1,10 @@
+_core:
+  default_config_hash: _CJo9fYrLoLmB9krcGnlcT40OAFJLdeYE4IcfjfWr4Y
+enabled: 'on'
+show_on_admin: false
+button_text: 'Scroll to top'
+button_style: pill
+button_animation: slide
+button_animation_speed: 200
+scroll_distance: 100
+scroll_speed: 300
