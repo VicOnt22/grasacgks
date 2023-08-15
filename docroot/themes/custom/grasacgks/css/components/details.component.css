@@ -52,3 +52,7 @@ form#views-exposed-form-browse-gks-page-1 button[id*=edit-submit-browse-gks] {
 form#views-exposed-form-browse-gks-page-1 button[id*=edit-reset] {
   margin-top: 1rem;
 }
+
+form#views-exposed-form-browse-gks-page-2 #edit-field-nation-tid-target-id-collapsible {
+  margin-top: inherit;
+}

@@ -21,7 +21,6 @@ dependencies:
     - taxonomy
     - user
     - views_display_switch
-    - views_infinite_scroll
 id: browse_gks
 label: 'Browse GKS'
 module: views
@@ -1072,7 +1071,7 @@ display:
           empty_zero: false
           hide_alter_empty: false
       pager:
-        type: infinite_scroll
+        type: full
         options:
           offset: 0
           items_per_page: 20
@@ -1081,6 +1080,8 @@ display:
           tags:
             next: 'Next ›'
             previous: '‹ Previous'
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -1089,10 +1090,7 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          views_infinite_scroll:
-            button_text: 'Load More'
-            automatically_load_content: true
-            initially_load_all_pages: false
+          quantity: 9
       empty:
         area:
           id: area
@@ -1277,9 +1275,9 @@ display:
         filters: false
         filter_groups: false
         header: false
-      use_ajax: true
+      use_ajax: false
       display_description: ''
-      use_more: true
+      use_more: false
       use_more_always: true
       use_more_text: more
       header:

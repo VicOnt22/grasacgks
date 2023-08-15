@@ -69,9 +69,9 @@
     {%- include '@grasacgks/includes/preload.twig' with { grasacgks_path: grasacgks_path, html_dir: html_attributes['dir'] } only -%}
   </head>
   <body{{ attributes.addClass(body_classes) }}>
-    <a href="#main-content" class="visually-hidden focusable skip-link">
-      {{ 'Skip to main content'|t }}
-    </a>
+      <a id="skip-to-main" href="#main-content" aria-label="skip-to-main" class="visually-hidden focusable skip-link">
+         {{ 'Skip to main content'|t }}
+      </a>
     {{ page_top }}
     {{ page }}
     {{ page_bottom }}
