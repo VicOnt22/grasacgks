@@ -258,7 +258,6 @@ module:
   views_bulk_operations: 0
   views_display_switch: 0
   views_filter_select: 0
-  views_infinite_scroll: 0
   views_ui: 0
   viewsreference: 0
   webform: 0

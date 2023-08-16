@@ -777,7 +777,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: true
-          content: "<h1>Relatives/Heritage items</h1>\r\nDisplaying @start - @end of @total Relatives\r\n<p>&nbsp;</p>"
+          content: "<h2>Relatives/Heritage items</h2>\r\nDisplaying @start - @end of @total Relatives\r\n<p>&nbsp;</p>"
       exposed_block: false
       display_extenders:
         metatag_display_extender:
@@ -1309,7 +1309,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: true
-          content: "<h1>Relatives/Heritage items</h1>\r\nDisplaying @start - @end of @total Relatives\r\n<p>&nbsp;</p>"
+          content: "<h2>Relatives/Heritage items</h2>\r\nDisplaying @start - @end of @total Relatives\r\n<p>&nbsp;</p>"
       exposed_block: false
       display_extenders:
         metatag_display_extender:

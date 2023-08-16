@@ -223,7 +223,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<h1>Institutions</h1>'
+            value: '<h2>Grasac Partner Institutions</h2>'
             format: full_html
           tokenize: false
       footer: {  }
