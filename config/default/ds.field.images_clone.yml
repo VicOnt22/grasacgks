@@ -1,0 +1,9 @@
+id: images_clone
+label: 'Images clone'
+ui_limit: 'heritage_item|*'
+type: display_field_copy
+type_label: 'Copy field'
+entities:
+  node: node
+properties:
+  field_id: node.heritage_item.field_image2

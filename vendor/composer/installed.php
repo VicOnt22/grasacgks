@@ -1083,6 +1083,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'drupal/display_field_copy' => array(
+            'pretty_version' => '2.0.0',
+            'version' => '2.0.0.0',
+            'reference' => '2.0.0',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../docroot/modules/contrib/display_field_copy',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'drupal/drd_agent' => array(
             'pretty_version' => '4.0.5',
             'version' => '4.0.5.0',

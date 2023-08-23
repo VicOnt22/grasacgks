@@ -11,7 +11,7 @@ logo:
   path: 'public://grasac-logo_transparent.png'
   use_default: false
 bootstrap_barrio_library: production
-bootstrap_barrio_source: bootstrap_barrio/bootstrap_cdn
+bootstrap_barrio_source: '0'
 bootstrap_barrio_fluid_container: 0
 bootstrap_barrio_sidebar_position: both
 bootstrap_barrio_content_offset: 0

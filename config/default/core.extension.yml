@@ -59,6 +59,7 @@ module:
   dblog: 0
   devel: 0
   diff: 0
+  display_field_copy: 0
   dropzonejs: 0
   dropzonejs_eb_widget: 0
   duration_field: 0
