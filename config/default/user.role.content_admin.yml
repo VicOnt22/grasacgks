@@ -31,6 +31,7 @@ dependencies:
     - taxonomy.vocabulary.languages
     - taxonomy.vocabulary.local_origin
     - taxonomy.vocabulary.nations
+    - taxonomy.vocabulary.part_of_speech
     - taxonomy.vocabulary.regions
     - taxonomy.vocabulary.seasonal_time
     - taxonomy.vocabulary.tags
@@ -287,6 +288,7 @@ permissions:
   - 'edit terms in languages'
   - 'edit terms in local_origin'
   - 'edit terms in nations'
+  - 'edit terms in part_of_speech'
   - 'edit terms in regions'
   - 'edit terms in seasonal_time'
   - 'edit terms in tags'
@@ -347,6 +349,7 @@ permissions:
   - 'translate nations taxonomy_term'
   - 'translate page node'
   - 'translate paragraph'
+  - 'translate part_of_speech taxonomy_term'
   - 'translate project node'
   - 'translate regions taxonomy_term'
   - 'translate remote_video media'
@@ -397,6 +400,7 @@ permissions:
   - 'view language_item revisions'
   - 'view latest version'
   - 'view media'
+  - 'view own field_record_editable_by'
   - 'view own unpublished content'
   - 'view own unpublished media'
   - 'view page revisions'

@@ -9,7 +9,6 @@ dependencies:
     - node.type.landing_page_lb
     - node.type.language_item
     - node.type.page
-    - node.type.varbase_heroslider_media
     - taxonomy.vocabulary.collection
     - taxonomy.vocabulary.contributor_roles
     - taxonomy.vocabulary.contributors
@@ -113,7 +112,6 @@ permissions:
   - 'create url aliases'
   - 'create varbase_blog content'
   - 'create webform'
-  - 'customize shortcut links'
   - 'delete any varbase_blog content'
   - 'delete any webform submission'
   - 'delete own article content'
@@ -122,7 +120,6 @@ permissions:
   - 'delete own language_item content'
   - 'delete own page content'
   - 'delete own varbase_blog content'
-  - 'delete own varbase_heroslider_media content'
   - 'delete own webform'
   - 'delete own webform submission'
   - 'dropzone upload files'
@@ -132,7 +129,6 @@ permissions:
   - 'edit any language_item content'
   - 'edit any page content'
   - 'edit any varbase_blog content'
-  - 'edit any varbase_heroslider_media content'
   - 'edit own article content'
   - 'edit own heritage_item content'
   - 'edit own landing_page_lb content'

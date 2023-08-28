@@ -8,7 +8,6 @@ dependencies:
     - media.type.audio
     - media.type.document
     - media.type.file
-    - media.type.gallery
     - media.type.image
     - media.type.remote_video
     - media.type.video
@@ -29,6 +28,7 @@ dependencies:
     - taxonomy.vocabulary.languages
     - taxonomy.vocabulary.local_origin
     - taxonomy.vocabulary.nations
+    - taxonomy.vocabulary.part_of_speech
     - taxonomy.vocabulary.regions
     - taxonomy.vocabulary.seasonal_time
     - taxonomy.vocabulary.tags
@@ -38,6 +38,7 @@ dependencies:
   module:
     - block_content
     - block_content_permissions
+    - captcha
     - config_perms
     - content_moderation
     - content_translation
@@ -49,10 +50,13 @@ dependencies:
     - field_permissions
     - file
     - filter
-    - google_analytics_reports
+    - geocoder
+    - geofield_map
+    - geolocation
     - layout_builder
     - media
     - media_bulk_upload
+    - menu_admin_per_menu
     - menu_link_content
     - moderation_sidebar
     - node
@@ -63,6 +67,7 @@ dependencies:
     - responsive_preview
     - scheduler
     - shortcut
+    - simple_sitemap
     - styleguide
     - system
     - taxonomy
@@ -83,6 +88,7 @@ permissions:
   - 'Flush twig cache from admin toolbar'
   - 'Flush views cache from admin toolbar'
   - 'Rebuild theme registry from admin toolbar'
+  - 'access administration pages'
   - 'access all views'
   - 'access comments'
   - 'access content'
@@ -93,7 +99,7 @@ permissions:
   - 'access editor_multiple_media_browser entity browser pages'
   - 'access entity usage statistics'
   - 'access files overview'
-  - 'access google analytics reports'
+  - 'access geocoder api endpoints'
   - 'access image_browser entity browser pages'
   - 'access media browser'
   - 'access media overview'
@@ -105,7 +111,7 @@ permissions:
   - 'access relations'
   - 'access responsive preview'
   - 'access shortcuts'
-  - 'access site reports'
+  - 'access site in maintenance mode'
   - 'access site-wide contact form'
   - 'access taxonomy overview'
   - 'access toolbar'
@@ -114,7 +120,12 @@ permissions:
   - 'access video_browser entity browser pages'
   - 'access webform overview'
   - 'access webform submission user'
+  - 'administer footer menu items'
+  - 'administer main menu items'
   - 'administer related items'
+  - 'administer sitemap settings'
+  - 'configure geofield_map'
+  - 'configure geolocation'
   - 'create and edit custom blocks'
   - 'create article content'
   - 'create audio media'
@@ -149,7 +160,6 @@ permissions:
   - 'delete own document files'
   - 'delete own document media'
   - 'delete own file media'
-  - 'delete own gallery media'
   - 'delete own heritage_item content'
   - 'delete own image files'
   - 'delete own image media'
@@ -180,6 +190,7 @@ permissions:
   - 'edit any page content'
   - 'edit any remote_video media'
   - 'edit any video media'
+  - 'edit field_record_editable_by'
   - 'edit own article content'
   - 'edit own audio files'
   - 'edit own audio media'
@@ -227,15 +238,12 @@ permissions:
   - 'rabbit hole bypass node'
   - 'rabbit hole bypass taxonomy_term'
   - 'revert revisions'
-  - 'schedule publishing of media'
-  - 'schedule publishing of nodes'
-  - 'schedule publishing of taxonomy_term'
   - 'search heritage_item content'
   - 'search language_item content'
   - 'search project content'
   - 'search resource content'
+  - 'skip CAPTCHA'
   - 'skip comment approval'
-  - 'switch shortcut sets'
   - 'translate article node'
   - 'translate audio media'
   - 'translate block_content'
@@ -258,6 +266,7 @@ permissions:
   - 'translate menu_link_content'
   - 'translate nations taxonomy_term'
   - 'translate page node'
+  - 'translate part_of_speech taxonomy_term'
   - 'translate project node'
   - 'translate regions taxonomy_term'
   - 'translate remote_video media'
@@ -268,6 +277,7 @@ permissions:
   - 'update any basic block content'
   - 'update any media'
   - 'update any varbase_html_code_block block content'
+  - 'update any varbase_media_block block content'
   - 'update any varbase_rich_text_block block content'
   - 'update content translations'
   - 'update media'
@@ -281,9 +291,7 @@ permissions:
   - 'use text format basic_html'
   - 'use text format full_html'
   - 'use varbase_editorial_workflow transition archive'
-  - 'use varbase_editorial_workflow transition archived_published'
   - 'use varbase_editorial_workflow transition create_new_draft'
-  - 'use varbase_editorial_workflow transition publish'
   - 'use varbase_editorial_workflow transition review'
   - 'use varbase_simple_workflow transition archive'
   - 'use varbase_simple_workflow transition archived_published'
@@ -306,6 +314,7 @@ permissions:
   - 'view latest version'
   - 'view own field_gks_id'
   - 'view own field_make_role'
+  - 'view own field_record_editable_by'
   - 'view own files'
   - 'view own private files'
   - 'view own unpublished content'
@@ -317,3 +326,4 @@ permissions:
   - 'view scheduled taxonomy_term'
   - 'view style guides'
   - 'view the administration theme'
+  - 'view user email addresses'

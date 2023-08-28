@@ -31,6 +31,7 @@ dependencies:
     - taxonomy.vocabulary.languages
     - taxonomy.vocabulary.local_origin
     - taxonomy.vocabulary.nations
+    - taxonomy.vocabulary.part_of_speech
     - taxonomy.vocabulary.regions
     - taxonomy.vocabulary.seasonal_time
     - taxonomy.vocabulary.tags
@@ -245,6 +246,7 @@ permissions:
   - 'translate nations taxonomy_term'
   - 'translate page node'
   - 'translate paragraph'
+  - 'translate part_of_speech taxonomy_term'
   - 'translate project node'
   - 'translate regions taxonomy_term'
   - 'translate remote_video media'

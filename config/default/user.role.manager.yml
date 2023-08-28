@@ -9,7 +9,6 @@ dependencies:
     - media.type.audio
     - media.type.document
     - media.type.file
-    - media.type.gallery
     - media.type.image
     - media.type.remote_video
     - media.type.video
@@ -19,6 +18,7 @@ dependencies:
     - node.type.language_item
     - node.type.page
     - node.type.project
+    - node.type.resource
     - node.type.varbase_heroslider_media
     - taxonomy.vocabulary.ceremonial_time
     - taxonomy.vocabulary.collection
@@ -31,6 +31,7 @@ dependencies:
     - taxonomy.vocabulary.languages
     - taxonomy.vocabulary.local_origin
     - taxonomy.vocabulary.nations
+    - taxonomy.vocabulary.part_of_speech
     - taxonomy.vocabulary.regions
     - taxonomy.vocabulary.seasonal_time
     - taxonomy.vocabulary.tags
@@ -42,6 +43,7 @@ dependencies:
     - block_class
     - block_content
     - block_content_permissions
+    - captcha
     - config_perms
     - content_lock
     - content_moderation
@@ -92,6 +94,7 @@ dependencies:
     - styleguide
     - system
     - taxonomy
+    - taxonomy_access_fix
     - toolbar
     - total_control
     - ultimate_cron
@@ -148,7 +151,6 @@ permissions:
   - 'access webform overview'
   - 'access webform submission user'
   - 'add JS snippets for google analytics'
-  - 'administer admin menu items'
   - 'administer block classes'
   - 'administer blocks'
   - 'administer comments'
@@ -179,6 +181,7 @@ permissions:
   - 'configure geofield_map'
   - 'configure geolocation'
   - 'create and edit custom blocks'
+  - 'create any term'
   - 'create article content'
   - 'create audio media'
   - 'create basic block content'
@@ -197,6 +200,7 @@ permissions:
   - 'create page content'
   - 'create relations'
   - 'create remote_video media'
+  - 'create resource content'
   - 'create subuser 2'
   - 'create subuser 3'
   - 'create subuser 4'
@@ -213,6 +217,7 @@ permissions:
   - 'create terms in languages'
   - 'create terms in local_origin'
   - 'create terms in nations'
+  - 'create terms in part_of_speech'
   - 'create terms in regions'
   - 'create terms in seasonal_time'
   - 'create terms in tags'
@@ -239,6 +244,8 @@ permissions:
   - 'delete any media'
   - 'delete any page content'
   - 'delete any remote_video media'
+  - 'delete any resource content'
+  - 'delete any term'
   - 'delete any varbase_html_code_block block content'
   - 'delete any varbase_rich_text_block block content'
   - 'delete any video files'
@@ -255,7 +262,6 @@ permissions:
   - 'delete own document files'
   - 'delete own document media'
   - 'delete own file media'
-  - 'delete own gallery media'
   - 'delete own heritage_item content'
   - 'delete own image files'
   - 'delete own image media'
@@ -263,13 +269,14 @@ permissions:
   - 'delete own language_item content'
   - 'delete own page content'
   - 'delete own remote_video media'
+  - 'delete own resource content'
   - 'delete own video files'
   - 'delete own video media'
   - 'delete own webform'
   - 'delete own webform submission'
   - 'delete page revisions'
-  - 'delete project revisions'
   - 'delete relations'
+  - 'delete resource revisions'
   - 'delete revisions'
   - 'delete subusers'
   - 'delete terms in 1'
@@ -321,7 +328,6 @@ permissions:
   - 'edit any document files'
   - 'edit any document media'
   - 'edit any file media'
-  - 'edit any gallery media'
   - 'edit any heritage_item content'
   - 'edit any image files'
   - 'edit any image media'
@@ -329,6 +335,7 @@ permissions:
   - 'edit any language_item content'
   - 'edit any page content'
   - 'edit any remote_video media'
+  - 'edit any resource content'
   - 'edit any video files'
   - 'edit any video media'
   - 'edit field_gks_id'
@@ -350,6 +357,7 @@ permissions:
   - 'edit own page content'
   - 'edit own project content'
   - 'edit own remote_video media'
+  - 'edit own resource content'
   - 'edit own video files'
   - 'edit own video media'
   - 'edit own webform'
@@ -385,6 +393,7 @@ permissions:
   - 'edit terms in languages'
   - 'edit terms in local_origin'
   - 'edit terms in nations'
+  - 'edit terms in part_of_speech'
   - 'edit terms in regions'
   - 'edit terms in seasonal_time'
   - 'edit terms in tags'
@@ -401,6 +410,8 @@ permissions:
   - 'post comments'
   - 'rabbit hole bypass node'
   - 'rabbit hole bypass taxonomy_term'
+  - 'reorder terms in any vocabulary'
+  - 'reset any vocabulary'
   - 'revert all media revisions'
   - 'revert all revisions'
   - 'revert article revisions'
@@ -415,13 +426,12 @@ permissions:
   - 'revert page revisions'
   - 'revert project revisions'
   - 'revert remote_video media revisions'
+  - 'revert resource revisions'
   - 'revert revisions'
   - 'revert varbase_heroslider_media revisions'
   - 'revert video media revisions'
   - 'run cron jobs'
-  - 'schedule publishing of media'
   - 'schedule publishing of nodes'
-  - 'schedule publishing of taxonomy_term'
   - 'search all excluded entities'
   - 'search content'
   - 'search heritage_item content'
@@ -429,6 +439,7 @@ permissions:
   - 'search project content'
   - 'search resource content'
   - 'set user expiration'
+  - 'skip CAPTCHA'
   - 'skip comment approval'
   - 'switch shortcut sets'
   - 'translate any entity'
@@ -456,6 +467,7 @@ permissions:
   - 'translate menu_link_content'
   - 'translate nations taxonomy_term'
   - 'translate page node'
+  - 'translate part_of_speech taxonomy_term'
   - 'translate project node'
   - 'translate regions taxonomy_term'
   - 'translate remote_video media'
@@ -466,7 +478,9 @@ permissions:
   - 'translate video media'
   - 'update any basic block content'
   - 'update any media'
+  - 'update any term'
   - 'update any varbase_html_code_block block content'
+  - 'update any varbase_media_block block content'
   - 'update any varbase_rich_text_block block content'
   - 'update content translations'
   - 'update media'
@@ -496,7 +510,10 @@ permissions:
   - userprotect.pass.edit
   - 'view all media revisions'
   - 'view all revisions'
+  - 'view any term'
+  - 'view any term name'
   - 'view any unpublished content'
+  - 'view any vocabulary name'
   - 'view any webform submission'
   - 'view article revisions'
   - 'view audio media revisions'
@@ -516,6 +533,7 @@ permissions:
   - 'view language_item revisions'
   - 'view latest version'
   - 'view own field_gks_id'
+  - 'view own field_record_editable_by'
   - 'view own files'
   - 'view own private files'
   - 'view own unpublished content'
@@ -524,6 +542,7 @@ permissions:
   - 'view pane admin links'
   - 'view private files'
   - 'view remote_video media revisions'
+  - 'view resource revisions'
   - 'view revisions'
   - 'view scheduled content'
   - 'view scheduled media'
@@ -531,5 +550,52 @@ permissions:
   - 'view style guides'
   - 'view subusers'
   - 'view the administration theme'
+  - 'view unpublished term names in ceremonial_time'
+  - 'view unpublished term names in collection'
+  - 'view unpublished term names in contributor_roles'
+  - 'view unpublished term names in contributors'
+  - 'view unpublished term names in folders'
+  - 'view unpublished term names in institution'
+  - 'view unpublished term names in item_type'
+  - 'view unpublished term names in language_item_source'
+  - 'view unpublished term names in languages'
+  - 'view unpublished term names in local_origin'
+  - 'view unpublished term names in nations'
+  - 'view unpublished term names in part_of_speech'
+  - 'view unpublished term names in regions'
+  - 'view unpublished term names in seasonal_time'
+  - 'view unpublished term names in tags'
+  - 'view unpublished term names in traditional_knowledge_tk_labels'
+  - 'view unpublished terms in ceremonial_time'
+  - 'view unpublished terms in collection'
+  - 'view unpublished terms in contributor_roles'
+  - 'view unpublished terms in contributors'
+  - 'view unpublished terms in institution'
+  - 'view unpublished terms in item_type'
+  - 'view unpublished terms in language_item_source'
+  - 'view unpublished terms in languages'
+  - 'view unpublished terms in local_origin'
+  - 'view unpublished terms in nations'
+  - 'view unpublished terms in part_of_speech'
+  - 'view unpublished terms in regions'
+  - 'view unpublished terms in seasonal_time'
+  - 'view unpublished terms in tags'
+  - 'view unpublished terms in traditional_knowledge_tk_labels'
   - 'view user email addresses'
   - 'view video media revisions'
+  - 'view vocabulary name of ceremonial_time'
+  - 'view vocabulary name of collection'
+  - 'view vocabulary name of contributor_roles'
+  - 'view vocabulary name of contributors'
+  - 'view vocabulary name of folders'
+  - 'view vocabulary name of institution'
+  - 'view vocabulary name of item_type'
+  - 'view vocabulary name of language_item_source'
+  - 'view vocabulary name of languages'
+  - 'view vocabulary name of local_origin'
+  - 'view vocabulary name of nations'
+  - 'view vocabulary name of part_of_speech'
+  - 'view vocabulary name of regions'
+  - 'view vocabulary name of seasonal_time'
+  - 'view vocabulary name of tags'
+  - 'view vocabulary name of traditional_knowledge_tk_labels'

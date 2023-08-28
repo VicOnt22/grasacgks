@@ -20,7 +20,6 @@ dependencies:
     - taxonomy.vocabulary.tags
     - taxonomy.vocabulary.traditional_knowledge_tk_labels
   module:
-    - field_permissions
     - media
     - system
     - taxonomy_access_fix
@@ -79,7 +78,6 @@ permissions:
   - 'view icons'
   - 'view media'
   - 'view own field_make_role'
-  - 'view own field_record_editable_by'
   - 'view own files'
   - 'view term names in ceremonial_time'
   - 'view term names in collection'

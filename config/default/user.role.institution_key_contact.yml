@@ -12,7 +12,6 @@ dependencies:
     - content_moderation
     - field_permissions
     - filter
-    - google_analytics_reports
     - media
     - node
     - toolbar
@@ -25,7 +24,6 @@ permissions:
   - 'access all views'
   - 'access comments'
   - 'access content overview'
-  - 'access google analytics reports'
   - 'access media browser'
   - 'access media overview'
   - 'access relations'
@@ -33,7 +31,6 @@ permissions:
   - 'access toolbar'
   - 'access user contact forms'
   - 'access user profiles'
-  - 'create media'
   - 'delete media'
   - 'download any audio files'
   - 'download any document files'
@@ -51,7 +48,6 @@ permissions:
   - 'post comments'
   - 'search heritage_item content'
   - 'search language_item content'
-  - 'update any media'
   - 'update media'
   - 'use php in custom pagers'
   - 'use text format basic_html'
@@ -62,6 +58,7 @@ permissions:
   - 'view icons'
   - 'view latest version'
   - 'view own field_gks_id'
+  - 'view own field_record_editable_by'
   - 'view own unpublished content'
   - 'view own unpublished media'
   - 'view revisions'

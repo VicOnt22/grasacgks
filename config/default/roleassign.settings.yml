@@ -1,10 +1,4 @@
 roleassign_roles:
-  - content_admin
-  - editor
   - full_member
-  - guest_member
   - institution_key_contact
   - research_assistant
-  - seo_admin
-  - site_admin
-  - test_role

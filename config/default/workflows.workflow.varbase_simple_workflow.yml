@@ -2,16 +2,6 @@ uuid: 535116f5-0aca-4237-a99d-f66616815b86
 langcode: en
 status: true
 dependencies:
-  config:
-    - node.type.article
-    - node.type.heritage_item
-    - node.type.landing_page_lb
-    - node.type.language_item
-    - node.type.page
-    - node.type.project
-    - node.type.resource
-    - node.type.secure_page
-    - node.type.varbase_heroslider_media
   module:
     - content_moderation
 _core:
@@ -64,54 +54,5 @@ type_settings:
         - published
       to: published
       weight: 0
-  entity_types:
-    node:
-      - page
-      - landing_page_lb
-      - varbase_heroslider_media
-      - landing_page_lb
-      - article
-      - heritage_item
-      - language_item
-      - project
-      - resource
-      - secure_page
-      - article
-      - heritage_item
-      - language_item
-      - project
-      - resource
-      - secure_page
-      - article
-      - heritage_item
-      - language_item
-      - project
-      - resource
-      - secure_page
-      - article
-      - heritage_item
-      - language_item
-      - project
-      - resource
-      - secure_page
-      - article
-      - heritage_item
-      - language_item
-      - project
-      - resource
-      - secure_page
-      - heritage_item
-      - language_item
-      - heritage_item
-      - heritage_item
-      - heritage_item
-      - heritage_item
-      - heritage_item
-      - language_item
-      - heritage_item
-      - heritage_item
-      - heritage_item
-      - heritage_item
-      - language_item
-      - language_item
+  entity_types: {  }
   default_moderation_state: draft
