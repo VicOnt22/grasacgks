@@ -79,3 +79,23 @@ body {
 #views-exposed-form-browse-gks-page-1 input#edit-field-description-materials-value {
   margin-top: 1rem;
 }
+
+.text-muted {
+  color: #212529 !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.btn-primary {
+  color: #fff;
+  border-color: #0d49cb;
+  background-color: #0d49cb;
+}
+
+a {
+  text-decoration: none;
+  color: #0f58a6;
+  background-color: transparent;
+}
