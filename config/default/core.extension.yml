@@ -33,7 +33,6 @@ module:
   charts_c3: 0
   checklistapi: 0
   ckeditor: 0
-  ckeditor_bidi: 0
   ckeditor_media_embed: 0
   ckeditor_paste_filter: 0
   conditional_fields: 0

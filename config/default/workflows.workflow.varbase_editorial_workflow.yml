@@ -8,9 +8,7 @@ dependencies:
     - node.type.landing_page_lb
     - node.type.language_item
     - node.type.page
-    - node.type.project
     - node.type.resource
-    - node.type.secure_page
     - node.type.varbase_heroslider_media
   module:
     - content_moderation
@@ -85,8 +83,6 @@ type_settings:
       - landing_page_lb
       - language_item
       - page
-      - project
       - resource
-      - secure_page
       - varbase_heroslider_media
   default_moderation_state: draft

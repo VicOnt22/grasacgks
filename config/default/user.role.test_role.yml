@@ -16,7 +16,6 @@ dependencies:
     - node.type.landing_page_lb
     - node.type.language_item
     - node.type.page
-    - node.type.project
     - taxonomy.vocabulary.ceremonial_time
     - taxonomy.vocabulary.collection
     - taxonomy.vocabulary.contributor_roles
@@ -163,7 +162,6 @@ permissions:
   - 'edit own landing_page_lb content'
   - 'edit own language_item content'
   - 'edit own page content'
-  - 'edit own project content'
   - 'edit own remote_video media'
   - 'edit own video media'
   - 'have total control'
@@ -196,7 +194,6 @@ permissions:
   - 'translate nations taxonomy_term'
   - 'translate page node'
   - 'translate part_of_speech taxonomy_term'
-  - 'translate project node'
   - 'translate regions taxonomy_term'
   - 'translate remote_video media'
   - 'translate seasonal_time taxonomy_term'

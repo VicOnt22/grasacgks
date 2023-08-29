@@ -19,7 +19,6 @@ dependencies:
     - node.type.landing_page_lb
     - node.type.language_item
     - node.type.page
-    - node.type.project
     - node.type.varbase_heroslider_media
     - taxonomy.vocabulary.ceremonial_time
     - taxonomy.vocabulary.collection
@@ -346,7 +345,6 @@ permissions:
   - 'edit own landing_page_lb content'
   - 'edit own language_item content'
   - 'edit own page content'
-  - 'edit own project content'
   - 'edit own remote_video media'
   - 'edit own tweet media'
   - 'edit own varbase_blog content'
@@ -394,7 +392,6 @@ permissions:
   - 'revert landing_page_lb revisions'
   - 'revert language_item revisions'
   - 'revert page revisions'
-  - 'revert project revisions'
   - 'revert varbase_blog revisions'
   - 'revert varbase_heroslider_media revisions'
   - 'run cron jobs'
@@ -441,7 +438,6 @@ permissions:
   - 'translate page node'
   - 'translate paragraph'
   - 'translate part_of_speech taxonomy_term'
-  - 'translate project node'
   - 'translate regions taxonomy_term'
   - 'translate remote_video media'
   - 'translate seasonal_time taxonomy_term'
