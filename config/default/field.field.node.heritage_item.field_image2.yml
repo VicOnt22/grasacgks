@@ -29,7 +29,7 @@ settings:
   handler_settings: {  }
   file_directory: media/images/heritage_items
   file_extensions: 'png gif jpg jpeg webp'
-  max_filesize: '10 MB'
+  max_filesize: '15 MB'
   max_resolution: ''
   min_resolution: ''
   alt_field: true
