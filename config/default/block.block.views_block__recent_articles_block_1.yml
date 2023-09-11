@@ -1,6 +1,6 @@
 uuid: 8f688749-50ea-4a3f-a2ae-7c1c3c84e8c2
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - views.view.recent_articles

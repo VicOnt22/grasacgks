@@ -5,6 +5,7 @@ dependencies:
   config:
     - system.menu.main
   module:
+    - context
     - system
   theme:
     - grasacgks
@@ -22,6 +23,25 @@ settings:
   label_display: '0'
   provider: system
   level: 1
-  depth: 2
+  depth: 3
   expand_all_items: false
-visibility: {  }
+visibility:
+  context:
+    id: context
+    negate: null
+    values: ''
+  user_status:
+    id: user_status
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    user_status:
+      viewing_profile: '0'
+      logged_viewing_profile: '0'
+      own_page_true: '0'
+      field_value: '0'
+    user_fields: uid
+  context_all:
+    id: context_all
+    negate: null
+    values: ''

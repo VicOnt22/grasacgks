@@ -951,7 +951,7 @@ display:
           text_input_required_format: full_html
           bef:
             general:
-              autosubmit: false
+              autosubmit: true
               autosubmit_exclude_textfield: false
               autosubmit_textfield_delay: 500
               autosubmit_hide: false
@@ -967,12 +967,6 @@ display:
                   sort_options: false
                   rewrite:
                     filter_rewrite_values: ''
-                  collapsible: false
-                  is_secondary: false
-              field_part_of_speech_value:
-                plugin_id: default
-                advanced:
-                  placeholder_text: 'ex: vii, vti, vai, vta, ni, nv, na, av, ij'
                   collapsible: false
                   is_secondary: false
       filters:
@@ -1055,7 +1049,7 @@ display:
             operator_list: {  }
             identifier: field_languages_target_id
             required: false
-            remember: true
+            remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
@@ -1065,8 +1059,6 @@ display:
               seo_admin: '0'
               site_admin: '0'
               test_role: '0'
-              temp_test_role: '0'
-              guest_member: '0'
               research_assistant: '0'
               full_member: '0'
               institution_key_contact: '0'
@@ -1090,7 +1082,7 @@ display:
           type: select
           hierarchy: false
           limit: true
-          error_message: true
+          error_message: false
       filter_groups:
         operator: AND
         groups:
