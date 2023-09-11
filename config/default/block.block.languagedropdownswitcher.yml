@@ -10,7 +10,7 @@ dependencies:
     - grasacgks
 third_party_settings:
   block_class:
-    classes: ml-auto
+    classes: 'ml-auto float-right justify-content-end '
 id: languagedropdownswitcher
 theme: grasacgks
 region: navigation_collapsible

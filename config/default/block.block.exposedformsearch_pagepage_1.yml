@@ -5,16 +5,12 @@ dependencies:
   config:
     - views.view.search_page
   module:
-    - block_class
     - context
     - language
     - system
     - views
   theme:
     - grasacgks
-third_party_settings:
-  block_class:
-    classes: ml-auto
 id: exposedformsearch_pagepage_1
 theme: grasacgks
 region: navigation_collapsible

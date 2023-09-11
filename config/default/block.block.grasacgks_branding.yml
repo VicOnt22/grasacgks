@@ -10,7 +10,7 @@ dependencies:
     - grasacgks
 third_party_settings:
   block_class:
-    classes: float-left
+    classes: 'float-left float-start'
 _core:
   default_config_hash: KpapOhIadYRbqfE459LWVv6Eew2DRn2GvMW90E-WjjA
 id: grasacgks_branding

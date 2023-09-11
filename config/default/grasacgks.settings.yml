@@ -25,7 +25,7 @@ bootstrap_barrio_button_size: ''
 bootstrap_barrio_button_outline: 0
 bootstrap_barrio_navbar_container: 1
 bootstrap_barrio_navbar_toggle: navbar-toggleable-md
-bootstrap_barrio_navbar_top_navbar: 0
+bootstrap_barrio_navbar_top_navbar: 1
 bootstrap_barrio_navbar_top_class: ''
 bootstrap_barrio_navbar_class: ''
 bootstrap_barrio_navbar_top_position: ''
