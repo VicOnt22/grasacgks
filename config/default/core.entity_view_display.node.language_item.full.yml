@@ -97,7 +97,7 @@ content:
             lb-col: false
             ow: true
             ow-el: ''
-            ow-cl: ''
+            ow-cl: field-outer
             ow-at: ''
             ow-def-at: true
             ow-def-cl: true
@@ -137,7 +137,7 @@ content:
             lb-col: true
             ow: true
             ow-el: ''
-            ow-cl: ''
+            ow-cl: field-outer
             ow-at: ''
             ow-def-at: true
             ow-def-cl: true
@@ -247,7 +247,7 @@ content:
             lb-col: true
             ow: true
             ow-el: ''
-            ow-cl: ''
+            ow-cl: field-outer
             ow-at: ''
             ow-def-at: true
             ow-def-cl: true
@@ -284,7 +284,7 @@ content:
             lb-col: true
             ow: true
             ow-el: ''
-            ow-cl: ''
+            ow-cl: field-outer
             ow-at: ''
             ow-def-at: true
             ow-def-cl: true
@@ -321,7 +321,7 @@ content:
             lb-col: true
             ow: true
             ow-el: ''
-            ow-cl: ''
+            ow-cl: field-outer
             ow-at: ''
             ow-def-at: true
             ow-def-cl: true
@@ -358,7 +358,7 @@ content:
             lb-col: true
             ow: true
             ow-el: ''
-            ow-cl: ''
+            ow-cl: field-outer
             ow-at: ''
             ow-def-at: true
             ow-def-cl: true
@@ -395,7 +395,7 @@ content:
             lb-col: true
             ow: true
             ow-el: ''
-            ow-cl: ''
+            ow-cl: field-outer
             ow-at: ''
             ow-def-at: true
             ow-def-cl: true
@@ -432,7 +432,7 @@ content:
             lb-col: true
             ow: true
             ow-el: ''
-            ow-cl: ''
+            ow-cl: field-outer
             ow-at: ''
             ow-def-at: true
             ow-def-cl: true
@@ -469,7 +469,7 @@ content:
             lb-col: true
             ow: true
             ow-el: ''
-            ow-cl: ''
+            ow-cl: field-outer
             ow-at: ''
             ow-def-at: true
             ow-def-cl: true
@@ -505,7 +505,7 @@ content:
             lb-col: true
             ow: true
             ow-el: ''
-            ow-cl: ''
+            ow-cl: field-outer
             ow-at: ''
             ow-def-at: true
             ow-def-cl: true
@@ -540,7 +540,7 @@ content:
             lb-col: true
             ow: true
             ow-el: ''
-            ow-cl: ''
+            ow-cl: field-outer
             ow-at: ''
             ow-def-at: true
             ow-def-cl: true
@@ -576,7 +576,7 @@ content:
             lb-col: true
             ow: true
             ow-el: ''
-            ow-cl: ''
+            ow-cl: field-outer
             ow-at: ''
             ow-def-at: true
             ow-def-cl: true

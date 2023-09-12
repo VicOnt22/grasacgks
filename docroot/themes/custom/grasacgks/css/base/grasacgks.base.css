@@ -117,3 +117,7 @@ a {
 #block-exposedformsearch-pagepage-1 .js-form-item.js-form-type-textfield {
   width: 200px;
 }
+
+.field-outer {
+  margin: 1rem 0;
+}
