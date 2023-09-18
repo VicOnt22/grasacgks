@@ -121,3 +121,7 @@ a {
 .field-outer {
   margin: 1rem 0;
 }
+
+#views-exposed-form-search-page-page-1 #edit-aggregated-field--2 {
+  width: 375px;
+}

@@ -30,7 +30,7 @@ widget:
   type: dropdown
   config:
     show_numbers: false
-    default_option_label: 'All Related Seasons'
+    default_option_label: 'Related seasons'
 empty_behavior:
   behavior: none
 only_visible_when_facet_source_is_visible: true

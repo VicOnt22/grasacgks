@@ -30,7 +30,7 @@ widget:
   type: dropdown
   config:
     show_numbers: false
-    default_option_label: 'All Collections'
+    default_option_label: Collections
 empty_behavior:
   behavior: none
 only_visible_when_facet_source_is_visible: true

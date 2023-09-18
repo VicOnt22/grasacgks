@@ -607,7 +607,7 @@ display:
               aggregated_field:
                 plugin_id: default
                 advanced:
-                  placeholder_text: 'Type keywords'
+                  placeholder_text: 'Type keywords, e.g. “Treaty medal” or “basket”'
                   collapsible: false
                   is_secondary: false
       access:
@@ -681,8 +681,6 @@ display:
               seo_admin: '0'
               site_admin: '0'
               test_role: '0'
-              temp_test_role: '0'
-              guest_member: '0'
               research_assistant: '0'
               full_member: '0'
               institution_key_contact: '0'
@@ -690,7 +688,7 @@ display:
               administrator: '0'
             min_placeholder: ''
             max_placeholder: ''
-            placeholder: ''
+            placeholder: 'Type keywords, e.g. “Treaty medal” or “basket”'
           is_grouped: false
           group_info:
             label: ''
@@ -730,7 +728,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: false
-          content: "<h2>Search Results</h2>\r\nDisplaying @start - @end of @total\r\n<p>&nbsp;</p>"
+          content: "<p>By default, we show All, unfiltered results. You may also search the GKS, by typing keywords into the bar above. Use filters on the left to narrow the default or keywords search results.</p>\r\n<h2>Search Results</h2>\r\nDisplaying @start - @end of @total\r\n<p>&nbsp;</p>"
       footer: {  }
       display_extenders: {  }
     cache_metadata:

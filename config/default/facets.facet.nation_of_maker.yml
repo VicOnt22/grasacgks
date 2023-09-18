@@ -30,7 +30,7 @@ widget:
   type: dropdown
   config:
     show_numbers: false
-    default_option_label: 'All Makers'' nations'
+    default_option_label: 'Makers'' nations'
 empty_behavior:
   behavior: none
 only_visible_when_facet_source_is_visible: true

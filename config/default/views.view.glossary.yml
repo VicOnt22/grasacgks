@@ -1041,7 +1041,7 @@ display:
           exposed: true
           expose:
             operator_id: field_languages_target_id_op
-            label: Languages
+            label: '&nbsp;'
             description: ''
             use_operator: false
             operator: field_languages_target_id_op
@@ -1126,7 +1126,20 @@ display:
           admin_label: ''
           plugin_id: result
           empty: false
-          content: "<h2>Language Items</h2>\r\nDisplaying @start - @end from @total items, filtered by first letter.\r\n<p>&nbsp;</p>"
+          content: "<h2>Language Items</h2>\r\nDisplaying @start - @end from @total items, filtered by first letter.\r\n</br></br>"
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: 'Browsing allows you to see all the records for language items in the GKS. You can browse by language by selecting a language from the drop down list below and clicking “Apply.” You can also browse by the first letter or character by clicking on it below.'
+            format: full_html
+          tokenize: false
       display_extenders:
         metatag_display_extender:
           metatags: {  }
