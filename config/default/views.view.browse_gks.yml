@@ -758,7 +758,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: true
-          content: "<h2>Relatives/Heritage items</h2>\r\nDisplaying @start - @end of @total Relatives\r\n</br></br>"
+          content: "<h2>Relatives/Heritage items</h2>\r\nDisplaying @start - @end of @total Relatives\r\n</br>"
         display_switch:
           id: display_switch
           table: views
@@ -788,7 +788,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "Browsing allows you to see all the records for relatives and heritage items in the GKS. You can also browse by materials, and/or by nations. \r\nType the materials in the box below and click “Apply.” You can select  multiple nations from the dropdown list by pressing “Ctrl” (on PC) or “Command” (on Mac) and clicking, then select “Apply.” "
+            value: '<br>Browsing allows you to see all the records for relatives and heritage items in the GKS. You can also search by material made, and/or filter by nations. To search by material made, type the material''s name, by example ''leather'', in the box below and click “Apply.” You can select  multiple nations from the dropdown list by pressing “Ctrl” (on PC) or “Command” (on Mac) and clicking, then select “Apply.” '
             format: full_html
           tokenize: false
       exposed_block: false
@@ -1294,6 +1294,16 @@ display:
       use_more_always: true
       use_more_text: more
       header:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: result
+          empty: true
+          content: "<h2>Relatives/Heritage items</h2>\r\nDisplaying @start - @end of @total Relatives\r\n</br>"
         display_switch:
           id: display_switch
           table: views
@@ -1313,16 +1323,19 @@ display:
             page_2:
               enabled: 1
               label: ' or List'
-        result:
-          id: result
+        area:
+          id: area
           table: views
-          field: result
+          field: area
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: result
-          empty: true
-          content: "<h2>Relatives/Heritage items</h2>\r\nDisplaying @start - @end of @total Relatives\r\n<p>&nbsp;</p>"
+          plugin_id: text
+          empty: false
+          content:
+            value: '<br>Browsing allows you to see all the records for relatives and heritage items in the GKS. You can also search by material made, and/or filter by nations. To search by material made, type the material''s name, by example ''leather'', in the box below and click “Apply.” You can select  multiple nations from the dropdown list by pressing “Ctrl” (on PC) or “Command” (on Mac) and clicking, then select “Apply.” '
+            format: full_html
+          tokenize: false
       exposed_block: false
       display_extenders:
         metatag_display_extender:

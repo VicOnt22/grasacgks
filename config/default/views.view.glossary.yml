@@ -1137,7 +1137,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: 'Browsing allows you to see all the records for language items in the GKS. You can browse by language by selecting a language from the drop down list below and clicking “Apply.” You can also browse by the first letter or character by clicking on it below.'
+            value: 'Browsing allows you to see all the records for language items in the GKS. By default, they are grouped by the first letter/character of the word and you may click on a letter below to browse all the words starting with that letter/character. You can also filter by language by selecting a language from the dropdown list below and clicking “Apply.”'
             format: full_html
           tokenize: false
       display_extenders:

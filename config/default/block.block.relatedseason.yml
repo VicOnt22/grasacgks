@@ -1,6 +1,6 @@
 uuid: 59bacd8f-13be-48ba-ae7f-703e8bb88c49
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - facets.facet.related_season_facet

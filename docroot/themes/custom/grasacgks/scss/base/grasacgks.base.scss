@@ -131,6 +131,14 @@ a {
   .dropdown-menu .menu-item--expanded > a::after {
     margin-right: -15px;
   }
+
+  ul.dropdown-menu>li.dropdown-item.menu-item--expanded.dropdown>ul.dropdown-menu>li.dropdown-item{
+    white-space: normal;
+  }
+  //ul li:first-child > ul li:first-child {white-space: normal;}
+  //ul li:first-child > ul li:nth-child(2) {white-space: normal;}
+  //ul li:nth-child(2) > ul li:first-child {white-space: normal;}
+  //ul li:nth-child(2) > ul li:nth-child(2) {white-space: normal;}
 }
 #block-exposedformsearch-pagepage-1{
   margin-left: 30px;
