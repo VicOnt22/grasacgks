@@ -9,7 +9,7 @@ id: node.heritage_item.field_maker_attribution
 field_name: field_maker_attribution
 entity_type: node
 bundle: heritage_item
-label: 'Source of Information about Makers'
+label: 'Reasons for connecting this relative with particular nation(s)'
 description: ''
 required: false
 translatable: true

@@ -10,7 +10,7 @@ id: node.heritage_item.field_associated_ceremonial_time
 field_name: field_associated_ceremonial_time
 entity_type: node
 bundle: heritage_item
-label: 'Associated Ceremonial Time'
+label: 'Related events'
 description: ''
 required: false
 translatable: false

@@ -9,7 +9,7 @@ id: node.heritage_item.field_original_function
 field_name: field_original_function
 entity_type: node
 bundle: heritage_item
-label: 'Original Function and Subsequent Uses'
+label: 'Original and Subsequent Uses'
 description: ''
 required: false
 translatable: true

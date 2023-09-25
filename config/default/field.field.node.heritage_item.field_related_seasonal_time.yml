@@ -10,7 +10,7 @@ id: node.heritage_item.field_related_seasonal_time
 field_name: field_related_seasonal_time
 entity_type: node
 bundle: heritage_item
-label: 'Related Seasonal Time'
+label: 'Related Seasonal and Ceremonial time'
 description: ''
 required: false
 translatable: false

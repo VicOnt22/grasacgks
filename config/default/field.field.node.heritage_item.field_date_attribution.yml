@@ -9,7 +9,7 @@ id: node.heritage_item.field_date_attribution
 field_name: field_date_attribution
 entity_type: node
 bundle: heritage_item
-label: 'Source of Information about Dates and Times, Rationale'
+label: 'Reasons for connecting this relative with particular times, materials, styles and uses'
 description: ''
 required: false
 translatable: true

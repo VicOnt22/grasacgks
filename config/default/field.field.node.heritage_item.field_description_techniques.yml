@@ -9,7 +9,7 @@ id: node.heritage_item.field_description_techniques
 field_name: field_description_techniques
 entity_type: node
 bundle: heritage_item
-label: Format/Techniques
+label: 'Techniques or Format'
 description: ''
 required: false
 translatable: true

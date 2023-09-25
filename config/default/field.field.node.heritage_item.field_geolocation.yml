@@ -11,7 +11,7 @@ id: node.heritage_item.field_geolocation
 field_name: field_geolocation
 entity_type: node
 bundle: heritage_item
-label: 'Place of Origin approximate Geolocation'
+label: 'Approximate Place of Origin'
 description: 'Click on the map to set the coordinates (use Zoom feature to see location) or use Google map to find them and manually copy Longitude/Latitude values.'
 required: false
 translatable: false

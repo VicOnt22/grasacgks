@@ -20,6 +20,7 @@ dependencies:
     - taxonomy.vocabulary.tags
     - taxonomy.vocabulary.traditional_knowledge_tk_labels
   module:
+    - field_permissions
     - media
     - system
     - taxonomy_access_fix
@@ -73,6 +74,7 @@ permissions:
   - 'view advanced help index'
   - 'view advanced help popup'
   - 'view advanced help topic'
+  - 'view field_folders'
   - 'view field_make_role'
   - 'view files'
   - 'view icons'
