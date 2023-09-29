@@ -11,7 +11,7 @@ id: node.heritage_item.field_identifier_url
 field_name: field_identifier_url
 entity_type: node
 bundle: heritage_item
-label: 'Link to Item at Current Location’s website'
+label: 'Link to Institution''s Collections Database'
 description: ''
 required: false
 translatable: true

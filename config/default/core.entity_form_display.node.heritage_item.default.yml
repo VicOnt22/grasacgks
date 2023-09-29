@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.heritage_item.field_catalog_id
     - field.field.node.heritage_item.field_collection
     - field.field.node.heritage_item.field_contributor_collector
+    - field.field.node.heritage_item.field_creative_commons_licence
     - field.field.node.heritage_item.field_current_institution
     - field.field.node.heritage_item.field_date_acquisition
     - field.field.node.heritage_item.field_date_attribution
@@ -64,7 +65,7 @@ dependencies:
     - field.field.node.heritage_item.field_tk_label
     - image.style.thumbnail
     - node.type.heritage_item
-    - workflows.workflow.varbase_simple_workflow
+    - workflows.workflow.varbase_editorial_workflow
   module:
     - content_moderation
     - datetime_range
@@ -154,6 +155,7 @@ third_party_settings:
         - field_record_creation_notes
         - field_tk_label
         - field_access_rationale
+        - field_creative_commons_licence
         - field_folders
         - field_source_coll_his
         - field_description_howtocite
@@ -296,6 +298,14 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_creative_commons_licence:
+    type: string_textarea
+    weight: 34
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   field_current_institution:
     type: options_select
     weight: 13
@@ -344,7 +354,7 @@ content:
     third_party_settings: {  }
   field_description_howtocite:
     type: string_textarea
-    weight: 36
+    weight: 37
     region: content
     settings:
       rows: 5
@@ -440,7 +450,7 @@ content:
     third_party_settings: {  }
   field_folders:
     type: options_buttons
-    weight: 34
+    weight: 35
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -454,7 +464,7 @@ content:
     third_party_settings: {  }
   field_geolocation:
     type: geolocation_leaflet
-    weight: 24
+    weight: 25
     region: content
     settings:
       auto_client_location: ''
@@ -1035,7 +1045,7 @@ content:
         maxlength_js_enforce: true
   field_image2:
     type: image_image
-    weight: 21
+    weight: 22
     region: content
     settings:
       progress_indicator: throbber
@@ -1085,7 +1095,7 @@ content:
     third_party_settings: {  }
   field_media_audio_video_docs_:
     type: media_library_widget
-    weight: 22
+    weight: 23
     region: content
     settings:
       media_types: {  }
@@ -1146,7 +1156,7 @@ content:
     third_party_settings: {  }
   field_region_origin_attribution:
     type: text_textarea
-    weight: 23
+    weight: 24
     region: content
     settings:
       rows: 5
@@ -1204,7 +1214,7 @@ content:
     third_party_settings: {  }
   field_source_coll_his:
     type: string_textarea
-    weight: 35
+    weight: 36
     region: content
     settings:
       rows: 5
@@ -1238,7 +1248,7 @@ content:
     third_party_settings: {  }
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 20
+    weight: 21
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -1249,7 +1259,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 19
+    weight: 20
     region: content
     settings: {  }
     third_party_settings: {  }

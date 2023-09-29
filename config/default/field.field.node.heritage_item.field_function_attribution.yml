@@ -9,7 +9,7 @@ id: node.heritage_item.field_function_attribution
 field_name: field_function_attribution
 entity_type: node
 bundle: heritage_item
-label: 'Source of Information about Item History'
+label: 'Source for Provenance information'
 description: ''
 required: false
 translatable: true

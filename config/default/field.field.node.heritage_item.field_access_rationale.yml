@@ -9,7 +9,7 @@ id: node.heritage_item.field_access_rationale
 field_name: field_access_rationale
 entity_type: node
 bundle: heritage_item
-label: 'Copyright. Access Rights Rationale'
+label: Copyright
 description: ''
 required: false
 translatable: true

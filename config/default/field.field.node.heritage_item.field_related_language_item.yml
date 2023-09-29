@@ -10,7 +10,7 @@ id: node.heritage_item.field_related_language_item
 field_name: field_related_language_item
 entity_type: node
 bundle: heritage_item
-label: 'Related Language Item'
+label: 'Related language items in the GKS'
 description: ''
 required: false
 translatable: true

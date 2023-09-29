@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.heritage_item.field_catalog_id
     - field.field.node.heritage_item.field_collection
     - field.field.node.heritage_item.field_contributor_collector
+    - field.field.node.heritage_item.field_creative_commons_licence
     - field.field.node.heritage_item.field_current_institution
     - field.field.node.heritage_item.field_date_acquisition
     - field.field.node.heritage_item.field_date_attribution
@@ -173,6 +174,7 @@ hidden:
   field_catalog_id: true
   field_collection: true
   field_contributor_collector: true
+  field_creative_commons_licence: true
   field_current_institution: true
   field_date_acquisition: true
   field_date_attribution: true

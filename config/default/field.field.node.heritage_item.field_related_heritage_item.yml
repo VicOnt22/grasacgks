@@ -9,7 +9,7 @@ id: node.heritage_item.field_related_heritage_item
 field_name: field_related_heritage_item
 entity_type: node
 bundle: heritage_item
-label: 'Related Heritage Items'
+label: 'Related items in the GKS'
 description: ''
 required: false
 translatable: true

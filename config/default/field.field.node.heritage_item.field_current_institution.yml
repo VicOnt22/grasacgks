@@ -10,7 +10,7 @@ id: node.heritage_item.field_current_institution
 field_name: field_current_institution
 entity_type: node
 bundle: heritage_item
-label: 'Current Institution/Location'
+label: 'Current Location'
 description: ''
 required: false
 translatable: true

@@ -9,7 +9,7 @@ id: node.heritage_item.field_provenance
 field_name: field_provenance
 entity_type: node
 bundle: heritage_item
-label: 'Collection Narrative/History'
+label: 'Collection Narratives and Histories'
 description: ''
 required: false
 translatable: true

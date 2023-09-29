@@ -9,7 +9,7 @@ id: node.heritage_item.field_catalog_id
 field_name: field_catalog_id
 entity_type: node
 bundle: heritage_item
-label: 'Catalogue/Accession Number or Reference'
+label: 'Catalogue, Accession or Reference Number'
 description: ''
 required: false
 translatable: true

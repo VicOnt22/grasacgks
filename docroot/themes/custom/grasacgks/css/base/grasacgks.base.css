@@ -128,3 +128,15 @@ a {
 #views-exposed-form-search-page-page-1 #edit-aggregated-field--2 {
   width: 375px;
 }
+
+#provenance-group summary {
+  font-weight: bold;
+}
+
+#related-items-group summary {
+  font-weight: bold;
+}
+
+#about-this-record-group summary {
+  font-weight: bold;
+}

@@ -11,7 +11,7 @@ id: node.heritage_item.field_related_extern_lang_items
 field_name: field_related_extern_lang_items
 entity_type: node
 bundle: heritage_item
-label: 'Related Language items Outside the GKS'
+label: 'Related language items outside the GKS'
 description: ''
 required: false
 translatable: false

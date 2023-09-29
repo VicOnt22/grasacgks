@@ -9,7 +9,7 @@ id: node.heritage_item.field_date_acquisition
 field_name: field_date_acquisition
 entity_type: node
 bundle: heritage_item
-label: 'Date of Acquisition by Current Caretaker'
+label: 'Date of Acquisition by the Institution'
 description: ''
 required: false
 translatable: true

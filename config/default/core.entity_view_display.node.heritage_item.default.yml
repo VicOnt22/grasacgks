@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.heritage_item.field_catalog_id
     - field.field.node.heritage_item.field_collection
     - field.field.node.heritage_item.field_contributor_collector
+    - field.field.node.heritage_item.field_creative_commons_licence
     - field.field.node.heritage_item.field_current_institution
     - field.field.node.heritage_item.field_date_acquisition
     - field.field.node.heritage_item.field_date_attribution
@@ -111,8 +112,6 @@ third_party_settings:
         - field_date_made
         - field_filter_date_made
         - field_date_attribution
-        - field_date_seasonal_time
-        - field_date_ceremonial_time
         - field_associated_ceremonial_time
         - field_maker_name
         - field_maker_role
@@ -147,6 +146,7 @@ third_party_settings:
         - field_record_creation_notes
         - field_tk_label
         - field_access_rationale
+        - field_creative_commons_licence
         - field_description_howtocite
         - field_related_heritage_item
         - field_related_language_item
@@ -157,6 +157,7 @@ third_party_settings:
         - field_geolocation
         - field_related_heritage_out_gks
         - field_related_extern_lang_items
+        - field_related_seasonal_time
     fields:
       node_title:
         plugin_id: node_title
@@ -178,21 +179,21 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 33
+    weight: 31
     region: main
   field_access_rationale:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 49
+    weight: 47
     region: main
   field_acquired_from:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 37
+    weight: 35
     region: main
   field_associated_ceremonial_time:
     type: entity_reference_label
@@ -228,14 +229,14 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 16
+    weight: 14
     region: main
   field_bibliographic_citation:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 44
+    weight: 42
     region: main
   field_catalog_id:
     type: string
@@ -259,7 +260,14 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 38
+    weight: 36
+    region: main
+  field_creative_commons_licence:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 48
     region: main
   field_current_institution:
     type: entity_reference_label
@@ -275,7 +283,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 36
+    weight: 34
     region: main
   field_date_attribution:
     type: basic_string
@@ -290,7 +298,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 39
+    weight: 37
     region: main
   field_date_made:
     type: string
@@ -305,35 +313,35 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 30
+    weight: 28
     region: main
   field_description_howtocite:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 50
+    weight: 49
     region: main
   field_description_materials:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 26
+    weight: 24
     region: main
   field_description_motifs:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 27
+    weight: 25
     region: main
   field_description_othernotes:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 31
+    weight: 29
     region: main
   field_description_source:
     type: basic_string
@@ -354,28 +362,28 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 29
+    weight: 27
     region: main
   field_description_techniques:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 28
+    weight: 26
     region: main
   field_dimensions:
     type: physical_dimensions_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 32
+    weight: 30
     region: main
   field_exhibition_notes:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 42
+    weight: 40
     region: main
   field_filter_date_made:
     type: daterange_default
@@ -400,14 +408,14 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 53
+    weight: 52
     region: main
   field_function_attribution:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 35
+    weight: 33
     region: main
   field_geolocation:
     type: geolocation_map
@@ -978,7 +986,7 @@ content:
             lb: ''
             lb-col: false
             classes: {  }
-    weight: 57
+    weight: 56
     region: main
   field_gks_id:
     type: string
@@ -1009,7 +1017,7 @@ content:
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 54
+    weight: 53
     region: main
   field_item_type:
     type: entity_reference_label
@@ -1024,7 +1032,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 25
+    weight: 23
     region: main
   field_local_origin_tid:
     type: entity_reference_label
@@ -1032,14 +1040,14 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 24
+    weight: 22
     region: main
   field_maker_attribution:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 19
+    weight: 17
     region: main
   field_maker_name:
     type: string
@@ -1047,7 +1055,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 17
+    weight: 15
     region: main
   field_maker_role:
     type: entity_reference_label
@@ -1055,7 +1063,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 18
+    weight: 16
     region: main
   field_media_audio_video_docs_:
     type: entity_reference_entity_view
@@ -1064,7 +1072,7 @@ content:
       view_mode: default
       link: false
     third_party_settings: {  }
-    weight: 56
+    weight: 55
     region: main
   field_media_image_twoc:
     type: entity_reference_entity_view
@@ -1073,14 +1081,14 @@ content:
       view_mode: default
       link: false
     third_party_settings: {  }
-    weight: 55
+    weight: 54
     region: main
   field_nation_rationale:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 23
+    weight: 21
     region: main
   field_nation_tid:
     type: entity_reference_label
@@ -1088,42 +1096,42 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 22
+    weight: 20
     region: main
   field_original_function:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 34
+    weight: 32
     region: main
   field_provenance:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 40
+    weight: 38
     region: main
   field_publication_history:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 43
+    weight: 41
     region: main
   field_record_creation:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 46
+    weight: 44
     region: main
   field_record_creation_notes:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 47
+    weight: 45
     region: main
   field_region_of_origin:
     type: entity_reference_label
@@ -1131,14 +1139,14 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 20
+    weight: 18
     region: main
   field_region_origin_attribution:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 21
+    weight: 19
     region: main
   field_related_extern_lang_items:
     type: link
@@ -1150,7 +1158,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 59
+    weight: 58
     region: main
   field_related_heritage_item:
     type: entity_reference_label
@@ -1158,7 +1166,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 51
+    weight: 50
     region: main
   field_related_heritage_out_gks:
     type: link
@@ -1170,7 +1178,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 58
+    weight: 57
     region: main
   field_related_language_item:
     type: entity_reference_label
@@ -1178,7 +1186,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 52
+    weight: 51
     region: main
   field_related_seasonal_time:
     type: entity_reference_label
@@ -1186,21 +1194,21 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 60
-    region: content
+    weight: 59
+    region: main
   field_source_coll_his:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 41
+    weight: 39
     region: main
   field_sources_exhib_pub_his:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 45
+    weight: 43
     region: main
   field_tk_label:
     type: entity_reference_entity_view
@@ -1217,7 +1225,7 @@ content:
             lb: ''
             lb-col: false
             classes: {  }
-    weight: 48
+    weight: 46
     region: main
   links:
     settings: {  }

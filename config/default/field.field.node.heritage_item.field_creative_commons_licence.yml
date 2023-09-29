@@ -1,0 +1,19 @@
+uuid: 908c373b-f825-449c-b975-7d7e416a8d16
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_creative_commons_licence
+    - node.type.heritage_item
+id: node.heritage_item.field_creative_commons_licence
+field_name: field_creative_commons_licence
+entity_type: node
+bundle: heritage_item
+label: 'Creative Commons Licence'
+description: 'https://creativecommons.org/share-your-work/cclicenses/'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

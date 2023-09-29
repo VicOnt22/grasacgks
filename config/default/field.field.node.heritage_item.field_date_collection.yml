@@ -9,7 +9,7 @@ id: node.heritage_item.field_date_collection
 field_name: field_date_collection
 entity_type: node
 bundle: heritage_item
-label: 'Original Collection Date/Date Range'
+label: 'Date of Removal/Collection'
 description: ''
 required: false
 translatable: true

@@ -10,7 +10,7 @@ id: node.heritage_item.field_contributor_collector
 field_name: field_contributor_collector
 entity_type: node
 bundle: heritage_item
-label: 'Original Collector'
+label: 'Original Collector(s)'
 description: ''
 required: false
 translatable: true

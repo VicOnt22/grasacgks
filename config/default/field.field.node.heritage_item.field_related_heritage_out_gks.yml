@@ -11,7 +11,7 @@ id: node.heritage_item.field_related_heritage_out_gks
 field_name: field_related_heritage_out_gks
 entity_type: node
 bundle: heritage_item
-label: 'Related Heritage items Outside the GKS'
+label: 'Related items outside the GKS'
 description: "External Items, out of this GKS, that are related to the current Item. Rarely used.<br>\r\nLink may not work in the long term, as we do not have control over external sources."
 required: false
 translatable: true
