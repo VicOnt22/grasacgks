@@ -1,4 +1,4 @@
-import baseRandom from './_baseRandom.js';
+var baseRandom = require('./_baseRandom');
 
 /**
  * A specialized version of `_.sample` for arrays.
@@ -12,4 +12,4 @@ function arraySample(array) {
   return length ? array[baseRandom(0, length - 1)] : undefined;
 }
 
-export default arraySample;
+module.exports = arraySample;

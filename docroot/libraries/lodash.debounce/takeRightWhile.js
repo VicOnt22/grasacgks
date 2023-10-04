@@ -1,5 +1,5 @@
-import baseIteratee from './_baseIteratee.js';
-import baseWhile from './_baseWhile.js';
+var baseIteratee = require('./_baseIteratee'),
+    baseWhile = require('./_baseWhile');
 
 /**
  * Creates a slice of `array` with elements taken from the end. Elements are
@@ -42,4 +42,4 @@ function takeRightWhile(array, predicate) {
     : [];
 }
 
-export default takeRightWhile;
+module.exports = takeRightWhile;

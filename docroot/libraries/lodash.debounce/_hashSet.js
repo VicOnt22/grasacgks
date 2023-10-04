@@ -1,4 +1,4 @@
-import nativeCreate from './_nativeCreate.js';
+var nativeCreate = require('./_nativeCreate');
 
 /** Used to stand-in for `undefined` hash values. */
 var HASH_UNDEFINED = '__lodash_hash_undefined__';
@@ -20,4 +20,4 @@ function hashSet(key, value) {
   return this;
 }
 
-export default hashSet;
+module.exports = hashSet;

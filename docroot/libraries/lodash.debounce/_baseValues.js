@@ -1,4 +1,4 @@
-import arrayMap from './_arrayMap.js';
+var arrayMap = require('./_arrayMap');
 
 /**
  * The base implementation of `_.values` and `_.valuesIn` which creates an
@@ -16,4 +16,4 @@ function baseValues(object, props) {
   });
 }
 
-export default baseValues;
+module.exports = baseValues;

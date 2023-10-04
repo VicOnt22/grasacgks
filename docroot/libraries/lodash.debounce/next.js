@@ -1,4 +1,4 @@
-import toArray from './toArray.js';
+var toArray = require('./toArray');
 
 /**
  * Gets the next value on a wrapped object following the
@@ -32,4 +32,4 @@ function wrapperNext() {
   return { 'done': done, 'value': value };
 }
 
-export default wrapperNext;
+module.exports = wrapperNext;

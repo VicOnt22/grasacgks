@@ -2,10 +2,11 @@
 
 namespace Drupal\tour_ui\Form;
 
-use Drupal\Core\Messenger\MessengerInterface;
-use Drupal\Core\Render\Element;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Url;
 use Drupal\tour\TipPluginManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -120,13 +121,20 @@ class TourTipForm extends FormBase {
       '#submit' => ['::submitForm'],
     ];
 
-    $actions['delete'] = [
-      '#type' => 'link',
-      '#title' => $this->t('Delete'),
-      '#attributes' => [
-        'class' => ['button', 'button--danger'],
-      ],
-    ];
+    $storage = $form_state->getStorage();
+    if ($storage['#tour']->id() !== NULL && $storage['#tip']->id() !== NULL) {
+      $actions['delete'] = [
+        '#type' => 'link',
+        '#title' => $this->t('Delete'),
+        '#url' => Url::fromRoute('tour_ui.tip.delete', [
+          'tour' => $storage['#tour']->id(),
+          'tip' => $storage['#tip']->id(),
+        ]),
+        '#attributes' => [
+          'class' => ['button', 'button--danger'],
+        ],
+      ];
+    }
 
     return $actions;
   }

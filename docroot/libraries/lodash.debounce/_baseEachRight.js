@@ -1,5 +1,5 @@
-import baseForOwnRight from './_baseForOwnRight.js';
-import createBaseEach from './_createBaseEach.js';
+var baseForOwnRight = require('./_baseForOwnRight'),
+    createBaseEach = require('./_createBaseEach');
 
 /**
  * The base implementation of `_.forEachRight` without support for iteratee shorthands.
@@ -11,4 +11,4 @@ import createBaseEach from './_createBaseEach.js';
  */
 var baseEachRight = createBaseEach(baseForOwnRight, true);
 
-export default baseEachRight;
+module.exports = baseEachRight;

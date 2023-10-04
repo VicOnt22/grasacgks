@@ -1,4 +1,4 @@
-import baseWrapperValue from './_baseWrapperValue.js';
+var baseWrapperValue = require('./_baseWrapperValue');
 
 /**
  * Executes the chain sequence to resolve the unwrapped value.
@@ -18,4 +18,4 @@ function wrapperValue() {
   return baseWrapperValue(this.__wrapped__, this.__actions__);
 }
 
-export default wrapperValue;
+module.exports = wrapperValue;

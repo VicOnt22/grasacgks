@@ -1,4 +1,4 @@
-import getAllKeys from './_getAllKeys.js';
+var getAllKeys = require('./_getAllKeys');
 
 /** Used to compose bitmasks for value comparisons. */
 var COMPARE_PARTIAL_FLAG = 1;
@@ -87,4 +87,4 @@ function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
   return result;
 }
 
-export default equalObjects;
+module.exports = equalObjects;

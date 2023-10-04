@@ -1,4 +1,4 @@
-import getMapData from './_getMapData.js';
+var getMapData = require('./_getMapData');
 
 /**
  * Checks if a map value for `key` exists.
@@ -13,4 +13,4 @@ function mapCacheHas(key) {
   return getMapData(this, key).has(key);
 }
 
-export default mapCacheHas;
+module.exports = mapCacheHas;

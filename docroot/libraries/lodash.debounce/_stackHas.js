@@ -11,4 +11,4 @@ function stackHas(key) {
   return this.__data__.has(key);
 }
 
-export default stackHas;
+module.exports = stackHas;

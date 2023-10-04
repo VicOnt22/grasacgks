@@ -1,6 +1,6 @@
-import baseGetTag from './_baseGetTag.js';
-import isObjectLike from './isObjectLike.js';
-import isPlainObject from './isPlainObject.js';
+var baseGetTag = require('./_baseGetTag'),
+    isObjectLike = require('./isObjectLike'),
+    isPlainObject = require('./isPlainObject');
 
 /** `Object#toString` result references. */
 var domExcTag = '[object DOMException]',
@@ -33,4 +33,4 @@ function isError(value) {
     (typeof value.message == 'string' && typeof value.name == 'string' && !isPlainObject(value));
 }
 
-export default isError;
+module.exports = isError;

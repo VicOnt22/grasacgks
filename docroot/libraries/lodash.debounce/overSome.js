@@ -1,5 +1,5 @@
-import arraySome from './_arraySome.js';
-import createOver from './_createOver.js';
+var arraySome = require('./_arraySome'),
+    createOver = require('./_createOver');
 
 /**
  * Creates a function that checks if **any** of the `predicates` return
@@ -34,4 +34,4 @@ import createOver from './_createOver.js';
  */
 var overSome = createOver(arraySome);
 
-export default overSome;
+module.exports = overSome;

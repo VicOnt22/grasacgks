@@ -4,19 +4,15 @@ namespace Drupal\config_inspector;
 
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Config\Schema\Ignore;
-use Drupal\Core\Config\Schema\Undefined;
 use Drupal\Core\Config\TypedConfigManagerInterface;
 use Drupal\Core\Config\Schema\Element;
 use Drupal\Core\Config\Schema\SchemaCheckTrait;
-use Drupal\Core\TypedData\PrimitiveInterface;
 use Drupal\Core\TypedData\TraversableTypedDataInterface;
 use Drupal\Core\TypedData\Type\BooleanInterface;
 use Drupal\Core\TypedData\Type\DateTimeInterface;
 use Drupal\Core\TypedData\Type\DurationInterface;
 use Drupal\Core\TypedData\Type\UriInterface;
 use Drupal\Core\TypedData\TypedDataInterface;
-use Drupal\Core\Validation\Plugin\Validation\Constraint\PrimitiveTypeConstraint;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
@@ -211,44 +207,64 @@ class ConfigInspectorManager {
    *   A typed data node.
    *
    * @return array
-   *   The validation constraints for this node.
+   *   The validation constraints for this node, spread among two keys:
+   *   - 'local' contains an array of all constraints on this typed data node
+   *   - 'inherited' contains an array of all inherited constraints
    */
   protected function getNodeConstraints(TypedDataInterface $typed_data): array {
-    $constraints = $typed_data->getConstraints();
+    // First, get all constraints.
+    $constraints = $typed_data->getDataDefinition()->getConstraints();
 
-    // If explicit constraints are present, this is validatable.
-    if (count($constraints) >= 1) {
-      // … except if the only constraint is the PrimitiveTypeConstraint, which
-      // only suffices for:
-      // - \Drupal\Core\TypedData\Type\BooleanInterface (which can only be
-      //   `true` or `false`)
-      // - \Drupal\Core\TypedData\Type\UriInterface
-      // - \Drupal\Core\TypedData\Type\DateTimeInterface
-      // - \Drupal\Core\TypedData\Type\DurationInterface
-      // and not any of the following, because it never is the case that a truly
-      // arbitrary blob, string or number is allowed:
-      // - \Drupal\Core\TypedData\Type\BinaryInterface
-      // - \Drupal\Core\TypedData\Type\StringInterface
-      // - \Drupal\Core\TypedData\Type\FloatInterface
-      // - \Drupal\Core\TypedData\Type\IntegerInterface
-      // @see \Drupal\Core\Validation\Plugin\Validation\Constraint\PrimitiveTypeConstraint
-      // @see \Drupal\Core\Validation\Plugin\Validation\Constraint\PrimitiveTypeConstraintValidator
-      // @see \Drupal\Core\TypedData\TypedDataManager::getDefaultConstraints()
-      if (count($constraints) === 1
-        && $constraints[0] instanceof PrimitiveTypeConstraint
-          && (!is_a($typed_data->getDataDefinition()->getClass(), UriInterface::class, TRUE)
-          && !is_a($typed_data->getDataDefinition()->getClass(), DateTimeInterface::class, TRUE)
-          && !is_a($typed_data->getDataDefinition()->getClass(), DurationInterface::class, TRUE)
-          && !is_a($typed_data->getDataDefinition()->getClass(), BooleanInterface::class, TRUE)
-        )
-      ) {
-        return [];
-      }
-      return $constraints;
+    // Then inspect the raw config schema definition to find out which of those
+    // constraints are defined on this node in the config schema tree.
+    $raw_definition = $typed_data
+      ->getDataDefinition()
+      ->toArray();
+    $local_constraints = $raw_definition['constraints'] ?? [];
+
+    // That enables distinguishing between inherited vs local constraints.
+    $inherited_constraints = array_diff_key($constraints, $local_constraints);
+
+    // If explicit constraints are present, this is validatable, except if the
+    // only constraint is the PrimitiveTypeConstraint, which only suffices for:
+    // - \Drupal\Core\TypedData\Type\BooleanInterface (which can only be
+    //   `true` or `false`)
+    // - \Drupal\Core\TypedData\Type\UriInterface
+    // - \Drupal\Core\TypedData\Type\DateTimeInterface
+    // - \Drupal\Core\TypedData\Type\DurationInterface
+    // and not any of the following, because it never is the case that a truly
+    // arbitrary blob, string or number is allowed:
+    // - \Drupal\Core\TypedData\Type\BinaryInterface
+    // - \Drupal\Core\TypedData\Type\StringInterface
+    // - \Drupal\Core\TypedData\Type\FloatInterface
+    // - \Drupal\Core\TypedData\Type\IntegerInterface
+    // Furthermore, every primitive type that does not have `nullable: true` is
+    // considered required and hence automatically uses the NotNullConstraint.
+    // That is still insufficient validation.
+    // @see \Drupal\Core\Validation\Plugin\Validation\Constraint\PrimitiveTypeConstraint
+    // @see \Drupal\Core\Validation\Plugin\Validation\Constraint\PrimitiveTypeConstraintValidator
+    // @see \Drupal\Core\TypedData\TypedDataManager::getDefaultConstraints()
+    // @see \Drupal\Core\Config\TypedConfigManager::buildDataDefinition()
+    if (
+      (
+        (count($constraints) === 1 && array_keys($constraints) === ['PrimitiveType'])
+        ||
+        // Merely having required values is inadequate.
+        (count($constraints) === 2 && array_keys($constraints) === ['PrimitiveType', 'NotNull'])
+      )
+      && (!is_a($typed_data->getDataDefinition()->getClass(), UriInterface::class, TRUE)
+        && !is_a($typed_data->getDataDefinition()->getClass(), DateTimeInterface::class, TRUE)
+        && !is_a($typed_data->getDataDefinition()->getClass(), DurationInterface::class, TRUE)
+        && !is_a($typed_data->getDataDefinition()->getClass(), BooleanInterface::class, TRUE)
+      )
+    ) {
+      $inherited_constraints = [];
     }
 
-    assert($constraints === []);
-    return $constraints;
+    return [
+      'local' => $local_constraints,
+      'inherited' => $inherited_constraints,
+    ];
   }
 
   /**

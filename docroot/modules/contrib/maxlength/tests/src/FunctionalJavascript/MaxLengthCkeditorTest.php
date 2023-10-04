@@ -3,7 +3,6 @@
 namespace Drupal\Tests\maxlength\FunctionalJavascript;
 
 use Behat\Mink\Element\NodeElement;
-use Drupal;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\editor\Entity\Editor;
 use Drupal\entity_test\Entity\EntityTest;
@@ -135,7 +134,8 @@ class MaxLengthCkeditorTest extends WebDriverTestBase {
     $found = $this->xpath('//div[@data-drupal-selector="edit-foo-0"]/following-sibling::div[@id="edit-foo-0-value-counter"]');
     $this->assertCount(1, $found);
 
-    // Add some text to the field and assert the maxlength counters changed accordingly.
+    // Add some text to the field and assert the maxlength counters changed
+    // accordingly.
     $this->enterTextInCkeditor5('Foo', 'Some text with <strong>html</strong>');
 
     $this->assertSession()->pageTextContainsOnce('Content limited to 200 characters, remaining: 181 and total 19');
@@ -164,7 +164,7 @@ class MaxLengthCkeditorTest extends WebDriverTestBase {
    * @todo Remove this and sub-functions once we don't support D9 anymore.
    */
   public function testCkeditor4() {
-    if (version_compare(Drupal::VERSION, '10.0.0', '>=')) {
+    if (version_compare(\Drupal::VERSION, '10.0.0', '>=')) {
       // CKEditor 4 is not present in Drupal 10 and above.
       $this->markTestSkipped('Drupal 10 does not support CKEditor 4 version.');
     }
@@ -239,7 +239,8 @@ class MaxLengthCkeditorTest extends WebDriverTestBase {
     $found = $this->xpath('//div[@data-drupal-selector="edit-foo-0"]/following-sibling::div[@id="edit-foo-0-value-counter"]');
     $this->assertCount(1, $found);
 
-    // Add some text to the field and assert the maxlength counters changed accordingly.
+    // Add some text to the field and assert the maxlength counters changed
+    // accordingly.
     $this->enterTextInCkeditor4('Foo', 'Some text with <strong>html</strong>');
 
     $this->assertSession()->pageTextContainsOnce('Content limited to 200 characters, remaining: 181 and total 19');
@@ -272,7 +273,7 @@ class MaxLengthCkeditorTest extends WebDriverTestBase {
    *   The title of the button to click.
    */
   protected function pressCkeditor4Button(string $field, string $button): void {
-    $wysiwyg = $this->getCKEditor4($field);
+    $wysiwyg = $this->getCkeditor4($field);
     $button_elements = $this->getSession()->getDriver()->find($wysiwyg->getXpath() . '//a[@title="' . $button . '"]');
     if (empty($button_elements)) {
       throw new \Exception("Could not find the '$button' button.");
@@ -318,7 +319,7 @@ class MaxLengthCkeditorTest extends WebDriverTestBase {
    *   The text to enter in the textarea.
    */
   protected function setCkeditor4Text(string $field, string $text): void {
-    $wysiwyg = $this->getCKEditor4($field);
+    $wysiwyg = $this->getCkeditor4($field);
     $textarea_elements = $this->getSession()->getDriver()->find($wysiwyg->getXpath() . '//textarea');
     if (empty($textarea_elements)) {
       throw new \Exception("Could not find the textarea for the '$field' field.");
@@ -393,7 +394,7 @@ class MaxLengthCkeditorTest extends WebDriverTestBase {
    * @return \Behat\Mink\Element\NodeElement
    *   The WYSIWYG editor.
    */
-  protected function getCKEditor4(string $field): NodeElement {
+  protected function getCkeditor4(string $field): NodeElement {
     $driver = $this->getSession()->getDriver();
     $label_elements = $driver->find('//label[text()="' . $field . '"]');
     if (empty($label_elements)) {

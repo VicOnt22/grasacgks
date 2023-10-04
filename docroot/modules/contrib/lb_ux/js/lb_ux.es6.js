@@ -3,20 +3,21 @@
  * Provides Javascript for the Layout Builder UX module.
  */
 
-(($, Drupal) => {
+(($, Drupal, once) => {
   /**
    *
    * @type {Drupal~behavior}
    */
   Drupal.behaviors.LbUX = {
     attach() {
-      $('.layout-builder__actions .layout-builder__link')
-        .once()
-        .on('click', event => {
+      $(once('lb_ux', '.layout-builder__actions .layout-builder__link')).on(
+        'click',
+        (event) => {
           $(event.currentTarget)
             .parent()
             .toggleClass('layout-builder__actions--display');
-        });
+        },
+      );
 
       $(window).on('dialog:aftercreate', (event, dialog, $element) => {
         const id = $element
@@ -41,9 +42,9 @@
         }
       });
 
-      $('.layout-builder__region > .layout-builder-block')
-        .once()
-        .on('click', event => {
+      $(once('lb_ux', '.layout-builder__region > .layout-builder-block')).on(
+        'click',
+        (event) => {
           const currentBlock = $(event.currentTarget);
 
           /* If block is clicked on while the block is selected, deselect it. */
@@ -69,7 +70,8 @@
 
             currentBlock.addClass('layout-builder__block--selected');
           }
-        });
+        },
+      );
     },
   };
 
@@ -88,7 +90,7 @@
     settings.position = {
       my: 'left top',
       at: `${Drupal.offCanvas.getEdge()} top`,
-      of: window
+      of: window,
     };
 
     const setWidth = localStorage.getItem('Drupal.off-canvas.width');
@@ -115,4 +117,4 @@
     const width = container.attr(`data-offset-${Drupal.offCanvas.getEdge()}`);
     localStorage.setItem('Drupal.off-canvas.width', width);
   };
-})(jQuery, Drupal);
+})(jQuery, Drupal, once);

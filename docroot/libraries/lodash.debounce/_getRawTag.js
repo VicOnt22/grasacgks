@@ -1,4 +1,4 @@
-import Symbol from './_Symbol.js';
+var Symbol = require('./_Symbol');
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -43,4 +43,4 @@ function getRawTag(value) {
   return result;
 }
 
-export default getRawTag;
+module.exports = getRawTag;

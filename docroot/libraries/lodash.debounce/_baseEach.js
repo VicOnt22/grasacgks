@@ -1,5 +1,5 @@
-import baseForOwn from './_baseForOwn.js';
-import createBaseEach from './_createBaseEach.js';
+var baseForOwn = require('./_baseForOwn'),
+    createBaseEach = require('./_createBaseEach');
 
 /**
  * The base implementation of `_.forEach` without support for iteratee shorthands.
@@ -11,4 +11,4 @@ import createBaseEach from './_createBaseEach.js';
  */
 var baseEach = createBaseEach(baseForOwn);
 
-export default baseEach;
+module.exports = baseEach;

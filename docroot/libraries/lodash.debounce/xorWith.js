@@ -1,8 +1,8 @@
-import arrayFilter from './_arrayFilter.js';
-import baseRest from './_baseRest.js';
-import baseXor from './_baseXor.js';
-import isArrayLikeObject from './isArrayLikeObject.js';
-import last from './last.js';
+var arrayFilter = require('./_arrayFilter'),
+    baseRest = require('./_baseRest'),
+    baseXor = require('./_baseXor'),
+    isArrayLikeObject = require('./isArrayLikeObject'),
+    last = require('./last');
 
 /**
  * This method is like `_.xor` except that it accepts `comparator` which is
@@ -31,4 +31,4 @@ var xorWith = baseRest(function(arrays) {
   return baseXor(arrayFilter(arrays, isArrayLikeObject), undefined, comparator);
 });
 
-export default xorWith;
+module.exports = xorWith;

@@ -1,4 +1,4 @@
-import createAggregator from './_createAggregator.js';
+var createAggregator = require('./_createAggregator');
 
 /**
  * Creates an array of elements split into two groups, the first of which
@@ -40,4 +40,4 @@ var partition = createAggregator(function(result, value, key) {
   result[key ? 0 : 1].push(value);
 }, function() { return [[], []]; });
 
-export default partition;
+module.exports = partition;

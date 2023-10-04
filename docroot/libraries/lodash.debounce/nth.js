@@ -1,5 +1,5 @@
-import baseNth from './_baseNth.js';
-import toInteger from './toInteger.js';
+var baseNth = require('./_baseNth'),
+    toInteger = require('./toInteger');
 
 /**
  * Gets the element at index `n` of `array`. If `n` is negative, the nth
@@ -26,4 +26,4 @@ function nth(array, n) {
   return (array && array.length) ? baseNth(array, toInteger(n)) : undefined;
 }
 
-export default nth;
+module.exports = nth;

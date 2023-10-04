@@ -1,5 +1,5 @@
-import baseGetTag from './_baseGetTag.js';
-import isObjectLike from './isObjectLike.js';
+var baseGetTag = require('./_baseGetTag'),
+    isObjectLike = require('./isObjectLike');
 
 /** `Object#toString` result references. */
 var regexpTag = '[object RegExp]';
@@ -15,4 +15,4 @@ function baseIsRegExp(value) {
   return isObjectLike(value) && baseGetTag(value) == regexpTag;
 }
 
-export default baseIsRegExp;
+module.exports = baseIsRegExp;

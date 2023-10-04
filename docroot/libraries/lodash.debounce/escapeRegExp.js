@@ -1,4 +1,4 @@
-import toString from './toString.js';
+var toString = require('./toString');
 
 /**
  * Used to match `RegExp`
@@ -29,4 +29,4 @@ function escapeRegExp(string) {
     : string;
 }
 
-export default escapeRegExp;
+module.exports = escapeRegExp;

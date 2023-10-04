@@ -56,7 +56,7 @@ function parse(scale, input) {
     value = parser(value);
   }
 
-  // Only parse if its not a timestamp already
+  // Only parse if it's not a timestamp already
   if (!isFinite(value)) {
     value = typeof parser === 'string'
       ? adapter.parse(value, /** @type {Unit} */ (parser))
@@ -445,7 +445,7 @@ export default class TimeScale extends Scale {
 	 * `minor` unit using the given scale time `options`.
 	 * Important: this method can return ticks outside the min and max range, it's the
 	 * responsibility of the calling code to clamp values if needed.
-	 * @private
+	 * @protected
 	 */
   _generate() {
     const adapter = this._adapter;
@@ -485,7 +485,7 @@ export default class TimeScale extends Scale {
     }
 
     // @ts-ignore
-    return Object.keys(ticks).sort((a, b) => a - b).map(x => +x);
+    return Object.keys(ticks).sort(sorter).map(x => +x);
   }
 
   /**

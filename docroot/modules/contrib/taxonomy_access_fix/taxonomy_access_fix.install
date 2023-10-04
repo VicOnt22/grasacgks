@@ -16,6 +16,27 @@ function taxonomy_access_fix_update_last_removed() {
 }
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function taxonomy_access_fix_update_dependencies() {
+  $dependencies = [];
+
+  // If a role still contains non-existing permissions during a Drupal 9 to 10
+  // update, the user update hook must run first. If we're still on Drupal 9,
+  // don't add these dependencies in order to not block updates.
+  if (function_exists('user_update_10000')) {
+    $dependencies['taxonomy_access_fix'][9401] = [
+      'user' => 10000,
+    ];
+    $dependencies['taxonomy_access_fix'][9402] = [
+      'user' => 10000,
+    ];
+  }
+
+  return $dependencies;
+}
+
+/**
  * Populate 'VOCABULARY: View published term names' permission.
  */
 function taxonomy_access_fix_update_9401() {

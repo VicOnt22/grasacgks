@@ -1,8 +1,8 @@
-import arrayFilter from './_arrayFilter.js';
-import arrayMap from './_arrayMap.js';
-import baseProperty from './_baseProperty.js';
-import baseTimes from './_baseTimes.js';
-import isArrayLikeObject from './isArrayLikeObject.js';
+var arrayFilter = require('./_arrayFilter'),
+    arrayMap = require('./_arrayMap'),
+    baseProperty = require('./_baseProperty'),
+    baseTimes = require('./_baseTimes'),
+    isArrayLikeObject = require('./isArrayLikeObject');
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeMax = Math.max;
@@ -42,4 +42,4 @@ function unzip(array) {
   });
 }
 
-export default unzip;
+module.exports = unzip;

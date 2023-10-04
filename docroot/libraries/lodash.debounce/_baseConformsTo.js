@@ -24,4 +24,4 @@ function baseConformsTo(object, source, props) {
   return true;
 }
 
-export default baseConformsTo;
+module.exports = baseConformsTo;

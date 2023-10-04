@@ -1,4 +1,4 @@
-import baseFlatten from './_baseFlatten.js';
+var baseFlatten = require('./_baseFlatten');
 
 /** Used as references for various `Number` constants. */
 var INFINITY = 1 / 0;
@@ -22,4 +22,4 @@ function flattenDeep(array) {
   return length ? baseFlatten(array, INFINITY) : [];
 }
 
-export default flattenDeep;
+module.exports = flattenDeep;

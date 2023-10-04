@@ -1,6 +1,6 @@
-import apply from './_apply.js';
-import createCtor from './_createCtor.js';
-import root from './_root.js';
+var apply = require('./_apply'),
+    createCtor = require('./_createCtor'),
+    root = require('./_root');
 
 /** Used to compose bitmasks for function metadata. */
 var WRAP_BIND_FLAG = 1;
@@ -40,4 +40,4 @@ function createPartial(func, bitmask, thisArg, partials) {
   return wrapper;
 }
 
-export default createPartial;
+module.exports = createPartial;

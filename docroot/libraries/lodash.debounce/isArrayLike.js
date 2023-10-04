@@ -1,5 +1,5 @@
-import isFunction from './isFunction.js';
-import isLength from './isLength.js';
+var isFunction = require('./isFunction'),
+    isLength = require('./isLength');
 
 /**
  * Checks if `value` is array-like. A value is considered array-like if it's
@@ -30,4 +30,4 @@ function isArrayLike(value) {
   return value != null && isLength(value.length) && !isFunction(value);
 }
 
-export default isArrayLike;
+module.exports = isArrayLike;

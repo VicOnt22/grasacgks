@@ -1,6 +1,6 @@
-import baseDifference from './_baseDifference.js';
-import baseRest from './_baseRest.js';
-import isArrayLikeObject from './isArrayLikeObject.js';
+var baseDifference = require('./_baseDifference'),
+    baseRest = require('./_baseRest'),
+    isArrayLikeObject = require('./isArrayLikeObject');
 
 /**
  * Creates an array excluding all given values using
@@ -28,4 +28,4 @@ var without = baseRest(function(array, values) {
     : [];
 });
 
-export default without;
+module.exports = without;

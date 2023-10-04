@@ -104,16 +104,15 @@
   };
 
   /**
-   * Replaces line ending with to chars, because PHP-calculation counts with two chars
-   * as two characters.
+   * Replaces line endings with "\n".
    *
    *  @param str
    *   The given string to replace line endings for.
    *
-   * @see http://www.sitepoint.com/blogs/2004/02/16/line-endings-in-javascript/
+   * @see https://stackoverflow.com/questions/1761051/difference-between-n-and-r/1761086#1761086
    */
-  ml.twochar_lineending = function(str) {
-    return str.replace(/(\r\n|\r|\n)/g, "\r");
+  ml.unify_lineending = function(str) {
+    return str.replace(/(\r\n\r\n|\r\r|\n\n|\r\n|\r|\n)/g, "\n");
   };
 
   /**
@@ -129,19 +128,23 @@
   ml.strip_tags = function(input, allowed) {
     // Remove all newlines, spaces and tabs from the beginning and end of html.
     input = $.trim(input);
-    // Making the line-endings with two chars.
-    input = ml.twochar_lineending(input);
+    // Make sure line ending characters are unified.
+    input = ml.unify_lineending(input);
     // Making sure the allowed arg is a string containing only tags in
     // lowercase (<a><b><c>).
     allowed = (((allowed || "") + "")
         .toLowerCase()
         .match(/<[a-z][a-z0-9]*>/g) || [])
         .join('');
-    var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi, commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
-    // Strips HTML and PHP tags from a string.
-    input = input.replace(commentsAndPhpTags, '').replace(tags, function($0, $1){
-      return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
-    });
+    var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi,
+      commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi,
+      emptyTags = />[ ]{1,}</gi;
+    input = input
+      .replace(emptyTags, '><')
+      .replace(commentsAndPhpTags, '')
+      .replace(tags, function($0, $1){
+        return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
+      });
 
     // Replace all html entities with a single character (#) placeholder.
     return input.replace(/&([a-z]+);/g, '#');
@@ -181,8 +184,8 @@
       'track',
       'wbr'
     ];
-    // Making the line-endings with two chars.
-    text = ml.twochar_lineending(text);
+    // Make sure line ending characters are unified.
+    text = ml.unify_lineending(text);
     while (result_text.length < limit && text.length > 0) {
       switch (text.charAt(0)) {
         case '<': {

@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\tour_ui\Functional;
 
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Tests\BrowserTestBase;
 
 /**
@@ -11,12 +12,14 @@ use Drupal\Tests\BrowserTestBase;
  */
 class TourUITest extends BrowserTestBase {
 
+  use StringTranslationTrait;
+
   /**
    * Modules to enable.
    *
    * @var array
    */
-  public static $modules = ['tour_ui', 'tour_test'];
+  protected static $modules = ['tour_ui'];
 
 
   /**
@@ -55,31 +58,32 @@ class TourUITest extends BrowserTestBase {
     // Assert that two test tours are shown.
     $this->drupalGet('admin/config/user-interface/tour');
     $elements = $this->xpath('//table/tbody/tr');
-    $this->assertEquals(5, count($elements));
+    $this->assertEquals(3, count($elements));
 
     // The first column contains the id.
     // jQuery('table > tbody > tr:first > td:first').text() === tour-test
     // jQuery('table > tbody > tr:first').hasClass('tour-test')
     // jQuery('table > tbody > tr.tip-edit > td:first').text()
-    $elements = $this->xpath('//table/tbody/tr[contains(@class, :class)]/td[1]', [':class' => 'tour-test']);
-    $this->assertIdentical($elements[0]->getText(), 'tour-test');
+    $elements = $this->xpath('//table/tbody/tr[contains(@class, :class)]/td[1]', [':class' => 'tip_edit']);
+    $this->assertSame($elements[0]->getText(), 'tip_edit');
 
     // The second column contains the title.
-    $elements = $this->xpath('//table/tbody/tr[contains(@class, :class)]/td[2]', [':class' => 'tour-test']);
-    $this->assertIdentical($elements[0]->getText(), t('Tour test english')->render());
+    $elements = $this->xpath('//table/tbody/tr[contains(@class, :class)]/td[3]', [':class' => 'tip_edit']);
+    $this->assertSame($elements[0]->getText(), 'Edit tip');
 
+    // phpcs:disable
     // The third column contains the routes.
     // Running "jQuery('table > tbody > tr.tour-test > td:nth(2)').html()"
     // results in "> <div class="tour-routes">tour_test.1<br>tour_test.3</div>".
     // FIX ME: trying to solve this failed. See #3009733 for further information.
     // $elements = $this->xpath('//table/tbody/tr[contains(@class, :class)]/td/div[contains(@class, :class-routes)]', [':class' => 'tour-test-1', ':class-routes' => 'tour-routes']);
     // $routes = strpos($elements[0]->getText(), 'tour_test.1') !== FALSE;
-    // $this->assertTrue($routes, 'Route contains "tour_test.1".');
+    // $this->assertTrue($routes, 'Route contains "tour_test.1".');.
+    // phpcs:enable
 
-    // The fourth column contains the number of tips.
-    $elements = $this->xpath('//table/tbody/tr[contains(@class, :class)]/td[4]', [':class' => 'tour-test']);
-    $this->assertIdentical($elements[0]->getText(), '1', 'Core tour_test/config/tour-test-2 has 1 tip');
-    $this->assertIdentical($elements[1]->getText(), '3', 'Core tour_test/config/tour-test-1 has 3 tips');
+    // The fifth column contains the number of tips.
+    $elements = $this->xpath('//table/tbody/tr[contains(@class, :class)]/td[5]', [':class' => 'tip_edit']);
+    $this->assertSame($elements[0]->getText(), '4', 'Tour UI - tip_edit has 4 tips.');
   }
 
   /**
@@ -92,65 +96,56 @@ class TourUITest extends BrowserTestBase {
       'id' => strtolower($this->randomMachineName()),
       'module' => strtolower($this->randomMachineName()),
     ];
-    $this->drupalPostForm('admin/config/user-interface/tour/add', $edit, t('Save'));
-    $this->assertRaw(t('The %tour tour has been created.', ['%tour' => $edit['label']]));
+    $this->drupalGet('admin/config/user-interface/tour/add');
+    $this->submitForm($edit, 'Save');
+    $this->assertSession()
+      ->responseContains($this->t('The tour %tour has been created.', ['%tour' => $edit['label']]));
+
     $elements = $this->xpath('//table/tbody/tr');
     $this->assertEquals(1, count($elements));
 
     // Edit and re-save an existing tour.
-    $this->assertTitle(t('Edit tour | @site-name', ['@site-name' => \Drupal::config('system.site')->get('name')]));
-    $this->drupalPostForm(NULL, [], t('Save'));
-    $this->assertRaw(t('Updated the %tour tour', ['%tour' => $edit['label']]));
+    $this->assertSession()->titleEquals('Edit tour | Drupal');
+
+    $this->submitForm([], 'Save');
+    $this->assertSession()
+      ->responseContains($this->t('The tour %tour has been updated.', ['%tour' => $edit['label']]));
 
     // Reorder the tour tips.
-    $this->drupalGet('admin/config/user-interface/tour/manage/tour-test');
+    $this->drupalGet('admin/config/user-interface/tour/manage/tip_edit');
     $weights = [
-      'tips[tour-test-1][weight]' => '2',
-      'tips[tour-test-3][weight]' => '1',
+      'tips[tour-page][weight]' => '2',
+      'tips[tour-label][weight]' => '1',
     ];
-    $this->drupalPostForm(NULL, $weights, t('Save'));
-    $this->drupalGet('admin/config/user-interface/tour/manage/tour-test');
-    $elements = $this->xpath('//tr[@class=:class and ./td[contains(., :text)]]', [
-      ':class' => 'draggable odd',
-      ':text' => 'The awesome image',
-    ]);
-    $this->assertEquals(1, count($elements), 'Found odd tip "The awesome image".');
-    $elements = $this->xpath('//tr[@class=:class and ./td[contains(., :text)]]', [
-      ':class' => 'draggable even',
-      ':text' => 'The first tip',
-    ]);
-    $this->assertEquals(1, count($elements), 'Found even tip "The first tip".');
+    $this->submitForm($weights, 'Save');
+    $elements = $this->xpath('//tr[contains(@class, "draggable")]/td[contains(text(), "Label")]');
+    $this->assertEquals(1, count($elements), 'Found odd tip "Label".');
+
     $weights = [
-      'tips[tour-test-1][weight]' => '1',
-      'tips[tour-test-3][weight]' => '2',
+      'tips[tour-page][weight]' => '1',
+      'tips[tour-label][weight]' => '2',
     ];
-    $this->drupalPostForm(NULL, $weights, t('Save'));
-    $this->drupalGet('admin/config/user-interface/tour/manage/tour-test');
-    $elements = $this->xpath('//tr[@class=:class and ./td[contains(., :text)]]', [
-      ':class' => 'draggable odd',
-      ':text' => 'The first tip',
-    ]);
-    $this->assertEquals(1, count($elements), 'Found odd tip "The first tip".');
-    $elements = $this->xpath('//tr[@class=:class and ./td[contains(., :text)]]', [
-      ':class' => 'draggable even',
-      ':text' => 'The awesome image',
-    ]);
-    $this->assertEquals(1, count($elements), 'Found even tip "The awesome image".');
+    $this->submitForm($weights, 'Save');
+    $elements = $this->xpath('//tr[contains(@class, "draggable")]/td[contains(text(), "Tour edit")]');
+    $this->assertEquals(1, count($elements), 'Found odd tip "Tour edit".');
+
+    $this->drupalGet('admin/config/user-interface/tour/add');
 
     // Attempt to create a duplicate tour.
-    $this->drupalPostForm('admin/config/user-interface/tour/add', $edit, t('Save'));
-    $this->assertRaw(t('The machine-readable name is already in use. It must be unique.'));
+    $this->submitForm($edit, 'Save');
+    $this->assertSession()
+      ->responseContains($this->t('The machine-readable name is already in use. It must be unique.'));
 
     // Delete a tour.
     $this->drupalGet('admin/config/user-interface/tour/manage/' . $edit['id']);
-    $this->drupalPostForm(NULL, NULL, t('Delete'));
-    $this->assertRaw(t('Are you sure you want to delete the %tour tour?', ['%tour' => $edit['label']]));
-    $this->clickLink(t('Cancel'));
-    $this->clickLink(t('Delete'));
-    $this->drupalPostForm(NULL, NULL, t('Delete'));
+    $this->clickLink('Delete');
+    $this->assertSession()
+      ->responseContains($this->t('Are you sure you want to delete the tour %tour?', ['%tour' => $edit['label']]));
+    $this->submitForm([], 'Delete');
     $elements = $this->xpath('//table/tbody/tr');
-    $this->assertEquals(2, count($elements));
-    $this->assertRaw(t('Deleted the %tour tour.', ['%tour' => $edit['label']]));
+    $this->assertEquals(3, count($elements));
+    $this->assertSession()
+      ->responseContains($this->t('The tour %tour has been deleted.', ['%tour' => $edit['label']]));
   }
 
   /**
@@ -162,47 +157,49 @@ class TourUITest extends BrowserTestBase {
       'label' => 'a' . $this->randomString(),
       'id' => strtolower($this->randomMachineName()),
       'module' => $this->randomString(),
-      'paths' => '',
+      'routes' => '',
     ];
-    $this->drupalPostForm('admin/config/user-interface/tour/add', $edit, t('Save'));
-    $this->assertRaw(t('The %tour tour has been created.', ['%tour' => $edit['label']]));
+    $this->drupalGet('admin/config/user-interface/tour/add');
+    $this->submitForm($edit, 'Save');
+
+    $this->assertSession()
+      ->responseContains($this->t('The tour %tour has been created.', ['%tour' => $edit['label']]));
 
     // Add a new tip.
     $tip = [
-      'new' => 'image',
+      'new' => 'text',
     ];
-    $this->drupalPostForm('admin/config/user-interface/tour/manage/' . $edit['id'], $tip, t('Add'));
+    $this->drupalGet('admin/config/user-interface/tour/manage/' . $edit['id']);
+    $this->submitForm($tip, 'Add');
     $tip = [
       'label' => 'a' . $this->randomString(),
       'id' => 'tour-ui-test-image-tip',
-      'url' => 'http://testimage.png',
-      'alt' => 'Testing a new image tip through Tour UI.',
+      'body' => $this->randomString(),
     ];
-    $this->drupalPostForm(NULL, $tip, t('Save'));
-    $elements = $this->xpath('//tr[@class=:class and ./td[contains(., :text)]]', [
-      ':class' => 'draggable odd',
-      ':text' => $tip['label'],
-    ]);
+    $this->submitForm($tip, 'Save');
+    $elements = $this->xpath('//tr[contains(@class, "draggable")]/td[contains(text(), "' . $tip['label'] . '")]');
     $this->assertEquals(1, count($elements), 'Found tip "' . $tip['label'] . '".');
 
     // Edit the tip.
     $tip_id = $tip['id'];
-    unset($tip['id']);
     $tip['label'] = 'a' . $this->randomString();
-    $this->drupalPostForm('admin/config/user-interface/tour/manage/' . $edit['id'] . '/tip/edit/' . $tip_id, $tip, t('Save'));
-    $elements = $this->xpath('//tr[@class=:class and ./td[contains(., :text)]]', [
-      ':class' => 'draggable odd',
-      ':text' => $tip['label'],
-    ]);
+    $this->drupalGet('admin/config/user-interface/tour/manage/' . $edit['id'] . '/tip/edit/' . $tip_id);
+    $this->submitForm($tip, 'Save');
+
+    $elements = $this->xpath('//tr[contains(@class, "draggable")]/td[contains(text(), "' . $tip['label'] . '")]');
     $this->assertEquals(1, count($elements), 'Found tip "' . $tip['label'] . '".');
+    $this->drupalGet('admin/config/user-interface/tour/manage/' . $edit['id'] . '/tip/edit/' . $tip_id);
+
+    $this->assertSession()->titleEquals('Edit tip | Drupal');
 
     // Delete the tip.
-    $this->drupalPostForm('admin/config/user-interface/tour/manage/' . $edit['id'] . '/tip/delete/' . $tip_id, [], t('Delete'));
+    $this->clickLink('Delete');
+    $this->submitForm([], 'Confirm');
     $elements = $this->xpath('//tr[@class=:class and ./td[contains(., :text)]]', [
       ':class' => 'draggable odd',
       ':text' => $tip['label'],
     ]);
-    $this->assertNotEqual(count($elements), 1, 'Did not find tip "' . $tip['label'] . '".');
+    $this->assertNotEquals(count($elements), 1, 'Did not find tip "' . $tip['label'] . '".');
   }
 
 }

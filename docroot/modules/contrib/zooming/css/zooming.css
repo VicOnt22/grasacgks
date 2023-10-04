@@ -5,8 +5,8 @@
  */
 
 .zooming {
-  cursor: crosshair;
   position: relative;
+  cursor: crosshair;
 }
 
 .is-zooming--loading .is-zooming__zoomed .zooming {
@@ -24,34 +24,34 @@
 .is-zooming [data-zooming-gallery] .is-zooming__zoomed,
 .is-zooming .is-zooming__zoomed .slide__media,
 .is-zooming .is-zooming__zoomed.box > .box__content {
+  position: relative;
+  z-index: 1000;
+  top: auto !important; /* csslint allow: known-properties, important */
+  right: auto;
   bottom: auto;
+  left: auto;
   display: block;
   float: none;
-  height: auto !important;
-  left: auto;
-  margin: auto;
   overflow: visible;
-  padding: 0;
-  position: relative;
-  right: auto;
-  text-align: center;
-  top: auto !important;
   width: 100%;
-  z-index: 1000;
+  height: auto !important; /* csslint allow: known-properties, important */
+  margin: auto;
+  padding: 0;
+  text-align: center;
 }
 
 .is-zooming [data-zooming-gallery]::before {
-  background-color: rgba(255, 255, 255, .9);
-  bottom: 0;
-  display: block;
-  left: 0;
   position: fixed;
-  right: 0;
-  top: 0;
-  height: 100%;
-  transition: background-color .4s;
-  width: 100%;
   z-index: 997;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: background-color 0.4s;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 /** Hide distracting elements when the image is being zoomed. */
@@ -61,22 +61,45 @@
   visibility: hidden;
 }
 
-/** Release aspect ratio on being zoomed. Note !important to override inline. */
+/** Releasing aspect ratio on being zoomed appears to cause issues. */
 .is-zooming .is-zooming__zoomed .media {
-  height: auto;
-  left: auto;
-  margin: auto;
-  overflow: visible;
-  padding-bottom: 0 !important;
+  /* padding-bottom: 0 !important;  csslint allow: known-properties, important */
   position: relative;
-  text-align: center;
   top: auto;
+  left: auto;
+  overflow: visible;
+  height: auto;
+  margin: auto;
+  transition: none;
+  text-align: center;
 }
 
 /** Zooming doesn't work with Slick due to both use transform rules. */
 .is-zooming .slick--zooming .slick-list {
   overflow: visible;
 }
+
+/** Original backdrop is not always working, add one.
+You may want to change things to better suit your design:
+- background in case having different design,
+- top value in case having a fixed height header */
+.is-zooming__zoomed::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 200vw;
+  height: 200vh;
+  content: "";
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/** Original overlay is sometimes useless given various layouts. */
+.is-zooming__overlay {
+  background-color: transparent !important; /* csslint allow: known-properties, important */
+}
+
 
 /** Centering the image on being zoomed.
 .is-zooming .is-zooming__zoomed .zooming {

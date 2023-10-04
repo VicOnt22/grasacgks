@@ -18,7 +18,6 @@ return array(
     '7b11c4dc42b3b3023073cb14e519683c' => $vendorDir . '/ralouphie/getallheaders/src/getallheaders.php',
     '37a3dc5111fe8f707ab4c132ef1dbc62' => $vendorDir . '/guzzlehttp/guzzle/src/functions_include.php',
     'def43f6c87e4f8dfd0c9e1b1bab14fe8' => $vendorDir . '/symfony/polyfill-iconv/bootstrap.php',
-    'c9d07b32a2e02bc0fc582d4f0c1b56cc' => $vendorDir . '/laminas/laminas-servicemanager/src/autoload.php',
     '3e41e0554275033aae3e9e7e056c2d14' => $vendorDir . '/longwave/laminas-diactoros/src/functions/create_uploaded_file.php',
     'f4ee20bfdee1006b0970e8d951bea11e' => $vendorDir . '/longwave/laminas-diactoros/src/functions/marshal_headers_from_sapi.php',
     '039b4ca04402a921dc2af19c2e8c1f6e' => $vendorDir . '/longwave/laminas-diactoros/src/functions/marshal_method_from_sapi.php',

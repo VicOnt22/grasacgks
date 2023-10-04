@@ -10,4 +10,4 @@ function getValue(object, key) {
   return object == null ? undefined : object[key];
 }
 
-export default getValue;
+module.exports = getValue;

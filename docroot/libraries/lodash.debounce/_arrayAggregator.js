@@ -19,4 +19,4 @@ function arrayAggregator(array, setter, iteratee, accumulator) {
   return accumulator;
 }
 
-export default arrayAggregator;
+module.exports = arrayAggregator;

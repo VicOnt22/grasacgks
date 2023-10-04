@@ -1,5 +1,5 @@
-import createWrap from './_createWrap.js';
-import flatRest from './_flatRest.js';
+var createWrap = require('./_createWrap'),
+    flatRest = require('./_flatRest');
 
 /** Used to compose bitmasks for function metadata. */
 var WRAP_REARG_FLAG = 256;
@@ -30,4 +30,4 @@ var rearg = flatRest(function(func, indexes) {
   return createWrap(func, WRAP_REARG_FLAG, undefined, undefined, undefined, indexes);
 });
 
-export default rearg;
+module.exports = rearg;

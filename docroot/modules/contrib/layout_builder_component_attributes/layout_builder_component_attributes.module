@@ -14,66 +14,31 @@ function layout_builder_component_attributes_preprocess_block(&$variables) {
   if (isset($variables['elements']['#component_attributes'])) {
     $component_attributes = $variables['elements']['#component_attributes'];
 
-    // Process block attributes.
-    if ($config['allowed_block_attributes']['id'] && $component_attributes['block_attributes']['id']) {
-      $variables['attributes']['id'] = $component_attributes['block_attributes']['id'];
-    }
-    if ($config['allowed_block_attributes']['class'] && $component_attributes['block_attributes']['class']) {
-      $classes = explode(' ', $component_attributes['block_attributes']['class']);
-      $existing_classes = $variables['attributes']['class'] ?? [];
-      $variables['attributes']['class'] = array_merge($existing_classes, $classes);
-    }
-    if ($config['allowed_block_attributes']['style'] && $component_attributes['block_attributes']['style']) {
-      $variables['attributes']['style'] = $component_attributes['block_attributes']['style'];
-    }
-    if ($config['allowed_block_attributes']['data'] && $component_attributes['block_attributes']['data']) {
-      $data_attributes = preg_split('/\R/', $component_attributes['block_attributes']['data']);
-      foreach ($data_attributes as $data_attribute) {
-        $data_attribute = explode('|', $data_attribute);
-        // Values are optional for data-* attributes.
-        $variables['attributes'][$data_attribute[0]] = $data_attribute[1] ?? TRUE;
-      }
-    }
+    $attribute_names = [
+      'attributes',
+      'title_attributes',
+      'content_attributes',
+    ];
 
-    // Process block title attributes.
-    if ($config['allowed_block_title_attributes']['id'] && $component_attributes['block_title_attributes']['id']) {
-      $variables['title_attributes']['id'] = $component_attributes['block_title_attributes']['id'];
-    }
-    if ($config['allowed_block_title_attributes']['class'] && $component_attributes['block_title_attributes']['class']) {
-      $classes = explode(' ', $component_attributes['block_title_attributes']['class']);
-      $existing_classes = $variables['title_attributes']['class'] ?? [];
-      $variables['title_attributes']['class'] = array_merge($existing_classes, $classes);
-    }
-    if ($config['allowed_block_title_attributes']['style'] && $component_attributes['block_title_attributes']['style']) {
-      $variables['title_attributes']['style'] = $component_attributes['block_title_attributes']['style'];
-    }
-    if ($config['allowed_block_title_attributes']['data'] && $component_attributes['block_title_attributes']['data']) {
-      $data_attributes = preg_split('/\R/', $component_attributes['block_title_attributes']['data']);
-      foreach ($data_attributes as $data_attribute) {
-        $data_attribute = explode('|', $data_attribute);
-        // Values are optional for data-* attributes.
-        $variables['title_attributes'][$data_attribute[0]] = $data_attribute[1] ?? TRUE;
+    foreach ($attribute_names as $attribute_name) {
+      if ($config['allowed_block_' . $attribute_name]['id'] && $component_attributes['block_' . $attribute_name]['id']) {
+        $variables[$attribute_name]['id'] = $component_attributes['block_' . $attribute_name]['id'];
       }
-    }
-
-    // Process block content attributes.
-    if ($config['allowed_block_content_attributes']['id'] && $component_attributes['block_content_attributes']['id']) {
-      $variables['content_attributes']['id'] = $component_attributes['block_content_attributes']['id'];
-    }
-    if ($config['allowed_block_content_attributes']['class'] && $component_attributes['block_content_attributes']['class']) {
-      $classes = explode(' ', $component_attributes['block_content_attributes']['class']);
-      $existing_classes = $variables['content_attributes']['class'] ?? [];
-      $variables['content_attributes']['class'] = array_merge($existing_classes, $classes);
-    }
-    if ($config['allowed_block_content_attributes']['style'] && $component_attributes['block_content_attributes']['style']) {
-      $variables['content_attributes']['style'] = $component_attributes['block_content_attributes']['style'];
-    }
-    if ($config['allowed_block_content_attributes']['data'] && $component_attributes['block_content_attributes']['data']) {
-      $data_attributes = preg_split('/\R/', $component_attributes['block_content_attributes']['data']);
-      foreach ($data_attributes as $data_attribute) {
-        $data_attribute = explode('|', $data_attribute);
-        // Values are optional for data-* attributes.
-        $variables['content_attributes'][$data_attribute[0]] = $data_attribute[1] ?? TRUE;
+      if ($config['allowed_block_' . $attribute_name]['class'] && $component_attributes['block_' . $attribute_name]['class']) {
+        $classes = explode(' ', $component_attributes['block_' . $attribute_name]['class']);
+        $existing_classes = $variables[$attribute_name]['class'] ?? [];
+        $variables[$attribute_name]['class'] = array_merge($existing_classes, $classes);
+      }
+      if ($config['allowed_block_' . $attribute_name]['style'] && $component_attributes['block_' . $attribute_name]['style']) {
+        $variables[$attribute_name]['style'] = $component_attributes['block_' . $attribute_name]['style'];
+      }
+      if ($config['allowed_block_' . $attribute_name]['data'] && $component_attributes['block_' . $attribute_name]['data']) {
+        $data_attributes = preg_split('/\R/', $component_attributes['block_' . $attribute_name]['data']);
+        foreach ($data_attributes as $data_attribute) {
+          $data_attribute = explode('|', $data_attribute);
+          // Values are optional for data-* attributes.
+          $variables[$attribute_name][$data_attribute[0]] = $data_attribute[1] ?? TRUE;
+        }
       }
     }
   }

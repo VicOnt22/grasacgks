@@ -1,5 +1,5 @@
-import isPrototype from './_isPrototype.js';
-import nativeKeys from './_nativeKeys.js';
+var isPrototype = require('./_isPrototype'),
+    nativeKeys = require('./_nativeKeys');
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -27,4 +27,4 @@ function baseKeys(object) {
   return result;
 }
 
-export default baseKeys;
+module.exports = baseKeys;

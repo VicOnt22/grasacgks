@@ -5,8 +5,18 @@ namespace Drupal\blazy\Views;
 use Drupal\Component\Utility\Html;
 use Drupal\views\Views;
 
+@trigger_error('The ' . __NAMESPACE__ . '\BlazyStyleOptionsTrait is deprecated in blazy:8.x-2.17 and is removed from blazy:8.x-3.0. Use \Drupal\blazy\Views\BlazyStylePluginBase instead. See https://www.drupal.org/node/3367304', E_USER_DEPRECATED);
+
 /**
  * A Trait common for optional views style plugins.
+ *
+ * @internal
+ *   This is an internal part of the Blazy system and should only be used by
+ *   blazy-related code in Blazy module. Please extend base classes intead.
+ *
+ * @deprecated in blazy:8.x-2.17 and is removed from blazy:8.x-3.0. Use
+ *   Drupal\blazy\Views\BlazyStylePluginBase instead.
+ * @see https://www.drupal.org/node/3367304
  */
 trait BlazyStyleOptionsTrait {
 
@@ -20,7 +30,7 @@ trait BlazyStyleOptionsTrait {
   /**
    * Returns available fields for select options.
    */
-  public function getDefinedFieldOptions($defined_options = []) {
+  protected function getDefinedFieldOptions(array $defined_options = []): array {
     $field_names = $this->displayHandler->getFieldLabels();
     $definition = [];
     $stages = [
@@ -39,8 +49,8 @@ trait BlazyStyleOptionsTrait {
     $options = [];
     foreach ($this->displayHandler->getOption('fields') as $field => $handler) {
       // This is formatter based type, not actual field type.
-      if (isset($handler['type'])) {
-        switch ($handler['type']) {
+      if ($formatter = ($handler['type'] ?? NULL)) {
+        switch ($formatter) {
           // @todo recheck other reasonable image-related formatters.
           case 'blazy':
           case 'image':
@@ -48,6 +58,7 @@ trait BlazyStyleOptionsTrait {
           case 'media_thumbnail':
           case 'intense':
           case 'responsive_image':
+          case 'svg_image_field_formatter':
           case 'video_embed_field_thumbnail':
           case 'video_embed_field_colorbox':
           case 'youtube_thumbnail':
@@ -66,26 +77,28 @@ trait BlazyStyleOptionsTrait {
           case 'link':
             $options['links'][$field] = $field_names[$field];
             $options['titles'][$field] = $field_names[$field];
-            if ($handler['type'] != 'link') {
+            if ($formatter != 'link') {
               $options['thumb_captions'][$field] = $field_names[$field];
             }
             break;
         }
 
         $classes = ['list_key', 'entity_reference_label', 'text', 'string'];
-        if (in_array($handler['type'], $classes)) {
+        if (in_array($formatter, $classes)) {
           $options['classes'][$field] = $field_names[$field];
         }
 
-        $slicks = strpos($handler['type'], 'slick') !== FALSE;
-        if ($slicks || in_array($handler['type'], $stages)) {
+        // Allows nested sliders.
+        $sliders = strpos($formatter, 'slick') !== FALSE
+          || strpos($formatter, 'splide') !== FALSE;
+        if ($sliders || in_array($formatter, $stages)) {
           $options['overlays'][$field] = $field_names[$field];
         }
 
         // Allows advanced formatters/video as the main image replacement.
         // They are not reasonable for thumbnails, but main images.
         // Note: Certain Responsive image has no ID at Views, possibly a bug.
-        if (in_array($handler['type'], $stages)) {
+        if (in_array($formatter, $stages)) {
           $options['images'][$field] = $field_names[$field];
         }
       }
@@ -137,7 +150,7 @@ trait BlazyStyleOptionsTrait {
       'handler' => $this->displayHandler,
       'view' => $this->view,
     ];
-    $this->blazyManager->getModuleHandler()->alter('blazy_views_field_options', $definition, $contexts);
+    $this->manager->moduleHandler()->alter('blazy_views_field_options', $definition, $contexts);
 
     return $definition;
   }
@@ -147,65 +160,23 @@ trait BlazyStyleOptionsTrait {
    *
    * Cannot use Views::getViewsAsOptions() as we need to limit to something.
    */
-  protected function getViewsAsOptions($plugin = 'html_list') {
+  protected function getViewsAsOptions($plugin = 'html_list'): array {
     if (!isset($this->viewsOptions[$plugin])) {
       $options = [];
 
       // Convert list of objects to options for the form.
-      foreach (Views::getEnabledViews() as $view_name => $view) {
+      foreach (Views::getEnabledViews() as $name => $view) {
         foreach ($view->get('display') as $id => $display) {
           $valid = ($display['display_options']['style']['type'] ?? NULL) == $plugin;
           if ($valid) {
-            $options[$view_name . ':' . $id] = $view->label() . ' (' . $display['display_title'] . ')';
+            $label = $view->label() . ' (' . $display['display_title'] . ')';
+            $options[$name . ':' . $id] = Html::escape($label);
           }
         }
       }
       $this->viewsOptions[$plugin] = $options;
     }
     return $this->viewsOptions[$plugin];
-  }
-
-  /**
-   * Returns the string values for the expected Title, ET label, List, Term.
-   *
-   * @todo re-check this, or if any consistent way to retrieve string values.
-   */
-  public function getFieldString($row, $field_name, $index, $clean = TRUE) {
-    $values = [];
-
-    // Content title/List/Text, either as link or plain text.
-    if ($value = $this->getFieldValue($index, $field_name)) {
-      $value = is_array($value) ? array_filter($value) : $value;
-
-      // Entity reference label where the above $value can be term ID.
-      if ($markup = $this->getField($index, $field_name)) {
-        $value = is_object($markup) ? trim(strip_tags($markup->__toString()) ?: '') : $value;
-      }
-
-      if (is_string($value)) {
-        // Only respects tags with default CSV, just too much to worry about.
-        if (strpos($value, ',') !== FALSE) {
-          $tags = explode(',', $value);
-          $rendered_tags = [];
-          foreach ($tags as $tag) {
-            $tag = trim($tag);
-            $rendered_tags[] = $clean ? Html::cleanCssIdentifier(mb_strtolower($tag)) : $tag;
-          }
-          $values[$index] = implode(' ', $rendered_tags);
-        }
-        else {
-          $values[$index] = $clean ? Html::cleanCssIdentifier(mb_strtolower($value)) : $value;
-        }
-      }
-      else {
-        $value = $value[0]['value'] ?? '';
-        if ($value) {
-          $values[$index] = $clean ? Html::cleanCssIdentifier(mb_strtolower($value)) : $value;
-        }
-      }
-    }
-
-    return $values;
   }
 
 }

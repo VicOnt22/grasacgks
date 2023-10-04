@@ -1,11 +1,11 @@
-import baseKeys from './_baseKeys.js';
-import getTag from './_getTag.js';
-import isArguments from './isArguments.js';
-import isArray from './isArray.js';
-import isArrayLike from './isArrayLike.js';
-import isBuffer from './isBuffer.js';
-import isPrototype from './_isPrototype.js';
-import isTypedArray from './isTypedArray.js';
+var baseKeys = require('./_baseKeys'),
+    getTag = require('./_getTag'),
+    isArguments = require('./isArguments'),
+    isArray = require('./isArray'),
+    isArrayLike = require('./isArrayLike'),
+    isBuffer = require('./isBuffer'),
+    isPrototype = require('./_isPrototype'),
+    isTypedArray = require('./isTypedArray');
 
 /** `Object#toString` result references. */
 var mapTag = '[object Map]',
@@ -74,4 +74,4 @@ function isEmpty(value) {
   return true;
 }
 
-export default isEmpty;
+module.exports = isEmpty;

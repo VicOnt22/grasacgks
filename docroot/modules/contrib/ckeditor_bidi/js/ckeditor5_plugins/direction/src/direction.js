@@ -15,18 +15,17 @@ import DirectionUI from './directionui';
  * The text direction plugin.
  */
 export default class Direction extends Plugin {
+  /**
+   * @inheritDoc
+   */
+  static get requires() {
+    return [DirectionEditing, DirectionUI];
+  }
 
-	/**
-	 * @inheritDoc
-	 */
-	static get requires() {
-		return [ DirectionEditing, DirectionUI ];
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	static get pluginName() {
-		return 'Direction';
-	}
+  /**
+   * @inheritDoc
+   */
+  static get pluginName() {
+    return 'Direction';
+  }
 }

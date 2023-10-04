@@ -1,3 +1,7 @@
 .ck-editor__editable [dir="rtl"] {
   text-align: right;
 }
+
+.ck-editor__editable [dir="ltr"] {
+  text-align: left;
+}

@@ -15,7 +15,8 @@ class BlockCreationTest extends InlineBlockTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
+    'field_ui',
     'lb_ux',
     'node',
     'lb_ux_test',
@@ -57,7 +58,13 @@ class BlockCreationTest extends InlineBlockTestBase {
     $page->clickLink('Add block');
     $assert_session->assertWaitOnAjaxRequest();
 
-    $this->clickLink('Create custom block');
+    if (version_compare(\Drupal::VERSION, '10.1', '>=')) {
+      $this->clickLink('Create content block');
+    }
+    else {
+      // @todo Remove in 11.0 https://www.drupal.org/node/3320855
+      $this->clickLink('Create custom block');
+    }
     $assert_session->assertWaitOnAjaxRequest();
     $assert_session->checkboxNotChecked('settings[label_display]');
     $label = $assert_session->fieldExists('settings[label]');
@@ -77,7 +84,13 @@ class BlockCreationTest extends InlineBlockTestBase {
     $assert_session->assertWaitOnAjaxRequest();
 
     // Add a second block.
-    $this->clickLink('Create custom block');
+    if (version_compare(\Drupal::VERSION, '10.1', '>=')) {
+      $this->clickLink('Create content block');
+    }
+    else {
+      // @todo Remove in 11.0 https://www.drupal.org/node/3320855
+      $this->clickLink('Create custom block');
+    }
     $assert_session->assertWaitOnAjaxRequest();
     $page->pressButton('Add block');
     $assert_session->assertWaitOnAjaxRequest();

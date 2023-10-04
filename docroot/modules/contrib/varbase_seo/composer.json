@@ -30,7 +30,7 @@
     "composer/installers": "~2.0",
     "oomphinc/composer-installers-extender": "~2.0",
     "cweagans/composer-patches": "~1.0",
-    "drupal/core": "~9.0 || ~10.0",
+    "drupal/core": "~9.5.0 || ~10.1.0",
     "vardot/entity-definition-update-manager": "~1.0",
     "vardot/module-installer-factory": "~1.0",
     "drupal/google_analytics": "~3.0 || ~4.0",
@@ -38,10 +38,11 @@
     "drupal/schema_metatag": "~2.0",
     "drupal/pathauto": "~1.0",
     "drupal/yoast_seo": "~1.0",
-    "drupal/redirect": "1.8",
+    "drupal/redirect": "1.9",
     "drupal/simple_sitemap": "~4.0",
-    "drupal/google_tag": "~1.0",
-    "drupal/script_manager": "~1.0"
+    "drupal/google_tag": "~2.0.0",
+    "drupal/script_manager": "~1.0 || ~2.0",
+    "drupal/rdf": "~2.0"
   },
   "extra": {
     "enable-patching": true,
@@ -49,9 +50,9 @@
     "patches": {
       "drupal/redirect": {
         "Issue #2879648: Redirects from aliased paths aren't triggered":
-        "https://www.drupal.org/files/issues/2022-08-31/2879648-142.patch",
+        "https://www.drupal.org/files/issues/2023-08-31/2879648-149.patch",
         "Issue #3057250: Validation issue on adding url redirect":
-        "https://www.drupal.org/files/issues/2022-08-31/3057250-52.patch"
+        "https://www.drupal.org/files/issues/2023-08-09/3057250-65.patch"
       }
     }
   }

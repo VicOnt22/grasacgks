@@ -26,4 +26,4 @@ function replaceHolders(array, placeholder) {
   return result;
 }
 
-export default replaceHolders;
+module.exports = replaceHolders;

@@ -81,8 +81,8 @@ class RedirectRepository {
    * @param string $language
    *   The language for which is the redirect.
    *
-   * @return \Drupal\redirect\Entity\Redirect
-   *   The matched redirect entity.
+   * @return \Drupal\redirect\Entity\Redirect|null
+   *   The matched redirect entity or NULL if no redirect was found.
    *
    * @throws \Drupal\redirect\Exception\RedirectLoopException
    */

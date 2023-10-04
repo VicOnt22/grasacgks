@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\ckeditor_bidi\Plugin\CKEditor5Plugin;
 
+use Drupal\ckeditor5\Plugin\CKEditor5PluginConfigurableInterface;
 use Drupal\ckeditor5\Plugin\CKEditor5PluginConfigurableTrait;
 use Drupal\ckeditor5\Plugin\CKEditor5PluginDefault;
-use Drupal\ckeditor5\Plugin\CKEditor5PluginConfigurableInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\editor\EditorInterface;
 

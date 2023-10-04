@@ -1,4 +1,4 @@
-import createMathOperation from './_createMathOperation.js';
+var createMathOperation = require('./_createMathOperation');
 
 /**
  * Divide two numbers.
@@ -19,4 +19,4 @@ var divide = createMathOperation(function(dividend, divisor) {
   return dividend / divisor;
 }, 1);
 
-export default divide;
+module.exports = divide;

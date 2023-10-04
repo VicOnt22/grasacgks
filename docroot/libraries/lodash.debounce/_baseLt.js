@@ -11,4 +11,4 @@ function baseLt(value, other) {
   return value < other;
 }
 
-export default baseLt;
+module.exports = baseLt;

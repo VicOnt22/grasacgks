@@ -1,5 +1,5 @@
-import baseGetTag from './_baseGetTag.js';
-import isObjectLike from './isObjectLike.js';
+var baseGetTag = require('./_baseGetTag'),
+    isObjectLike = require('./isObjectLike');
 
 /** `Object#toString` result references. */
 var numberTag = '[object Number]';
@@ -35,4 +35,4 @@ function isNumber(value) {
     (isObjectLike(value) && baseGetTag(value) == numberTag);
 }
 
-export default isNumber;
+module.exports = isNumber;

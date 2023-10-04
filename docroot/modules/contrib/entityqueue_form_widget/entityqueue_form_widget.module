@@ -35,13 +35,11 @@ function entityqueue_form_widget_form_node_form_alter(&$form, FormStateInterface
     ];
 
     $form['entityqueue_form_widget']['entityqueues'] = [];
-    foreach ($allowed_entityqueues as $queue_id => $allowed_entityqueue_group) {
-      if (\Drupal::currentUser()->hasPermission('update ' . $queue_id . ' entityqueue')
+    foreach ($allowed_entityqueues as $allowed_entityqueue) {
+      if (\Drupal::currentUser()->hasPermission('update ' . $allowed_entityqueue['id'] . ' entityqueue')
         || \Drupal::currentUser()->hasPermission('manipulate all entityqueues')) {
 
-        foreach ($allowed_entityqueue_group as $allowed_entityqueue) {
-          $form['entityqueue_form_widget']['entityqueues'][$allowed_entityqueue] = _prepare_checkbox($entity_id, $allowed_entityqueue);
-        }
+        $form['entityqueue_form_widget']['entityqueues'][$allowed_entityqueue['id']] = _prepare_checkbox($entity_id, $allowed_entityqueue);
       }
     }
 
@@ -68,30 +66,49 @@ function entityqueue_form_widget_form_node_form_submit($form, FormStateInterface
   if (!$form_state->isValueEmpty('entityqueue_form_widget')) {
     $values = $form_state->getValue('entityqueue_form_widget');
 
-    /* Add entity to all checked queues */
-    $eqs_machine_names = array_keys($values['entityqueues'], "1");
+    // When Adding entity to all checked queues.
+    // If the node was unpublished, do not attempt to add it to any entity queue.
+    $eqs_machine_names = $node->isPublished() ? array_keys($values['entityqueues'], "1") : [];
     foreach ($eqs_machine_names as $eqs_machine_name) {
       $query = \Drupal::entityQuery('entity_subqueue')
         ->accessCheck(TRUE)
         ->condition('name', $eqs_machine_name);
       $result = $query->execute();
+      /** @var Drupal\entityqueue\Entity\EntitySubqueue $subqueues */
       $subqueues = EntitySubqueue::loadMultiple($result);
 
       foreach ($subqueues as $subqueue) {
         $items = $subqueue->get('items')->getValue();
         if (($item_key = array_search($entity_id, array_column($items, 'target_id'))) === FALSE) {
-          $new_aitem = [
+          $new_item = [
             "target_id" => $entity_id,
           ];
-          array_push($items, $new_aitem);
-          $subqueue->set('items', $items);
-          $subqueue->save();
+          $settings = $subqueue->getQueue()->getQueueSettings();
+          if ($settings['reverse']) {
+            array_unshift($items, $new_item);
+          }
+          else {
+            $items[] = $new_item;
+          }
+
+          $checkbox_status = FALSE;
+          if ((count($items) > $settings['max_size'])
+            && !$settings['act_as_queue']
+            && ($settings['max_size'] != 0 || $settings['max_size'] != NULL)) {
+            $checkbox_status = TRUE;
+          }
+
+          if (!$checkbox_status) {
+            $subqueue->set('items', $items);
+            $subqueue->save();
+          }
         }
       }
     }
 
-    // Remove entity from all un-checked queues.
-    $eqs_machine_names_delete = array_keys($values['entityqueues'], "0");
+    // When Removing entity from all un-checked queues.
+    // If the node was unpublished, remove it from all enabled entity queues.
+    $eqs_machine_names_delete = $node->isPublished() ? array_keys($values['entityqueues'], "0") : array_keys($values['entityqueues']);
     foreach ($eqs_machine_names_delete as $eqs_machine_name) {
       $entity_subqueue = \Drupal::entityTypeManager()
         ->getStorage('entity_subqueue')
@@ -120,9 +137,10 @@ function entityqueue_form_widget_form_node_form_submit($form, FormStateInterface
  */
 function entity_qget_allowed_subque_list($node) {
   $allowed_entityqueues = [];
+  /** @var Drupal\entityqueue\Entity\EntitySubqueue $subqueues */
   $subqueues = EntitySubqueue::loadMultiple();
 
-  if (isset($subqueues) && count($subqueues) > 0) {
+  if (count($subqueues) > 0) {
     foreach ($subqueues as $subqueue) {
       $queue = $subqueue->getQueue();
       if (isset($queue)) {
@@ -140,7 +158,8 @@ function entity_qget_allowed_subque_list($node) {
           && (empty($target_bundles) ||  in_array($node->bundle(), $target_bundles))) {
 
           $id = $queue->id();
-          $allowed_entityqueues[$id][] = $subqueue->id();
+          $allowed_entityqueues[$id]['id'] = $subqueue->id();
+          $allowed_entityqueues[$id]['act_as_queue_status'] = $queue->getActAsQueue();
         }
       }
     }
@@ -171,7 +190,7 @@ function _prepare_checkbox($entity_id, $allowed_entityqueue) {
 
   $entity_subqueue = \Drupal::entityTypeManager()
     ->getStorage('entity_subqueue')
-    ->load($allowed_entityqueue);
+    ->load($allowed_entityqueue['id']);
 
   $number_of_items = count($entity_subqueue->get('items')->getValue());
 
@@ -180,15 +199,24 @@ function _prepare_checkbox($entity_id, $allowed_entityqueue) {
   $max_size = ($max_size == '0' ? 'unlimited' : $max_size);
 
   $checked_flag = 0;
-  if (in_array($allowed_entityqueue, $result_checked_queues)) {
+  if (in_array($allowed_entityqueue['id'], $result_checked_queues)) {
     $checked_flag = 1;
   }
+
   $queue = $entity_subqueue->getQueue();
   if ($queue->getHandler() == 'multiple') {
     $title = $entity_subqueue->label() . ' (' . $queue->label() . ')';
   }
   else {
     $title = $entity_subqueue->label();
+  }
+
+  $checkbox_status = FALSE;
+  if (($number_of_items >= $max_size)
+    && $checked_flag == 0
+    && !$allowed_entityqueue['act_as_queue_status']
+    && ($max_size != 0 || $max_size != NULL)) {
+    $checkbox_status = TRUE;
   }
 
   return [
@@ -199,6 +227,9 @@ function _prepare_checkbox($entity_id, $allowed_entityqueue) {
       '@$max_size' => $max_size,
     ]),
     '#default_value' => $checked_flag,
-    '#id' => $allowed_entityqueue,
+    '#id' => $allowed_entityqueue['id'],
+    '#attributes' => [
+      'disabled' => $checkbox_status,
+    ],
   ];
 }

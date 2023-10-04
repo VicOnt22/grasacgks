@@ -1,4 +1,4 @@
-import baseIsEqual from './_baseIsEqual.js';
+var baseIsEqual = require('./_baseIsEqual');
 
 /**
  * This method is like `_.isEqual` except that it accepts `customizer` which
@@ -38,4 +38,4 @@ function isEqualWith(value, other, customizer) {
   return result === undefined ? baseIsEqual(value, other, undefined, customizer) : !!result;
 }
 
-export default isEqualWith;
+module.exports = isEqualWith;

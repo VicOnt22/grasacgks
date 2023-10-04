@@ -1,7 +1,7 @@
-import isArray from './isArray.js';
-import isKey from './_isKey.js';
-import stringToPath from './_stringToPath.js';
-import toString from './toString.js';
+var isArray = require('./isArray'),
+    isKey = require('./_isKey'),
+    stringToPath = require('./_stringToPath'),
+    toString = require('./toString');
 
 /**
  * Casts `value` to a path array if it's not one.
@@ -18,4 +18,4 @@ function castPath(value, object) {
   return isKey(value, object) ? [value] : stringToPath(toString(value));
 }
 
-export default castPath;
+module.exports = castPath;

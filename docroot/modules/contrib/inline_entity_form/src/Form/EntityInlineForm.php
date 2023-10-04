@@ -14,9 +14,7 @@ use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Render\Element;
-use Drupal\Core\Theme\ThemeManagerInterface;
 use Drupal\inline_entity_form\InlineFormInterface;
-use Drupal\rat\v1\RenderArray;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -55,13 +53,6 @@ class EntityInlineForm implements InlineFormInterface {
   protected $moduleHandler;
 
   /**
-   * The theme manager.
-   *
-   * @var \Drupal\Core\Theme\ThemeManagerInterface
-   */
-  protected $themeManager;
-
-  /**
    * Constructs the inline entity form controller.
    *
    * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager
@@ -72,15 +63,12 @@ class EntityInlineForm implements InlineFormInterface {
    *   The module handler.
    * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
    *   The entity type.
-   * @param \Drupal\Core\Theme\ThemeManagerInterface $theme_manager
-   *   The theme manager.
    */
-  public function __construct(EntityFieldManagerInterface $entity_field_manager, EntityTypeManagerInterface $entity_type_manager, ModuleHandlerInterface $module_handler, EntityTypeInterface $entity_type, ThemeManagerInterface $theme_manager) {
+  public function __construct(EntityFieldManagerInterface $entity_field_manager, EntityTypeManagerInterface $entity_type_manager, ModuleHandlerInterface $module_handler, EntityTypeInterface $entity_type) {
     $this->entityFieldManager = $entity_field_manager;
     $this->entityTypeManager = $entity_type_manager;
     $this->moduleHandler = $module_handler;
     $this->entityType = $entity_type;
-    $this->themeManager = $theme_manager;
   }
 
   /**
@@ -91,8 +79,7 @@ class EntityInlineForm implements InlineFormInterface {
       $container->get('entity_field.manager'),
       $container->get('entity_type.manager'),
       $container->get('module_handler'),
-      $entity_type,
-      $container->get('theme.manager')
+      $entity_type
     );
   }
 
@@ -192,15 +179,13 @@ class EntityInlineForm implements InlineFormInterface {
     // Inline entities inherit the parent language.
     $langcode_key = $this->entityType->getKey('langcode');
     if ($langcode_key && isset($entity_form[$langcode_key])) {
-      // Safely restrict access. Entity cacheability already set.
-      RenderArray::alter($entity_form[$langcode_key])->restrictAccess(FALSE, NULL);
+      $entity_form[$langcode_key]['#access'] = FALSE;
     }
     if (!empty($entity_form['#translating'])) {
       // Hide the non-translatable fields.
       foreach ($entity->getFieldDefinitions() as $field_name => $definition) {
         if (isset($entity_form[$field_name]) && $field_name != $langcode_key) {
-          // Safely restrict access. Field definition cacheability already set.
-          RenderArray::alter($entity_form[$field_name])->restrictAccess($definition->isTranslatable(), NULL);
+          $entity_form[$field_name]['#access'] = $definition->isTranslatable();
         }
       }
     }
@@ -209,17 +194,15 @@ class EntityInlineForm implements InlineFormInterface {
     // disabled in UI and does not make sense in inline entity form context.
     if (($this->entityType instanceof ContentEntityTypeInterface)) {
       if ($log_message_key = $this->entityType->getRevisionMetadataKey('revision_log_message')) {
-        // Safely restrict access. Entity type cacheability already set.
-        RenderArray::alter($entity_form[$log_message_key])->restrictAccess(FALSE, NULL);
+        $entity_form[$log_message_key]['#access'] = FALSE;
       }
     }
 
     // Determine the children of the entity form before it has been altered.
     $children_before = Element::children($entity_form);
 
-    // Allow other modules and themes to alter the form.
+    // Allow other modules to alter the form.
     $this->moduleHandler->alter('inline_entity_form_entity_form', $entity_form, $form_state);
-    $this->themeManager->alter('inline_entity_form_entity_form', $entity_form, $form_state);
 
     // Determine the children of the entity form after it has been altered.
     $children_after = Element::children($entity_form);
@@ -270,19 +253,15 @@ class EntityInlineForm implements InlineFormInterface {
       $entity = $entity_form['#entity'];
       $this->buildEntity($entity_form, $entity, $form_state);
       $form_display = $this->getFormDisplay($entity, $entity_form['#form_mode']);
-
-      // Do the entity validation.
-      $violations = $entity->validate();
-      $violations->filterByFieldAccess();
-
-      // Flag entity level violations.
-      foreach ($violations->getEntityViolations() as $violation) {
-        /** @var \Symfony\Component\Validator\ConstraintViolationInterface $violation */
-        $form_state->setError($triggering_element, $violation->getMessage());
-      }
-
-      $form_display->flagWidgetsErrorsFromViolations($violations, $entity_form, $form_state);
+      $form_display->validateFormValues($entity, $entity_form, $form_state);
       $entity->setValidationRequired(FALSE);
+
+      foreach ($form_state->getErrors() as $message) {
+        // $name may be unknown in $form_state and
+        // $form_state->setErrorByName($name, $message) may suppress the error
+        // message.
+        $form_state->setError($triggering_element, $message);
+      }
     }
   }
 
@@ -317,12 +296,12 @@ class EntityInlineForm implements InlineFormInterface {
    *
    * @param array $entity_form
    *   The entity form.
-   * @param \Drupal\Core\Entity\EntityInterface $entity
+   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
    *   The entity.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
    */
-  protected function buildEntity(array $entity_form, EntityInterface $entity, FormStateInterface $form_state) {
+  protected function buildEntity(array $entity_form, ContentEntityInterface $entity, FormStateInterface $form_state) {
     $form_display = $this->getFormDisplay($entity, $entity_form['#form_mode']);
     $form_display->extractFormValues($entity, $entity_form, $form_state);
     // Invoke all specified builders for copying form values to entity fields.

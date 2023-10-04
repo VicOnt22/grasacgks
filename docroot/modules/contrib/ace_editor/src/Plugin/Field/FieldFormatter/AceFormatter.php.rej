@@ -1,0 +1,11 @@
+--- src/Plugin/Field/FieldFormatter/AceFormatter.php
++++ src/Plugin/Field/FieldFormatter/AceFormatter.php
+@@ -91,7 +91,7 @@ public static function create(ContainerInterface $container, array $configuratio
+    */
+   public static function defaultSettings() {
+     // Get default ace_editor configuration.
+-    $config = $this->configFactory->get('ace_editor.settings');
++    $config = \Drupal::config('ace_editor.settings')->get();
+     return $config + parent::defaultSettings();
+   }
+ 

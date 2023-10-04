@@ -1,4 +1,4 @@
-import cloneArrayBuffer from './_cloneArrayBuffer.js';
+var cloneArrayBuffer = require('./_cloneArrayBuffer');
 
 /**
  * Creates a clone of `dataView`.
@@ -13,4 +13,4 @@ function cloneDataView(dataView, isDeep) {
   return new dataView.constructor(buffer, dataView.byteOffset, dataView.byteLength);
 }
 
-export default cloneDataView;
+module.exports = cloneDataView;

@@ -7,7 +7,7 @@ dependencies:
   - 'taxonomy_access_fix:taxonomy_access_fix'
   - 'drupal:views'
 
-# Information added by Drupal.org packaging script on 2023-05-02
-version: '4.0.0'
+# Information added by Drupal.org packaging script on 2023-08-14
+version: '4.0.1'
 project: 'taxonomy_access_fix'
-datestamp: 1682988519
+datestamp: 1691980928

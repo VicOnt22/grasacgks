@@ -1,4 +1,4 @@
-import baseSortedUniq from './_baseSortedUniq.js';
+var baseSortedUniq = require('./_baseSortedUniq');
 
 /**
  * This method is like `_.uniq` except that it's designed and optimized
@@ -21,4 +21,4 @@ function sortedUniq(array) {
     : [];
 }
 
-export default sortedUniq;
+module.exports = sortedUniq;

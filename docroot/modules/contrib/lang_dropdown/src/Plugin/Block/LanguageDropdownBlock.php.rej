@@ -1,0 +1,61 @@
+--- src/Plugin/Block/LanguageDropdownBlock.php
++++ src/Plugin/Block/LanguageDropdownBlock.php
+@@ -714,34 +714,34 @@ class LanguageDropdownBlock extends BlockBase implements ContainerFactoryPluginI
+       return [];
+     }
+ 
+-    $route = $this->pathMatcher->isFrontPage() ? '<front>' : '<current>';
+-    $url = Url::fromRoute($route);
+-    list(, $type) = explode(':', $this->getPluginId());
+-    /** @var \stdClass $languages */
+-    $languages = $this->languageManager->getLanguageSwitchLinks($type, $url);
+-    $roles = $this->currentUser->getRoles();
+-
+-    list($entities, $accessible_translations) = $this->getEntitiesAndTranslations();
+-
+-    foreach (array_keys($languages->links) as $langcode) {
+-      $hide_language = TRUE;
+-
+-      foreach ($roles as $role) {
+-        if (!isset($this->configuration['hidden_languages'][$role]) || !in_array($langcode, $this->configuration['hidden_languages'][$role], FALSE)) {
+-          $hide_language = FALSE;
+-          break;
+-        }
+-      }
++    $type = $this->getDerivativeId();
++    $languages = $this->languageManager->getLanguageSwitchLinks($type, Url::fromRouteMatch(\Drupal::routeMatch()));
++
++    if (isset($languages) && isset($languages->links) && is_array($languages->links)) {
++      $roles = $this->currentUser->getRoles();
+ 
+-      if ($entities && !$this->configuration['showall'] && !in_array($langcode, $accessible_translations)) {
++      list($entities, $accessible_translations) = $this->getEntitiesAndTranslations();
++
++      foreach (array_keys($languages->links) as $langcode) {
+         $hide_language = TRUE;
+-      }
+ 
+-      if ($hide_language) {
+-        unset($languages->links[$langcode]['href']);
+-        $languages->links[$langcode]['attributes']['class'][] = 'locale-untranslated';
++        foreach ($roles as $role) {
++          if (!isset($this->configuration['hidden_languages'][$role]) || !in_array($langcode, $this->configuration['hidden_languages'][$role], FALSE)) {
++            $hide_language = FALSE;
++            break;
++          }
++        }
++
++        if ($entities && !$this->configuration['showall'] && !in_array($langcode, $accessible_translations)) {
++          $hide_language = TRUE;
++        }
++
++        if ($hide_language) {
++          unset($languages->links[$langcode]['href']);
++          $languages->links[$langcode]['attributes']['class'][] = 'locale-untranslated';
++        }
++        $languages->links[$langcode]['language'] = $this->languageManager->getLanguage($langcode);
+       }
+-      $languages->links[$langcode]['language'] = $this->languageManager->getLanguage($langcode);
+     }
+ 
+     if (empty($languages->links)) {

@@ -168,6 +168,30 @@
       self.geofields_update(mapid, position);
     },
 
+    // Remove marker from the map.
+    remove_marker: function (mapid) {
+      let self = this;
+      let position;
+      if (self.map_data[mapid].click_to_remove_marker) {
+        if (!window.confirm(Drupal.t('Remove marker from map ?'))) {
+          return;
+        }
+      }
+      switch (self.map_data[mapid].map_library) {
+
+        case 'leaflet':
+          position = {lat: 0, lon: 0};
+          break;
+
+        case 'gmap':
+          position = new google.maps.LatLng(0, 0);
+      break;
+      }
+      self.setMarkerPosition(mapid, position);
+      $('#' + self.map_data[mapid].latid).val(null);
+      $('#' + self.map_data[mapid].lngid).val(null);
+    },
+
     // Geofields update.
     geofields_update: function (mapid, position) {
       let self = this;
@@ -558,6 +582,12 @@
         self.place_marker(self.map_data[params.mapid].mapid);
       });
 
+      // Bind click to remove_marker functionality.
+      $('#' + self.map_data[params.mapid].click_to_remove_marker_id).click(function (e) {
+        e.preventDefault();
+        self.remove_marker(self.map_data[params.mapid].mapid);
+      });
+
       // Define Lat & Lng input selectors and all related functionalities and Geofield Map Listeners.
       if (params.widget && params.latid && params.lngid) {
 
@@ -667,6 +697,19 @@
             self.setMarkerPosition(params.mapid, position);
             self.geofields_update(params.mapid, position);
           });
+
+          // Fix for Geofield Map Widget visibility issue inside Field Group,
+          // with Leaflet library
+          // @see https://www.drupal.org/project/geofield_map/issues/3087072
+          // Set to refresh when first in viewport to avoid visibility issue.
+          new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+              if(entry.intersectionRatio > 0) {
+                window.dispatchEvent(new Event('resize'));
+                observer.disconnect();
+              }
+            });
+          }).observe(document.getElementById(params.mapid));
 
         }
 

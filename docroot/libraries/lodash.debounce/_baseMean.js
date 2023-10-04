@@ -1,4 +1,4 @@
-import baseSum from './_baseSum.js';
+var baseSum = require('./_baseSum');
 
 /** Used as references for various `Number` constants. */
 var NAN = 0 / 0;
@@ -17,4 +17,4 @@ function baseMean(array, iteratee) {
   return length ? (baseSum(array, iteratee) / length) : NAN;
 }
 
-export default baseMean;
+module.exports = baseMean;

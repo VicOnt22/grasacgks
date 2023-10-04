@@ -1,4 +1,4 @@
-import identity from './identity.js';
+var identity = require('./identity');
 
 /**
  * Casts `value` to `identity` if it's not a function.
@@ -11,4 +11,4 @@ function castFunction(value) {
   return typeof value == 'function' ? value : identity;
 }
 
-export default castFunction;
+module.exports = castFunction;

@@ -1,5 +1,5 @@
-import identity from './identity.js';
-import metaMap from './_metaMap.js';
+var identity = require('./identity'),
+    metaMap = require('./_metaMap');
 
 /**
  * The base implementation of `setData` without support for hot loop shorting.
@@ -14,4 +14,4 @@ var baseSetData = !metaMap ? identity : function(func, data) {
   return func;
 };
 
-export default baseSetData;
+module.exports = baseSetData;

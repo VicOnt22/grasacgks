@@ -293,11 +293,14 @@ class ChartsPluginStyleChart extends StylePluginBase implements ContainerFactory
       $data = [];
       $this->renderFields($this->view->result);
       $renders = $this->rendered_fields;
-      if (!$label_field_key && count($renders) === 1 && count($data_fields) > 1) {
+      if (!$label_field_key && count($data_fields) > 1) {
         foreach ($data_fields as $field_id => $row) {
           $data_row = [];
           if (!empty($row['label'])) {
             $data_row['name'] = strip_tags($row['label'], ENT_QUOTES);
+          }
+          else {
+            $data_row['name'] = strip_tags($field_id, ENT_QUOTES);
           }
           if (!empty($chart_fields['data_providers'][$field_id]['color'])) {
             $data_row['color'] = $chart_fields['data_providers'][$field_id]['color'];
@@ -573,8 +576,8 @@ class ChartsPluginStyleChart extends StylePluginBase implements ContainerFactory
   public function calculateDependencies() {
     $dependencies = [];
 
-    if (!empty($this->options['library'])) {
-      $plugin_definition = $this->chartManager->getDefinition($this->options['library']);
+    if (!empty($this->options['chart_settings']['library'])) {
+      $plugin_definition = $this->chartManager->getDefinition($this->options['chart_settings']['library']);
       $dependencies['module'] = [$plugin_definition['provider']];
     }
 

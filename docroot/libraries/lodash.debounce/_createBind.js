@@ -1,5 +1,5 @@
-import createCtor from './_createCtor.js';
-import root from './_root.js';
+var createCtor = require('./_createCtor'),
+    root = require('./_root');
 
 /** Used to compose bitmasks for function metadata. */
 var WRAP_BIND_FLAG = 1;
@@ -25,4 +25,4 @@ function createBind(func, bitmask, thisArg) {
   return wrapper;
 }
 
-export default createBind;
+module.exports = createBind;

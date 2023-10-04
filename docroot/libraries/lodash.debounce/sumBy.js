@@ -1,5 +1,5 @@
-import baseIteratee from './_baseIteratee.js';
-import baseSum from './_baseSum.js';
+var baseIteratee = require('./_baseIteratee'),
+    baseSum = require('./_baseSum');
 
 /**
  * This method is like `_.sum` except that it accepts `iteratee` which is
@@ -30,4 +30,4 @@ function sumBy(array, iteratee) {
     : 0;
 }
 
-export default sumBy;
+module.exports = sumBy;

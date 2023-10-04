@@ -2,6 +2,146 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.28.0](https://github.com/ajaxorg/ace/compare/v1.27.0...v1.28.0) (2023-09-22)
+
+
+### Features
+
+* Keep focus on same item in completion popup when slow completer delivers results. ([#5322](https://github.com/ajaxorg/ace/issues/5322)) ([0983134](https://github.com/ajaxorg/ace/commit/09831343ccd450326cffb4b0f26ce3a8b830c7fb))
+
+## [1.27.0](https://github.com/ajaxorg/ace/compare/v1.26.0...v1.27.0) (2023-09-19)
+
+
+### Features
+
+* Allow not showing inline preview for completers when `inlineEnabled` is set to `true`. ([#5315](https://github.com/ajaxorg/ace/issues/5315)) ([f3e3330](https://github.com/ajaxorg/ace/commit/f3e333041fc1a687b3ce35a44f1bf00bcc15a236))
+
+## [1.26.0](https://github.com/ajaxorg/ace/compare/v1.25.1...v1.26.0) (2023-09-15)
+
+
+### Features
+
+* Allow to set setSelectOnHover for Autocomplete ([#5317](https://github.com/ajaxorg/ace/issues/5317)) ([dccbcc2](https://github.com/ajaxorg/ace/commit/dccbcc20288a48403f10aa29b6b9b6181dc8a66f))
+
+
+### Bug Fixes
+
+* Improve PRQL syntax highlightning ([#5313](https://github.com/ajaxorg/ace/issues/5313)) ([7d677f1](https://github.com/ajaxorg/ace/commit/7d677f1019ea5c81f3d9ae36ed1e71ac7a08fb30))
+
+### [1.25.1](https://github.com/ajaxorg/ace/compare/v1.25.0...v1.25.1) (2023-09-14)
+
+## [1.25.0](https://github.com/ajaxorg/ace/compare/v1.24.2...v1.25.0) (2023-09-14)
+
+
+### Features
+
+* Add syntax highlighting for PRQL ([#5307](https://github.com/ajaxorg/ace/issues/5307)) ([24862cd](https://github.com/ajaxorg/ace/commit/24862cdc83694bbe541c6f8be6fbaaff80d44bf7))
+
+### [1.24.2](https://github.com/ajaxorg/ace/compare/v1.24.1...v1.24.2) (2023-09-08)
+
+
+### Bug Fixes
+
+* Added project details in index.html file ([#5300](https://github.com/ajaxorg/ace/issues/5300)) ([6e83505](https://github.com/ajaxorg/ace/commit/6e835059dd13e95178b15ce9b06a2f2444c2e731))
+* autocompletion threshold doesn't apply to trigger characters ([84bbc88](https://github.com/ajaxorg/ace/commit/84bbc888e1c0304c0160bb19fc46cf5539d079cf))
+* Update php_highlight_rules.js ([#5288](https://github.com/ajaxorg/ace/issues/5288)) ([caedd0c](https://github.com/ajaxorg/ace/commit/caedd0cf22d5a7644ceb418562ebcab801011c88))
+
+### [1.24.1](https://github.com/ajaxorg/ace/compare/v1.24.0...v1.24.1) (2023-08-15)
+
+## [1.24.0](https://github.com/ajaxorg/ace/compare/v1.23.4...v1.24.0) (2023-08-09)
+
+
+### Features
+
+* Add support for Unicode boundaries ([#5265](https://github.com/ajaxorg/ace/issues/5265)) ([1e6fcf3](https://github.com/ajaxorg/ace/commit/1e6fcf349d222715429ddc9fe6a38ec1f6d72ab1))
+* Allow more lines in hidden textarea to improve screen reader experience on Windows ([#5225](https://github.com/ajaxorg/ace/issues/5225)) ([bccff5a](https://github.com/ajaxorg/ace/commit/bccff5ae21b86004c2a4ab4a86a989c61e728ebf))
+* Cuttlefish mode ([#5278](https://github.com/ajaxorg/ace/issues/5278)) ([9cddf64](https://github.com/ajaxorg/ace/commit/9cddf64ac51fc5e7c5474e7aeaa2ef8f069220db))
+
+
+### Bug Fixes
+
+* add missing SQL keywords: IS and IN ([#5263](https://github.com/ajaxorg/ace/issues/5263)) ([c731164](https://github.com/ajaxorg/ace/commit/c731164315a757a5e0380f82eeef105a17b24b03))
+* bug in lua.lua example file kitchen-sink ([#5258](https://github.com/ajaxorg/ace/issues/5258)) ([6549570](https://github.com/ajaxorg/ace/commit/6549570310983999a1fd3ce52bc5bf8b4004402f))
+* support more environments ([#5266](https://github.com/ajaxorg/ace/issues/5266)) ([b196806](https://github.com/ajaxorg/ace/commit/b196806eb2937e7ee56e42b482b7b3bd5e3c9d79))
+
+### [1.23.4](https://github.com/ajaxorg/ace/compare/v1.23.3...v1.23.4) (2023-07-12)
+
+
+### Bug Fixes
+
+* filterText triggered selection range removal when completions range was present ([#5249](https://github.com/ajaxorg/ace/issues/5249)) ([b586e4d](https://github.com/ajaxorg/ace/commit/b586e4d574bf780fc38f1ac0d034276272b36ad3))
+
+### [1.23.3](https://github.com/ajaxorg/ace/compare/v1.23.2...v1.23.3) (2023-07-10)
+
+
+### Bug Fixes
+
+* android bug when deleting multiple lines ([#5248](https://github.com/ajaxorg/ace/issues/5248)) ([bd066ff](https://github.com/ajaxorg/ace/commit/bd066ffef88ca74f5ac32349d3e868cfa875a47b)), closes [#5087](https://github.com/ajaxorg/ace/issues/5087)
+* update jshint version to 2.13.6; change esversion to target ECMAScript 11 ([#5243](https://github.com/ajaxorg/ace/issues/5243)) ([301aee9](https://github.com/ajaxorg/ace/commit/301aee91b5974d9fb31d646466ed301c5c3b8249))
+
+### [1.23.2](https://github.com/ajaxorg/ace/compare/v1.23.1...v1.23.2) (2023-07-07)
+
+
+### Bug Fixes
+
+* **autocomplete:** fix a11y violations ([#5241](https://github.com/ajaxorg/ace/issues/5241)) ([decb615](https://github.com/ajaxorg/ace/commit/decb6154198105289170303b7434c524eaf9fda8))
+* bug in guttertooltip when `tooltipsFollowsMouse` set to false ([#5217](https://github.com/ajaxorg/ace/issues/5217)) ([67d318e](https://github.com/ajaxorg/ace/commit/67d318ed25d5b45789462850e6b96aac2931591f))
+* typo in function name ([#5229](https://github.com/ajaxorg/ace/issues/5229)) ([6e99055](https://github.com/ajaxorg/ace/commit/6e99055c46f443271161e40fe15372d1d8ae9f42))
+
+### [1.23.1](https://github.com/ajaxorg/ace/compare/v1.23.0...v1.23.1) (2023-06-27)
+
+## [1.23.0](https://github.com/ajaxorg/ace/compare/v1.22.1...v1.23.0) (2023-06-21)
+
+
+### Features
+
+* **autocomplete:** ellipsis is shown when suggestions is longer than popover width ([#5204](https://github.com/ajaxorg/ace/issues/5204)) ([de4234b](https://github.com/ajaxorg/ace/commit/de4234be62be264b78bd4dd19b09cf20fb4d0f28))
+* signal gutterkeydown in keyboard accessibility mode ([#5202](https://github.com/ajaxorg/ace/issues/5202)) ([538b18c](https://github.com/ajaxorg/ace/commit/538b18cf86e21c810910d286c820bac399927cd7))
+
+
+### Bug Fixes
+
+* Fix vite build and webpack warning ([#5192](https://github.com/ajaxorg/ace/issues/5192)) ([e14902e](https://github.com/ajaxorg/ace/commit/e14902e0c2b281346d062d6a5c84d05bd3590fe3))
+* gutter tooltip class fix ([#5211](https://github.com/ajaxorg/ace/issues/5211)) ([5bdb944](https://github.com/ajaxorg/ace/commit/5bdb944714e7787632914aeef521e3e5024a1d1f))
+* Improve ARIA labelling fold controls ([#5205](https://github.com/ajaxorg/ace/issues/5205)) ([dad5e6f](https://github.com/ajaxorg/ace/commit/dad5e6f6e445b805f7b470ef7892442a83d342e5))
+* regression in setting breakpoints on folded lines ([51326eb](https://github.com/ajaxorg/ace/commit/51326ebfe9b3e97925ab1be05246e0f2646c8687))
+
+### [1.22.1](https://github.com/ajaxorg/ace/compare/v1.22.0...v1.22.1) (2023-06-11)
+
+
+### Bug Fixes
+
+* don't throw unhandled errors in TabstopManager when EditSession becomes `undefined` ([#5193](https://github.com/ajaxorg/ace/issues/5193)) ([cd55932](https://github.com/ajaxorg/ace/commit/cd55932ac7161fcd45e2ee4f1ea8e22b5ff8c3c4))
+* include ace-modes to the npm package ([a074fa4](https://github.com/ajaxorg/ace/commit/a074fa41334314169075b66cd77dd2d9a191c73f))
+* jsdoc comment foldings ([#5197](https://github.com/ajaxorg/ace/issues/5197)) ([065af41](https://github.com/ajaxorg/ace/commit/065af4175f7c7426c9e8f798a0ec64c390a03259))
+
+## [1.22.0](https://github.com/ajaxorg/ace/compare/v1.21.1...v1.22.0) (2023-05-22)
+
+
+### Features
+
+* add odin mode ([#5169](https://github.com/ajaxorg/ace/issues/5169)) ([d455e9b](https://github.com/ajaxorg/ace/commit/d455e9b16efb6030a8b0b6c1189b72516b205b40))
+
+### [1.21.1](https://github.com/ajaxorg/ace/compare/v1.21.0...v1.21.1) (2023-05-16)
+
+
+### Bug Fixes
+
+* console error when hovering over empty gutter cell with tooltipFollowsMouse set to false ([#5173](https://github.com/ajaxorg/ace/issues/5173)) ([5ff8d4c](https://github.com/ajaxorg/ace/commit/5ff8d4cc064ac647a2f40bf977f88b2972ae17ef))
+
+## [1.21.0](https://github.com/ajaxorg/ace/compare/v1.20.0...v1.21.0) (2023-05-15)
+
+
+### Features
+
+* Custom empty message when no completion found ([#5158](https://github.com/ajaxorg/ace/issues/5158)) ([204aafa](https://github.com/ajaxorg/ace/commit/204aafa04c268e98655fb83b4877302a0f82fa4d))
+* Special trigger characters to start autocomplete ([#5147](https://github.com/ajaxorg/ace/issues/5147)) ([c2cfc5a](https://github.com/ajaxorg/ace/commit/c2cfc5a9f1448f64e62f7652c995a48c4ea31ab3))
+
+
+### Bug Fixes
+
+* command bar command type ([#5168](https://github.com/ajaxorg/ace/issues/5168)) ([64c8253](https://github.com/ajaxorg/ace/commit/64c8253e3cd4348b7ecd3684dae057c8fd5f79b9))
+
 ## [1.20.0](https://github.com/ajaxorg/ace/compare/v1.19.0...v1.20.0) (2023-05-10)
 
 

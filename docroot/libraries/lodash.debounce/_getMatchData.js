@@ -1,5 +1,5 @@
-import isStrictComparable from './_isStrictComparable.js';
-import keys from './keys.js';
+var isStrictComparable = require('./_isStrictComparable'),
+    keys = require('./keys');
 
 /**
  * Gets the property names, values, and compare flags of `object`.
@@ -21,4 +21,4 @@ function getMatchData(object) {
   return result;
 }
 
-export default getMatchData;
+module.exports = getMatchData;

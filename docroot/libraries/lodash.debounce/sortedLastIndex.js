@@ -1,4 +1,4 @@
-import baseSortedIndex from './_baseSortedIndex.js';
+var baseSortedIndex = require('./_baseSortedIndex');
 
 /**
  * This method is like `_.sortedIndex` except that it returns the highest
@@ -22,4 +22,4 @@ function sortedLastIndex(array, value) {
   return baseSortedIndex(array, value, true);
 }
 
-export default sortedLastIndex;
+module.exports = sortedLastIndex;

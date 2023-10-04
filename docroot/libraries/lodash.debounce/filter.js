@@ -1,7 +1,7 @@
-import arrayFilter from './_arrayFilter.js';
-import baseFilter from './_baseFilter.js';
-import baseIteratee from './_baseIteratee.js';
-import isArray from './isArray.js';
+var arrayFilter = require('./_arrayFilter'),
+    baseFilter = require('./_baseFilter'),
+    baseIteratee = require('./_baseIteratee'),
+    isArray = require('./isArray');
 
 /**
  * Iterates over elements of `collection`, returning an array of all elements
@@ -49,4 +49,4 @@ function filter(collection, predicate) {
   return func(collection, baseIteratee(predicate, 3));
 }
 
-export default filter;
+module.exports = filter;

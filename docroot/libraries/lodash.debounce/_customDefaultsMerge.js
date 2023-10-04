@@ -1,5 +1,5 @@
-import baseMerge from './_baseMerge.js';
-import isObject from './isObject.js';
+var baseMerge = require('./_baseMerge'),
+    isObject = require('./isObject');
 
 /**
  * Used by `_.defaultsDeep` to customize its `_.merge` use to merge source
@@ -25,4 +25,4 @@ function customDefaultsMerge(objValue, srcValue, key, object, source, stack) {
   return objValue;
 }
 
-export default customDefaultsMerge;
+module.exports = customDefaultsMerge;

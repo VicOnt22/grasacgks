@@ -1,7 +1,7 @@
-import apply from './_apply.js';
-import baseRest from './_baseRest.js';
-import customDefaultsMerge from './_customDefaultsMerge.js';
-import mergeWith from './mergeWith.js';
+var apply = require('./_apply'),
+    baseRest = require('./_baseRest'),
+    customDefaultsMerge = require('./_customDefaultsMerge'),
+    mergeWith = require('./mergeWith');
 
 /**
  * This method is like `_.defaults` except that it recursively assigns
@@ -27,4 +27,4 @@ var defaultsDeep = baseRest(function(args) {
   return apply(mergeWith, undefined, args);
 });
 
-export default defaultsDeep;
+module.exports = defaultsDeep;

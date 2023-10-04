@@ -23,4 +23,4 @@ function initCloneArray(array) {
   return result;
 }
 
-export default initCloneArray;
+module.exports = initCloneArray;

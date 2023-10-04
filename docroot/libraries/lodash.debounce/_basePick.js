@@ -1,5 +1,5 @@
-import basePickBy from './_basePickBy.js';
-import hasIn from './hasIn.js';
+var basePickBy = require('./_basePickBy'),
+    hasIn = require('./hasIn');
 
 /**
  * The base implementation of `_.pick` without support for individual
@@ -16,4 +16,4 @@ function basePick(object, paths) {
   });
 }
 
-export default basePick;
+module.exports = basePick;

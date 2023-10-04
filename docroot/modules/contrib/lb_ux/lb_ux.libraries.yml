@@ -6,7 +6,9 @@ drupal.lb_ux:
   js:
     js/lb_ux.js: {}
   dependencies:
+    - core/drupal
     - core/jquery
+    - core/once
 
 drupal.lb_ux_message:
   version: VERSION

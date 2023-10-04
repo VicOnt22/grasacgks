@@ -9,15 +9,17 @@
  * Implements hook_library_info_alter().
  */
 function zooming_library_info_alter(&$libraries, $extension) {
-  if ($extension === 'zooming' && $library_path = zooming_libraries_get_path('zooming')) {
-    $libraries['zooming']['js'] = ['/' . $library_path . '/build/zooming.min.js' => []];
+  // Supports other location such as distros, etc.
+  if ($extension === 'zooming'
+    && $path = blazy()->getLibrariesPath('zooming')) {
+    $libraries['zooming']['js'] = ['/' . $path . '/build/zooming.min.js' => []];
   }
 }
 
 /**
  * Implements hook_blazy_attach_alter().
  */
-function zooming_blazy_attach_alter(array &$load, $attach = []) {
+function zooming_blazy_attach_alter(array &$load, array $attach = []) {
   if (!empty($attach['zooming'])) {
     $load['library'][] = 'zooming/load';
   }
@@ -33,29 +35,37 @@ function zooming_blazy_lightboxes_alter(array &$lightboxes) {
 /**
  * Overrides variables for theme_blazy().
  */
-function zooming_preprocess_blazy(&$variables) {
-  $settings = &$variables['settings'];
+function zooming_preprocess_blazy(array &$variables) {
+  $settings  = &$variables['settings'];
+  $blazies   = $settings['blazies'];
+  $switch    = $settings['media_switch'] ?? '';
+  $type      = $blazies->get('media.type');
+  $box_url   = $blazies->get('lightbox.url');
+  $embed_url = $blazies->get('media.embed_url');
+  $is_video  = $type == 'video';
+  $is_video  = $blazies->is('remote_video') ?: $is_video;
+  $url       = $variables['url'] ?? NULL;
+  $url       = $url ?: $box_url;
 
   // Zooming is registered as lightbox, but we'll make it a hybrid of media
   // and lightbox switcher in order to support video which is inline by nature
   // of Zooming. This also fixes erratic behavior with clicked-through links.
-  if (!empty($settings['media_switch']) && $settings['media_switch'] == 'zooming' && !empty($variables['url'])) {
-    if (!empty($settings['embed_url'])) {
-      $settings['player'] = TRUE;
+  if ($switch == 'zooming' && $url) {
+    // Removes regular lightbox icon, except for inline remote video.
+    if (!$embed_url || $blazies->is('lightbox')) {
+      $variables['icon'] = '';
     }
-
-    $url = $variables['url'];
 
     // Copy lightbox URL attributes into the main attributes as we drop it.
     $url_attributes = $variables['url_attributes'];
     $variables['attributes']['data-media'] = $url_attributes['data-media'];
 
-    // Disable lightbox for the hybrid of media and quasi-lightbox.
-    $variables['url'] = $variables['settings']['icon'] = '';
+    // Disable lightbox (A tag) for the hybrid of media and quasi-lightbox.
+    $variables['url'] = '';
 
     // Support video thumbnail for the lightbox.
-    if (!empty($settings['type']) && $settings['type'] == 'video' && !empty($settings['box_url'])) {
-      $url = $settings['box_url'];
+    if ($is_video && $box_url) {
+      $url = $box_url;
     }
 
     // Provides the expected attributes for JS.
@@ -68,20 +78,22 @@ function zooming_preprocess_blazy(&$variables) {
 }
 
 /**
- * Provides a wrapper to replace deprecated libraries_get_path() at ease.
- *
- * @todo remove and replace with blazy_libraries_get_path() post blazy:8.x-2.0.
+ * Implements hook_blazy_item_alter().
  */
-function zooming_libraries_get_path($name, $base_path = FALSE) {
-  if (function_exists('blazy_libraries_get_path')) {
-    return blazy_libraries_get_path($name, $base_path);
-  }
-  if (\Drupal::hasService('library.libraries_directory_file_finder')) {
-    return \Drupal::service('library.libraries_directory_file_finder')->find($name);
-  }
+function zooming_blazy_item_alter(array &$settings, array &$attributes, array &$item_attributes) {
+  $blazies = $settings['blazies'];
 
-  $function = 'libraries_get_path';
-  return is_callable($function) ? $function($name, $base_path) : FALSE;
+  // Zooming is registered as lightbox, but we'll make it a hybrid of media
+  // and lightbox switcher in order to support video which is inline by nature
+  // of Zooming. This also fixes erratic behavior with clicked-through links.
+  $is_video = $blazies->get('media.embed_url');
+  $is_local = $blazies->is('local_media');
+  if ($blazies->get('zooming') && ($is_video || $is_local)) {
+    $blazies->set('switch', 'media')
+      ->set('is.player', $is_video)
+      ->set('is.lightbox', FALSE)
+      ->set('use.player', $is_video);
+  }
 }
 
 /**
@@ -90,8 +102,7 @@ function zooming_libraries_get_path($name, $base_path = FALSE) {
 function zooming_help($route_name) {
   if ($route_name == 'help.page.zooming') {
     $output = file_get_contents(dirname(__FILE__) . '/README.md');
-    // @todo remove check once Blazy has stable release.
-    return function_exists('blazy_parse_markdown') ? blazy_parse_markdown($output) : '<pre>' . $output . '</pre>';
+    return blazy()->markdown($output);
   }
   return '';
 }

@@ -2,9 +2,9 @@
 
 namespace Drupal\tour_ui\Form;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -83,7 +83,10 @@ class TourTipDeleteForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function getQuestion() {
-    return $this->t('Are you sure you want to delete the %tour tour %tip tip?', ['%tour' => $this->entity->label(), '%tip' => $this->tip->get('label')]);
+    return $this->t('Are you sure you want to delete the %tour tour %tip tip?', [
+      '%tour' => $this->entity->label(),
+      '%tip' => $this->tip->get('label'),
+    ]);
   }
 
   /**
@@ -121,7 +124,10 @@ class TourTipDeleteForm extends ConfirmFormBase {
     $this->entity->save();
 
     $form_state->setRedirect('entity.tour.edit_form', ['tour' => $this->entity->id()]);
-    $this->messenger->addMessage($this->t('Deleted the %tour tour %tip tip.', ['%tour' => $this->entity->label(), '%tip' => $this->tip->get('label')]));
+    $this->messenger->addMessage($this->t('Deleted the %tour tour %tip tip.', [
+      '%tour' => $this->entity->label(),
+      '%tip' => $this->tip->get('label'),
+    ]));
   }
 
 }

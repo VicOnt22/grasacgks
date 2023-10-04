@@ -14,10 +14,10 @@ use Drupal\redirect\Exception\RedirectLoopException;
 use Drupal\redirect\PathProcessor\RedirectPathProcessorManagerInterface;
 use Drupal\redirect\RedirectChecker;
 use Drupal\redirect\RedirectRepository;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RequestContext;
 
 /**
@@ -128,6 +128,9 @@ class RedirectRequestSubscriber implements EventSubscriberInterface {
 
     // Get the possible paths for the current request.
     $paths = $this->redirectPathProcessor->getRedirectRequestPaths($request);
+    if (empty($paths)) {
+      return;
+    }
 
     // Store current request context.
     $this->context->fromRequest($request);
@@ -193,7 +196,7 @@ class RedirectRequestSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     // This needs to run before RouterListener::onKernelRequest(), which has
     // a priority of 32. Otherwise, that aborts the request if no matching
     // route is found.

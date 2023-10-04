@@ -1,5 +1,5 @@
-import root from './_root.js';
-import toString from './toString.js';
+var root = require('./_root'),
+    toString = require('./toString');
 
 /** Used to match leading whitespace. */
 var reTrimStart = /^\s+/;
@@ -40,4 +40,4 @@ function parseInt(string, radix, guard) {
   return nativeParseInt(toString(string).replace(reTrimStart, ''), radix || 0);
 }
 
-export default parseInt;
+module.exports = parseInt;

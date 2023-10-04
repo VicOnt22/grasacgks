@@ -5,7 +5,7 @@ package: User interface
 core_version_requirement: ^9.2 || ^10
 configure: entity.responsive_preview_device.collection
 
-# Information added by Drupal.org packaging script on 2023-02-09
-version: '2.1.0'
+# Information added by Drupal.org packaging script on 2023-06-26
+version: '2.1.1'
 project: 'responsive_preview'
-datestamp: 1675949082
+datestamp: 1687782150

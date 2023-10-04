@@ -1,4 +1,4 @@
-import isArrayLike from './isArrayLike.js';
+var isArrayLike = require('./isArrayLike');
 
 /**
  * Creates a `baseEach` or `baseEachRight` function.
@@ -29,4 +29,4 @@ function createBaseEach(eachFunc, fromRight) {
   };
 }
 
-export default createBaseEach;
+module.exports = createBaseEach;

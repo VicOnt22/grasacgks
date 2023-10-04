@@ -1,9 +1,9 @@
-import LodashWrapper from './_LodashWrapper.js';
-import flatRest from './_flatRest.js';
-import getData from './_getData.js';
-import getFuncName from './_getFuncName.js';
-import isArray from './isArray.js';
-import isLaziable from './_isLaziable.js';
+var LodashWrapper = require('./_LodashWrapper'),
+    flatRest = require('./_flatRest'),
+    getData = require('./_getData'),
+    getFuncName = require('./_getFuncName'),
+    isArray = require('./isArray'),
+    isLaziable = require('./_isLaziable');
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -75,4 +75,4 @@ function createFlow(fromRight) {
   });
 }
 
-export default createFlow;
+module.exports = createFlow;

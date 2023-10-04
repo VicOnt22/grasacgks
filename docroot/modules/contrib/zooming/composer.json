@@ -1,0 +1,27 @@
+{
+  "name": "drupal/zooming",
+  "description": "Zooming, Image zoom that makes sense.",
+  "keywords": ["zooming", "inline lightbox", "zoom", "Drupal"],
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://drupal.org/project/zooming",
+  "authors": [
+      {
+          "name": "Gaus Surahman",
+          "homepage": "https://www.drupal.org/user/159062",
+          "role": "Maintainer"
+      },
+      {
+          "name": "Contributors",
+          "homepage": "https://www.drupal.org/node/3031940/committers",
+          "role": "Contributor"
+      }
+  ],
+  "support": {
+    "issues": "https://drupal.org/project/issues/zooming",
+    "source": "https://git.drupalcode.org/zooming"
+  },
+  "require": {
+    "drupal/blazy": "^2.17"
+  }
+}

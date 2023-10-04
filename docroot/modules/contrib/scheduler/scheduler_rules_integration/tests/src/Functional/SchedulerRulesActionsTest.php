@@ -21,6 +21,20 @@ class SchedulerRulesActionsTest extends SchedulerBrowserTestBase {
   protected static $modules = ['scheduler_rules_integration'];
 
   /**
+   * The rules_reaction_rule entity object.
+   *
+   * @var \Drupal\rules\Entity\ReactionRuleConfig
+   */
+  protected $rulesStorage;
+
+  /**
+   * The rules expression plugin manager.
+   *
+   * @var \Drupal\rules\Engine\ExpressionManagerInterface
+   */
+  protected $expressionManager;
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
@@ -28,6 +42,7 @@ class SchedulerRulesActionsTest extends SchedulerBrowserTestBase {
 
     $this->rulesStorage = $this->container->get('entity_type.manager')->getStorage('rules_reaction_rule');
     $this->expressionManager = $this->container->get('plugin.manager.rules_expression');
+    // Login as adminUser so that we can also test the non-enabled node types.
     $this->drupalLogin($this->adminUser);
 
   }

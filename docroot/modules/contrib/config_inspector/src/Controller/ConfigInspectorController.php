@@ -15,7 +15,6 @@ use Drupal\Core\StringTranslation\TranslationManager;
 use Drupal\Core\TypedData\TypedDataInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Constraint;
 
 /**
  * Defines a controller for the config_inspector module.
@@ -366,6 +365,12 @@ class ConfigInspectorController extends ControllerBase {
     foreach ($schema as $key => $element) {
       $definition = $element->getDataDefinition();
 
+      $property_path = $element->getPropertyPath();
+      // @todo Remove once <= 10.0.x support is dropped.
+      if (version_compare(\Drupal::VERSION, '10.1.0', 'lt')) {
+        $property_path = $key;
+      }
+
       $rows[] = [
         'class' => isset($errors[$config_name . ':' . $key]) ? ['config-inspector-error'] : [],
         'data' => [
@@ -373,7 +378,7 @@ class ConfigInspectorController extends ControllerBase {
           $key,
           $definition['label'],
           $definition['type'],
-          $raw_validatability->getValidatabilityPerPropertyPath()[$key]
+          $raw_validatability->getValidatabilityPerPropertyPath()[$property_path]
             ? $this->t('Yes')
             : $this->t('No'),
           $this->formatValue($element),
@@ -418,6 +423,8 @@ class ConfigInspectorController extends ControllerBase {
    *
    * @return array
    *   The tree in the form of a render array.
+   *
+   * @todo Remove $base_key argument once <=10.0.x support is dropped.
    */
   public function formatTree($schema, ConfigSchemaValidatability $validatability, $collapsed = FALSE, $base_key = '') {
     $build = [];
@@ -425,8 +432,13 @@ class ConfigInspectorController extends ControllerBase {
       $definition = $element->getDataDefinition();
       $label = $definition['label'] ?: $this->t('N/A');
       $type = $definition['type'];
-      $element_key = $base_key . $key;
-      $is_validatable = $validatability->getValidatabilityPerPropertyPath()[$base_key . $key]
+      $property_path = $element->getPropertyPath();
+      $element_key = str_replace($element->getRoot()->getName() . '.', '', $property_path);
+      // @todo Remove once <= 10.0.x support is dropped.
+      if (version_compare(\Drupal::VERSION, '10.1.0', 'lt')) {
+        $property_path = $element_key = $base_key . $key;
+      }
+      $is_validatable = $validatability->getValidatabilityPerPropertyPath()[$property_path]
         ? $this->t('validatable')
         : '<s>' . $this->t('validatable') . '</s>';
       if ($element instanceof ArrayElement) {
@@ -450,10 +462,18 @@ class ConfigInspectorController extends ControllerBase {
       // For validatable properties, expand the description to show the
       // validation constraints.
       if ($is_validatable) {
-        $constraints = array_map(
-          fn (Constraint $constraint) => get_class($constraint),
-          $validatability->getConstraints($base_key . $key)
+        $all_constraints = $validatability->getConstraints($property_path);
+        $local_constraints = array_map(
+          fn (string $constraint_name, $constraints_options) => ['#markup' => sprintf("<code>%s</code>", trim(Yaml::encode([$constraint_name => $constraints_options])))],
+          array_keys($all_constraints['local']),
+          array_values($all_constraints['local'])
         );
+        $inherited_constraints = array_map(
+          fn (string $constraint_name, $constraints_options) => ['#markup' => sprintf('<span class="inherited"><code>%s</code> <small>→ %s</small></span>', trim(Yaml::encode([$constraint_name => $constraints_options])), $this->t('inherited'))],
+          array_keys($all_constraints['inherited']),
+          array_values($all_constraints['inherited'])
+        );
+        $constraints = array_merge($local_constraints, $inherited_constraints);
         $build[$key]['#description'] = [
           '#prefix' => $build[$key]['#description'],
           '#theme' => 'item_list',

@@ -1,5 +1,5 @@
-import castFunction from './_castFunction.js';
-import partial from './partial.js';
+var castFunction = require('./_castFunction'),
+    partial = require('./partial');
 
 /**
  * Creates a function that provides `value` to `wrapper` as its first
@@ -27,4 +27,4 @@ function wrap(value, wrapper) {
   return partial(castFunction(wrapper), value);
 }
 
-export default wrap;
+module.exports = wrap;

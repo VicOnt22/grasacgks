@@ -1,5 +1,5 @@
-import baseSetData from './_baseSetData.js';
-import shortOut from './_shortOut.js';
+var baseSetData = require('./_baseSetData'),
+    shortOut = require('./_shortOut');
 
 /**
  * Sets metadata for `func`.
@@ -17,4 +17,4 @@ import shortOut from './_shortOut.js';
  */
 var setData = shortOut(baseSetData);
 
-export default setData;
+module.exports = setData;

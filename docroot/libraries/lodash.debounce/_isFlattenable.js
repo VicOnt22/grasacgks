@@ -1,6 +1,6 @@
-import Symbol from './_Symbol.js';
-import isArguments from './isArguments.js';
-import isArray from './isArray.js';
+var Symbol = require('./_Symbol'),
+    isArguments = require('./isArguments'),
+    isArray = require('./isArray');
 
 /** Built-in value references. */
 var spreadableSymbol = Symbol ? Symbol.isConcatSpreadable : undefined;
@@ -17,4 +17,4 @@ function isFlattenable(value) {
     !!(spreadableSymbol && value && value[spreadableSymbol]);
 }
 
-export default isFlattenable;
+module.exports = isFlattenable;

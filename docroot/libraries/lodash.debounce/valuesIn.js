@@ -1,5 +1,5 @@
-import baseValues from './_baseValues.js';
-import keysIn from './keysIn.js';
+var baseValues = require('./_baseValues'),
+    keysIn = require('./keysIn');
 
 /**
  * Creates an array of the own and inherited enumerable string keyed property
@@ -29,4 +29,4 @@ function valuesIn(object) {
   return object == null ? [] : baseValues(object, keysIn(object));
 }
 
-export default valuesIn;
+module.exports = valuesIn;

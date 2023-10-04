@@ -2,9 +2,9 @@
 
 namespace Drupal\tour_ui\Plugin\tour_ui\tip;
 
+use Drupal\Component\Utility\Xss;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\tour\Plugin\tour\tip\TipPluginText;
-use Drupal\Component\Utility\Xss;
 
 /**
  * This plugin override Tour\tip\TipPluginText to add UI methods.
@@ -25,8 +25,7 @@ class TipPluginTextExtended extends TipPluginText {
   /**
    * {@inheritdoc}
    *
-   * TODO: Remove this method when
-   * https://www.drupal.org/node/2851166#comment-11925707 will be commited.
+   * @todo Remove this method when https://www.drupal.org/node/2851166#comment-11925707 will be commited.
    */
   public function getConfiguration() {
     $names = [

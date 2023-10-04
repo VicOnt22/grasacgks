@@ -41,4 +41,4 @@ function unicodeSize(string) {
   return result;
 }
 
-export default unicodeSize;
+module.exports = unicodeSize;

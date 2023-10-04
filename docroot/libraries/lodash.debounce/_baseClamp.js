@@ -19,4 +19,4 @@ function baseClamp(number, lower, upper) {
   return number;
 }
 
-export default baseClamp;
+module.exports = baseClamp;

@@ -4,14 +4,14 @@ namespace Drupal\tour_ui\Form;
 
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormState;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Url;
 use Drupal\tour\TipPluginManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Url;
 
 /**
  * Form controller for the tour entity edit forms.
@@ -93,8 +93,6 @@ class TourForm extends EntityForm {
       '#type' => 'machine_name',
       '#machine_name' => [
         'exists' => '\Drupal\tour\Entity\Tour::load',
-        'replace_pattern' => '[^a-z0-9-]+',
-        'replace' => '-',
       ],
       '#default_value' => $tour->id(),
       '#disabled' => !$tour->isNew(),
@@ -114,6 +112,12 @@ class TourForm extends EntityForm {
       '#required' => TRUE,
       '#autocomplete_route_name' => 'tour_ui.get_modules',
       '#default_value' => $tour->get('module'),
+    ];
+
+    $form['status'] = [
+      '#type' => 'checkbox',
+      '#title' => 'Enabled',
+      "#default_value" => $tour->get('status'),
     ];
 
     $default_routes = [];
@@ -156,7 +160,7 @@ class TourForm extends EntityForm {
         $this->t('Weight'),
         $this->t('Operations'),
       ],
-      '#caption' => [['#markup' => $this->t('Tips provided by this tour. By clicking on Operations buttons, every changes which are not saved will be lost.')]],
+      '#caption' => [['#markup' => $this->t('Tips provided by this tour. By clicking on the operations buttons, every change that has not been saved will be lost.')]],
       '#tabledrag' => [
         [
           'action' => 'order',
@@ -199,12 +203,18 @@ class TourForm extends EntityForm {
         if (method_exists($tip, 'buildConfigurationForm')) {
           $links['edit'] = [
             'title' => $this->t('Edit'),
-            'url' => Url::fromRoute('tour_ui.tip.edit', ['tour' => $tour->id(), 'tip' => $tip_id]),
+            'url' => Url::fromRoute('tour_ui.tip.edit', [
+              'tour' => $tour->id(),
+              'tip' => $tip_id,
+            ]),
           ];
         }
         $links['delete'] = [
           'title' => $this->t('Delete'),
-          'url' => Url::fromRoute('tour_ui.tip.delete', ['tour' => $tour->id(), 'tip' => $tip_id]),
+          'url' => Url::fromRoute('tour_ui.tip.delete', [
+            'tour' => $tour->id(),
+            'tip' => $tip_id,
+          ]),
         ];
         $form['tips'][$tip_id]['operations'] = [
           '#type' => 'operations',
@@ -225,7 +235,7 @@ class TourForm extends EntityForm {
     $user_input = $form_state->getUserInput();
     $form['tips']['new'] = [
       '#tree' => FALSE,
-      '#weight' => isset($user_input['weight']) ? $user_input['weight'] : 0,
+      '#weight' => $user_input['weight'] ?? 0,
       '#attributes' => [
         'class' => ['draggable'],
       ],
@@ -289,7 +299,10 @@ class TourForm extends EntityForm {
     $stub_form = $stub->buildConfigurationForm([], new FormState());
     if (isset($stub_form)) {
       // Redirect to the appropriate page to add this new tip.
-      $form_state->setRedirect('tour_ui.tip.add', ['tour' => $tour->id(), 'type' => $form_state->getValue('new')], ['query' => ['weight' => $weight]]);
+      $form_state->setRedirect('tour_ui.tip.add', [
+        'tour' => $tour->id(),
+        'type' => $form_state->getValue('new'),
+      ], ['query' => ['weight' => $weight]]);
     }
 
   }
@@ -298,9 +311,8 @@ class TourForm extends EntityForm {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state, $redirect = TRUE) {
-    // TODO: validate the routes
-    $routes = $this->routesFromArray($form_state->getValue('routes'));
-
+    // @todo Validate the routes.
+    // $routes = $this->routesFromArray($form_state->getValue('routes'));
     // Form cannot be validated if a tip has no #data, so no way to export
     // configuration.
     if (!$form_state->isValueEmpty('tips')) {
@@ -317,35 +329,38 @@ class TourForm extends EntityForm {
    *
    * - route_name
    * - route_params
-   *   - key:value
+   *   - key:value.
    *
    * @param string $routes_in
+   *   Incoming routes.
    *
    * @return array
+   *   Matching routes.
    */
-  protected function routesFromArray($routes_in) {
-    // Normalize the new lines
+  protected function routesFromArray(string $routes_in) {
+    // Normalize the new lines.
     $routes_in = preg_replace("/(\r\n?|\n)/", "\n", $routes_in);
     $routes_in = explode("\n", $routes_in);
-    // trim each line
+    // Trim each line.
     $routes_in = array_map('trim', $routes_in);
 
     $routes = [];
-    $route = null;
-    foreach($routes_in as $line) {
+    $route = NULL;
+    foreach ($routes_in as $line) {
       if (empty($line)) {
         continue;
       }
-      if (strpos($line, '-')!== 0) {
+      if (strpos($line, '-') !== 0) {
         $routes[] = [];
-        $route = &$routes[count($routes)-1];
+        $route = &$routes[count($routes) - 1];
         $route['route_name'] = $line;
-      } else {
+      }
+      else {
         if (count($routes) === 0) {
-          // abort when having a route_params without a route_name
+          // Abort when having a route_params without a route_name.
           break;
         }
-        list($key, $value) = explode(':', $line, 2);
+        [$key, $value] = explode(':', $line, 2);
         $key = trim(substr($key, 1));
         $value = trim($value);
         $route['route_params'][$key] = $value;
@@ -363,6 +378,8 @@ class TourForm extends EntityForm {
 
     $form_state->setValue('routes', array_filter($routes));
 
+    $form_state->setValue('status', $form_state->getValue('status'));
+
     // Merge the form values in with the current configuration.
     if (!$form_state->isValueEmpty('tips')) {
       $tips = [];
@@ -376,20 +393,21 @@ class TourForm extends EntityForm {
       $form_state->setValue('tips', []);
     }
 
+    $input_values = $form_state->getUserInput();
+
+    if (!empty($input_values) && array_key_exists('new', $input_values)) {
+      $this->messenger->addMessage($this->t('The tour %tour has been updated.', ['%tour' => $form_state->getValue('label')]));
+    }
+    else {
+      $this->messenger->addMessage($this->t('The tour %tour has been created.', ['%tour' => $form_state->getValue('label')]));
+    }
+
     parent::submitForm($form, $form_state);
 
     // Redirect to Entity edition.
     if ($redirect) {
       $form_state->setRedirect('entity.tour.edit_form', ['tour' => $this->entity->id()]);
     }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function delete(array $form, FormStateInterface $form_state) {
-    $entity = $this->getEntity($form_state);
-    $form_state->setRedirect('entity.tour.delete_form', ['tour' => $entity->id()]);
   }
 
 }

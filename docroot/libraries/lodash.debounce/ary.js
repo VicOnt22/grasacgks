@@ -1,4 +1,4 @@
-import createWrap from './_createWrap.js';
+var createWrap = require('./_createWrap');
 
 /** Used to compose bitmasks for function metadata. */
 var WRAP_ARY_FLAG = 128;
@@ -26,4 +26,4 @@ function ary(func, n, guard) {
   return createWrap(func, WRAP_ARY_FLAG, undefined, undefined, undefined, undefined, n);
 }
 
-export default ary;
+module.exports = ary;

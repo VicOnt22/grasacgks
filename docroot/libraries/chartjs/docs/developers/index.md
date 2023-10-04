@@ -4,7 +4,7 @@ Developer features allow extending and enhancing Chart.js in many different ways
 
 ## Latest resources
 
-Latest documentation and samples, including unreleased features, are available at:
+The latest documentation and samples, including unreleased features, are available at:
 
 - <https://www.chartjs.org/docs/master/>
 - <https://www.chartjs.org/samples/master/>
@@ -18,7 +18,7 @@ Latest builds are available for testing at:
 
 :::warning Warning
 
-Development builds **must not** be used for production purposes or as replacement for a CDN. See [available CDNs](../getting-started/installation.html#cdn).
+Development builds **must not** be used for production purposes or as replacement for a CDN. See [available CDNs](../getting-started/installation.md#cdn).
 
 :::
 

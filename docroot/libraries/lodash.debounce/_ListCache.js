@@ -1,8 +1,8 @@
-import listCacheClear from './_listCacheClear.js';
-import listCacheDelete from './_listCacheDelete.js';
-import listCacheGet from './_listCacheGet.js';
-import listCacheHas from './_listCacheHas.js';
-import listCacheSet from './_listCacheSet.js';
+var listCacheClear = require('./_listCacheClear'),
+    listCacheDelete = require('./_listCacheDelete'),
+    listCacheGet = require('./_listCacheGet'),
+    listCacheHas = require('./_listCacheHas'),
+    listCacheSet = require('./_listCacheSet');
 
 /**
  * Creates an list cache object.
@@ -29,4 +29,4 @@ ListCache.prototype.get = listCacheGet;
 ListCache.prototype.has = listCacheHas;
 ListCache.prototype.set = listCacheSet;
 
-export default ListCache;
+module.exports = ListCache;

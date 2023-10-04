@@ -1,6 +1,6 @@
-import identity from './identity.js';
-import overRest from './_overRest.js';
-import setToString from './_setToString.js';
+var identity = require('./identity'),
+    overRest = require('./_overRest'),
+    setToString = require('./_setToString');
 
 /**
  * The base implementation of `_.rest` which doesn't validate or coerce arguments.
@@ -14,4 +14,4 @@ function baseRest(func, start) {
   return setToString(overRest(func, start, identity), func + '');
 }
 
-export default baseRest;
+module.exports = baseRest;

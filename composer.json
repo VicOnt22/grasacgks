@@ -49,7 +49,8 @@
         "webflo/drupal-finder": "~1.0",
         "drupal/scroll_top_button": "^2.0",
         "drupal/views_display_switch": "^1.1",
-        "drupal/display_field_copy": "^2.0"
+        "drupal/display_field_copy": "^2.0",
+        "drupal/views_bulk_operations": "4.2.3"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -234,12 +235,6 @@
             "drupal/og": {
                 "Default membership cannot be deleted /project/og/issues/3257557": "patches/og-membership.patch"
             },
-            "drupal/geofield_map": {
-                "issues/3325733 and missing key workaround": "patches/geofield-map.patch"
-            },
-            "drupal/lang_dropdown": {
-                "issues/3348277 Fix TypeError array_keys() Argument #1 must be of type array": "https://www.drupal.org/files/issues/2023-03-16/lang_dropdown-2-0-0--3348277-16.patch"
-            },
             "drupal/datetime_extras": {
                 "issues/3348793 D10 compatibility": "https://www.drupal.org/files/issues/2023-03-17/3348793_03_drupal10_compatibility.patch"
             },
@@ -254,6 +249,9 @@
             },
             "drupal/scroll_top_button": {
                 "issues/3327879 button text cannot be translated": "https://www.drupal.org/files/issues/2022-12-20/3327889-2.patch"
+            },
+            "drupal/varbase_media": {
+                "issues/3388011 Call to a member function getValue() on null in varbase_media_preprocess_field": "https://www.drupal.org/files/issues/2023-09-18/3388011-2.patch"
             }
         }
     },

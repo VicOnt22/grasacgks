@@ -30,10 +30,10 @@
     "composer/installers": "~2.0",
     "oomphinc/composer-installers-extender": "~2.0",
     "cweagans/composer-patches": "~1.0",
-    "drupal/core": "~9.5.0",
+    "drupal/core": "~9.5.0 || ~10.1.0",
     "vardot/entity-definition-update-manager": "~1.0",
     "vardot/module-installer-factory": "~1.0",
-    "drupal/config_update": "~1.0",
+    "drupal/config_update": "~1.0 || ~2.0",
     "drupal/config_ignore": "~3.0",
     "drupal/config_filter": "~2.0",
     "drupal/config_inspector": "~2.0",
@@ -59,7 +59,7 @@
     "drupal/entity_usage": "~2.0",
     "drupal/entityqueue": "~1.0",
     "drupal/entityqueue_form_widget": "~2.0",
-    "drupal/inline_entity_form": "2.0.0-rc2",
+    "drupal/inline_entity_form": "1.0-rc15",
     "drupal/ultimate_cron": "~2.0",
     "drupal/persistent_login": "1.6.0",
     "drupal/userprotect": "~1.0",
@@ -71,7 +71,7 @@
     "drupal/roleassign": "~2.0",
     "drupal/prevent_homepage_deletion": "~2.0",
     "drupal/admin_toolbar": "~3.4.0",
-    "drupal/tour_ui": "~1.0",
+    "drupal/tour_ui": "~2.0.0",
     "drupal/coffee": "~1.0",
     "drupal/responsive_preview": "~2.0",
     "drupal/views_bulk_operations": "~4.0",
@@ -103,7 +103,7 @@
     "drupal/antibot": "~2.0",
     "drupal/shield": "~1.0",
     "drupal/flood_control": "~2.0",
-    "drupal/captcha": "~1.0",
+    "drupal/captcha": "~1.0 || ~2.0",
     "drupal/recaptcha": "~3.0",
     "drupal/mailsystem": "~4.0",
     "drupal/length_indicator": "~1.0",
@@ -113,7 +113,7 @@
     "drupal/better_exposed_filters": "~6.0",
     "drupal/autocomplete_deluxe": "~2.0",
     "drupal/extlink": "~1.0",
-    "drupal/link_attributes": "~1.0",
+    "drupal/link_attributes": "~2.1.0",
     "drupal/entity_reference_revisions": "~1.0",
     "drupal/viewsreference": "~2.0",
     "drupal/vmi": "~2.0",
@@ -161,7 +161,9 @@
         "Issue #3272720: Fix PHP8.1 Deprecated function: hash(): Passing null to parameter #2 ($data) of type string is deprecated in generateFieldTableName":
         "https://www.drupal.org/files/issues/2022-07-21/3272720-6.patch",
         "Issue #3046152: Video media needs playsinline & muted options":
-        "https://www.drupal.org/files/issues/2022-04-11/3046152-28.patch"
+        "https://www.drupal.org/files/issues/2022-04-11/3046152-28.patch",
+        "Issue #3272629: Media Library widget display doesn't return to first page on applying filters":
+        "https://www.drupal.org/files/issues/2022-03-30/media_library_pager_fix.patch"
       },
       "drupal/default_content": {
         "Issue #3160146: Add Layout Builder Normalizer and Denormalize":
@@ -176,6 +178,8 @@
         "https://www.drupal.org/files/issues/2022-06-05/3024165-55.patch"
       },
       "drupal/inline_entity_form": {
+        "Issue #3143422: Allow to hide the Edit button in Complex widget":
+        "https://www.drupal.org/files/issues/2023-03-13/optional_edit-3143422-16.patch",
         "Issue #3136514: IEF complex widget: Re-ordering / weight sometimes not updated":
         "https://www.drupal.org/files/issues/2021-04-13/inline_entity_form-order-by-weight-inline-entities-3136514-02.patch"
       }

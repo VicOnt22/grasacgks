@@ -11,7 +11,7 @@ dependencies:
   - panels:panels
   - page_manager:page_manager
 
-# Information added by Drupal.org packaging script on 2022-08-02
-version: '3.0.3'
+# Information added by Drupal.org packaging script on 2023-06-22
+version: '3.0.4'
 project: 'total_control'
-datestamp: 1659434626
+datestamp: 1687455960

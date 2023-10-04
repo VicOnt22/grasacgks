@@ -1,4 +1,4 @@
-import baseRest from './_baseRest.js';
+var baseRest = require('./_baseRest');
 
 /**
  * A `baseRest` alias which can be replaced with `identity` by module
@@ -11,4 +11,4 @@ import baseRest from './_baseRest.js';
  */
 var castRest = baseRest;
 
-export default castRest;
+module.exports = castRest;

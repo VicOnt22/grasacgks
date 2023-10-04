@@ -1,4 +1,4 @@
-import compareAscending from './_compareAscending.js';
+var compareAscending = require('./_compareAscending');
 
 /**
  * Used by `_.orderBy` to compare multiple properties of a value to another
@@ -41,4 +41,4 @@ function compareMultiple(object, other, orders) {
   return object.index - other.index;
 }
 
-export default compareMultiple;
+module.exports = compareMultiple;

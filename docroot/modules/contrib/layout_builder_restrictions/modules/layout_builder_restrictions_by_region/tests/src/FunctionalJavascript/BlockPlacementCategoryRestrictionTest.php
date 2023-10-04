@@ -156,7 +156,7 @@ class BlockPlacementCategoryRestrictionTest extends WebDriverTestBase {
     $assert_session->linkExists('Basic Block 2');
     $assert_session->linkExists('Alternate Block 1');
     // Initially, all inline block types are allowed.
-    $this->clickLink('Create custom block');
+    $this->clickLink('Create content block');
     $assert_session->assertWaitOnAjaxRequest();
     $assert_session->linkExists('Basic');
     $assert_session->linkExists('Alternate');
@@ -192,8 +192,8 @@ class BlockPlacementCategoryRestrictionTest extends WebDriverTestBase {
 
     $this->drupalGet("$field_ui_prefix/display/default");
 
-    // Verify the UI reflects the restriction: the "first" section should not read
-    // "Unrestricted," while the second region *should* still read "Unrestricted."
+    // Verify the UI reflects the restriction: the 1st section shouldn't read
+    // "Unrestricted," while the 2nd region *should* still read "Unrestricted".
     $element = $page->find('xpath', '//*[@id="edit-layout-builder-restrictions-allowed-blocks-by-layout-layout-twocol-section"]/summary');
     $element->click();
     $assert_session->elementNotContains('xpath', '//*[@id="edit-layout-builder-restrictions-allowed-blocks-by-layout-layout-twocol-section-table"]/tbody/tr[@data-region="first"]', 'Unrestricted');
@@ -210,12 +210,12 @@ class BlockPlacementCategoryRestrictionTest extends WebDriverTestBase {
     $assert_session->linkNotExists('Basic Block 2');
     $assert_session->linkNotExists('Alternate Block 1');
     // Inline block types are still allowed.
-    $this->clickLink('Create custom block');
+    $this->clickLink('Create content block');
     $assert_session->assertWaitOnAjaxRequest();
     $assert_session->linkExists('Basic');
     $assert_session->linkExists('Alternate');
 
-    // Restrict Inline blocks categorically
+    // Restrict Inline blocks categorically.
     $this->drupalGet("$field_ui_prefix/display/default");
     $element = $page->find('xpath', '//*[@id="edit-layout-builder-restrictions-allowed-blocks-by-layout-layout-twocol-section"]/summary');
     $element->click();
@@ -224,7 +224,6 @@ class BlockPlacementCategoryRestrictionTest extends WebDriverTestBase {
     $element = $page->find('xpath', '//*[@id="edit-layout-builder-restrictions-allowed-blocks-by-layout-layout-twocol-section-table"]/tbody/tr[@data-region="first"]//a');
     $element->click();
     $assert_session->assertWaitOnAjaxRequest();
-
 
     // Impose Custom Block type restrictions.
     $assert_session->checkboxChecked('Allow all existing & new Inline blocks blocks.');
@@ -240,8 +239,8 @@ class BlockPlacementCategoryRestrictionTest extends WebDriverTestBase {
 
     $this->drupalGet("$field_ui_prefix/display/default");
 
-    // Verify the UI reflects the restriction: the "first" section should not read
-    // "Unrestricted," while the second region *should* still read "Unrestricted."
+    // Verify the UI reflects the restriction: the 1st region should not read
+    // "Unrestricted," while the 2nd region *should* still read "Unrestricted".
     $element = $page->find('xpath', '//*[@id="edit-layout-builder-restrictions-allowed-blocks-by-layout-layout-twocol-section"]/summary');
     $element->click();
     $assert_session->elementNotContains('xpath', '//*[@id="edit-layout-builder-restrictions-allowed-blocks-by-layout-layout-twocol-section-table"]/tbody/tr[@data-region="first"]', 'Unrestricted');
@@ -254,7 +253,7 @@ class BlockPlacementCategoryRestrictionTest extends WebDriverTestBase {
     $element->click();
     $assert_session->assertWaitOnAjaxRequest();
     // Inline block types are restricted.
-    $assert_session->linkNotExists('Create custom block');
+    $assert_session->linkNotExists('Create content block');
 
     // Verify configuration isn't lost with two layouts, one using all regions.
     // See #3301668

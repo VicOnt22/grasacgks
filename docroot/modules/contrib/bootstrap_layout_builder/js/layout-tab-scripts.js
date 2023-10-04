@@ -3,7 +3,7 @@
  * Behaviors Bootstrap Layout Builder general scripts.
  */
 
-(function ($, _, Drupal, drupalSettings) {
+(function ($, Drupal, once) {
   "use strict";
 
   // Configure Section.
@@ -30,12 +30,12 @@
       $('.blb_breakpoint_cols', context).each(function () {
         const numOfCols = 12;
         // .custom-control, .custom-radio to solve Bario issues.
-        $(this).find('.form-item, .custom-control, .custom-radio').once().each(function () {
-          var cols = $(this).find('input').val().replace('blb_col_', '');
+        once('custom-control-custom-radio-bario',$(this).find('.form-item, .custom-control, .custom-radio'),context).forEach(function (elem,i) {
+          var cols = $(elem).find('input').val().replace('blb_col_', '');
           var colsConfig = cols.split('_');
-          var colsLabel = $(this).find('label');
+          var colsLabel = $(elem).find('label');
           var col_classes = 'blb_breakpoint_col';
-          var checked = $(this).find('input').prop("checked");
+          var checked = $(elem).find('input').prop("checked");
           if (typeof checked !== typeof undefined && checked !== false) {
             col_classes += ' bp-selected';
           }
@@ -72,4 +72,4 @@
     }
   };
 
-})(window.jQuery, window._, window.Drupal, window.drupalSettings);
+})(jQuery, Drupal, once);

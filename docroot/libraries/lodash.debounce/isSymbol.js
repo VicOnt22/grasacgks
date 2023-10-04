@@ -1,5 +1,5 @@
-import baseGetTag from './_baseGetTag.js';
-import isObjectLike from './isObjectLike.js';
+var baseGetTag = require('./_baseGetTag'),
+    isObjectLike = require('./isObjectLike');
 
 /** `Object#toString` result references. */
 var symbolTag = '[object Symbol]';
@@ -26,4 +26,4 @@ function isSymbol(value) {
     (isObjectLike(value) && baseGetTag(value) == symbolTag);
 }
 
-export default isSymbol;
+module.exports = isSymbol;

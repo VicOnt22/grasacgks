@@ -1,5 +1,5 @@
-import baseRest from './_baseRest.js';
-import unzip from './unzip.js';
+var baseRest = require('./_baseRest'),
+    unzip = require('./unzip');
 
 /**
  * Creates an array of grouped elements, the first of which contains the
@@ -19,4 +19,4 @@ import unzip from './unzip.js';
  */
 var zip = baseRest(unzip);
 
-export default zip;
+module.exports = zip;

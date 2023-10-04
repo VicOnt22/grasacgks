@@ -1,4 +1,4 @@
-import baseEach from './_baseEach.js';
+var baseEach = require('./_baseEach');
 
 /**
  * The base implementation of `_.filter` without support for iteratee shorthands.
@@ -18,4 +18,4 @@ function baseFilter(collection, predicate) {
   return result;
 }
 
-export default baseFilter;
+module.exports = baseFilter;

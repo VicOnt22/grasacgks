@@ -3,8 +3,8 @@
 namespace Drupal\Tests\scheduler\Functional;
 
 use Drupal\commerce_product\Entity\ProductType;
-use Drupal\node\Entity\NodeType;
 use Drupal\media\Entity\MediaType;
+use Drupal\node\Entity\NodeType;
 
 /**
  * Tests the API hook functions of the Scheduler module.
@@ -26,6 +26,13 @@ class SchedulerHooksTest extends SchedulerBrowserTestBase {
    * then not needed here?
    */
   protected static $modules = ['scheduler_api_test', 'menu_ui', 'path'];
+
+  /**
+   * The web user object.
+   *
+   * @var \Drupal\user\Entity\User
+   */
+  protected $webUser;
 
   /**
    * {@inheritdoc}
@@ -56,12 +63,15 @@ class SchedulerHooksTest extends SchedulerBrowserTestBase {
       "create $customNodeName content",
       "edit any $customNodeName content",
       'schedule publishing of nodes',
+      'view own unpublished content',
       "create $customMediaName media",
       "edit any $customMediaName media",
       'schedule publishing of media',
+      'view own unpublished media',
       "create $customProductName commerce_product",
       "update any $customProductName commerce_product",
       'schedule publishing of commerce_product',
+      'view own unpublished commerce_product',
       // 'administer commerce_store' is needed to see and use any store, i.e
       // cannot add a product without this. Is it a bug?
       'administer commerce_store',

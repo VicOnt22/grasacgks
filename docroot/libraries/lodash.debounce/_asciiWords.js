@@ -12,4 +12,4 @@ function asciiWords(string) {
   return string.match(reAsciiWord) || [];
 }
 
-export default asciiWords;
+module.exports = asciiWords;

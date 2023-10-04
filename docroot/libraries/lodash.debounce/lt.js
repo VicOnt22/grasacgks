@@ -1,5 +1,5 @@
-import baseLt from './_baseLt.js';
-import createRelationalOperation from './_createRelationalOperation.js';
+var baseLt = require('./_baseLt'),
+    createRelationalOperation = require('./_createRelationalOperation');
 
 /**
  * Checks if `value` is less than `other`.
@@ -26,4 +26,4 @@ import createRelationalOperation from './_createRelationalOperation.js';
  */
 var lt = createRelationalOperation(baseLt);
 
-export default lt;
+module.exports = lt;

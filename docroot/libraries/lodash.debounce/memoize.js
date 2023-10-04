@@ -1,4 +1,4 @@
-import MapCache from './_MapCache.js';
+var MapCache = require('./_MapCache');
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -70,4 +70,4 @@ function memoize(func, resolver) {
 // Expose `MapCache`.
 memoize.Cache = MapCache;
 
-export default memoize;
+module.exports = memoize;

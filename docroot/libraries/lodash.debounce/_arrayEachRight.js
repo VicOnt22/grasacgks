@@ -18,4 +18,4 @@ function arrayEachRight(array, iteratee) {
   return array;
 }
 
-export default arrayEachRight;
+module.exports = arrayEachRight;

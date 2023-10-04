@@ -1,5 +1,5 @@
-import baseIsArguments from './_baseIsArguments.js';
-import isObjectLike from './isObjectLike.js';
+var baseIsArguments = require('./_baseIsArguments'),
+    isObjectLike = require('./isObjectLike');
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -33,4 +33,4 @@ var isArguments = baseIsArguments(function() { return arguments; }()) ? baseIsAr
     !propertyIsEnumerable.call(value, 'callee');
 };
 
-export default isArguments;
+module.exports = isArguments;

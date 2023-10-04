@@ -1,0 +1,14 @@
+--- src/Services/MarkerIconService.php
++++ src/Services/MarkerIconService.php
+@@ -193,7 +193,10 @@ class MarkerIconService {
+    */
+   protected function setMarkersFilesList(): array {
+     $markers_files_list = [];
+-    $regex = '/\.(' . preg_replace('/ +/', '|', preg_quote($this->allowedExtension)) . ')$/i';
++    //preg_quote null to avoid
++    $pregavoid = $this->allowedExtension ? :'';
++//    $regex = '/\.(' . preg_replace('/ +/', '|', preg_quote($this->allowedExtension)) . ')$/i';
++    $regex = '/\.(' . preg_replace('/ +/', '|', preg_quote($pregavoid)) . ')$/i';
+     $security = $this->geofieldMapSettings->get('theming.markers_location.security');
+     $rel_path = $this->geofieldMapSettings->get('theming.markers_location.rel_path');
+     try {

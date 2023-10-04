@@ -2,6 +2,13 @@
 
 Provides a simple integration with Zooming. Image zoom that makes sense.
 
+***
+## <a name="first"> </a>FIRST THINGS FIRST!
+Read more at:
+* [Github](https://git.drupalcode.org/project/blazy/-/blob/8.x-2.x/docs/README.md#first-things-first)
+* [Blazy UI](/admin/help/blazy_ui#first)
+
+
 ## REQUIREMENTS
 * Zooming library:
   + Download Zooming archive from
@@ -12,7 +19,7 @@ Provides a simple integration with Zooming. Image zoom that makes sense.
 
     Be sure to verify this is installed at **/admin/reports/status**
 
-* [Blazy](https://drupal.org/project/blazy) (>= Aplha2).    
+* [Blazy](https://drupal.org/project/blazy) (>= 2.17) since Zooming:1.2.    
 
 
 ## INSTALLATION
@@ -72,7 +79,7 @@ Enable this module and its dependency, core image and Blazy modules.
 ## READ MORE
 See the project page on drupal.org:
 
-[Zooming module](http://drupal.org/project/zooming)
+[Zooming module](https://drupal.org/project/zooming)
 
 See the Zooming docs at:
 

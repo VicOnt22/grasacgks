@@ -123,6 +123,7 @@ var supportedModes = {
     Csound_Score: ["sco"],
     CSS: ["css"],
     Curly: ["curly"],
+    Cuttlefish: ["conf"],
     D: ["d|di"],
     Dart: ["dart"],
     Diff: ["diff|patch"],
@@ -204,6 +205,7 @@ var supportedModes = {
     Nunjucks: ["nunjucks|nunjs|nj|njk"],
     ObjectiveC: ["m|mm"],
     OCaml: ["ml|mli"],
+    Odin: ["odin"],
     PartiQL: ["partiql|pql"],
     Pascal: ["pas|p"],
     Perl: ["pl|pm"],
@@ -218,6 +220,7 @@ var supportedModes = {
     Prolog: ["plg|prolog"],
     Properties: ["properties"],
     Protobuf: ["proto"],
+    PRQL: ["prql"],
     Puppet: ["epp|pp"],
     Python: ["py"],
     QML: ["qml"],
@@ -261,7 +264,7 @@ var supportedModes = {
     TSX: ["tsx"],
     Turtle: ["ttl"],
     Twig: ["twig|swig"],
-    Typescript: ["ts|typescript|str"],
+    Typescript: ["ts|mts|cts|typescript|str"],
     Vala: ["vala"],
     VBScript: ["vbs|vb"],
     Velocity: ["vm"],
@@ -355,7 +358,8 @@ var themeData = [
     ["Tomorrow Night Bright", "tomorrow_night_bright", "dark"],
     ["Tomorrow Night 80s", "tomorrow_night_eighties", "dark"],
     ["Twilight", "twilight", "dark"],
-    ["Vibrant Ink", "vibrant_ink", "dark"]
+    ["Vibrant Ink", "vibrant_ink", "dark"],
+    ["GitHub Dark", "github_dark", "dark"]
 ];
 exports.themesByName = {};
 exports.themes = themeData.map(function (data) {
@@ -570,6 +574,10 @@ var optionGroups = {
         },
         "Keyboard Accessibility Mode": {
             path: "enableKeyboardAccessibility"
+        },
+        "Gutter tooltip follows mouse": {
+            path: "tooltipFollowsMouse",
+            defaultValue: true
         }
     }
 };

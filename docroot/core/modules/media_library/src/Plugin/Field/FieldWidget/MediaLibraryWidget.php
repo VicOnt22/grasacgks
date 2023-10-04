@@ -1008,6 +1008,11 @@ class MediaLibraryWidget extends WidgetBase implements TrustedCallbackInterface 
     if (in_array([static::class, 'removeItem'], $form_state->getSubmitHandlers(), TRUE)) {
       return;
     }
+
+    // If user has no access, the validation isn't needed.
+    if (isset($element['#access']) && !$element['#access']) {
+      return;
+    }
     // If the field is not accessible, this validation isn't needed.
     if (isset($element['#access']) && !$element['#access']) {
       return;

@@ -1,5 +1,5 @@
-import toString from './toString.js';
-import unescapeHtmlChar from './_unescapeHtmlChar.js';
+var toString = require('./toString'),
+    unescapeHtmlChar = require('./_unescapeHtmlChar');
 
 /** Used to match HTML entities and HTML characters. */
 var reEscapedHtml = /&(?:amp|lt|gt|quot|#39);/g,
@@ -31,4 +31,4 @@ function unescape(string) {
     : string;
 }
 
-export default unescape;
+module.exports = unescape;

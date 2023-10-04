@@ -43,11 +43,15 @@ class ResponsivePreviewAdminTest extends ResponsivePreviewTestBase {
     $this->assertSession()->titleEquals('Responsive preview device | Drupal');
 
     // Test for the table.
-    $element = $this->xpath('//div[@class="layout-content"]//table');
+    // @todo fix failing test as part of #3359983
+    // $element = $this->xpath('//div[@class="layout-content"]//table');
+    $element = $this->xpath('//*[@id="edit-entities"]');
     $this->assertNotEmpty($element, 'Device entity list table found.');
 
     // Test the table header.
-    $elements = $this->xpath('//div[@class="layout-content"]//table/thead/tr/th');
+    // @todo fix failing test as part of #3359983
+    // $elements = $this->xpath('//div[@class="layout-content"]//table/thead/tr/th');
+    $elements = $this->xpath('//*[@id="edit-entities"]/thead/tr/th');
     $this->assertEquals(count($elements), 5, 'Correct number of table header cells found.');
 
     // Test the contents of each th cell.
@@ -65,8 +69,7 @@ class ResponsivePreviewAdminTest extends ResponsivePreviewTestBase {
     // Ensures that all default devices are listed in the table.
     $default_devices = $this->getDefaultDevices();
     foreach ($default_devices as $label) {
-      $xpath = $this->assertSession()
-        ->buildXPathQuery('//table//tr//td[text()=:text]', [':text' => $label]);
+      $xpath = $this->assertSession()->buildXPathQuery('//table//tr//td[text()=:text]', [':text' => $label]);
       $this->assertSession()->elementExists('xpath', $xpath);
     }
 

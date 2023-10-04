@@ -1,4 +1,4 @@
-import LazyWrapper from './_LazyWrapper.js';
+var LazyWrapper = require('./_LazyWrapper');
 
 /**
  * Reverses the direction of lazy iteration.
@@ -20,4 +20,4 @@ function lazyReverse() {
   return result;
 }
 
-export default lazyReverse;
+module.exports = lazyReverse;

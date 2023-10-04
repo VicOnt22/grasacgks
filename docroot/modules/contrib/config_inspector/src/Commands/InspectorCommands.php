@@ -6,6 +6,7 @@ use Consolidation\AnnotatedCommand\CommandResult;
 use Consolidation\OutputFormatters\StructuredData\MetadataInterface;
 use Consolidation\OutputFormatters\StructuredData\RowsOfFields;
 use Consolidation\OutputFormatters\StructuredData\UnstructuredListData;
+use Drupal\Component\Serialization\Yaml;
 use Drupal\config_inspector\ConfigInspectorManager;
 use Drupal\config_inspector\ConfigSchemaValidatability;
 use Drupal\Core\Config\StorageInterface;
@@ -163,7 +164,8 @@ class InspectorCommands extends DrushCommands {
           $all_property_paths = array_keys($raw_validatability->getValidatabilityPerPropertyPath());
           if ($detail) {
             foreach ($raw_validatability->getValidatabilityPerPropertyPath() as $property_path => $is_validatable) {
-              $key = "$name:$property_path";
+              $relative_property_path = self::getRelativePropertyPath($name, $property_path);
+              $key = "$name:$relative_property_path";
               $validatability_detail[$key] = $is_validatable;
             }
           }
@@ -177,7 +179,8 @@ class InspectorCommands extends DrushCommands {
           if ($detail) {
             $violations = ConfigInspectorManager::violationsToArray($raw_violations);
             foreach ($all_property_paths as $property_path) {
-              $key = "$name:$property_path";
+              $relative_property_path = self::getRelativePropertyPath($name, $property_path);
+              $key = "$name:$relative_property_path";
               $data_detail[$key] = !isset($violations[$property_path]) ? TRUE : $violations[$property_path];
             }
           }
@@ -193,13 +196,19 @@ class InspectorCommands extends DrushCommands {
       }
       $rows[$name] = ['key' => $name, 'status' => $status, 'validatability' => $validatability, 'data' => $data];
       if ($listConstraints) {
-        $rows[$name]['constraints'] = implode("\n", self::getPrintableConstraints($raw_validatability, ''));
+        // @todo Remove once <= 10.0.x support is dropped.
+        $property_path = $name;
+        if (version_compare(\Drupal::VERSION, '10.1.0', 'lt')) {
+          $property_path = '';
+        }
+        $rows[$name]['constraints'] = implode("\n", self::getPrintableConstraints($raw_validatability, $property_path));
       }
 
       // Show a detailed view if requested.
       if ($detail) {
         foreach ($all_property_paths as $property_path) {
-          $key = "$name:$property_path";
+          $relative_property_path = self::getRelativePropertyPath($name, $property_path);
+          $key = "$name:$relative_property_path";
 
           // Again respect --only-error:
           if ($onlyError
@@ -223,6 +232,10 @@ class InspectorCommands extends DrushCommands {
 
 
           if ($listConstraints) {
+            // @todo Remove once <= 10.0.x support is dropped.
+            if (version_compare(\Drupal::VERSION, '10.1.0', 'lt')) {
+              $property_path = str_replace("$name.", '', $property_path);
+            }
             $rows[$key]['constraints'] = implode("\n", self::getPrintableConstraints($raw_validatability, $property_path));
           }
         }
@@ -237,6 +250,14 @@ class InspectorCommands extends DrushCommands {
     return CommandResult::dataWithExitCode(new RowsOfFields($rows), $exitCode);
   }
 
+  private static function getRelativePropertyPath(string $config_name, string $absolute_property_path): string {
+    return $absolute_property_path === $config_name
+      // The root.
+      ? ''
+      // All other property paths.
+      : str_replace("$config_name.", '', $absolute_property_path);
+  }
+
   /**
    * Maps the validation constraints for the given property path to strings.
    *
@@ -249,10 +270,19 @@ class InspectorCommands extends DrushCommands {
    *   Printable constraints.
    */
   private static function getPrintableConstraints(ConfigSchemaValidatability $validatability, string $property_path): array {
-    return array_map(
-      fn (Constraint $constraint) => get_class($constraint),
-      $validatability->getConstraints($property_path)
+    $all_constraints = $validatability->getConstraints($property_path);
+    $local_constraints = array_map(
+      fn (string $constraint_name, $constraints_options) => trim(Yaml::encode([$constraint_name => $constraints_options])),
+      array_keys($all_constraints['local']),
+      array_values($all_constraints['local'])
     );
+    $inherited_constraints = array_map(
+      fn (string $constraint_name, $constraints_options) => "↣ " . trim(Yaml::encode([$constraint_name => $constraints_options])),
+      array_keys($all_constraints['inherited']),
+      array_values($all_constraints['inherited'])
+    );
+
+    return array_merge($local_constraints, $inherited_constraints);
   }
 
 }

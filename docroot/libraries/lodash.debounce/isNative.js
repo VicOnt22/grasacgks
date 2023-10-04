@@ -1,5 +1,5 @@
-import baseIsNative from './_baseIsNative.js';
-import isMaskable from './_isMaskable.js';
+var baseIsNative = require('./_baseIsNative'),
+    isMaskable = require('./_isMaskable');
 
 /** Error message constants. */
 var CORE_ERROR_TEXT = 'Unsupported core-js use. Try https://npms.io/search?q=ponyfill.';
@@ -37,4 +37,4 @@ function isNative(value) {
   return baseIsNative(value);
 }
 
-export default isNative;
+module.exports = isNative;

@@ -15,4 +15,4 @@ function stubTrue() {
   return true;
 }
 
-export default stubTrue;
+module.exports = stubTrue;

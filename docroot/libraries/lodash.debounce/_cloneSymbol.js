@@ -1,4 +1,4 @@
-import Symbol from './_Symbol.js';
+var Symbol = require('./_Symbol');
 
 /** Used to convert symbols to primitives and strings. */
 var symbolProto = Symbol ? Symbol.prototype : undefined,
@@ -15,4 +15,4 @@ function cloneSymbol(symbol) {
   return symbolValueOf ? Object(symbolValueOf.call(symbol)) : {};
 }
 
-export default cloneSymbol;
+module.exports = cloneSymbol;

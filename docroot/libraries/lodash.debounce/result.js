@@ -1,6 +1,6 @@
-import castPath from './_castPath.js';
-import isFunction from './isFunction.js';
-import toKey from './_toKey.js';
+var castPath = require('./_castPath'),
+    isFunction = require('./isFunction'),
+    toKey = require('./_toKey');
 
 /**
  * This method is like `_.get` except that if the resolved value is a
@@ -53,4 +53,4 @@ function result(object, path, defaultValue) {
   return object;
 }
 
-export default result;
+module.exports = result;

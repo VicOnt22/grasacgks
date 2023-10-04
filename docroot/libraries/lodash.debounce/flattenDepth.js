@@ -1,5 +1,5 @@
-import baseFlatten from './_baseFlatten.js';
-import toInteger from './toInteger.js';
+var baseFlatten = require('./_baseFlatten'),
+    toInteger = require('./toInteger');
 
 /**
  * Recursively flatten `array` up to `depth` times.
@@ -30,4 +30,4 @@ function flattenDepth(array, depth) {
   return baseFlatten(array, depth);
 }
 
-export default flattenDepth;
+module.exports = flattenDepth;

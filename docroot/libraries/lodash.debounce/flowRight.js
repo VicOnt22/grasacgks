@@ -1,4 +1,4 @@
-import createFlow from './_createFlow.js';
+var createFlow = require('./_createFlow');
 
 /**
  * This method is like `_.flow` except that it creates a function that
@@ -23,4 +23,4 @@ import createFlow from './_createFlow.js';
  */
 var flowRight = createFlow(true);
 
-export default flowRight;
+module.exports = flowRight;

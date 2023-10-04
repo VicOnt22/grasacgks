@@ -18,4 +18,4 @@ function strictLastIndexOf(array, value, fromIndex) {
   return index;
 }
 
-export default strictLastIndexOf;
+module.exports = strictLastIndexOf;

@@ -1160,14 +1160,16 @@ class SchedulerManager {
     $updated = [];
     $list = $entityUpdateManager->getChangeList();
     foreach ($list as $entity_type_id => $definitions) {
-      if ($definitions['field_storage_definitions']['publish_on'] ?? 0) {
+      if (($definitions['field_storage_definitions']['publish_on'] ?? 0) || ($definitions['field_storage_definitions']['unpublish_on'] ?? 0)) {
         $entity_type = $entityUpdateManager->getEntityType($entity_type_id);
         $fields = scheduler_entity_base_field_info($entity_type);
         foreach ($fields as $field_name => $field_definition) {
           $entityUpdateManager->installFieldStorageDefinition($field_name, $entity_type_id, $entity_type_id, $field_definition);
         }
-        $this->logger->notice('%entity updated with Scheduler publish_on and unpublish_on fields.', [
+        $this->logger->notice('%entity entity type updated with %publish_on and %unpublish_on fields.', [
           '%entity' => $entity_type->getLabel(),
+          '%publish_on' => $fields['publish_on']->getLabel(),
+          '%unpublish_on' => $fields['unpublish_on']->getLabel(),
         ]);
         $updated[] = (string) $entity_type->getLabel();
       }
@@ -1314,6 +1316,12 @@ class SchedulerManager {
         }
       }
 
+      // Skip entity types without bundle types. This should not be necessary,
+      // but it is better to use defensive programming just in case.
+      if (empty($bundleType)) {
+        continue;
+      }
+
       // Remove Scheduler third-party-settings from each bundle.
       foreach ($this->entityTypeManager->getStorage($bundleType)->loadMultiple() as $bundle) {
         // Remove each third_party_setting. The last one to be removed will also
@@ -1368,6 +1376,11 @@ class SchedulerManager {
       foreach ($bundles as $bundle_id => $bundle) {
         foreach ($all_display_modes as $display_mode) {
           $form_display = $display_repository->getFormDisplay($entityTypeId, $bundle_id, $display_mode);
+          // If the form display is new and not saved yet, do nothing with it.
+          // @see https://www.drupal.org/project/scheduler/issues/3359790
+          if ($form_display->isNew()) {
+            continue;
+          }
 
           foreach (['publish', 'unpublish'] as $value) {
             $field = $value . '_on';
@@ -1415,14 +1428,14 @@ class SchedulerManager {
       'The Scheduler fields are now hidden by default and automatically changed to be displayed when an entity
       bundle is enabled for scheduling. If you have previously manually hidden scheduler fields for enabled
       entity types then these fields will now be displayed. You will need to manually hide them again or
-      implement hook_scheduler_hide_publish_date() or hook_scheduler_{TYPE}_hide_publish_date() and the
+      implement hook_scheduler_hide_publish_date() or hook_scheduler_TYPE_hide_publish_date() and the
       equivalent for unpublish_date. See @issue for details.',
       ['@issue' => $link->toString()]), MessengerInterface::TYPE_STATUS, FALSE);
     $this->logger->warning(
       'The Scheduler fields are now hidden by default and automatically changed to be displayed when an entity
       bundle is enabled for scheduling. If you have previously manually hidden scheduler fields for enabled
       entity types then these fields will now be displayed. You will need to manually hide them again or
-      implement hook_scheduler_hide_publish_date() or hook_scheduler_{TYPE}_hide_publish_date() and the
+      implement hook_scheduler_hide_publish_date() or hook_scheduler_TYPE_hide_publish_date() and the
       equivalent for unpublish_date. See @issue for details.',
       ['@issue' => $link->toString(), 'link' => $link->toString()]
     );

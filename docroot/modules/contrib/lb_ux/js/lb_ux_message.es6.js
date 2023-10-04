@@ -6,14 +6,14 @@
 (($, Drupal) => {
   const selectors = {
     wrapper: {
-      initial: "data-drupal-messages",
-      active: "js-messages__wrapper"
+      initial: 'data-drupal-messages',
+      active: 'js-messages__wrapper',
     },
     message: {
-      id: "data-drupal-message-id",
-      active: "messages__closeable",
-      button: "drupal-message-close"
-    }
+      id: 'data-drupal-message-id',
+      active: 'messages__closeable',
+      button: 'drupal-message-close',
+    },
   };
 
   const lbMessageList = [];
@@ -25,13 +25,13 @@
    *s
    * @returns {HTMLButtonElement}
    */
-  const buttonClose = id => {
+  const buttonClose = (id) => {
     const { button: buttonSelector } = selectors.message;
-    const button = document.createElement("button");
+    const button = document.createElement('button');
     button.innerHTML = `<span class="visually-hidden">${Drupal.t(
-      "Close"
+      'Close',
     )}</span>`;
-    button.setAttribute("data-drupal-close-id", id);
+    button.setAttribute('data-drupal-close-id', id);
     button.classList.add(buttonSelector);
 
     return button;
@@ -47,7 +47,7 @@
   const initMessage = (message, index) => {
     const { id, active } = selectors.message;
     message.classList.add(active);
-    message.style.setProperty("--animation-index", index);
+    message.style.setProperty('--animation-index', index);
     message.setAttribute(id, index);
     message.appendChild(buttonClose(index));
   };
@@ -59,7 +59,7 @@
    *
    * @returns {boolean} TRUE if message added.
    */
-  const addMessage = message => {
+  const addMessage = (message) => {
     const text = message.textContent.trim();
     const newMessage = lbMessageList.indexOf(text) === -1;
     if (newMessage) {
@@ -77,20 +77,20 @@
    *
    * @returns {array}
    */
-  const getMessages = container =>
-    Array.prototype.slice.call(container.querySelectorAll(".messages"));
+  const getMessages = (container) =>
+    Array.prototype.slice.call(container.querySelectorAll('.messages'));
 
   const initMessages = () => {
     const { initial, active } = selectors.wrapper;
     const { id, button } = selectors.message;
 
     const lbOuter = document.querySelector(
-      `[data-drupal-selector=edit-layout-builder-message] > [${initial}]`
+      `[data-drupal-selector=edit-layout-builder-message] > [${initial}]`,
     );
     // Get the inner container if exists.
     const children = Array.prototype.slice.call(lbOuter.children);
     const lbInner = children
-      .filter(element => !element.classList.contains("messages"))
+      .filter((element) => !element.classList.contains('messages'))
       .shift();
     const lbContainer = lbInner || lbOuter;
 
@@ -99,21 +99,23 @@
       lbContainer.classList.add(active);
       getMessages(lbContainer).forEach(addMessage);
 
-      const mainCanvas = document.querySelector("[data-off-canvas-main-canvas]");
+      const mainCanvas = document.querySelector(
+        '[data-off-canvas-main-canvas]',
+      );
       if (mainCanvas) {
         // This event fires when canvas CSS transitions are complete.
         const paddingEdge =
-          Drupal.offCanvas.getEdge() === "right"
-            ? "paddingRight"
-            : "paddingLeft";
+          Drupal.offCanvas.getEdge() === 'right'
+            ? 'paddingRight'
+            : 'paddingLeft';
 
-        mainCanvas.addEventListener("transitionend", () => {
+        mainCanvas.addEventListener('transitionend', () => {
           lbContainer.style[paddingEdge] = mainCanvas.style[paddingEdge];
           lbContainer.style.paddingTop = mainCanvas.style.paddingTop;
         });
       }
 
-      lbContainer.addEventListener("click", event => {
+      lbContainer.addEventListener('click', (event) => {
         if (event.target.classList.contains(button)) {
           event.preventDefault();
           lbContainer
@@ -126,11 +128,11 @@
     // If there are multiple other drupal-data-message
     const containers = Array.prototype.slice
       .call(document.querySelectorAll(`[${initial}]`))
-      .filter(element => !element.isEqualNode(lbOuter));
+      .filter((element) => !element.isEqualNode(lbOuter));
 
     // Append their messages to layout-builder-message
-    containers.forEach(container => {
-      getMessages(container).forEach(message => {
+    containers.forEach((container) => {
+      getMessages(container).forEach((message) => {
         if (addMessage(message)) {
           lbContainer.append(message);
         } else {
@@ -146,8 +148,8 @@
    * @type {Drupal~behavior}
    */
   Drupal.behaviors.LbUXMessage = {
-    attach: function() {
+    attach: function () {
       initMessages();
-    }
+    },
   };
 })(jQuery, Drupal);

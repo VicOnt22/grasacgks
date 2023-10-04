@@ -16,4 +16,4 @@ function baseHas(object, key) {
   return object != null && hasOwnProperty.call(object, key);
 }
 
-export default baseHas;
+module.exports = baseHas;

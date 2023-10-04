@@ -15,4 +15,4 @@ function iteratorToArray(iterator) {
   return result;
 }
 
-export default iteratorToArray;
+module.exports = iteratorToArray;

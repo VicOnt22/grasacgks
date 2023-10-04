@@ -10,8 +10,9 @@ final class ConfigSchemaValidatability {
   private $results = [];
 
   public function __construct(string $property_path, array $constraints) {
+    assert(array_key_exists('local', $constraints) && array_key_exists('inherited', $constraints));
     $this->constraints[$property_path] = $constraints;
-    $this->results[$property_path] = !empty($constraints);
+    $this->results[$property_path] = !empty($constraints['local']) || !empty($constraints['inherited']);
   }
 
   /**

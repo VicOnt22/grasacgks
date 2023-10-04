@@ -1,7 +1,7 @@
-import isFunction from './isFunction.js';
-import isMasked from './_isMasked.js';
-import isObject from './isObject.js';
-import toSource from './_toSource.js';
+var isFunction = require('./isFunction'),
+    isMasked = require('./_isMasked'),
+    isObject = require('./isObject'),
+    toSource = require('./_toSource');
 
 /**
  * Used to match `RegExp`
@@ -44,4 +44,4 @@ function baseIsNative(value) {
   return pattern.test(toSource(value));
 }
 
-export default baseIsNative;
+module.exports = baseIsNative;

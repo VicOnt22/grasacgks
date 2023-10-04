@@ -11,12 +11,11 @@
  */
 
 use Drupal\Component\Utility\NestedArray;
-use Drupal\Core\Config\Entity\ConfigEntityTypeInterface;
-use Drupal\Core\Entity\ContentEntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\inline_entity_form\ElementSubmit;
 use Drupal\inline_entity_form\WidgetSubmit;
+use Drupal\inline_entity_form\Form\EntityInlineForm;
 use Drupal\inline_entity_form\Plugin\Field\FieldWidget\InlineEntityFormComplex;
 use Drupal\inline_entity_form\MigrationHelper;
 use Drupal\migrate\Plugin\MigrateSourceInterface;
@@ -34,12 +33,7 @@ function inline_entity_form_entity_type_build(array &$entity_types) {
 
   foreach ($entity_types as &$entity_type) {
     if (!$entity_type->hasHandlerClass('inline_form')) {
-      if ($entity_type instanceof ContentEntityTypeInterface) {
-        $entity_type->setHandlerClass('inline_form', '\Drupal\inline_entity_form\Form\EntityInlineForm');
-      }
-      elseif ($entity_type instanceof ConfigEntityTypeInterface) {
-        $entity_type->setHandlerClass('inline_form', '\Drupal\inline_entity_form\Form\ConfigEntityInlineForm');
-      }
+      $entity_type->setHandlerClass('inline_form', '\Drupal\inline_entity_form\Form\EntityInlineForm');
     }
   }
 }
@@ -114,7 +108,7 @@ function inline_entity_form_reference_form(array $reference_form, FormStateInter
     '#attributes' => ['class' => ['ief-entity-submit']],
     '#ajax' => [
       'callback' => 'inline_entity_form_get_element',
-      'wrapper' => $reference_form['#ref_id'],
+      'wrapper' => 'inline-entity-form-' . $reference_form['#ief_id'],
     ],
   ];
   InlineEntityFormComplex::addSubmitCallbacks($reference_form['actions']['ief_reference_save']);
@@ -125,7 +119,7 @@ function inline_entity_form_reference_form(array $reference_form, FormStateInter
     '#limit_validation_errors' => [],
     '#ajax' => [
       'callback' => 'inline_entity_form_get_element',
-      'wrapper' => $reference_form['#ref_id'],
+      'wrapper' => 'inline-entity-form-' . $reference_form['#ief_id'],
     ],
     '#submit' => [
       [
@@ -138,9 +132,8 @@ function inline_entity_form_reference_form(array $reference_form, FormStateInter
   $reference_form['#element_validate'][] = 'inline_entity_form_reference_form_validate';
   $reference_form['#ief_element_submit'][] = 'inline_entity_form_reference_form_submit';
 
-  // Allow other modules and themes to alter the form.
+  // Allow other modules to alter the form.
   \Drupal::moduleHandler()->alter('inline_entity_form_reference_form', $reference_form, $form_state);
-  \Drupal::theme()->alter('inline_entity_form_reference_form', $reference_form, $form_state);
 
   return $reference_form;
 }
@@ -233,11 +226,6 @@ function inline_entity_form_open_form(array $form, FormStateInterface $form_stat
       'bundle' => $form_values['actions']['bundle'],
     ]);
   }
-  elseif ($element['actions']['bundle']['#type'] == 'value') {
-    $form_state->set(['inline_entity_form', $ief_id, 'form settings'], [
-      'bundle' => $element['actions']['bundle']['#value'],
-    ]);
-  }
 }
 
 /**
@@ -250,9 +238,7 @@ function inline_entity_form_open_form(array $form, FormStateInterface $form_stat
  */
 function inline_entity_form_cleanup_form_state(array $form, FormStateInterface $form_state) {
   $element = inline_entity_form_get_element($form, $form_state);
-  $entity_type = $element['form']['inline_entity_form']['#entity_type'];
-  $handler = \Drupal::entityTypeManager()->getHandler($entity_type, 'inline_form');
-  get_class($handler)::submitCleanFormState($element['form']['inline_entity_form'], $form_state);
+  EntityInlineForm::submitCleanFormState($element['form']['inline_entity_form'], $form_state);
 }
 
 /**
@@ -318,8 +304,7 @@ function inline_entity_form_cleanup_row_form_state(array $form, FormStateInterfa
   $element = inline_entity_form_get_element($form, $form_state);
   $delta = $form_state->getTriggeringElement()['#ief_row_delta'];
   $entity_form = $element['entities'][$delta]['form']['inline_entity_form'];
-  $handler = \Drupal::entityTypeManager()->getHandler($entity_form['#entity_type'], 'inline_form');
-  get_class($handler)::submitCleanFormState($entity_form, $form_state);
+  EntityInlineForm::submitCleanFormState($entity_form, $form_state);
 }
 
 /**
@@ -498,22 +483,4 @@ function inline_entity_form_migrate_prepare_row(Row $row, MigrateSourceInterface
 function inline_entity_form_migration_plugins_alter(array &$migrations) {
   \Drupal::classResolver(MigrationHelper::class)
     ->alterPlugins($migrations);
-}
-
-/**
- * Change text button by type of bundle.
- *
- * @param $form
- *   The complete parent form.
- * @param $form_state
- *   The form state of the parent form.
- */
-function inline_entity_form_change_bundle_form($form, FormStateInterface $form_state) {
-  $element = inline_entity_form_get_element($form, $form_state);
-  $elements = $form_state->getTriggeringElement();
-
-  $element['actions']['ief_add']['#value'] = t('Add new @type', [
-    '@type' => $elements['#options'][$elements['#value']],
-  ]);
-  return $element;
 }

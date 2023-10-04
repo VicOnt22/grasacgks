@@ -1,6 +1,6 @@
-import baseDifference from './_baseDifference.js';
-import baseFlatten from './_baseFlatten.js';
-import baseUniq from './_baseUniq.js';
+var baseDifference = require('./_baseDifference'),
+    baseFlatten = require('./_baseFlatten'),
+    baseUniq = require('./_baseUniq');
 
 /**
  * The base implementation of methods like `_.xor`, without support for
@@ -33,4 +33,4 @@ function baseXor(arrays, iteratee, comparator) {
   return baseUniq(baseFlatten(result, 1), iteratee, comparator);
 }
 
-export default baseXor;
+module.exports = baseXor;

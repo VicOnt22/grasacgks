@@ -1,5 +1,5 @@
-import assignValue from './_assignValue.js';
-import baseZipObject from './_baseZipObject.js';
+var assignValue = require('./_assignValue'),
+    baseZipObject = require('./_baseZipObject');
 
 /**
  * This method is like `_.fromPairs` except that it accepts two arrays,
@@ -21,4 +21,4 @@ function zipObject(props, values) {
   return baseZipObject(props || [], values || [], assignValue);
 }
 
-export default zipObject;
+module.exports = zipObject;

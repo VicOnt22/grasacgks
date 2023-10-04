@@ -44,3 +44,10 @@
 [dir="rtl"] .config-inspector-tree .item-list ul.config-inspector--validation-constraints-list li {
   margin-right: 3em;
 }
+
+/**
+ * Make inherited validation constraints visually less prominent.
+ */
+.config-inspector-tree .item-list ul.config-inspector--validation-constraints-list li .inherited {
+  opacity: 0.6;
+}

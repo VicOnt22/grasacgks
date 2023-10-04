@@ -1,6 +1,6 @@
-import Symbol from './_Symbol.js';
-import getRawTag from './_getRawTag.js';
-import objectToString from './_objectToString.js';
+var Symbol = require('./_Symbol'),
+    getRawTag = require('./_getRawTag'),
+    objectToString = require('./_objectToString');
 
 /** `Object#toString` result references. */
 var nullTag = '[object Null]',
@@ -25,4 +25,4 @@ function baseGetTag(value) {
     : objectToString(value);
 }
 
-export default baseGetTag;
+module.exports = baseGetTag;

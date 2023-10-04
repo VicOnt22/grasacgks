@@ -109,7 +109,7 @@ class LayoutOptionForm extends EntityForm implements ContainerInjectionInterface
 
     $breakpoints = [];
     $default_breakpoints = [];
-    $blb_breakpoint = $this->entityTypeManager->getStorage('blb_breakpoint')->getQuery()->sort('weight', 'ASC')->execute();
+    $blb_breakpoint = $this->entityTypeManager->getStorage('blb_breakpoint')->getQuery()->accessCheck(TRUE)->sort('weight', 'ASC')->execute();
     foreach ($blb_breakpoint as $breakpoint_id) {
       $breakpoint_entity = $this->entityTypeManager->getStorage('blb_breakpoint')->load($breakpoint_id);
       $breakpoints[$breakpoint_id] = $breakpoint_entity->label();

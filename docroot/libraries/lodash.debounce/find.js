@@ -1,5 +1,5 @@
-import createFind from './_createFind.js';
-import findIndex from './findIndex.js';
+var createFind = require('./_createFind'),
+    findIndex = require('./findIndex');
 
 /**
  * Iterates over elements of `collection`, returning the first element
@@ -39,4 +39,4 @@ import findIndex from './findIndex.js';
  */
 var find = createFind(findIndex);
 
-export default find;
+module.exports = find;

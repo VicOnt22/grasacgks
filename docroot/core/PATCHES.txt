@@ -81,3 +81,7 @@ Issue #3046152: Video media needs playsinline & muted options
 Source: https://www.drupal.org/files/issues/2022-04-11/3046152-28.patch
 
 
+Issue #3272629: Media Library widget display doesn't return to first page on applying filters
+Source: https://www.drupal.org/files/issues/2022-03-30/media_library_pager_fix.patch
+
+

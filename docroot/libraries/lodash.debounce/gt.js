@@ -1,5 +1,5 @@
-import baseGt from './_baseGt.js';
-import createRelationalOperation from './_createRelationalOperation.js';
+var baseGt = require('./_baseGt'),
+    createRelationalOperation = require('./_createRelationalOperation');
 
 /**
  * Checks if `value` is greater than `other`.
@@ -26,4 +26,4 @@ import createRelationalOperation from './_createRelationalOperation.js';
  */
 var gt = createRelationalOperation(baseGt);
 
-export default gt;
+module.exports = gt;

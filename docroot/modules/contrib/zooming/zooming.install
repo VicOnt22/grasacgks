@@ -14,8 +14,12 @@ function zooming_requirements($phase) {
   }
 
   $requirements = [];
-  $path = zooming_libraries_get_path('zooming') ?: \Drupal::root() . '/libraries/zooming';
-  $exists = is_file($path . '/build/zooming.min.js');
+  $path = blazy()->getLibrariesPath('zooming') ?: \Drupal::root() . '/libraries/zooming';
+  $exists = FALSE;
+
+  if (is_dir($path)) {
+    $exists = is_file($path . '/build/zooming.min.js');
+  }
 
   $requirements['zooming_library'] = [
     'title'       => t('Zooming library'),

@@ -1,4 +1,4 @@
-import isObject from './isObject.js';
+var isObject = require('./isObject');
 
 /**
  * Checks if `value` is suitable for strict equality comparisons, i.e. `===`.
@@ -12,4 +12,4 @@ function isStrictComparable(value) {
   return value === value && !isObject(value);
 }
 
-export default isStrictComparable;
+module.exports = isStrictComparable;

@@ -11,4 +11,4 @@ function baseGt(value, other) {
   return value > other;
 }
 
-export default baseGt;
+module.exports = baseGt;

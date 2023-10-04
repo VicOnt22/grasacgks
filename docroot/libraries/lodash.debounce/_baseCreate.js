@@ -1,4 +1,4 @@
-import isObject from './isObject.js';
+var isObject = require('./isObject');
 
 /** Built-in value references. */
 var objectCreate = Object.create;
@@ -27,4 +27,4 @@ var baseCreate = (function() {
   };
 }());
 
-export default baseCreate;
+module.exports = baseCreate;

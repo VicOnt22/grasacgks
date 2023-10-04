@@ -146,13 +146,14 @@ class RedirectForm extends ContentEntityForm {
       }
     }
 
-    // If creating a new Redirect and the source path is an existing path, recommend an alias instead.
+    // If creating a new Redirect and the source path is an existing path,
+    // recommend an alias instead.
     if ($this->entity->isNew() && $source['path'] && !($form_state->getStorage()['redirect_source_warning'] ?? NULL) && !$form_state->hasAnyErrors()) {
       $source_path = trim($source['path']);
 
       // Warning about creating a redirect from a valid path.
-      //
-      // @todo Exception driven logic. Find a better way to determine if we have a valid path.
+      // @todo Exception driven logic. Find a better way to determine if we have
+      // a valid path.
       try {
         \Drupal::service('router')->match('/' . $form_state->getValue(['redirect_source', 0, 'path']));
         $storage = $form_state->getStorage();

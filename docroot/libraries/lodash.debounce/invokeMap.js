@@ -1,8 +1,8 @@
-import apply from './_apply.js';
-import baseEach from './_baseEach.js';
-import baseInvoke from './_baseInvoke.js';
-import baseRest from './_baseRest.js';
-import isArrayLike from './isArrayLike.js';
+var apply = require('./_apply'),
+    baseEach = require('./_baseEach'),
+    baseInvoke = require('./_baseInvoke'),
+    baseRest = require('./_baseRest'),
+    isArrayLike = require('./isArrayLike');
 
 /**
  * Invokes the method at `path` of each element in `collection`, returning
@@ -38,4 +38,4 @@ var invokeMap = baseRest(function(collection, path, args) {
   return result;
 });
 
-export default invokeMap;
+module.exports = invokeMap;

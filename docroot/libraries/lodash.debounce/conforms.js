@@ -1,5 +1,5 @@
-import baseClone from './_baseClone.js';
-import baseConforms from './_baseConforms.js';
+var baseClone = require('./_baseClone'),
+    baseConforms = require('./_baseConforms');
 
 /** Used to compose bitmasks for cloning. */
 var CLONE_DEEP_FLAG = 1;
@@ -32,4 +32,4 @@ function conforms(source) {
   return baseConforms(baseClone(source, CLONE_DEEP_FLAG));
 }
 
-export default conforms;
+module.exports = conforms;

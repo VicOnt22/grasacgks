@@ -2,14 +2,14 @@ name: "Varbase default content"
 type: module
 hidden: TRUE
 package: Varbase
-core_version_requirement: ^9 || ^10
+core_version_requirement: ~9.5.0 || ~10.1.0
 description: "Provides starter default content for varbase."
 dependencies:
   - drupal:block
   - drupal:block_content
   - default_content:default_content
 
-# Information added by Drupal.org packaging script on 2023-05-21
-version: '9.0.56'
+# Information added by Drupal.org packaging script on 2023-09-23
+version: '9.0.64'
 project: 'varbase_core'
-datestamp: 1684679755
+datestamp: 1695448048

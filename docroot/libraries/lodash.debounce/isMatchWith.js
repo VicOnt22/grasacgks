@@ -1,5 +1,5 @@
-import baseIsMatch from './_baseIsMatch.js';
-import getMatchData from './_getMatchData.js';
+var baseIsMatch = require('./_baseIsMatch'),
+    getMatchData = require('./_getMatchData');
 
 /**
  * This method is like `_.isMatch` except that it accepts `customizer` which
@@ -38,4 +38,4 @@ function isMatchWith(object, source, customizer) {
   return baseIsMatch(object, source, getMatchData(source), customizer);
 }
 
-export default isMatchWith;
+module.exports = isMatchWith;

@@ -22,6 +22,20 @@ entity.tour.edit_form:
   requirements:
     _permission: 'administer tour'
 
+entity.tour.enable:
+  path: '/admin/config/user-interface/tour/manage/{tour}/enable'
+  defaults:
+    _controller: '\Drupal\tour_ui\Controller\TourUIController::enable'
+  requirements:
+    _permission: 'administer tour'
+
+entity.tour.disable:
+  path: '/admin/config/user-interface/tour/manage/{tour}/disable'
+  defaults:
+    _controller: '\Drupal\tour_ui\Controller\TourUIController::disable'
+  requirements:
+    _permission: 'administer tour'
+
 entity.tour.delete_form:
   path: '/admin/config/user-interface/tour/manage/{tour}/delete'
   defaults:

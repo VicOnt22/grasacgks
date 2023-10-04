@@ -1,5 +1,5 @@
-import baseRest from './_baseRest.js';
-import isIterateeCall from './_isIterateeCall.js';
+var baseRest = require('./_baseRest'),
+    isIterateeCall = require('./_isIterateeCall');
 
 /**
  * Creates a function like `_.assign`.
@@ -34,4 +34,4 @@ function createAssigner(assigner) {
   });
 }
 
-export default createAssigner;
+module.exports = createAssigner;

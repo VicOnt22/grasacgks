@@ -1,5 +1,5 @@
-import baseForRight from './_baseForRight.js';
-import keys from './keys.js';
+var baseForRight = require('./_baseForRight'),
+    keys = require('./keys');
 
 /**
  * The base implementation of `_.forOwnRight` without support for iteratee shorthands.
@@ -13,4 +13,4 @@ function baseForOwnRight(object, iteratee) {
   return object && baseForRight(object, iteratee, keys);
 }
 
-export default baseForOwnRight;
+module.exports = baseForOwnRight;

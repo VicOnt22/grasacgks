@@ -16,6 +16,7 @@ class SectionSelectionTest extends WebDriverTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'field_ui',
     'lb_ux',
     'node',
     'lb_ux_test',

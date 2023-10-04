@@ -1,4 +1,4 @@
-import toFinite from './toFinite.js';
+var toFinite = require('./toFinite');
 
 /**
  * Converts `value` to an integer.
@@ -33,4 +33,4 @@ function toInteger(value) {
   return result === result ? (remainder ? result - remainder : result) : 0;
 }
 
-export default toInteger;
+module.exports = toInteger;

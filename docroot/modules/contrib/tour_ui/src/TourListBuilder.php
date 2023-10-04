@@ -2,9 +2,10 @@
 
 namespace Drupal\tour_ui;
 
-use Drupal\Core\Entity\EntityListBuilder;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityListBuilder;
+use Drupal\Core\Url;
 
 /**
  * Provides a listing of tours.
@@ -15,11 +16,12 @@ class TourListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $row['id'] = t('Id');
-    $row['label'] = t('Label');
-    $row['routes'] = t('routes');
-    $row['tips'] = t('Number of tips');
-    $row['operations'] = t('Operations');
+    $row['id'] = $this->t('Id');
+    $row['status'] = $this->t('Status');
+    $row['label'] = $this->t('Label');
+    $row['routes'] = $this->t('routes');
+    $row['tips'] = $this->t('Number of tips');
+    $row['operations'] = $this->t('Operations');
     return $row;
   }
 
@@ -35,6 +37,7 @@ class TourListBuilder extends EntityListBuilder {
     $row = parent::buildRow($entity);
 
     $data['id'] = Html::escape($entity->id());
+    $data['status'] = Html::escape($entity->status() ? 'Enabled' : 'Disabled');
     $data['label'] = Html::escape($entity->label());
     // Include the routes this tour is used on.
     $routes_name = [];
@@ -46,7 +49,7 @@ class TourListBuilder extends EntityListBuilder {
           $formatted_params = array_reduce(
             array_keys($params),
             function ($carry, $key) use ($params) {
-              return $carry . ' ' . $key . ':' . htmlspecialchars( $params[$key] );
+              return $carry . ' ' . $key . ':' . htmlspecialchars($params[$key]);
             },
             ''
           );
@@ -82,14 +85,29 @@ class TourListBuilder extends EntityListBuilder {
     $operations = parent::getOperations($entity);
 
     $operations['edit'] = [
-      'title' => t('Edit'),
+      'title' => $this->t('Edit'),
       'url' => $entity->toUrl('edit-form'),
       'weight' => 1,
     ];
+
+    if ($entity->status()) {
+      $operations['disable'] = [
+        'title' => $this->t('Disable'),
+        'url' => Url::fromRoute('entity.tour.disable', ['tour' => $entity->id()]),
+        'weight' => 2,
+      ];
+    }
+    else {
+      $operations['enable'] = [
+        'title' => $this->t('Enable'),
+        'url' => Url::fromRoute('entity.tour.enable', ['tour' => $entity->id()]),
+        'weight' => 3,
+      ];
+    }
     $operations['delete'] = [
-      'title' => t('Delete'),
+      'title' => $this->t('Delete'),
       'url' => $entity->toUrl('delete-form'),
-      'weight' => 2,
+      'weight' => 40,
     ];
 
     return $operations;

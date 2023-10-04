@@ -1,4 +1,4 @@
-import lodash from './wrapperLodash.js';
+var lodash = require('./wrapperLodash');
 
 /**
  * Creates a `lodash` wrapper instance that wraps `value` with explicit method
@@ -35,4 +35,4 @@ function chain(value) {
   return result;
 }
 
-export default chain;
+module.exports = chain;

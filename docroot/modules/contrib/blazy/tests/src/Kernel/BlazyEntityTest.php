@@ -47,13 +47,18 @@ class BlazyEntityTest extends BlazyKernelTestBase {
       $entity = empty($this->entity) ? $this->setUpContentWithItems($this->bundle) : $this->entity;
     }
     elseif ($entity == 'responsive_image') {
-      $entity = $this->blazyManager->entityLoad('blazy_responsive_test', 'responsive_image_style');
+      $entity = $this->blazyManager->load('blazy_responsive_test', 'responsive_image_style');
     }
     elseif ($entity == 'image') {
       $entity = $this->testItem;
     }
 
-    $result = $this->blazyEntity->view($entity, [], $fallback);
+    $data = [
+      '#entity' => $entity,
+      '#settings' => [],
+      'fallback' => $fallback,
+    ];
+    $result = $this->blazyEntity->view($data);
     $this->assertSame($expected, !empty($result), $message);
   }
 

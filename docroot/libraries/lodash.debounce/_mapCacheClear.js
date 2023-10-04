@@ -1,6 +1,6 @@
-import Hash from './_Hash.js';
-import ListCache from './_ListCache.js';
-import Map from './_Map.js';
+var Hash = require('./_Hash'),
+    ListCache = require('./_ListCache'),
+    Map = require('./_Map');
 
 /**
  * Removes all key-value entries from the map.
@@ -18,4 +18,4 @@ function mapCacheClear() {
   };
 }
 
-export default mapCacheClear;
+module.exports = mapCacheClear;

@@ -1,4 +1,4 @@
-import Uint8Array from './_Uint8Array.js';
+var Uint8Array = require('./_Uint8Array');
 
 /**
  * Creates a clone of `arrayBuffer`.
@@ -13,4 +13,4 @@ function cloneArrayBuffer(arrayBuffer) {
   return result;
 }
 
-export default cloneArrayBuffer;
+module.exports = cloneArrayBuffer;

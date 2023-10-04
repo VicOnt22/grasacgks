@@ -219,6 +219,7 @@ class LanguageDropdownBlock extends BlockBase implements ContainerFactoryPluginI
         LANGDROPDOWN_DISPLAY_TRANSLATED => $this->t('Translated into Current Language'),
         LANGDROPDOWN_DISPLAY_NATIVE => $this->t('Language Native Name'),
         LANGDROPDOWN_DISPLAY_LANGCODE => $this->t('Language Code'),
+        LANGDROPDOWN_DISPLAY_SELFTRANSLATED => $this->t('Translated into Target Language'),
       ],
       '#default_value' => $this->configuration['display'],
     ];
@@ -721,7 +722,6 @@ class LanguageDropdownBlock extends BlockBase implements ContainerFactoryPluginI
       $roles = $this->currentUser->getRoles();
 
       list($entities, $accessible_translations) = $this->getEntitiesAndTranslations();
-
       foreach (array_keys($languages->links) as $langcode) {
         $hide_language = TRUE;
 
@@ -736,11 +736,13 @@ class LanguageDropdownBlock extends BlockBase implements ContainerFactoryPluginI
           $hide_language = TRUE;
         }
 
+        // Remove the language if it should be hidden.
         if ($hide_language) {
-          unset($languages->links[$langcode]['href']);
-          $languages->links[$langcode]['attributes']['class'][] = 'locale-untranslated';
+          unset($languages->links[$langcode]);
         }
-        $languages->links[$langcode]['language'] = $this->languageManager->getLanguage($langcode);
+        else {
+          $languages->links[$langcode]['language'] = $this->languageManager->getLanguage($langcode);
+        }
       }
     }
 
@@ -748,7 +750,12 @@ class LanguageDropdownBlock extends BlockBase implements ContainerFactoryPluginI
       return [];
     }
 
-    if ($this->configuration['hide_only_one'] && count($accessible_translations) === 1) {
+    // Return an empty render array if accessible translations
+    // or language links are one or zero.
+    if (
+      $this->configuration['hide_only_one'] &&
+      (count($accessible_translations) === 1 || count($languages->links) === 1)
+    ) {
       return [];
     }
 

@@ -214,6 +214,10 @@ function media_library_views_post_render(ViewExecutable $view, &$output, CachePl
         $ajax_path = &$output['#attached']['drupalSettings']['views']['ajax_path'];
         $parsed_url = UrlHelper::parse($ajax_path);
         $query = array_merge($query, $parsed_url['query']);
+
+        // Set page to 0 on widget view refresh.
+        $query['page'] = 0;
+
         $ajax_path = $parsed_url['path'] . '?' . UrlHelper::buildQuery($query);
       }
     }

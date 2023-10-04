@@ -145,23 +145,26 @@ class ManageComponentAttributesForm extends FormBase {
 
     $form_partial_id = [
       '#type' => 'textfield',
-      '#title' => 'ID',
+      '#title' => $this->t('ID'),
       '#description' => $this->t('An HTML identifier unique to the page.'),
     ];
     $form_partial_class = [
       '#type' => 'textfield',
-      '#title' => 'Class(es)',
+      '#title' => $this->t('Class(es)'),
       '#description' => $this->t('Classes to be applied. Multiple classes should be separated by a space.'),
+      '#maxlength' => 512,
     ];
     $form_partial_style = [
       '#type' => 'textfield',
-      '#title' => 'Style',
+      '#title' => $this->t('Style'),
       '#description' => $this->t('Inline CSS styles. <em>In general, inline CSS styles should be avoided.</em>'),
+      '#maxlength' => 512,
     ];
     $form_partial_data = [
       '#type' => 'textarea',
-      '#title' => 'Data-* attributes',
+      '#title' => $this->t('Data-* attributes'),
       '#description' => $this->t('Custom attributes, which are available to both CSS and JS.<br><br>Each attribute should be entered on its own line with a pipe (|) separating its name and its optional value:<br>data-test|example-value<br>data-attribute-with-no-value'),
+      '#maxlength' => 512,
     ];
 
     if (!$empty_categories['allowed_block_attributes']) {
@@ -278,110 +281,45 @@ class ManageComponentAttributesForm extends FormBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
 
-    // Validate block attributes.
-    if (isset($values['block_attributes']['id']) && !$this->validateCssClass($values['block_attributes']['id'])) {
-      $form_state->setError($form['block_attributes']['id'], $this->t('Element ID must be a valid CSS ID'));
-    }
+    $elements = [
+      'block_attributes',
+      'block_title_attributes',
+      'block_content_attributes',
+    ];
 
-    if (isset($values['block_attributes']['class'])) {
-      $classes = explode(' ', $values['block_attributes']['class']);
-      foreach ($classes as $class) {
-        if (!$this->validateCssClass($class)) {
-          $form_state->setError($form['block_attributes']['class'], $this->t('Classes must be valid CSS classes'));
-          break;
+    foreach ($elements as $element) {
+      if (isset($values[$element]['id']) && !$this->validateCssClass($values[$element]['id'])) {
+        $form_state->setError($form[$element]['id'], $this->t('Element ID must be a valid CSS ID'));
+      }
+
+      if (isset($values[$element]['class'])) {
+        $classes = explode(' ', $values[$element]['class']);
+        foreach ($classes as $class) {
+          if (!$this->validateCssClass($class)) {
+            $form_state->setError($form[$element]['class'], $this->t('Classes must be valid CSS classes'));
+            break;
+          }
         }
       }
-    }
 
-    if (isset($values['block_attributes']['style'])) {
-      $cssLinter = new Linter();
-      $style_validity = $cssLinter->lintString('.selector {' . $values['block_attributes']['style'] . '}');
-      if (!$style_validity) {
-        $form_state->setError($form['block_attributes']['style'], $this->t('Inline styles must be valid CSS'));
-      }
-    }
-
-    if (isset($values['block_attributes']['data'])) {
-      $data_attributes = preg_split('/\R/', $values['block_attributes']['data']);
-      foreach ($data_attributes as $data_attribute) {
-        if (empty($data_attribute)) {
-          break;
-        }
-        $data_attribute = explode('|', $data_attribute);
-        if (substr($data_attribute[0], 0, 5) !== "data-") {
-          $form_state->setError($form['block_attributes']['data'], $this->t('Data attributes must being with "data-"'));
+      if (isset($values[$element]['style'])) {
+        $cssLinter = new Linter();
+        $style_validity = $cssLinter->lintString('.selector {' . $values[$element]['style'] . '}');
+        if (!$style_validity) {
+          $form_state->setError($form[$element]['style'], $this->t('Inline styles must be valid CSS'));
         }
       }
-    }
 
-    // Validate block title attributes.
-    if (isset($values['block_title_attributes']['id']) && !$this->validateCssClass($values['block_title_attributes']['id'])) {
-      $form_state->setError($form['block_title_attributes']['id'], $this->t('Element ID must be a valid CSS ID'));
-    }
-
-    if (isset($values['block_title_attributes']['class'])) {
-      $classes = explode(' ', $values['block_title_attributes']['class']);
-      foreach ($classes as $class) {
-        if (!$this->validateCssClass($class)) {
-          $form_state->setError($form['block_title_attributes']['class'], $this->t('Classes must be valid CSS classes'));
-          break;
-        }
-      }
-    }
-
-    if (isset($values['block_title_attributes']['style'])) {
-      $cssLinter = new Linter();
-      $style_validity = $cssLinter->lintString('.selector {' . $values['block_title_attributes']['style'] . '}');
-      if (!$style_validity) {
-        $form_state->setError($form['block_title_attributes']['style'], $this->t('Inline styles must be valid CSS'));
-      }
-    }
-
-    if (isset($values['block_title_attributes']['data'])) {
-      $data_attributes = preg_split('/\R/', $values['block_title_attributes']['data']);
-      foreach ($data_attributes as $data_attribute) {
-        if (empty($data_attribute)) {
-          break;
-        }
-        $data_attribute = explode('|', $data_attribute);
-        if (substr($data_attribute[0], 0, 5) !== "data-") {
-          $form_state->setError($form['block_title_attributes']['data'], $this->t('Data attributes must being with "data-"'));
-        }
-      }
-    }
-
-    // Validate block content attributes.
-    if (isset($values['block_content_attributes']['id']) && !$this->validateCssClass($values['block_content_attributes']['id'])) {
-      $form_state->setError($form['block_content_attributes']['id'], $this->t('Element ID must be a valid CSS ID'));
-    }
-
-    if (isset($values['block_content_attributes']['class'])) {
-      $classes = explode(' ', $values['block_content_attributes']['class']);
-      foreach ($classes as $class) {
-        if (!$this->validateCssClass($class)) {
-          $form_state->setError($form['block_content_attributes']['class'], $this->t('Classes must be valid CSS classes'));
-          break;
-        }
-      }
-    }
-
-    if (isset($values['block_content_attributes']['style'])) {
-      $cssLinter = new Linter();
-      $style_validity = $cssLinter->lintString('.selector {' . $values['block_content_attributes']['style'] . '}');
-      if (!$style_validity) {
-        $form_state->setError($form['block_content_attributes']['style'], $this->t('Inline styles must be valid CSS'));
-      }
-    }
-
-    if (isset($values['block_content_attributes']['data'])) {
-      $data_attributes = preg_split('/\R/', $values['block_content_attributes']['data']);
-      foreach ($data_attributes as $data_attribute) {
-        if (empty($data_attribute)) {
-          break;
-        }
-        $data_attribute = explode('|', $data_attribute);
-        if (substr($data_attribute[0], 0, 5) !== "data-") {
-          $form_state->setError($form['block_content_attributes']['data'], $this->t('Data attributes must being with "data-"'));
+      if (isset($values[$element]['data'])) {
+        $data_attributes = preg_split('/\R/', $values[$element]['data']);
+        foreach ($data_attributes as $data_attribute) {
+          if (empty($data_attribute)) {
+            break;
+          }
+          $data_attribute = explode('|', $data_attribute);
+          if (substr($data_attribute[0], 0, 5) !== "data-") {
+            $form_state->setError($form[$element]['data'], $this->t('Data attributes must begin with "data-"'));
+          }
         }
       }
     }
@@ -412,26 +350,22 @@ class ManageComponentAttributesForm extends FormBase {
 
     $values = $form_state->getValues();
 
-    $additional_settings = [
-      'block_attributes' => [
-        'id' => $values['block_attributes']['id'] ?? '',
-        'class' => $values['block_attributes']['class'] ?? '',
-        'style' => $values['block_attributes']['style'] ?? '',
-        'data' => $values['block_attributes']['data'] ?? '',
-      ],
-      'block_title_attributes' => [
-        'id' => $values['block_title_attributes']['id'] ?? '',
-        'class' => $values['block_title_attributes']['class'] ?? '',
-        'style' => $values['block_title_attributes']['style'] ?? '',
-        'data' => $values['block_title_attributes']['data'] ?? '',
-      ],
-      'block_content_attributes' => [
-        'id' => $values['block_content_attributes']['id'] ?? '',
-        'class' => $values['block_content_attributes']['class'] ?? '',
-        'style' => $values['block_content_attributes']['style'] ?? '',
-        'data' => $values['block_content_attributes']['data'] ?? '',
-      ],
+    $additional_settings = [];
+
+    $elements = [
+      'block_attributes',
+      'block_title_attributes',
+      'block_content_attributes',
     ];
+
+    foreach ($elements as $element) {
+      $additional_settings[$element] = [
+        'id' => $values[$element]['id'] ?? '',
+        'class' => $values[$element]['class'] ?? '',
+        'style' => $values[$element]['style'] ?? '',
+        'data' => $values[$element]['data'] ?? '',
+      ];
+    }
 
     // Store configuration in layout_builder.component.additional.
     // Switch to third-party settings when

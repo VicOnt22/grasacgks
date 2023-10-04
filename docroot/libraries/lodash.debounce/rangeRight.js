@@ -1,4 +1,4 @@
-import createRange from './_createRange.js';
+var createRange = require('./_createRange');
 
 /**
  * This method is like `_.range` except that it populates values in
@@ -38,4 +38,4 @@ import createRange from './_createRange.js';
  */
 var rangeRight = createRange(true);
 
-export default rangeRight;
+module.exports = rangeRight;

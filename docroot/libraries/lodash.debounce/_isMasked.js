@@ -1,4 +1,4 @@
-import coreJsData from './_coreJsData.js';
+var coreJsData = require('./_coreJsData');
 
 /** Used to detect methods masquerading as native. */
 var maskSrcKey = (function() {
@@ -17,4 +17,4 @@ function isMasked(func) {
   return !!maskSrcKey && (maskSrcKey in func);
 }
 
-export default isMasked;
+module.exports = isMasked;

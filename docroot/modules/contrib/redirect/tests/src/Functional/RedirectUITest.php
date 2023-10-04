@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\redirect\Functional;
 
-use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Language\Language;
 use Drupal\Core\Logger\RfcLogLevel;
 use Drupal\Core\Url;
@@ -20,24 +19,44 @@ class RedirectUITest extends BrowserTestBase {
   use AssertRedirectTrait;
 
   /**
+   * The admin user.
+   *
    * @var \Drupal\Core\Session\AccountInterface
    */
   protected $adminUser;
 
   /**
+   * The redirect repository.
+   *
    * @var \Drupal\redirect\RedirectRepository
    */
   protected $repository;
 
   /**
+   * The Sql conntent entity storage.
+   *
    * @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage
    */
-   protected $storage;
+  protected $storage;
+
+  /**
+   * The maximum redirects.
+   *
+   * @var int
+   */
+  public $maximumRedirects;
 
   /**
    * {@inheritdoc}
    */
-  protected static $modules = ['redirect', 'node', 'path', 'dblog', 'views', 'taxonomy'];
+  protected static $modules = [
+    'redirect',
+    'node',
+    'path',
+    'dblog',
+    'views',
+    'taxonomy',
+  ];
 
   /**
    * {@inheritdoc}
@@ -157,7 +176,7 @@ class RedirectUITest extends BrowserTestBase {
   /**
    * Test the redirect loop protection and logging.
    */
-  function testRedirectLoop() {
+  public function testRedirectLoop() {
     // Redirect loop redirection only works when page caching is disabled.
     \Drupal::service('module_installer')->uninstall(['page_cache']);
 
@@ -195,7 +214,7 @@ class RedirectUITest extends BrowserTestBase {
   /**
    * Returns a new vocabulary with random properties.
    */
-  function createVocabulary() {
+  public function createVocabulary() {
     // Create a vocabulary.
     $vocabulary = Vocabulary::create([
       'name' => $this->randomMachineName(),
@@ -211,7 +230,7 @@ class RedirectUITest extends BrowserTestBase {
   /**
    * Returns a new term with random properties in vocabulary $vid.
    */
-  function createTerm($vocabulary) {
+  public function createTerm($vocabulary) {
     $filter_formats = filter_formats();
     $format = array_pop($filter_formats);
     $term = Term::create([
@@ -278,7 +297,7 @@ class RedirectUITest extends BrowserTestBase {
   /**
    * Test redirects with node aliases.
    */
-  public function testNodeAliasRedirects() {
+  public function testNodeAliasRedirects(): void {
     $this->drupalLogin($this->adminUser);
 
     // Create a node with alias "test-alias".
@@ -290,14 +309,16 @@ class RedirectUITest extends BrowserTestBase {
     ]);
 
     // Create a redirect from "test-alias" to "/node" and assert redirect.
-    $this->drupalPostForm('admin/config/search/redirect/add', [
+    $this->drupalGet('admin/config/search/redirect/add');
+    $this->submitForm([
       'redirect_source[0][path]' => 'test-alias',
       'redirect_redirect[0][uri]' => '/node',
-    ], t('Save'));
+    ], 'Save');
     $this->assertRedirect('test-alias', '/node', 301);
 
     // Update the node alias to "test-alias-updated".
-    $this->drupalPostForm('node/' . $node->id() . '/edit', ['path[0][alias]' => '/test-alias-updated'], t('Save'));
+    $this->drupalGet($node->toUrl('edit-form'));
+    $this->submitForm(['path[0][alias]' => '/test-alias-updated'], t('Save'));
     // Assert the "test-alias" redirect is still present and was duplicated for
     // the new alias.
     $this->assertRedirect('test-alias', '/node', 301);
@@ -310,15 +331,16 @@ class RedirectUITest extends BrowserTestBase {
   }
 
   /**
-   * Test adding a node alias when a redirect already exists..
+   * Test adding a node alias when a redirect already exists.
    */
-  public function testNodeAliasOnExistingRedirect() {
+  public function testNodeAliasOnExistingRedirect(): void {
     $this->drupalLogin($this->adminUser);
 
-    $this->drupalPostForm('admin/config/search/redirect/add', [
+    $this->drupalGet('admin/config/search/redirect/add');
+    $this->submitForm([
       'redirect_source[0][path]' => 'some-url',
       'redirect_redirect[0][uri]' => '/node',
-    ], t('Save'));
+    ], 'Save');
 
     $this->assertRedirect('some-url', '/node', 301);
 

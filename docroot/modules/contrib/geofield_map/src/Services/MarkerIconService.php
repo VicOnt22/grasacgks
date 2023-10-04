@@ -2,7 +2,6 @@
 
 namespace Drupal\geofield_map\Services;
 
-use Drupal;
 use Drupal\Component\Utility\Bytes;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Extension\ExtensionPathResolver;
@@ -22,7 +21,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Yaml\Yaml;
 use Drupal\Core\Url;
 use Drupal\Core\Config\Config;
-use Drupal\image\Entity\ImageStyle;
 use Drupal\Core\Entity\EntityStorageException;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Drupal\Component\Utility\Unicode;
@@ -57,7 +55,7 @@ class MarkerIconService {
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $entityManager;
+  protected $entityTypeManager;
 
   /**
    * The module handler to invoke the alter hook.
@@ -193,10 +191,7 @@ class MarkerIconService {
    */
   protected function setMarkersFilesList(): array {
     $markers_files_list = [];
-    //preg_quote null to avoid
-    $pregavoid = $this->allowedExtension ? :'';
-//    $regex = '/\.(' . preg_replace('/ +/', '|', preg_quote($this->allowedExtension)) . ')$/i';
-    $regex = '/\.(' . preg_replace('/ +/', '|', preg_quote($pregavoid)) . ')$/i';
+    $regex = '/\.(' . preg_replace('/ +/', '|', preg_quote(($this->allowedExtension ?: ''))) . ')$/i';
     $security = $this->geofieldMapSettings->get('theming.markers_location.security');
     $rel_path = $this->geofieldMapSettings->get('theming.markers_location.rel_path');
     try {
@@ -325,8 +320,8 @@ class MarkerIconService {
    *   The string translation service.
    * @param \Drupal\Core\File\FileSystemInterface $file_system
    *   File system service.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager
-   *   The entity manager.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
    * @param \Drupal\Core\Utility\LinkGeneratorInterface $link_generator
@@ -346,7 +341,7 @@ class MarkerIconService {
     ConfigFactoryInterface $config_factory,
     TranslationInterface $string_translation,
     FileSystemInterface $file_system,
-    EntityTypeManagerInterface $entity_manager,
+    EntityTypeManagerInterface $entity_type_manager,
     ModuleHandlerInterface $module_handler,
     LinkGeneratorInterface $link_generator,
     ElementInfoManagerInterface $element_info,
@@ -357,7 +352,7 @@ class MarkerIconService {
   ) {
     $this->config = $config_factory;
     $this->stringTranslation = $string_translation;
-    $this->entityManager = $entity_manager;
+    $this->entityTypeManager = $entity_type_manager;
     $this->moduleHandler = $module_handler;
     $this->link = $link_generator;
     $this->elementInfo = $element_info;
@@ -401,7 +396,7 @@ class MarkerIconService {
   public static function validateIconImageStatus(array $element, FormStateInterface $form_state) {
     $clicked_button = end($form_state->getTriggeringElement()['#parents']);
     if (!empty($element['#value']['fids'][0])) {
-      /* @var \Drupal\file\Entity\file $file */
+      /** @var \Drupal\file\Entity\file $file */
       $file = File::load($element['#value']['fids'][0]);
       if (in_array($clicked_button, ['save_settings', 'submit'])) {
         $file->setPermanent();
@@ -425,7 +420,7 @@ class MarkerIconService {
       $file->save();
     }
     catch (EntityStorageException $e) {
-      Drupal::logger('geofield_map')->warning(t("The file couldn't be saved: @message", [
+      \Drupal::logger('geofield_map')->warning(t("The file couldn't be saved: @message", [
         '@message' => $e->getMessage(),
       ])
       );
@@ -545,7 +540,7 @@ class MarkerIconService {
 
       // Always force the definition of the geofield_map_default_icon_style,
       // if not present.
-      if (!ImageStyle::load('geofield_map_default_icon_style')) {
+      if (!$this->entityTypeManager->getStorage('image_style')->load('geofield_map_default_icon_style')) {
         try {
           $this->setDefaultIconStyle();
         }
@@ -553,8 +548,8 @@ class MarkerIconService {
         }
       }
 
-      $image_styles = ImageStyle::loadMultiple();
-      /* @var \Drupal\image\ImageStyleInterface $style */
+      $image_styles = $this->entityTypeManager->getStorage('image_style')->loadMultiple();
+      /** @var \Drupal\image\ImageStyleInterface $style */
       foreach ($image_styles as $k => $style) {
         $options[$k] = Unicode::truncate($style->label(), 20, TRUE, TRUE);
       }
@@ -649,8 +644,8 @@ class MarkerIconService {
   public function getLegendIconFromFid(int $fid, string $image_style = 'none'): array {
     $icon_element = [];
     try {
-      /* @var \Drupal\file\Entity\file $file */
-      $file = $this->entityManager->getStorage('file')->load($fid);
+      /** @var \Drupal\file\Entity\file $file */
+      $file = $this->entityTypeManager->getStorage('file')->load($fid);
       if ($file instanceof FileInterface) {
         $this->defaultIconElement['#uri'] = $file->getFileUri();
         switch ($image_style) {
@@ -669,7 +664,7 @@ class MarkerIconService {
               '#uri' => $file->getFileUri(),
               '#style_name' => '',
             ];
-            if ($this->moduleHandler->moduleExists('image') && ImageStyle::load($image_style) && !$this->fileIsManageableSvg($file)) {
+            if ($this->moduleHandler->moduleExists('image') && $this->entityTypeManager->getStorage('image_style')->load($image_style) && !$this->fileIsManageableSvg($file)) {
               $icon_element['#style_name'] = $image_style;
             }
             else {
@@ -737,8 +732,8 @@ class MarkerIconService {
    */
   public function getUriFromFid($fid = NULL): string {
     try {
-      /* @var \Drupal\file\Entity\file $file */
-      if (isset($fid) && $file = $this->entityManager->getStorage('file')->load($fid)) {
+      /** @var \Drupal\file\Entity\file $file */
+      if (isset($fid) && $file = $this->entityTypeManager->getStorage('file')->load($fid)) {
         return $file->getFileUri();
       }
     }
@@ -823,11 +818,11 @@ class MarkerIconService {
    */
   public function getFileManagedUrl($fid = NULL, string $image_style = 'none'): string {
     try {
-      /* @var \Drupal\file\Entity\file $file */
-      if (isset($fid) && $file = $this->entityManager->getStorage('file')->load($fid)) {
+      /** @var \Drupal\file\Entity\file $file */
+      if (isset($fid) && $file = $this->entityTypeManager->getStorage('file')->load($fid)) {
         $uri = $file->getFileUri();
-        if ($this->moduleHandler->moduleExists('image') && $image_style != 'none' && ImageStyle::load($image_style) && !$this->fileIsManageableSvg($file)) {
-          $url = ImageStyle::load($image_style)->buildUrl($uri);
+        if ($this->moduleHandler->moduleExists('image') && $image_style != 'none' && $this->entityTypeManager->getStorage('image_style')->load($image_style) && !$this->fileIsManageableSvg($file)) {
+          $url = $this->entityTypeManager->getStorage('image_style')->load($image_style)->buildUrl($uri);
         }
         else {
           $url = $this->generateAbsoluteString($uri);

@@ -2,7 +2,7 @@ name: 'View Modes Inventory'
 type: module
 description: 'This module has a set of template view modes that we typically use (some of them) in each website.'
 package: Layout
-core_version_requirement: ^8 || ^9 || ^10
+core_version_requirement: ~9.5.0 || ~10.1.0
 dependencies:
   - drupal:user
   - drupal:node
@@ -11,7 +11,7 @@ dependencies:
   - field_group:field_group
   - smart_trim:smart_trim
 
-# Information added by Drupal.org packaging script on 2022-10-23
-version: '8.x-2.12'
+# Information added by Drupal.org packaging script on 2023-07-20
+version: '8.x-2.15'
 project: 'vmi'
-datestamp: 1666535678
+datestamp: 1689864989

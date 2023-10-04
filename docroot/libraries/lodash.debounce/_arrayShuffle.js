@@ -1,5 +1,5 @@
-import copyArray from './_copyArray.js';
-import shuffleSelf from './_shuffleSelf.js';
+var copyArray = require('./_copyArray'),
+    shuffleSelf = require('./_shuffleSelf');
 
 /**
  * A specialized version of `_.shuffle` for arrays.
@@ -12,4 +12,4 @@ function arrayShuffle(array) {
   return shuffleSelf(copyArray(array));
 }
 
-export default arrayShuffle;
+module.exports = arrayShuffle;

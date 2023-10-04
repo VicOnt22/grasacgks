@@ -1,5 +1,5 @@
-import copyObject from './_copyObject.js';
-import getSymbols from './_getSymbols.js';
+var copyObject = require('./_copyObject'),
+    getSymbols = require('./_getSymbols');
 
 /**
  * Copies own symbols of `source` to `object`.
@@ -13,4 +13,4 @@ function copySymbols(source, object) {
   return copyObject(source, getSymbols(source), object);
 }
 
-export default copySymbols;
+module.exports = copySymbols;

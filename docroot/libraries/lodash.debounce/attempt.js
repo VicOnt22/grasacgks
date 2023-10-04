@@ -1,6 +1,6 @@
-import apply from './_apply.js';
-import baseRest from './_baseRest.js';
-import isError from './isError.js';
+var apply = require('./_apply'),
+    baseRest = require('./_baseRest'),
+    isError = require('./isError');
 
 /**
  * Attempts to invoke `func`, returning either the result or the caught error
@@ -32,4 +32,4 @@ var attempt = baseRest(function(func, args) {
   }
 });
 
-export default attempt;
+module.exports = attempt;

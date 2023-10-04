@@ -1,0 +1,194 @@
+stages:
+  - 🏗️ Build
+  - 🗜️ Test
+.default-job-settings: &default-job-settings
+  interruptible: true
+  allow_failure: false
+  image:
+    name: $_CONFIG_DOCKERHUB_ROOT/php-$_TARGET_PHP-apache:production
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "parent_pipeline"
+
+.composer-cache: &composer-cache
+  key:
+    files:
+      - ./composer.json
+      - ./composer.lock
+  paths:
+    - ./vendor
+
+.yarn-cache: &yarn-cache
+  key:
+    files:
+      - ./package.json
+      - ./yarn.lock
+  paths:
+    - ./node_modules
+
+.with-composer-cache: &with-composer-cache
+  dependencies:
+    - '📦️ Composer'
+  cache:
+    policy: pull
+    <<: *composer-cache
+
+.with-yarn-cache: &with-yarn-cache
+  dependencies:
+    - '📦️ Yarn'
+  cache:
+    policy: pull
+    <<: *yarn-cache
+
+.with-composer-and-yarn: &with-composer-and-yarn
+  needs:
+    - '📦️ Composer'
+    - '📦️ Yarn'
+  dependencies:
+    - '📦️ Yarn'
+    - '📦️ Composer'
+
+.test-variables: &test-variables
+  FF_NETWORK_PER_BUILD: 1
+  SIMPLETEST_BASE_URL: http://localhost/subdirectory
+  DB_DRIVER: mysql
+  MYSQL_ROOT_PASSWORD: root
+  MYSQL_DATABASE: mysql
+  MYSQL_USER: drupaltestbot
+  MYSQL_PASSWORD: drupaltestbotpw
+  POSTGRES_DB: drupaltestbot
+  POSTGRES_USER: drupaltestbot
+  POSTGRES_PASSWORD: drupaltestbotpw
+  MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-dev-shm-usage","--disable-gpu","--headless"]}}, "http://localhost:9515"]'
+  CI_PARALLEL_NODE_INDEX: $CI_NODE_INDEX
+  CI_PARALLEL_NODE_TOTAL: $CI_NODE_TOTAL
+
+.with-database: &with-database
+  name: $_CONFIG_DOCKERHUB_ROOT/$_TARGET_DB:production
+  alias: database
+
+.with-chrome: &with-chrome
+  name: $_CONFIG_DOCKERHUB_ROOT/chromedriver:production
+  alias: chrome
+  entrypoint:
+    - chromedriver
+    - "--no-sandbox"
+    - "--log-path=/tmp/chromedriver.log"
+    - "--verbose"
+    - "--whitelisted-ips="
+
+.phpunit-artifacts: &phpunit-artifacts
+  artifacts:
+    when: always
+    expire_in: 6 mos
+    reports:
+      junit: ./sites/default/files/simpletest/phpunit-*.xml
+    paths:
+      - ./sites/default/files/simpletest/phpunit-*.xml
+      - ./sites/simpletest/browser_output
+
+.setup-webroot: &setup-webserver
+  before_script:
+    - ln -s $CI_PROJECT_DIR /var/www/html/subdirectory
+    - sudo service apache2 start
+
+.run-tests: &run-tests
+  script:
+    # Determine DB driver.
+    - |
+      [[ $_TARGET_DB == sqlite* ]] && export SIMPLETEST_DB=sqlite://localhost/$CI_PROJECT_DIR/sites/default/files/db.sqlite?module=sqlite
+      [[ $_TARGET_DB == mysql* ]] && export SIMPLETEST_DB=mysql://$MYSQL_USER:$MYSQL_PASSWORD@database/$MYSQL_DATABASE?module=mysql
+      [[ $_TARGET_DB == mariadb* ]] && export SIMPLETEST_DB=mysql://$MYSQL_USER:$MYSQL_PASSWORD@database/$MYSQL_DATABASE?module=mysql
+      [[ $_TARGET_DB == pgsql* ]] && export SIMPLETEST_DB=pgsql://$POSTGRES_USER:$POSTGRES_PASSWORD@database/$POSTGRES_DB?module=pgsql
+    - mkdir -p ./sites/simpletest ./sites/default/files ./build/logs/junit /var/www/.composer
+    - chown -R www-data:www-data ./sites ./build/logs/junit ./vendor /var/www/
+    - sudo -u www-data git config --global --add safe.directory $CI_PROJECT_DIR
+
+################
+# Build Jobs
+################
+
+'📦️ Composer':
+  <<: *default-job-settings
+  stage: 🏗️ Build
+  cache:
+    <<: *composer-cache
+  artifacts:
+    expire_in: 1 week
+    expose_as: 'composer-vendor'
+    paths:
+      - vendor/
+  script:
+      - composer config --no-plugins allow-plugins.phpstan/extension-installer true
+      - composer config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
+      - composer validate
+      - composer instal -vvv
+
+'📦️ Yarn':
+  <<: *default-job-settings
+  stage: 🏗️ Build
+  cache:
+    <<: *yarn-cache
+  artifacts:
+    expire_in: 1 week
+    expose_as: 'yarn-node_modules'
+    paths:
+      - node_modules/
+  script:
+    - yarn install
+
+################
+# Test Jobs
+################
+
+'⚡️ PHPUnit Unit':
+  <<: [ *with-composer-cache, *phpunit-artifacts, *setup-webserver, *run-tests, *default-job-settings ]
+  stage: 🗜️ Test
+  services:
+    - <<: *with-database
+  variables:
+    <<: *test-variables
+    TESTSUITE: PHPUnit-Unit
+    CONCURRENCY: "$CONCURRENCY"
+
+'🌐️️ PHPUnit Functional':
+  <<: [ *with-composer-cache, *phpunit-artifacts, *setup-webserver, *run-tests, *default-job-settings ]
+  stage: 🗜️ Test
+  parallel: 6
+  variables:
+    <<: *test-variables
+    TESTSUITE: PHPUnit-Functional
+    CONCURRENCY: "$CONCURRENCY"
+  services:
+    - <<: *with-database
+
+'⚙️️ PHPUnit Kernel':
+  <<: [*with-composer-cache, *phpunit-artifacts, *setup-webserver, *run-tests, *default-job-settings ]
+  stage: 🗜️ Test
+  variables:
+    <<: *test-variables
+    TESTSUITE: PHPUnit-Kernel
+    CONCURRENCY: "$CONCURRENCY"
+  services:
+    - <<: *with-database
+
+'🖱️️️ PHPUnit Functional Javascript':
+  <<: [ *with-composer-cache, *phpunit-artifacts, *setup-webserver, *run-tests, *default-job-settings ]
+  stage: 🗜️ Test
+  variables:
+    <<: *test-variables
+    TESTSUITE: PHPUnit-FunctionalJavascript
+    CONCURRENCY: 15
+  services:
+    - <<: *with-database
+    - <<: *with-chrome
+
+'👷️️️ PHPUnit Build':
+  <<: [ *with-composer-cache, *phpunit-artifacts, *setup-webserver, *run-tests, *default-job-settings ]
+  stage: 🗜️ Test
+  variables:
+    <<: *test-variables
+    TESTSUITE: PHPUnit-Build
+    CONCURRENCY: "$CONCURRENCY"
+  services:
+    - <<: *with-database
+

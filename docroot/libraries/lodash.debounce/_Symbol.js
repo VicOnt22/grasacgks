@@ -1,6 +1,6 @@
-import root from './_root.js';
+var root = require('./_root');
 
 /** Built-in value references. */
 var Symbol = root.Symbol;
 
-export default Symbol;
+module.exports = Symbol;

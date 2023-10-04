@@ -77,7 +77,8 @@ class MaxLengthJavascriptTest extends WebDriverTestBase {
     $found = $this->xpath('//div[@data-drupal-selector="edit-foo-0"]/following-sibling::div[@id="edit-foo-0-value-counter"]');
     $this->assertCount(1, $found);
 
-    // Add some text to the field and assert the maxlength counters changed accordingly.
+    // Add some text to the field and assert the maxlength counters changed
+    // accordingly.
     $this->getSession()->getPage()->fillField('Foo', 'Some text with <strong>html</strong>');
 
     $this->assertSession()->pageTextContainsOnce('Content limited to 200 characters, remaining: 181 and total 19');
