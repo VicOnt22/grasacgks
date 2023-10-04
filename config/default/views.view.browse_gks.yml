@@ -788,7 +788,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<br>Browsing allows you to see all the records for relatives and heritage items in the GKS. You can also search by material made, and/or filter by nations. To search by material made, type the material''s name, by example ''leather'', in the box below and click “Apply.” You can select  multiple nations from the dropdown list by pressing “Ctrl” (on PC) or “Command” (on Mac) and clicking, then select “Apply.” '
+            value: '<br>Browsing allows you to see all the records for relatives and heritage items in the GKS. You can also browse by materials, and/or by nations. Type the materials in the box below and click “Apply.” You can select  multiple nations from the dropdown list by pressing “Ctrl” (on PC) or “Command” (on Mac) and clicking, then select “Apply.” '
             format: full_html
           tokenize: false
       exposed_block: false

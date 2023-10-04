@@ -728,7 +728,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: false
-          content: "<p>By default, we show All, unfiltered results. You may also search the GKS, by typing keywords into the bar above. Use filters on the left to narrow the default search results or keywords search results.</p>\r\n<h2>Search Results</h2>\r\nDisplaying @start - @end of @total\r\n<p>&nbsp;</p>"
+          content: "<p>To search the GKS, type keywords into the bar above. Use filters on the left to narrow the default search results or keywords search results.</p>\r\n<h2>Search Results</h2>\r\nDisplaying @start - @end of @total\r\n<p>&nbsp;</p>"
       footer: {  }
       display_extenders: {  }
     cache_metadata:

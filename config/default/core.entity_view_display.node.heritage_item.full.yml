@@ -107,6 +107,7 @@ third_party_settings:
         - content_moderation_control
         - 'display_field_copy:node-images_clone'
         - field_image2
+        - field_media_audio_video_docs_
         - field_description_summary
         - field_maker_name
         - field_maker_role
@@ -160,7 +161,6 @@ third_party_settings:
         - field_local_origin_attribution
         - field_region_origin_attribution
         - field_sources_exhib_pub_his
-        - field_media_audio_video_docs_
     fields:
       'display_field_copy:node-images_clone':
         plugin_id: 'display_field_copy:node-images_clone'
@@ -223,7 +223,7 @@ third_party_settings:
       label: Provenance
       parent_name: ''
       region: main
-      weight: 22
+      weight: 23
       format_type: tab
       format_settings:
         classes: ''
@@ -240,7 +240,7 @@ third_party_settings:
       label: 'Related Items'
       parent_name: ''
       region: main
-      weight: 23
+      weight: 24
       format_type: tab
       format_settings:
         classes: ''
@@ -267,11 +267,10 @@ third_party_settings:
         - field_local_origin_attribution
         - field_region_origin_attribution
         - field_sources_exhib_pub_his
-        - field_media_audio_video_docs_
       label: 'About This GRASAC Record'
       parent_name: ''
       region: main
-      weight: 24
+      weight: 25
       format_type: tab
       format_settings:
         classes: ''
@@ -346,7 +345,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 18
+    weight: 19
     region: main
   field_access_rationale:
     type: advanced_text
@@ -476,7 +475,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 14
+    weight: 15
     region: main
   field_bibliographic_citation:
     type: advanced_text
@@ -833,7 +832,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 21
+    weight: 22
     region: main
   field_date_collection:
     type: string
@@ -905,7 +904,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 12
+    weight: 13
     region: main
   field_description_condition:
     type: basic_string
@@ -1058,7 +1057,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 15
+    weight: 16
     region: main
   field_description_motifs:
     type: advanced_text
@@ -1117,7 +1116,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 17
+    weight: 18
     region: main
   field_description_othernotes:
     type: advanced_text
@@ -1270,7 +1269,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 5
+    weight: 6
     region: main
   field_description_symbols:
     type: advanced_text
@@ -1388,7 +1387,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 16
+    weight: 17
     region: main
   field_dimensions:
     type: physical_dimensions_default
@@ -1423,7 +1422,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 19
+    weight: 20
     region: main
   field_exhibition_notes:
     type: advanced_text
@@ -2356,7 +2355,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 10
+    weight: 11
     region: main
   field_maker_attribution:
     type: advanced_text
@@ -2415,7 +2414,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 11
+    weight: 12
     region: main
   field_maker_name:
     type: string
@@ -2451,7 +2450,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 6
+    weight: 7
     region: main
   field_maker_role:
     type: entity_reference_label
@@ -2488,7 +2487,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 7
+    weight: 8
     region: main
   field_media_audio_video_docs_:
     type: entity_reference_entity_view
@@ -2526,7 +2525,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 47
+    weight: 5
     region: main
   field_nation_rationale:
     type: smart_trim
@@ -2575,7 +2574,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 9
+    weight: 10
     region: main
   field_nation_tid:
     type: entity_reference_label
@@ -2612,7 +2611,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 8
+    weight: 9
     region: main
   field_original_function:
     type: advanced_text
@@ -2671,7 +2670,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 20
+    weight: 21
     region: main
   field_provenance:
     type: advanced_text
@@ -3158,7 +3157,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 13
+    weight: 14
     region: main
   field_source_coll_his:
     type: advanced_text
