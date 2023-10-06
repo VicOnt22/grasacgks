@@ -50,7 +50,9 @@
         "drupal/scroll_top_button": "^2.0",
         "drupal/views_display_switch": "^1.1",
         "drupal/display_field_copy": "^2.0",
-        "drupal/views_bulk_operations": "4.2.3"
+        "drupal/views_bulk_operations": "4.2.3",
+        "npm-asset/dompurify": "^3.0",
+        "enshrined/svg-sanitize": "^0.16.0"
     },
     "conflict": {
         "drupal/drupal": "*"

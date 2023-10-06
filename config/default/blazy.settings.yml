@@ -1,4 +1,5 @@
 admin_css: true
+lazy_html: false
 nojs:
   lazy: '0'
   polyfill: '0'
@@ -12,9 +13,15 @@ blur_storage: false
 blur_minwidth: 0
 noscript: false
 one_pixel: false
+visible_class: false
+wrapper_class: false
+deprecated_class: false
 placeholder: ''
 unstyled_extensions: ''
-responsive_image: true
+use_encodedbox: false
+use_oembed: false
+use_theme_blazy: true
+responsive_image: false
 blazy:
   loadInvisible: true
   offset: 100
