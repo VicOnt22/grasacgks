@@ -391,6 +391,7 @@ permissions:
   - 'view faq revisions'
   - 'view field_bulk_import_key'
   - 'view field_gks_id'
+  - 'view field_gks_reference_number'
   - 'view field_record_editable_by'
   - 'view heritage_item revisions'
   - 'view landing_page_lb revisions'

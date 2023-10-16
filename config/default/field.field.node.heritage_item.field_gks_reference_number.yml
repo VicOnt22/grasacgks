@@ -1,0 +1,25 @@
+uuid: b1474df1-31f2-4e41-9c60-4c8c644f54e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gks_reference_number
+    - node.type.heritage_item
+id: node.heritage_item.field_gks_reference_number
+field_name: field_gks_reference_number
+entity_type: node
+bundle: heritage_item
+label: 'GKS Reference Number'
+description: 'Filled automatically, Ignore this field'
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -273,6 +273,7 @@ permissions:
   - userprotect.account.edit
   - 'view any unpublished content'
   - 'view content planner dashboard'
+  - 'view field_gks_reference_number'
   - 'view field_record_editable_by'
   - 'view latest version'
   - 'view media'

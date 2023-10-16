@@ -62,7 +62,6 @@ dependencies:
     - google_analytics
     - google_analytics_reports
     - google_analytics_reports_api
-    - google_tag
     - layout_builder
     - locale
     - mailsystem
@@ -521,6 +520,7 @@ permissions:
   - 'view expiring users report'
   - 'view field_bulk_import_key'
   - 'view field_gks_id'
+  - 'view field_gks_reference_number'
   - 'view field_record_editable_by'
   - 'view file media revisions'
   - 'view files'

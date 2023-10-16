@@ -305,6 +305,7 @@ permissions:
   - 'view article revisions'
   - 'view field_bulk_import_key'
   - 'view field_gks_id'
+  - 'view field_gks_reference_number'
   - 'view field_make_role'
   - 'view field_record_editable_by'
   - 'view files'

@@ -36,6 +36,7 @@ dependencies:
     - field.field.node.heritage_item.field_geofield
     - field.field.node.heritage_item.field_geolocation
     - field.field.node.heritage_item.field_gks_id
+    - field.field.node.heritage_item.field_gks_reference_number
     - field.field.node.heritage_item.field_identifier_url
     - field.field.node.heritage_item.field_image2
     - field.field.node.heritage_item.field_imagemy_media
@@ -207,6 +208,7 @@ hidden:
   field_geofield: true
   field_geolocation: true
   field_gks_id: true
+  field_gks_reference_number: true
   field_identifier_url: true
   field_imagemy_media: true
   field_item_type: true

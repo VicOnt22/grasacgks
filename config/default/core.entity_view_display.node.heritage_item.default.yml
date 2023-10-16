@@ -35,6 +35,7 @@ dependencies:
     - field.field.node.heritage_item.field_geofield
     - field.field.node.heritage_item.field_geolocation
     - field.field.node.heritage_item.field_gks_id
+    - field.field.node.heritage_item.field_gks_reference_number
     - field.field.node.heritage_item.field_identifier_url
     - field.field.node.heritage_item.field_image2
     - field.field.node.heritage_item.field_imagemy_media
@@ -996,6 +997,15 @@ content:
     third_party_settings: {  }
     weight: 6
     region: main
+  field_gks_reference_number:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 60
+    region: content
   field_identifier_url:
     type: link
     label: above

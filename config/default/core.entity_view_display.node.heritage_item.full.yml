@@ -36,6 +36,7 @@ dependencies:
     - field.field.node.heritage_item.field_geofield
     - field.field.node.heritage_item.field_geolocation
     - field.field.node.heritage_item.field_gks_id
+    - field.field.node.heritage_item.field_gks_reference_number
     - field.field.node.heritage_item.field_identifier_url
     - field.field.node.heritage_item.field_image2
     - field.field.node.heritage_item.field_imagemy_media
@@ -135,23 +136,24 @@ third_party_settings:
         - field_related_heritage_out_gks
         - field_identifier_url
         - field_related_language_item
-        - field_description_howtocite
         - field_collection
         - field_related_extern_lang_items
-        - field_record_creation
         - field_date_acquisition
-        - field_record_creation_notes
         - field_date_collection
-        - field_tk_label
         - field_contributor_collector
-        - field_access_rationale
         - field_provenance
-        - field_creative_commons_licence
         - field_function_attribution
-        - field_folders
         - field_exhibition_notes
-        - field_description_source
         - field_publication_history
+        - field_gks_reference_number
+        - field_description_howtocite
+        - field_record_creation
+        - field_record_creation_notes
+        - field_tk_label
+        - field_access_rationale
+        - field_creative_commons_licence
+        - field_folders
+        - field_description_source
         - field_bibliographic_citation
         - field_acquired_from
         - field_source_coll_his
@@ -250,6 +252,7 @@ third_party_settings:
         description: ''
     group_about_this_grasac_record:
       children:
+        - field_gks_reference_number
         - field_description_howtocite
         - field_record_creation
         - field_record_creation_notes
@@ -404,7 +407,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 34
+    weight: 44
     region: main
   field_acquired_from:
     type: basic_string
@@ -439,7 +442,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 39
+    weight: 49
     region: main
   field_associated_ceremonial_time:
     type: entity_reference_label
@@ -534,7 +537,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 38
+    weight: 48
     region: main
   field_catalog_id:
     type: string
@@ -701,7 +704,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 35
+    weight: 45
     region: main
   field_current_institution:
     type: entity_reference_label
@@ -939,7 +942,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 41
+    weight: 51
     region: main
   field_description_howtocite:
     type: advanced_text
@@ -998,7 +1001,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 30
+    weight: 40
     region: main
   field_description_materials:
     type: advanced_text
@@ -1175,7 +1178,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 42
+    weight: 52
     region: main
   field_description_source:
     type: advanced_text
@@ -1234,7 +1237,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 37
+    weight: 47
     region: main
   field_description_summary:
     type: text_default
@@ -1328,7 +1331,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 43
+    weight: 53
     region: main
   field_description_techniques:
     type: advanced_text
@@ -1518,7 +1521,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 36
+    weight: 46
     region: main
   field_function_attribution:
     type: advanced_text
@@ -2184,6 +2187,43 @@ content:
             suffix: ''
     weight: 26
     region: main
+  field_gks_reference_number:
+    type: number_integer
+    label: inline
+    settings:
+      thousand_separator: ''
+      prefix_suffix: false
+    third_party_settings:
+      ds:
+        ft:
+          id: expert
+          settings:
+            lb: ''
+            lbw: true
+            lbw-el: strong
+            lbw-cl: ''
+            lbw-at: ''
+            lb-col: true
+            ow: true
+            ow-el: ''
+            ow-cl: field-outer
+            ow-at: ''
+            ow-def-at: true
+            ow-def-cl: true
+            fis: false
+            fis-el: ''
+            fis-cl: ''
+            fis-at: ''
+            fis-def-at: false
+            fi: false
+            fi-el: ''
+            fi-cl: ''
+            fi-at: ''
+            fi-def-at: false
+            prefix: ''
+            suffix: ''
+    weight: 39
+    region: main
   field_identifier_url:
     type: link
     label: inline
@@ -2319,7 +2359,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 44
+    weight: 54
     region: main
   field_local_origin_tid:
     type: entity_reference_label
@@ -2536,15 +2576,18 @@ content:
       trim_suffix: ''
       wrap_output: false
       wrap_class: trimmed
+      more:
+        display_link: false
+        target_blank: false
+        link_trim_only: false
+        class: more-link
+        text: More
+        aria_label: 'Read more about [node:title]'
       summary_handler: full
       trim_options:
         text: false
         trim_zero: false
         replace_tokens: false
-      more_link: false
-      more_class: more-link
-      more_text: More
-      more_aria_label: 'Read more about [node:title]'
     third_party_settings:
       ds:
         ft:
@@ -2847,7 +2890,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 31
+    weight: 41
     region: main
   field_record_creation_notes:
     type: advanced_text
@@ -2906,7 +2949,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 32
+    weight: 42
     region: main
   field_region_origin_attribution:
     type: advanced_text
@@ -2965,7 +3008,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 45
+    weight: 55
     region: main
   field_related_extern_lang_items:
     type: link
@@ -3216,7 +3259,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 40
+    weight: 50
     region: main
   field_sources_exhib_pub_his:
     type: advanced_text
@@ -3275,7 +3318,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 46
+    weight: 56
     region: main
   field_tk_label:
     type: entity_reference_entity_view
@@ -3313,7 +3356,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 33
+    weight: 43
     region: main
   links:
     settings: {  }
