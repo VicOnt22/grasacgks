@@ -1057,8 +1057,9 @@ display:
           row_class: ''
           default_row_class: true
           columns:
-            views_bulk_operations_bulk_form: views_bulk_operations_bulk_form
+            node_bulk_form: node_bulk_form
             nid: nid
+            field_gks_reference_number: field_gks_reference_number
             title: title
             type: type
             name: name
@@ -1067,15 +1068,21 @@ display:
             changed: changed
             langcode: langcode
             operations: operations
-            field_yoast_seo: field_yoast_seo
           default: changed
           info:
-            views_bulk_operations_bulk_form:
+            node_bulk_form:
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             nid:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_gks_reference_number:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -1132,13 +1139,6 @@ display:
               empty_column: false
               responsive: ''
             operations:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_yoast_seo:
-              sortable: false
-              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false

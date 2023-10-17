@@ -465,7 +465,7 @@ content:
     third_party_settings: {  }
   field_geolocation:
     type: geolocation_leaflet
-    weight: 24
+    weight: 25
     region: content
     settings:
       auto_client_location: ''
@@ -1032,6 +1032,13 @@ content:
         touchZoom: true
         bounceAtZoomLimits: true
     third_party_settings: {  }
+  field_gks_reference_number:
+    type: number
+    weight: 24
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
   field_identifier_url:
     type: link_default
     weight: 15
@@ -1314,7 +1321,6 @@ hidden:
   body: true
   field_geofield: true
   field_gks_id: true
-  field_gks_reference_number: true
   field_imagemy_media: true
   field_media_image_twoc: true
   field_region_of_origin: true

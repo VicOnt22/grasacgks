@@ -4,6 +4,7 @@ use \Drupal\node\NodeInterface;
 use \Drupal\node\Entity\Node;
 use Drupal\Core\Entity\EntityTypeManager;
 use \Drupal\Core\Entity\RevisionLogInterface;
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * name comes from ini functionality: Copies the value from one field to another empty field.
@@ -354,6 +355,53 @@ function change_update_fields_cron() {
    delete_tracking_stats_rows();
 }
 
+/**
+ * Implements hook_node_insert().
+ * The only hook that knows new node->id() when is just created
+ */
+function change_update_fields_node_insert($node) {
+
+  $the_new_nid = $node->id();
+  $node->set("field_gks_reference_number", intval($the_new_nid));
+  $node->save();
+}
+
+/**
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *
+ * @return void
+ */
+function change_update_fields_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
+
+//  $mt=$entity->getEntityType()->id();
+//  $mt2=$entity->getEntityType()->getBundleEntityType();
+//  $mt3=$entity->getEntityTypeId();
+
+    if ($entity->bundle() == 'heritage_item') {
+      $field_gks_value = $entity->get('field_gks_reference_number')->value;
+      if ($field_gks_value == '1' OR $field_gks_value == '') {
+        $entity->set('field_gks_reference_number', intval($entity->id()));
+      }
+    }
+}
+
+///**
+// * Implements hook_form_alter().
+// * does not work in same module with hook_node_insert()
+// */
+//function change_update_fields_form_node_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+//
+//  $stop=1;
+//  if ($form_id == 'node_heritage_item_edit_form') {
+//    // Retrieving unprocessed field value.
+//    $original_value = $form['field_gks_reference_number']['widget'][0]['value']['#default_value'];
+//    $node_nid = intval($form_state->getformObject()->getEntity()->id());
+//    if ($original_value) {
+//      $form['field_gks_reference_number']['widget'][0]['value']['#default_value'] = $node_nid;
+//    }
+//    $stop=1;
+//  }
+//}
 
 
 
