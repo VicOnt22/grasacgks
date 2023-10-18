@@ -140,3 +140,7 @@ a {
 #about-this-record-group summary {
   font-weight: bold;
 }
+
+#views-exposed-form-glossary-page-1 input[id*=edit-combine] {
+  margin-top: 2rem;
+}

@@ -229,7 +229,8 @@
                 "Warning array_flip() Can only flip STRING and INTEGER values": "https://www.drupal.org/files/issues/2021-11-15/3249389-array-flip-replaced-by-foreach-iteration.patch",
                 "Add a width $properties argument to FieldItemLi": "https://www.drupal.org/files/issues/2021-06-06/2941092-23.patch",
                 "project/drupal/issues/2794481 Allow optional End date": "https://www.drupal.org/files/issues/2022-06-16/drupal-datetime_range-allow_end_date_optional-2794481-139.patch",
-                "issues/3344033 Deprecated function strlen() Passing null to parameter #1": "https://www.drupal.org/files/issues/2023-04-03/3344033-9.patch"
+                "issues/3344033 Deprecated function strlen() Passing null to parameter #1": "https://www.drupal.org/files/issues/2023-04-03/3344033-9.patch",
+                "js remove field_gks_refrence_number from edit form under claro admin theme": "patches/claro-gks.patch"
             },
             "drupal/config_devel": {
                 "Add an extra.drush.services section to composer.json": "https://www.drupal.org/files/issues/2021-07-28/3225746-2--add-extra-drush-services-to-composer-json.patch"

@@ -19,7 +19,7 @@ dependencies:
     - field.field.node.language_item.field_term_definition
     - field.field.node.language_item.field_unique_id
     - node.type.language_item
-    - workflows.workflow.varbase_simple_workflow
+    - workflows.workflow.varbase_editorial_workflow
   module:
     - content_moderation
     - field_group
@@ -64,13 +64,13 @@ content:
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 4
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   field_alternative_spellings:
     type: string_textarea
-    weight: 14
+    weight: 4
     region: content
     settings:
       rows: 5
@@ -99,13 +99,13 @@ content:
     third_party_settings: {  }
   field_languages:
     type: options_select
-    weight: 11
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
   field_part_ofspeech:
     type: options_buttons
-    weight: 12
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -153,7 +153,7 @@ content:
     third_party_settings: {  }
   field_term_definition:
     type: string_textarea
-    weight: 13
+    weight: 3
     region: content
     settings:
       rows: 5
@@ -176,24 +176,24 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 9
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   simple_sitemap:
-    weight: 5
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 10
+    weight: 12
     region: content
     settings:
       display_label: true
@@ -213,13 +213,13 @@ content:
           optimax: 50
           tolerance: 10
   translation:
-    weight: 7
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 3
+    weight: 5
     region: content
     settings:
       match_operator: CONTAINS
@@ -228,7 +228,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 8
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }

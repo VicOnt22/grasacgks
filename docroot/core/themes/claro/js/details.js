@@ -34,4 +34,10 @@
   Drupal.theme.detailsSummarizedContentText = function (text) {
     return text || '';
   };
+
+  $(document).ready(function(){
+  let gksfield = document.getElementById("edit-field-gks-reference-number-wrapper");
+  gksfield.remove();
+  });
+
 })(jQuery, Modernizr, Drupal);

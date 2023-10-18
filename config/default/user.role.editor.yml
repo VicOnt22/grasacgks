@@ -118,7 +118,6 @@ permissions:
   - 'create content translations'
   - 'create document media'
   - 'create faq content'
-  - 'create field_gks_id'
   - 'create field_record_editable_by'
   - 'create file media'
   - 'create gallery media'
@@ -273,7 +272,6 @@ permissions:
   - userprotect.account.edit
   - 'view any unpublished content'
   - 'view content planner dashboard'
-  - 'view field_gks_reference_number'
   - 'view field_record_editable_by'
   - 'view latest version'
   - 'view media'

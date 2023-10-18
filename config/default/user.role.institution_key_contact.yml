@@ -57,7 +57,6 @@ permissions:
   - 'view files'
   - 'view icons'
   - 'view latest version'
-  - 'view own field_gks_id'
   - 'view own field_record_editable_by'
   - 'view own unpublished content'
   - 'view own unpublished media'

@@ -4966,17 +4966,17 @@
         },
         {
             "name": "drupal/coder",
-            "version": "8.3.21",
-            "version_normalized": "8.3.21.0",
+            "version": "8.3.22",
+            "version_normalized": "8.3.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pfrenssen/coder.git",
-                "reference": "a0b76c6c8ea277b07d58fa75dcacf102a203ad51"
+                "reference": "ba6e62303d567863275fb086941f50a06dc7d08f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pfrenssen/coder/zipball/a0b76c6c8ea277b07d58fa75dcacf102a203ad51",
-                "reference": "a0b76c6c8ea277b07d58fa75dcacf102a203ad51",
+                "url": "https://api.github.com/repos/pfrenssen/coder/zipball/ba6e62303d567863275fb086941f50a06dc7d08f",
+                "reference": "ba6e62303d567863275fb086941f50a06dc7d08f",
                 "shasum": ""
             },
             "require": {
@@ -4992,7 +4992,7 @@
                 "phpstan/phpstan": "^1.7.12",
                 "phpunit/phpunit": "^8.0"
             },
-            "time": "2023-07-17T15:36:49+00:00",
+            "time": "2023-10-15T09:55:50+00:00",
             "type": "phpcodesniffer-standard",
             "installation-source": "dist",
             "autoload": {
@@ -6090,6 +6090,7 @@
                     "Add a width $properties argument to FieldItemLi": "https://www.drupal.org/files/issues/2021-06-06/2941092-23.patch",
                     "project/drupal/issues/2794481 Allow optional End date": "https://www.drupal.org/files/issues/2022-06-16/drupal-datetime_range-allow_end_date_optional-2794481-139.patch",
                     "issues/3344033 Deprecated function strlen() Passing null to parameter #1": "https://www.drupal.org/files/issues/2023-04-03/3344033-9.patch",
+                    "js remove field_gks_refrence_number from edit form under claro admin theme": "patches/claro-gks.patch",
                     "Issue #2869592: Disabled update module shouldn't produce a status report warning": "https://www.drupal.org/files/issues/2869592-remove-update-warning-7.patch",
                     "Issue #2893892: Fixed Warning Invalid argument supplied for foreach() in Drupal": "https://www.drupal.org/files/issues/2018-12-10/core--getDerivatives-Invalid-argument-foreach--2893892-11-d8.patch",
                     "Issue #3044656: Add a helper method to strip subdirectories from URL paths": "https://www.drupal.org/files/issues/2019-03-31/3044656-2.patch",
@@ -27635,35 +27636,35 @@
         },
         {
             "name": "slevomat/coding-standard",
-            "version": "8.13.4",
-            "version_normalized": "8.13.4.0",
+            "version": "8.14.1",
+            "version_normalized": "8.14.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slevomat/coding-standard.git",
-                "reference": "4b2af2fb17773656d02fbfb5d18024ebd19fe322"
+                "reference": "fea1fd6f137cc84f9cba0ae30d549615dbc6a926"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/4b2af2fb17773656d02fbfb5d18024ebd19fe322",
-                "reference": "4b2af2fb17773656d02fbfb5d18024ebd19fe322",
+                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/fea1fd6f137cc84f9cba0ae30d549615dbc6a926",
+                "reference": "fea1fd6f137cc84f9cba0ae30d549615dbc6a926",
                 "shasum": ""
             },
             "require": {
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2 || ^0.7 || ^1.0",
                 "php": "^7.2 || ^8.0",
-                "phpstan/phpdoc-parser": "^1.23.0",
+                "phpstan/phpdoc-parser": "^1.23.1",
                 "squizlabs/php_codesniffer": "^3.7.1"
             },
             "require-dev": {
                 "phing/phing": "2.17.4",
                 "php-parallel-lint/php-parallel-lint": "1.3.2",
-                "phpstan/phpstan": "1.10.26",
-                "phpstan/phpstan-deprecation-rules": "1.1.3",
-                "phpstan/phpstan-phpunit": "1.3.13",
+                "phpstan/phpstan": "1.10.37",
+                "phpstan/phpstan-deprecation-rules": "1.1.4",
+                "phpstan/phpstan-phpunit": "1.3.14",
                 "phpstan/phpstan-strict-rules": "1.5.1",
-                "phpunit/phpunit": "7.5.20|8.5.21|9.6.8|10.2.6"
+                "phpunit/phpunit": "8.5.21|9.6.8|10.3.5"
             },
-            "time": "2023-07-25T10:28:55+00:00",
+            "time": "2023-10-08T07:28:08+00:00",
             "type": "phpcodesniffer-standard",
             "extra": {
                 "branch-alias": {
@@ -27687,7 +27688,7 @@
             ],
             "support": {
                 "issues": "https://github.com/slevomat/coding-standard/issues",
-                "source": "https://github.com/slevomat/coding-standard/tree/8.13.4"
+                "source": "https://github.com/slevomat/coding-standard/tree/8.14.1"
             },
             "funding": [
                 {

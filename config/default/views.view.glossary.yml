@@ -3,6 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.body
+    - field.storage.node.field_alternative_spellings
+    - field.storage.node.field_part_of_speech
+    - field.storage.node.field_part_ofspeech
     - field.storage.node.field_term_definition
     - node.type.language_item
     - taxonomy.vocabulary.languages
@@ -15,6 +19,7 @@ dependencies:
     - node
     - smart_trim
     - taxonomy
+    - text
     - user
 _core:
   default_config_hash: sz_FoMz5aClG4jFy4UDlkenXQtgTUXohEDjWVBuHaro
@@ -900,13 +905,263 @@ display:
             trim_suffix: ''
             wrap_output: false
             wrap_class: trimmed
-            more_link: false
-            more_class: more-link
-            more_text: More
             trim_options:
               text: false
               trim_zero: false
+            more_link: false
+            more_class: more-link
+            more_text: More
           group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_alternative_spellings:
+          id: field_alternative_spellings
+          table: node__field_alternative_spellings
+          field: field_alternative_spellings
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: basic_string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        body:
+          id: body
+          table: node__body
+          field: body
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: text_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_part_of_speech:
+          id: field_part_of_speech
+          table: node__field_part_of_speech
+          field: field_part_of_speech
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_part_ofspeech:
+          id: field_part_ofspeech
+          table: node__field_part_ofspeech
+          field: field_part_ofspeech
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -951,7 +1206,7 @@ display:
           text_input_required_format: full_html
           bef:
             general:
-              autosubmit: true
+              autosubmit: false
               autosubmit_exclude_textfield: false
               autosubmit_textfield_delay: 500
               autosubmit_hide: false
@@ -967,6 +1222,12 @@ display:
                   sort_options: false
                   rewrite:
                     filter_rewrite_values: ''
+                  collapsible: false
+                  is_secondary: false
+              combine:
+                plugin_id: default
+                advanced:
+                  placeholder_text: ''
                   collapsible: false
                   is_secondary: false
       filters:
@@ -1025,6 +1286,61 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        combine:
+          id: combine
+          table: views
+          field: combine
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: combine
+          operator: word
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: combine_op
+            label: ''
+            description: ''
+            use_operator: false
+            operator: combine_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: combine
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              editor: '0'
+              content_admin: '0'
+              seo_admin: '0'
+              site_admin: '0'
+              test_role: '0'
+              research_assistant: '0'
+              full_member: '0'
+              institution_key_contact: '0'
+              manager: '0'
+              administrator: '0'
+            placeholder: 'Search English words'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          fields:
+            field_term_definition: field_term_definition
+            field_alternative_spellings: field_alternative_spellings
+            body: body
+            field_part_of_speech: field_part_of_speech
         field_languages_target_id:
           id: field_languages_target_id
           table: node__field_languages
@@ -1090,10 +1406,10 @@ display:
       style:
         type: blazy
         options:
-          style: grid
           grid: '4'
           grid_medium: '2'
           grid_small: '1'
+          style: grid
       row:
         type: fields
         options:
@@ -1165,4 +1481,8 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.node.body'
+        - 'config:field.storage.node.field_alternative_spellings'
+        - 'config:field.storage.node.field_part_of_speech'
+        - 'config:field.storage.node.field_part_ofspeech'
         - 'config:field.storage.node.field_term_definition'

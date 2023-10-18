@@ -33,7 +33,6 @@ dependencies:
     - contextual
     - dropzonejs
     - entity_browser
-    - field_permissions
     - file
     - filter
     - google_analytics
@@ -186,7 +185,6 @@ permissions:
   - 'view any webform submission'
   - 'view article revisions'
   - 'view content planner dashboard'
-  - 'view field_gks_reference_number'
   - 'view heritage_item revisions'
   - 'view landing_page_lb revisions'
   - 'view language_item revisions'

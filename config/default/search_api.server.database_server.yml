@@ -12,5 +12,5 @@ description: 'Default database server.'
 backend: search_api_db
 backend_config:
   database: 'default:default'
-  min_chars: 4
+  min_chars: 3
   matching: prefix

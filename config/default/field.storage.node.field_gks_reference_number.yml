@@ -7,7 +7,7 @@ dependencies:
     - node
 third_party_settings:
   field_permissions:
-    permission_type: custom
+    permission_type: public
 id: node.field_gks_reference_number
 field_name: field_gks_reference_number
 entity_type: node

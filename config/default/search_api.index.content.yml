@@ -35,6 +35,7 @@ dependencies:
     - field.storage.node.field_related_seasonal_time
     - field.storage.node.field_sources_exhib_pub_his
     - field.storage.node.field_term_definition
+    - field.storage.taxonomy_term.field_address
     - search_api.server.database_server
   module:
     - taxonomy
@@ -49,6 +50,7 @@ field_settings:
     label: 'Aggregated field'
     property_path: aggregated_field
     type: text
+    boost: !!float 2
     configuration:
       type: union
       fields:
@@ -57,16 +59,17 @@ field_settings:
         - 'entity:node/field_access_rationale'
         - 'entity:node/field_acquired_from'
         - 'entity:node/field_alternative_spellings'
+        - 'entity:node/field_associated_ceremonial_time'
         - 'entity:node/field_catalog_id'
+        - 'entity:node/field_collection'
         - 'entity:node/field_contributor_collector'
         - 'entity:node/field_current_institution'
         - 'entity:node/field_date_acquisition'
         - 'entity:node/field_date_attribution'
-        - 'entity:node/field_date_ceremonial_time'
         - 'entity:node/field_date_collection'
         - 'entity:node/field_date_made'
-        - 'entity:node/field_date_seasonal_time'
         - 'entity:node/field_description_condition'
+        - 'entity:node/field_description_howtocite'
         - 'entity:node/field_description_materials'
         - 'entity:node/field_description_motifs'
         - 'entity:node/field_description_othernotes'
@@ -77,7 +80,9 @@ field_settings:
         - 'entity:node/field_exhibition_notes'
         - 'entity:node/field_folders'
         - 'entity:node/field_function_attribution'
+        - 'entity:node/field_gks_reference_number'
         - 'entity:node/field_languages'
+        - 'entity:node/field_local_origin_attribution'
         - 'entity:node/field_local_origin_tid'
         - 'entity:node/field_maker_attribution'
         - 'entity:node/field_maker_name'
@@ -86,22 +91,28 @@ field_settings:
         - 'entity:node/field_nation_tid'
         - 'entity:node/field_original_function'
         - 'entity:node/field_part_of_speech'
+        - 'entity:node/field_part_ofspeech'
         - 'entity:node/field_provenance'
         - 'entity:node/field_publication_history'
         - 'entity:node/field_record_creation_notes'
         - 'entity:node/field_region_of_origin'
         - 'entity:node/field_region_origin_attribution'
+        - 'entity:node/field_related_places'
+        - 'entity:node/field_related_seasonal_time'
         - 'entity:node/field_source'
         - 'entity:node/field_source_coll_his'
         - 'entity:node/field_sources_exhib_pub_his'
-        - 'entity:node/field_subsequent_functions'
         - 'entity:node/field_tags'
         - 'entity:node/field_term_definition'
         - 'entity:node/field_tk_label'
         - 'entity:node/title'
         - 'entity:node/type'
+        - 'entity:taxonomy_term/description'
+        - 'entity:taxonomy_term/field_address'
         - 'entity:taxonomy_term/field_associated_instituation'
+        - 'entity:taxonomy_term/field_initials'
         - 'entity:taxonomy_term/langcode'
+        - 'entity:taxonomy_term/name'
         - 'entity:taxonomy_term/vid'
   field_abstract:
     label: 'Description of Writing/Text'
@@ -361,6 +372,14 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_term_definition
+  locality:
+    label: 'Address » The locality (i.e. city)'
+    datasource_id: 'entity:taxonomy_term'
+    property_path: 'field_address:locality'
+    type: string
+    dependencies:
+      config:
+        - field.storage.taxonomy_term.field_address
   name:
     label: Name
     datasource_id: 'entity:taxonomy_term'
@@ -414,8 +433,13 @@ datasource_settings:
       selected:
         - ceremonial_time
         - collection
+        - contributors
+        - folders
         - institution
+        - item_type
+        - languages
         - local_origin
+        - nations
         - part_of_speech
         - regions
         - seasonal_time
@@ -430,8 +454,11 @@ processor_settings:
   entity_type: {  }
   hierarchy:
     weights:
-      preprocess_index: -45
+      preprocess_index: -46
     fields:
+      field_current_institution: taxonomy_term-parent
+      field_item_type: taxonomy_term-parent
+      field_languages: taxonomy_term-parent
       field_nation_tid: taxonomy_term-parent
       field_part_ofspeech: taxonomy_term-parent
   highlight:
@@ -443,7 +470,7 @@ processor_settings:
     excerpt_always: false
     excerpt_length: 256
     exclude_fields: {  }
-    highlight: server
+    highlight: always
     highlight_partial: true
   html_filter:
     weights:
@@ -469,6 +496,7 @@ processor_settings:
       - field_publication_history
       - field_sources_exhib_pub_his
       - field_term_definition
+      - locality
       - name
       - title
       - type
@@ -504,14 +532,47 @@ processor_settings:
       - field_publication_history
       - field_sources_exhib_pub_his
       - field_term_definition
+      - locality
       - name
       - title
       - type
   language_with_fallback: {  }
+  number_field_boost:
+    weights:
+      preprocess_index: -44
+    boosts:
+      field_contributor_collector:
+        boost_factor: !!float 1
+        aggregation: max
+      field_current_institution:
+        boost_factor: !!float 1
+        aggregation: max
+      field_item_type:
+        boost_factor: !!float 1
+        aggregation: max
+      field_languages:
+        boost_factor: !!float 1
+        aggregation: max
+      field_local_origin_tid:
+        boost_factor: !!float 1
+        aggregation: max
+      field_nation_tid:
+        boost_factor: !!float 1
+        aggregation: max
+      field_part_ofspeech:
+        boost_factor: !!float 1
+        aggregation: max
+      field_related_places:
+        boost_factor: !!float 1
+        aggregation: max
+      vid:
+        boost_factor: !!float 1
+        aggregation: max
   rendered_item: {  }
+  reverse_entity_references: {  }
   stemmer:
     weights:
-      preprocess_index: -45
+      preprocess_index: -43
       preprocess_query: -46
     all_fields: true
     fields:
@@ -563,7 +624,7 @@ processor_settings:
     spaces: ''
     ignored: ._-
     overlap_cjk: 0
-    minimum_word_size: '4'
+    minimum_word_size: '3'
   transliteration:
     weights:
       preprocess_index: -48
@@ -588,12 +649,13 @@ processor_settings:
       - field_publication_history
       - field_sources_exhib_pub_his
       - field_term_definition
+      - locality
       - name
       - title
       - type
   type_boost:
     weights:
-      preprocess_index: -41
+      preprocess_index: -45
     boosts:
       'entity:node':
         datasource_boost: !!float 1

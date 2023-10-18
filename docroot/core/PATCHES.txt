@@ -41,6 +41,10 @@ issues/3344033 Deprecated function strlen() Passing null to parameter #1
 Source: https://www.drupal.org/files/issues/2023-04-03/3344033-9.patch
 
 
+js remove field_gks_refrence_number from edit form under claro admin theme
+Source: patches/claro-gks.patch
+
+
 Issue #2869592: Disabled update module shouldn't produce a status report warning
 Source: https://www.drupal.org/files/issues/2869592-remove-update-warning-7.patch
 

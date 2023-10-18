@@ -1,0 +1,17 @@
+diff --git a/claro/js/details.js b/claro/js/details.js
+index 3a7d2bc..a99f97e 100644
+--- a/core/themes/claro/js/details.js
++++ b/core/themes/claro/js/details.js
+@@ -34,4 +34,10 @@
+   Drupal.theme.detailsSummarizedContentText = function (text) {
+     return text || '';
+   };
+-})(jQuery, Modernizr, Drupal);
+\ No newline at end of file
++
++  $(document).ready(function(){
++  let gksfield = document.getElementById("edit-field-gks-reference-number-wrapper");
++  gksfield.remove();
++  });
++
++})(jQuery, Modernizr, Drupal);
