@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.language_item.field_audio_video
     - field.field.node.language_item.field_date_created
     - field.field.node.language_item.field_folders
+    - field.field.node.language_item.field_gks_reference_number
     - field.field.node.language_item.field_languages
     - field.field.node.language_item.field_part_of_speech
     - field.field.node.language_item.field_part_ofspeech
@@ -148,6 +149,7 @@ hidden:
   field_audio_video: true
   field_date_created: true
   field_folders: true
+  field_gks_reference_number: true
   field_languages: true
   field_part_of_speech: true
   field_part_ofspeech: true

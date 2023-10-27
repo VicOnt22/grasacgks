@@ -5,6 +5,7 @@ use \Drupal\node\Entity\Node;
 use Drupal\Core\Entity\EntityTypeManager;
 use \Drupal\Core\Entity\RevisionLogInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\field\Entity\FieldStorageConfig;
 
 /**
  * name comes from ini functionality: Copies the value from one field to another empty field.
@@ -361,9 +362,11 @@ function change_update_fields_cron() {
  */
 function change_update_fields_node_insert($node) {
 
-  $the_new_nid = $node->id();
-  $node->set("field_gks_reference_number", intval($the_new_nid));
-  $node->save();
+  if ($node->bundle() == 'heritage_item' OR $node->bundle() == 'language_item') {
+    $the_new_nid = $node->id();
+    $node->set("field_gks_reference_number", intval($the_new_nid));
+    $node->save();
+  }
 }
 
 /**
@@ -377,7 +380,7 @@ function change_update_fields_entity_presave(Drupal\Core\Entity\EntityInterface 
 //  $mt2=$entity->getEntityType()->getBundleEntityType();
 //  $mt3=$entity->getEntityTypeId();
 
-    if ($entity->bundle() == 'heritage_item') {
+    if ($entity->bundle() == 'heritage_item' OR $entity->bundle() == 'language_item') {
       $field_gks_value = $entity->get('field_gks_reference_number')->value;
       if ($field_gks_value == '1' OR $field_gks_value == '') {
         $entity->set('field_gks_reference_number', intval($entity->id()));

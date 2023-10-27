@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.language_item.field_audio_video
     - field.field.node.language_item.field_date_created
     - field.field.node.language_item.field_folders
+    - field.field.node.language_item.field_gks_reference_number
     - field.field.node.language_item.field_languages
     - field.field.node.language_item.field_part_of_speech
     - field.field.node.language_item.field_part_ofspeech
@@ -126,6 +127,15 @@ content:
     third_party_settings: {  }
     weight: 17
     region: main
+  field_gks_reference_number:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 18
+    region: content
   field_languages:
     type: entity_reference_label
     label: inline

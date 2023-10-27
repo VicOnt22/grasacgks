@@ -1,0 +1,25 @@
+uuid: 3af6f750-a6f6-4f65-90a0-aa42bfa948fd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gks_reference_number
+    - node.type.language_item
+id: node.language_item.field_gks_reference_number
+field_name: field_gks_reference_number
+entity_type: node
+bundle: language_item
+label: 'GKS Reference Number'
+description: 'Filled automatically, Ignore this field'
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

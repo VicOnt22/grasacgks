@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.language_item.field_audio_video
     - field.field.node.language_item.field_date_created
     - field.field.node.language_item.field_folders
+    - field.field.node.language_item.field_gks_reference_number
     - field.field.node.language_item.field_languages
     - field.field.node.language_item.field_part_of_speech
     - field.field.node.language_item.field_part_ofspeech
@@ -66,6 +67,7 @@ third_party_settings:
         - field_record_editable_by
         - field_folders
         - field_audio_video
+        - field_gks_reference_number
     fields:
       node_title:
         plugin_id: node_title
@@ -264,6 +266,43 @@ content:
             prefix: ''
             suffix: ''
     weight: 15
+    region: main
+  field_gks_reference_number:
+    type: number_integer
+    label: inline
+    settings:
+      thousand_separator: ''
+      prefix_suffix: false
+    third_party_settings:
+      ds:
+        ft:
+          id: expert
+          settings:
+            lb: ''
+            lbw: true
+            lbw-el: strong
+            lbw-cl: ''
+            lbw-at: ''
+            lb-col: true
+            ow: true
+            ow-el: ''
+            ow-cl: field-outer
+            ow-at: ''
+            ow-def-at: true
+            ow-def-cl: true
+            fis: false
+            fis-el: ''
+            fis-cl: ''
+            fis-at: ''
+            fis-def-at: false
+            fi: false
+            fi-el: ''
+            fi-cl: ''
+            fi-at: ''
+            fi-def-at: false
+            prefix: ''
+            suffix: ''
+    weight: 17
     region: main
   field_languages:
     type: entity_reference_label

@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.language_item.field_audio_video
     - field.field.node.language_item.field_date_created
     - field.field.node.language_item.field_folders
+    - field.field.node.language_item.field_gks_reference_number
     - field.field.node.language_item.field_languages
     - field.field.node.language_item.field_part_of_speech
     - field.field.node.language_item.field_part_ofspeech
@@ -106,7 +107,6 @@ content:
     settings:
       caption: {  }
       class: ''
-      id: ''
       image: ''
       link: ''
       overlay: ''
@@ -115,9 +115,6 @@ content:
       layout: ''
       view_mode: ''
       cache: 0
-      skin: ''
-      lazy: ''
-      style: ''
       background: false
       box_caption: ''
       box_caption_custom: ''
@@ -133,6 +130,10 @@ content:
       grid: ''
       grid_medium: ''
       grid_small: ''
+      style: ''
+      id: ''
+      lazy: ''
+      skin: ''
     third_party_settings: {  }
     weight: 16
     region: main
@@ -229,6 +230,7 @@ content:
     weight: 1
     region: main
 hidden:
+  field_gks_reference_number: true
   field_part_ofspeech: true
   langcode: true
   search_api_excerpt: true
