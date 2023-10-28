@@ -14,7 +14,7 @@ third_party_settings:
 id: languagedropdownswitcher
 theme: grasacgks
 region: navigation_collapsible
-weight: -11
+weight: -13
 provider: null
 plugin: 'language_dropdown_block:language_interface'
 settings:
