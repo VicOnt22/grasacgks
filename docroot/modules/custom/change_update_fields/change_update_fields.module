@@ -189,7 +189,7 @@ function _change_update_fields_publish_bundle(array &$sandbox, $bundle, $nodes_p
  * name comes from functionality: publish all nodes from a bundle.
  * A custom callback _change_update_fields_value_for_bundle allows Implementations of
  * hook_post_update_NAME that act as implementations of callback_batch_operation
- * across multiple HTTP requests and avoid PHP timeouts.
+ * across multiple HTTP requests and avoid PHP timeouts. Depends on value for field_region_of_origin
  *
  * @param array $sandbox
  * The batch operation sandbox.
@@ -331,6 +331,146 @@ function _change_update_fields_value_for_bundle(array &$sandbox, $bundle, $nodes
   $sandbox['#finished'] = min(($sandbox['current'] / $sandbox['total']), 1);
 }
 
+/**
+ * name comes from functionality: publish all nodes from a bundle.
+ * A custom callback _change_update_fields_value_for_bundle allows Implementations of
+ * hook_post_update_NAME that act as implementations of callback_batch_operation
+ * across multiple HTTP requests and avoid PHP timeouts.
+ *
+ * @param array $sandbox
+ * The batch operation sandbox.
+ * @param string $bundle
+ * The node bundle.
+ * @param int $nodes_per_batch
+ * The amount of nodes to update at a given time.
+ */
+function _change_update_fields_value_geo_for_bundle(array &$sandbox, $bundle, $nodes_per_batch = 20) {
+
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+
+  // From line 204 to 224 we divide/load nodes in batches, preparing nodes Nid's for operation in line 218
+  if (!isset($sandbox['total'])) {
+    $query = $storage->getQuery()
+      ->condition('type', $bundle)
+      //      ->range(0, 2)
+      ->sort('changed', 'DESC')
+      ->accessCheck(FALSE);
+
+    $nids = $query->execute();
+
+    $sandbox['total'] = count($nids);
+    $sandbox['ids'] = array_chunk($nids, $nodes_per_batch);
+    $sandbox['current'] = 0;
+  }
+
+  if ($sandbox['total'] == 0) {
+    $sandbox['#finished'] = 1;
+    return;
+  }
+
+  $nids = array_shift($sandbox['ids']);
+  $nodes = $storage->loadMultiple($nids);
+
+  // It gets complicated when you need to do this on hundreds or thousands of entities.
+  // We don’t want to load, process, and save all those entities at once
+  // as that would likely bring our server down. We need to batch the operation.
+  $curr_tid = 0;
+  $current_field_geolocation = 0;
+  $tid_503_bkejwanong_territory_lat_lng = ['lat'=> 42.5602, 'lng' => -82.4973];
+  $tid_627_cross_village_lat_lng = ['lat'=> 45.6426, 'lng' => -85.036];
+  $tid_472_detroit_mi_lat_lng = ['lat'=> 42.3314, 'lng' => -83.0458];
+  $tid_1392_manitoulin_island_lat_lng = ['lat'=> 45.7335, 'lng' => -82.1694];
+  $tid_469_michigan_usa_lat_lng = ['lat'=> 43.7918, 'lng' => -84.2994];
+  $tid_1391_minnesota_or_wisconsin_lat_lng = ['lat'=> 44.16098, 'lng' => -91.78108];
+  $tid_601_minnesota_usa_lat_lng = ['lat'=> 46.7296, 'lng' => -94.6859];
+  $tid_475_montreal_qc_lat_lng = ['lat'=> 45.5017, 'lng' => -73.5673];
+  $tid_492_niagara_onthe_lake_on_lat_lng = ['lat'=> 43.2557, 'lng' => -79.0718];
+  $tid_500_quebec_qc_lat_lng = ['lat'=> 46.8139, 'lng' => -71.208];
+  $tid_2096_sagamok_anishinabek_lat_lng = ['lat'=> 46.1518006285, 'lng' => -82.168974436];
+  $tid_1304_six_nations_ofthe_griver_lat_lng = ['lat'=> 43.0703, 'lng' => -80.1184];
+  $tid_1327_tonawanda_seneca_lat_lng = ['lat'=> 43.0612, 'lng' => -78.4489];
+  $tid_568_toronto_on_lat_lng = ['lat'=> 43.6511, 'lng' => -79.347];
+  $tid_1429_wendake_lat_lng = ['lat'=> 46.8692791020, 'lng' => -71.347896113];
+  $tid_2101_wiikwemkoong_unceded_lat_lng = ['lat'=> 45.7171, 'lng' => -81.6848];
+  $tid_470_wisconsin_usa_lat_lng = ['lat'=> 44.736, 'lng' => -88.788];
+
+  /* @var $node \Drupal\node\NodeInterface $node */
+  foreach ($nodes as $node) {
+    //    $node->setPublished(true); // did not work if in draft as this node is under workflow
+    //    \Drupal::messenger()->addMessage("$node->id Node updated");
+    $curr_tid = $node->get('field_local_origin_tid')->getValue();
+
+    switch ($curr_tid[0]['target_id']) {
+      case "503":
+        $current_field_geolocation = $tid_503_bkejwanong_territory_lat_lng;
+        break;
+      case "627":
+        $current_field_geolocation = $tid_627_cross_village_lat_lng;
+        break;
+      case "472":
+        $current_field_geolocation = $tid_472_detroit_mi_lat_lng;
+        break;
+      case "1392":
+        $current_field_geolocation = $tid_1392_manitoulin_island_lat_lng;
+        break;
+      case "469":
+        $current_field_geolocation = $tid_469_michigan_usa_lat_lng;
+        break;
+      case "1391":
+        $current_field_geolocation = $tid_1391_minnesota_or_wisconsin_lat_lng;
+        break;
+      case "601":
+        $current_field_geolocation = $tid_601_minnesota_usa_lat_lng;
+        break;
+      case "475":
+        $current_field_geolocation = $tid_475_montreal_qc_lat_lng;
+        break;
+      case "492":
+        $current_field_geolocation = $tid_492_niagara_onthe_lake_on_lat_lng;
+        break;
+      case "500":
+        $current_field_geolocation = $tid_500_quebec_qc_lat_lng;
+        break;
+      case "2096":
+        $current_field_geolocation = $tid_2096_sagamok_anishinabek_lat_lng;
+        break;
+      case "1304":
+        $current_field_geolocation = $tid_1304_six_nations_ofthe_griver_lat_lng;
+        break;
+      case "1327":
+        $current_field_geolocation = $tid_1327_tonawanda_seneca_lat_lng;
+        break;
+      case "568":
+        $current_field_geolocation = $tid_568_toronto_on_lat_lng;
+        break;
+      case "1429":
+        $current_field_geolocation = $tid_1429_wendake_lat_lng;
+        break;
+      case "2101":
+        $current_field_geolocation = $tid_2101_wiikwemkoong_unceded_lat_lng;
+        break;
+      case "470":
+        $current_field_geolocation = $tid_470_wisconsin_usa_lat_lng;
+        break;
+      default:
+    }
+
+    if($current_field_geolocation > 0) {
+      $node->set('field_geolocation', $current_field_geolocation);
+      $node->set('langcode', 'en');
+      if ($node instanceof RevisionLogInterface) {
+        $node->setRevisionLogMessage('Update geofield value for place of origin taxonomy.');
+        $node->setRevisionUserId(\Drupal::currentUser()->id());
+      }
+      $node->save();
+    }
+
+    $sandbox['current']++;
+  }
+
+  $sandbox['#finished'] = min(($sandbox['current'] / $sandbox['total']), 1);
+}
+
 
 /**
  * Implements hook_cron().
@@ -338,7 +478,7 @@ function _change_update_fields_value_for_bundle(array &$sandbox, $bundle, $nodes
  */
 function change_update_fields_cron() {
 
- //// one node update Title example
+//// one node update Title example
 //  $query = \Drupal::entityQuery('node')
 //    ->condition('nid', '1');    // The ID of the node.
 //  $nids = $query->execute();
@@ -348,10 +488,10 @@ function change_update_fields_cron() {
 //    $node->save();
 //  }
 //  \Drupal::messenger()->addMessage('Nodes updated');
-  //// end of update Title
+//// end of update Title
 
 //// start of cron job deleting table records when function is in an external file
-//  \Drupal::moduleHandler()->loadInclude($module, $type, $name = NULL);
+////  \Drupal::moduleHandler()->loadInclude($module, $type, $name = NULL);
   \Drupal::moduleHandler()->loadInclude('change_update_fields', 'inc', 'delete_table_rows');
    delete_tracking_stats_rows();
 }
@@ -369,24 +509,29 @@ function change_update_fields_node_insert($node) {
   }
 }
 
-/**
- * @param \Drupal\Core\Entity\EntityInterface $entity
- *
- * @return void
- */
-function change_update_fields_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
+//// change_update_fields_entity_presave() below used to assign to the new field_gks_reference_number
+//// nid value to all heritage and language items. Commented after that, as, for new nodes,
+//// remaining node_insert() above will suffice.
 
-//  $mt=$entity->getEntityType()->id();
-//  $mt2=$entity->getEntityType()->getBundleEntityType();
-//  $mt3=$entity->getEntityTypeId();
+///**
+// * @param \Drupal\Core\Entity\EntityInterface $entity
+// *
+// * @return void
+// */
+//function change_update_fields_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
+//
+////  $mt=$entity->getEntityType()->id();
+////  $mt2=$entity->getEntityType()->getBundleEntityType();
+////  $mt3=$entity->getEntityTypeId();
+//
+//    if ($entity->bundle() == 'heritage_item' OR $entity->bundle() == 'language_item') {
+//      $field_gks_value = $entity->get('field_gks_reference_number')->value;
+//      if ($field_gks_value == '1' OR $field_gks_value == '') {
+//        $entity->set('field_gks_reference_number', intval($entity->id()));
+//      }
+//    }
+//}
 
-    if ($entity->bundle() == 'heritage_item' OR $entity->bundle() == 'language_item') {
-      $field_gks_value = $entity->get('field_gks_reference_number')->value;
-      if ($field_gks_value == '1' OR $field_gks_value == '') {
-        $entity->set('field_gks_reference_number', intval($entity->id()));
-      }
-    }
-}
 
 ///**
 // * Implements hook_form_alter().
@@ -407,32 +552,9 @@ function change_update_fields_entity_presave(Drupal\Core\Entity\EntityInterface 
 //}
 
 
-
-//// outdated ver for D8 below. In D9 we use annotation and services.yml to create drush custom-commands
+//// In D9 we use annotation and services.yml to create drush custom-commands
 //// see: https://www.specbee.com/blogs/writing-your-own-custom-drush-9-and-10-commands
 
-///**
-// * Implements hook_drush_command().
-// */
-//function change_update_fields_drush_command() {
-//  return array(
-//    'delete-tracking-stats-rows' => array(
-//      'description' => dts('Remove rows from search_api_tracking_stats table.'),
-//      'alias' => array('dts'),
-//    ),
-//  );
-//}
-//
-//
-//
-///**
-// * Process search_api_tracking_stats table.
-// * Drush command logic.
-// * drush_[MODULE_NAME]_[COMMAND_NAME]().
-// */
-//function drush_change_update_fields_delete_tracking_stats_rows() {
-//  \Drupal::moduleHandler()->loadInclude('change_update_fields', 'inc', 'delete_table_rows');
-//  delete_tracking_stats_rows();
-//}
+
 
 

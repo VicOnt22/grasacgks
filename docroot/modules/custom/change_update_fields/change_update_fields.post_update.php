@@ -44,6 +44,20 @@ function change_update_fields_post_update_9014_geolocation_value(&$sandbox) {
   _change_update_fields_value_for_bundle($sandbox, 'heritage_item', 20);
 }
 
+/**
+ * Hook change_update_fields_post_update_N_description
+ * set field_geolocation values for nodes of a heritage_item bundle.
+ */
+function change_update_fields_post_update_9015_geolocation_value(&$sandbox) {
+  _change_update_fields_value_geo_for_bundle($sandbox, 'heritage_item', 20);
+}
+
+/**
+ * save all nodes of a bundle.
+ */
+function change_update_fields_post_update_9016_saving_language(&$sandbox) {
+  _change_update_fields_save_bundle($sandbox, 'language_item', 20);
+}
 
 // To RESET _NAME
 // drush ev "drupal_set_installed_schema_version('[Name of module]', [N*])"
