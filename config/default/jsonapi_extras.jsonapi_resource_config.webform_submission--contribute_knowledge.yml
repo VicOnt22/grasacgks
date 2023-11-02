@@ -1,0 +1,11 @@
+uuid: e388b441-3bb7-4c32-87ef-25a6461402a9
+langcode: en
+status: true
+dependencies:
+  config:
+    - webform.webform.contribute_knowledge
+id: webform_submission--contribute_knowledge
+disabled: true
+path: webform_submission/contribute_knowledge
+resourceType: webform_submission--contribute_knowledge
+resourceFields: {  }

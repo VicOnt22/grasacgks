@@ -35,6 +35,7 @@ dependencies:
     - workflows.workflow.varbase_editorial_workflow
     - workflows.workflow.varbase_simple_workflow
   module:
+    - antibot
     - block_content
     - block_content_permissions
     - captcha
@@ -64,7 +65,6 @@ dependencies:
     - path
     - rabbit_hole
     - responsive_preview
-    - scheduler
     - shortcut
     - simple_sitemap
     - styleguide
@@ -72,6 +72,7 @@ dependencies:
     - taxonomy
     - toolbar
     - total_control
+    - userprotect
     - webform
 id: research_assistant
 label: Caretaker
@@ -242,6 +243,7 @@ permissions:
   - 'search project content'
   - 'search resource content'
   - 'skip CAPTCHA'
+  - 'skip antibot'
   - 'skip comment approval'
   - 'translate article node'
   - 'translate audio media'
@@ -295,6 +297,8 @@ permissions:
   - 'use varbase_simple_workflow transition archived_published'
   - 'use varbase_simple_workflow transition create_new_draft'
   - 'use varbase_simple_workflow transition publish'
+  - userprotect.mail.edit
+  - userprotect.pass.edit
   - 'view advanced help index'
   - 'view advanced help popup'
   - 'view advanced help topic'
@@ -318,9 +322,6 @@ permissions:
   - 'view own unpublished media'
   - 'view page revisions'
   - 'view revisions'
-  - 'view scheduled content'
-  - 'view scheduled media'
-  - 'view scheduled taxonomy_term'
   - 'view style guides'
   - 'view the administration theme'
   - 'view user email addresses'

@@ -156,7 +156,7 @@ display:
         type: some
         options:
           offset: 0
-          items_per_page: 1200
+          items_per_page: 920
       exposed_form:
         type: basic
         options:
@@ -807,7 +807,7 @@ display:
                   transparent: false
                   identify: false
                 enabled: false
-            zoom: '5'
+            zoom: '6'
             height: 400px
             width: 100%
             minZoom: '0'

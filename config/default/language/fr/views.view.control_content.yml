@@ -14,8 +14,8 @@ display:
           tags:
             previous: ‹‹
             next: ››
-            first: '« Premier'
-            last: 'Dernier »'
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page_label: 'Éléments par page'
             items_per_page_options_all_label: '- Tout -'
@@ -27,7 +27,7 @@ display:
           label: Titre
           separator: ', '
         uid:
-          label: Auteur
+          label: Auteurs
           separator: ', '
         created:
           separator: ', '

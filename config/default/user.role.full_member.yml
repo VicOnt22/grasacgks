@@ -36,6 +36,7 @@ dependencies:
     - workflows.workflow.varbase_editorial_workflow
     - workflows.workflow.varbase_simple_workflow
   module:
+    - antibot
     - block_content
     - block_content_permissions
     - config_perms
@@ -59,12 +60,12 @@ dependencies:
     - path
     - rabbit_hole
     - responsive_preview
-    - scheduler
     - shortcut
     - system
     - taxonomy
     - toolbar
     - total_control
+    - userprotect
     - webform
 id: full_member
 label: 'Full Member'
@@ -239,6 +240,7 @@ permissions:
   - 'search project content'
   - 'search resource content'
   - 'set user expiration'
+  - 'skip antibot'
   - 'skip comment approval'
   - 'translate article node'
   - 'translate audio media'
@@ -293,6 +295,8 @@ permissions:
   - 'use varbase_simple_workflow transition archived_published'
   - 'use varbase_simple_workflow transition create_new_draft'
   - 'use varbase_simple_workflow transition publish'
+  - userprotect.mail.edit
+  - userprotect.pass.edit
   - 'view advanced help index'
   - 'view advanced help popup'
   - 'view advanced help topic'
@@ -317,8 +321,5 @@ permissions:
   - 'view own unpublished media'
   - 'view page revisions'
   - 'view revisions'
-  - 'view scheduled content'
-  - 'view scheduled media'
-  - 'view scheduled taxonomy_term'
   - 'view subusers'
   - 'view the administration theme'

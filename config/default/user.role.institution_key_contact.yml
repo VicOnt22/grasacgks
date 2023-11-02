@@ -9,6 +9,8 @@ dependencies:
     - media.type.remote_video
     - media.type.video
   module:
+    - antibot
+    - captcha
     - content_moderation
     - field_permissions
     - filter
@@ -16,6 +18,7 @@ dependencies:
     - node
     - toolbar
     - total_control
+    - userprotect
 id: institution_key_contact
 label: 'Institution Key Contact'
 weight: 1
@@ -48,10 +51,14 @@ permissions:
   - 'post comments'
   - 'search heritage_item content'
   - 'search language_item content'
+  - 'skip CAPTCHA'
+  - 'skip antibot'
   - 'update media'
   - 'use php in custom pagers'
   - 'use text format basic_html'
   - 'use text format full_html'
+  - userprotect.mail.edit
+  - userprotect.pass.edit
   - 'view any unpublished content'
   - 'view field_record_editable_by'
   - 'view files'

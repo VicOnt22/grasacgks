@@ -2,7 +2,7 @@ label: Fichiers
 description: 'Trouver et gérer les fichiers.'
 display:
   default:
-    display_title: 'Par défaut'
+    display_title: Maître
     display_options:
       title: Fichiers
       fields:
@@ -31,8 +31,8 @@ display:
       pager:
         options:
           tags:
-            next: 'Suivant ›'
-            previous: '‹ Précédent'
+            next: 'Next ›'
+            previous: '‹ Previous'
           expose:
             items_per_page_label: 'Éléments par page'
             items_per_page_options_all_label: '- Tout -'
@@ -78,8 +78,8 @@ display:
       pager:
         options:
           tags:
-            next: 'Suivant ›'
-            previous: '‹ Précédent'
+            next: 'Next ›'
+            previous: '‹ Previous'
           expose:
             items_per_page_label: 'Éléments par page'
             items_per_page_options_all_label: '- Tout -'

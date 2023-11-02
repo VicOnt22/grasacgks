@@ -204,8 +204,6 @@ module:
   rh_node: 0
   rh_taxonomy: 0
   roleassign: 0
-  scheduler: 0
-  scheduler_content_moderation_integration: 0
   schema_article: 0
   schema_item_list: 0
   schema_metatag: 0
@@ -261,6 +259,7 @@ module:
   views_ui: 0
   viewsreference: 0
   webform: 0
+  webform_submission_export_import: 0
   webform_templates: 0
   webform_ui: 0
   webform_views: 0

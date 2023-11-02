@@ -45,10 +45,12 @@ dependencies:
     - workflows.workflow.varbase_editorial_workflow
     - workflows.workflow.varbase_simple_workflow
   module:
+    - antibot
     - block
     - block_class
     - block_content
     - block_content_permissions
+    - captcha
     - config_perms
     - content_lock
     - content_moderation
@@ -90,7 +92,6 @@ dependencies:
     - redirect
     - responsive_preview
     - roleassign
-    - scheduler
     - script_manager
     - search_api_tracking
     - shortcut
@@ -392,9 +393,6 @@ permissions:
   - 'revert varbase_blog revisions'
   - 'revert varbase_heroslider_media revisions'
   - 'run cron jobs'
-  - 'schedule publishing of media'
-  - 'schedule publishing of nodes'
-  - 'schedule publishing of taxonomy_term'
   - 'select terms in collection'
   - 'select terms in contributor_roles'
   - 'select terms in contributors'
@@ -408,6 +406,8 @@ permissions:
   - 'select terms in regions'
   - 'select terms in tags'
   - 'select terms in traditional_knowledge_tk_labels'
+  - 'skip CAPTCHA'
+  - 'skip antibot'
   - 'switch shortcut sets'
   - 'translate any entity'
   - 'translate article node'
@@ -497,9 +497,6 @@ permissions:
   - 'view pane admin links'
   - 'view post access counter'
   - 'view restricted block content'
-  - 'view scheduled content'
-  - 'view scheduled media'
-  - 'view scheduled taxonomy_term'
   - 'view style guides'
   - 'view term names in collection'
   - 'view term names in contributor_roles'

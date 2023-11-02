@@ -59,13 +59,13 @@ dependencies:
     - path
     - rabbit_hole
     - responsive_preview
-    - scheduler
     - shortcut
     - styleguide
     - system
     - taxonomy
     - toolbar
     - total_control
+    - userprotect
     - webform
 id: test_role
 label: 'Test Role'
@@ -167,9 +167,6 @@ permissions:
   - 'rabbit hole bypass node'
   - 'rabbit hole bypass taxonomy_term'
   - 'revert all revisions'
-  - 'schedule publishing of media'
-  - 'schedule publishing of nodes'
-  - 'schedule publishing of taxonomy_term'
   - 'translate article node'
   - 'translate audio media'
   - 'translate block_content'
@@ -220,6 +217,7 @@ permissions:
   - 'use varbase_simple_workflow transition archived_published'
   - 'use varbase_simple_workflow transition create_new_draft'
   - 'use varbase_simple_workflow transition publish'
+  - userprotect.pass.edit
   - 'view all revisions'
   - 'view any unpublished content'
   - 'view any webform submission'
@@ -234,8 +232,5 @@ permissions:
   - 'view own unpublished content'
   - 'view own unpublished media'
   - 'view page revisions'
-  - 'view scheduled content'
-  - 'view scheduled media'
-  - 'view scheduled taxonomy_term'
   - 'view style guides'
   - 'view the administration theme'

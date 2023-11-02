@@ -66,7 +66,7 @@ dependencies:
     - field.field.node.heritage_item.field_tk_label
     - image.style.thumbnail
     - node.type.heritage_item
-    - workflows.workflow.varbase_editorial_workflow
+    - workflows.workflow.varbase_simple_workflow
   module:
     - content_moderation
     - datetime_range
@@ -79,8 +79,6 @@ dependencies:
     - media_library
     - path
     - physical
-    - scheduler
-    - scheduler_content_moderation_integration
     - text
 third_party_settings:
   field_group:
@@ -1255,14 +1253,14 @@ content:
     settings: {  }
     third_party_settings: {  }
   publish_on:
-    type: datetime_timestamp_no_default
-    weight: 20
+    type: datetime_timestamp
+    weight: 73
     region: content
     settings: {  }
     third_party_settings: {  }
   publish_state:
-    type: scheduler_moderation
-    weight: 18
+    type: options_select
+    weight: 72
     region: content
     settings: {  }
     third_party_settings: {  }

@@ -16,8 +16,6 @@ dependencies:
     - maxlength
     - metatag
     - path
-    - scheduler
-    - scheduler_content_moderation_integration
     - text
 _core:
   default_config_hash: 95BrLkHz0T70-_0RZq7JgXKD5gfg8is5Cuxk-aJ6qnA
@@ -77,14 +75,14 @@ content:
     settings: {  }
     third_party_settings: {  }
   publish_on:
-    type: datetime_timestamp_no_default
-    weight: 52
+    type: datetime_timestamp
+    weight: 55
     region: content
     settings: {  }
     third_party_settings: {  }
   publish_state:
-    type: scheduler_moderation
-    weight: 53
+    type: options_select
+    weight: 54
     region: content
     settings: {  }
     third_party_settings: {  }

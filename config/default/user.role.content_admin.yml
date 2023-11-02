@@ -38,9 +38,11 @@ dependencies:
     - workflows.workflow.varbase_editorial_workflow
     - workflows.workflow.varbase_simple_workflow
   module:
+    - antibot
     - block_class
     - block_content
     - block_content_permissions
+    - captcha
     - config_perms
     - content_moderation
     - content_translation
@@ -66,7 +68,6 @@ dependencies:
     - path
     - rabbit_hole
     - responsive_preview
-    - scheduler
     - shortcut
     - styleguide
     - system
@@ -304,9 +305,6 @@ permissions:
   - 'revert page revisions'
   - 'revert varbase_blog revisions'
   - 'revert varbase_heroslider_media revisions'
-  - 'schedule publishing of media'
-  - 'schedule publishing of nodes'
-  - 'schedule publishing of taxonomy_term'
   - 'select terms in collection'
   - 'select terms in contributor_roles'
   - 'select terms in contributors'
@@ -320,6 +318,8 @@ permissions:
   - 'select terms in regions'
   - 'select terms in tags'
   - 'select terms in traditional_knowledge_tk_labels'
+  - 'skip CAPTCHA'
+  - 'skip antibot'
   - 'switch shortcut sets'
   - 'translate any entity'
   - 'translate article node'
@@ -380,6 +380,7 @@ permissions:
   - 'use varbase_simple_workflow transition create_new_draft'
   - 'use varbase_simple_workflow transition publish'
   - userprotect.account.edit
+  - userprotect.pass.edit
   - 'view all media revisions'
   - 'view all revisions'
   - 'view any unpublished content'
@@ -400,9 +401,6 @@ permissions:
   - 'view page revisions'
   - 'view pane admin links'
   - 'view post access counter'
-  - 'view scheduled content'
-  - 'view scheduled media'
-  - 'view scheduled taxonomy_term'
   - 'view style guides'
   - 'view term names in collection'
   - 'view term names in contributor_roles'

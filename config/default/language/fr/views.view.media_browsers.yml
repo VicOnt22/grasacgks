@@ -10,8 +10,8 @@ display:
           tags:
             next: ››
             previous: ‹‹
-            first: '« Premier'
-            last: 'Dernier »'
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page_label: Éléments
             items_per_page_options_all_label: '- Tout -'
@@ -48,8 +48,8 @@ display:
           tags:
             next: ››
             previous: ‹‹
-            first: '« Premier'
-            last: 'Dernier »'
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page_label: Éléments
             items_per_page_options_all_label: '- Tout -'
@@ -74,8 +74,8 @@ display:
           tags:
             next: ››
             previous: ‹‹
-            first: '« Premier'
-            last: 'Dernier »'
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page_label: Éléments
             items_per_page_options_all_label: '- Tout -'

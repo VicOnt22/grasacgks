@@ -60,7 +60,6 @@ dependencies:
     - path
     - rabbit_hole
     - responsive_preview
-    - scheduler
     - shortcut
     - styleguide
     - system
@@ -203,9 +202,6 @@ permissions:
   - 'rabbit hole bypass node'
   - 'rabbit hole bypass taxonomy_term'
   - 'reorder terms in blog_categories'
-  - 'schedule publishing of media'
-  - 'schedule publishing of nodes'
-  - 'schedule publishing of taxonomy_term'
   - 'select terms in collection'
   - 'select terms in contributor_roles'
   - 'select terms in contributors'
@@ -270,6 +266,8 @@ permissions:
   - 'use varbase_simple_workflow transition create_new_draft'
   - 'use varbase_simple_workflow transition publish'
   - userprotect.account.edit
+  - userprotect.mail.edit
+  - userprotect.pass.edit
   - 'view any unpublished content'
   - 'view content planner dashboard'
   - 'view field_record_editable_by'
@@ -279,9 +277,6 @@ permissions:
   - 'view own unpublished media'
   - 'view pane admin links'
   - 'view post access counter'
-  - 'view scheduled content'
-  - 'view scheduled media'
-  - 'view scheduled taxonomy_term'
   - 'view style guides'
   - 'view term names in collection'
   - 'view term names in contributor_roles'

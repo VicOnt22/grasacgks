@@ -38,6 +38,7 @@ dependencies:
     - workflows.workflow.varbase_editorial_workflow
     - workflows.workflow.varbase_simple_workflow
   module:
+    - antibot
     - block
     - block_class
     - block_content
@@ -83,7 +84,6 @@ dependencies:
     - redirect
     - responsive_preview
     - roleassign
-    - scheduler
     - script_manager
     - search_api
     - search_api_tracking
@@ -427,7 +427,6 @@ permissions:
   - 'revert varbase_heroslider_media revisions'
   - 'revert video media revisions'
   - 'run cron jobs'
-  - 'schedule publishing of nodes'
   - 'search all excluded entities'
   - 'search content'
   - 'search heritage_item content'
@@ -436,6 +435,7 @@ permissions:
   - 'search resource content'
   - 'set user expiration'
   - 'skip CAPTCHA'
+  - 'skip antibot'
   - 'skip comment approval'
   - 'switch shortcut sets'
   - 'translate any entity'
@@ -539,9 +539,6 @@ permissions:
   - 'view remote_video media revisions'
   - 'view resource revisions'
   - 'view revisions'
-  - 'view scheduled content'
-  - 'view scheduled media'
-  - 'view scheduled taxonomy_term'
   - 'view style guides'
   - 'view subusers'
   - 'view the administration theme'
