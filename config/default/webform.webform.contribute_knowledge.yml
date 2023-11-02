@@ -1,52 +1,65 @@
-uuid: f0aaa449-bae0-4ffd-86c4-38d14d6bed15
+uuid: f9e3532d-c71e-4dda-aee4-eff85df3c853
 langcode: en
 status: open
 dependencies:
   module:
     - antibot
-  enforced:
-    module:
-      - webform
 third_party_settings:
   antibot:
     antibot: true
-_core:
-  default_config_hash: CJr5U2B4if_Ff1SZfnNp_csPKwXIynmbUlBC-SmSOAE
 weight: 0
 open: null
 close: null
-uid: null
+uid: 1471
 template: false
 archive: false
-id: contact
-title: Contact
-description: 'Basic email contact webform.'
+id: contribute_knowledge
+title: 'Contribute Knowledge'
+description: '<p>Webform that invites people to contribute knowledge</p>'
 category: ''
-elements: |
-  name:
+elements: |-
+  your_name:
+    '#type': textfield
     '#title': 'Your Name'
-    '#type': textfield
     '#required': true
-    '#default_value': '[current-user:display-name]'
-  email:
-    '#title': 'Your Email'
+    '#access_view_roles':
+      - research_assistant
+      - manager
+      - administrator
+  contribute_knowledge_email:
     '#type': email
+    '#title': 'Your Email'
     '#required': true
-    '#default_value': '[current-user:mail]'
-  subject:
-    '#title': Subject
-    '#type': textfield
-    '#required': true
-    '#test': 'Testing contact webform from [site:name]'
-  message:
-    '#title': Message
+    '#access_view_roles':
+      - research_assistant
+      - manager
+      - administrator
+  information_you_want_to_share_with_us:
     '#type': textarea
+    '#title': 'Information you want to share with us'
     '#required': true
-    '#test': 'Please ignore this email.'
-  actions:
-    '#type': webform_actions
-    '#title': 'Submit button(s)'
-    '#submit__label': 'Send message'
+    '#access_view_roles':
+      - research_assistant
+      - manager
+      - administrator
+  the_source_of_your_info:
+    '#type': webform_select_other
+    '#title': 'The source of your info'
+    '#options':
+      from_family: 'Family member'
+      from_exhibition: 'Exhibition catalogue'
+      from_newspaper: 'Newspaper article'
+      from_academic_publication: 'Academic publication'
+      from_museum_archival: 'Museum or Archival documentation'
+      from_oral_history: 'Oral history'
+    '#other__placeholder': 'Describe other source…'
+    '#required': true
+    '#access_view_roles':
+      - research_assistant
+      - manager
+      - administrator
+  captcha:
+    '#type': captcha
 css: ''
 javascript: ''
 settings:
@@ -59,7 +72,7 @@ settings:
   page_submit_path: ''
   page_confirm_path: ''
   page_theme_name: ''
-  form_title: source_entity_webform
+  form_title: both
   form_submit_once: false
   form_open_message: ''
   form_close_message: ''
@@ -151,10 +164,10 @@ settings:
   draft_loaded_message: ''
   draft_pending_single_message: ''
   draft_pending_multiple_message: ''
-  confirmation_type: url_message
-  confirmation_url: '<front>'
+  confirmation_type: page
+  confirmation_url: ''
   confirmation_title: ''
-  confirmation_message: 'Your message has been sent.'
+  confirmation_message: ''
   confirmation_attributes: {  }
   confirmation_back: true
   confirmation_back_label: ''
@@ -230,79 +243,5 @@ access:
     roles: {  }
     users: {  }
     permissions: {  }
-handlers:
-  email_confirmation:
-    id: email
-    handler_id: email_confirmation
-    label: 'Email confirmation'
-    notes: ''
-    status: true
-    conditions: {  }
-    weight: 1
-    settings:
-      states:
-        - completed
-      to_mail: '[webform_submission:values:email:raw]'
-      to_options: {  }
-      bcc_mail: '[current-user:mail]'
-      bcc_options: {  }
-      cc_mail: ''
-      cc_options: {  }
-      from_mail: _default
-      from_options: {  }
-      from_name: _default
-      reply_to: ''
-      return_path: ''
-      sender_mail: ''
-      sender_name: ''
-      subject: '[webform_submission:values:subject:raw]'
-      body: '[webform_submission:values:message:value]'
-      excluded_elements: {  }
-      ignore_access: false
-      exclude_empty: true
-      exclude_empty_checkbox: false
-      exclude_attachments: false
-      html: true
-      attachments: false
-      twig: false
-      theme_name: ''
-      parameters: {  }
-      debug: false
-  email_notification:
-    id: email
-    handler_id: email_notification
-    label: 'Email notification'
-    notes: ''
-    status: true
-    conditions: {  }
-    weight: 2
-    settings:
-      states:
-        - completed
-      to_mail: _default
-      to_options: {  }
-      bcc_mail: ''
-      bcc_options: {  }
-      cc_mail: ''
-      cc_options: {  }
-      from_mail: '[webform_submission:values:email:raw]'
-      from_options: {  }
-      from_name: '[webform_submission:values:name:raw]'
-      reply_to: ''
-      return_path: ''
-      sender_mail: ''
-      sender_name: ''
-      subject: '[webform_submission:values:subject:raw]'
-      body: '[webform_submission:values:message:value]'
-      excluded_elements: {  }
-      ignore_access: false
-      exclude_empty: true
-      exclude_empty_checkbox: false
-      exclude_attachments: false
-      html: true
-      attachments: false
-      twig: false
-      theme_name: ''
-      parameters: {  }
-      debug: false
+handlers: {  }
 variants: {  }
