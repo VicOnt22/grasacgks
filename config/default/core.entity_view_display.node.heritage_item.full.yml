@@ -62,6 +62,7 @@ dependencies:
     - field.field.node.heritage_item.field_related_heritage_out_gks
     - field.field.node.heritage_item.field_related_language_item
     - field.field.node.heritage_item.field_related_seasonal_time
+    - field.field.node.heritage_item.field_share_knowledge_form
     - field.field.node.heritage_item.field_source_coll_his
     - field.field.node.heritage_item.field_sources_exhib_pub_his
     - field.field.node.heritage_item.field_tk_label
@@ -80,6 +81,7 @@ dependencies:
     - smart_trim
     - text
     - user
+    - webform
 third_party_settings:
   ds:
     layout:
@@ -130,6 +132,7 @@ third_party_settings:
         - group_related_items
         - group_about_this_grasac_record
         - field_geolocation
+        - field_share_knowledge_form
         - field_current_institution
         - field_related_heritage_item
         - field_catalog_id
@@ -3239,6 +3242,49 @@ content:
             prefix: ''
             suffix: ''
     weight: 14
+    region: main
+  field_share_knowledge_form:
+    type: webform_entity_reference_link
+    label: hidden
+    settings:
+      label: 'Do You Have Knowledge to Contribute? Share with Us.'
+      dialog: normal
+      attributes:
+        class:
+          - button
+          - btn
+          - btn-primary
+        0: 'current-page:url:unaliased:args:value:1'
+    third_party_settings:
+      ds:
+        ft:
+          id: expert
+          settings:
+            lb: ''
+            lbw: true
+            lbw-el: strong
+            lbw-cl: ''
+            lbw-at: ''
+            lb-col: false
+            ow: true
+            ow-el: ''
+            ow-cl: field-outer
+            ow-at: ''
+            ow-def-at: true
+            ow-def-cl: true
+            fis: false
+            fis-el: ''
+            fis-cl: ''
+            fis-at: ''
+            fis-def-at: false
+            fi: false
+            fi-el: ''
+            fi-cl: ''
+            fi-at: ''
+            fi-def-at: false
+            prefix: ''
+            suffix: ''
+    weight: 27
     region: main
   field_source_coll_his:
     type: advanced_text

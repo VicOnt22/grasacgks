@@ -61,12 +61,13 @@ dependencies:
     - field.field.node.heritage_item.field_related_heritage_out_gks
     - field.field.node.heritage_item.field_related_language_item
     - field.field.node.heritage_item.field_related_seasonal_time
+    - field.field.node.heritage_item.field_share_knowledge_form
     - field.field.node.heritage_item.field_source_coll_his
     - field.field.node.heritage_item.field_sources_exhib_pub_his
     - field.field.node.heritage_item.field_tk_label
     - image.style.thumbnail
     - node.type.heritage_item
-    - workflows.workflow.varbase_simple_workflow
+    - workflows.workflow.varbase_editorial_workflow
   module:
     - content_moderation
     - datetime_range
@@ -80,6 +81,7 @@ dependencies:
     - path
     - physical
     - text
+    - webform
 third_party_settings:
   field_group:
     group_physical_description:
@@ -1217,6 +1219,15 @@ content:
     weight: 22
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_share_knowledge_form:
+    type: webform_entity_reference_select
+    weight: 74
+    region: content
+    settings:
+      default_data: false
+      webforms:
+        - contribute_knowledge
     third_party_settings: {  }
   field_source_coll_his:
     type: string_textarea

@@ -1,0 +1,32 @@
+uuid: f575719c-82c7-4fd7-858e-e37025830574
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_share_knowledge_form
+    - node.type.heritage_item
+    - webform.webform.contribute_knowledge
+  module:
+    - webform
+id: node.heritage_item.field_share_knowledge_form
+field_name: field_share_knowledge_form
+entity_type: node
+bundle: heritage_item
+label: 'Do You Have Knowledge to Contribute? Share with Us.'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: f9e3532d-c71e-4dda-aee4-eff85df3c853
+    default_data: 'gks_ref_number_hidden_: [current-page:url:absolute]'
+    status: open
+    open: ''
+    close: ''
+default_value_callback: ''
+settings:
+  handler: 'default:webform'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: webform

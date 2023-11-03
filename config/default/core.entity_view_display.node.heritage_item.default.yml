@@ -61,6 +61,7 @@ dependencies:
     - field.field.node.heritage_item.field_related_heritage_out_gks
     - field.field.node.heritage_item.field_related_language_item
     - field.field.node.heritage_item.field_related_seasonal_time
+    - field.field.node.heritage_item.field_share_knowledge_form
     - field.field.node.heritage_item.field_source_coll_his
     - field.field.node.heritage_item.field_sources_exhib_pub_his
     - field.field.node.heritage_item.field_tk_label
@@ -75,6 +76,7 @@ dependencies:
     - physical
     - text
     - user
+    - webform
 third_party_settings:
   ds:
     layout:
@@ -1206,6 +1208,14 @@ content:
     third_party_settings: {  }
     weight: 59
     region: main
+  field_share_knowledge_form:
+    type: webform_entity_reference_entity_view
+    label: above
+    settings:
+      source_entity: true
+    third_party_settings: {  }
+    weight: 61
+    region: content
   field_source_coll_his:
     type: basic_string
     label: above

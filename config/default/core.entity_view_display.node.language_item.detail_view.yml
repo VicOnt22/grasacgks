@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.language_item.field_related_heritage_item
     - field.field.node.language_item.field_related_language_item
     - field.field.node.language_item.field_related_places
+    - field.field.node.language_item.field_share_knowledge_form
     - field.field.node.language_item.field_source
     - field.field.node.language_item.field_term_definition
     - field.field.node.language_item.field_unique_id
@@ -232,5 +233,6 @@ content:
 hidden:
   field_gks_reference_number: true
   field_part_ofspeech: true
+  field_share_knowledge_form: true
   langcode: true
   search_api_excerpt: true

@@ -1,0 +1,32 @@
+uuid: 322f263f-6587-41bc-84e5-bae3a66f02df
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_share_knowledge_form
+    - node.type.language_item
+    - webform.webform.contribute_knowledge
+  module:
+    - webform
+id: node.language_item.field_share_knowledge_form
+field_name: field_share_knowledge_form
+entity_type: node
+bundle: language_item
+label: 'Do You Have Knowledge to Contribute? Share with Us.'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    target_uuid: f9e3532d-c71e-4dda-aee4-eff85df3c853
+    default_data: ''
+    status: open
+    open: ''
+    close: ''
+default_value_callback: ''
+settings:
+  handler: 'default:webform'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: webform

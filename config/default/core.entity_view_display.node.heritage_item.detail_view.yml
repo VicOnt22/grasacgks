@@ -62,6 +62,7 @@ dependencies:
     - field.field.node.heritage_item.field_related_heritage_out_gks
     - field.field.node.heritage_item.field_related_language_item
     - field.field.node.heritage_item.field_related_seasonal_time
+    - field.field.node.heritage_item.field_share_knowledge_form
     - field.field.node.heritage_item.field_source_coll_his
     - field.field.node.heritage_item.field_sources_exhib_pub_his
     - field.field.node.heritage_item.field_tk_label
@@ -221,6 +222,7 @@ hidden:
   field_related_heritage_out_gks: true
   field_related_language_item: true
   field_related_seasonal_time: true
+  field_share_knowledge_form: true
   field_source_coll_his: true
   field_sources_exhib_pub_his: true
   field_tk_label: true
