@@ -59,6 +59,22 @@ function change_update_fields_post_update_9016_saving_language(&$sandbox) {
   _change_update_fields_save_bundle($sandbox, 'language_item', 20);
 }
 
+/**
+ * Hook change_update_fields_post_update_N_description
+ * set field_share_knowledge values for nodes of a heritage_item bundle.
+ */
+function change_update_fields_post_update_9018_share_knowledge_value(&$sandbox) {
+  _change_update_fields_value_share_knowledge_for_bundle($sandbox, 'heritage_item', 20);
+}
+
+/**
+ * Hook change_update_fields_post_update_N_description
+ * set field_share_knowledge values for nodes of a language_item bundle.
+ */
+function change_update_fields_post_update_9019_share_knowledge_value(&$sandbox) {
+  _change_update_fields_value_share_knowledge_for_bundle($sandbox, 'language_item', 20);
+}
+
 // To RESET _NAME
 // drush ev "drupal_set_installed_schema_version('[Name of module]', [N*])"
 // *N being the update function you want to revert to (the last successful update function)

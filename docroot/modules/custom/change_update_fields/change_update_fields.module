@@ -473,6 +473,71 @@ function _change_update_fields_value_geo_for_bundle(array &$sandbox, $bundle, $n
 
 
 /**
+ * name comes from functionality: publish all nodes from a bundle.
+ * A custom callback _change_update_fields_value_for_bundle allows Implementations of
+ * hook_post_update_NAME that act as implementations of callback_batch_operation
+ * across multiple HTTP requests and avoid PHP timeouts.
+ *
+ * @param array $sandbox
+ * The batch operation sandbox.
+ * @param string $bundle
+ * The node bundle.
+ * @param int $nodes_per_batch
+ * The amount of nodes to update at a given time.
+ */
+function _change_update_fields_value_share_knowledge_for_bundle(array &$sandbox, $bundle, $nodes_per_batch = 20) {
+
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+
+  // we divide/load nodes in batches, preparing nodes Nid's for assigning value operation
+  if (!isset($sandbox['total'])) {
+    $query = $storage->getQuery()
+      ->condition('type', $bundle)
+      //      ->range(0, 2)
+      ->sort('changed', 'DESC')
+      ->accessCheck(FALSE);
+
+    $nids = $query->execute();
+
+    $sandbox['total'] = count($nids);
+    $sandbox['ids'] = array_chunk($nids, $nodes_per_batch);
+    $sandbox['current'] = 0;
+  }
+
+  if ($sandbox['total'] == 0) {
+    $sandbox['#finished'] = 1;
+    return;
+  }
+
+  $nids = array_shift($sandbox['ids']);
+  $nodes = $storage->loadMultiple($nids);
+
+  // assigning value for field_share_knowledge_form
+  /* @var $node \Drupal\node\NodeInterface $node */
+  foreach ($nodes as $node) {
+
+        $value_to_assign = [
+        'target_id' => 'contribute_knowledge',
+        'status' => 'open'
+      ];
+
+      $node->set('field_share_knowledge_form', $value_to_assign);
+      $node->set('langcode', 'en');
+      if ($node instanceof RevisionLogInterface) {
+        $node->setRevisionLogMessage('Update share_knowledge value.');
+        $node->setRevisionUserId(\Drupal::currentUser()->id());
+      }
+      $node->save();
+
+    $sandbox['current']++;
+  }
+
+  $sandbox['#finished'] = min(($sandbox['current'] / $sandbox['total']), 1);
+}
+
+
+
+/**
  * Implements hook_cron().
  * an example for future use - note that it does not use batches (that is not best example)
  */
