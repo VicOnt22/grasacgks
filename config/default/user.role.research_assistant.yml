@@ -111,7 +111,6 @@ permissions:
   - 'access relations'
   - 'access responsive preview'
   - 'access shortcuts'
-  - 'access site in maintenance mode'
   - 'access site-wide contact form'
   - 'access taxonomy overview'
   - 'access toolbar'
