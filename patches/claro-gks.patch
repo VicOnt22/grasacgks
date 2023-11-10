@@ -2,7 +2,7 @@ diff --git a/claro/js/details.js b/claro/js/details.js
 index 3a7d2bc..a99f97e 100644
 --- a/core/themes/claro/js/details.js
 +++ b/core/themes/claro/js/details.js
-@@ -34,4 +34,10 @@
+@@ -34,4 +34,12 @@
    Drupal.theme.detailsSummarizedContentText = function (text) {
      return text || '';
    };
@@ -12,6 +12,8 @@ index 3a7d2bc..a99f97e 100644
 +  $(document).ready(function(){
 +  let gksfield = document.getElementById("edit-field-gks-reference-number-wrapper");
 +  gksfield.remove();
++  let knowledgefield = document.getElementById("edit-field-share-knowledge-form-wrapper");
++  knowledgefield.remove();
 +  });
 +
 +})(jQuery, Modernizr, Drupal);

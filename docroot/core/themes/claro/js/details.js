@@ -38,6 +38,8 @@
   $(document).ready(function(){
   let gksfield = document.getElementById("edit-field-gks-reference-number-wrapper");
   gksfield.remove();
+  let knowledgefield = document.getElementById("edit-field-share-knowledge-form-wrapper");
+  knowledgefield.remove();
   });
 
 })(jQuery, Modernizr, Drupal);
