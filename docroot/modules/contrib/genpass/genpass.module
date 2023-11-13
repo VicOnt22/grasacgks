@@ -5,113 +5,200 @@
  * Contains genpass.module.
  */
 
-use Drupal\Component\Utility\Crypt;
+use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Url;
 use Drupal\genpass\GenpassInterface;
-use Drupal\genpass\InvalidCharacterSetsException;
 
 /**
- * Implements hook_page_attachments().
+ * Implements hook_help().
  */
-function genpass_page_attachments(array &$attachments) {
-  $attachments['#attached']['library'][] = 'genpass/genpass';
+function genpass_help($route_name, RouteMatchInterface $route_match) {
+
+  if ($route_name == 'help.page.genpass') {
+    return implode("\n", [
+      '<h3>',
+      new TranslatableMarkup('About GenPass (Generate Password)'),
+      '</h3>', '<p>',
+      new TranslatableMarkup('The GenPass module provides a tool for generating strong and secure passwords during User registration and Admin User Creation. There are options to choose the length of password and who will be provided the password generated. Admins can be restricted from entering or setting user passwords.'),
+      '</p>', '<h4>',
+      new TranslatableMarkup('Replacement Password Generating Service'),
+      '</h4>', '<p>',
+      new TranslatableMarkup('The Drupal Core DefaultPasswordGenerator service can be replaced by the GenpassPasswordGenerator service to allow for more special characters to be included in the password by default, the ability to alter those characters sets (see below), and for at least one character from each set to be guaranteed to be included in the new password.'),
+      '</p>', '<h4>',
+      new TranslatableMarkup('Altering Password Character sets'),
+      '</h4>', '<p>',
+      new TranslatableMarkup('If the GenPass password generator is enabled, the characters used to generate passwords can be altered by a module implementing hook_genpass_character_sets_alter.'),
+      '</p>', '<h4>',
+      new TranslatableMarkup('Token integration'),
+      '</h4>', '<p>',
+      new TranslatableMarkup('Genpass adds back in the tokens [user:password] and [account:password], available in the user notification email template.'),
+      '</p>',
+    ]);
+  }
 }
 
 /**
- * Generate a new password using the preferred password generation algorithm.
+ * Helper function to find an item in the entity form.
  *
- * @return string
- *   A fresh password.
+ * Location many vary based on profile module, or 3rd party module providing a
+ * new location or field name.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $array_parents
+ *   An array of parents arrays to try.
+ *
+ * @return array|null
+ *   The located form item, or NULL if not found.
  */
-function genpass_generate() {
-  // Length parameter for the password.
-  $length = \Drupal::config('genpass.settings')->get('genpass_length');
+function &_genpass_get_form_item(array &$form, array $array_parents) {
+  // As this function returns a reference, what is returned must be a variable.
+  $form_item = NULL;
 
-  return \Drupal::moduleHandler()->invoke(
-    genpass_algorithm_module(),
-    'password',
-    [$length]
-  );
+  foreach ($array_parents as $parents) {
+    // If this is just a string, then function has been called with a single
+    // array instead of an array of arrays. Wrap in array and call again.
+    if (!is_array($parents)) {
+      return _genpass_get_form_item($form, [$array_parents]);
+    }
+
+    // Check this parent and return if found.
+    $exists = FALSE;
+    $form_item =& NestedArray::getValue($form, $parents, $exists);
+    if ($exists) {
+      return $form_item;
+    }
+  }
+
+  // No item found at any of the parent locations.
+  return $form_item;
 }
 
 /**
- * Generate a new password using genpass's internal generation algorithm.
+ * Implements hook_form_FORM_ID_alter().
  *
- * @param int $length
- *   Length of the password to generate. Minimum length is 4.
- *
- * @return string
- *   A random password.
- *
- * @throws Drupal\genpass\InvalidCharacterSetsException
- *   After allowing other modules to alter the character sets, an error is
- *   thrown if they are no longer viable for random passwords in a very
- *   simplistic way & check.
- *
- * @see genpass_form_alter()
- * @see \Drupal\Core\Password\DefaultPasswordGenerator::generate()
+ * User admin settings form at admin/config/people/accounts.
  */
-function genpass_password($length = 16) {
+function genpass_form_user_admin_settings_alter(&$form, FormStateInterface $form_state, $form_id) {
 
-  // This array contains the list of allowable characters for the password.
-  // Note that the number 0 and the letter 'O' have been removed to avoid
-  // confusion between the two. The same is true of 'I', 1, and 'l'. The
-  // symbols ` and | are likewise excluded.
-  $character_sets = array(
-    'lower_letters' => 'abcdefghijkmnopqrstuvwxyz',
-    'upper_letters' => 'ABCDEFGHJKLMNPQRSTUVWXYZ',
-    'digits' => '23456789',
-    'special' => '!"#$%&\'()*+,-./:;<=>?@[\]^_{}~',
-  );
+  // Place genpass configuration details above the system emails accordion,
+  // and move the notification email to be with them.
+  $form['mail_notification_address']['#weight'] = 8;
+  $form['email']['#weight'] = 10;
 
-  // Allow another module to alter the character sets before they are used to
-  // generate a password. Do sanity checks on the altered characters sets.
-  \Drupal::moduleHandler()->alter('genpass_character_sets', $character_sets);
-  if (!is_array($character_sets)) {
-    throw new InvalidCharacterSetsException('Characters sets altered to longer be a keyed array of character sets.');
-  }
-  $character_sets_combined = implode('', $character_sets);
-  if (strlen($character_sets_combined) < $length) {
-    throw new InvalidCharacterSetsException('Not enough source characters to generate a password.');
-  }
+  $form['genpass_config_registration'] = [
+    '#type' => 'details',
+    '#title' => new TranslatableMarkup('Generate Password - User Account Registration'),
+    '#description' => new TranslatableMarkup('Options to alter the password entry field on Admin "Add user" form and User Registration form. A form must have the possibility of password entry for these settings to be relevant. If the "<a href="@url">Require email verification when a visitor creates an account</a>" is enabled, the password field is not added to user registration form, and this module cannot alter it.', [
+      '@url' => Url::fromRoute(
+        'entity.user.admin_form', [],
+        ['fragment' => 'edit-user-email-verification']
+      )->toString(),
+    ]),
+    '#open' => TRUE,
+    '#weight' => 5,
+  ];
 
-  // Always include at least 1 character of each class to ensure generated
-  // passwords meet simplistic password strength rules.
-  $password = [];
-  foreach ($character_sets as $character_set) {
-    $max = strlen($character_set) - 1;
-    $password[] = $character_set[random_int(0, $max)];
-  }
+  $settings = \Drupal::config('genpass.settings');
 
-  // Add remaining length as characters from any set.
-  $max = strlen($character_sets_combined) - 1;
+  $form['genpass_config_registration']['genpass_mode'] = [
+    '#type' => 'radios',
+    '#title' => new TranslatableMarkup('User password entry'),
+    '#default_value' => $settings->get('genpass_mode'),
+    '#options' => [
+      GenpassInterface::PASSWORD_REQUIRED => new TranslatableMarkup('Users <strong>must</strong> enter a password on registration. This is option is not available if e-mail verification is enabled.'),
+      GenpassInterface::PASSWORD_OPTIONAL => new TranslatableMarkup('Users <strong>may</strong> enter a password on registration. If left empty, a random password will be generated. This is option is not available if e-mail verification is enabled.'),
+      GenpassInterface::PASSWORD_RESTRICTED => new TranslatableMarkup('Users <strong>cannot</strong> enter a password on registration; a random password will be generated. This option is the only valid choice if e-mail verification is enabled above.'),
+    ],
+    '#description' => new TranslatableMarkup(
+      'Choose a password handling mode for user the registration form. The setting "<a href="@url">Require email verification when a visitor creates an account</a>" being set precludes the first two options from working.', [
+        '@url' => Url::fromRoute(
+          'entity.user.admin_form', [],
+          ['fragment' => 'edit-user-email-verification']
+        )->toString(),
+      ]
+    ),
+  ];
 
-  for ($c = count($password); $c < $length; $c++) {
-    $password[] = $character_sets_combined[random_int(0, $max)];
-  }
+  $form['genpass_config_registration']['genpass_admin_mode'] = [
+    '#type' => 'radios',
+    '#title' => new TranslatableMarkup('Admin password entry'),
+    '#default_value' => $settings->get('genpass_admin_mode'),
+    '#options' => [
+      GenpassInterface::PASSWORD_ADMIN_SHOW => new TranslatableMarkup('Admins <strong>may</strong> set a password when creating or editing an account.'),
+      GenpassInterface::PASSWORD_ADMIN_HIDE => new TranslatableMarkup('Admins <strong>cannot</strong> set a password when creating or editing an account.'),
+    ],
+    '#description' => new TranslatableMarkup('Choose whether admins can set passwords. Admin can always set their own password.'),
+  ];
 
-  // Shuffle the characters around to avoid the first 4 chars always being the
-  // same four character sets in order. Using shuffle() will suffice as the
-  // contents of the array are already random.
-  shuffle($password);
+  $form['genpass_config_registration']['genpass_display'] = [
+    '#type' => 'radios',
+    '#title' => new TranslatableMarkup('Generated password display'),
+    '#default_value' => $settings->get('genpass_display'),
+    '#options' => [
+      GenpassInterface::PASSWORD_DISPLAY_NONE => new TranslatableMarkup('Do not display.'),
+      GenpassInterface::PASSWORD_DISPLAY_ADMIN => new TranslatableMarkup('Display when site administrators create new user accounts.'),
+      GenpassInterface::PASSWORD_DISPLAY_USER => new TranslatableMarkup('Display when users create their own accounts.'),
+      GenpassInterface::PASSWORD_DISPLAY_BOTH => new TranslatableMarkup('Display to both site administrators and users.'),
+    ],
+    '#description' => new TranslatableMarkup('Whether or not the generated password should display after a user account is created via Admin Add Person, or User Registration Form.'),
+  ];
 
-  return implode('', $password);
-}
+  $form['genpass_config_generation'] = [
+    '#type' => 'details',
+    '#title' => new TranslatableMarkup('Generate Password - Generation Parameters'),
+    '#description' => new TranslatableMarkup('Parameters used for generation of passwords using both DefaultPasswordGenerator and GenpassPasswordGenerator.'),
+    '#open' => TRUE,
+    '#weight' => 6,
 
-/**
- * Helper function to find a item in the user form.
- *
- * Since its position within the form-array depends on the profile module
- * (account-category).
- */
-function &_genpass_get_form_item(&$form, $field) {
-  if (isset($form['account'][$field])) {
-    return $form['account'][$field];
-  }
-  else {
-    return $form[$field];
-  }
+  ];
+
+  $form['genpass_config_generation']['genpass_length'] = [
+    '#type' => 'number',
+    '#title' => new TranslatableMarkup('Generated password length'),
+    '#default_value' => $settings->get('genpass_length'),
+    '#size' => 2,
+    '#maxlength' => 2,
+    '#min' => 5,
+    '#max' => 32,
+    '#step' => 1,
+    '#description' => new TranslatableMarkup('Set the length of generated passwords here. Allowed range: 5 to 32.'),
+  ];
+
+  // Option to override Drupal Core DefaultPasswordGenerator with Genpass.
+  $form['genpass_config_core_service'] = [
+    '#type' => 'details',
+    '#title' => new TranslatableMarkup('Generate Password - Service Replacement'),
+    '#description' => '<p>' . implode("</p>\n<p>", [
+      new TranslatableMarkup('Genpass provides <a href="@genpass_gen_url">GenpassPasswordGenerator</a> as a replacement to the Drupal Core <a href="@core_gen_url">DefaultPasswordGenerator</a> to generate passwords. To compare the generation code, click the class names.', [
+        '@genpass_gen_url' => 'https://git.drupalcode.org/project/genpass/-/tree/2.0.x/src/GenpassPasswordGenerator.php#L119-139',
+        '@core_gen_url' => 'https://git.drupalcode.org/project/drupal/-/blob/11.x/core/lib/Drupal/Core/Password/DefaultPasswordGenerator.php#L29-40',
+      ]),
+      new TranslatableMarkup('The Genpass generator uses more special characters, and guarantees that at least one character from each of the four sets is included in the generated password: upper and lower case letters, digits, and special characters. The <a href="@cs_url">character sets</a> can be altered with a module implementing <a href="@hook_url">hook_genpass_character_sets_alter</a>.', [
+        '@cs_url' => 'https://git.drupalcode.org/project/genpass/-/tree/2.0.x/src/GenpassPasswordGenerator.php#L180-191',
+        '@hook_url' => 'https://git.drupalcode.org/project/genpass/-/blob/2.0.x/genpass.api.php#L13-31',
+      ]),
+      new TranslatableMarkup('When enabled, the GenpassPasswordGenerator will be used for all instances of password generation.'),
+    ]) . '</p>',
+    '#open' => FALSE,
+    '#weight' => 6,
+
+    'genpass_override_core' => [
+      '#type' => 'checkbox',
+      '#title' => new TranslatableMarkup('Use Genpass as Core password generator'),
+      '#default_value' => !empty($settings->get('genpass_override_core')),
+    ],
+  ];
+
+  $form['#validate'][] = 'genpass_user_admin_settings_validate';
+  $form['#submit'][] = 'genpass_user_admin_settings_submit';
 }
 
 /**
@@ -119,109 +206,107 @@ function &_genpass_get_form_item(&$form, $field) {
  */
 function genpass_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
-  switch ($form_id) {
+  // Use cached values to avoid rebuilding settings and form ids on every form
+  // related operation. form_alter is called often. Static cache here instead
+  // of in the build function is significantly faster.
+  static $genpass_user_forms = FALSE;
+  if ($genpass_user_forms === FALSE) {
+    $genpass_user_forms = _genpass_get_user_forms();
+  }
 
-    // User admin settings form at admin/config/people/accounts.
-    case 'user_admin_settings':
-      $form['genpass_config'] = [
-        '#type' => 'details',
-        '#title' => t('Generate Password'),
-        '#open' => TRUE,
-        '#weight' => 5,
-      ];
-      // Place genpass configuration details above the system emails accordion.
-      $form['email']['#weight'] = 10;
+  // Only continue if the form_id is configured to alter.
+  if (!isset($genpass_user_forms[$form_id])) {
+    return;
+  }
 
-      $settings = \Drupal::config('genpass.settings')->get();
+  // Settings for this form id.
+  $form_settings = $genpass_user_forms[$form_id];
 
-      $form['genpass_config']['genpass_mode'] = [
-        '#type' => 'radios',
-        '#title' => t('Password handling'),
-        '#default_value' => $settings['genpass_mode'],
-        '#options' => [
-          GenpassInterface::PASSWORD_REQUIRED => t('Users <strong>must</strong> enter a password on registration. This is disabled if e-mail verification is enabled above.'),
-          GenpassInterface::PASSWORD_OPTIONAL => t('Users <strong>may</strong> enter a password on registration. If left empty, a random password will be generated. This always applies when an administer is creating the account.'),
-          GenpassInterface::PASSWORD_RESTRICTED => t('Users <strong>cannot</strong> enter a password on registration; a random password will be generated. This always applies for the regular user registration form if e-mail verification is enabled above.'),
-        ],
-        '#description' => t('Choose a password handling mode for new users.'),
-      ];
+  // Password field must exist on this form for it to be altered. This can
+  // be missing when "Require email verification when a visitor creates an
+  // account" is enabled in account settings.
+  $pass_item =& _genpass_get_form_item(
+    $form,
+    $form_settings['genpass_password_field']
+  );
+  if (empty($pass_item)) {
+    return;
+  }
 
-      $form['genpass_config']['genpass_length'] = [
-        '#type' => 'textfield',
-        '#title' => t('Generated password length'),
-        '#default_value' => $settings['genpass_length'],
-        '#size' => 2,
-        '#maxlength' => 2,
-        '#description' => t('Set the length of generated passwords here. Allowed range: 5 to 32.'),
-      ];
+  // Determine if the current user in an admin.
+  $current_user = \Drupal::currentUser();
+  $is_admin = $current_user->hasPermission('administer users');
 
-      // Provide a selection mechanism to choose the preferred algorithm for
-      // generating passwords. Any module which implements hook_password() is
-      // displayed here.
-      $form['genpass_config']['genpass_algorithm'] = [
-        '#type' => 'radios',
-        '#title' => t('Password generation algorithm'),
-        '#default_value' => genpass_algorithm_module(),
-        '#options' => genpass_add_samples(genpass_algorithm_modules(), $settings['genpass_length']),
-        '#description' => t('If third party modules define a password generation algorithm, you can select which one this module will use.'),
-      ];
+  // Existing entities can always access the password field unless user is an
+  // admin, and they are not looking at their own.
+  $form_object = $form_state->getFormObject();
+  if (!($form_object instanceof EntityFormInterface)) {
+    // EntityFormInterface implements getEntity() needed to obtain entity.
+    \Drupal::logger('genpass')->warning(
+      'Configured form id %form_id does not implement EntityFormInterface.', [
+        '%form_id' => $form_id,
+      ]
+    );
+    return;
+  }
+  // Entity of type user is assumed here. Patches welcome to deal with other
+  // entity types if that ever comes to pass.
+  $form_user = $form_object->getEntity();
+  if ($form_user->id()) {
 
-      $form['genpass_config']['genpass_display'] = [
-        '#type' => 'radios',
-        '#title' => t('Generated password display'),
-        '#default_value' => $settings['genpass_display'],
-        '#options' => [
-          GenpassInterface::PASSWORD_DISPLAY_NONE => t('Do not display.'),
-          GenpassInterface::PASSWORD_DISPLAY_ADMIN => t('Display when site administrators create new user accounts.'),
-          GenpassInterface::PASSWORD_DISPLAY_USER => t('Display when users create their own accounts.'),
-          GenpassInterface::PASSWORD_DISPLAY_BOTH => t('Display to both site administrators and users.'),
-        ],
-        '#description' => t('Whether or not the generated password should display after a user account is created.'),
-      ];
+    // If admin is not looking at their own entity, hide the field.
+    if ($is_admin && $current_user->id() != $form_user->id()) {
+      if ($form_settings['genpass_admin_mode'] == GenpassInterface::PASSWORD_ADMIN_HIDE) {
+        $pass_item['#access'] = FALSE;
+        $pass_item['#required'] = FALSE;
+      }
+    }
 
-      $form['#validate'][] = 'genpass_user_admin_settings_validate';
+    // No furhter changes are made on existing entities.
+    return;
+  }
 
-      $form['#submit'][] = 'genpass_user_admin_settings_submit';
+  // Add validation function, where password may get set.
+  $form['#validate'][] = 'genpass_register_validate';
+
+  // Pass settings to validation function.
+  foreach ($form_settings as $variable => $value) {
+    $form[$variable] = [
+      '#type' => 'value',
+      '#value' => $value,
+    ];
+  }
+
+  // Set password field mode - use admin settings if an admin.
+  $mode = $form_settings['genpass_mode'];
+  if ($is_admin) {
+    $mode = $form_settings['genpass_admin_mode'];
+
+    // Help avoid obvious consequence of password being optional.
+    $notify_item =& _genpass_get_form_item(
+      $form,
+      $form_settings['genpass_notify_item']
+    );
+    if (!empty($notify_item)) {
+      $notify_item['#description'] = new TranslatableMarkup('This is recommended when auto-generating the password; otherwise, neither you nor the new user will know the password.');
+    }
+  }
+
+  switch ($mode) {
+    // If password is optional, don't require it, and give the user an
+    // indication of what will happen if left blank.
+    case GenpassInterface::PASSWORD_OPTIONAL:
+      $pass_item['#description'] = implode(' ', [
+        $pass_item['#description'] ?? '',
+        new TranslatableMarkup('If left blank, a password will be generated for you.'),
+      ]);
+      $pass_item['#required'] = FALSE;
       break;
 
-    // User registration form at admin/people/create.
-    case 'user_register_form':
-
-      $mode = \Drupal::config('genpass.settings')->get('genpass_mode');
-
-      // Add validation function, where password may get set.
-      $form['#validate'][] = 'genpass_register_validate';
-
-      // Administrator is creating the user.
-      if (\Drupal::routeMatch()->getRouteName() == 'user.admin_create') {
-        // Switch to optional mode.
-        $mode = GenpassInterface::PASSWORD_OPTIONAL;
-        // Help avoid obvious consequence of password being optional.
-        $notify_item =& _genpass_get_form_item($form, 'notify');
-        $notify_item['#description'] = t('This is recommended when auto-generating the password; otherwise, neither you nor the new user will know the password.');
-      }
-
-      // Pass mode to validation function.
-      $form['genpass_mode'] = [
-        '#type' => 'value',
-        '#value' => $mode,
-      ];
-
-      $pass_item =& _genpass_get_form_item($form, 'pass');
-      switch ($mode) {
-        // If password is optional, don't require it, and give the user an
-        // indication of what will happen if left blank.
-        case GenpassInterface::PASSWORD_OPTIONAL:
-          $pass_item['#required'] = FALSE;
-          $pass_item['#description'] = (empty($pass_item['#description']) ? '' : $pass_item['#description'] . ' ') . t('If left blank, a password will be generated for you.');
-          break;
-
-        // If password is restricted, remove access.
-        case GenpassInterface::PASSWORD_RESTRICTED:
-          $pass_item['#access'] = FALSE;
-          $pass_item['#required'] = FALSE;
-          break;
-      }
+    // If password is restricted, remove access.
+    case GenpassInterface::PASSWORD_RESTRICTED:
+      $pass_item['#access'] = FALSE;
+      $pass_item['#required'] = FALSE;
       break;
   }
 }
@@ -233,20 +318,41 @@ function genpass_user_admin_settings_submit($form, FormStateInterface $form_stat
   \Drupal::configFactory()->getEditable('genpass.settings')
     ->set('genpass_length', $form_state->getValue('genpass_length'))
     ->set('genpass_mode', $form_state->getValue('genpass_mode'))
+    ->set('genpass_admin_mode', $form_state->getValue('genpass_admin_mode'))
     ->set('genpass_display', $form_state->getValue('genpass_display'))
-    ->set('genpass_algorithm', $form_state->getValue('genpass_algorithm'))
-    ->save();
+    ->set(
+      'genpass_override_core',
+      !empty($form_state->getValue('genpass_override_core'))
+    )->save();
+
+  // Flush cache on settings change to update genpass_user_forms content.
+  Cache::invalidateTags(['genpass']);
 }
 
 /**
  * User settings validation.
  */
 function genpass_user_admin_settings_validate($form, FormStateInterface &$form_state) {
+
   // Validate length of password.
   $length = $form_state->getValue('genpass_length');
   if (!is_numeric($length) || $length < 5 || $length > 32) {
-    $form_state->setErrorByName('genpass_length', t('The length of a generated password must be between 5 and 32.'));
-    return;
+    $form_state->setErrorByName('genpass_length', new TranslatableMarkup(
+      'The length of a generated password must be between 5 and 32.'
+    ));
+  }
+
+  // Email verification can only combine with a user not being able to enter
+  // a password. Use the value from form submission as value may have changed.
+  $core_verify_mail = $form_state->getValue('user_email_verification');
+  $user_can_enter_password = in_array($form_state->getValue('genpass_mode'), [
+    GenpassInterface::PASSWORD_REQUIRED,
+    GenpassInterface::PASSWORD_OPTIONAL,
+  ]);
+  if ($core_verify_mail && $user_can_enter_password) {
+    $form_state->setErrorByName('genpass_mode', new TranslatableMarkup(
+      'User password entry option chosen is not available when e-mail verification is enabled.'
+    ));
   }
 
   return $form;
@@ -265,11 +371,12 @@ function genpass_register_validate($form, FormStateInterface &$form_state) {
   if (empty($form_state->getValue('pass'))) {
 
     // Generate and set password.
-    $pass = genpass_generate();
-    $pass_item =& _genpass_get_form_item($form, 'pass');
+    $pass = \Drupal::service('password_generator')->generate();
+    $password_location = $form_state->getValue('genpass_password_field');
+    $pass_item =& _genpass_get_form_item($form, $password_location);
     $form_state->setValueForElement($pass_item, $pass);
 
-    $display = Drupal::config('genpass.settings')->get('genpass_display');
+    $display = $form_state->getValue('genpass_display');
     $is_admin_or_both = in_array($display, [
       GenpassInterface::PASSWORD_DISPLAY_ADMIN,
       GenpassInterface::PASSWORD_DISPLAY_BOTH,
@@ -286,21 +393,23 @@ function genpass_register_validate($form, FormStateInterface &$form_state) {
 
     // Administrator created the user.
     if (\Drupal::routeMatch()->getRouteName() == 'user.admin_create') {
-      $messages[] = t('Since you did not provide a password, it was generated automatically for this account.');
+      $messages[] = new TranslatableMarkup('Since you did not provide a password, it was generated automatically for this account.');
       if ($is_admin_or_both) {
-        $messages[] = t('The password is: <strong class="genpass-password">@password</strong>', ['@password' => $pass]);
+        $messages[] = new TranslatableMarkup('The password is: <strong class="genpass-password nowrap">@password</strong>', ['@password' => $pass]);
       }
     }
     // Optional - User did not provide password, so it was generated.
     elseif ($genpass_mode == GenpassInterface::PASSWORD_OPTIONAL) {
-      $messages[] = t('Since you did not provide a password, it was generated for you.');
+      $messages[] = new TranslatableMarkup('Since you did not provide a password, it was generated for you.');
       if ($is_user_or_both) {
-        $messages[] = t('Your password is: <strong class="genpass-password">@password</strong>', ['@password' => $pass]);
+        $messages[] = new TranslatableMarkup('Your password is: <strong class="genpass-password nowrap">@password</strong>', ['@password' => $pass]);
       }
     }
     // Restricted - User was forced to receive a generated password.
-    elseif ($genpass_mode == GenpassInterface::PASSWORD_RESTRICTED && $is_user_or_both) {
-      $messages[] = t('The following password was generated for you: <strong class="genpass-password">@password</strong>', ['@password' => $pass]);
+    elseif ($genpass_mode == GenpassInterface::PASSWORD_RESTRICTED) {
+      if ($is_user_or_both) {
+        $messages[] = new TranslatableMarkup('The following password was generated for you: <strong class="genpass-password nowrap">@password</strong>', ['@password' => $pass]);
+      }
     }
 
     if (!empty($messages)) {
@@ -313,59 +422,201 @@ function genpass_register_validate($form, FormStateInterface &$form_state) {
 }
 
 /**
- * Return an array of all modules which implement hook_password.
+ * Implements hook_genpass_user_forms().
  */
-function genpass_algorithm_modules() {
-  // Fetch a list of all modules which implement the password generation hook.
-  // To be in this list, a module must implement a hook, and return random
-  // passwords as strings.
-  $all_modules = \Drupal::moduleHandler()->getModuleList();
-  $return = [];
-  foreach ($all_modules as $module_name => $module) {
-    if (\Drupal::moduleHandler()->hasImplementations('password', $module_name)) {
-      $return[$module_name] = $module_name;
+function genpass_genpass_user_forms() {
+
+  // Provide the forms this module normally alters via same hook.
+  $settings = \Drupal::config('genpass.settings');
+  // phpcs:disable
+  $common_settings_array = [
+
+    // User password entry.
+    'genpass_mode' => $settings->get('genpass_mode')
+      ?? GenpassInterface::PASSWORD_RESTRICTED,
+
+    // Admin password entry.
+    'genpass_admin_mode' => $settings->get('genpass_admin_mode')
+      ?? GenpassInterface::PASSWORD_ADMIN_SHOW,
+
+    // Generated password display.
+    'genpass_display' => $settings->get('genpass_display')
+      ?? GenpassInterface::PASSWORD_DISPLAY_NONE,
+
+    // Password field parents arrays.
+    'genpass_password_field' => [
+      ['account', 'pass'],
+      ['pass'],
+    ],
+
+    // Notification field to add admin hint.
+    'genpass_notify_item' => [
+      ['account', 'notify'],
+      ['notify'],
+    ],
+  ];
+  // phpcs:enable
+
+  return [
+    'user_register_form' => $common_settings_array,
+    'user_form' => $common_settings_array,
+  ];
+}
+
+/**
+ * Build the genpass_user_forms configuration array.
+ *
+ * @param bool $reset
+ *   Ignoring any caching and rebuild genpass_user_forms.
+ *
+ * @return array
+ *   Array keyed by form_id, with value an array of settings for that form. The
+ *   keys are genpass_mode, genpass_admin_mode, and genpass_display.
+ */
+function _genpass_get_user_forms($reset = FALSE) {
+  // Static cache moved to hook_form_alter.
+  $genpass_user_forms = FALSE;
+
+  // Get pre-calculated form ids and settings from cache. Use default cache
+  // because this is not critical enough to be included in discovery.
+  $cache_default = \Drupal::cache('default');
+  $cid = 'genpass:user_forms';
+  if (!$reset && ($item = $cache_default->get($cid, FALSE)) !== FALSE) {
+    // Return and set the static cached form ids data.
+    return $genpass_user_forms = $item->data;
+  }
+
+  // Rebuild as not present in cache or reset.
+  $module_handler = \Drupal::moduleHandler();
+  $build_genpass_user_forms = $module_handler->invokeAll('genpass_user_forms');
+
+  // Allow other modules to then alter the initial values.
+  $module_handler->alter('genpass_user_forms', $build_genpass_user_forms);
+
+  // Rebuild the entire form ids and settings array; keep only known settings.
+  $genpass_user_forms = [];
+
+  // Required settings to include in every entry. Array vars have default value.
+  $intf_vars = ['genpass_mode', 'genpass_admin_mode', 'genpass_display'];
+  $array_vars = [
+    'genpass_password_field' => [
+      ['account', 'pass'],
+      ['pass'],
+    ],
+    'genpass_notify_item' => [
+      ['account', 'notify'],
+      ['notify'],
+    ],
+  ];
+
+  // Ensure every form id in list has the required settings or defaults.
+  foreach ($build_genpass_user_forms as $form_id => $form_settings) {
+    foreach ($intf_vars as $variable) {
+      // The -1 is a very much an on purpose invalid value so that the function
+      // returns us the correct default if needed.
+      $genpass_user_forms[$form_id][$variable] = _genpass_valid_intf_value(
+        $variable,
+        $form_settings[$variable],
+        -1
+      );
+    }
+
+    // Add default password field and notify item if missing.
+    foreach ($array_vars as $var => $default) {
+      if (!empty($form_settings[$var]) && is_array($form_settings[$var])) {
+        $genpass_user_forms[$form_id][$var] = $form_settings[$var];
+      }
+      else {
+        $genpass_user_forms[$form_id][$var] = $default;
+      }
     }
   }
 
-  return $return;
+  // Add the data to cache.
+  $tags = ['genpass'];
+  $cache_default->set(
+    $cid,
+    $genpass_user_forms,
+    CacheBackendInterface::CACHE_PERMANENT,
+    $tags
+  );
+
+  return $genpass_user_forms;
 }
 
 /**
- * Return the currently activated module for generating passwords.
+ * Return valid interface value or given default if the value is valid.
  *
- * Does some validation to make sure the variable contains a valid module name.
+ * @param string $variable
+ *   One of genpass_mode, genpass_admin_mode, or genpass_display.
+ * @param int $value
+ *   Value to check and maybe return.
+ * @param int $default
+ *   Value to return if value above is invalid or not set.
  *
- * @return string
- *   The name of the module whose implementation of hook_password is
- *   currently the preferred implementation.
+ * @return int
+ *   The given value, valid default, or fallback known good value.
+ *
+ * @throws \InvalidArgumentException
+ *   If the given variable name is not valid.
  */
-function genpass_algorithm_module() {
-  $modules = genpass_algorithm_modules();
-  $module = \Drupal::config('genpass.settings')->get('genpass_algorithm');
+function _genpass_valid_intf_value(string $variable, int $value, int $default) {
+  switch ($variable) {
+    case 'genpass_mode':
+      switch ($value) {
+        case GenpassInterface::PASSWORD_REQUIRED:
+        case GenpassInterface::PASSWORD_OPTIONAL:
+        case GenpassInterface::PASSWORD_RESTRICTED:
+          return $value;
 
-  if (in_array($module, array_keys($modules))) {
-    return $module;
-  }
-  else {
-    return 'genpass';
-  }
-}
+        default:
+          // Recurse to self to ensure default is also valid.
+          return _genpass_valid_intf_value(
+            $variable,
+            $default,
+            GenpassInterface::PASSWORD_RESTRICTED
+          );
+      }
+      break;
 
-/**
- * Adds some sample passwords to each module in an array.
- */
-function genpass_add_samples($array, $length) {
-  $return = [];
-  foreach ($array as $module => $name) {
-    $return[$module] = t(
-      '@module_machine_name (examples: <em>@password_eg1</em>, <em>@password_eg2</em>)', [
-        '@module_machine_name' => $module,
-        '@password_eg1' => Drupal::moduleHandler()->invoke($module, 'password', [$length]),
-        '@password_eg2' => Drupal::moduleHandler()->invoke($module, 'password', [$length]),
-      ]
-    );
+    case 'genpass_admin_mode':
+      switch ($value) {
+        case GenpassInterface::PASSWORD_ADMIN_SHOW:
+        case GenpassInterface::PASSWORD_ADMIN_HIDE:
+          return $value;
+
+        default:
+          // Recurse to self to ensure default is also valid.
+          return _genpass_valid_intf_value(
+            $variable,
+            $default,
+            GenpassInterface::PASSWORD_ADMIN_SHOW
+          );
+      }
+      break;
+
+    case 'genpass_display':
+      switch ($value) {
+        case GenpassInterface::PASSWORD_DISPLAY_NONE:
+        case GenpassInterface::PASSWORD_DISPLAY_ADMIN:
+        case GenpassInterface::PASSWORD_DISPLAY_USER:
+        case GenpassInterface::PASSWORD_DISPLAY_BOTH:
+          return $value;
+
+        default:
+          // Recurse to self to ensure default is also valid.
+          return _genpass_valid_intf_value(
+            $variable,
+            $default,
+            GenpassInterface::PASSWORD_DISPLAY_NONE
+          );
+      }
+      break;
+
+    default:
+      // An invalid variable is a fatal developer issue.
+      throw new \InvalidArgumentException('Unknown variable: ' . $variable);
   }
-  return $return;
 }
 
 /**
@@ -373,8 +624,8 @@ function genpass_add_samples($array, $length) {
  */
 function genpass_token_info() {
   $info['tokens']['user']['password'] = [
-    'name' => t('User password'),
-    'description' => t('Provides user password. May be used only during registration.'),
+    'name' => new TranslatableMarkup('User password'),
+    'description' => new TranslatableMarkup('Provides user password. May be used only during registration.'),
   ];
   return $info;
 }
@@ -386,14 +637,14 @@ function genpass_tokens($type, $tokens, array $data, array $options, BubbleableM
   $replacements = [];
 
   foreach ($tokens as $name => $value) {
-    if ($name == 'password') {
-      if (isset($data['user']) && isset($data['user']->password)) {
+    if ($name == 'password' && isset($data['user'])) {
+      if (isset($data['user']->password)) {
         $replacements['[user:password]'] = $data['user']->password;
         $replacements['[account:password]'] = $data['user']->password;
       }
-      elseif (isset($data['user']) && !isset($data['user']->password)) {
-        $replacements['[user:password]'] = t('Your password');
-        $replacements['[account:password]'] = t('Your password');
+      else {
+        $replacements['[user:password]'] = new TranslatableMarkup('Your password');
+        $replacements['[account:password]'] = new TranslatableMarkup('Your password');
       }
     }
   }

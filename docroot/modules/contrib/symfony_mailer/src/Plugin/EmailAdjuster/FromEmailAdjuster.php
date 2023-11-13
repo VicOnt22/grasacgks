@@ -16,6 +16,6 @@ class FromEmailAdjuster extends AddressAdjusterBase {
   /**
    * The name of the associated header.
    */
-  protected const NAME = 'From';
+  protected const NAME = 'from';
 
 }

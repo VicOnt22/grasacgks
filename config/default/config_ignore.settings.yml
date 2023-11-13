@@ -1,9 +1,10 @@
+mode: simple
 ignored_config_entities:
-  - 'xmlsitemap.xmlsitemap.*'
-  - 'varbase_core.general_settings.*'
-  - 'geofield_map.settings.*'
   - 'geocoder.geocoder_provider.googlemaps.*'
+  - 'geofield_map.settings.*'
   - system.logging
   - system.performance
   - system.site
   - update.settings
+  - 'varbase_core.general_settings.*'
+  - 'xmlsitemap.xmlsitemap.*'

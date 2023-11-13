@@ -3,6 +3,7 @@
 namespace Drupal\symfony_mailer_test;
 
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\symfony_mailer\Address;
 
 /**
  * Tracks sent emails for testing.
@@ -76,7 +77,37 @@ trait MailerTestTrait {
   }
 
   /**
-   * Checks the to address of the most recently sent email.
+   * Checks the specified address of the most recently sent email.
+   *
+   * @param string $name
+   *   The address header.
+   * @param mixed $input_addresses
+   *   The email addresses.
+   *
+   * @return $this
+   */
+  public function assertAddress(string $name, $input_addresses) {
+    if (!is_countable($input_addresses)) {
+      $input_addresses = is_null($input_addresses) ? [] : [$input_addresses];
+    }
+
+    $email_addressed = $this->email->getAddress($name);
+    $this->assertEquals(count($input_addresses), count($email_addressed));
+
+    foreach ($email_addressed as $index => $email_address) {
+
+      // Index of the addresses must be preserved.
+      $input_address = Address::create($input_addresses[$index]);
+
+      $this->assertEquals($email_address->getEmail(), $input_address->getEmail());
+      $this->assertEquals($email_address->getDisplayName(), $input_address->getDisplayName());
+    }
+
+    return $this;
+  }
+
+  /**
+   * Checks 'to' address of the most recently sent email.
    *
    * @param string $email
    *   The email address.
@@ -86,15 +117,12 @@ trait MailerTestTrait {
    * @return $this
    */
   public function assertTo(string $email, string $display_name = '') {
-    $to = $this->email->getTo();
-    $this->assertCount(1, $to);
-    $this->assertEquals($email, $to[0]->getEmail());
-    $this->assertEquals($display_name, $to[0]->getDisplayName());
+    $this->assertAddress('to', new Address($email, $display_name));
     return $this;
   }
 
   /**
-   * Checks the cc address of the most recently sent email.
+   * Checks 'cc' address of the most recently sent email.
    *
    * @param string $email
    *   The email address.
@@ -104,10 +132,37 @@ trait MailerTestTrait {
    * @return $this
    */
   public function assertCc(string $email, string $display_name = '') {
-    $cc = $this->email->getCc();
-    $this->assertCount(1, $cc);
-    $this->assertEquals($email, $cc[0]->getEmail());
-    $this->assertEquals($display_name, $cc[0]->getDisplayName());
+    $this->assertAddress('cc', new Address($email, $display_name));
+    return $this;
+  }
+
+  /**
+   * Checks 'bcc' address of the most recently sent email.
+   *
+   * @param string $email
+   *   The email address.
+   * @param string $display_name
+   *   (Optional) The display name.
+   *
+   * @return $this
+   */
+  public function assertBcc(string $email, string $display_name = '') {
+    $this->assertAddress('bcc', new Address($email, $display_name));
+    return $this;
+  }
+
+  /**
+   * Checks 'reply-to' address of the most recently sent email.
+   *
+   * @param string $email
+   *   The email address.
+   * @param string $display_name
+   *   (Optional) The display name.
+   *
+   * @return $this
+   */
+  public function assertReplyTo(string $email, string $display_name = '') {
+    $this->assertAddress('reply-to', new Address($email, $display_name));
     return $this;
   }
 

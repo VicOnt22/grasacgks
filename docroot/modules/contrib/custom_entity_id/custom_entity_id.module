@@ -1,0 +1,93 @@
+<?php
+
+/**
+ * @file
+ * The module file.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function custom_entity_id_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  $form_object = $form_state->getFormObject();
+  if (method_exists($form_object, 'getEntity') && \Drupal::currentUser()->hasPermission('custom_entity_id access')) {
+    $entity_object = $form_object->getEntity();
+
+    $config_factory = \Drupal::configFactory();
+    $config = $config_factory->getEditable('custom_entity_id.settings');
+    if (!empty($config->get('fieldable_entity'))) {
+      $arr_selected_chk = unserialize($config->get('fieldable_entity'), ['allowed_classes' => FALSE]);
+      if (array_key_exists($entity_object->getEntityTypeId(), $arr_selected_chk)&& in_array($entity_object->bundle(), $arr_selected_chk[$entity_object->getEntityTypeId()])) {
+        $id = $entity_object->getEntityType()->get('entity_keys')['id'];
+        if (!isset($entity_object->$id->value)) {
+          $form['custom_entity_id_field'] = [
+            '#type' => 'textfield',
+            '#title' => t('Entity Id'),
+            '#default_value' => '',
+            '#size' => 15,
+            '#maxlength' => 15,
+            '#weight' => -50,
+            '#element_validate' => ['custom_entity_id_attach_custom_entity_id_field_to_entity'],
+          ];
+          $form['#validate'][] = 'custom_entity_id_form_validate';
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Form validate.
+ */
+function custom_entity_id_form_validate(&$form, FormStateInterface $form_state) {
+  $custom_entity_id = $form_state->getValue('custom_entity_id_field');
+
+  $form_object = $form_state->getFormObject();
+  $entity_object = $form_object->getEntity();
+
+  if ('' != $custom_entity_id) {
+    if (!is_numeric($custom_entity_id)) {
+      $form_state->setErrorByName('custom_nid_field', t("Nid is not numeric."));
+    }
+
+    $connection = \Drupal::database();
+    $result = $connection->select($entity_object->getEntityType()->get('base_table'), 'e')
+      ->fields('e')
+      ->condition($entity_object->getEntityType()->get('entity_keys')['id'], $custom_entity_id, '=')
+      ->execute()
+      ->fetchAssoc();
+    if ($result) {
+      $form_state->setErrorByName('custom_entity_id_field', t("Entity id already exists."));
+    }
+  }
+}
+
+/**
+ * The attach function.
+ */
+function custom_entity_id_attach_custom_entity_id_field_to_entity($element, FormStateInterface $form_state, $form) {
+  $entity_object = $form_state->getFormObject()->getEntity();
+  $entity_object->custom_entity_id_field = $form_state->getValue('custom_entity_id_field');
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function custom_entity_id_entity_presave(EntityInterface $entity) {
+  if ($entity->isNew()) {
+    $config_factory = \Drupal::configFactory();
+    $config = $config_factory->getEditable('custom_entity_id.settings');
+    if (!empty($config->get('fieldable_entity'))) {
+      $arr_selected_chk = unserialize($config->get('fieldable_entity'), ['allowed_classes' => FALSE]);
+      if (array_key_exists($entity->getEntityTypeId(), $arr_selected_chk) && in_array($entity->bundle(), $arr_selected_chk[$entity->getEntityTypeId()])) {
+        if ('' != $entity->custom_entity_id_field && is_numeric($entity->custom_entity_id_field)) {
+          $entity->set($entity->getEntityType()->get('entity_keys')['id'], $entity->custom_entity_id_field);
+        }
+      }
+    }
+  }
+}

@@ -4,27 +4,27 @@ h1 {
 }
 
 .commerce-order-body {
-  text-align: center;
   min-width: 450px;
   margin: 5px auto 0 auto;
-  border: 1px solid #cccccc;
-  border-radius: 5px;
   padding: 10px 30px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .commerce-order-number {
-  font-weight: bold;
   padding-top: 15px;
   padding-bottom: 15px;
   text-align: left;
-  border-top: 1px solid #cccccc;
-  border-bottom: 1px solid #cccccc;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  font-weight: bold;
 }
 
 .view-commerce-order-item-table {
+  width: 100%;
   padding-top: 15px;
   padding-bottom: 15px;
-  width: 100%;
 }
 
 .view-commerce-order-item-table tr td {
@@ -41,7 +41,7 @@ div.field__label {
 }
 
 div.order-total-line__total {
-  font-size: 24px;
   padding-top: 5px;
   padding-bottom: 5px;
+  font-size: 24px;
 }

@@ -144,3 +144,7 @@ a {
 #views-exposed-form-glossary-page-1 input[id*=edit-combine] {
   margin-top: 2rem;
 }
+
+.layout-sidebar-first #block-facetsummary {
+  margin-top: 4rem;
+}

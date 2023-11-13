@@ -5,6 +5,8 @@
  * Hook implementations for the Symfony Mailer Legacy Email test module.
  */
 
+use Drupal\symfony_mailer_legacy_test\Form\LegacyTestEmailForm;
+
 /**
  * Implements hook_mail().
  */
@@ -13,7 +15,8 @@ function symfony_mailer_legacy_test_mail($key, &$message, $params) {
     $message['subject'] = 'Legacy email sent via hook_mail().';
     $message['body'][] = 'This email is sent via hook_mail().';
     $message['body'][] = symfony_mailer_legacy_test_add_template_to_body();
-    $message['headers']['Cc'] = 'cc@example.com';
+    $message['headers']['Cc'] = LegacyTestEmailForm::ADDRESS_CC;
+    $message['headers']['bcc'] = LegacyTestEmailForm::ADDRESS_BCC;
   }
 }
 

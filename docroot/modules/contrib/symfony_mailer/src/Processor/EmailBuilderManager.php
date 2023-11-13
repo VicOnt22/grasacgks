@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\symfony_mailer\Annotation\EmailBuilder;
 
 /**
  * Provides the email builder plugin manager.
@@ -23,6 +24,13 @@ class EmailBuilderManager extends DefaultPluginManager implements EmailBuilderMa
   protected $entityTypeManager;
 
   /**
+   * The override manager.
+   *
+   * @var \Drupal\symfony_mailer\Processor\OverrideManagerInterface
+   */
+  protected $overrideManager;
+
+  /**
    * Whether cache has been built.
    *
    * @var bool
@@ -37,6 +45,13 @@ class EmailBuilderManager extends DefaultPluginManager implements EmailBuilderMa
    * @var string[]
    */
   protected $overrideMapping = [];
+
+  /**
+   * Cached original definitions, ignoring those disabled in configuration.
+   *
+   * @var array
+   */
+  protected $originalDefinitions;
 
   /**
    * Constructs the EmailBuilderManager object.
@@ -157,11 +172,71 @@ class EmailBuilderManager extends DefaultPluginManager implements EmailBuilderMa
 
   /**
    * {@inheritdoc}
-   *
-   * Expose findDefinitions() as public, for internal use only.
    */
-  public function findDefinitions() {
+  public function clearCachedDefinitions() {
+    parent::clearCachedDefinitions();
+    $this->originalDefinitions = NULL;
+  }
+
+  /**
+   * Gets the original definition of all plugins for this type.
+   *
+   * This includes override definitions that are disabled in configuration.
+   * Only for use in internal code that manages enable/disable of overrides.
+   *
+   * @return mixed[]
+   *   An array of plugin definitions (empty array if no definitions were
+   *   found). Keys are plugin IDs.
+   *
+   * @internal
+   */
+  public function getOriginalDefinitions() {
+    if (!isset($this->originalDefinitions)) {
+      $this->originalDefinitions = $this->findDefinitions(FALSE);
+    }
+    return $this->originalDefinitions;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function findDefinitions(bool $filter_overrides = TRUE) {
     $definitions = parent::findDefinitions();
+
+    if ($filter_overrides) {
+      // Disable overrides based on configuration.
+      if (!$this->overrideManager) {
+        // We can't set the override manager in the constructor as it would
+        // create a circular dependency.
+        $this->overrideManager = \Drupal::service('symfony_mailer.override_manager');
+      }
+
+      $definitions = array_filter($definitions, function ($definition) {
+        return !$definition['override'] || $this->overrideManager->isEnabled($definition['id']);
+      });
+    }
+
+    // Add definitions for any implementations of hook_mail() that don't
+    // already have one, using LegacyEmailBuilder.
+    $mail_hooks = [];
+    $this->moduleHandler->invokeAllWith('mail', function (callable $hook, string $module) use (&$mail_hooks) {
+      $mail_hooks[] = $module;
+    });
+    $missing = array_diff($mail_hooks, array_keys($definitions));
+
+    foreach ($missing as $type) {
+      $params = [
+        'id' => $type,
+        'label' => $this->moduleHandler->getName($type),
+        'class' => "Drupal\symfony_mailer\Plugin\EmailBuilder\LegacyEmailBuilder",
+        'provider' => $type,
+      ];
+
+      $definition = (new EmailBuilder($params))->get();
+      $this->processDefinition($definition, $definition['id']);
+      $definitions[$type] = $definition;
+    }
+
     return $definitions;
   }
 

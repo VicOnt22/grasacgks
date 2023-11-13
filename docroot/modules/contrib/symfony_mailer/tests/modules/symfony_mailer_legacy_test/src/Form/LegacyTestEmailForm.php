@@ -14,6 +14,21 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class LegacyTestEmailForm extends FormBase {
 
   /**
+   * An email 'to' address to use in this form and all tests run.
+   */
+  const ADDRESS_TO = 'symfony_mailer-legacy_test-to@example.com';
+
+  /**
+   * An email 'cc' address to use in this form and all tests run.
+   */
+  const ADDRESS_CC = 'symfony_mailer-legacy_test-cc@example.com';
+
+  /**
+   * An email 'bcc' address to use in this form and all tests run.
+   */
+  const ADDRESS_BCC = 'symfony_mailer-legacy_test-bcc@example.com';
+
+  /**
    * The mail manager service.
    *
    * @var \Drupal\Core\Mail\MailManagerInterface
@@ -78,7 +93,7 @@ class LegacyTestEmailForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->mailManager->mail('symfony_mailer_legacy_test', 'legacy_test', 'test@example.com', 'en');
+    $this->mailManager->mail('symfony_mailer_legacy_test', 'legacy_test', self::ADDRESS_TO, 'en');
   }
 
 }

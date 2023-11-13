@@ -1,2 +1,4 @@
 manage search api tracking settings:
   title: 'Manage search api tracking settings'
+view search api tracking statistics:
+  title: 'View search api tracking statistics'

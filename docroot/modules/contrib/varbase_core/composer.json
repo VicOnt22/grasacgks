@@ -66,7 +66,7 @@
     "drupal/admin_audit_trail": "~1.0",
     "drupal/login_destination": "~2.0",
     "drupal/betterlogin": "~1.0",
-    "drupal/email_registration": "~1.0",
+    "drupal/email_registration": "~2.0.0",
     "drupal/config_perms": "~2.0",
     "drupal/roleassign": "~2.0",
     "drupal/prevent_homepage_deletion": "~2.0",
@@ -77,23 +77,22 @@
     "drupal/views_bulk_operations": "~4.0",
     "drupal/views_bulk_edit": "~2.0",
     "drupal/revision_log_default": "~1.0",
-    "drupal/webform": "~6.1.0",
-    "drupal/webform_views": "~5.0",
+    "drupal/webform": "~6.1.0 || ~6.2.0",
+    "drupal/webform_views": "5.2.0",
     "drupal/default_content": "2.0.x-dev",
-    "drupal/better_normalizers": "~1.0",
     "drupal/content_lock": "~2.0",
     "drupal/node_edit_protection": "~1.0",
-    "drupal/rabbit_hole": "~1.0",
+    "drupal/rabbit_hole": "~1.0 || ~2.0.0",
     "drupal/yoast_seo": "~1.0",
-    "drupal/fast_404": "~2.0",
+    "drupal/fast_404": "~2.0 || ~3.0",
     "drupal/diff": "~1.0",
     "drupal/masquerade": "~2.0",
     "drupal/menu_admin_per_menu": "~1.0",
     "drupal/drd_agent": "~4.0",
     "drupal/devel": "~5.0",
     "drupal/stage_file_proxy": "~2.0",
-    "drupal/update_helper": "3.0.4",
-    "drupal/checklistapi": "~2.0",
+    "drupal/update_helper": "3.0.4 || 4.0.0",
+    "drupal/checklistapi": "~2.1.0",
     "drupal/username_enumeration_prevention": "~1.0",
     "drupal/password_policy": "~4.0",
     "drupal/genpass": "~2.0",
@@ -118,7 +117,8 @@
     "drupal/viewsreference": "~2.0",
     "drupal/vmi": "~2.0",
     "drupal/jquery_ui_accordion": "~1.0 || ~2.0",
-    "drupal/reroute_email": "~2.0"
+    "drupal/reroute_email": "~2.0",
+    "drupal/editoria11y": "~2.1.0"
   },
   "suggest": {
     "bower-asset/objectfitpolyfill": "~2.0: Provides JavaScript library necessary for the Object Fit Polyfill",
@@ -182,6 +182,10 @@
         "https://www.drupal.org/files/issues/2023-03-13/optional_edit-3143422-16.patch",
         "Issue #3136514: IEF complex widget: Re-ordering / weight sometimes not updated":
         "https://www.drupal.org/files/issues/2021-04-13/inline_entity_form-order-by-weight-inline-entities-3136514-02.patch"
+      },
+      "drupal/webform_views": {
+        "Issue #3386492: Fix Fatal error on Drupal 9/10 : ArgumentCountError: Too few arguments to function EntityViewsData::__construct(), 6 passed":
+        "https://www.drupal.org/files/issues/2023-09-11/3386492-2.patch"
       }
     }
   }

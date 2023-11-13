@@ -9,7 +9,7 @@ dependencies:
   - drupal:node
   - node_revision_delete:node_revision_delete
 
-# Information added by Drupal.org packaging script on 2022-11-14
-version: '8.x-1.0-rc6'
+# Information added by Drupal.org packaging script on 2023-11-01
+version: '8.x-1.0-rc7'
 project: 'node_revision_delete'
-datestamp: 1668447331
+datestamp: 1698848347

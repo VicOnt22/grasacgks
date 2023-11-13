@@ -1,6 +1,6 @@
 .config-inspector-error .icon {
-  background: no-repeat center;
   width: 16px;
+  background: no-repeat center;
 }
 .config-inspector-error .icon {
   background-image: url(../icons/error.svg);

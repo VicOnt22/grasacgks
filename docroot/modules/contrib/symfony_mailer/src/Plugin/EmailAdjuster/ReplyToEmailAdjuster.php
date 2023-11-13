@@ -16,6 +16,6 @@ class ReplyToEmailAdjuster extends AddressAdjusterBase {
   /**
    * The name of the associated header.
    */
-  protected const NAME = 'Reply-To';
+  protected const NAME = 'reply-to';
 
 }

@@ -2,17 +2,14 @@
 
 namespace Drupal\Tests\genpass\FunctionalJavascript;
 
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Tests\BrowserTestBase;
 
 /**
- * Tests Generate Password .
+ * Tests functionality of the Generate Password module.
  *
- * @group Genpass
+ * @group genpass
  */
 class GenpassTest extends BrowserTestBase {
-
-  use StringTranslationTrait;
 
   /**
    * Modules to install.
@@ -54,7 +51,6 @@ class GenpassTest extends BrowserTestBase {
 
     $this->webUser = $this->drupalCreateUser($permissions);
     $this->drupalLogin($this->webUser);
-
   }
 
   /**
@@ -64,26 +60,60 @@ class GenpassTest extends BrowserTestBase {
 
     // Configure Account settings with Generate Password options.
     $this->drupalGet('admin/config/people/accounts');
-    $this->assertSession()->pageTextContains($this->t('Account settings'));
-    $this->assertSession()->pageTextContains($this->t('Password handling'));
-    $this->assertSession()->pageTextContains($this->t('Generated password length'));
-    $this->assertSession()->pageTextContains($this->t('Password generation algorithm'));
-    $this->assertSession()->pageTextContains($this->t('Generated password display'));
+    $this->assertSession()->pageTextContains('Account settings');
+    $this->assertSession()->pageTextContains('Generate Password - User Account Registration');
+    $this->assertSession()->pageTextContains('User password entry');
+    $this->assertSession()->pageTextContains('Admin password entry');
+    $this->assertSession()->pageTextContains('Generated password length');
+    $this->assertSession()->pageTextContains('Generated password display');
 
     $this->getSession()->getPage()->selectFieldOption('genpass_mode', '2');
-    $this->getSession()->getPage()->pressButton($this->t('Save configuration'));
+    $this->getSession()->getPage()->pressButton('Save configuration');
 
-    $this->assertSession()->pageTextContains($this->t('The configuration options have been saved.'));
+    $this->assertSession()->pageTextContains('The configuration options have been saved.');
 
     // Create the test_authenticated user.
     $this->drupalGet('admin/people/create');
-    $this->assertSession()->pageTextContains($this->t('Add user'));
+    $this->assertSession()->pageTextContains('Add user');
     $this->getSession()->getPage()->fillField('mail', 'authenticated.test@drupal.org');
     $this->getSession()->getPage()->fillField('Username', 'test_authenticated');
     $this->getSession()->getPage()->pressButton('Create new account');
-    $this->assertSession()->pageTextContains($this->t('Since you did not provide a password, it was generated automatically for this account.'));
-    $this->assertSession()->pageTextContains($this->t('Created a new user account for test_authenticated. No email has been sent.'));
+    $this->assertSession()->pageTextContains('Since you did not provide a password, it was generated automatically for this account.');
+    $this->assertSession()->pageTextContains('Created a new user account for test_authenticated. No email has been sent.');
+  }
 
+  /**
+   * Test Generate Password hide password field functionality.
+   */
+  public function testGenpassHidePasswordField() {
+
+    // Allow admins to set passwords.
+    $this->drupalGet('admin/config/people/accounts');
+    $this->assertSession()->pageTextContains('Admin password entry');
+
+    $this->getSession()->getPage()->selectFieldOption('genpass_admin_mode', '1');
+    $this->getSession()->getPage()->pressButton('Save configuration');
+
+    $this->assertSession()->pageTextContains('The configuration options have been saved.');
+
+    // Create the test_authenticated user.
+    $this->drupalGet('admin/people/create');
+    $this->assertSession()->pageTextContains('Provide a password for the new account in both fields.');
+
+    // Disallow admins to set passwords.
+    $this->drupalGet('admin/config/people/accounts');
+    $this->getSession()->getPage()->selectFieldOption('genpass_admin_mode', '2');
+    $this->getSession()->getPage()->pressButton('Save configuration');
+    $this->assertSession()->pageTextContains('The configuration options have been saved.');
+
+    // Create the test_authenticated user.
+    $this->drupalGet('admin/people/create');
+    $this->assertSession()->pageTextNotContains('Provide a password for the new account in both fields.');
+    $this->getSession()->getPage()->fillField('mail', 'authenticated.test@drupal.org');
+    $this->getSession()->getPage()->fillField('Username', 'test_authenticated');
+    $this->getSession()->getPage()->pressButton('Create new account');
+    $this->assertSession()->pageTextContains('Since you did not provide a password, it was generated automatically for this account.');
+    $this->assertSession()->pageTextContains('Created a new user account for test_authenticated. No email has been sent.');
   }
 
 }

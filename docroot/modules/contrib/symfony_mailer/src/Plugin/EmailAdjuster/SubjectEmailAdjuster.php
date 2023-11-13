@@ -3,8 +3,8 @@
 namespace Drupal\symfony_mailer\Plugin\EmailAdjuster;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\symfony_mailer\Processor\EmailAdjusterBase;
 use Drupal\symfony_mailer\EmailInterface;
+use Drupal\symfony_mailer\Processor\EmailAdjusterBase;
 
 /**
  * Defines the Subject header Email Adjuster.

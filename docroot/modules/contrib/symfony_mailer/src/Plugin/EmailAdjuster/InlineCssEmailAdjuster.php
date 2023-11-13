@@ -2,11 +2,12 @@
 
 namespace Drupal\symfony_mailer\Plugin\EmailAdjuster;
 
+use Drupal\Core\Asset\AssetOptimizerInterface;
 use Drupal\Core\Asset\AssetResolverInterface;
 use Drupal\Core\Asset\AttachedAssets;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\symfony_mailer\Processor\EmailAdjusterBase;
 use Drupal\symfony_mailer\EmailInterface;
+use Drupal\symfony_mailer\Processor\EmailAdjusterBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
@@ -37,6 +38,13 @@ class InlineCssEmailAdjuster extends EmailAdjusterBase implements ContainerFacto
   protected $cssInliner;
 
   /**
+   * The CSS collection optimizer.
+   *
+   * @var \Drupal\Core\Asset\AssetOptimizerInterface
+   */
+  protected $cssOptimizer;
+
+  /**
    * Constructor.
    *
    * @param array $configuration
@@ -47,11 +55,14 @@ class InlineCssEmailAdjuster extends EmailAdjusterBase implements ContainerFacto
    *   The plugin implementation definition.
    * @param \Drupal\Core\Asset\AssetResolverInterface $asset_resolver
    *   The asset resolver.
+   * @param \Drupal\Core\Asset\AssetOptimizerInterface $cssOptimizer
+   *   The Drupal CSS optimizer.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, AssetResolverInterface $asset_resolver) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, AssetResolverInterface $asset_resolver, AssetOptimizerInterface $cssOptimizer = NULL) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->assetResolver = $asset_resolver;
     $this->cssInliner = new CssToInlineStyles();
+    $this->cssOptimizer = $cssOptimizer ?: \Drupal::service('asset.css.optimizer');
   }
 
   /**
@@ -62,7 +73,8 @@ class InlineCssEmailAdjuster extends EmailAdjusterBase implements ContainerFacto
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('asset.resolver')
+      $container->get('asset.resolver'),
+      $container->get('asset.css.optimizer'),
     );
   }
 
@@ -70,12 +82,17 @@ class InlineCssEmailAdjuster extends EmailAdjusterBase implements ContainerFacto
    * {@inheritdoc}
    */
   public function postRender(EmailInterface $email) {
-    // Inline CSS. Request optimization so that the CssOptimizer performs
-    // essential processing such as @import.
+    // Inline CSS.
     $assets = (new AttachedAssets())->setLibraries($email->getLibraries());
     $css = '';
-    foreach ($this->assetResolver->getCssAssets($assets, TRUE) as $file) {
-      $css .= file_get_contents($file['data']);
+    foreach ($this->assetResolver->getCssAssets($assets, FALSE) as $asset) {
+      if (($asset['type'] == 'file') && $asset['preprocess']) {
+        // Optimize to process @import.
+        $css .= $this->cssOptimizer->optimize($asset);
+      }
+      else {
+        $css .= file_get_contents($asset['data']);
+      }
     }
 
     if ($css) {

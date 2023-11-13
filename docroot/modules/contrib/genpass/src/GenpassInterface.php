@@ -15,6 +15,12 @@ interface GenpassInterface {
   const PASSWORD_RESTRICTED = 2;
 
   /**
+   * These sync up with the above options since the registration form is reused.
+   */
+  const PASSWORD_ADMIN_SHOW = 1;
+  const PASSWORD_ADMIN_HIDE = 2;
+
+  /**
    * Configuration option constants for genpass_display.
    */
   const PASSWORD_DISPLAY_NONE = 0;

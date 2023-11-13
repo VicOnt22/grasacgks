@@ -5,13 +5,11 @@ namespace Drupal\config_inspector\Commands;
 use Consolidation\AnnotatedCommand\CommandResult;
 use Consolidation\OutputFormatters\StructuredData\MetadataInterface;
 use Consolidation\OutputFormatters\StructuredData\RowsOfFields;
-use Consolidation\OutputFormatters\StructuredData\UnstructuredListData;
-use Drupal\Component\Serialization\Yaml;
 use Drupal\config_inspector\ConfigInspectorManager;
 use Drupal\config_inspector\ConfigSchemaValidatability;
 use Drupal\Core\Config\StorageInterface;
+use Drupal\Core\Serialization\Yaml;
 use Drush\Commands\DrushCommands;
-use Symfony\Component\Validator\Constraint;
 
 /**
  * Provides commands for config inspector.
@@ -103,6 +101,7 @@ class InspectorCommands extends DrushCommands {
     'filter-keys' => self::OPT,
     'strict-validation' => FALSE,
     'list-constraints' => FALSE,
+    'todo' => self::OPT,
   ]) {
     if ($options['skip-keys'] && $options['filter-keys']) {
       throw new \Exception('Cannot use both --skip-keys and --filter-keys. Use either or neither, not both.');
@@ -110,6 +109,11 @@ class InspectorCommands extends DrushCommands {
     if ($options['list-constraints'] && !$options['detail']) {
       throw new \Exception('Cannot use --list-constraints without --detail.');
     }
+    if ($options['todo'] && $options['detail']) {
+      throw new \Exception('Cannot use --todo --detail.');
+    }
+
+    $this->say("🤖 Analyzing…\n");
 
     $rows = [];
     $exitCode = self::EXIT_SUCCESS;
@@ -120,6 +124,8 @@ class InspectorCommands extends DrushCommands {
     $skipKeys = !isset($options['skip-keys']) ? [] : array_fill_keys(explode(',', $options['skip-keys']), '1');
     $filterKeys = !isset($options['filter-keys']) ? [] : array_fill_keys(explode(',', $options['filter-keys']), '1');
     $listConstraints = $options['list-constraints'];
+
+    $total_raw_validatability = NULL;
 
     foreach ($keys as $name) {
       if (isset($skipKeys[$name])) {
@@ -142,7 +148,12 @@ class InspectorCommands extends DrushCommands {
           $exitCode = self::EXIT_FAILURE;
           if ($detail) {
             foreach ($result as $key => $error) {
-              $rows[$key] = ['key' => $key, 'status' => $error, 'validatability' => NULL, 'data' => NULL];
+              $rows[$key] = [
+                'key' => $key,
+                'status' => $error,
+                'validatability' => NULL,
+                'data' => NULL,
+              ];
             }
             // Require the schema to be fixed before checking validatability.
             continue;
@@ -194,7 +205,12 @@ class InspectorCommands extends DrushCommands {
       if ($onlyError && $has_schema && ($has_valid_schema && $has_valid_data && (!$strict_validation || $raw_validatability->isComplete()))) {
         continue;
       }
-      $rows[$name] = ['key' => $name, 'status' => $status, 'validatability' => $validatability, 'data' => $data];
+      $rows[$name] = [
+        'key' => $name,
+        'status' => $status,
+        'validatability' => $validatability,
+        'data' => $data,
+      ];
       if ($listConstraints) {
         // @todo Remove once <= 10.0.x support is dropped.
         $property_path = $name;
@@ -214,8 +230,8 @@ class InspectorCommands extends DrushCommands {
           if ($onlyError
             // - only show keys whose data is invalid
             && $data_detail[$key] === TRUE
-            // - or, if --strict-validation is specified, also show keys  whose data is not
-            // validatable.
+            // - or, if --strict-validation is specified, also show keys whose
+            // data is not validatable.
             && (!$strict_validation || $validatability_detail[$key] === TRUE)
           ) {
             continue;
@@ -226,10 +242,9 @@ class InspectorCommands extends DrushCommands {
             'status' => $status,
             'validatability' => $validatability_detail[$key] ? dt('Validatable') : dt('NOT'),
             'data' => $validatability_detail[$key]
-               ? $data_detail[$key] === TRUE ? '✅✅' : $data_detail[$key]
-               : '✅❓',
+              ? $data_detail[$key] === TRUE ? '✅✅' : $data_detail[$key]
+              : '✅❓',
           ];
-
 
           if ($listConstraints) {
             // @todo Remove once <= 10.0.x support is dropped.
@@ -240,6 +255,71 @@ class InspectorCommands extends DrushCommands {
           }
         }
       }
+
+      // Keep all raw validatability when doing a system-wide analysis.
+      if ($options['todo']) {
+        if (!isset($total_raw_validatability)) {
+          $total_raw_validatability = $raw_validatability;
+        }
+        else {
+          $total_raw_validatability->add($raw_validatability);
+        }
+      }
+    }
+
+    if ($options['todo']) {
+      // Default to 15 @todos of each type, but allow specifying a count.
+      $low_count = $high_count = $options['todo'] === TRUE ? 15 : intval($options['todo']);
+      // Keep only rows with <100% validatability.
+      $rows = array_filter($rows, fn (array $row) => intval($row['validatability']) < 100);
+      // Sort from highest to lowest validatability.
+      uasort($rows, fn (array $a, array $b) => intval($b['validatability']) - intval($a['validatability']));
+      $rows = array_slice($rows, 0, $low_count);
+
+      // Also find those with the biggest impact on total validatability.
+      $this->writeln('🍓🍓🍓🍓🍓🍓🍓🍓🍓🍓🍓🍓');
+      $this->writeln('🍓 Low-hanging fruit 🍇');
+      $this->writeln('🍇🍇🍇🍇🍇🍇🍇🍇🍇🍇🍇🍇');
+      $this->writeln(" ↪ The $low_count unvalidatable config OBJECTS closest to 100% validatability:\n");
+      $index = 0;
+      foreach ($rows as $row) {
+        $index++;
+        $this->writeln(sprintf("%3d. %s: %s", $index, $row['validatability'], $row['key']));
+      }
+      $this->writeln('');
+      $this->say('👩🏻‍💻 See details:');
+      $this->say('drush config:inspect --filter-keys=[ONE OF THE ABOVE] --detail --list-constraints');
+      $this->writeln("\n");
+
+      $this->writeln('🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎');
+      $this->writeln('🍎 High-hanging fruit 🍏');
+      $this->writeln('🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏🍏');
+      $this->writeln(" ↪ The $high_count unvalidatable config TYPES with the biggest impact:\n");
+
+      $high_impact_todos = $total_raw_validatability->findHighImpactValidatabilityTodos();
+      $high_impact_todos = array_slice($high_impact_todos, 0, $high_count);
+      $longest_type_name = max(array_map(
+        fn (string $s) => strlen($s),
+        array_column($high_impact_todos, 'type')
+      ));
+      for ($i = 0; $i < $high_count; $i++) {
+        $index = $i + 1;
+        $this->writeln(sprintf("%3d. %2d%%: %-{$longest_type_name}s affects %3d property paths, %2d%% of @todos or %2d%% of total",
+          $index,
+          $high_impact_todos[$i]['count-relative-todos'],
+          $high_impact_todos[$i]['type'],
+          $high_impact_todos[$i]['count-absolute-property-paths'],
+          $high_impact_todos[$i]['count-relative-todos'],
+          $high_impact_todos[$i]['count-relative-total'],
+        ));
+      }
+      $this->writeln('');
+      $this->writeln(sprintf("(Total property paths on this Drupal site: %d)", count($total_raw_validatability->getValidatabilityPerPropertyPath())));
+      $this->writeln('');
+      $this->say('🧑‍💻 List all affected property paths (make sure to escape the asterisk with a backslash!)');
+      $this->say('drush config:inspect --detail --list-constraints --fields=key,constraints | grep "@todo" | grep [ONE OF THE ABOVE]');
+
+      return NULL;
     }
 
     // Provide a legend if the "data" field is displayed.
@@ -250,6 +330,17 @@ class InspectorCommands extends DrushCommands {
     return CommandResult::dataWithExitCode(new RowsOfFields($rows), $exitCode);
   }
 
+  /**
+   * Computes the relative property path given an absolute one + config name.
+   *
+   * @param string $config_name
+   *   A config name.
+   * @param string $absolute_property_path
+   *   An absolute property path.
+   *
+   * @return string
+   *   A relative property path.
+   */
   private static function getRelativePropertyPath(string $config_name, string $absolute_property_path): string {
     return $absolute_property_path === $config_name
       // The root.
@@ -282,13 +373,23 @@ class InspectorCommands extends DrushCommands {
       array_values($all_constraints['inherited'])
     );
 
+    if (empty($local_constraints) && empty($inherited_constraints)) {
+      return [$validatability->computeValidatabilityTodo($property_path)];
+    }
+
     return array_merge($local_constraints, $inherited_constraints);
   }
 
 }
 
+/**
+ * A RowsOfFields subclass to prefix the output with a legend.
+ */
 class RowsOfFieldsWithLegend extends RowsOfFields implements MetadataInterface {
 
+  /**
+   * {@inheritdoc}
+   */
   public function getMetadata() {
     $legend = <<<EOL
 
@@ -297,4 +398,5 @@ class RowsOfFieldsWithLegend extends RowsOfFields implements MetadataInterface {
 EOL;
     return ['legend' => $legend];
   }
-};
+
+}

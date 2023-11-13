@@ -436,11 +436,24 @@ class NodeRevisionDeleteCommands extends DrushCommands {
   public function deletePriorRevisionsValidate(CommandData $commandData): bool {
     $input = $commandData->input();
     $nid = $input->getArgument('nid');
+    $vid = $input->getArgument('vid');
 
     // Check if argument nid is a valid node id.
-    $node = $this->entityTypeManager->getStorage('node')->load($nid);
+    $node_storage = $this->entityTypeManager->getStorage('node');
+    $node = $node_storage->load($nid);
     if (is_null($node)) {
       $this->io()->error(dt("@nid is not a valid node id.", ['@nid' => $nid]));
+      return FALSE;
+    }
+
+    // Get all revisions of the current node, in all languages.
+    $revision_ids = $node_storage->revisionIds($node);
+    if (!in_array($vid, $revision_ids)) {
+      $variables = [
+        '@vid' => $vid,
+        '@nid' => $nid,
+      ];
+      $this->io()->error(dt("@vid is not a valid revision id for node @nid.", $variables));
       return FALSE;
     }
 

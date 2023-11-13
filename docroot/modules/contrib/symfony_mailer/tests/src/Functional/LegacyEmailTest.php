@@ -2,6 +2,8 @@
 
 namespace Drupal\Tests\symfony_mailer\Functional;
 
+use Drupal\symfony_mailer_legacy_test\Form\LegacyTestEmailForm;
+
 /**
  * Tests Symfony Mailer compatibility mode.
  *
@@ -41,8 +43,9 @@ class LegacyEmailTest extends SymfonyMailerTestBase {
     $this->readMail();
 
     // Check email recipients.
-    $this->assertTo('test@example.com');
-    $this->assertCc('cc@example.com');
+    $this->assertTo(LegacyTestEmailForm::ADDRESS_TO);
+    $this->assertCc(LegacyTestEmailForm::ADDRESS_CC);
+    $this->assertBcc(LegacyTestEmailForm::ADDRESS_BCC);
 
     // Check email contents.
     $this->assertSubject("Legacy email sent via hook_mail().");
@@ -78,8 +81,9 @@ class LegacyEmailTest extends SymfonyMailerTestBase {
     $this->readMail();
 
     // Check email recipients.
-    $this->assertTo('test@example.com', '');
-    $this->assertCc('cc@example.com', '');
+    $this->assertTo(LegacyTestEmailForm::ADDRESS_TO);
+    $this->assertCc(LegacyTestEmailForm::ADDRESS_CC);
+    $this->assertBcc(LegacyTestEmailForm::ADDRESS_BCC);
 
     // Check email contents.
     $this->assertSubject("Legacy email sent via hook_mail().");

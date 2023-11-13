@@ -11,7 +11,7 @@ install:
   - scheduler_content_moderation_integration
   - admin_audit_trail_workflows
 
-# Information added by Drupal.org packaging script on 2023-06-28
-version: '2.0.15'
+# Information added by Drupal.org packaging script on 2023-10-11
+version: '2.0.17'
 project: 'varbase_workflow'
-datestamp: 1687989923
+datestamp: 1697036555

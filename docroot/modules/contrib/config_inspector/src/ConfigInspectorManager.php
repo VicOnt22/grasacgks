@@ -4,9 +4,9 @@ namespace Drupal\config_inspector;
 
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Config\TypedConfigManagerInterface;
 use Drupal\Core\Config\Schema\Element;
 use Drupal\Core\Config\Schema\SchemaCheckTrait;
+use Drupal\Core\Config\TypedConfigManagerInterface;
 use Drupal\Core\TypedData\TraversableTypedDataInterface;
 use Drupal\Core\TypedData\Type\BooleanInterface;
 use Drupal\Core\TypedData\Type\DateTimeInterface;
@@ -55,6 +55,15 @@ class ConfigInspectorManager {
       'typed_config_definitions',
       'validation_constraint_plugins',
     ]);
+
+    // TRICKY: TypedConfigManager has some surprising behavior: calling
+    // ::getDefinition() (not ::getDefinitions()!) will call
+    // ::getDefinitionWithReplacements(), which in turn will _modify_ the raw
+    // config schema definitions! For this test to be able to test the
+    // validatability of the config schema, it needs to ensure that the very
+    // first call to the config.typed service is ::getDefinitions().
+    $this->typedConfigManager->clearCachedDefinitions();
+    ConfigSchemaValidatability::$rawConfigSchemaDefinitions = $this->typedConfigManager->getDefinitions();
   }
 
   /**
@@ -140,7 +149,6 @@ class ConfigInspectorManager {
    * Check schema compliance in configuration object.
    *
    * Only checks compliance with primitive (scalar vs ArrayElement).
-   * @see \Drupal\Core\Config\Schema\SchemaCheckTrait::checkValue
    *
    * @param string $config_name
    *   Configuration name.
@@ -150,6 +158,8 @@ class ConfigInspectorManager {
    *   valid.
    *
    * @throws \Drupal\Core\Config\Schema\SchemaIncompleteException
+   *
+   * @see \Drupal\Core\Config\Schema\SchemaCheckTrait::checkValue
    */
   public function checkValues($config_name) {
     $config_data = $this->configFactory->get($config_name)->get();
@@ -187,14 +197,25 @@ class ConfigInspectorManager {
    *   The corresponding validatability.
    */
   protected function computeTreeValidatability(TraversableTypedDataInterface $tree) : ConfigSchemaValidatability {
-    $validatability = new ConfigSchemaValidatability($tree->getPropertyPath(), $this->getNodeConstraints($tree));
+    $defining_config_schema_type = self::getDataType($tree);
+
+    // "sequence" or "mapping" are not acceptable defining config schema types;
+    // that just means that a generic container is used. Go up the tree until a
+    // concrete type is encountered.
+    $node = $tree;
+    while (in_array($defining_config_schema_type, ['mapping', 'sequence'], TRUE)) {
+      $node = $node->getParent();
+      $defining_config_schema_type = self::getDataType($node);
+    }
+
+    $validatability = new ConfigSchemaValidatability($tree->getPropertyPath(), $this->getNodeConstraints($tree), $defining_config_schema_type);
     foreach ($tree as $node) {
       assert($node instanceof TypedDataInterface);
       if ($node instanceof TraversableTypedDataInterface) {
         $validatability->add(self::computeTreeValidatability($node));
       }
       else {
-        $validatability->add(new ConfigSchemaValidatability($node->getPropertyPath(), $this->getNodeConstraints($node)));
+        $validatability->add(new ConfigSchemaValidatability($node->getPropertyPath(), $this->getNodeConstraints($node), $defining_config_schema_type));
       }
     }
     return $validatability;
@@ -250,7 +271,10 @@ class ConfigInspectorManager {
         (count($constraints) === 1 && array_keys($constraints) === ['PrimitiveType'])
         ||
         // Merely having required values is inadequate.
-        (count($constraints) === 2 && array_keys($constraints) === ['PrimitiveType', 'NotNull'])
+        (count($constraints) === 2 && array_keys($constraints) === [
+          'PrimitiveType',
+          'NotNull',
+        ])
       )
       && (!is_a($typed_data->getDataDefinition()->getClass(), UriInterface::class, TRUE)
         && !is_a($typed_data->getDataDefinition()->getClass(), DateTimeInterface::class, TRUE)
@@ -295,7 +319,6 @@ class ConfigInspectorManager {
    *
    * @throws \Drupal\Core\Config\Schema\SchemaIncompleteException
    */
-
   public function validateValues($config_name): ConstraintViolationListInterface {
     if ($this->checkValues($config_name) === FALSE) {
       throw new \LogicException("$config_name has no config schema.");
@@ -310,7 +333,7 @@ class ConfigInspectorManager {
   /**
    * Transforms violation constraint list to flat array keyed by property paths.
    *
-   * @param \Symfony\Component\Validator\ConstraintViolationListInterface $list
+   * @param \Symfony\Component\Validator\ConstraintViolationListInterface $violations
    *   A validation constraint violations list.
    *
    * @return array

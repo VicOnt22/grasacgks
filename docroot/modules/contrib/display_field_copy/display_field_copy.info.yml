@@ -1,13 +1,12 @@
 name: Display Field Copy
 type: module
 description: Copies the display so it can be shown multiple times on a page.
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^9 || ^10
 package: Display Suite
 dependencies:
   - ds:ds
 
-# Information added by Drupal.org packaging script on 2020-10-11
-version: '2.0.0'
+# Information added by Drupal.org packaging script on 2023-10-11
+version: '2.1.0'
 project: 'display_field_copy'
-datestamp: 1602437553
+datestamp: 1696995695

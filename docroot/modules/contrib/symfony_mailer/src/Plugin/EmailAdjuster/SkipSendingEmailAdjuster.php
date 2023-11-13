@@ -3,9 +3,9 @@
 namespace Drupal\symfony_mailer\Plugin\EmailAdjuster;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\symfony_mailer\Processor\EmailAdjusterBase;
 use Drupal\symfony_mailer\EmailInterface;
 use Drupal\symfony_mailer\Exception\SkipMailException;
+use Drupal\symfony_mailer\Processor\EmailAdjusterBase;
 
 /**
  * Defines the Skip Sending Email Adjuster.

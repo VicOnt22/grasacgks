@@ -3,8 +3,8 @@
 namespace Drupal\symfony_mailer\Plugin\EmailBuilder;
 
 use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\simplenews\SubscriberInterface;
 use Drupal\simplenews\Entity\Newsletter;
+use Drupal\simplenews\SubscriberInterface;
 use Drupal\symfony_mailer\Address;
 use Drupal\symfony_mailer\EmailFactoryInterface;
 use Drupal\symfony_mailer\EmailInterface;

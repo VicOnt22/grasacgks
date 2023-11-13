@@ -12,12 +12,17 @@ interface MailerHelperInterface {
   /**
    * Parses an address string into Address structures.
    *
-   * This function should only be used for back-compatibility and migration,
-   * when old code has already encoded the addresses to a string. This function
-   * converts back to human-readable format, ready for the symfony mailer
-   * library to encode once more during sending! New code should store
-   * configuration in human-readable format with a list of addresses with
-   * display names.
+   * IMPORTANT: New code should NOT use this function. Normally you would use
+   * Mailer Policy to configure addresses. Or if you store them directly,
+   * use 'human-readable' format with a list of addresses and display names.
+   *
+   * This function should only be used inside the import() function of an
+   * EmailBuilder (or if the address string has been received from outside code
+   * that you can't change). It is used when the old code has already encoded
+   * the addresses to a string. This function converts back to human-readable
+   * format, ready for the symfony mailer library to encode once more during
+   * sending! This is inefficient, and subject to limitations as documented
+   * below.
    *
    * @todo This function is limited. It cannot handle display names, or emails
    * with characters that require special encoding.

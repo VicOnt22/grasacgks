@@ -19,10 +19,11 @@ composer create-project vardot/varbase:9.0.x-dev PROJECT_DIR_NAME --stability de
 ### Add needed testing packages
 ```
 cd path to your files of the project/PROJECT_DIR_NAME
-composer require --dev drupal/core-dev:~9.0
-composer require --dev drush/drush:~11.0
-composer require --dev drupal/drupal-extension:~4.0 --with-all-dependencies
-composer require --dev emuse/behat-html-formatter:^0.2.0
+composer require --dev drupal/core-dev:~10
+composer require --dev drush/drush:~12.0
+composer require --dev drupal/drupal-extension:~5.0 --with-all-dependencies
+composer require --dev webship/behat-html-formatter:~1.0
+composer require --dev drevops/behat-screenshot:~1.0
 
 ```
 
@@ -160,13 +161,13 @@ rm chromedriver_linux64.zip
 
 ### Get Selenium Standalone server.
 ```
-wget https://github.com/SeleniumHQ/selenium/releases/download/selenium-3.141.59/selenium-server-standalone-3.141.59.jar
+wget https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.1.0/selenium-server-4.1.2.jar
 ```
 
 ## Run Selenium Standalone server.
 
 ```
-$ java -jar selenium-*.jar -port 4445
+$ java -jar selenium-server-4.1.2.jar standalone --port 4445
 ```
 
 --------------------------------------------------------------------------------

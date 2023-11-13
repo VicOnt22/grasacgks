@@ -2,8 +2,8 @@
 
 namespace Drupal\symfony_mailer\Plugin\EmailAdjuster;
 
-use Drupal\symfony_mailer\Processor\EmailAdjusterBase;
 use Drupal\symfony_mailer\EmailInterface;
+use Drupal\symfony_mailer\Processor\EmailAdjusterBase;
 
 /**
  * Defines the Plain text only Email Adjuster.

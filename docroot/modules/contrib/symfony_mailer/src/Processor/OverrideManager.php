@@ -88,20 +88,6 @@ class OverrideManager implements OverrideManagerInterface {
   protected $policyConfigPrefix;
 
   /**
-   * Forces isEnabled() to return TRUE to allow getting disabled overrides.
-   *
-   * @var bool
-   */
-  protected $forceEnabled;
-
-  /**
-   * Cached email builder definitions, ignoring the current enabled status.
-   *
-   * @var array
-   */
-  protected $builderDefinitions;
-
-  /**
    * Constructs the OverrideManager object.
    *
    * @param \Drupal\symfony_mailer\Processor\EmailBuilderManagerInterface $email_builder_manager
@@ -158,7 +144,7 @@ class OverrideManager implements OverrideManagerInterface {
    */
   public function isEnabled(string $id) {
     $state = $this->configFactory->get('symfony_mailer.settings')->get("override.$id") ?: self::STATE_DISABLED;
-    return $this->forceEnabled || ($state != self::STATE_DISABLED);
+    return $state != self::STATE_DISABLED;
   }
 
   /**
@@ -179,7 +165,7 @@ class OverrideManager implements OverrideManagerInterface {
     $settings = $this->configFactory->get('symfony_mailer.settings')->get('override');
     $info = [];
 
-    foreach ($this->getBuilderDefinitions() as $id => $definition) {
+    foreach ($this->builderManager->getOriginalDefinitions() as $id => $definition) {
       // The key 'proxy' is the deprecated equivalent of 'override' and it
       // indicates a plug-in that doesn't support disabling.
       if ($proxy = $definition['proxy'] ?? FALSE) {
@@ -225,6 +211,7 @@ class OverrideManager implements OverrideManagerInterface {
       $this->configFactory->getEditable('symfony_mailer.settings')->set('override', $settings)->save();
     }
 
+    ksort($info);
     return $filterId ? ($info[$filterId] ?? NULL) : $info;
   }
 
@@ -283,7 +270,7 @@ class OverrideManager implements OverrideManagerInterface {
 
     // Find the config names to set or delete.
     $config_names = $this->overrideStorage->listAll($this->getPolicyConfigPrefix() . ".$id");
-    $definition = $this->getBuilderDefinitions($id);
+    $definition = $this->builderManager->getOriginalDefinitions()[$id];
     $config_names = array_merge($config_names, $definition['override_config']);
 
     if ($action == 'disable') {
@@ -372,22 +359,6 @@ class OverrideManager implements OverrideManagerInterface {
     }
 
     return [$steps, $warnings];
-  }
-
-  /**
-   * Gets email builder definitions, ignoring the current enabled status.
-   *
-   * @param string $id
-   *   (optional) Definition to return, or if not set then return all.
-   */
-  protected function getBuilderDefinitions(string $id = NULL) {
-    if (!$this->builderDefinitions) {
-      $this->forceEnabled = TRUE;
-      $this->builderDefinitions = $this->builderManager->findDefinitions();
-      $this->forceEnabled = FALSE;
-      ksort($this->builderDefinitions);
-    }
-    return $id ? $this->builderDefinitions[$id] : $this->builderDefinitions;
   }
 
   /**

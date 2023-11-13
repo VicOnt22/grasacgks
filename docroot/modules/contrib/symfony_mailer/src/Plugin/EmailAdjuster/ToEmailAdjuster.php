@@ -16,6 +16,6 @@ class ToEmailAdjuster extends AddressAdjusterBase {
   /**
    * The name of the associated header.
    */
-  protected const NAME = 'To';
+  protected const NAME = 'to';
 
 }

@@ -56,7 +56,10 @@ class NodeRevisionDeleteAdminSettingsTest extends BrowserTestBase {
     $this->assertSession()->statusCodeEquals(403);
 
     // Creating a user with the module permission.
-    $account = $this->drupalCreateUser(['administer node_revision_delete', 'access administration pages']);
+    $account = $this->drupalCreateUser([
+      'administer node_revision_delete',
+      'access administration pages',
+    ]);
     // Log in.
     $this->drupalLogin($account);
 

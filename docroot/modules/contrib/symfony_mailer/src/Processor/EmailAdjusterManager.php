@@ -2,11 +2,11 @@
 
 namespace Drupal\symfony_mailer\Processor;
 
-use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\symfony_mailer\Entity\MailerPolicy;
+use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\symfony_mailer\EmailInterface;
+use Drupal\symfony_mailer\Entity\MailerPolicy;
 
 /**
  * Provides the email adjuster plugin manager.

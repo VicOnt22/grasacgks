@@ -2,13 +2,13 @@
 
 namespace Drupal\symfony_mailer\Plugin\EmailAdjuster;
 
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\symfony_mailer\Processor\EmailAdjusterBase;
-use Drupal\symfony_mailer\EmailInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Extension\ThemeHandlerInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Theme\ThemeManagerInterface;
-use Drupal\Core\Extension\ThemeHandlerInterface;
+use Drupal\symfony_mailer\EmailInterface;
+use Drupal\symfony_mailer\Processor\EmailAdjusterBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

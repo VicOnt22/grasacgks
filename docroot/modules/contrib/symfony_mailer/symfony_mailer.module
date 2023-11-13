@@ -9,7 +9,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
-use Drupal\symfony_mailer\Annotation\EmailBuilder;
 
 /**
  * Implements hook_theme().
@@ -44,42 +43,6 @@ function symfony_mailer_theme_suggestions_email(array $variables) {
  */
 function symfony_mailer_theme_suggestions_email_wrap(array $variables) {
   return array_slice($variables['email']->getSuggestions('email_wrap', '__'), 1);
-}
-
-/**
- * Implements hook_mailer_builder_info_alter().
- */
-function symfony_mailer_mailer_builder_info_alter(array &$email_builders) {
-  // Disable overrides based on configuration.
-  $override_manager = \Drupal::service('symfony_mailer.override_manager');
-  foreach ($email_builders as $id => $definition) {
-    if ($definition['override'] && !$override_manager->isEnabled($id)) {
-      unset($email_builders[$id]);
-    }
-  }
-
-  // Add EmailBuilder definitions for any implementations of hook_mail() that
-  // don't already have one, using LegacyEmailBuilder.
-  $module_handler = \Drupal::moduleHandler();
-  $mail_hooks = [];
-  $module_handler->invokeAllWith('mail', function (callable $hook, string $module) use (&$mail_hooks) {
-    $mail_hooks[] = $module;
-  });
-  $missing = array_diff($mail_hooks, array_keys($email_builders));
-
-  $builder_manager = \Drupal::service('plugin.manager.email_builder');
-  foreach ($missing as $type) {
-    $params = [
-      'id' => $type,
-      'label' => $module_handler->getName($type),
-      'class' => "Drupal\symfony_mailer\Plugin\EmailBuilder\LegacyEmailBuilder",
-      'provider' => $type,
-    ];
-
-    $definition = (new EmailBuilder($params))->get();
-    $builder_manager->processDefinition($definition, $definition['id']);
-    $email_builders[$type] = $definition;
-  }
 }
 
 /**

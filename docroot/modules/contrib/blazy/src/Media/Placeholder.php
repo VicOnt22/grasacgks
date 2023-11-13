@@ -24,9 +24,9 @@ class Placeholder {
   /**
    * Defines constant placeholder Data URI image.
    *
-   * <svg xmlns="https://www.w3.org/2000/svg" viewBox="0 0 1 1"/>
+   * <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"/>
    */
-  const DATA = "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'https%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201%201'%2F%3E";
+  const DATA = "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201%201'%2F%3E";
 
   /**
    * Defines constant placeholder Data URI image.
@@ -118,7 +118,7 @@ class Placeholder {
   public static function generate($width = 100, $height = 100): string {
     $width = $width ?: 100;
     $height = $height ?: 100;
-    return 'data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D\'https%3A%2F%2Fwww.w3.org%2F2000%2Fsvg\'%20viewBox%3D\'0%200%20' . $width . '%20' . $height . '\'%2F%3E';
+    return 'data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D\'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg\'%20viewBox%3D\'0%200%20' . $width . '%20' . $height . '\'%2F%3E';
   }
 
   /**
@@ -224,9 +224,8 @@ class Placeholder {
         $blazies->set('blur.data', $blur);
       }
 
-      // Prevents double animations.
-      $blazies->set('use.loader', FALSE)
-        ->set('blur.uri', $tn_uri)
+      // Sets blur.uri.
+      $blazies->set('blur.uri', $tn_uri)
         ->set('blur.url', $tn_url);
     }
   }
@@ -251,6 +250,10 @@ class Placeholder {
   /**
    * Checks for blur settings, required Image style and dimensions setup.
    *
+   * Other usages: slider thumbnail/ navigation, thumbnailed pagination/ dots,
+   * placeholder, thumbnailed slider arrows, zoomed/ projected image like
+   * Splidebox/ PhotoSwipe, etc.
+   *
    * @see self::prepare()
    */
   private static function thumbnails(array &$settings): void {
@@ -268,16 +271,28 @@ class Placeholder {
       // $tn_url = BlazyImage::toUrl($settings, $style, $tn_uri);
       $tn_url = BlazyImage::url($tn_uri, $style);
     }
-    else {
-      // This one uses non-unique image, similar to the main stage image.
-      $style = $blazies->get('thumbnail.style');
+
+    // This one uses non-unique image, similar to the main stage image.
+    if ($style = $blazies->get('thumbnail.style')) {
       $disabled = $blazies->is('external') || $blazies->is('svg');
-      if (!$disabled && $style) {
-        $tn_uri = $style->buildUri($uri);
+      if (!$disabled) {
+        $_tn_uri = $style->buildUri($uri);
         // $tn_url = BlazyImage::toUrl($settings, $style, $uri);
-        $tn_url = BlazyImage::url($uri, $style);
+        $_tn_url = BlazyImage::url($uri, $style);
+
+        // The latter allows keeping original for [data-b-thumb], while having
+        // unique thumbnails for navigation. Not good for pagination/ dots.
+        if (!$tn_url || $blazies->use('thumbnail_original')) {
+          $tn_uri = $_tn_uri;
+          $tn_url = $_tn_url;
+        }
+
         $width  = $blazies->get('thumbnail.width');
         $height = $blazies->get('thumbnail.height');
+
+        // Keep overriden/ original thumbnail data intact for custom works.
+        $blazies->set('thumbnail.original.uri', $_tn_uri)
+          ->set('thumbnail.original.url', $_tn_url);
       }
     }
 

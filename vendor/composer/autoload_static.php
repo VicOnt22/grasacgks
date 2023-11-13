@@ -234,6 +234,7 @@ class ComposerStaticInit9a23ef48a2a9329279c4a55d12ebb5f7
         array (
             'Drush\\' => 6,
             'Drupal\\sophron\\' => 15,
+            'Drupal\\email_registration\\Component\\' => 36,
             'Drupal\\Driver\\' => 14,
             'Drupal\\Core\\' => 12,
             'Drupal\\Composer\\Plugin\\Scaffold\\' => 32,
@@ -759,6 +760,10 @@ class ComposerStaticInit9a23ef48a2a9329279c4a55d12ebb5f7
         'Drupal\\sophron\\' => 
         array (
             0 => __DIR__ . '/../..' . '/docroot/modules/contrib/sophron/src',
+        ),
+        'Drupal\\email_registration\\Component\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/docroot/modules/contrib/email_registration/lib',
         ),
         'Drupal\\Driver\\' => 
         array (

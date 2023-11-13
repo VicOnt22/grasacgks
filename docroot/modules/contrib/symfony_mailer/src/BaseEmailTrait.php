@@ -22,11 +22,11 @@ trait BaseEmailTrait {
    * @var array
    */
   protected $addresses = [
-    'From' => [],
-    'Reply-To' => [],
-    'To' => [],
-    'Cc' => [],
-    'Bcc' => [],
+    'from' => [],
+    'reply-to' => [],
+    'to' => [],
+    'cc' => [],
+    'bcc' => [],
   ];
 
   /**
@@ -55,82 +55,95 @@ trait BaseEmailTrait {
    * {@inheritdoc}
    */
   public function setAddress(string $name, $addresses) {
+    $name = strtolower($name);
     assert(isset($this->addresses[$name]));
-    if ($name == 'To') {
+    if ($name == 'to') {
       $this->valid(self::PHASE_BUILD);
     }
-    $this->addresses[$name] = Address::convert($addresses);
+
+    // Either erasing all addresses or updating them for the specified header.
+    $this->addresses[$name] = is_null($addresses) ? [] : Address::convert($addresses);
+
     return $this;
   }
 
   /**
    * {@inheritdoc}
    */
+  public function getAddress(string $name): array {
+    $name = strtolower($name);
+    assert(isset($this->addresses[$name]));
+    return $this->addresses[$name];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function setFrom($addresses) {
-    return $this->setAddress('From', $addresses);
+    return $this->setAddress('from', $addresses);
   }
 
   /**
    * {@inheritdoc}
    */
   public function getFrom(): array {
-    return $this->addresses['From'];
+    return $this->addresses['from'];
   }
 
   /**
    * {@inheritdoc}
    */
   public function setReplyTo($addresses) {
-    return $this->setAddress('Reply-To', $addresses);
+    return $this->setAddress('reply-to', $addresses);
   }
 
   /**
    * {@inheritdoc}
    */
   public function getReplyTo(): array {
-    return $this->addresses['Reply-To'];
+    return $this->addresses['reply-to'];
   }
 
   /**
    * {@inheritdoc}
    */
   public function setTo($addresses) {
-    return $this->setAddress('To', $addresses);
+    return $this->setAddress('to', $addresses);
   }
 
   /**
    * {@inheritdoc}
    */
   public function getTo(): array {
-    return $this->addresses['To'];
+    return $this->addresses['to'];
   }
 
   /**
    * {@inheritdoc}
    */
   public function setCc($addresses) {
-    return $this->setAddress('Cc', $addresses);
+    return $this->setAddress('cc', $addresses);
   }
 
   /**
    * {@inheritdoc}
    */
   public function getCc(): array {
-    return $this->addresses['Cc'];
+    return $this->addresses['cc'];
   }
 
   /**
    * {@inheritdoc}
    */
   public function setBcc($addresses) {
-    return $this->setAddress('Bcc', $addresses);
+    return $this->setAddress('bcc', $addresses);
   }
 
   /**
    * {@inheritdoc}
    */
   public function getBcc(): array {
-    return $this->addresses['Bcc'];
+    return $this->addresses['bcc'];
   }
 
   /**

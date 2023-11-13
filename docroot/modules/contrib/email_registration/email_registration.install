@@ -16,7 +16,10 @@ function email_registration_requirements() {
     $requirements['email_registration'] = [
       'title' => t('Email Registration / LoginToboggan Conflict'),
       'value' => t('Conflict'),
-      'description' => t('There is a conflict between %email_registration and %logintoboggan. You should disable the "Allow users to login using their email address" option from %logintoboggan.', ['%email_registration' => 'Email registration', '%logintoboggan' => 'Login Toboggan']),
+      'description' => t('There is a conflict between %email_registration and %logintoboggan. You should disable the "Allow users to login using their email address" option from %logintoboggan.', [
+        '%email_registration' => 'Email registration',
+        '%logintoboggan' => 'Login Toboggan',
+      ]),
       'severity' => REQUIREMENT_ERROR,
     ];
   }
@@ -32,4 +35,13 @@ function email_registration_update_8100() {
   $email_registration = $config_factory->getEditable('email_registration.settings');
   $email_registration->set('login_with_username', FALSE);
   $email_registration->save();
+}
+
+/**
+ * Remove the removed "require_username_on_registration" config.
+ */
+function email_registration_update_9001() {
+  $config = \Drupal::configFactory()->getEditable('email_registration.settings');
+  $config->clear('require_username_on_registration');
+  $config->save();
 }

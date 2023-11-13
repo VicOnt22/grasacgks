@@ -1,0 +1,14 @@
+services:
+
+  # This service decorates the core password_generator service. To use this
+  # service, enable "Use Genpass as Core password generator" and then use
+  # the password_generator service. It is not recommended to use this service
+  # directly with the genpass.password_generator name, although it does work.
+  genpass.password_generator:
+    class: Drupal\genpass\GenpassPasswordGenerator
+    decorates: password_generator
+    arguments:
+      - '@genpass.password_generator.inner'
+      - '@cache.default'
+      - '@config.factory'
+      - '@module_handler'

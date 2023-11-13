@@ -2,8 +2,8 @@
 
 namespace Drupal\Tests\symfony_mailer\Functional;
 
-use Drupal\Tests\BrowserTestBase;
 use Drupal\symfony_mailer_test\MailerTestTrait;
+use Drupal\Tests\BrowserTestBase;
 
 /**
  * Base class for Symfony Mailer browser tests.

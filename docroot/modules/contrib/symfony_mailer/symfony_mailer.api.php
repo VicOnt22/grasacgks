@@ -76,3 +76,12 @@ function hook_mailer_builder_info_alter(array &$email_builders) {
  */
 function hook_mailer_transport_info_alter(array &$mailer_transports) {
 }
+
+/**
+ * Alters email adjusters plug-in definitions.
+ *
+ * @param array $mailer_adjusters
+ *   An associative array of all email adjuster definitions, keyed by the ID.
+ */
+function hook_mailer_adjuster_info_alter(array &$mailer_adjusters) {
+}

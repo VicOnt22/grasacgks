@@ -78,6 +78,7 @@ class ContactPageEmailBuilder extends ContactEmailBuilderBase {
     $email->setVariable('form', $email->getEntity()->label())
       ->setVariable('form_url', Url::fromRoute('<current>')->toString());
 
+    // @todo This should also be moved to mailer policy with an import.
     if ($email->getSubType() == 'autoreply') {
       $email->setBody($email->getEntity()->getReply());
     }

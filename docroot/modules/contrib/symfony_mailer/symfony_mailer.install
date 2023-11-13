@@ -96,6 +96,7 @@ function symfony_mailer_update_10002() {
   $values = [
     'format' => 'email_html',
     'name' => 'Email HTML',
+    'weight' => 10,
   ];
 
   FilterFormat::create($values)->save();
@@ -184,10 +185,25 @@ function symfony_mailer_update_10007() {
  */
 function symfony_mailer_update_10008() {
   $key_value = \Drupal::keyValue('mailer');
+  $settings = [];
   foreach ($key_value->get('import', []) as $id => $state) {
     // Map IMPORT_COMPLETE (1) to STATE_IMPORTED (1) and everything else to
     // STATE_ENABLED (2).
     $settings[$id] = ($state == 1) ? 1 : 2;
+  }
+
+  // Entries will be missing from the list if they were ignored (never imported
+  // or skipped). We can't know if other modules provided them, but that's
+  // probably unlikely. We can know for the overrides in symfony_mailer_bc.
+  if (\Drupal::service('module_handler')->moduleExists('symfony_mailer_bc')) {
+    $previously_available = ['contact', 'contact_form', 'simplenews_newsletter', 'simplenews', 'update', 'user', 'user_registrationpassword'];
+    $current_overrides = array_keys(\Drupal::service('symfony_mailer.override_manager')->getInfo());
+    foreach (array_intersect($previously_available, $current_overrides) as $id) {
+      // Was enabled.
+      if (!array_key_exists($id, $settings)) {
+        $settings[$id] = 2;
+      }
+    }
   }
 
   if (isset($settings)) {
@@ -202,9 +218,9 @@ function symfony_mailer_update_10008() {
  * Disable the obsolete module symfony_mailer_bc.
  */
 function symfony_mailer_update_10009() {
-  $service_module_installer = \Drupal::service('module_installer');
-  $service_module_handler = \Drupal::service('module_handler');
-  if ($service_module_handler->moduleExists('symfony_mailer_bc')) {
-    $service_module_installer->uninstall(['symfony_mailer_bc'], FALSE);
+  $module_installer = \Drupal::service('module_installer');
+  $module_handler = \Drupal::service('module_handler');
+  if ($module_handler->moduleExists('symfony_mailer_bc')) {
+    $module_installer->uninstall(['symfony_mailer_bc'], FALSE);
   }
 }

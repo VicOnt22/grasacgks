@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - system.menu.admin
-    - user.role.administrator
   module:
     - search_api_tracking
     - user
@@ -23,10 +22,9 @@ display:
     position: 0
     display_options:
       access:
-        type: role
+        type: perm
         options:
-          role:
-            administrator: administrator
+          perm: 'view search api tracking statistics'
       cache:
         type: none
         options: {  }

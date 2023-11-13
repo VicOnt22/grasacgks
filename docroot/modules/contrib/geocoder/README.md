@@ -9,6 +9,19 @@ dependency since Drupal 9.4 and a requirement for Drupal 10).
 At the moment this branch still have incompatibilities with packages locked to
 php-http/guzzle6-adapter dependency (see issue #3283651).
 
+### How to seamlessly upgrade to Drupal 10 & Geocoder 4.x ... ###
+
+When preparing for an upgrade to Drupal 10 we recommend that you widen your composer version constraints to allow either 3.x or 4.x.
+Edit composer.json the following way:
+
+```
+"require": {
+...
+"drupal/geocoder": "^3.20 || ^4.0",
+...
+}
+```
+
 # Features
 * Solid API based on [Geocoder PHP library](http://geocoder-php.org);
 * Geocode and Reverse Geocode using one or multiple Geocoder providers

@@ -5,6 +5,11 @@
  * Updates for the genpass module.
  */
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\genpass\GenpassInterface;
+use Drupal\system\Entity\Action;
+use Symfony\Component\Yaml\Yaml;
+
 /**
  * Remove configuration option "genpass_entropy".
  */
@@ -18,3 +23,119 @@ function genpass_update_8001(&$sandbox) {
   $genpass_configuration->save(TRUE);
 }
 
+/**
+ * Add "genpass_set_random_password" action.
+ */
+function genpass_update_8002(&$sandbox) {
+
+  // The action must not exist before attempting to install it as saving it via
+  // storage will cause a fatal error.
+  $action_storage = \Drupal::entityTypeManager()->getStorage('action');
+  $existing_action = $action_storage->load('genpass_set_random_password');
+  if (!empty($existing_action)) {
+    return new TranslatableMarkup(
+      'Action "Set new random password for user(s)" is already installed.'
+    );
+  }
+
+  // Load the Action configuration.
+  $id = 'system.action.genpass_set_random_password';
+  $config_path = \Drupal::service('extension.list.module')->getPath('genpass');
+  $config = Yaml::parseFile($config_path . '/config/optional/' . $id . '.yml');
+
+  // Use action storage to create so that dependencies are properly registered.
+  $action_storage = \Drupal::entityTypeManager()->getStorage('action');
+  $new_action = $action_storage->create($config);
+  $new_action->save();
+
+  return new TranslatableMarkup(
+    'Action "Set new random password for user(s)" added.'
+  );
+}
+
+/**
+ * Add default setting for "genpass_admin_mode" to configuration.
+ */
+function genpass_update_8003(&$sandbox) {
+  // Get editable configuration settings for module.
+  $config_factory = \Drupal::configFactory();
+
+  // Add default genpass_admin_mode setting.
+  $config_factory->getEditable('genpass.settings')
+    ->set('genpass_admin_mode', GenpassInterface::PASSWORD_ADMIN_SHOW)
+    ->save(TRUE);
+}
+
+/**
+ * Set "genpass_override_core" based on "genpass_algorithm" value, and remove.
+ */
+function genpass_update_8004(&$sandbox) {
+  // Get editable configuration settings for module.
+  $config_factory = \Drupal::configFactory();
+
+  // Get the settings for the genpass module.
+  $config = $config_factory->getEditable('genpass.settings');
+
+  // If the previous genpass_algorithm was set to genpass, configure this core
+  // override to TRUE. If it was set on something else, override to FALSE.
+  if ($config->get('genpass_algorithm') == 'genpass') {
+    $config->set('genpass_override_core', TRUE);
+  }
+  else {
+    $config->set('genpass_override_core', FALSE);
+  }
+
+  // Remove the now deprecated algorithm setting.
+  $config->clear('genpass_algorithm');
+
+  // And save.
+  $config->save(TRUE);
+}
+
+/**
+ * Add config dependency on genpass_set_random_password if needed.
+ */
+function genpass_update_8005(&$sandbox) {
+  // Get config entities which are dependent on Genpass.
+  $dependent_entities = \Drupal::service('config.manager')
+    ->getConfigEntitiesToChangeOnDependencyRemoval('module', ['genpass']);
+
+  // There should be an Action(genpass_set_random_password) marked as needing
+  // to be deleted if genpass is removed.
+  $remove_action = FALSE;
+  if (empty($dependent_entities['delete'])) {
+    // Either action doesn't exist or was installed by the old 8002 update.
+    $remove_action = TRUE;
+  }
+
+  // There are dependent entities in delete. Check to see if one is the Action
+  // installed by Genpass.
+  else {
+    $remove_action = TRUE;
+    foreach ($dependent_entities['delete'] as $entity) {
+      if ($entity instanceof Action) {
+        if ($entity->id() == 'genpass_set_random_password') {
+          $remove_action = FALSE;
+          break;
+        }
+      }
+    }
+  }
+
+  // Remove the existing config only action and add it back with deps.
+  if ($remove_action) {
+    $action = \Drupal::entityTypeManager()->getStorage('action')
+      ->load('genpass_set_random_password');
+    if (!empty($action)) {
+      $action->delete();
+    }
+
+    // Use the now fixed update to re-install the action.
+    return genpass_update_8002($sandbox);
+  }
+
+  // Fell through without replacing the action.
+  return new TranslatableMarkup(
+    'Generate Password action did not need config dependencies to be updated.'
+  );
+}

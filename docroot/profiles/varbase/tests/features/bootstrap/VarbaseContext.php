@@ -71,7 +71,7 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
    * @Given /^I am a logged in user with (?:|the )"(?P<username>[^"]*)"(?:| user)$/
    * @Then /^I login with (?:|the )"(?P<username>[^"]*)"(?:| user)$/
    */
-  public function iAmLoggedInUserWithTheUser($username) {
+  public function iAmloggedInUserWithTheUser($username) {
 
     if (isset($this->users[$username])) {
       try {
@@ -237,12 +237,6 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
     "typeof $ != 'undefined'",
     // No ajax request is active.
     "!$.active",
-    // Page is displayed (no progress bar)
-    "$('#page').css('display') == 'block'",
-    // Page is not loading (no black mask loading page)
-    "$('.loading-mask').css('display') == 'none'",
-    // Jstree has finished loading.
-    "$('.jstree-loading').length == 0",
    ];
     $condition = implode(' && ', $conditions);
     // Make sure the AJAX calls are fired up before checking the condition.
@@ -287,7 +281,7 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
    *
    * @Then /^the editor media browser should be open$/
    */
-  public function theEditorMediaBrowserIsOpen() {
+  public function theEitorMediaBrowserIsOpen() {
     if (!$elem = $this->getSession()->getPage()->find('css', '.ui-dialog.media-wrapper')
     || !$this->getSession()->getPage()->find('css', '.ui-dialog.media-wrapper .media-browser-panes')) {
       throw new \Exception('The editor media browser failed to open.');
@@ -403,6 +397,33 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
+   * @When I click the delete button
+   */
+  public function iClickTheDeleteButton() {
+    // Find the delete button by text.
+    $element = $this->getSession()->getPage()->find('xpath', "//button[text()='Delete']");
+
+    if (empty($element)) {
+      throw new \Exception('The delete action button is not found.');
+    }
+
+    $element->click();
+  }
+
+  /**
+   * @Then :text should be in the breadcrumb
+   */
+  public function shouldBeInTheBreadcrumb($text) {
+    // Find a text in the breadcrumb.
+    $element = $this->getSession()->getPage()->find('xpath', "//ol[contains(@class, 'breadcrumb')]//*[text()='{$text}']");
+
+    if (empty($element)) {
+      throw new \Exception('The {$text} not found in the breadcrumb');
+    }
+  }
+
+
+  /**
    * Fill in a form field with id|name|title|alt|value.
    *
    * Under the editor media browser.
@@ -432,7 +453,7 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
    * Varbase Context #varbase.
    *
    * Example 1: Then I should see "this text" under editor media browser
-   * Example 2: Then I should see "this text" under the editor media browser modal window.
+   * Example 2: Then I should see "this text" under the editormedia browser modal window.
    *
    * @Then /^I should see "([^"]*)" under (?:|the )editor media browser(?:| modal window)$/
    */
@@ -504,7 +525,7 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
 
   /*
    * ===========================================================================
-   * Rich text editor Functions CKEditor.
+   * Rich text editor Functions CKEditor 4.
    * ===========================================================================
    */
 
@@ -703,7 +724,7 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
    * @When I save the section
    */
   public function iSaveTheSection() {
-    $save = $this->getSession()->getPage()->find('xpath', "//button[contains(@value, 'Add section')]");
+    $save = $this->getSession()->getPage()->find('xpath', "//input[contains(@value, 'Add section')]");
     if (is_null($save)) {
       throw new \Exception('The "Add section" button was not found or not visible');
     }
@@ -863,7 +884,7 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
    * @When I select the :color section background color
    */
   public function iSelectTheSectionBackgroundColor($color) {
-    $this->iOpenTheSectionSettingsMenu("Background");
+    $this->iSwitchToSectionBackgroundColorSettings();
     $bg_color = $this->getSession()->getPage()->find('xpath', "//label[contains(., '$color') and contains(@for, 'edit-layout-settings-ui-tab-content-appearance-background-background-color')]");
     if (is_null($bg_color)) {
       throw new \Exception('The "' . $color . '" option was not found or not visible');
@@ -929,7 +950,7 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * Set the section blocks alignment.
+   * Set the section blocks alignemnt.
    *
    * #Varbase Context #varbase
    *
@@ -1181,6 +1202,24 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
+   * Switch to the background color settings found under background styles settings.
+   *
+   * Varbase Context #varbase
+   *
+   * Example #1: And I switch to section background color settings
+   *
+   * @When I switch to section background color settings
+   */
+  public function iSwitchToSectionBackgroundColorSettings() {
+    $this->iOpenTheSectionSettingsMenu("Background");
+    $bg_image = $this->getSession()->getPage()->find('xpath', "//label[contains(@for, 'edit-layout-settings-ui-tab-content-appearance-background-background-type-color')]");
+    if (is_null($bg_image)) {
+      throw new \Exception('The section background color tab was not found or not visible');
+    }
+    $bg_image->click();
+  }
+
+  /**
    * Switch to the background image settings found under background styles settings.
    *
    * Varbase Context #varbase
@@ -1203,7 +1242,7 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
    *
    * Varbase Context #varbase
    *
-   * Exmaple #1: And I switch to section background video settings
+   * Example #1: And I switch to section background video settings
    *
    * @When I switch to section background video settings
    */
@@ -1338,7 +1377,7 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
    *
    * Varbase Context #varbase.
    *
-   * Example 1: I double click on the image with the "Flafg Earth image title" title text.
+   * Example 1: I double click on the image with the "Flag Earth image title" title text.
    *
    * @Given /^I double click on the image with the "([^"]*)" title text$/
    */
@@ -1435,11 +1474,7 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
       throw new \Exception('Could not find an id for the rich text editor field : ' . $locator);
     }
 
-    $this->getSession()->executeScript("return CKEDITOR.instances[\"$fieldId\"].getData();");
-
-    // Switch to the iframe.
-    $iFrameID = $this->getAttributeByOtherAttributeValue('id', 'title', $fieldId, 'iframe');
-    $this->getSession()->switchToIFrame($iFrameID);
+    $this->getSession()->executeScript("return Drupal.CKEditor5Instances.get(document.getElementById(\"$fieldId\").dataset[\"ckeditor5Id\"]).getData();");
 
     // Find an image with the title.
     $element = $this->getSession()->getPage()->findAll('xpath', "//img[contains(@title, '{$titleText}')]");
@@ -1448,8 +1483,6 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
       throw new \Exception('The page dose not have an image with the [ ' . $titleText . ' ] title text under [ ' . $locator . ' ].');
     }
 
-    // Switch back too the page from the iframe.
-    $this->getSession()->switchToIFrame(NULL);
   }
 
   /**
@@ -1463,8 +1496,8 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function iShouldSeeImageWithTheAltTextUnder($altText, $filedName) {
     // Switch to the iframe.
-    $iFrameID = $this->getAttributeByOtherAttributeValue('id', 'title', $filedName, 'iframe');
-    $this->getSession()->switchToIFrame($iFrameID);
+    $iFreamID = $this->getAttributeByOtherAttributeValue('id', 'title', $filedName, 'iframe');
+    $this->getSession()->switchToIFrame($iFreamID);
 
     // Find an image with the title.
     $element = $this->getSession()->getPage()->find('xpath', "//img[contains(@alt, '{$altText}')]");
@@ -1634,10 +1667,10 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
    *
    * Varbase Context #varbase.
    *
-   * Example #1: Then I click "your text" in the "ol" element with the "class" attribute set to "breadcrumb"
+   * Example #1: When I click "your text" in the "ol" element with the "class" attribute set to "breadcrumb"
    * Example #2:  And I click "your text" in the "div" element with the "id" attribute set to "right-panel"
    *
-   * @Then /^I click "(?P<text>[^"]*)" in the "(?P<htmlTagName>[^"]*)" element with the "(?P<attribute>[^"]*)" attribute set to "(?P<value>[^"]*)"$/
+   * @When /^I click "(?P<text>[^"]*)" in the "(?P<htmlTagName>[^"]*)" element with the "(?P<attribute>[^"]*)" attribute set to "(?P<value>[^"]*)"$/
    */
   public function iClickTextInTheHtmlTagElement($text, $htmlTagName, $attribute, $value) {
 
@@ -1733,104 +1766,6 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
     if (!$found) {
       throw new \Exception(sprintf('"%s" value was not found in the "%s" input element', $text, $selector));
     }
-    $element->click();
-  }
-
-  /**
-   * Check if we do have the text in the selected panel region.
-   *
-   * Using the code name of the panel region. or the html id.
-   * Varbase Context #varbase.
-   *
-   * Example #1: Then I should see "Add new pane" in the "Center" panel region
-   * Example #2: Then I should see "custom pane title" in the "Right side" panel region
-   * Example #3:  And I should see "Add new pane" in the "panels-ipe-regionid-center" panel region.
-   *
-   * @Then /^I should see "(?P<text>[^"]*)" in the "(?P<panleRegion>[^"]*)" panel region$/
-   */
-  public function iShouldSeeInThePanelRegion($text, $panleRegion) {
-
-    if (strpos($panleRegion, "panels-ipe-regionid-")) {
-      $panleRegionId = $panleRegion;
-    }
-    else {
-      $panleRegionId = "panels-ipe-regionid-" . str_replace(' ', '-', strtolower($panleRegion));
-    }
-
-    $elementPanelRegion = $this->getSession()->getPage()->find('xpath', "//*[contains(@id, '{$panleRegionId}')]");
-    if (empty($elementPanelRegion)) {
-      throw new \Exception('The panle region [ ' . $panleRegion . ' ] is not in the page.');
-    }
-
-    $element = $this->getSession()->getPage()->find('xpath', "//*[contains(@id, '{$panleRegionId}')]//*[text()='{$text}']");
-    if (empty($element)) {
-      throw new \Exception('The panle region "' . $panleRegion . '" dose not have "' . $text . '" in it.');
-    }
-  }
-
-  /**
-   * Check if we do not have the text in the selected panel region.
-   *
-   * Using the code name of the panel region. or the html id.
-   * Varbase Context #varbase.
-   *
-   * Example #1: Then I should not see "Add new pane" in the "Center" panel region
-   * Example #2: Then I should not see "custom pane title" in the "Right side" panel region
-   * Example #3:  And I should not see "Add new pane" in the "panels-ipe-regionid-center" panel region.
-   *
-   * @Then /^I should not see "(?P<text>[^"]*)" in the "(?P<panleRegion>[^"]*)" panel region$/
-   */
-  public function iShouldNotSeeInThePanelRegion($text, $panleRegion) {
-
-    if (strpos($panleRegion, "panels-ipe-regionid-")) {
-      $panleRegionId = $panleRegion;
-    }
-    else {
-      $panleRegionId = "panels-ipe-regionid-" . str_replace(' ', '-', strtolower($panleRegion));
-    }
-
-    $elementPanelRegion = $this->getSession()->getPage()->find('xpath', "//*[contains(@id, '{$panleRegionId}')]");
-    if (empty($elementPanelRegion)) {
-      throw new \Exception('The panle region [ ' . $panleRegion . ' ] is not in the page.');
-    }
-
-    $element = $this->getSession()->getPage()->find('xpath', "//*[contains(@id, '{$panleRegionId}')]//*[text()='{$text}']");
-    if (!empty($element)) {
-      throw new \Exception('The panle region "' . $panleRegion . '" dose have "' . $text . '" in it.');
-    }
-  }
-
-  /**
-   * Click on the text in the selected panel region.
-   *
-   * Using the code name of the panel region. or the html id.
-   * Varbase Context #varbase.
-   *
-   * Example #1: When I click "Add new pane" in the "center" panel region
-   * Example #2: When I click "Region style" in the "left" panel region
-   * Example #3:  And I click "Add new pane" in the "panels-ipe-regionid-center" panel region.
-   *
-   * @When /^I click "(?P<text>[^"]*)" in the "(?P<panleRegion>[^"]*)" panel region$/
-   */
-  public function iClickInThePanelRegion($text, $panleRegion) {
-
-    if (strpos($panleRegion, "panels-ipe-regionid-")) {
-      $panleRegionId = $panleRegion;
-    }
-    else {
-      $panleRegionId = "panels-ipe-regionid-" . str_replace(' ', '-', strtolower($panleRegion));
-    }
-
-    $elementPanelRegion = $this->getSession()->getPage()->find('xpath', "//*[contains(@id, '{$panleRegionId}')]");
-    if (empty($elementPanelRegion)) {
-      throw new \Exception('The panle region [ ' . $panleRegion . ' ] is not in the page.');
-    }
-
-    $element = $this->getSession()->getPage()->find('xpath', "//*[contains(@id, '{$panleRegionId}')]//*[text()='{$text}']");
-    if (empty($element)) {
-      throw new \Exception('The panle region "' . $panleRegion . '" dose not have "' . $text . '".');
-    }
-
     $element->click();
   }
 
@@ -2005,10 +1940,10 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
       throw new \Exception("Field '{$field}' not found");
     }
 
-    $fieldid = $elementField->getAttribute('id');
+    $fieldId = $elementField->getAttribute('id');
 
     $js = <<<JS
-var node = document.getElementById("{$fieldid}");
+var node = document.getElementById("{$fieldId}");
 var keyEvent = document.createEvent('KeyboardEvent');
 keyEvent.initKeyEvent('keypress',        // typeArg,
 											 true,             // canBubbleArg,
@@ -2128,7 +2063,7 @@ JS;
    *
    * @When I expand the field :arg1
    */
-  public function iExpandTheField($fieldID) {
+  public function iExpandThefield($fieldID) {
     $js = <<<JS
 		var group = document.getElementById("{$fieldID}");
 		group.setAttribute("open","");
@@ -2241,6 +2176,38 @@ JS;
   }
 
   /**
+   * Scroll to the top of an element.
+   *
+   * Varbase Context #varbase.
+   *
+   * Example #1: When I scroll to top of "#drupal-off-canvas"
+   * Example #2: And I scroll to top of "#media-library-wrapper"
+   * Example #3: And scroll to top of "#layout-builder-modal"
+   *
+   * @When /^(?:|I )scroll to top of :selector
+   */
+  public function iScrollToTopOf($selector) {
+    $this->executeScript('document.querySelector("' . $selector . '").scrollTop = 0');
+    $this->getSession()->wait(2000);
+  }
+
+  /**
+   * Scroll to the bottom of an element.
+   *
+   * Varbase Context #varbase.
+   *
+   * Example #1: When I scroll to bottom of "#drupal-off-canvas"
+   * Example #2: And I scroll to bottom of "#media-library-wrapper"
+   * Example #3: And scroll to bottom of "#layout-builder-modal"
+   *
+   * @When /^(?:|I )scroll to bottom of :selector
+   */
+  public function iScrollToBottomOf($selector) {
+    $this->executeScript('document.querySelector("' . $selector . '").scrollTop = document.querySelector("' . $selector . '").scrollHeight');
+    $this->getSession()->wait(2000); 
+  }
+
+  /**
    * Check if a checkbox is unchecked.
    *
    * Varbase Context #varbase
@@ -2251,10 +2218,10 @@ JS;
    * @Then I should see the :label checkbox unchecked
    */
   public function iShouldSeeTheCheckboxUnchecked($label) {
-    $isChecked = (boolean) $this->getSession()->getDriver()->isChecked("//label[contains(text(), '${label}')]/preceding-sibling::input");
+    $isChecked = (bool) $this->getSession()->getDriver()->isChecked("//label[contains(text(), '${label}')]/preceding-sibling::input");
     if ($isChecked) {
       throw new \Exception("The '" . $label . "' checkbox is checked");
-    }
+    } 
   }
 
   /**
@@ -2268,10 +2235,10 @@ JS;
    * @Then I should see the :label checkbox checked
    */
   public function iShouldSeeTheCheckboxChecked($label) {
-    $isChecked = (boolean) $this->getSession()->getDriver()->isChecked("//label[contains(text(), '${label}')]/preceding-sibling::input");
+    $isChecked = (bool) $this->getSession()->getDriver()->isChecked("//label[contains(text(), '${label}')]/preceding-sibling::input");
     if (!$isChecked) {
       throw new \Exception("The '" . $label . "' checkbox is unchecked");
-    }
+    } 
   }
 
   /**
@@ -2344,7 +2311,7 @@ JS;
   }
 
   /**
-   * Switch to an iframe by its id.
+   * Switch to an ifram by its id.
    *
    * Varbase Context #varbase.
    *
@@ -2358,11 +2325,11 @@ JS;
   }
 
   /**
-   * Switch to the main frame or the parent iframe.
+   * Switch to the main frame or the parent ifram.
    *
    * Varbase Context #varbase.
    *
-   * Example #1: When I switch to main frame
+   * Example #1: When I switch to main fram
    * Example #2: When I switch to parent
    *
    * @When /^(?:|I )switch to main frame$/
@@ -2449,8 +2416,8 @@ JS;
    */
   public function iShouldSeetheOperationForTheEntity($operation, $entity) {
     $row = $this->getEntityRow($this->getSession()->getPage(), $entity);
-    $operation_element = $row->find('xpath', "//*[contains(@headers, 'view-operations-table-column')]//*[text()='{$operation}']");
-    if (empty($operation_element)) {
+    $operation_elment = $row->find('xpath', "//*[contains(@headers, 'view-operations-table-column')]//*[text()='{$operation}']");
+    if (empty($operation_elment)) {
       throw new \Exception(sprintf('Found an entity containing "%s", but it did not have the operation "%s".', $entity, $operation));
     }
   }
@@ -2470,9 +2437,37 @@ JS;
    */
   public function iShouldNotSeetheOperationForTheEntity($operation, $entity) {
     $row = $this->getEntityRow($this->getSession()->getPage(), $entity);
-    $operation_element = $row->find('xpath', "//*[contains(@headers, 'view-operations-table-column')]//*[text()='{$operation}']");
-    if (!empty($operation_element)) {
+    $operation_elment = $row->find('xpath', "//*[contains(@headers, 'view-operations-table-column')]//*[text()='{$operation}']");
+    if (!empty($operation_elment)) {
       throw new \Exception(sprintf('Found an entity containing "%s", but it have the operation "%s".', $entity, $operation));
+    }
+  }
+
+  /**
+   * Open the moderation sidebar from the administration toolbar.
+   *
+   * Varbase Context #varbase.
+   *
+   * Example 1: When I open the moderation sidebar
+   * Example 2:  And I open moderation sidebar
+   * Example 3:  And open moderation sidebar
+   * Example 4: When I click on tasks in the toolbar
+   * Example 5:  And click on tasks in the toolbar
+   *
+   * @When /^(?:|I )open (?:|the )moderation sidebar$/
+   * @When /^(?:|I )click on tasks in the toolbar$/
+   */
+  public function iOpenTheModerationSidebar() {
+    $moderationSidebarToolbarTab = $this->getSession()->getPage()->findAll('css', '#toolbar-bar .moderation-sidebar-toolbar-tab a');
+
+    if (!empty($moderationSidebarToolbarTab)
+      && is_array($moderationSidebarToolbarTab)
+      && count($moderationSidebarToolbarTab) > 0) {
+
+      $moderationSidebarToolbarTab[0]->click();
+    }
+    else {
+      throw new \Exception(sprintf('The moderation sidebar toolbar tab link was not found in the administration toolbar'));
     }
   }
 
@@ -2511,7 +2506,7 @@ JS;
     try {
       $this->getSession()->getDriver()->getWebDriverSession()->accept_alert();
     }
-    catch (Exception $e) {
+    catch (\Exception $e) {
       // no-op, alert might not be present.
     }
   }
@@ -2525,7 +2520,7 @@ JS;
     try {
       $this->getSession()->getDriver()->getWebDriverSession()->accept_alert();
     }
-    catch (Exception $e) {
+    catch (\Exception $e) {
       // no-op, alert might not be present.
     }
   }
@@ -2539,7 +2534,7 @@ JS;
     try {
       $this->getSession()->getDriver()->getWebDriverSession()->dismiss_alert();
     }
-    catch (Exception $e) {
+    catch (\Exception $e) {
       // no-op, alert might not be present.
     }
   }
@@ -2553,7 +2548,7 @@ JS;
     try {
       $this->getSession()->getDriver()->getWebDriverSession()->dismiss_alert();
     }
-    catch (Exception $e) {
+    catch (\Exception $e) {
       // no-op, alert might not be present.
     }
   }

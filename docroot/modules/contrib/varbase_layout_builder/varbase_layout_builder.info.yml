@@ -27,7 +27,7 @@ install:
   - bootstrap_layout_builder
   - block_library
 
-# Information added by Drupal.org packaging script on 2023-09-27
-version: '10.0.35'
+# Information added by Drupal.org packaging script on 2023-10-29
+version: '10.0.39'
 project: 'varbase_layout_builder'
-datestamp: 1695836993
+datestamp: 1698576189

@@ -97,7 +97,7 @@ class NodeRevisionDelete implements NodeRevisionDeleteInterface {
       // If the new defined max_number is smaller than the defined
       // when_to_delete value in the config, we need to change the stored config
       // value.
-      if (is_null($third_party_settings) || $max_number < $third_party_settings['node_revision_delete'][$config_name]) {
+      if (isset($third_party_settings['node_revision_delete'][$config_name]) && $max_number < $third_party_settings['node_revision_delete'][$config_name]) {
         $third_party_settings['node_revision_delete'][$config_name] = $max_number;
         // Saving the values in the config.
         $config->set('third_party_settings', $third_party_settings)->save();

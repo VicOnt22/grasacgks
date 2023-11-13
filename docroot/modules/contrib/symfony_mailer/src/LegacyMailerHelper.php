@@ -128,20 +128,16 @@ class LegacyMailerHelper implements LegacyMailerHelperInterface {
     // Add in 'To' header which is stored directly in the message.
     // @see \Drupal\Core\Mail\Plugin\Mail\PhpMail::mail()
     if (isset($message['to'])) {
-      $src_headers['To'] = $message['to'];
+      $src_headers['to'] = $message['to'];
     }
 
     foreach ($src_headers as $name => $value) {
-      $lc_name = strtolower($name);
-      if (isset(self::SKIP_HEADERS[$lc_name])) {
+      $name = strtolower($name);
+      if (isset(self::SKIP_HEADERS[$name])) {
         continue;
       }
 
-      if (isset(self::ADDRESS_HEADERS[$lc_name])) {
-        if ($name == 'Reply-to') {
-          // Convert to standard case.
-          $name = 'Reply-To';
-        }
+      if (isset(self::ADDRESS_HEADERS[$name])) {
         $email->setAddress($name, $this->mailerHelper->parseAddress($value));
       }
       else {

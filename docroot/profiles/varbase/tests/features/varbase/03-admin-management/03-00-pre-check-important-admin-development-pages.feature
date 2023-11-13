@@ -6,35 +6,35 @@ So that I can use them after the install or update.
   Background:
     Given I am a logged in user with the "webmaster" user
 
-  @javascript @check @local @development @staging @production
+  @javascript  @check @local @development @staging @production
   Scenario: Check the content page
      When I go to "/admin/content"
-      And I wait
+      And wait
      Then I should see "Content"
 
-  @javascript @check @local @development @staging @production
+  @javascript  @check @local @development @staging @production
   Scenario: Check the Homepage content with Layout Builder
      When I go to "/admin/content"
-      And I wait
+      And wait
      Then I should see "Homepage"
       And I should see "Landing page (Layout Builder)" in the "Homepage" row
 
-   @javascript @check @local @development @staging @production
+   @javascript  @check @local @development @staging @production
    Scenario: Check Files admin page
       When I go to "/admin/content/files"
-       And I wait
+       And wait
       Then I should see "Files"
 
-   @javascript @check @local @development @staging @production
+   @javascript  @check @local @development @staging @production
    Scenario: Check Media Grid admin page
       When I go to "/admin/content/media"
-       And I wait
+       And wait
       Then I should see "Media"
 
-   @javascript @check @local @development @staging @production
+   @javascript  @check @local @development @staging @production
    Scenario: Check Media Table admin page
       When I go to "/admin/content/media"
-       And I wait
+       And wait
       Then I should see "Media"
        And I should see "Thumbnail"
        And I should see "Cover Image"
@@ -45,10 +45,10 @@ So that I can use them after the install or update.
        And I should see "Updated"
        And I should see "Operations"
 
-  @javascript @check @local @development @staging @production
+  @javascript  @check @local @development @staging @production
   Scenario: Check the structure page
      When I go to "/admin/structure"
-      And I wait
+      And wait
      Then I should see "Block layout"
       And I should see "Content types"
       And I should see "Display Suite"
@@ -63,25 +63,25 @@ So that I can use them after the install or update.
       And I should see "Views"
       And I should see "Webforms"
 
-  @javascript @check @local @development @staging @production
+  @javascript  @check @local @development @staging @production
   Scenario: Check the structure page
      When I go to "/admin/structure/page_manager"
       And I wait
      Then I should see "Pages"
       And I should see "Total Control dashboard"
 
-  @javascript @check @local @development @staging @production
+  @javascript  @check @local @development @staging @production
   Scenario: Check the views page
      When I go to "/admin/structure/views"
-      And I wait
+      And wait
      Then I should see "Views"
       And I should see "Browser"
       And I should see "Media Hero Slider"
 
-  @javascript @check @local @development @staging @production
+  @javascript  @check @local @development @staging @production
   Scenario: Check the Appearance page
      When I go to "/admin/appearance"
-      And I wait
+      And wait
      Then I should see "Appearance"
       And I should see "Vartheme"
       And I should see "(Bootstrap 4 - SASS)"
@@ -90,10 +90,10 @@ So that I can use them after the install or update.
       And I should see "Bootstrap Barrio"
       And I should see "Vartheme Claro"
 
-   @javascript @check @local @development @staging @production
+   @javascript  @check @local @development @staging @production
    Scenario: Check active type of media types
       When I go to "/media/add"
-       And I wait
+       And wait
       Then I should see "File"
        And I should see "Image"
        And I should see "Video"
@@ -102,18 +102,18 @@ So that I can use them after the install or update.
        And I should see "Instagram"
        And I should see "Tweet"
 
-   @javascript @check @local @development @staging @production
+   @javascript  @check @local @development @staging @production
    Scenario: Check Varbase update instructions page
       When I go to "/admin/config/development/update-helper"
-       And I wait
+       And wait
       Then I should see "Varbase update instructions"
        And I should see "100%"
        And I should not see "Pending updates"
 
-   @javascript @check @local @development @staging
+   @javascript  @check @local @development @staging
    Scenario: Check Varbase default Reroute Email settings
       When I go to "/admin/config/development/reroute_email"
-       And I wait
+       And wait
       Then I should see "Reroute Email"
        And the "edit-enable" checkbox is checked
        And I should see "dev-catchall@vardot.com" value in the "edit-address" input element
@@ -121,10 +121,10 @@ So that I can use them after the install or update.
        And the "edit-description" checkbox is checked
        And the "edit-message" checkbox is checked
 
-   @javascript @check @local @development @staging
+   @javascript  @check @local @development @staging
    Scenario: Check Varbase password suggestions settings
       When I go to "admin/config/system/varbase/varbase-security/password-suggestions-settings"
-       And I wait
+       And wait
       Then I should see "Password Suggestions settings"
        And I should see "Passwords match:" value in the "edit-confirmtitle" input element
        And I should see "yes" value in the "edit-confirmsuccess" input element
@@ -142,10 +142,10 @@ So that I can use them after the install or update.
        And I should see "Good" value in the "edit-good" input element
        And I should see "Strong" value in the "edit-strong" input element
 
-   @javascript @check @local @development @staging
+   @javascript  @check @local @development @staging
    Scenario: Check password policy constraints
       When I go to "admin/config/security/password-policy/default_policy"
-       And I wait
+       And wait
        And I scroll to the bottom
       Then I should see "Policy Constraints"
        And I should see "Number of passwords that will be checked in the user password update history: 0"

@@ -52,7 +52,8 @@
         "drupal/display_field_copy": "^2.0",
         "drupal/views_bulk_operations": "4.2.3",
         "npm-asset/dompurify": "^3.0",
-        "enshrined/svg-sanitize": "^0.16.0"
+        "enshrined/svg-sanitize": "^0.16.0",
+        "drupal/custom_entity_id": "^1.0@beta"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -241,14 +242,8 @@
             "drupal/datetime_extras": {
                 "issues/3348793 D10 compatibility": "https://www.drupal.org/files/issues/2023-03-17/3348793_03_drupal10_compatibility.patch"
             },
-            "drupal/ace_editor": {
-                "issues/3271278 Using ace editor with field ui throws error Using this when not in object context": "https://www.drupal.org/files/issues/2022-03-23/3271278_2.patch"
-            },
             "drupal/page_manager": {
                 "issues/3263077 PHP 8.1 2665328 fixes for Page Manager": "https://www.drupal.org/files/issues/2023-05-17/2665328-128-page_manager_variant_title.patch"
-            },
-            "drupal/ctools": {
-                "issues/3294330 AjaxFormTrait PHP 8.1 issue": "https://www.drupal.org/files/issues/2022-08-26/3294330-10.patch"
             },
             "drupal/scroll_top_button": {
                 "issues/3327879 button text cannot be translated": "https://www.drupal.org/files/issues/2022-12-20/3327889-2.patch"

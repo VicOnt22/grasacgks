@@ -3,8 +3,8 @@
 namespace Drupal\symfony_mailer;
 
 use Drupal\Core\Session\AccountInterface;
-use Symfony\Component\Mime\Address as SymfonyAddress;
 use Drupal\user\Entity\User;
+use Symfony\Component\Mime\Address as SymfonyAddress;
 
 /**
  * Defines the class for an Email address.

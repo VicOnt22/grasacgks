@@ -103,4 +103,5 @@ function search_api_tracking_update_8004() {
  */
 function search_api_tracking_uninstall($is_syncing) {
   \Drupal::configFactory()->getEditable('views.view.search_api_tracking_statistics')->delete();
+  \Drupal::database()->truncate('search_api_tracking_stats');
 }

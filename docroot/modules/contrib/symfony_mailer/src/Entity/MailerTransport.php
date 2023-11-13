@@ -140,7 +140,8 @@ class MailerTransport extends ConfigEntityBase implements MailerTransportInterfa
    * {@inheritdoc}
    */
   public function isDefault() {
-    return \Drupal::config('symfony_mailer.settings')->get('default_transport') == $this->id();
+    // Get the default transport without overrides.
+    return \Drupal::config('symfony_mailer.settings')->getOriginal('default_transport', FALSE) == $this->id();
   }
 
   /**

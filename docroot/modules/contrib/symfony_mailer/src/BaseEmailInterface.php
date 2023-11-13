@@ -40,16 +40,28 @@ interface BaseEmailInterface {
   public function getSender(): ?AddressInterface;
 
   /**
-   * Sets one or more addresses.
+   * Sets addresses for the specified header.
    *
    * @param string $name
    *   The name of the header to set.
    * @param mixed $addresses
-   *   The addresses to set, see Address::convert().
+   *   The addresses to set, see Address::convert(). Passing NULL as a value
+   *   will erase the specified header.
    *
    * @return $this
    */
   public function setAddress(string $name, $addresses);
+
+  /**
+   * Gets addresses for the specified header.
+   *
+   * @param string $name
+   *   The name of the header to get.
+   *
+   * @return \Drupal\symfony_mailer\AddressInterface[]
+   *   The email addresses for the specified header.
+   */
+  public function getAddress(string $name): array;
 
   /**
    * Sets one or more from addresses.
@@ -70,10 +82,11 @@ interface BaseEmailInterface {
   public function getFrom(): array;
 
   /**
-   * Sets one or more reply-to addresses.
+   * Sets "reply-to" addresses.
    *
    * @param mixed $addresses
-   *   The addresses to set, see Address::convert().
+   *   The addresses to set, see Address::convert(). Passing NULL as a value
+   *   will erase the reply-to address.
    *
    * @return $this
    */
@@ -88,12 +101,13 @@ interface BaseEmailInterface {
   public function getReplyTo(): array;
 
   /**
-   * Sets one or more to addresses.
+   * Sets "to" addresses.
    *
    * Valid: build.
    *
    * @param mixed $addresses
-   *   The addresses to set, see Address::convert().
+   *   The addresses to set, see Address::convert(). Passing NULL as a value
+   *   will erase "to" address.
    *
    * @return $this
    */
@@ -108,10 +122,11 @@ interface BaseEmailInterface {
   public function getTo(): array;
 
   /**
-   * Sets one or more cc addresses.
+   * Sets "cc" addresses.
    *
    * @param mixed $addresses
-   *   The addresses to set, see Address::convert().
+   *   The addresses to set, see Address::convert(). Passing NULL as a value
+   *   will erase "сс" addresses.
    *
    * @return $this
    */
@@ -126,10 +141,11 @@ interface BaseEmailInterface {
   public function getCc(): array;
 
   /**
-   * Sets one or more bcc addresses.
+   * Sets "bcc" addresses.
    *
    * @param mixed $addresses
-   *   The addresses to set, see Address::convert().
+   *   The addresses to set, see Address::convert(). Passing NULL as a value
+   *   will erase "bсс" addresses.
    *
    * @return $this
    */

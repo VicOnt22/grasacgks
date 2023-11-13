@@ -4,8 +4,8 @@ namespace Drupal\symfony_mailer\Plugin\EmailAdjuster;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Security\TrustedCallbackInterface;
-use Drupal\symfony_mailer\Processor\EmailAdjusterBase;
 use Drupal\symfony_mailer\EmailInterface;
+use Drupal\symfony_mailer\Processor\EmailAdjusterBase;
 
 /**
  * Defines the Body Email Adjuster.

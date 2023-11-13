@@ -7,7 +7,7 @@ dependencies: { }
 install:
   - swiftmailer
 
-# Information added by Drupal.org packaging script on 2023-10-02
-version: '9.0.5'
+# Information added by Drupal.org packaging script on 2023-10-10
+version: '9.0.6'
 project: 'varbase_email'
-datestamp: 1696235613
+datestamp: 1696957601

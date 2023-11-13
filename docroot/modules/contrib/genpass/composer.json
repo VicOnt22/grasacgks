@@ -5,6 +5,11 @@
   "homepage": "http://drupal.org/project/genpass",
   "authors": [
     {
+      "name": "starbow",
+      "homepage": "https://www.drupal.org/u/starbow",
+      "role": "contributor"
+    },
+    {
       "name": "Kris77",
       "homepage": "https://www.drupal.org/u/kris77",
       "role": "contributor"
@@ -13,7 +18,7 @@
   "support": {
     "issues": "http://drupal.org/project/issues/genpass",
     "irc": "irc://irc.freenode.org/drupal-contribute",
-    "source": "https://github.com/luksak/genpass"
+    "source": "https://git.drupalcode.org/project/genpass"
   },
   "license": "GPL-2.0-or-later",
   "minimum-stability": "dev"

@@ -262,7 +262,7 @@ function node_revision_delete_form_node_revision_delete_confirm_alter(&$form, Fo
     ];
 
     // Custom submit handler to handle bulk revisions delete.
-    $form['#submit'][] = '_node_revision_bulk_delete_submit';
+    $form['#submit'][] = 'node_revision_delete_node_revision_bulk_delete_submit';
   }
 }
 
@@ -274,7 +274,7 @@ function node_revision_delete_form_node_revision_delete_confirm_alter(&$form, Fo
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  *   The form state.
  */
-function _node_revision_bulk_delete_submit(array &$form, FormStateInterface $form_state) {
+function node_revision_delete_node_revision_bulk_delete_submit(array &$form, FormStateInterface $form_state) {
   if ($form_state->getValue('delete_prior_revisions') == 1) {
     // Get the node id from URL.
     $nid = \Drupal::routeMatch()->getRawParameter('node');
@@ -304,6 +304,10 @@ function node_revision_delete_cron() {
   if ($period >= 0 && ($current_time - $last_execute > $period)) {
     // Getting the the maximum number of revisions to process.
     $revisions_to_process = $config->get('node_revision_delete_cron');
+    // Do nothing if node_revision_delete_cron is NULL.
+    if (!isset($revisions_to_process)) {
+      return;
+    }
     // Getting the revisions to delete.
     $revisions = \Drupal::service('node_revision_delete')->getCandidatesRevisionsByNumber($revisions_to_process);
     // Checking if we have revisions to delete.

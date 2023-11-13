@@ -144,15 +144,42 @@ class NodeRevisionDeleteTest extends UnitTestCase {
       '12 months',
       '24 months',
       '1 month',
-      $this->getStringTranslationStub()->translate('After @number @time of inactivity', ['@number' => 5, '@time' => 'days']),
-      $this->getStringTranslationStub()->translate('After @number @time of inactivity', ['@number' => 2, '@time' => 'days']),
-      $this->getStringTranslationStub()->translate('After @number @time of inactivity', ['@number' => 1, '@time' => 'day']),
-      $this->getStringTranslationStub()->translate('After @number @time of inactivity', ['@number' => 10, '@time' => 'weeks']),
-      $this->getStringTranslationStub()->translate('After @number @time of inactivity', ['@number' => 20, '@time' => 'weeks']),
-      $this->getStringTranslationStub()->translate('After @number @time of inactivity', ['@number' => 1, '@time' => 'week']),
-      $this->getStringTranslationStub()->translate('After @number @time of inactivity', ['@number' => 12, '@time' => 'months']),
-      $this->getStringTranslationStub()->translate('After @number @time of inactivity', ['@number' => 24, '@time' => 'months']),
-      $this->getStringTranslationStub()->translate('After @number @time of inactivity', ['@number' => 1, '@time' => 'month']),
+      $this->getStringTranslationStub()->translate('After @number @time of inactivity', [
+        '@number' => 5,
+        '@time' => 'days',
+      ]),
+      $this->getStringTranslationStub()->translate('After @number @time of inactivity', [
+        '@number' => 2,
+        '@time' => 'days',
+      ]),
+      $this->getStringTranslationStub()->translate('After @number @time of inactivity', [
+        '@number' => 1,
+        '@time' => 'day',
+      ]),
+      $this->getStringTranslationStub()->translate('After @number @time of inactivity', [
+        '@number' => 10,
+        '@time' => 'weeks',
+      ]),
+      $this->getStringTranslationStub()->translate('After @number @time of inactivity', [
+        '@number' => 20,
+        '@time' => 'weeks',
+      ]),
+      $this->getStringTranslationStub()->translate('After @number @time of inactivity', [
+        '@number' => 1,
+        '@time' => 'week',
+      ]),
+      $this->getStringTranslationStub()->translate('After @number @time of inactivity', [
+        '@number' => 12,
+        '@time' => 'months',
+      ]),
+      $this->getStringTranslationStub()->translate('After @number @time of inactivity', [
+        '@number' => 24,
+        '@time' => 'months',
+      ]),
+      $this->getStringTranslationStub()->translate('After @number @time of inactivity', [
+        '@number' => 1,
+        '@time' => 'month',
+      ]),
     ];
 
     $days = ['time' => 'days'];

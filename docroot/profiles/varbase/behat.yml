@@ -97,7 +97,11 @@ default:
       javascript_session: selenium2
     Drupal\DrupalExtension:
       blackbox: ~
-      api_driver: 'drupal'
+      api_driver: 'drupal' 
+      drush:
+        alias: 'local'
+      drupal: 
+        drupal_root: '/var/www/html/test/varbase/docroot' 
       region_map:
         content: ".main-container"
         footer: "#footer"
@@ -110,7 +114,7 @@ default:
         error_message_selector: '.messages.error'
         success_message_selector: '.messages.status'
         warning_message_selector: '.messages.warning'
-    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
+    webship\BehatHTMLFormatter\BehatHTMLFormatterExtension:
       name: html
       renderer: Twig,Behat2
       file_name: index

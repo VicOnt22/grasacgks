@@ -23,10 +23,11 @@ class EmailRegistrationCompletionRegistration extends CompletionRegister {
   public function buildPaneForm(array $pane_form, FormStateInterface $form_state, array &$complete_form) {
     $pane_form = parent::buildPaneForm($pane_form, $form_state, $complete_form);
 
-    // Set the name as per email_registration_form_user_register_form_alter().
+    // Set a temporary username, which gets overwritten through
+    // "email_registration_user_presave()":
     $pane_form['name'] = [
       '#type' => 'hidden',
-      '#value' => 'email_registration_' . \Drupal::service('password_generator')->generate(),
+      '#value' => \Drupal::service('email_registration.username_generator')->generateRandomUsername(),
     ];
 
     // Try and help password managers.

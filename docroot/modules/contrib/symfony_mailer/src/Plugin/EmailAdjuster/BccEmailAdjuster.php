@@ -16,6 +16,6 @@ class BccEmailAdjuster extends AddressAdjusterBase {
   /**
    * The name of the associated header.
    */
-  protected const NAME = 'Bcc';
+  protected const NAME = 'bcc';
 
 }

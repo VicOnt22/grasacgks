@@ -2,9 +2,9 @@
 
 namespace Drupal\symfony_mailer\Plugin\EmailAdjuster;
 
-use Drupal\symfony_mailer\Processor\EmailAdjusterBase;
-use Drupal\symfony_mailer\Entity\MailerTransport;
 use Drupal\symfony_mailer\EmailInterface;
+use Drupal\symfony_mailer\Entity\MailerTransport;
+use Drupal\symfony_mailer\Processor\EmailAdjusterBase;
 
 /**
  * Defines the Default headers Email Adjuster.

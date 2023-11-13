@@ -16,7 +16,7 @@ archive: false
 id: contribute_knowledge
 title: 'Contribute Knowledge'
 description: '<p>Webform that invites people to contribute knowledge</p>'
-category: ''
+categories: {  }
 elements: |-
   your_name:
     '#type': textfield

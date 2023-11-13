@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - filter.format.webform_default
     - taxonomy.vocabulary.ceremonial_time
     - taxonomy.vocabulary.collection
     - taxonomy.vocabulary.contributor_roles
@@ -21,6 +22,7 @@ dependencies:
     - taxonomy.vocabulary.traditional_knowledge_tk_labels
   module:
     - field_permissions
+    - filter
     - media
     - system
     - taxonomy_access_fix
@@ -70,6 +72,7 @@ permissions:
   - 'tag content'
   - 'use advanced search'
   - 'use text format filtered_html'
+  - 'use text format webform_default'
   - userprotect.account.edit
   - 'view advanced help index'
   - 'view advanced help popup'

@@ -1,12 +1,22 @@
 genpass.settings:
   type: config_object
-  label: 'Generate Password Settings'
+  label: Generate Password Settings
   mapping:
     genpass_length:
       type: integer
-    genpass_algorithm:
-      type: string
+      label: Generated password length
     genpass_mode:
       type: integer
+      label: User ability to set password during registration
+    genpass_admin_mode:
+      type: integer
+      label: Administrator's ability to set password for edit/create users
     genpass_display:
       type: integer
+      label: When to display generated password
+    genpass_override_core:
+      type: boolean
+      label: Override core DefaultPasswordGenerator
+action.configuration.genpass_set_random_password:
+  type: action_configuration_default
+  label: Set new random password for user(s)

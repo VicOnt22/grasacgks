@@ -2,14 +2,14 @@ name: 'Search API DB Tracking'
 description: 'Tracks searches from search api in the DB.'
 package: 'Search'
 type: module
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^9 || ^10
 dependencies:
   - search_api:search_api
   - views_filter_select:views_filter_select
 'interface translation project': search_api_tracking
 'interface translation server pattern': modules/features/%project/translations/%project.%language.po
 
-# Information added by Drupal.org packaging script on 2023-03-24
-version: '1.0.3'
+# Information added by Drupal.org packaging script on 2023-10-19
+version: '1.0.4'
 project: 'search_api_tracking'
-datestamp: 1679643368
+datestamp: 1697704643

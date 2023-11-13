@@ -2,6 +2,7 @@
 
 namespace Drupal\config_inspector\Controller;
 
+use Drupal\Component\Serialization\Yaml;
 use Drupal\config_inspector\ConfigInspectorManager;
 use Drupal\config_inspector\ConfigSchemaValidatability;
 use Drupal\Core\Config\Schema\ArrayElement;
@@ -10,7 +11,6 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Link;
-use Drupal\Component\Serialization\Yaml;
 use Drupal\Core\StringTranslation\TranslationManager;
 use Drupal\Core\TypedData\TypedDataInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -198,12 +198,12 @@ class ConfigInspectorController extends ControllerBase {
               ? ($raw_validatability->isComplete()
                 ? $this->t('<abbr title="Correct primitive type, passed all validation constraints.">✅✅</abbr>')
                 : $this->t('<abbr title="Correct primitive type, detailed validation impossible.">✅❓</abbr>')
-              )
+            )
               : $this->translationManager->formatPlural(
                 $raw_violations->count(),
                 '@count error',
                 '@count errors',
-              ),
+            ),
             '#wrapper_attributes' => [
               'data-has-errors' => $raw_violations->count() > 0,
             ],
@@ -261,7 +261,7 @@ class ConfigInspectorController extends ControllerBase {
       '#type' => 'container',
       '#attributes' => [
         'class' => [
-          'config-inspector-tree'
+          'config-inspector-tree',
         ],
       ],
       '#attached' => [
@@ -388,7 +388,7 @@ class ConfigInspectorController extends ControllerBase {
             : (!is_array($violations[$key])
               ? $violations[$key]
               : implode('<br>', $violations[$key])
-            ),
+          ),
         ],
       ];
     }
@@ -438,14 +438,16 @@ class ConfigInspectorController extends ControllerBase {
       if (version_compare(\Drupal::VERSION, '10.1.0', 'lt')) {
         $property_path = $element_key = $base_key . $key;
       }
-      $is_validatable = $validatability->getValidatabilityPerPropertyPath()[$property_path]
+      $is_validatable = $validatability->getValidatabilityPerPropertyPath()[$property_path];
+      $is_validatable_string = $is_validatable
         ? $this->t('validatable')
         : '<s>' . $this->t('validatable') . '</s>';
+
       if ($element instanceof ArrayElement) {
         $build[$key] = [
           '#type' => 'details',
           '#title' => $label,
-          '#description' => $element_key . ' (' . $type . ', ' . $is_validatable . ')',
+          '#description' => $element_key . ' (' . $type . ', ' . $is_validatable_string . ')',
           '#description_display' => 'after',
           '#open' => !$collapsed,
         ] + $this->formatTree($element, $validatability, TRUE, $element_key . '.');
@@ -455,7 +457,7 @@ class ConfigInspectorController extends ControllerBase {
           '#type' => 'item',
           '#title' => $label,
           '#plain_text' => $this->formatValue($element),
-          '#description' => $element_key . ' (' . $type . ', ' . $is_validatable . ')',
+          '#description' => $element_key . ' (' . $type . ', ' . $is_validatable_string . ')',
           '#description_display' => 'after',
         ];
       }
@@ -483,6 +485,13 @@ class ConfigInspectorController extends ControllerBase {
               'config-inspector--validation-constraints-list',
             ],
           ],
+        ];
+      }
+      else {
+        $build[$key]['#description'] = [
+          '#prefix' => $build[$key]['#description'] . '<pre><code>',
+          '#markup' => $validatability->computeValidatabilityTodo($property_path),
+          '#suffix' => '</code><pre></pre>',
         ];
       }
     }

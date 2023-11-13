@@ -16,7 +16,7 @@ dependencies:
   - varbase_media:varbase_media
   - slick:slick
 
-# Information added by Drupal.org packaging script on 2023-06-27
-version: '9.0.7'
+# Information added by Drupal.org packaging script on 2023-10-10
+version: '9.0.8'
 project: 'varbase_carousels'
-datestamp: 1687901095
+datestamp: 1696955467

@@ -13,7 +13,7 @@ interface AddressInterface {
    * @param mixed $address
    *   The input address, one of the following:
    *   - \Drupal\symfony_mailer\AddressInterface
-   *   - string
+   *   - string containing a single email address without display name
    *   - \Drupal\Core\Session\AccountInterface
    *   - \Symfony\Component\Mime\Address.
    *

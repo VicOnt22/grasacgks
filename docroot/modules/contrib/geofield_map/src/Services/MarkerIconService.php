@@ -211,12 +211,10 @@ class MarkerIconService {
       $theming_folder = $security . $rel_path;
       // Try to generate the theming.markers_location folder,
       // otherwise logs a warning.
-      if($theming_folder) {
-        if (!$this->fileSystem->mkdir($theming_folder)) {
-          $this->logger->warning($this->t("The '@folder' folder couldn't be created", [
-            '@folder' => $theming_folder,
-          ]));
-        }
+      if (!$this->fileSystem->mkdir($theming_folder)) {
+        $this->logger->warning($this->t("The '@folder' folder couldn't be created", [
+          '@folder' => $theming_folder,
+        ]));
       }
     }
 

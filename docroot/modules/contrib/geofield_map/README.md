@@ -1,6 +1,6 @@
 # Geofield Map
 
-Geofield Map is an advanced, complete and easy-to-use Geo Mapping solution for Drupal 8,
+Geofield Map is an advanced, complete and easy-to-use Geo Mapping solution for Drupal 8+,
 based on and fully compatible with the
 [Geofield](https://www.drupal.org/project/geofield "Geofield") module,
 that **lets you manage the Geofield with an interactive Map both in back-end
@@ -128,13 +128,13 @@ to manage overlapping markers;
   addresses Geocoding via the
   [Google Maps Places Autocomplete Service](https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete).
 - GeofieldMapWidget uses Leaflet MapTypes/Tiles pre-defined as
-  LeafletTileLayers D8 plugins, but any third party module is able to define and
+  LeafletTileLayers D8+ plugins, but any third party module is able to define and
   add its new LeafletTileLayer Plugins;
 - As default (configurable) option, eventual overlapping markers will be
   Spiderfied, with the support of the
   [Overlapping Marker Spiderfier Library (for Google Maps)](https://github.com/jawj/OverlappingMarkerSpiderfier#overlapping-marker-spiderfier-for-google-maps-api-v3 "Overlapping Marker Spiderfier Library (for Google Maps)");
 - Add, enable and configure
-  ["Geoocoder" module for D8](https://www.drupal.org/project/geocoder) to enable
+  ["Geoocoder" module for D8+](https://www.drupal.org/project/geocoder) to enable
   Geocoder Control (with Autocomplete) for quick Address search and Geofield Map
   Pan & Zoom functionalities;
 - The Geofield Map View style plugin will pass to the client js
@@ -144,7 +144,7 @@ to manage overlapping markers;
 
 ### **Geofield Map Dynamic Markers Theming & Legends Specifications**
 
-Geofield Map 2.x introduces the MapThemer Plugin system that allows the
+Geofield Map (since 2.x release) introduces the MapThemer Plugin system that allows the
 definition of MapThemer Plugins able to dynamically differentiate Map
 Features/Markers based on Contents Types, Taxonomy Terms, Values, etc. Each
 Plugin Type provides the automatic definition of a related Legend Build, that
@@ -162,8 +162,8 @@ defined:
 - List Type Field, allows the definition of different Marker Icons based on
   List (Options) Type fields in View;
 
-As Drupal 8 Plugin system based, the Geofield MapThemers Plugin and Legend
-block system is fully extendable and overridable. You, as D8 developer, are
+As Drupal 8+ Plugin system based, the Geofield MapThemers Plugin and Legend
+block system is fully extendable and overridable. You, as Drupal 8+ developer, are
 free to override and extend the existing ones, or create your custom MapThemer
 based on your specific needs and logics.
 
@@ -171,7 +171,7 @@ based on your specific needs and logics.
 
 You are advised to use Geofield Map Themers based on pre-defined file path
 selection (insetad of file managed upload) so to make your local settings
-part of the Drupal 8 configuration management, and thus compatible with its
+part of the Drupal 8+ configuration management, and thus compatible with its
 synchronization with stage and prod environments, and continuous integration.
 
 In the Geofield Map configuration page ('/admin/config/system/geofield_map_settings')
@@ -191,7 +191,7 @@ Icons might have an alias, might be reordered and might be hidden from the
 correspondent Legend Block.
 
 Once defined and configured the Legend you are free to place it, once or
-several times, as a normal Drupal 8 block on the pages, with your logics and
+several times, as a normal Drupal 8+ block on the pages, with your logics and
 contextual rules.
 
 ### **Notes & Warnings**

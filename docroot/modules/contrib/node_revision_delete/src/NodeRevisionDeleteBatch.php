@@ -30,40 +30,26 @@ class NodeRevisionDeleteBatch {
    */
   public static function deleteRevision($revision, bool $dry_run, int $total, &$context): void {
     $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+    /** @var \Drupal\node\NodeInterface $node */
+    $node = $revision instanceof Node ? $revision : $node_storage->loadRevision($revision);
 
-    if (empty($context['results'])) {
-      $context['results']['revisions'] = 0;
-
-      if ($revision instanceof Node) {
-        // Update context of the current node.
-        $context['results']['node'] = $revision;
-      }
-      else {
-        $context['results']['node'] = $node_storage->loadRevision($revision);
-      }
-    }
-
-    if ($revision instanceof Node) {
-      $revision = $revision->getRevisionId();
-    }
+    // Count the number of revisions deleted.
+    $revisions_count = $context['results']['revisions'] ?? 0;
+    $context['results']['revisions'] = ++$revisions_count;
 
     // Checking if this is a dry run or we really need to delete the variable.
     if (!$dry_run) {
       // Delete the revision.
-      $node_storage->deleteRevision($revision);
+      $node_storage->deleteRevision($node->getRevisionId());
     }
 
-    // Count the number of revisions deleted.
-    $context['results']['revisions']++;
     // Adding a message for the actual revision being deleted.
-    /** @var \Drupal\node\NodeInterface $node */
-    $node = $context['results']['node'];
     $message = t('@current / @total - Revision @rid of node @nid - @lang - @title', [
-      '@rid' => $revision,
+      '@rid' => $node->getRevisionId(),
       '@nid' => $node->id(),
       '@lang' => $node->language()->getId(),
       '@title' => $node->label(),
-      '@current' => $context['results']['revisions'],
+      '@current' => $revisions_count,
       '@total' => $total,
     ]);
     $context['message'] = $dry_run
@@ -87,22 +73,7 @@ class NodeRevisionDeleteBatch {
     $success_message = '';
 
     if ($success) {
-      // If we are finishing the prior delete feature.
-      if (isset($context['results']['node'])) {
-        $variables = [
-          '@total' => $results['revisions'],
-          '@type' => $results['node']->type->entity->label(),
-          '@title' => $results['node']->label(),
-        ];
-
-        $success_message = \Drupal::translation()->formatPlural(
-          $results['revisions'],
-          'One prior revision deleted.',
-          '@count prior revisions deleted of @type <em>@title</em>',
-          $variables
-        );
-      }
-      elseif (isset($results['revisions'])) {
+      if (isset($results['revisions'])) {
         $success_message = \Drupal::translation()->formatPlural(
           $results['revisions'],
           'One revision has been deleted.',

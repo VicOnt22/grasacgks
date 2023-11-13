@@ -16,6 +16,6 @@ class CcEmailAdjuster extends AddressAdjusterBase {
   /**
    * The name of the associated header.
    */
-  protected const NAME = 'Cc';
+  protected const NAME = 'cc';
 
 }

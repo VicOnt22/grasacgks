@@ -40,7 +40,23 @@
               nextPlayer.onpause = onPause;
               nextPlayer.onended = onFinish;
               nextPlayer.onplay = onPlayProgress;
-              nextPlayer.play();
+
+              // DOMException - The play() request was interrupted.
+              // https://developer.chrome.com/blog/play-request-was-interrupted
+              let nextPlayPromise;
+              nextPlayPromise = nextPlayer.play();
+              if (nextPlayPromise && Object.keys(nextPlayPromise).length === 0 && nextPlayPromise.constructor === Object) {
+                nextPlayPromise.then(_ => {
+                  // Automatic playback started!
+                  // Show playing UI.
+                  // We can now safely pause video...
+                  nextPlayer.pause();
+                })
+                .catch(error => {
+                  // Auto-play was prevented
+                  // Show paused UI.
+                });
+              }
             } else {
               mediaSliders.slick('slickPlay');
             }
@@ -58,11 +74,57 @@
 
             const firstVideoPlayer = firstVideo.get(0);
             firstVideoPlayer.muted = true;
-            firstVideoPlayer.play();
+
+            // DOMException - The play() request was interrupted.
+            // https://developer.chrome.com/blog/play-request-was-interrupted
+            let firstVideoPlayPromise;
+            firstVideoPlayPromise = firstVideoPlayer.play();
+            if (firstVideoPlayPromise && Object.keys(firstVideoPlayPromise).length === 0 && firstVideoPlayPromise.constructor === Object) {
+              firstVideoPlayPromise.then(_ => {
+                // Automatic playback started!
+                // Show playing UI.
+                // We can now safely pause video...
+                firstVideoPlayer.pause();
+              })
+              .catch(error => {
+                // Auto-play was prevented
+                // Show paused UI.
+              });
+            }
 
             firstVideo.on('ended', function () {
               mediaSliders.slick('slickPlay');
             });
+          }
+        });
+
+        $('.slick--view--varbase-heroslider-media.slick--less', context).each(function () {
+          const firstVideo = $(this)
+            .find('.slide')
+            .find('.varbase-video-player video', context);
+
+          if (firstVideo.length > 0) {
+
+            const firstVideoPlayer = firstVideo.get(0);
+            firstVideoPlayer.muted = true;
+            firstVideoPlayer.loop = true;
+
+            // DOMException - The play() request was interrupted.
+            // https://developer.chrome.com/blog/play-request-was-interrupted
+            let firstVideoPlayPromise;
+            firstVideoPlayPromise = firstVideoPlayer.play();
+            if (firstVideoPlayPromise && Object.keys(firstVideoPlayPromise).length === 0 && firstVideoPlayPromise.constructor === Object) {
+              firstVideoPlayPromise.then(_ => {
+                // Automatic playback started!
+                // Show playing UI.
+                // We can now safely pause video...
+                firstVideoPlayer.pause();
+              })
+              .catch(error => {
+                // Auto-play was prevented
+                // Show paused UI.
+              });
+            }
           }
         });
 

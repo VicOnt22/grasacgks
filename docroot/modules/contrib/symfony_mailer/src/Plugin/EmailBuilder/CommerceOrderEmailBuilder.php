@@ -7,8 +7,8 @@ use Drupal\commerce_order\Entity\OrderType;
 use Drupal\symfony_mailer\Address;
 use Drupal\symfony_mailer\EmailFactoryInterface;
 use Drupal\symfony_mailer\EmailInterface;
-use Drupal\symfony_mailer\MailerHelperTrait;
 use Drupal\symfony_mailer\Entity\MailerPolicy;
+use Drupal\symfony_mailer\MailerHelperTrait;
 use Drupal\symfony_mailer\Processor\EmailBuilderBase;
 
 /**
