@@ -15,6 +15,7 @@ use Drupal\webform\WebformInterface;
 use Drupal\webform\WebformSubmissionViewsData as WebformSubmissionViewsDataBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
+use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 
 /**
  * Views data for 'webform_submission' entity type.
@@ -42,6 +43,7 @@ class WebformSubmissionViewsData extends WebformSubmissionViewsDataBase {
       $container->get('module_handler'),
       $container->get('string_translation'),
       $container->get('entity_field.manager'),
+      $container->get('entity_type.bundle.info'),
       $container->get('plugin.manager.webform.element'),
       $container->get('entity_type.manager')->getStorage('webform')
     );
@@ -50,8 +52,8 @@ class WebformSubmissionViewsData extends WebformSubmissionViewsDataBase {
   /**
    * WebformSubmissionViewsData constructor.
    */
-  public function __construct(EntityTypeInterface $entity_type, SqlEntityStorageInterface $storage_controller, EntityTypeManagerInterface $entity_manager, ModuleHandlerInterface $module_handler, TranslationInterface $translation_manager, EntityFieldManagerInterface $entity_field_manager, WebformElementManagerInterface $webform_element_manager, EntityStorageInterface $webform_storage) {
-    parent::__construct($entity_type, $storage_controller, $entity_manager, $module_handler, $translation_manager, $entity_field_manager);
+  public function __construct(EntityTypeInterface $entity_type, SqlEntityStorageInterface $storage_controller, EntityTypeManagerInterface $entity_manager, ModuleHandlerInterface $module_handler, TranslationInterface $translation_manager, EntityFieldManagerInterface $entity_field_manager, EntityTypeBundleInfoInterface $entity_type_bundle_info, WebformElementManagerInterface $webform_element_manager, EntityStorageInterface $webform_storage) {
+    parent::__construct($entity_type, $storage_controller, $entity_manager, $module_handler, $translation_manager, $entity_field_manager, $entity_type_bundle_info);
 
     $this->webformElementManager = $webform_element_manager;
     $this->webformStorage = $webform_storage;
@@ -251,3 +253,4 @@ class WebformSubmissionViewsData extends WebformSubmissionViewsDataBase {
   }
 
 }
+

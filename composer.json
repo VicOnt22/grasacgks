@@ -52,8 +52,7 @@
         "drupal/display_field_copy": "^2.0",
         "drupal/views_bulk_operations": "4.2.3",
         "npm-asset/dompurify": "^3.0",
-        "enshrined/svg-sanitize": "^0.16.0",
-        "drupal/custom_entity_id": "^1.0@beta"
+        "enshrined/svg-sanitize": "^0.16.0"
     },
     "conflict": {
         "drupal/drupal": "*"

@@ -1039,15 +1039,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'drupal/custom_entity_id' => array(
-            'pretty_version' => '1.0.0-beta2',
-            'version' => '1.0.0.0-beta2',
-            'reference' => '1.0.0-beta2',
-            'type' => 'drupal-module',
-            'install_path' => __DIR__ . '/../../docroot/modules/contrib/custom_entity_id',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'drupal/default_content' => array(
             'pretty_version' => 'dev-2.0.x',
             'version' => 'dev-2.0.x',

@@ -141,7 +141,7 @@ class ContentModerationNotificationTest extends UnitTestCase {
     $query = $this->prophesize(QueryInterface::class);
     $query->execute()->willReturn([]);
     $query->condition('uuid', NULL)->willReturn($query->reveal());
-    $storage->getQuery()->willReturn($query->reveal());
+    $storage->getQuery()->accessCheck(FALSE)->willReturn($query->reveal());
     $storage->loadUnchanged('foo')->willReturn($notification);
     $notification->preSave($storage->reveal());
 

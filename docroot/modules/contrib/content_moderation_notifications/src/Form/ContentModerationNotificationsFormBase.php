@@ -235,7 +235,7 @@ class ContentModerationNotificationsFormBase extends EntityForm {
     $query = $this->entityTypeManager->getStorage('content_moderation_notification')->getQuery();
 
     // Query the entity ID to see if its in use.
-    $result = $query->condition('id', $element['#field_prefix'] . $entity_id)
+    $result = $query->accessCheck(FALSE)->condition('id', $element['#field_prefix'] . $entity_id)
       ->execute();
 
     // We don't need to return the ID, only if it exists or not.

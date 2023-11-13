@@ -1,7 +1,0 @@
-custom_entity_id.settings:
-  path: '/admin/config/custom-entity-id'
-  defaults:
-    _form: '\Drupal\custom_entity_id\Form\CustomEntityIdSettingsForm'
-    _title: 'Custom Entity Id settings'
-  requirements:
-    _permission: 'administer site configuration'

@@ -1,9 +1,0 @@
-name: Custom Entity Id
-type: module
-description: 'Provide custom entity id field on entity create page.'
-core_version_requirement: ^9.2 || ^10
-configure: custom_entity_id.settings
-# Information added by Drupal.org packaging script on 2023-09-12
-version: '1.0.0-beta2'
-project: 'custom_entity_id'
-datestamp: 1694515935
