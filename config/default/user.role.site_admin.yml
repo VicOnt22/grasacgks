@@ -36,12 +36,6 @@ dependencies:
     - taxonomy.vocabulary.seasonal_time
     - taxonomy.vocabulary.tags
     - taxonomy.vocabulary.traditional_knowledge_tk_labels
-    - user.role.authenticated
-    - user.role.full_member
-    - user.role.manager
-    - user.role.research_assistant
-    - user.role.seo_admin
-    - user.role.test_role
     - workflows.workflow.varbase_editorial_workflow
     - workflows.workflow.varbase_simple_workflow
   module:
@@ -73,7 +67,6 @@ dependencies:
     - layout_builder
     - locale
     - mailsystem
-    - masquerade
     - media
     - media_bulk_upload
     - media_revisions_ui
@@ -370,12 +363,6 @@ permissions:
   - 'have total control'
   - 'manage password reset'
   - 'manage search api tracking settings'
-  - 'masquerade as authenticated'
-  - 'masquerade as full_member'
-  - 'masquerade as manager'
-  - 'masquerade as research_assistant'
-  - 'masquerade as seo_admin'
-  - 'masquerade as test_role'
   - 'opt-in or out of google analytics tracking'
   - 'rabbit hole bypass node'
   - 'rabbit hole bypass taxonomy_term'
