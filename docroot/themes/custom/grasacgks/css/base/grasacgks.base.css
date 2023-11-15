@@ -148,3 +148,7 @@ a {
 .layout-sidebar-first #block-facetsummary {
   margin-top: 4rem;
 }
+
+#block-grasacgks-content ol.list-group {
+  list-style-type: none;
+}

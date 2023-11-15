@@ -181,4 +181,9 @@ a {
       margin-top: 4rem;
     }
   }
-
+//remove ::marker in the list that adds 1. to every item
+#block-grasacgks-content {
+    ol.list-group {
+      list-style-type: none;
+  }
+}
