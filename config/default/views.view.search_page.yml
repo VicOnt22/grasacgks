@@ -913,7 +913,7 @@ display:
           grid: '3'
           grid_medium: '2'
           grid_small: '1'
-          style: column
+          style: grid
       row:
         type: fields
       query:
