@@ -22,7 +22,7 @@ provider: null
 plugin: 'facet_block:date_made_filter_'
 settings:
   id: 'facet_block:date_made_filter_'
-  label: 'Date Made (Filter)'
+  label: 'Date Made'
   label_display: '0'
   provider: facets
   context_mapping: {  }

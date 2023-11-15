@@ -833,7 +833,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: "Your search didn't return any results.<br>\r\n<h4>Search Tips</h4>\r\n<ul>\r\n<li>try searching by item's type, region, collection or maker's nationality.</li>\r\n<li>check your spelling</li>\r\n<li>broaden your search by using single or more general word</li>\r\n</ul>"
+            value: "Sorry! Your term (or terms) did not return a result.<br>\r\n<h4>Search Tips</h4>\r\n<ul>\r\n<li>Try searching by item's type, region, collection or maker's nationality.</li>\r\n<li>Check your spelling.</li>\r\n<li>Try using a broader term, such as \"quill\" rather than \"quillwork\".</li>\r\n<li>Try an alternative spelling.</li>\r\n</ul>"
             format: full_html
           tokenize: false
       sorts:
@@ -934,7 +934,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: false
-          content: "<p>To search the GKS, type keywords into the bar above. Use filters on the left to narrow the default search results or keywords search results.</p>\r\n<h2>Search Results</h2>\r\nDisplaying @start - @end of @total\r\n<p>&nbsp;</p>"
+          content: "<p>To search the GKS, type keywords into the bar above. Use filters on the left to narrow your results.</p>\r\n<h2>Search Results</h2>\r\nDisplaying @start - @end of @total\r\n<p>&nbsp;</p>"
       footer: {  }
       display_extenders: {  }
     cache_metadata:

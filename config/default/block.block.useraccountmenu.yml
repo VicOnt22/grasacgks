@@ -1,0 +1,64 @@
+uuid: f1cbeb06-513d-433f-adb3-6ce035ec6583
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.account
+  module:
+    - context
+    - menu_block
+    - system
+    - user
+  theme:
+    - grasacgks
+id: useraccountmenu
+theme: grasacgks
+region: content
+weight: 0
+provider: null
+plugin: 'menu_block:account'
+settings:
+  id: 'menu_block:account'
+  label: 'User account menu'
+  label_display: '0'
+  provider: menu_block
+  follow: false
+  follow_parent: child
+  label_link: false
+  label_type: block
+  level: 1
+  depth: 0
+  expand_all_items: false
+  parent: 'account:'
+  suggestion: account
+visibility:
+  context:
+    id: context
+    negate: null
+    values: ''
+  user_status:
+    id: user_status
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    user_status:
+      viewing_profile: '0'
+      logged_viewing_profile: '0'
+      own_page_true: '0'
+      field_value: '0'
+    user_fields: uid
+  context_all:
+    id: context_all
+    negate: null
+    values: ''
+  request_path:
+    id: request_path
+    negate: false
+    pages: /node/59135
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      authenticated: authenticated

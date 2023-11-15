@@ -929,7 +929,20 @@ display:
           plugin_id: result
           empty: false
           content: '<p>&nbsp;</p>'
-      footer: {  }
+      footer:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: '<br>'
+            format: full_html
+          tokenize: false
       display_extenders:
         metatag_display_extender:
           metatags: {  }
@@ -1686,7 +1699,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: false
-          content: "<h2>Language Items</h2>\r\nDisplaying @start - @end from @total items, filtered by first letter.\r\n</br></br>"
+          content: "<h2>Language Items</h2>\r\n</br>"
         area:
           id: area
           table: views
@@ -1697,7 +1710,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: 'Browsing allows you to see all the records for language items in the GKS. You can browse by language by selecting a language from the drop down list below and clicking “Apply.” You can also browse by the first letter or character by clicking on it below.'
+            value: 'You can search the dictionaries in two ways. Enter an English term and then search for it in Anishnaabemowin, Cayuga or both languages (select "Any"). Or, select a letter to see the Anishinaabemowin and/or Cayuga terms beginning with that letter. "{" indicates a dependent noun - one that cannot appear without a pronoun.'
             format: full_html
           tokenize: false
       display_extenders:
