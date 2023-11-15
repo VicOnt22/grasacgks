@@ -718,15 +718,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'drupal/config_devel' => array(
-            'pretty_version' => '1.9.0',
-            'version' => '1.9.0.0',
-            'reference' => '8.x-1.9',
-            'type' => 'drupal-module',
-            'install_path' => __DIR__ . '/../../docroot/modules/contrib/config_devel',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'drupal/config_filter' => array(
             'pretty_version' => '2.6.0',
             'version' => '2.6.0.0',
@@ -951,15 +942,6 @@
             'replaced' => array(
                 0 => '9.5.11',
             ),
-        ),
-        'drupal/core-project-message' => array(
-            'pretty_version' => '9.5.11',
-            'version' => '9.5.11.0',
-            'reference' => '5dfa0b75a057caf6542be67f61e7531c737db48c',
-            'type' => 'composer-plugin',
-            'install_path' => __DIR__ . '/../drupal/core-project-message',
-            'aliases' => array(),
-            'dev_requirement' => false,
         ),
         'drupal/core-proxy-builder' => array(
             'dev_requirement' => false,
