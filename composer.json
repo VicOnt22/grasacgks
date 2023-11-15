@@ -65,27 +65,6 @@
         "branch-alias": {
             "dev-9.0.x": "9.0.x-dev"
         },
-        "drupal-core-project-message": {
-            "include-keys": [
-                "homepage",
-                "support"
-            ],
-            "post-create-project-cmd-message": [
-                "<bg=blue;fg=white>                                                         </>",
-                "<bg=blue;fg=white>  Congratulations, you’ve installed the Varbase codebase </>",
-                "<bg=blue;fg=white>  from the vardot/varbase-project template!              </>",
-                "<bg=blue;fg=white>                                                         </>",
-                "",
-                "<bg=yellow;fg=black>Next steps</>:",
-                "  * Install the site: https://www.drupal.org/docs/installing-drupal",
-                "  * Read the user guide: https://docs.varbase.vardot.com",
-                "  * Get support: https://www.vardot.com/en/form/get-support-varbase",
-                "  * Join Our Slack Team for Feedback and Support:",
-                "      http://slack.varbase.vardot.com",
-                "  * Remove the plugin that prints this message:",
-                "      composer remove drupal/core-project-message"
-            ]
-        },
         "drupal-scaffold": {
             "allowed-packages": [
                 "drupal/core",
