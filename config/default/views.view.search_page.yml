@@ -769,7 +769,7 @@ display:
         type: full
         options:
           offset: 0
-          items_per_page: 24
+          items_per_page: 30
           total_pages: null
           id: 0
           tags:
@@ -910,9 +910,9 @@ display:
       style:
         type: blazy
         options:
-          grid: '3'
-          grid_medium: '2'
-          grid_small: '1'
+          grid: '5'
+          grid_medium: '3'
+          grid_small: '2'
           style: grid
       row:
         type: fields
