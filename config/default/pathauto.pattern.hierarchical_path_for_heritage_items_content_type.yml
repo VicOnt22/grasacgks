@@ -7,12 +7,12 @@ dependencies:
 id: hierarchical_path_for_heritage_items_content_type
 label: 'Hierarchical path for Heritage Items content type'
 type: 'canonical_entities:node'
-pattern: '/relatives-heritage/[node:menu-link:parents:join-path]/[node:title]'
+pattern: '/search-page/[node:menu-link:parents:join-path]/[node:title]'
 selection_criteria:
-  fd660034-cde0-41eb-8356-7e6e4fe1573d:
+  6f67fa66-f03b-4982-ace8-35a884d97f7d:
     id: 'entity_bundle:node'
     negate: false
-    uuid: fd660034-cde0-41eb-8356-7e6e4fe1573d
+    uuid: 6f67fa66-f03b-4982-ace8-35a884d97f7d
     context_mapping:
       node: node
     bundles:
