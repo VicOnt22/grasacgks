@@ -66,7 +66,7 @@ dependencies:
     - field.field.node.heritage_item.field_source_coll_his
     - field.field.node.heritage_item.field_sources_exhib_pub_his
     - field.field.node.heritage_item.field_tk_label
-    - image.style.d02
+    - image.style.d01
     - node.type.heritage_item
   module:
     - ds
@@ -110,7 +110,7 @@ third_party_settings:
         settings:
           link: false
           'link class': ''
-          wrapper: h3
+          wrapper: h5
           class: ''
         ft:
           id: default
@@ -136,7 +136,7 @@ content:
     label: hidden
     settings:
       image_link: content
-      image_style: d02
+      image_style: d01
       image_loading:
         attribute: lazy
     third_party_settings:

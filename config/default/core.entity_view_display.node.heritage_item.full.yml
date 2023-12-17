@@ -209,6 +209,17 @@ third_party_settings:
         weight: 0
         label: hidden
         formatter: default
+        settings:
+          link: false
+          'link class': ''
+          wrapper: h2
+          class: ''
+        ft:
+          id: default
+          settings:
+            lb: ''
+            lb-col: false
+            classes: {  }
   layout_builder:
     enabled: false
     allow_custom: false
