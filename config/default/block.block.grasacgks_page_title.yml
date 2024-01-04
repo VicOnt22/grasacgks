@@ -54,4 +54,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: "/articles/*\r\n/pages/*\r\n/relatives-heritage/*"
+    pages: "/articles/*\r\n/pages/*\r\n/relatives-heritage/*\r\n/search-page/*"
