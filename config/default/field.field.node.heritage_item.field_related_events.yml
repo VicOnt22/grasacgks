@@ -1,17 +1,17 @@
-uuid: ddd3caa4-85d4-4c44-a002-6a925a5a9c7a
+uuid: 77dbfe1c-bedb-446f-b2c1-46f2996fea02
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_related_seasonal_time
+    - field.storage.node.field_related_events
     - node.type.heritage_item
-    - taxonomy.vocabulary.seasonal_time
-id: node.heritage_item.field_related_seasonal_time
-field_name: field_related_seasonal_time
+    - taxonomy.vocabulary.related_events
+id: node.heritage_item.field_related_events
+field_name: field_related_events
 entity_type: node
 bundle: heritage_item
-label: 'Seasonal time'
-description: 'May select multiple values, yet User Experience specialists recommend 1- to 4 range limit'
+label: 'Related events'
+description: 'An Event, related to this item.'
 required: false
 translatable: false
 default_value: {  }
@@ -20,7 +20,7 @@ settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      seasonal_time: seasonal_time
+      related_events: related_events
     sort:
       field: name
       direction: asc

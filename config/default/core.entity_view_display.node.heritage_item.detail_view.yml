@@ -57,6 +57,7 @@ dependencies:
     - field.field.node.heritage_item.field_record_creation_notes
     - field.field.node.heritage_item.field_region_of_origin
     - field.field.node.heritage_item.field_region_origin_attribution
+    - field.field.node.heritage_item.field_related_events
     - field.field.node.heritage_item.field_related_extern_lang_items
     - field.field.node.heritage_item.field_related_heritage_item
     - field.field.node.heritage_item.field_related_heritage_out_gks
@@ -217,6 +218,7 @@ hidden:
   field_record_creation_notes: true
   field_region_of_origin: true
   field_region_origin_attribution: true
+  field_related_events: true
   field_related_extern_lang_items: true
   field_related_heritage_item: true
   field_related_heritage_out_gks: true

@@ -56,6 +56,7 @@ dependencies:
     - field.field.node.heritage_item.field_record_creation_notes
     - field.field.node.heritage_item.field_region_of_origin
     - field.field.node.heritage_item.field_region_origin_attribution
+    - field.field.node.heritage_item.field_related_events
     - field.field.node.heritage_item.field_related_extern_lang_items
     - field.field.node.heritage_item.field_related_heritage_item
     - field.field.node.heritage_item.field_related_heritage_out_gks
@@ -199,6 +200,7 @@ third_party_settings:
         - field_date_attribution
         - field_related_seasonal_time
         - field_associated_ceremonial_time
+        - field_related_events
       label: 'Dates and Times for this item'
       region: content
       parent_name: ''
@@ -267,7 +269,7 @@ content:
     third_party_settings: {  }
   field_associated_ceremonial_time:
     type: options_select
-    weight: 24
+    weight: 23
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -1170,6 +1172,12 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  field_related_events:
+    type: options_select
+    weight: 24
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_related_extern_lang_items:
     type: link_default
     weight: 33
@@ -1215,7 +1223,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_related_seasonal_time:
-    type: options_select
+    type: options_buttons
     weight: 22
     region: content
     settings: {  }

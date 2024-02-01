@@ -2,7 +2,7 @@ uuid: b5def2b4-166a-490c-8597-b2df8ac9b707
 langcode: en
 status: true
 dependencies: {  }
-name: 'Related events/ceremonial Time'
+name: 'Ceremonial Time'
 vid: ceremonial_time
-description: 'Associated events/ceremonial time of the year'
+description: 'Associated ceremonial time of the year'
 weight: -10

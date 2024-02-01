@@ -1,0 +1,8 @@
+uuid: 6f0e066c-f02f-41eb-af04-b090319708a2
+langcode: en
+status: true
+dependencies: {  }
+name: 'Related events'
+vid: related_events
+description: 'Events related to this item'
+weight: 0

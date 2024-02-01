@@ -1,4 +1,4 @@
-uuid: c4ea6edc-5111-4b4d-8459-14d11a502a75
+uuid: 746b774c-1c74-4576-8dcb-8a117ef3a509
 langcode: en
 status: true
 dependencies:
@@ -9,15 +9,15 @@ dependencies:
 third_party_settings:
   field_permissions:
     permission_type: public
-id: node.field_related_seasonal_time
-field_name: field_related_seasonal_time
+id: node.field_related_events
+field_name: field_related_events
 entity_type: node
 type: entity_reference
 settings:
   target_type: taxonomy_term
 module: core
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

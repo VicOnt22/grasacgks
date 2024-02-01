@@ -1,0 +1,11 @@
+uuid: fb5bf89d-b0b0-4e63-8e6d-42510221247d
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.related_events
+id: taxonomy_term.related_events
+target_entity_type_id: taxonomy_term
+target_bundle: related_events
+default_langcode: site_default
+language_alterable: false
