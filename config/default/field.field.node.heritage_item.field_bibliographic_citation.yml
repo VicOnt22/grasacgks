@@ -9,7 +9,7 @@ id: node.heritage_item.field_bibliographic_citation
 field_name: field_bibliographic_citation
 entity_type: node
 bundle: heritage_item
-label: 'Related Bibliographic References'
+label: 'Sources to Learn More'
 description: ''
 required: false
 translatable: true

@@ -67,6 +67,7 @@ dependencies:
     - field.field.node.heritage_item.field_source_coll_his
     - field.field.node.heritage_item.field_sources_exhib_pub_his
     - field.field.node.heritage_item.field_tk_label
+    - field.field.node.heritage_item.field_weght
     - image.style.d01
     - node.type.heritage_item
   module:
@@ -240,5 +241,6 @@ hidden:
   field_source_coll_his: true
   field_sources_exhib_pub_his: true
   field_tk_label: true
+  field_weght: true
   langcode: true
   search_api_excerpt: true

@@ -9,7 +9,7 @@ id: node.heritage_item.field_description_source
 field_name: field_description_source
 entity_type: node
 bundle: heritage_item
-label: 'Source(s) of Information for this Item'
+label: 'Summary of Source(s) for this Relative'
 description: ''
 required: false
 translatable: true

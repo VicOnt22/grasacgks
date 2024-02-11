@@ -1,19 +1,21 @@
-uuid: 2934fbba-b51b-4860-b9da-1f39b2d5b017
+uuid: 58f01dbb-7626-42ae-b493-06c1fc5646c0
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_description_symbols
+    - field.storage.node.field_weght
     - node.type.heritage_item
-id: node.heritage_item.field_description_symbols
-field_name: field_description_symbols
+  module:
+    - physical
+id: node.heritage_item.field_weght
+field_name: field_weght
 entity_type: node
 bundle: heritage_item
-label: 'Additional Context'
+label: Weght
 description: ''
 required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: string_long
+field_type: physical_measurement

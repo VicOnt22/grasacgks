@@ -1,0 +1,24 @@
+uuid: f4d231d7-81af-4c9a-b17d-4cbd1bb3caee
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - node
+    - physical
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: node.field_weght
+field_name: field_weght
+entity_type: node
+type: physical_measurement
+settings:
+  measurement_type: weight
+module: physical
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

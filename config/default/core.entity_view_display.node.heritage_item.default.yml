@@ -66,6 +66,7 @@ dependencies:
     - field.field.node.heritage_item.field_source_coll_his
     - field.field.node.heritage_item.field_sources_exhib_pub_his
     - field.field.node.heritage_item.field_tk_label
+    - field.field.node.heritage_item.field_weght
     - filter.format.plain_text
     - node.type.heritage_item
   module:
@@ -1260,6 +1261,13 @@ content:
             classes: {  }
     weight: 48
     region: main
+  field_weght:
+    type: physical_measurement_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 63
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }

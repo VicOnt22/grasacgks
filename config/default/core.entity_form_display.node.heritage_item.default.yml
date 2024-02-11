@@ -66,6 +66,7 @@ dependencies:
     - field.field.node.heritage_item.field_source_coll_his
     - field.field.node.heritage_item.field_sources_exhib_pub_his
     - field.field.node.heritage_item.field_tk_label
+    - field.field.node.heritage_item.field_weght
     - image.style.thumbnail
     - node.type.heritage_item
     - workflows.workflow.varbase_editorial_workflow
@@ -88,8 +89,9 @@ third_party_settings:
     group_physical_description:
       children:
         - field_description_materials
-        - field_description_condition
         - field_dimensions
+        - field_weght
+        - field_description_condition
         - field_description_motifs
         - field_description_techniques
         - field_abstract
@@ -136,8 +138,8 @@ third_party_settings:
         - field_provenance
         - field_exhibition_notes
         - field_publication_history
-        - field_bibliographic_citation
         - field_sources_exhib_pub_his
+        - field_bibliographic_citation
         - field_function_attribution
       label: 'Item History'
       region: content
@@ -245,7 +247,7 @@ content:
     third_party_settings: {  }
   field_abstract:
     type: string_textarea
-    weight: 68
+    weight: 69
     region: content
     settings:
       rows: 5
@@ -275,7 +277,7 @@ content:
     third_party_settings: {  }
   field_bibliographic_citation:
     type: string_textarea
-    weight: 33
+    weight: 34
     region: content
     settings:
       rows: 5
@@ -349,7 +351,7 @@ content:
     third_party_settings: {  }
   field_description_condition:
     type: string_textarea
-    weight: 64
+    weight: 66
     region: content
     settings:
       rows: 5
@@ -373,7 +375,7 @@ content:
     third_party_settings: {  }
   field_description_motifs:
     type: string_textarea
-    weight: 66
+    weight: 67
     region: content
     settings:
       rows: 5
@@ -381,7 +383,7 @@ content:
     third_party_settings: {  }
   field_description_othernotes:
     type: string_textarea
-    weight: 71
+    weight: 72
     region: content
     settings:
       rows: 5
@@ -407,7 +409,7 @@ content:
     third_party_settings: {  }
   field_description_symbols:
     type: string_textarea
-    weight: 69
+    weight: 70
     region: content
     settings:
       rows: 5
@@ -415,7 +417,7 @@ content:
     third_party_settings: {  }
   field_description_techniques:
     type: string_textarea
-    weight: 67
+    weight: 68
     region: content
     settings:
       rows: 5
@@ -423,7 +425,7 @@ content:
     third_party_settings: {  }
   field_dimensions:
     type: physical_dimensions_default
-    weight: 65
+    weight: 64
     region: content
     settings:
       default_unit: cm
@@ -1126,7 +1128,7 @@ content:
     third_party_settings: {  }
   field_original_function:
     type: string_textarea
-    weight: 70
+    weight: 71
     region: content
     settings:
       rows: 5
@@ -1247,7 +1249,7 @@ content:
     third_party_settings: {  }
   field_sources_exhib_pub_his:
     type: string_textarea
-    weight: 34
+    weight: 33
     region: content
     settings:
       rows: 5
@@ -1258,6 +1260,15 @@ content:
     weight: 32
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_weght:
+    type: physical_measurement_default
+    weight: 65
+    region: content
+    settings:
+      default_unit: ''
+      allow_unit_change: true
+      available_units: {  }
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
