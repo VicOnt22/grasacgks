@@ -129,6 +129,10 @@ a {
   width: 375px;
 }
 
+#readmore-materials-tab summary {
+  font-weight: bold;
+}
+
 #provenance-group summary {
   font-weight: bold;
 }
