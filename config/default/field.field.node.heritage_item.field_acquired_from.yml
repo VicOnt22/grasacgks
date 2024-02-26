@@ -9,7 +9,7 @@ id: node.heritage_item.field_acquired_from
 field_name: field_acquired_from
 entity_type: node
 bundle: heritage_item
-label: 'Acquisition Source'
+label: 'Who the Institution Acquired the Relative or Heritage Item From'
 description: ''
 required: false
 translatable: true

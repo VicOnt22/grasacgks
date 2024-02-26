@@ -137,10 +137,11 @@ third_party_settings:
         - group_about_this_grasac_record
         - field_original_function
         - field_geolocation
-        - field_dimensions
+        - field_description_othernotes
         - field_region_origin_attribution
-        - field_weght
+        - field_dimensions
         - field_share_knowledge_form
+        - field_weght
         - field_description_condition
         - field_date_attribution
         - field_current_institution
@@ -153,7 +154,6 @@ third_party_settings:
         - field_related_extern_lang_items
         - field_date_acquisition
         - field_acquired_from
-        - field_source_coll_his
         - field_date_collection
         - field_contributor_collector
         - field_provenance
@@ -170,8 +170,6 @@ third_party_settings:
         - field_access_rationale
         - field_creative_commons_licence
         - field_folders
-        - field_description_othernotes
-        - field_local_origin_attribution
     fields:
       'display_field_copy:node-images_clone':
         plugin_id: 'display_field_copy:node-images_clone'
@@ -237,7 +235,6 @@ third_party_settings:
         - field_collection
         - field_date_acquisition
         - field_acquired_from
-        - field_source_coll_his
         - field_date_collection
         - field_contributor_collector
         - field_provenance
@@ -284,8 +281,6 @@ third_party_settings:
         - field_access_rationale
         - field_creative_commons_licence
         - field_folders
-        - field_description_othernotes
-        - field_local_origin_attribution
       label: 'About This GRASAC Record'
       parent_name: ''
       region: main
@@ -305,6 +300,7 @@ third_party_settings:
         - field_description_symbols
         - field_abstract
         - field_original_function
+        - field_description_othernotes
         - field_dimensions
         - field_weght
         - field_description_condition
@@ -874,7 +870,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 27
+    weight: 28
     region: main
   field_date_collection:
     type: string
@@ -981,7 +977,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 26
+    weight: 27
     region: main
   field_description_howtocite:
     type: advanced_text
@@ -1217,7 +1213,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 53
+    weight: 24
     region: main
   field_description_source:
     type: advanced_text
@@ -1464,7 +1460,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 24
+    weight: 25
     region: main
   field_exhibition_notes:
     type: advanced_text
@@ -2376,65 +2372,6 @@ content:
             prefix: ''
             suffix: ''
     weight: 4
-    region: main
-  field_local_origin_attribution:
-    type: advanced_text
-    label: above
-    settings:
-      trim_length: '0'
-      ellipsis: '1'
-      word_boundary: '1'
-      filter: input
-      format: plain_text
-      allowed_html:
-        - a
-        - b
-        - br
-        - dd
-        - dl
-        - dt
-        - em
-        - i
-        - li
-        - ol
-        - p
-        - strong
-        - u
-        - ul
-      use_summary: 0
-      token_replace: 0
-      link_to_entity: 0
-      autop: 0
-    third_party_settings:
-      ds:
-        ft:
-          id: expert
-          settings:
-            lb: ''
-            lbw: true
-            lbw-el: strong
-            lbw-cl: ''
-            lbw-at: ''
-            lb-col: false
-            ow: true
-            ow-el: ''
-            ow-cl: field-outer
-            ow-at: ''
-            ow-def-at: true
-            ow-def-cl: true
-            fis: false
-            fis-el: ''
-            fis-cl: ''
-            fis-at: ''
-            fis-def-at: false
-            fi: false
-            fi-el: ''
-            fi-cl: ''
-            fi-at: ''
-            fi-def-at: false
-            prefix: ''
-            suffix: ''
-    weight: 55
     region: main
   field_local_origin_tid:
     type: entity_reference_label
@@ -3357,65 +3294,6 @@ content:
             suffix: ''
     weight: 25
     region: main
-  field_source_coll_his:
-    type: advanced_text
-    label: above
-    settings:
-      trim_length: '0'
-      ellipsis: '1'
-      word_boundary: '1'
-      filter: input
-      format: plain_text
-      allowed_html:
-        - a
-        - b
-        - br
-        - dd
-        - dl
-        - dt
-        - em
-        - i
-        - li
-        - ol
-        - p
-        - strong
-        - u
-        - ul
-      use_summary: 0
-      token_replace: 0
-      link_to_entity: 0
-      autop: 0
-    third_party_settings:
-      ds:
-        ft:
-          id: expert
-          settings:
-            lb: ''
-            lbw: true
-            lbw-el: strong
-            lbw-cl: ''
-            lbw-at: ''
-            lb-col: false
-            ow: true
-            ow-el: ''
-            ow-cl: field-outer
-            ow-at: ''
-            ow-def-at: true
-            ow-def-cl: true
-            fis: false
-            fis-el: ''
-            fis-cl: ''
-            fis-at: ''
-            fis-def-at: false
-            fi: false
-            fi-el: ''
-            fi-cl: ''
-            fi-at: ''
-            fi-def-at: false
-            prefix: ''
-            suffix: ''
-    weight: 34
-    region: main
   field_sources_exhib_pub_his:
     type: advanced_text
     label: above
@@ -3546,7 +3424,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 25
+    weight: 26
     region: main
   links:
     settings: {  }
@@ -3559,7 +3437,9 @@ hidden:
   field_geofield: true
   field_imagemy_media: true
   field_item_type: true
+  field_local_origin_attribution: true
   field_media_image_twoc: true
   field_region_of_origin: true
+  field_source_coll_his: true
   langcode: true
   search_api_excerpt: true

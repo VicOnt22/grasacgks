@@ -9,7 +9,7 @@ id: node.heritage_item.field_date_collection
 field_name: field_date_collection
 entity_type: node
 bundle: heritage_item
-label: 'Date of Removal/Collection'
+label: 'Date Relative was First Removed or Collected from its Community Context'
 description: ''
 required: false
 translatable: true
