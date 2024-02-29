@@ -1,4 +1,4 @@
-verbose: 0
+verbose: 1
 types:
   block_content: {  }
   consumer: {  }
@@ -19,7 +19,8 @@ types:
   webform_submission: {  }
   menu_link_content: {  }
   paragraph: {  }
-  content_moderation_state: {  }
+  content_moderation_state:
+    '*': '*'
   entity_embed_fake_entity: {  }
   paragraphs_library_item: {  }
   path_alias: {  }
@@ -46,9 +47,10 @@ form_op_lock:
     mode: 0
     values: {  }
   node:
-    mode: 0
+    mode: 1
     values:
-      edit: edit
+      default: default
+      delete: delete
   redirect:
     mode: 0
     values: {  }

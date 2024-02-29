@@ -1,0 +1,11 @@
+uuid: 2093011f-0cd0-4993-94f9-2eebcb12f3f4
+langcode: en
+status: true
+dependencies:
+  module:
+    - content_lock
+id: content_moderation_state_break_lock_action
+label: 'Break lock content_moderation_state'
+type: content_moderation_state
+plugin: 'entity:break_lock:content_moderation_state'
+configuration: {  }
