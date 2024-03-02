@@ -119,8 +119,8 @@ third_party_settings:
         - field_maker_role
         - field_nation_tid
         - field_nation_rationale
-        - field_local_origin_tid
         - field_maker_attribution
+        - field_local_origin_tid
         - field_date_made
         - field_related_seasonal_time
         - field_associated_ceremonial_time
@@ -2407,7 +2407,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 12
+    weight: 13
     region: main
   field_maker_attribution:
     type: advanced_text
@@ -2466,7 +2466,7 @@ content:
             fi-def-at: false
             prefix: ''
             suffix: ''
-    weight: 13
+    weight: 12
     region: main
   field_maker_name:
     type: string
