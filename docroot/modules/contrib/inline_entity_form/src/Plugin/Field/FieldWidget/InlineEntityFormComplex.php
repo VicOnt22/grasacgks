@@ -706,23 +706,6 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
     }
     $triggering_element = $form_state->getTriggeringElement();
     if (empty($triggering_element['#ief_submit_trigger'])) {
-      $field_name = $this->fieldDefinition->getName();
-      $parents = array_merge($form['#parents'], [$field_name, 'form']);
-      // Build IEF ID form inline field
-      $ief_id = $this->makeIefId($parents);
-      $this->setIefId($ief_id);
-      // Get values entities by IEF ID in inline_entity_form
-      $widget_state = &$form_state->get(['inline_entity_form', $ief_id]);
-      // Sort items items base on weights.
-      if(isset($widget_state['entities']) && !empty($widget_state['entities'])){
-        $values = $widget_state['entities'];
-        uasort($values, '\Drupal\Component\Utility\SortArray::sortByWeightElement');
-        // Let the widget massage the submitted values.
-        $values = $this->massageFormValues($values, $form, $form_state);
-        // Assign the values and remove the empty ones.
-        $items->setValue($values);
-        $items->filterEmptyItems();
-      }
       return;
     }
 

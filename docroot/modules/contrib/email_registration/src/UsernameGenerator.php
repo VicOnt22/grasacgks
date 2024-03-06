@@ -2,7 +2,7 @@
 
 namespace Drupal\email_registration;
 
-use Drupal\Core\Password\PasswordGeneratorInterface;
+use Drupal\Component\Uuid\UuidInterface;
 
 /**
  * The Username Generator service.
@@ -10,27 +10,27 @@ use Drupal\Core\Password\PasswordGeneratorInterface;
 final class UsernameGenerator {
 
   /**
-   * The password generator object.
+   * The uuid generator object.
    *
-   * @var \Drupal\Core\Password\PasswordGeneratorInterface
+   * @var \Drupal\Component\Uuid\UuidInterface
    */
-  protected $passwordGenerator;
+  protected $uuid;
 
   /**
    * Constructs an UsernameGenerator object.
    */
-  public function __construct(PasswordGeneratorInterface $passwordGenerator) {
-    $this->passwordGenerator = $passwordGenerator;
+  public function __construct(UuidInterface $uuid_service) {
+    $this->uuid = $uuid_service;
   }
 
   /**
-   * Generates a random prefixed username.
+   * Generates a random suffixed username.
    *
    * @return string
    *   The generated username.
    */
   public function generateRandomUsername(): string {
-    return 'email_registration_' . $this->passwordGenerator->generate();
+    return 'email_registration_' . $this->uuid->generate();
   }
 
 }

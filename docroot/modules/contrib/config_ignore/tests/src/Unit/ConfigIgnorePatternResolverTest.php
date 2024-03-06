@@ -17,9 +17,6 @@ class ConfigIgnorePatternResolverTest extends UnitTestCase {
   /**
    * Tests the config ignore pattern resolver.
    *
-   * @throws \ReflectionException
-   *   If the class does not exist.
-   *
    * @covers ::getIgnoredConfigs
    */
   public function testGetIgnoredConfigs() {
@@ -109,9 +106,6 @@ class ConfigIgnorePatternResolverTest extends UnitTestCase {
    * @return array
    *   A list of ignored configs as is returned by
    *   ConfigIgnoreEventSubscriber::getIgnoredConfigs()
-   *
-   * @throws \ReflectionException
-   *   If the class does not exist.
    *
    * @see \Drupal\config_ignore\EventSubscriber\ConfigIgnoreEventSubscriber::getIgnoredConfigs()
    */

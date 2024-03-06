@@ -95,7 +95,7 @@ abstract class GeocoderProviderFormBase extends EntityForm {
       $form_state->setRedirectUrl($this->entity->toUrl('collection'));
     }
     catch (\Exception $e) {
-      watchdog_exception('geocoder', $e);
+      $this->getLogger('geocoder')->error($e->getMessage());
     }
     return $result;
   }

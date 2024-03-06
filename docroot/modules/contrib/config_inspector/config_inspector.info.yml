@@ -5,7 +5,7 @@ package: Development
 configure: config_inspector.overview
 core_version_requirement: ^9.2 || ^10 || ^11
 
-# Information added by Drupal.org packaging script on 2023-10-25
-version: '2.1.7'
+# Information added by Drupal.org packaging script on 2024-01-10
+version: '2.1.8'
 project: 'config_inspector'
-datestamp: 1698249902
+datestamp: 1704878347

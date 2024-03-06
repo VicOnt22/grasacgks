@@ -44,11 +44,18 @@ final class ConfigSchemaValidatability {
   private $results = [];
 
   /**
-   * Array of origins.
+   * Array of absolute property paths to defining types.
    *
    * @var array
    */
-  public $origins = [];
+  public $types = [];
+
+  /**
+   * Array of absolute property paths to config object names.
+   *
+   * @var array
+   */
+  public $objects = [];
 
   /**
    * Constructs a new instance of the class.
@@ -60,12 +67,16 @@ final class ConfigSchemaValidatability {
    * @param string $defining_config_schema_type
    *   The type in which this property path is originally defined (and hence
    *   where validation constraints should be added.)
+   * @param string $containing_config_object
+   *   The config object this is in.
    */
-  public function __construct(string $property_path, array $constraints, string $defining_config_schema_type) {
+  public function __construct(string $property_path, array $constraints, string $defining_config_schema_type, string $containing_config_object) {
     assert(array_key_exists('local', $constraints) && array_key_exists('inherited', $constraints));
     $this->constraints[$property_path] = $constraints;
     $this->results[$property_path] = !empty($constraints['local']) || !empty($constraints['inherited']);
-    $this->origins[$property_path] = $defining_config_schema_type;
+    $this->types[$property_path] = $defining_config_schema_type;
+    assert(str_starts_with($property_path, $containing_config_object));
+    $this->objects[$property_path] = $containing_config_object;
   }
 
   /**
@@ -82,8 +93,10 @@ final class ConfigSchemaValidatability {
     ksort($this->results);
     $this->constraints = array_merge($this->constraints, $other->constraints);
     ksort($this->constraints);
-    $this->origins = array_merge($this->origins, $other->origins);
-    ksort($this->origins);
+    $this->types = array_merge($this->types, $other->types);
+    ksort($this->types);
+    $this->objects = array_merge($this->objects, $other->objects);
+    ksort($this->objects);
     return $this;
   }
 
@@ -147,6 +160,7 @@ final class ConfigSchemaValidatability {
    *     options.
    */
   public function getConstraints(string $property_path): array {
+    assert(array_key_exists($property_path, $this->constraints), "$property_path does not exist, available: " . print_r(array_keys($this->constraints), TRUE));
     return $this->constraints[$property_path];
   }
 
@@ -161,7 +175,7 @@ final class ConfigSchemaValidatability {
    *   where validation constraints should be added.)
    */
   public function getDefiningConfigSchemaType(string $property_path): string {
-    return $this->origins[$property_path];
+    return $this->types[$property_path];
   }
 
   /**
@@ -209,7 +223,7 @@ final class ConfigSchemaValidatability {
     $todo_property_paths = array_diff_key($this->results, array_filter($this->results));
     $count_todos = count($todo_property_paths);
 
-    $r = array_intersect_key($this->origins, $todo_property_paths);
+    $r = array_intersect_key($this->types, $todo_property_paths);
     $count_config_names = count(array_flip($r));
 
     $r2 = array_count_values($r);

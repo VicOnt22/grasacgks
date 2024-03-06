@@ -1,9 +1,9 @@
 pathologic.settings:
   type: config_object
   mapping:
-    scheme_whitelist:
+    scheme_allow_list:
       type: sequence
-      label: 'Scheme whitelist'
+      label: 'Scheme allow list'
       sequence:
         - type: string
           label: 'Scheme'
@@ -13,6 +13,9 @@ pathologic.settings:
     local_paths:
       type: string
       label: 'Also considered local'
+    keep_language_prefix:
+      type: boolean
+      label: 'Keep language prefix'
 
 filter_settings.filter_pathologic:
   type: filter
@@ -31,3 +34,6 @@ filter_settings.filter_pathologic:
         local_paths:
           type: string
           label: 'Also considered local'
+        keep_language_prefix:
+          type: boolean
+          label: 'Keep language prefix'

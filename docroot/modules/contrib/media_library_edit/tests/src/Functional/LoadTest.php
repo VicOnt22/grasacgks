@@ -14,6 +14,8 @@ class LoadTest extends BrowserTestBase {
 
   /**
    * Set theme to be used for testing.
+   *
+   * @var string
    */
   protected $defaultTheme = 'classy';
 

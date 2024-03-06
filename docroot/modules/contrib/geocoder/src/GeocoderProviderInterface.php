@@ -12,7 +12,7 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
 interface GeocoderProviderInterface extends ConfigEntityInterface {
 
   /**
-   * Returns whether or not this provider is configurable.
+   * Returns whether this provider is configurable.
    *
    * @return bool
    *   The bool result.

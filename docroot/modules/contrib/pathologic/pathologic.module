@@ -23,8 +23,9 @@
  * - Alter hook alters Drupal\Core\Url object instead of method parameters.
  */
 
+declare(strict_types=1);
+
 use Drupal\Component\Utility\Html;
-use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Url;
 
 /**
@@ -46,7 +47,7 @@ function _pathologic_filter($text, $settings, $hash) {
   $cached_settings = &drupal_static(__FUNCTION__, []);
   if (!isset($cached_settings[$hash])) {
     $settings['local_paths_exploded'] = [];
-    if ($settings['local_paths'] !== '') {
+    if ($settings['local_paths'] ?? '' !== '') {
       // Build an array of the exploded local paths for this format's settings.
       // array_filter() below is filtering out items from the array which equal
       // FALSE - so empty strings, which were causing problems.
@@ -72,7 +73,7 @@ function _pathologic_filter($text, $settings, $hash) {
                 // Noobs (like me): "xor" means "true if one or the other are
                 // true, but not both."
                 (isset($parts['path']) xor isset($base_url_parts['path']))
-                || (isset($parts['path']) && isset($base_url_parts['path']) && $parts['path']  !== $base_url_parts['path'])
+                || (isset($parts['path']) && isset($base_url_parts['path']) && $parts['path'] !== $base_url_parts['path'])
               )
             )
           ) ||
@@ -143,7 +144,7 @@ function _pathologic_replace($matches) {
   }
   // Now parse the URL after reverting HTML character encoding.
   // @see http://drupal.org/node/1672932
-  $original_url = htmlspecialchars_decode($matches[2]);
+  $original_url = htmlspecialchars_decode($matches[2], ENT_COMPAT);
   // …and parse the URL
   $parts = parse_url($original_url);
   // Do some more early tests to see if we should just give up now.
@@ -161,7 +162,7 @@ function _pathologic_replace($matches) {
       // @see http://drupal.org/node/1834308
       // Default value is ['http', 'https', 'files', 'internal']
       // "files" and "internal" are for Path Filter compatibility.
-      && !in_array($parts['scheme'], \Drupal::config('pathologic.settings')->get('scheme_whitelist') ?? [])
+      && !in_array($parts['scheme'], \Drupal::config('pathologic.settings')->get('scheme_allow_list') ?? [])
     )
     // Bail out if it looks like there's only a fragment part.
     || (isset($parts['fragment']) && count($parts) === 1)
@@ -296,7 +297,8 @@ function _pathologic_replace($matches) {
 
   // Okay, deal with language stuff.
   // Let's see if we can split off a language prefix from the path.
-  if (\Drupal::moduleHandler()->moduleExists('language')) {
+  $keep_language_prefix = $cached_settings['current_settings']['keep_language_prefix'] ?? FALSE;
+  if ($keep_language_prefix === FALSE && \Drupal::moduleHandler()->moduleExists('language')) {
     // This logic is based on
     // \Drupal\language\Plugin\LanguageNegotiation\LanguageNegotiationUrl::getLangcode().
     $languages = \Drupal::languageManager()->getLanguages();

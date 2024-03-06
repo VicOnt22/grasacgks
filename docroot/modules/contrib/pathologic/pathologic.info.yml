@@ -3,11 +3,11 @@ description: 'Helps avoid broken links and incorrect paths in content.'
 core_version_requirement: ^9 || ^10
 package: 'Input filters'
 dependencies:
-- drupal:filter
+  - drupal:filter
 type: module
 configure: pathologic.config_form
 
-# Information added by Drupal.org packaging script on 2023-04-12
-version: '2.0.0-alpha1'
+# Information added by Drupal.org packaging script on 2024-01-24
+version: '2.0.0-alpha2'
 project: 'pathologic'
-datestamp: 1681263980
+datestamp: 1706131025

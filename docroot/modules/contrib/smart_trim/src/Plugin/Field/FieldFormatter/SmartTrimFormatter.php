@@ -2,15 +2,15 @@
 
 namespace Drupal\smart_trim\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Utility\Token;
 use Drupal\smart_trim\TruncateHTML;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Utility\Token;
-use Drupal\Core\Extension\ModuleHandlerInterface;
 
 /**
  * Plugin implementation of the 'smart_trim' formatter.
@@ -74,7 +74,7 @@ class SmartTrimFormatter extends FormatterBase implements ContainerFactoryPlugin
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler service.
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, TruncateHTML $truncate_html, Token $token, ModuleHandlerInterface $module_handler) {
+  final public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, TruncateHTML $truncate_html, Token $token, ModuleHandlerInterface $module_handler) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->truncateHtml = $truncate_html;
     $this->token = $token;
@@ -154,6 +154,7 @@ class SmartTrimFormatter extends FormatterBase implements ContainerFactoryPlugin
       '#type' => 'textfield',
       '#size' => 10,
       '#default_value' => $this->getSetting('trim_suffix'),
+      '#description' => $this->t('Unicode character identifiers of the form \u2026 allowed.'),
     ];
 
     if ($this->fieldDefinition->getType() == 'text_with_summary') {
@@ -272,7 +273,6 @@ class SmartTrimFormatter extends FormatterBase implements ContainerFactoryPlugin
     ];
 
     $element['more']['token_browser'] = [
-      '#type' => 'item',
       '#theme' => 'token_tree_link',
       '#token_types' => [$this->fieldDefinition->getTargetEntityTypeId()],
       '#states' => $more_states,
@@ -367,10 +367,10 @@ class SmartTrimFormatter extends FormatterBase implements ContainerFactoryPlugin
 
     foreach ($items as $delta => $item) {
       if ($settings_summary_handler != 'ignore' && !empty($item->summary)) {
-        $output = $item->summary;
+        $output = trim($item->summary);
       }
       else {
-        $output = $item->value;
+        $output = trim($item->value);
       }
 
       // Process additional options (currently only HTML on/off).
@@ -404,9 +404,10 @@ class SmartTrimFormatter extends FormatterBase implements ContainerFactoryPlugin
           $output = preg_replace('/<style[^>]*>.*?<\/style>/is', ' ', $output);
 
           // Strip tags.
-          // Add space before each tag to ensure words don't run together.
-          // Logic via https://stackoverflow.com/questions/12824899/strip-tags-replace-tags-by-space-rather-than-deleting-them
-          $output = str_replace('<', ' <', $output);
+          // Add space before each opening tag to ensure words don't run
+          // together. Used logic from:
+          // https://stackoverflow.com/questions/12824899/strip-tags-replace-tags-by-space-rather-than-deleting-them
+          $output = preg_replace('/<(\w+)(?![^>]*\/>)[^>]*>/', ' <\1>', $output);
           $output = strip_tags($output);
           $output = str_replace('  ', ' ', $output);
           $output = trim($output);
@@ -437,6 +438,10 @@ class SmartTrimFormatter extends FormatterBase implements ContainerFactoryPlugin
           $output = $this->truncateHtml->truncateChars($output, $length, $ellipse);
         }
       }
+
+      // Re-encode HTML entities.
+      $output = html_entity_decode($output, ENT_QUOTES, 'UTF-8');
+
       $element[$delta] = [
         '#theme' => 'smart_trim',
         '#output' => [
@@ -444,6 +449,7 @@ class SmartTrimFormatter extends FormatterBase implements ContainerFactoryPlugin
           '#text' => $output,
           '#format' => $item->format,
         ],
+        '#is_trimmed' => trim($original_output) != $output,
         '#wrap_output' => $this->getSetting('wrap_output'),
         '#wrapper_class' => $this->getSetting('wrap_class'),
         '#field' => $item->getParent()->getName(),
@@ -463,15 +469,15 @@ class SmartTrimFormatter extends FormatterBase implements ContainerFactoryPlugin
           (($more_settings['link_trim_only'] ?? FALSE) !== TRUE) ||
           ($original_output != $output)
         ) {
-          $more = $more_settings['text'];
+          // @todo Change to use config translation when #2546212 merged in core.
+          // phpcs:ignore
+          $more = $this->t($more_settings['text']);
           $this->token->replace($more, $tokenData, [
             'langcode' => $langcode,
           ]);
           $class = $more_settings['class'];
           $target = $more_settings['target_blank'];
           $link = $entity->toLink($more);
-          $project_link = $link->toRenderable();
-          $project_link['#attributes']['class'] = [$class];
 
           // Allow other modules to modify the read more link before it's
           // created.
@@ -480,6 +486,12 @@ class SmartTrimFormatter extends FormatterBase implements ContainerFactoryPlugin
             &$more,
             &$link,
           ]);
+
+          // Update the link if the $more was changed in the hook.
+          $link->setText($more);
+
+          $project_link = $link->toRenderable();
+          $project_link['#attributes']['class'] = [$class];
 
           // Ensure we don't create an empty aria-label attribute.
           $aria_label = $more_settings['aria_label'];

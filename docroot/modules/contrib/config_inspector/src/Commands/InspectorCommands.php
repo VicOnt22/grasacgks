@@ -102,6 +102,7 @@ class InspectorCommands extends DrushCommands {
     'strict-validation' => FALSE,
     'list-constraints' => FALSE,
     'todo' => self::OPT,
+    'statistics' => FALSE,
   ]) {
     if ($options['skip-keys'] && $options['filter-keys']) {
       throw new \Exception('Cannot use both --skip-keys and --filter-keys. Use either or neither, not both.');
@@ -113,7 +114,9 @@ class InspectorCommands extends DrushCommands {
       throw new \Exception('Cannot use --todo --detail.');
     }
 
-    $this->say("🤖 Analyzing…\n");
+    if (!$options['statistics']) {
+      $this->say("🤖 Analyzing…\n");
+    }
 
     $rows = [];
     $exitCode = self::EXIT_SUCCESS;
@@ -257,7 +260,7 @@ class InspectorCommands extends DrushCommands {
       }
 
       // Keep all raw validatability when doing a system-wide analysis.
-      if ($options['todo']) {
+      if ($options['todo'] || $options['statistics']) {
         if (!isset($total_raw_validatability)) {
           $total_raw_validatability = $raw_validatability;
         }
@@ -320,6 +323,175 @@ class InspectorCommands extends DrushCommands {
       $this->say('drush config:inspect --detail --list-constraints --fields=key,constraints | grep "@todo" | grep [ONE OF THE ABOVE]');
 
       return NULL;
+    }
+
+    if ($options['statistics']) {
+      $statistics = [
+        'assessment' => [
+          '_description' => 'Default assessment generated from these statistics.',
+        ],
+        'types' => [
+          '_description' => 'Config types aka config schema definitions. When encapsulated in Typed Data, these would be called data types.',
+        ],
+        'typesInUse' => [
+          '_description' => 'Config types actually used by config objects on this site.',
+        ],
+        'objects' => [
+          '_description' => 'Concrete config objects: either simple configuration or config entities.',
+        ],
+      ];
+
+      // Alias for legibility.
+      $analysis = $total_raw_validatability;
+      $prop_paths = $analysis->getValidatabilityPerPropertyPath();
+
+      // First: types.
+      $t_all = array_keys($analysis::$rawConfigSchemaDefinitions);
+      sort($t_all);
+      $t_fully_validatable = array_values(array_filter($t_all, fn (string $t): bool => array_key_exists('FullyValidatable', $analysis::$rawConfigSchemaDefinitions[$t]['constraints'] ?? [])));
+      $statistics['types'] += [
+        'all' => [
+          'count' => count($t_all),
+          'list' => $t_all,
+        ],
+        'validatable' => [
+          'validatable' => '@todo copy stuff from https://www.drupal.org/project/drupal/issues/3324984',
+        ],
+        'fullyValidatable' => [
+          'count' => count($t_fully_validatable),
+          'list' => $t_fully_validatable,
+        ],
+        'perExtension' => [
+          '_description' => '@todo: if the first part of the type name (before the period) matches an extension, then that is the provider. Otherwise, "core" is the provider.',
+          'all' => [],
+          'validatable' => [],
+        ],
+      ];
+      $statistics['assessment']['typesFullyValidatable'] = count($t_fully_validatable) / count($t_all);
+
+      // Second: types in use on this Drupal site.
+      $tiu_all = array_count_values($total_raw_validatability->types);
+      ksort($tiu_all);
+      assert(empty(array_diff(array_keys($tiu_all), $t_all)), 'Types in use must be a subset of all types.');
+      $tiu_validatable_property_paths = array_intersect_key($prop_paths, array_filter($prop_paths));
+      $tiu_todo_property_paths = array_diff_key($prop_paths, array_filter($prop_paths));
+      $r_validatable = array_intersect_key($total_raw_validatability->types, array_filter($prop_paths));
+      ksort($r_validatable);
+      $tiu_validatable = array_values(array_unique($r_validatable));
+      $tiu_fully_validatable = array_values(array_filter($tiu_validatable, fn (string $t): bool => array_key_exists('FullyValidatable', $analysis::$rawConfigSchemaDefinitions[$t]['constraints'] ?? [])));
+      $tiu_todo = array_diff(array_keys($tiu_all), $tiu_validatable);
+      $r_todo = array_diff_key($total_raw_validatability->types, array_filter($prop_paths));
+      $statistics['typesInUse'] += [
+        'all' => [
+          'count' => count($tiu_all),
+          'list' => array_keys($tiu_all),
+          'propertyPathCountTotal' => array_sum($tiu_all),
+          'propertyPathCountPerType' => $tiu_all,
+        ],
+        'validatable' => [
+          'count' => count($tiu_validatable),
+          'list' => $tiu_validatable,
+          'propertyPathCountTotal' => array_sum(array_intersect_key($tiu_all, array_fill_keys($tiu_validatable, TRUE))),
+          'propertyPathCountPerType' => array_intersect_key($tiu_all, array_fill_keys($tiu_validatable, TRUE)),
+        ],
+        'implicitlyFullyValidatable' => [
+          // @see below
+        ],
+        'fullyValidatable' => [
+          'count' => count($tiu_fully_validatable),
+          'list' => $tiu_fully_validatable,
+          'propertyPathCountTotal' => array_sum(array_intersect_key($tiu_all, array_fill_keys($tiu_fully_validatable, TRUE))),
+          'propertyPathCountPerType' => array_intersect_key($tiu_all, array_fill_keys($tiu_fully_validatable, TRUE)),
+        ],
+        'perPropertyPath' => [
+          'all' => [
+            // @todo Implement support for deduplicating the same property path across all objects using this type.
+            'count' => -1,
+          ],
+          'validatable' => [
+            // @todo Implement support for deduplicating the same property path across all objects using this type.
+            'count' => -1,
+          ],
+          'fullyValidatable' => [
+            // @todo Implement support for deduplicating the same property path across all objects using this type.
+            'count' => -1,
+          ],
+        ],
+        'perExtension' => [
+          '_description' => 'This is not possible to generate today because config type definitions are plugins without a provider…',
+        ],
+      ];
+      $statistics['assessment']['typesInUse'] = count($tiu_all) / count($t_all);
+      $statistics['assessment']['typesInUsePartiallyValidatable'] = count($tiu_validatable) / count($tiu_all);
+      $statistics['assessment']['typesInUseFullyValidatable'] = count($tiu_fully_validatable) / count($tiu_all);
+      // @todo Computing `typesInUsePropertyPathsPartiallyValidatable` requires knowing how exactly how many of the property paths in a type are actually validatable.
+      $statistics['assessment']['typesInUsePropertyPathsFullyValidatable'] = array_sum(array_intersect_key($tiu_all, array_fill_keys($tiu_fully_validatable, TRUE))) / array_sum($tiu_all);
+
+      // Third: objects.
+      $o_all = array_values(array_unique($analysis->objects));
+      $o_p_all = $analysis->getValidatabilityPerPropertyPath();
+      $o_p_validatable = array_filter($o_p_all);
+      $o_p_not_validatable = array_diff_key($o_p_all, $o_p_validatable);
+      $o_validatable = array_values(array_unique(array_intersect_key($analysis->objects, $o_p_validatable)));
+      $o_not_validatable = array_values(array_unique(array_intersect_key($analysis->objects, $o_p_not_validatable)));
+      $o_t_all = array_intersect_key($analysis->types, array_fill_keys($o_all, TRUE));
+      $o_t_validatable = array_values(array_unique(array_intersect_key($analysis->types, array_fill_keys($o_validatable, TRUE))));
+      $o_implicitly_fully_validatable = array_intersect(
+        $o_t_all,
+        array_values(array_unique(array_intersect_key($analysis->types, array_fill_keys(array_diff($o_validatable, $o_not_validatable), TRUE))))
+      );
+      $o_t_implicitly_fully_validatable = array_values(array_unique($o_implicitly_fully_validatable));
+      $o_t_explicitly_fully_validatable = array_intersect($o_t_implicitly_fully_validatable, $tiu_fully_validatable);
+      $o_explicitly_fully_validatable = array_intersect($o_t_all, $o_t_explicitly_fully_validatable);
+      $statistics['objects'] += [
+        'all' => [
+          'count' => count($o_all),
+          'list' => $o_all,
+        ],
+        // Distinguish between:
+        // - validatable: >=1 property path in this object has >=1 validation
+        //   constraint
+        // - implicitly fully validatable: every property path in this object
+        //   has >=1 validation constraint
+        // - explicitly fully validatable: the type of this config object
+        //   (simple config or config entity) is explicitly marked as
+        //   `FullyValidatable`.
+        'validatable' => [
+          'count' => count($o_validatable),
+          'list' => $o_validatable,
+        ],
+        'implicitlyFullyValidatable' => [
+          'count' => count($o_implicitly_fully_validatable),
+          'list' => array_keys($o_implicitly_fully_validatable),
+        ],
+        'fullyValidatable' => [
+          'count' => count($o_explicitly_fully_validatable),
+          'list' => array_keys($o_explicitly_fully_validatable),
+        ],
+        'perPropertyPath' => [
+          'all' => [
+            'count' => count($o_p_all),
+          ],
+          'validatable' => [
+            'count' => count($o_p_validatable),
+          ],
+          'fullyValidatable' => [
+            // @todo Implement support for the `FullyValidatable` constraint.
+            'count' => -1,
+          ],
+        ],
+      ];
+      $statistics['typesInUse']['implicitlyFullyValidatable'] = [
+        'count' => $o_t_implicitly_fully_validatable,
+        'list' => $o_t_implicitly_fully_validatable,
+      ];
+      $statistics['assessment']['typesInUseImplicitlyFullyValidatable'] = count($o_t_implicitly_fully_validatable) / count($tiu_all);
+      $statistics['assessment']['objectPropertyPathsValidatable'] = count($o_p_validatable) / count($o_p_all);
+      $statistics['assessment']['objectPropertyPathsFullyValidatable'] = array_sum(array_intersect_key($tiu_all, array_fill_keys($tiu_fully_validatable, TRUE))) / count($o_p_all);
+      $statistics['assessment']['objectsImplicitlyFullyValidatable'] = count($o_implicitly_fully_validatable) / count($o_all);
+      $statistics['assessment']['objectsFullyValidatable'] = count($o_explicitly_fully_validatable) / count($o_all);
+
+      return CommandResult::dataWithExitCode(json_encode($statistics, JSON_PRETTY_PRINT), $exitCode);
     }
 
     // Provide a legend if the "data" field is displayed.

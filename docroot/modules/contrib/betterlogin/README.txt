@@ -41,4 +41,4 @@ MAINTAINERS
 
 Current maintainers:
  * Jonathan Wagener (theamoeba) - https://www.drupal.org/u/theamoeba
- * Yogesh Pawar - https://www.drupal.org/u/yogesh-pawar
+ * Yogesh Pawar - https://www.drupal.org/u/yogeshmpawar

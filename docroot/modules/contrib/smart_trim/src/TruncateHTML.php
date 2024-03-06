@@ -85,6 +85,8 @@ class TruncateHTML {
     $this->wordCount = 0;
     $this->foundBreakpoint = FALSE;
 
+    $this->removeHtmlComments($dom);
+
     return $dom;
   }
 
@@ -102,8 +104,6 @@ class TruncateHTML {
    *   Resulting text.
    */
   public function truncateChars(string $html, int $limit, string $ellipsis = '...'): string {
-    $html = trim($html);
-
     if ($limit <= 0 || $limit >= mb_strlen(strip_tags($html))) {
       return $html;
     }
@@ -127,8 +127,6 @@ class TruncateHTML {
    *   Resulting text.
    */
   public function truncateWords(string $html, int $limit, string $ellipsis = '...'): string {
-    $html = trim($html);
-
     if ($limit <= 0 || $limit >= $this->countWords(strip_tags($html))) {
       return $html;
     }
@@ -242,6 +240,13 @@ class TruncateHTML {
     $nextnode = $domnode->nextSibling;
 
     if ($nextnode !== NULL) {
+      // Run in a while loop to prevent hitting the maximum recursion limit
+      // when processing DOM elements with many children at the same level.
+      while ($nextnode->nextSibling !== NULL) {
+        $node = $nextnode;
+        $nextnode = $nextnode->nextSibling;
+        $node->parentNode->removeChild($node);
+      }
       $this->removeProceedingNodes($nextnode);
       $domnode->parentNode->removeChild($nextnode);
     }
@@ -282,6 +287,9 @@ class TruncateHTML {
       }
     }
     else {
+      // This allows unicode characters like \u2026 for ellipsis.
+      $this->ellipsis = Html::escape(json_decode('"' . $this->ellipsis . '"'));
+
       // Append to current node.
       $domnode->nodeValue = rtrim($domnode->nodeValue) . $this->ellipsis;
     }
@@ -299,6 +307,27 @@ class TruncateHTML {
   protected function countWords(string $text): int {
     $words = preg_split("/[\n\r\t ]+/", $text, -1, PREG_SPLIT_NO_EMPTY);
     return count($words);
+  }
+
+  /**
+   * Removes all comment elements.
+   *
+   * @param \DOMNode $domnode
+   *   Node to be altered.
+   */
+  protected function removeHtmlComments(&$domnode): void {
+    $nodes = $domnode->childNodes;
+    for ($i = 0; $i < $nodes->length; $i++) {
+      $node = $nodes->item($i);
+      if ($node->nodeName == '#comment') {
+        $node->parentNode->removeChild($node);
+        // Since we just removed a child, decrement the counter.
+        $i--;
+      }
+      if ($node->hasChildNodes()) {
+        $this->removeHtmlComments($node);
+      }
+    }
   }
 
 }

@@ -3,9 +3,9 @@
 namespace Drupal\geocoder\Plugin\Geocoder\Dumper;
 
 use Drupal\geocoder\DumperBase;
+use Drupal\geocoder\FormatterPluginManager;
 use Geocoder\Location;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\geocoder\FormatterPluginManager;
 
 /**
  * Provides an address string geocoder dumper plugin.

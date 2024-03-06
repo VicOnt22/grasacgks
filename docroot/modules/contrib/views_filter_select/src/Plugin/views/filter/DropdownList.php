@@ -25,6 +25,8 @@ class DropdownList extends InOperator {
    *   The plugin_id for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
+   * @param \Drupal\Core\Database\Connection $databaseConnection
+   *   The database connection.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, Connection $databaseConnection) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -51,6 +53,10 @@ class DropdownList extends InOperator {
       ->fields('tbl', [$this->realField])
       ->execute()
       ->fetchAllKeyed(0,0);
+
+    foreach ($values as $valueKey => $valueName) {
+      $values[$valueKey] = $this->t($valueName)->render();
+    }
 
     if (!isset($this->valueOptions)) {
       $this->valueOptions = $values;

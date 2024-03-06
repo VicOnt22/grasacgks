@@ -569,7 +569,8 @@ class Email implements InternalEmailInterface {
         $value[] = $address->getSymfony();
       }
       if ($value) {
-        $headers->addMailboxListHeader($name, $value);
+        // Convert headers to camel case.
+        $headers->addMailboxListHeader(ucwords($name, '-'), $value);
       }
     }
 

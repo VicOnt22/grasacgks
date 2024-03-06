@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Install and update functions for the 'filefield_to_mediafield' module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function filefield_to_mediafield_uninstall() {
+  \Drupal::state()->delete('filefield_to_mediafield.hashes_of_image_files');
+}

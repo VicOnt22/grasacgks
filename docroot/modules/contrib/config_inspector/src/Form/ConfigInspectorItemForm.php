@@ -5,6 +5,9 @@ namespace Drupal\config_inspector\Form;
 use Drupal\Core\Config\Schema\ArrayElement;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\TypedData\Plugin\DataType\BooleanData;
+use Drupal\Core\TypedData\Plugin\DataType\IntegerData;
+use Drupal\Core\TypedData\Plugin\DataType\StringData;
 
 /**
  * Defines a form for editing configuration translations.
@@ -49,25 +52,26 @@ class ConfigInspectorItemForm extends FormBase {
         ] + $this->buildFormConfigElement($element, TRUE);
       }
       else {
-        $type = $definition['type'];
-        switch ($type) {
-          case 'boolean':
+        $class = $definition['class'];
+        switch ($class) {
+          case BooleanData::class:
             $type = 'checkbox';
             break;
 
-          case 'string':
-          case 'color_hex':
-          case 'path':
-          case 'label':
+          case StringData::class:
             $type = 'textfield';
+            if ($definition['type'] === 'text') {
+              $type = 'textarea';
+            }
             break;
 
-          case 'text':
-            $type = 'textarea';
-            break;
-
-          case 'integer':
+          case IntegerData::class:
             $type = 'number';
+            break;
+
+          default:
+            // @todo Mapping config schema types to form element `#type`s makes little sense; there is no guaranteed connection. Move this logic into Drupal core; this might also make #config_target become more useful!
+            $type = $definition['type'];
             break;
         }
         $value = $element->getString();

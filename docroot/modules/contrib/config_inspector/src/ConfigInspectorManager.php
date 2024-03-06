@@ -45,8 +45,15 @@ class ConfigInspectorManager {
    *   The typed configuration manager.
    * @param \Drupal\Core\Cache\CacheBackendInterface $discovery_cache
    *   The discovery cache.
+   * @param \Drupal\Core\Cache\CacheBackendInterface $bootstrap_cache
+   *   The bootstrap cache.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, TypedConfigManagerInterface $typed_config_manager, CacheBackendInterface $discovery_cache) {
+  public function __construct(
+    ConfigFactoryInterface $config_factory,
+    TypedConfigManagerInterface $typed_config_manager,
+    CacheBackendInterface $discovery_cache,
+    CacheBackendInterface $bootstrap_cache
+  ) {
     $this->configFactory = $config_factory;
     $this->typedConfigManager = $typed_config_manager;
 
@@ -55,6 +62,10 @@ class ConfigInspectorManager {
       'typed_config_definitions',
       'validation_constraint_plugins',
     ]);
+    // That also requires detecting added/removed alter hooks.
+    // @see hook_config_schema_info()
+    // @see hook_validation_constraint_alter()
+    $bootstrap_cache->delete('module_implements');
 
     // TRICKY: TypedConfigManager has some surprising behavior: calling
     // ::getDefinition() (not ::getDefinitions()!) will call
@@ -181,7 +192,13 @@ class ConfigInspectorManager {
     }
 
     $config_data = $this->configFactory->get($config_name)->get();
-    $typed_config = $this->typedConfigManager->createFromNameAndData($config_name, $config_data);
+    $definition = $this->typedConfigManager->getDefinition($config_name);
+    $data_definition = $this->typedConfigManager->buildDataDefinition($definition, $config_data);
+    $typed_config = $this->typedConfigManager->create($data_definition, $config_data, $config_name);
+    // @todo Remove the preceding 3 lines in favor of th line below once this never is used to analyze Drupal before https://www.drupal.org/node/3360991.
+    // phpcs:disable
+    //$typed_config = $this->typedConfigManager->createFromNameAndData($config_name, $config_data);
+    // phpcs:enable
 
     $validatability = $this->computeTreeValidatability($typed_config);
     return $validatability;
@@ -208,14 +225,14 @@ class ConfigInspectorManager {
       $defining_config_schema_type = self::getDataType($node);
     }
 
-    $validatability = new ConfigSchemaValidatability($tree->getPropertyPath(), $this->getNodeConstraints($tree), $defining_config_schema_type);
+    $validatability = new ConfigSchemaValidatability($tree->getPropertyPath(), $this->getNodeConstraints($tree), $defining_config_schema_type, $tree->getRoot()->getName());
     foreach ($tree as $node) {
       assert($node instanceof TypedDataInterface);
       if ($node instanceof TraversableTypedDataInterface) {
         $validatability->add(self::computeTreeValidatability($node));
       }
       else {
-        $validatability->add(new ConfigSchemaValidatability($node->getPropertyPath(), $this->getNodeConstraints($node), $defining_config_schema_type));
+        $validatability->add(new ConfigSchemaValidatability($node->getPropertyPath(), $this->getNodeConstraints($node), $defining_config_schema_type, $tree->getRoot()->getName()));
       }
     }
     return $validatability;
@@ -325,7 +342,13 @@ class ConfigInspectorManager {
     }
 
     $config_data = $this->configFactory->get($config_name)->get();
-    $typed_config = $this->typedConfigManager->createFromNameAndData($config_name, $config_data);
+    $definition = $this->typedConfigManager->getDefinition($config_name);
+    $data_definition = $this->typedConfigManager->buildDataDefinition($definition, $config_data);
+    $typed_config = $this->typedConfigManager->create($data_definition, $config_data, $config_name);
+    // @todo Remove the preceding 3 lines in favor of th line below once this never is used to analyze Drupal before https://www.drupal.org/node/3360991.
+    // phpcs:disable
+    //$typed_config = $this->typedConfigManager->createFromNameAndData($config_name, $config_data);
+    // phpcs:enable
     $violations = $typed_config->validate();
     return $violations;
   }

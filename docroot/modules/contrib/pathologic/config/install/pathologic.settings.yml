@@ -1,3 +1,4 @@
-scheme_whitelist: ['http', 'https', 'files', 'internal']
+scheme_allow_list: ['http', 'https', 'files', 'internal']
 protocol_style: 'full'
 local_paths: ''
+keep_language_prefix: true

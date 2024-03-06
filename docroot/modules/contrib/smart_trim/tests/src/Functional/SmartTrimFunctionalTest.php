@@ -2,8 +2,12 @@
 
 namespace Drupal\Tests\smart_trim\Functional;
 
-use Drupal\Tests\BrowserTestBase;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\node\Entity\Node;
+use Drupal\node\Entity\NodeType;
+use Drupal\Tests\BrowserTestBase;
 
 /**
  * This class provides methods specifically for testing something.
@@ -67,7 +71,7 @@ class SmartTrimFunctionalTest extends BrowserTestBase {
       'id' => 1,
       'type' => 'article',
       'body' => [
-        'value' => 'Test [node:content-type]',
+        'value' => "Test [node:content-type]\r\n  ",
         'format' => 'filter_test',
       ],
     ])->save();
@@ -77,10 +81,34 @@ class SmartTrimFunctionalTest extends BrowserTestBase {
       'id' => 2,
       'type' => 'article',
       'body' => [
-        'value' => '<h3>The situation</h3><p>is dire</p><p>and there is no hope.</p>',
+        'value' => '<h3>The situation</h3><p>is dire</p><p>& there is no hope.</p><p>Full stop should not be preceded by <em>space</em>. Really, they should not be.</p>',
         'format' => 'filter_test',
       ],
     ])->save();
+
+    NodeType::create(['type' => 'plain_text_test', 'name' => 'Plain text test'])->save();
+
+    // Create Description field.
+    FieldStorageConfig::create([
+      'field_name' => 'field_plain_text',
+      'type' => 'string_long',
+      'entity_type' => 'node',
+      'cardinality' => 1,
+    ])->save();
+    FieldConfig::create([
+      'field_name' => 'field_plain_text',
+      'entity_type' => 'node',
+      'bundle' => 'plain_text_test',
+      'label' => 'Plain text test field',
+    ])->save();
+
+    $node = Node::create([
+      'type' => 'plain_text_test',
+      'id' => 3,
+      'title' => $this->randomString(),
+      'field_plain_text' => 'This is a really long string with Fire & ice right in the middle of it.',
+    ]);
+    $node->save();
   }
 
   /**
@@ -208,7 +236,34 @@ class SmartTrimFunctionalTest extends BrowserTestBase {
       ->save();
 
     $this->drupalGet('/node/2');
-    $session->elementTextEquals('css', 'article > div > div > div:nth-child(2) > p', 'The situation is dire and there is');
+    $session->elementTextEquals('css', 'article > div > div > div:nth-child(2) > p', 'The situation is dire & there is');
+  }
+
+  /**
+   * Test to ensure no extra spaces before punctuation.
+   *
+   * See https://www.drupal.org/project/smart_trim/issues/3369954.
+   */
+  public function testNoExtraSpaces(): void {
+    $session = $this->assertSession();
+    $display_repository = \Drupal::service('entity_display.repository');
+    // Edit formatter settings:
+    $display_repository->getViewDisplay('node', 'article')
+      ->setComponent('body', [
+        'type' => 'smart_trim',
+        'settings' => [
+          'trim_length' => 18,
+          'trim_type' => 'words',
+          'summary_handler' => 'trim',
+          'trim_options' => [
+            'text' => TRUE,
+          ],
+        ],
+      ])
+      ->save();
+
+    $this->drupalGet('/node/2');
+    $session->elementTextEquals('css', 'article > div > div > div:nth-child(2) > p', 'The situation is dire & there is no hope. Full stop should not be preceded by space. Really');
   }
 
   /**
@@ -630,6 +685,49 @@ class SmartTrimFunctionalTest extends BrowserTestBase {
       ->save();
     $this->drupalGet('/node/1');
     $session->linkExists('More');
+  }
+
+  /**
+   * Tests that HTML entities are handled correctly.
+   *
+   * @test
+   */
+  public function testHtmlEntities(): void {
+    $session = $this->assertSession();
+    $display_repository = \Drupal::service('entity_display.repository');
+    // Edit formatter settings:
+    $display_repository->getViewDisplay('node', 'plain_text_test')
+      ->setComponent('field_plain_text', [
+        'type' => 'smart_trim',
+        'settings' => [
+          'trim_length' => 10,
+          'trim_type' => 'words',
+          'summary_handler' => 'ignore',
+          'more' => [
+            'display_link' => FALSE,
+          ],
+        ],
+      ])
+      ->save();
+
+    $this->drupalGet('/node/3');
+    $session->pageTextContains('Fire & ice');
+
+    $display_repository->getViewDisplay('node', 'article')
+      ->setComponent('body', [
+        'type' => 'smart_trim',
+        'settings' => [
+          'trim_length' => 30,
+          'trim_type' => 'chars',
+          'summary_handler' => 'trim',
+          'more' => [
+            'display_link' => FALSE,
+          ],
+        ],
+      ])
+      ->save();
+    $this->drupalGet('/node/2');
+    $session->pageTextContains('& there');
   }
 
 }

@@ -238,7 +238,7 @@ class Api {
       ->condition('page_path', $data["page_path"])
       ->condition('result_name', $data["result_name"])
       ->condition('dismissal_status', $data["marked"])
-      ->condition('uid', $data["by"])
+      ->condition('uid', str_replace(",", "", $data["by"]))
       ->execute();
     // Clear cache for the referring page and dashboard.
     Cache::invalidateTags(

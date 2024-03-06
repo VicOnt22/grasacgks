@@ -178,6 +178,30 @@ class IgnoreKernelTest extends KernelTestBase {
       [],
       ['de' => ['config_test.system' => ['foo' => 'Neues Foo']]],
     ];
+    yield 'do not remove config and translation when ignored' => [
+      'simple',
+      ['config_test.system'],
+      [
+        '' => ['config_test.system' => ['foo' => 'New Foo']],
+        'de' => ['config_test.system' => ['foo' => 'Neues Foo']],
+      ],
+      [],
+      [
+        '' => ['config_test.system' => ['foo' => 'New Foo']],
+        'de' => ['config_test.system' => ['foo' => 'Neues Foo']],
+      ],
+    ];
+    yield 'do not remove only DE translation when ignored' => [
+      'simple',
+      ['language.de|config_test.system'],
+      [
+        '' => ['config_test.system' => ['foo' => 'New Foo']],
+        'de' => ['config_test.system' => ['foo' => 'Neues Foo']],
+        'fr' => ['config_test.system' => ['foo' => 'Nouveau Foo']],
+      ],
+      [],
+      ['de' => ['config_test.system' => ['foo' => 'Neues Foo']]],
+    ];
     yield 'do not remove translation when key is ignored' => [
       'simple',
       ['config_test.system:foo'],
@@ -199,6 +223,18 @@ class IgnoreKernelTest extends KernelTestBase {
       ['se' => ['config_test.system' => ['foo' => 'Ny foo']]],
       [],
     ];
+    yield 'ignore only fr lang collection' => [
+      'simple',
+      ['language.fr|*'],
+      [],
+      [
+        '' => ['config_test.system' => ['foo' => 'FR Bar', '404' => 'herp']],
+        'fr' => ['config_test.system' => ['foo' => 'FR Bar']],
+      ],
+      [
+        '' => ['config_test.system' => ['foo' => 'FR Bar', '404' => 'herp']],
+      ],
+    ];
     yield 'new config is ignored' => [
       'simple',
       ['config_test.*'],
@@ -218,6 +254,46 @@ class IgnoreKernelTest extends KernelTestBase {
         '' => [
           'config_test.dynamic.exist' => ['id' => 'exist', 'label' => 'E'],
         ],
+      ],
+    ];
+    yield 'new collection is ignored' => [
+      'simple',
+      ['language.*|config_test.*'],
+      ['' => ['config_test.dynamic.exist' => ['id' => 'exist', 'label' => 'E']]],
+      [
+        '' => ['config_test.dynamic.exist' => ['id' => 'exist', 'label' => 'N']],
+        'de' => ['config_test.dynamic.exist' => ['label' => 'DE']],
+      ],
+      ['' => ['config_test.dynamic.exist' => ['id' => 'exist', 'label' => 'N']]],
+    ];
+    yield 'new collection is ignored except FR' => [
+      'simple',
+      ['language.*|config_test.*', '~language.fr|config_test.*'],
+      ['' => ['config_test.dynamic.exist' => ['id' => 'exist', 'label' => 'E']]],
+      [
+        '' => ['config_test.dynamic.exist' => ['id' => 'exist', 'label' => 'N']],
+        'de' => ['config_test.dynamic.exist' => ['label' => 'DE']],
+        'fr' => ['config_test.dynamic.exist' => ['label' => 'FR']],
+      ],
+      [
+        '' => ['config_test.dynamic.exist' => ['id' => 'exist', 'label' => 'N']],
+        'fr' => ['config_test.dynamic.exist' => ['label' => 'FR']],
+      ],
+    ];
+    yield 'Ignore property in translations' => [
+      'simple',
+      ['language.*|config_test.system:foo'],
+      [
+        '' => ['config_test.system' => ['foo' => 'Replaced Foo', 'baz' => 'replaced baz']],
+        'de' => ['config_test.system' => ['foo' => 'Neues Foo', 'baz' => 'ersetztes baz']],
+      ],
+      [
+        '' => ['config_test.system' => ['foo' => 'New Foo', 'baz' => 'new baz']],
+        'de' => ['config_test.system' => ['foo' => 'Ignoriertes Foo', 'baz' => 'neues baz']],
+      ],
+      [
+        '' => ['config_test.system' => ['foo' => 'New Foo', 'baz' => 'new baz']],
+        'de' => ['config_test.system' => ['foo' => 'Neues Foo', 'baz' => 'neues baz']],
       ],
     ];
     yield 'new config is not ignored in lenient mode' => [
@@ -434,7 +510,7 @@ class IgnoreKernelTest extends KernelTestBase {
         if ($data !== FALSE) {
           if (is_array($storage->read($name))) {
             // Merge nested arrays if the storage already has data.
-            $data = NestedArray::mergeDeep($storage->read($name), $data);
+            $data = NestedArray::mergeDeepArray([$storage->read($name), $data], TRUE);
           }
           $storage->write($name, $data);
         }

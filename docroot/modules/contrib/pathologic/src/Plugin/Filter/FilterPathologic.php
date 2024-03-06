@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\pathologic\Plugin\Filter;
 
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
 use Drupal\Component\Utility\Crypt;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\pathologic\PathologicSettingsCommon;
+use Drupal\pathologic\PathologicCommonSettingsTrait;
 use Drupal\Core\Url;
 
 /**
@@ -32,6 +34,8 @@ use Drupal\Core\Url;
  * )
  */
 class FilterPathologic extends FilterBase {
+
+  use PathologicCommonSettingsTrait;
 
   /**
    * {@inheritdoc}
@@ -70,8 +74,7 @@ class FilterPathologic extends FilterBase {
       ],
     ];
 
-    $common = new PathologicSettingsCommon();
-    $form['local_settings'] += $common->commonSettingsForm($this->settings['local_settings']);
+    $form['local_settings'] += $this->commonPathologicSettingsForm($this->settings['local_settings']);
 
     return $form;
   }
@@ -85,6 +88,7 @@ class FilterPathologic extends FilterBase {
       $config = \Drupal::config('pathologic.settings');
       $settings['protocol_style'] = $config->get('protocol_style');
       $settings['local_paths'] = $config->get('local_paths');
+      $settings['keep_language_prefix'] = $config->get('keep_language_prefix');
     }
     else {
       $settings = $settings['local_settings'];

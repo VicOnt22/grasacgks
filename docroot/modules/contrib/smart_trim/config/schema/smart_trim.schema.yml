@@ -9,7 +9,7 @@ field.formatter.settings.smart_trim:
       type: string
       label: 'Trim units'
     trim_suffix:
-      type: string
+      type: label
       label: 'Suffix'
     wrap_output:
       type: boolean
@@ -34,10 +34,10 @@ field.formatter.settings.smart_trim:
           type: string
           label: 'More link class'
         text:
-          type: string
+          type: label
           label: 'More link text'
         aria_label:
-          type: string
+          type: label
           label: 'More link aria-label value'
     summary_handler:
       type: string

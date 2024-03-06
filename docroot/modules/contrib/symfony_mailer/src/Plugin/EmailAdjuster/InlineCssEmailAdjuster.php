@@ -82,21 +82,23 @@ class InlineCssEmailAdjuster extends EmailAdjusterBase implements ContainerFacto
    * {@inheritdoc}
    */
   public function postRender(EmailInterface $email) {
-    // Inline CSS.
-    $assets = (new AttachedAssets())->setLibraries($email->getLibraries());
-    $css = '';
-    foreach ($this->assetResolver->getCssAssets($assets, FALSE) as $asset) {
-      if (($asset['type'] == 'file') && $asset['preprocess']) {
-        // Optimize to process @import.
-        $css .= $this->cssOptimizer->optimize($asset);
+    // Only inline CSS if we have an html body.
+    if ($html_body = $email->getHtmlBody()) {
+      $assets = (new AttachedAssets())->setLibraries($email->getLibraries());
+      $css = '';
+      foreach ($this->assetResolver->getCssAssets($assets, FALSE) as $asset) {
+        if (($asset['type'] == 'file') && $asset['preprocess']) {
+          // Optimize to process @import.
+          $css .= $this->cssOptimizer->optimize($asset);
+        }
+        else {
+          $css .= file_get_contents($asset['data']);
+        }
       }
-      else {
-        $css .= file_get_contents($asset['data']);
-      }
-    }
 
-    if ($css) {
-      $email->setHtmlBody($this->cssInliner->convert($email->getHtmlBody(), $css));
+      if ($css) {
+        $email->setHtmlBody($this->cssInliner->convert($html_body, $css));
+      }
     }
   }
 

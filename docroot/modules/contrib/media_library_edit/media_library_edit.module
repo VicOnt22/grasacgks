@@ -5,7 +5,6 @@
  * Contains media_library_edit.module.
  */
 
-use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Ajax\AjaxResponse;
@@ -87,43 +86,42 @@ function media_library_edit_field_widget_single_element_form_alter(array &$eleme
     $settings = $context['widget']->getThirdPartySettings('media_library_edit');
     if (isset($settings['show_edit']) && $settings['show_edit']) {
       if (isset($context['items'])) {
-        // Gets the first referenced entity.
-        // Doesn't matter which one, we just need the media edit template.
-        if ($media = $context['items']->entity) {
-          if ($media->access('update') && $edit_template = $media->getEntityType()->getLinkTemplate('edit-form')) {
+        // Gets the referenced entities.
+        // We need to check access for each.
+        foreach ($context['items'] as $key => $item) {
+          $media = $item->entity;
+          if ($media && $media->access('update') && $edit_template = $media->getEntityType()->getLinkTemplate('edit-form')) {
             $element['#attributes']['class'][] = 'js-media-library-edit-' . Html::cleanCssIdentifier($context['items']->getFieldDefinition()->getName()) . '-wrapper';
-            foreach (Element::children($element['selection']) as $key) {
-              $edit_url_query_params = [
-                'media_library_edit' => 'ajax',
-              ];
-              $edit_url = Url::fromUserInput(str_replace('{media}', $element['selection'][$key]['target_id']['#value'], $edit_template) . '?' . UrlHelper::buildQuery($edit_url_query_params));
-              $dialog_options = MediaLibraryUiBuilder::dialogOptions();
-              $element['selection'][$key]['media_edit'] = [
-                '#type' => 'link',
-                '#title' => t('Edit media item'),
-                '#url' => $edit_url,
-                '#attributes' => [
-                  'class' => [
-                    'js-media-library-edit-link',
-                    'media-library-edit__link',
-                    'use-ajax',
-                  ],
-                  'target' => '_blank',
-                  'data-dialog-options' => json_encode([
-                    'height' => $dialog_options['height'],
-                    'width' => $dialog_options['width'],
-                    'classes' => ['ui-dialog-content' => 'media-library-edit__modal'],
-                  ]),
-                  'data-dialog-type' => 'modal',
+            $edit_url_query_params = [
+              'media_library_edit' => 'ajax',
+            ];
+            $edit_url = Url::fromUserInput(str_replace('{media}', $element['selection'][$key]['target_id']['#value'], $edit_template) . '?' . UrlHelper::buildQuery($edit_url_query_params));
+            $dialog_options = MediaLibraryUiBuilder::dialogOptions();
+            $element['selection'][$key]['media_edit'] = [
+              '#type' => 'link',
+              '#title' => t('Edit media item'),
+              '#url' => $edit_url,
+              '#attributes' => [
+                'class' => [
+                  'js-media-library-edit-link',
+                  'media-library-edit__link',
+                  'use-ajax',
                 ],
-                '#attached' => [
-                  'library' => [
-                    'media_library_edit/admin',
-                    'core/drupal.dialog.ajax',
-                  ],
+                'target' => '_blank',
+                'data-dialog-options' => json_encode([
+                  'height' => $dialog_options['height'],
+                  'width' => $dialog_options['width'],
+                  'classes' => ['ui-dialog-content' => 'media-library-edit__modal'],
+                ]),
+                'data-dialog-type' => 'modal',
+              ],
+              '#attached' => [
+                'library' => [
+                  'media_library_edit/admin',
+                  'core/drupal.dialog.ajax',
                 ],
-              ];
-            }
+              ],
+            ];
           }
         }
       }

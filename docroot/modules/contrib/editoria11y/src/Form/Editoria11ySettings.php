@@ -60,7 +60,8 @@ class Editoria11ySettings extends ConfigFormBase {
 
     $form['setup']['content_root'] = [
       '#title' => $this->t("Check content in these containers"),
-      '#type' => 'textfield',
+      '#type' => 'textarea',
+      '#rows' => 1,
       '#placeholder' => '',
       '#description' => $this->t('To limit checks to user-editable containers, provide a list of <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors">CSS selectors</a>.<br>E.g.: <code><em>main, #footer-editable-content</em></code><br>Default: <code>main</code>, falling back to <code>body</code>. If elements are specified here and none are found on the page, Editoria11y will not find anything!'),
       '#default_value' => $config->get('content_root'),
@@ -69,6 +70,7 @@ class Editoria11ySettings extends ConfigFormBase {
     $form['setup']['ignore_elements'] = [
       '#title' => $this->t("Skip over these elements"),
       '#type' => 'textarea',
+      '#rows' => 1,
       '#placeholder' => '',
       '#description' => $this->t('Provide a comma-separated list of selectors for elements to ignore. These should target specific elements (use an asterisk to indicate "all children of this element"). <br>E.g.: <code><em>#sidebar-menu a, .card img, .slide [aria-hidden="true"], .feed *</em></code>.'),
       '#default_value' => $config->get('ignore_elements'),
@@ -84,20 +86,40 @@ class Editoria11ySettings extends ConfigFormBase {
 
     $form['tests']['ignore_link_strings'] = [
       '#title' => $this->t("Remove these strings before testing link text"),
-      '#type' => 'textfield',
+      '#type' => 'textarea',
+      '#rows' => 1,
       '#placeholder' => "\(link is external\)|\(link sends email\)",
       '#description' => $this->t('Provide a Regex of strings your modules programmatically add to links (usually external or open-in-new-window links), so they can be ignored when the link text is checked for the "link has no text" and "link text is not meaningful" tests. Escape characters as needed to form a valid regex; e.g.: <br><code><em>\(link is external\)|\(link sends email\)|\(download\)</em></code>'),
       '#default_value' => $config->get('ignore_link_strings'),
     ];
+    $form['tests']['link_ignore_selector'] = [
+      '#title' => $this->t("Remove strings in these selectors before testing link text"),
+      '#type' => 'textarea',
+      '#rows' => 1,
+      '#placeholder' => $config->get('link_ignore_selector'),
+      '#description' => $this->t('Provide a CSS selector of elements your modules programmatically add to links (usually external or open-in-new-window links), so they can be ignored when the link text is checked for the "link has no text" and "link text is not meaningful" tests.<br>E.g.: <code><em>.this, .that</em></code>'),
+      '#default_value' => $config->get('link_ignore_selector'),
+    ];
+
     $form['tests']['embedded_content_warning'] = [
       '#title' => $this->t("Remind editor that content in these embeds needs manual review"),
-      '#type' => 'textfield',
+      '#type' => 'textarea',
+      '#rows' => 1,
       '#description' => $this->t('Provide a comma-separated list of selectors you wish to flag for the editor, e.g.: <code><em>.my-embedded-feed, #my-social-link-block</em></code>.'),
       '#default_value' => $config->get('embedded_content_warning'),
+    ];
+    $form['tests']['custom_tests'] = [
+      '#title' => $this->t('Custom result injection events'),
+      '#type' => 'number',
+      '#min' => 0,
+      '#max' => 999,
+      '#description' => $this->t('Set to the number of other themes or modules that will be <a href="https://editoria11y.princeton.edu/configuration/#customtests">injecting custom results</a>.'),
+      '#default_value' => (int) $config->get('custom_tests'),
     ];
     $form['tests']['download_links'] = [
       '#title' => $this->t("Remind the editor that these linked documents need a manual check"),
       '#type' => 'textarea',
+      '#rows' => 1,
       '#placeholder' => "a[href$='.pdf'], a[href*='.pdf?'], a[href$='.doc'], a[href$='.docx'], a[href*='.doc?'], a[href*='.docx?'], a[href$='.ppt'], a[href$='.pptx'], a[href*='.ppt?'], a[href*='.pptx?'], a[href^='https://docs.google']",
       '#description' => $this->t("Add or remove filetypes. Set to \"false\" to disable the test altogether. Providing any value will override the default, which is: <br><code><em>a[href$='.pdf'], a[href*='.pdf?'], a[href$='.doc'], a[href$='.docx'], a[href*='.doc?'], a[href*='.docx?'], a[href$='.ppt'], a[href$='.pptx'], a[href*='.ppt?'], a[href*='.pptx?'], a[href^='https://docs.google']</em></code>."),
       '#default_value' => $config->get('download_links'),
@@ -105,6 +127,7 @@ class Editoria11ySettings extends ConfigFormBase {
     $form['tests']['shadow_components'] = [
       '#title' => $this->t("Scan inside these Web components"),
       '#type' => 'textarea',
+      '#rows' => 1,
       '#placeholder' => "",
       '#description' => $this->t("Provide selectors <a href='https://developer.mozilla.org/en-US/docs/Web/Web_Components'>shadow hosts</a> with editable content. E.g.: <code><em>my-fancy-accordion-widget, my-magical-slideshow</em></code>."),
       '#default_value' => $config->get('shadow_components'),
@@ -127,21 +150,24 @@ class Editoria11ySettings extends ConfigFormBase {
     ];
     $form['results']['no_load'] = [
       '#title' => $this->t("Disable the scanner if these elements are detected"),
-      '#type' => 'textfield',
+      '#type' => 'textarea',
+      '#rows' => 1,
       '#placeholder' => '#quickedit-entity-toolbar, .layout-builder-form',
       '#description' => $this->t('Provide a comma-separated list of selectors that disable the scanner when present; e.g during inline editing or a view page with no user-editable content  (<code><em>#inline-editor-open</em></code>) or on pages without user-editable content (<code><em>.node-261, .front</em></code>).'),
       '#default_value' => $config->get('no_load'),
     ];
     $form['results']['ignore_all_if_absent'] = [
       '#title' => $this->t("Hide all alerts if none of these elements are present"),
-      '#type' => 'textfield',
+      '#type' => 'textarea',
+      '#rows' => 1,
       '#placeholder' => '',
       '#description' => $this->t('Used to limit toggle to nodes where the user can edit something. Suggested selectors: (<code><em>.contextual-region a[href*="/edit"], .contextual-region a[href*="/manage"]</em></code>).'),
       '#default_value' => $config->get('ignore_all_if_absent'),
     ];
     $form['results']['hidden_handlers'] = [
       '#title' => $this->t("Theme JS will handle revealing hidden tooltips inside these containers"),
-      '#type' => 'textfield',
+      '#type' => 'textarea',
+      '#rows' => 1,
       '#description' => $this->t('Editoria11y detects hidden tooltips and warns the user when they try to jump to them from the panel. For elements on this list, Editoria11y will <a href="https://itmaybejj.github.io/editoria11y/#dealing-with-alerts-on-hidden-or-size-constrained-content">dispatch a JS event</a> instead of a warning, so custom JS in your theme can first reveal the hidden tip (e.g., open an accordion or tab panel).'),
       '#default_value' => $config->get('hidden_handlers'),
     ];
@@ -151,7 +177,8 @@ class Editoria11ySettings extends ConfigFormBase {
     ];
     $form['sync']['preserve_params'] = [
       '#title' => $this->t("Preserve query parameters"),
-      '#type' => 'textfield',
+      '#type' => 'textarea',
+      '#rows' => 1,
       '#placeholder' => 'search,page,keys',
       '#default_value' => $config->get('preserve_params'),
       '#description' => $this->t('The dashboard ignores most parameters: results for both /news?f=1 and /news?f=2 will show up as just /news. Provide a comma separated list of parameters that are meaningful, and should appear as separate pages in results.'),
@@ -183,7 +210,9 @@ class Editoria11ySettings extends ConfigFormBase {
       ->set('embedded_content_warning', $form_state->getValue('embedded_content_warning'))
       ->set('hidden_handlers', $form_state->getValue('hidden_handlers'))
       ->set('ignore_link_strings', $form_state->getValue('ignore_link_strings'))
+      ->set('link_ignore_selector', $form_state->getValue('link_ignore_selector'))
       ->set('preserve_params', $form_state->getValue('preserve_params'))
+      ->set('custom_tests', $form_state->getValue('custom_tests'))
       ->save();
     parent::submitForm($form, $form_state);
   }

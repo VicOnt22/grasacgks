@@ -1,0 +1,11 @@
+--- varbase_media.module
++++ varbase_media.module
+@@ -131,7 +131,7 @@ function varbase_media_preprocess_field(&$variables) {
+           $entity_display = EntityViewDisplay::collectRenderDisplay($entity, $view_mode);
+           $field_display = $entity_display->getComponent($field_name);
+ 
+-          $build_item = $item['content']['#build']['item'];
++          $build_item = $item['content']['#build']['#item'];
+           $value = $build_item->getValue();
+           $file = File::load($value['target_id']);
+           $value['_attributes']['uri'] = $file->getFileUri();

@@ -48,6 +48,11 @@ Examples: <ul>
 <li>* (will ignore everything)</li>
 <li>~webform.webform.contact (will force import for this configuration, even if ignored by a wildcard)</li>
 <li>user.mail:register_no_approval_required.body (will ignore the body of the no approval required email setting, but will not ignore other user.mail configuration.)</li>
+<li>language.*|* (will ignore all language collections)</li>
+<li>language.fr|* (will ignore all fr language collection)</li>
+<li>language.fr|field.field.* (will ignore all fr field translations)</li>
+<li>~language.fr|field.field.media.file.field_media_file (will force import for certain field translation)</li>
+<li>language.*|system.site:name (will ignore just the site name but in all translations)</li>
 </ul>');
 
     $form['mode'] = [

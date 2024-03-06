@@ -310,7 +310,7 @@ function editoria11y_update_9001(&$sandbox) {
 
   // Set defaults for new config items.
   $config_factory = \Drupal::configFactory();
-  $config = $config_factory->getEditable('editoria11y.configuration');
+  $config = $config_factory->getEditable('editoria11y.settings');
   $config->set('ed11y_theme', 'lightTheme');
   $config->set('disable_sync', FALSE);
   $config->save(TRUE);
@@ -338,7 +338,7 @@ function editoria11y_update_9001(&$sandbox) {
 function editoria11y_update_9003(&$sandbox) {
 
   $config_factory = \Drupal::configFactory();
-  $config = $config_factory->getEditable('editoria11y.configuration');
+  $config = $config_factory->getEditable('editoria11y.settings');
   $config->set('preserve_params', 'search,keys,page,language,language_content_entity');
   $config->save(TRUE);
 
@@ -410,3 +410,14 @@ function editoria11y_update_9004(&$sandbox) {
   }
 }
 
+/**
+ * Updates default config for Link Purpose compatibility.
+ *
+ */
+function editoria11y_update_9005(&$sandbox) {
+
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('editoria11y.settings');
+  $config->set('link_ignore_selector', 'svg.ext, svg.mailto, .link-purpose-text');
+  $config->save(TRUE);
+}

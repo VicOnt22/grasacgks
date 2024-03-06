@@ -5,10 +5,10 @@ declare(strict_types = 1);
 namespace Drupal\geocoder_field\Geocoder\Provider;
 
 use Geocoder\Collection;
-use Geocoder\Model\Address;
-use Geocoder\Model\AddressCollection;
 use Geocoder\Exception\LogicException;
 use Geocoder\Exception\UnsupportedOperation;
+use Geocoder\Model\Address;
+use Geocoder\Model\AddressCollection;
 use Geocoder\Provider\AbstractProvider;
 use Geocoder\Provider\Provider;
 use Geocoder\Query\GeocodeQuery;

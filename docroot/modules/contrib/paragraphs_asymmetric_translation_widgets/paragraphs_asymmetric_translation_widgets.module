@@ -107,7 +107,8 @@ function paragraphs_asymmetric_translation_widgets_entity_translation_delete(Ent
     ->condition('langcode', $entity->language()->getId())
     ->condition('parent_id', $entity->id())
     ->condition('parent_type', $entity->getEntityTypeId())
-    ->condition('parent_field_name', $translatable_fields, 'IN');
+    ->condition('parent_field_name', $translatable_fields, 'IN')
+    ->accessCheck(FALSE);
 
   $results = $query->execute();
   if (!empty($results) && is_array($results)) {

@@ -82,7 +82,7 @@ editoria11y.api_purge_page:
   defaults:
     _controller: '\Drupal\editoria11y\Controller\ApiController::purgePage'
   requirements:
-    _permission: 'administer editoria11y checker'
+    _permission: 'manage editoria11y results'
     _user_is_logged_in: 'TRUE'
     _content_type_format: 'json'
     _csrf_request_header_token: 'TRUE'

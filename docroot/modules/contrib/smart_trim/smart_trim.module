@@ -28,6 +28,7 @@ function smart_trim_theme(array $existing, string $type, string $theme, string $
     'smart_trim' => [
       'variables' => [
         'output' => NULL,
+        'is_trimmed' => NULL,
         'wrap_output' => NULL,
         'wrapper_class' => NULL,
         'more' => NULL,

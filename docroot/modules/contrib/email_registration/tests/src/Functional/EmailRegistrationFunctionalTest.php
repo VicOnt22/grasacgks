@@ -50,6 +50,31 @@ class EmailRegistrationFunctionalTest extends EmailRegistrationFunctionalTestBas
   }
 
   /**
+   * Test the error message when a blocked user tries to login.
+   */
+  public function testBlockedUserLogin() {
+    $user_config = $this->container->get('config.factory')->getEditable('user.settings');
+    $email_registration_config = $this->container->get('config.factory')->getEditable('email_registration.settings');
+    $user_config
+      ->set('verify_mail', FALSE)
+      ->save();
+    $user = $this->createUser([], $this->randomMachineName(), FALSE, [
+      'mail' => $this->randomMachineName() . '@example.com',
+      'pass' => 'test',
+      'status' => 0,
+    ]);
+    $email_registration_config->set('login_with_username', FALSE)->save();
+    $this->drupalGet('user/login');
+    $this->assertSession()->responseContains('Enter your email address.');
+    $this->assertSession()->responseContains('Enter the password that accompanies your email address.');
+    $this->submitForm([
+      'name' => $user->get('mail')->value,
+      'pass' => $user->passRaw,
+    ], 'Log in');
+    $this->assertSession()->pageTextContains('The account with email address ' . $user->get('mail')->value . ' has not been activated or is blocked.');
+  }
+
+  /**
    * Test various behaviors for anonymous users.
    */
   public function testRegistration() {
@@ -307,6 +332,88 @@ class EmailRegistrationFunctionalTest extends EmailRegistrationFunctionalTestBas
     // Since there is already an 'admin' user through BrowserTestBase,
     // this user will be named 'admin_1':
     $this->assertSame('admin_1', $this->adminUser->getAccountName());
+  }
+
+  /**
+   * Tests user editing own credentials won't change their username.
+   *
+   * Makes sure, the email_registration naming conventions won't magically
+   * overwrite the username, when the user is edited.
+   */
+  public function testUserEditOwnCredentialsDoesNotChangeUsername() {
+    $session = $this->assertSession();
+    $page = $this->getSession()->getPage();
+    $user = $this->createUser(['change own username']);
+    $this->drupalLogin($user);
+    $this->drupalGet('user/' . $user->id() . '/edit');
+    // First let's see if changing the name won't reset the username:
+    $page->fillField('edit-name', 'Changed Username');
+    $page->pressButton('edit-submit');
+    $session->statusCodeEquals(200);
+    $session->pageTextContains('The changes have been saved.');
+    $session->elementTextEquals('css', 'h1', 'Changed Username');
+    $session->elementAttributeContains('css', '#edit-name', 'value', 'Changed Username');
+    // Now do the same with the email-address:
+    $page->fillField('edit-current-pass', $user->passRaw);
+    $page->fillField('edit-mail', 'myVeryNewMail@address.com');
+    $page->pressButton('edit-submit');
+    $session->statusCodeEquals(200);
+    $session->pageTextContains('The changes have been saved.');
+    $session->elementTextEquals('css', 'h1', 'Changed Username');
+    $session->elementAttributeContains('css', '#edit-name', 'value', 'Changed Username');
+  }
+
+  /**
+   * Tests admin editing user credentials won't change their username.
+   *
+   * Makes sure, the email_registration naming conventions won't magically
+   * overwrite the username, when the user is edited.
+   */
+  public function testAdminEditUserCredentialsDoesNotChangeUsername() {
+    $session = $this->assertSession();
+    $page = $this->getSession()->getPage();
+    $this->drupalLogin($this->adminUser);
+    $this->drupalGet('user/' . $this->user->id() . '/edit');
+    // First let's see if changing the name won't reset the username:
+    $page->fillField('edit-name', 'Changed Username');
+    $page->pressButton('edit-submit');
+    $session->statusCodeEquals(200);
+    $session->pageTextContains('The changes have been saved.');
+    $session->elementTextEquals('css', 'h1', 'Changed Username');
+    $session->elementAttributeContains('css', '#edit-name', 'value', 'Changed Username');
+    // Now do the same with the email-address:
+    $page->fillField('edit-mail', 'myVeryNewMail@address.com');
+    $page->pressButton('edit-submit');
+    $session->statusCodeEquals(200);
+    $session->pageTextContains('The changes have been saved.');
+    $session->elementTextEquals('css', 'h1', 'Changed Username');
+    $session->elementAttributeContains('css', '#edit-name', 'value', 'Changed Username');
+  }
+
+  /**
+   * Test programmatically editing user credentials won't change their username.
+   *
+   * Makes sure, the email_registration naming conventions won't magically
+   * overwrite the username, when the user is edited.
+   */
+  public function testProgrammaticallyEditingUserDoesNotChangeUsername() {
+    // First let's see if changing the name won't reset the username:
+    $this->user->setUsername('Changed Username')->save();
+    $this->assertEquals('Changed Username', $this->user->getAccountName());
+    // Now do the same with the email-address:
+    $this->user->setEmail('myVeryNewMail@address.com')->save();
+    $this->assertEquals('myVeryNewMail@address.com', $this->user->getEmail());
+    $this->assertEquals('Changed Username', $this->user->getAccountName());
+  }
+
+  /**
+   * Tests, that logging in won't magically change the users username.
+   */
+  public function testLoginDoesNotChangeUsername() {
+    $user = $this->drupalCreateUser([], 'Initial Username', FALSE, ['mail' => 'completelyDifferent@mail.com']);
+    $this->drupalLogin($user);
+    $this->assertEquals('Initial Username', $user->getAccountName());
+    $this->assertEquals('completelyDifferent@mail.com', $user->getEmail());
   }
 
 }

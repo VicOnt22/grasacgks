@@ -270,7 +270,7 @@ class ConfigInspectorController extends ControllerBase {
         ],
       ],
     ];
-    $output += $this->formatTree($config_schema, $validatability);
+    $output += $this->formatTree($name, $config_schema, $validatability);
     $output['#title'] = $this->t('Tree of configuration data for %name', ['%name' => $name]);
     return $output;
   }
@@ -368,7 +368,7 @@ class ConfigInspectorController extends ControllerBase {
       $property_path = $element->getPropertyPath();
       // @todo Remove once <= 10.0.x support is dropped.
       if (version_compare(\Drupal::VERSION, '10.1.0', 'lt')) {
-        $property_path = $key;
+        $property_path = $config_name . '.' . $property_path;
       }
 
       $rows[] = [
@@ -412,6 +412,8 @@ class ConfigInspectorController extends ControllerBase {
   /**
    * Format config schema as a tree.
    *
+   * @param string $config_name
+   *   The config name.
    * @param array|object $schema
    *   The schema.
    * @param \Drupal\config_inspector\ConfigSchemaValidatability $validatability
@@ -426,7 +428,7 @@ class ConfigInspectorController extends ControllerBase {
    *
    * @todo Remove $base_key argument once <=10.0.x support is dropped.
    */
-  public function formatTree($schema, ConfigSchemaValidatability $validatability, $collapsed = FALSE, $base_key = '') {
+  public function formatTree(string $config_name, $schema, ConfigSchemaValidatability $validatability, $collapsed = FALSE, $base_key = '') {
     $build = [];
     foreach ($schema as $key => $element) {
       $definition = $element->getDataDefinition();
@@ -436,7 +438,8 @@ class ConfigInspectorController extends ControllerBase {
       $element_key = str_replace($element->getRoot()->getName() . '.', '', $property_path);
       // @todo Remove once <= 10.0.x support is dropped.
       if (version_compare(\Drupal::VERSION, '10.1.0', 'lt')) {
-        $property_path = $element_key = $base_key . $key;
+        $element_key = $base_key . $key;
+        $property_path = $config_name . '.' . $property_path;
       }
       $is_validatable = $validatability->getValidatabilityPerPropertyPath()[$property_path];
       $is_validatable_string = $is_validatable
@@ -450,7 +453,7 @@ class ConfigInspectorController extends ControllerBase {
           '#description' => $element_key . ' (' . $type . ', ' . $is_validatable_string . ')',
           '#description_display' => 'after',
           '#open' => !$collapsed,
-        ] + $this->formatTree($element, $validatability, TRUE, $element_key . '.');
+        ] + $this->formatTree($config_name, $element, $validatability, TRUE, $element_key . '.');
       }
       else {
         $build[$key] = [

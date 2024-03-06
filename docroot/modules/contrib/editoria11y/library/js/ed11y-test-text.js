@@ -30,42 +30,42 @@ class Ed11yTestText {
       let secondText = false;
       let hit = false;
       if (!firstText) {
-        firstText = Ed11y.getText(p);
+        firstText = Ed11y.getText(p).replace('(','');
         firstPrefix = firstText.substring(0, 2);
       }
       // Grab first two characters.
       let matchWasntEmoji = firstPrefix.match(prefixMatch);
       if (firstPrefix.length > 0 && firstPrefix !== activeMatch && (matchWasntEmoji || firstPrefix.match(emojiMatch))) {
         // We have a prefix and a possible hit; check next detected paragraph.
-        if (matchWasntEmoji) {
-          lastHitWasEmoji = false;
-          let secondP = Ed11y.elements.p[i + 1];
-          if (secondP) {
-            secondText = Ed11y.getText(secondP).substring(0, 2);
-            let secondPrefix = decrement(secondText);
-            if (firstPrefix === secondPrefix) {
-              // This will flag repeats (*,*) or increments(a,b)
+        let secondP = Ed11y.elements.p[i + 1];
+        compareP: if (secondP) {
+          secondText = Ed11y.getText(secondP).replace('(','').substring(0, 2);
+          if (secondText === 'A') {
+            // A sentence. A nother sentence.
+            break compareP;
+          }
+          let secondPrefix = decrement(secondText);
+          if (matchWasntEmoji) {
+            // Check for repeats (*,*) or increments(a,b)
+            lastHitWasEmoji = false;
+            if (firstPrefix !== 'A ' && firstPrefix === secondPrefix) {
               hit = true;
             }
-          }
-        } else if (!lastHitWasEmoji) {
-          // Match was Emoji, match any paragraph with another emoji
-          let secondP = Ed11y.elements.p[i + 1];
-          if (secondP) {
-            let secondPrefix = Ed11y.getText(secondP).substring(0, 2);
+          } else if (!lastHitWasEmoji) {
+            // Check for two paragraphs in a row that start with emoji
             if (secondPrefix.match(emojiMatch)) {
               hit = true;
             }
+            // It was an emoji match.
+            lastHitWasEmoji = hit;
           }
-          // It was an emoji match.
-          lastHitWasEmoji = hit;
         }
         if (!hit) {
           // Split p by carriage return if there was a firstPrefix and compare.
           // todo: this is not detected if the element after the BR has rich formatting
           let textAfterBreak = p?.querySelector('br')?.nextSibling?.nodeValue;
           if (textAfterBreak) {
-            textAfterBreak = textAfterBreak.replace(/<\/?[^>]+(>|$)/g, '').trim().substring(0, 2);
+            textAfterBreak = textAfterBreak.replace(/<\/?[^>]+(>|$)/g, '').replace('(','').trim().substring(0, 2);
             if (firstPrefix === decrement(textAfterBreak) || (!matchWasntEmoji && !lastHitWasEmoji && textAfterBreak.match(emojiMatch))) {
               hit = true;
             }
@@ -73,7 +73,14 @@ class Ed11yTestText {
         }
         if (hit) {
           let dismissKey = Ed11y.dismissalKey(firstText);
-          Ed11y.results.push([p, 'textPossibleList', Ed11y.M.textPossibleList.tip(firstPrefix), 'afterbegin', dismissKey]);
+          Ed11y.results.push(
+            {
+              element: p,
+              test: 'textPossibleList',
+              content: Ed11y.M.textPossibleList.tip(firstPrefix),
+              position: 'afterbegin',
+              dismissalKey: dismissKey,
+            });
           activeMatch = firstPrefix;
         }
         else {
@@ -91,7 +98,13 @@ class Ed11yTestText {
           let maybeSentence = possibleHeading.match(/[.:;?!"']/) !== null;
           if (121 > length && length > 5 && length === firstText.length && maybeSentence === false) {
             let dismissKey = Ed11y.dismissalKey(possibleHeading);
-            Ed11y.results.push([p, 'textPossibleHeading', Ed11y.M.textPossibleHeading.tip(), 'afterbegin', dismissKey]);
+            Ed11y.results.push({
+              element: p,
+              test: 'textPossibleHeading',
+              content: Ed11y.M.textPossibleHeading.tip(),
+              position: 'afterbegin',
+              dismissalKey: dismissKey,
+            });
           }
         }
       }
@@ -124,9 +137,22 @@ class Ed11yTestText {
         let dismissKey = Ed11y.dismissalKey(thisText);
         let parentClickable = el.closest('a, button');
         if (parentClickable) {
-          Ed11y.results.push([parentClickable, 'textUppercase', Ed11y.M.textUppercase.tip(), 'beforebegin', dismissKey]);
+          Ed11y.results.push(
+            {
+              element: parentClickable,
+              test: 'textUppercase',
+              content: Ed11y.M.textUppercase.tip(),
+              position: 'beforebegin',
+              dismissalKey: dismissKey,
+            });
         } else {
-          Ed11y.results.push([el, 'textUppercase', Ed11y.M.textUppercase.tip(), 'afterbegin', dismissKey]);
+          Ed11y.results.push({
+            element: el,
+            test: 'textUppercase',
+            content: Ed11y.M.textUppercase.tip(),
+            position: 'afterbegin',
+            dismissalKey: dismissKey,
+          });
         }
       }
     };
@@ -148,19 +174,37 @@ class Ed11yTestText {
       let findTHeaders = el.querySelectorAll('th');
       let findHeadingTags = el.querySelectorAll('h1, h2, h3, h4, h5, h6');
       if (findTHeaders.length === 0) {
-        Ed11y.results.push([el, 'tableNoHeaderCells', Ed11y.M.tableNoHeaderCells.tip(), 'beforebegin', false]);
+        Ed11y.results.push({
+          element: el,
+          test: 'tableNoHeaderCells',
+          content: Ed11y.M.tableNoHeaderCells.tip(),
+          position: 'beforebegin',
+          dismissalKey: false,
+        });
       }
       else {
         // Make sure all table headers are not empty.
         findTHeaders.forEach((th) => {
-          if (Ed11y.getText(th).length < 1 && !Ed11y.computeTitle(th)) {
-            Ed11y.results.push([th, 'tableEmptyHeaderCell', Ed11y.M.tableEmptyHeaderCell.tip(), 'afterbegin', false]);
+          if (Ed11y.computeText(th).length < 1) {
+            Ed11y.results.push({
+              element: th,
+              test: 'tableEmptyHeaderCell',
+              content: Ed11y.M.tableEmptyHeaderCell.tip(),
+              position: 'afterbegin',
+              dismissalKey: false,
+            });
           }
         });
       }
       if (findHeadingTags) {
         findHeadingTags.forEach((h) => {
-          Ed11y.results.push([h, 'tableContainsContentHeading', Ed11y.M.tableContainsContentHeading.tip(), 'beforebegin', false]);
+          Ed11y.results.push({
+            element: h,
+            test: 'tableContainsContentHeading',
+            content: Ed11y.M.tableContainsContentHeading.tip(),
+            position: 'beforebegin',
+            dismissalKey: false,
+          });
         });
       }
     });

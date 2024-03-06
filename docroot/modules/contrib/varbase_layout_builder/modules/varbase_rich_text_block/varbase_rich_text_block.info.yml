@@ -1,8 +1,8 @@
-name: "Varbase Rich text block"
-description: "A rich text block contains a title and a body with a rich text format."
+name: Varbase Rich text block
+description: A rich text block contains a title and a body with a rich text format.
 type: module
 package: "Varbase Blocks"
-core_version_requirement: ~9.5.0 || ~10.1.0
+core_version_requirement: ~9 || ~10
 dependencies:
   - drupal:block
   - drupal:block_content
@@ -13,11 +13,12 @@ dependencies:
   - drupal:link
   - drupal:filter
   - ctools:ctools_block
-  - allowed_formats:allowed_formats
   - block_content_permissions:block_content_permissions
   - varbase_media:varbase_media
+install:
+  - allowed_formats
 
-# Information added by Drupal.org packaging script on 2023-10-29
-version: '10.0.39'
+# Information added by Drupal.org packaging script on 2024-02-28
+version: '10.0.50'
 project: 'varbase_layout_builder'
-datestamp: 1698576189
+datestamp: 1709128802

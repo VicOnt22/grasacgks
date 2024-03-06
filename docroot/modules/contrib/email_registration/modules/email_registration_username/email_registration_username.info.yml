@@ -8,7 +8,7 @@ dependencies:
   - email_registration:email_registration
   - token:token
 
-# Information added by Drupal.org packaging script on 2023-10-25
-version: '2.0.0-rc2'
+# Information added by Drupal.org packaging script on 2024-01-24
+version: '2.0.0-rc4'
 project: 'email_registration'
-datestamp: 1698241639
+datestamp: 1706101845

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\pathologic\Functional;
 
 use Drupal\Tests\BrowserTestBase;
@@ -47,13 +49,17 @@ class PathologicUITest extends BrowserTestBase {
     $this->drupalGet('admin/config/content/pathologic');
     $this->assertSession()->pageTextContains('Pathologic configuration');
 
+    // Since the 'language' module is not installed, this setting should not be
+    // here.
+    $this->assertSession()->pageTextNotContains('Keep language prefix');
+
     // Test submit form.
     $this->assertSession()->checkboxNotChecked('edit-protocol-style-proto-rel');
     $edit = [
       'protocol_style' => 'proto-rel',
       'local_paths' => 'http://example.com/',
     ];
-    $this->submitForm($edit, t('Save configuration'));
+    $this->submitForm($edit, 'Save configuration');
     $this->assertSession()->pageTextContains('The configuration options have been saved.');
     $this->assertSession()->checkboxChecked('edit-protocol-style-proto-rel');
     $this->assertSession()->pageTextContains('http://example.com/');
@@ -76,7 +82,7 @@ class PathologicUITest extends BrowserTestBase {
     $this->submitForm([
       'filters[filter_html_escape][status]' => FALSE,
       'filters[filter_pathologic][status]' => '1',
-    ], t('Save configuration'));
+    ], 'Save configuration');
 
     $this->drupalGet('/admin/config/content/formats/manage/plain_text');
     $this->assertSession()->responseContains('In most cases, Pathologic should be the <em>last</em> filter in the &ldquo;Filter processing order&rdquo; list.');
@@ -85,7 +91,7 @@ class PathologicUITest extends BrowserTestBase {
     $this->submitForm([
       'filters[filter_pathologic][settings][settings_source]' => 'local',
       'filters[filter_pathologic][settings][local_settings][protocol_style]' => 'full',
-      ], t('Save configuration'));
+    ], 'Save configuration');
 
     $this->drupalGet('/admin/config/content/formats/manage/plain_text');
     $this->assertSession()->checkboxChecked('edit-filters-filter-pathologic-settings-settings-source-local');
@@ -103,7 +109,7 @@ class PathologicUITest extends BrowserTestBase {
       'body[0][value]' => '<a href="node/1">Test link</a>',
     ];
     $this->drupalGet('node/add/page');
-    $this->submitForm($edit, t('Save'));
+    $this->submitForm($edit, 'Save');
 
     // Assert that the link is processed with Pathologic.
     $this->clickLink('Test link');

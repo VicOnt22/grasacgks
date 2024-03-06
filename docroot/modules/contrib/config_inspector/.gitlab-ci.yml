@@ -30,95 +30,84 @@ include:
 ################
 variables:
   SKIP_ESLINT: '1'
+  # Opt in to testing current minor against max supported PHP version.
+  OPT_IN_TEST_MAX_PHP: '1'
+  # Opt in to testing previous & next minor (Drupal 10.0.x and 10.2.x).
+  OPT_IN_TEST_PREVIOUS_MINOR: '1'
+  OPT_IN_TEST_NEXT_MINOR: '1'
+  # Opt in to testing $CORE_PREVIOUS_MAJOR (currently Drupal 9.5).
+  OPT_IN_TEST_PREVIOUS_MAJOR: '1'
+  # Opt in to testing $CORE_MAJOR_DEVELOPMENT (currently Drupal 11).
+  OPT_IN_TEST_NEXT_MAJOR: '1'
 
-composer:
-  parallel:
-    matrix:
-      # Drupal 9 is supported until November 2023.
-      - _TARGET_PHP: [ "7.4" ]
-        _TARGET_CORE: [ $CORE_PREVIOUS_STABLE ]
-      # Drupal 10.
-      - _TARGET_PHP: [$CORE_PHP_MIN]
-        _TARGET_CORE:
-          - $CORE_SECURITY_PREVIOUS_MINOR
-          - $CORE_STABLE
-          - $CORE_NEXT_MINOR
-      # Drupal 10 (max PHP) & 11.
-      - _TARGET_PHP: [$CORE_PHP_MAX]
-        _TARGET_CORE:
-          - $CORE_STABLE
-          - $CORE_MAJOR_DEVELOPMENT
-
+# This module wants to strictly comply with Drupal's coding standards.
 phpcs:
-  # Set allow_failure to false so that the test fails for coding standards faults.
   allow_failure: false
-  dependencies:
-    - "composer: [$CORE_PHP_MIN, $CORE_STABLE]"
 
-composer-lint:
-  needs:
-    - "composer: [$CORE_PHP_MIN, $CORE_STABLE]"
-
-phpunit:
-  needs:
-    - job: composer
-      parallel:
-        matrix:
-          - _TARGET_PHP: $CORE_PHP_MIN
-            _TARGET_CORE: $CORE_STABLE
-
-phpunit (max PHP version):
-  extends: phpunit
-  needs:
-    - job: composer
-      parallel:
-        matrix:
-          - _TARGET_PHP: $CORE_PHP_MAX
-            _TARGET_CORE: $CORE_STABLE
+# Custom job to analyze and visualize the config validatibility of Drupal core.
+📈 Core config validatability:
   variables:
-    _TARGET_PHP: $CORE_PHP_MAX
-
-phpunit (previous minor):
-  extends: phpunit
-  needs:
-    - job: composer
-      parallel:
-        matrix:
-          - _TARGET_PHP: $CORE_PHP_MIN
-            _TARGET_CORE: $CORE_SECURITY_PREVIOUS_MINOR
-
-phpunit (previous major):
-  extends: phpunit
-  needs:
-    - job: composer
-      parallel:
-        matrix:
-          - _TARGET_PHP: "7.4"
-            _TARGET_CORE: $CORE_PREVIOUS_STABLE
-  variables:
-    _TARGET_PHP: "7.4"
-
-# Future versions, hence breaks may arrive at any time: failure is allowed.
-phpunit (next minor):
-  allow_failure: true
-  extends: phpunit
-  needs:
-    - job: composer
-      parallel:
-        matrix:
-          - _TARGET_PHP: $CORE_PHP_MIN
-            _TARGET_CORE: $CORE_NEXT_MINOR
-phpunit (next major):
-  allow_failure: true
-  extends: phpunit
-  needs:
-    - job: composer
-      parallel:
-        matrix:
-          - _TARGET_PHP: $CORE_PHP_MAX
-            _TARGET_CORE: $CORE_MAJOR_DEVELOPMENT
+    _TARGET_PHP: '8.1'
+    START_DATETIME: "2022-11-01 00:00:00"
+  stage: build
   before_script:
-    # If the module already supports Drupal 11, do nothing, otherwise, claim Drupal 11 support for testing purposes.
-    - grep -q "\^11" *.info.yml || (grep -q "\^10" *.info.yml && sed -i "s/\^10/\^10 \|\| ^11/" *.info.yml)
-  variables:
-    _TARGET_PHP: $CORE_PHP_MAX
+    # Log state before.
+    - which php && which composer && which jq || true
+    # Install jq.
+    - sudo apt-get -qq update
+    - sudo apt-get -qq install -y jq
+    # Log state after.
+    - which php && which composer && which jq
+    # This is the most resource-intensive test: log the current memory limit & composer version.
+    - php -i | grep memory_limit
+    - php --version
+    - composer --version
+  script:
+    - cd /tmp
+    - git clone https://git.drupalcode.org/project/drupal.git --single-branch --branch 11.x --quiet
+    - cd drupal
+    - mv $CI_PROJECT_DIR/scripts/* .
+    - mv $CI_PROJECT_DIR modules/
+    - mkdir statistics
+    - php config-validatability-report.php $START_DATETIME
+    - mkdir -p $CI_PROJECT_DIR/validatability-report
+    - mv statistics $CI_PROJECT_DIR/validatability-report/
+    - mv statistics.csv $CI_PROJECT_DIR/validatability-report/
+  artifacts:
+    paths:
+      - validatability-report
+  # Run in every scheduled pipeline, and allow manual runs on the default branch as well as in MRs.
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: always
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: manual
+
+pages:
+  stage: build
+  needs:
+    - 📈 Core config validatability
+  image: r-base
+  script:
+    # Visualize the statistics from the report.
+    - mv validatability-report/statistics.csv .
+    - Rscript scripts/visualize_statistics.R
+    # Publish the visualization of the report, plus the raw data behind it.
+    - mkdir public
+    - echo '<img src="validatability.png" width="100%">' > public/index.html
+    - mv validatability.png public/
+    - mv validatability-report public/raw
+    - mv statistics.csv public/raw/
+  artifacts:
+    paths:
+      - public
+  # Run in every scheduled pipeline, and allow manual runs on the default branch as well as in MRs.
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: always
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: manual

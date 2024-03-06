@@ -9,6 +9,8 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\email_registration\Plugin\Action\UpdateUsernameAction;
+use Drupal\email_registration_username\Plugin\Action\UpdateUsernameWithMailAction;
 use Drupal\user\UserInterface;
 
 /**
@@ -34,18 +36,18 @@ function email_registration_username_help($route_name, RouteMatchInterface $rout
 }
 
 /**
- * Implements hook_ENTITY_TYPE_presave().
+ * Implements hook_email_registration_name_alter().
  */
-function email_registration_username_email_registration_name_alter(string &$accountName, UserInterface $account) {
-  // Reset to the original account name,
-  // as we never want to use the pregenerated name from email_registration:
+function email_registration_username_email_registration_name_alter(string &$newAccountName, UserInterface $account) {
+  // Reset to the original account name, as we never want to use the
+  // pregenerated name from email_registration:
   $accountName = $account->getAccountName();
 
   if (empty($accountName) || str_starts_with($accountName, 'email_registration_')) {
     // For new accounts:
     // If the user is new, or starts with 'email_registration_', simply set the
     // user mail as the user name and return early:
-    $accountName = $account->getEmail();
+    $newAccountName = $account->getEmail();
   }
   else {
     // If the user isn't new, but the mail got modified, sync both mail and
@@ -54,7 +56,7 @@ function email_registration_username_email_registration_name_alter(string &$acco
       // If the mail address was already synced with the account name:
       if ($account->original->getEmail() === $account->original->getAccountName()) {
         // Re-sync the changed mail address with the account name:
-        $accountName = $currentMail;
+        $newAccountName = $currentMail;
       }
     }
   }

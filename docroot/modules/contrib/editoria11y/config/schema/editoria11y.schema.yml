@@ -26,6 +26,9 @@ editoria11y.settings:
     ignore_link_strings:
       type: string
       label: 'Remove these strings from link text before checking for bad link text'
+    link_ignore_selector:
+      type: string
+      label: 'Remove strings in this selector before checking for bad link text'
     hidden_handlers:
       type: string
       label: 'Hidden elements in these containers will be revealed by theme JS on request via a dispatched event'
@@ -41,3 +44,6 @@ editoria11y.settings:
     preserve_params:
       type: string
       label: 'URL query parameters that should be recorded as separate pages'
+    custom_tests:
+      type: integer
+      label: 'Number of custom test finished events the checker should wait for'

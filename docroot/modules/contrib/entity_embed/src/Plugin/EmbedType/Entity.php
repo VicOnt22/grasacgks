@@ -2,18 +2,12 @@
 
 namespace Drupal\entity_embed\Plugin\EmbedType;
 
-use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Entity\EntityTypeRepositoryInterface;
-use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginDependencyTrait;
-use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\embed\EmbedType\EmbedTypeBase;
 use Drupal\entity_browser\EntityBrowserInterface;
-use Drupal\entity_embed\EntityEmbedDisplay\EntityEmbedDisplayManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -63,59 +57,16 @@ class Entity extends EmbedTypeBase implements ContainerFactoryPluginInterface {
    protected $moduleHandler;
 
   /**
-   * The file URL generator.
-   *
-   * @var \Drupal\Core\File\FileUrlGeneratorInterface
-   */
-  protected $fileUrlGenerator;
-
-  /**
-   * {@inheritdoc}
-   *
-   * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
-   * @param string $plugin_id
-   *   The plugin_id for the plugin instance.
-   * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager service.
-   * @param \Drupal\Core\Entity\EntityTypeRepositoryInterface $entity_type_repository
-   *   The entity type repository service.
-   * @param \Drupal\Core\Entity\EntityTypeBundleInfoInterface $bundle_info
-   *   The entity type bundle info service.
-   * @param \Drupal\entity_embed\EntityEmbedDisplay\EntityEmbedDisplayManager $display_plugin_manager
-   *   The plugin manager.
-   * @param \Drupal\Core\File\FileUrlGeneratorInterface
-   *   The file URL generator.
-   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
-   *   The module handler service.
-   */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, EntityTypeRepositoryInterface $entity_type_repository, EntityTypeBundleInfoInterface $bundle_info, EntityEmbedDisplayManager $display_plugin_manager, FileUrlGeneratorInterface $file_url_generator, ModuleHandlerInterface $module_handler) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->entityTypeManager = $entity_type_manager;
-    $this->entityTypeRepository = $entity_type_repository;
-    $this->entityTypeBundleInfo = $bundle_info;
-    $this->displayPluginManager = $display_plugin_manager;
-    $this->fileUrlGenerator = $file_url_generator;
-    $this->moduleHandler = $module_handler;
-  }
-
-  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $container->get('entity_type.manager'),
-      $container->get('entity_type.repository'),
-      $container->get('entity_type.bundle.info'),
-      $container->get('plugin.manager.entity_embed.display'),
-      $container->get('file_url_generator'),
-      $container->get('module_handler')
-    );
+    $instance = new static($configuration, $plugin_id, $plugin_definition);
+    $instance->entityTypeManager = $container->get('entity_type.manager');
+    $instance->entityTypeRepository = $container->get('entity_type.repository');
+    $instance->entityTypeBundleInfo = $container->get('entity_type.bundle.info');
+    $instance->displayPluginManager = $container->get('plugin.manager.entity_embed.display');
+    $instance->moduleHandler = $container->get('module_handler');
+    return $instance;
   }
 
   /**
@@ -188,7 +139,7 @@ class Entity extends EmbedTypeBase implements ContainerFactoryPluginInterface {
       ];
       $form['display_plugins']['#access'] = !empty($form['display_plugins']['#options']);
 
-      // Manager an inline entity form to create and embed an entity.
+      // Manage an inline entity form to create and embed an entity.
       if ($this->moduleHandler->moduleExists('inline_entity_form')) {
         $form['inline_entity_form'] = [
           '#type' => 'checkbox',
@@ -369,7 +320,7 @@ class Entity extends EmbedTypeBase implements ContainerFactoryPluginInterface {
    * {@inheritdoc}
    */
   public function getDefaultIconUrl() {
-    return $this->fileUrlGenerator->generateAbsoluteString(\Drupal::service('extension.list.module')->getPath('entity_embed') . '/js/plugins/drupalentity/entity.png');
+    return $this->getModulePath('entity_embed') . '/js/ckeditor5_plugins/drupalentity/entity.svg';
   }
 
   /**

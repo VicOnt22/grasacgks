@@ -1,33 +1,41 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\pathologic\Functional;
 
+use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\Tests\BrowserTestBase;
+use Drupal\Tests\node\Traits\ContentTypeCreationTrait;
+use Drupal\Tests\node\Traits\NodeCreationTrait;
+use Drupal\Tests\pathologic\Traits\PathologicFormatTrait;
+use Drupal\Tests\user\Traits\UserCreationTrait;
 
 /**
  * Test multilingual integration of Pathologic functionality.
  *
- * @group filter
+ * @group pathologic
  */
 class PathologicLanguageTest extends BrowserTestBase {
+
+  use ContentTypeCreationTrait;
+  use NodeCreationTrait;
+  use PathologicFormatTrait;
+  use UserCreationTrait;
 
   /**
    * {@inheritdoc}
    */
   protected static $modules = [
     'content_translation',
+    'field',
     'language',
     'locale',
-    'pathologic',
     'node',
+    'pathologic',
+    'text',
+    'user',
   ];
-
-  /**
-   * A user with permissions to administer content types.
-   *
-   * @var \Drupal\user\UserInterface
-   */
-  protected $webUser;
 
   /**
    * {@inheritdoc}
@@ -40,91 +48,149 @@ class PathologicLanguageTest extends BrowserTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    $this->drupalCreateContentType([
+    $this->createContentType([
       'type' => 'page',
-      'name' => 'Basic page'
+      'name' => 'Basic page',
     ]);
 
-    $permissions = [
-      'access administration pages',
-      'administer filters',
-      'administer languages',
-      'administer content translation',
-      'administer content types',
-      'administer languages',
-      'create content translations',
-      'create page content',
-      'edit any page content',
-      'translate any entity',
-    ];
-    $this->webUser = $this->drupalCreateUser($permissions);
-    $this->drupalLogin($this->webUser);
-
-    // Add a second language.
-    $edit = [];
-    $edit['predefined_langcode'] = 'fr';
-    $this->drupalGet('/admin/config/regional/language/add');
-    $this->submitForm($edit, 'Add language');
+    // Add more languages.
+    ConfigurableLanguage::createFromLangcode('fr')->save();
+    ConfigurableLanguage::createFromLangcode('pt-br')->save();
 
     // Enable URL language detection and selection.
-    $edit = ['language_interface[enabled][language-url]' => 1];
-    $this->drupalGet('/admin/config/regional/language/detection');
-    $this->submitForm($edit, 'Save settings');
-
-    // Enable translation for page node.
-    $edit = [
-      'entity_types[node]' => 1,
-      'settings[node][page][translatable]' => 1,
-      'settings[node][page][fields][body]' => 1,
-      'settings[node][page][settings][language][language_alterable]' => 1,
-    ];
-    $this->drupalGet('/admin/config/regional/content-language');
-    $this->submitForm($edit, 'Save configuration');
+    \Drupal::configFactory()->getEditable('language.negotiation')
+      ->set('url.prefixes.fr', 'fr')
+      ->set('url.prefixes.pt-br', 'pt-br')
+      ->save();
 
     // Configure Pathologic on a text format.
-    $this->drupalGet('/admin/config/content/formats/manage/plain_text');
-    $this->submitForm([
-      'filters[filter_html_escape][status]' => FALSE,
-      'filters[filter_pathologic][status]' => '1',
-      'filters[filter_pathologic][settings][settings_source]' => 'local',
-      'filters[filter_pathologic][settings][local_settings][protocol_style]' => 'path',
-    ], t('Save configuration'));
+    $this->buildFormat([
+      'settings_source' => 'local',
+      'local_settings' => [
+        'protocol_style' => 'path',
+        'keep_language_prefix' => TRUE,
+      ],
+    ]);
+
+    // To reflect the changes for a multilingual site, rebuild the container.
+    $this->container->get('kernel')->rebuildContainer();
+
+    $this->drupalLogin($this->drupalCreateUser(['administer filters', 'create page content']));
   }
 
   /**
-   * Pathologic should not prefix URLs in content translations.
+   * Tests how links to nodes and files are handled with translations.
    */
-  public function testContentTranslation() {
-    $node_to_reference = $this->drupalCreateNode([
+  public function testContentTranslation(): void {
+
+    // Make sure that the 'Keep language prefix' setting is visible.
+    $this->drupalGet('admin/config/content/pathologic');
+    $this->assertSession()->statusCodeEquals(200);
+    $this->assertSession()->pageTextContains('Keep language prefix');
+
+    // Create a node that will be referenced in a link inside another node.
+    $node_to_reference = $this->createNode([
       'type' => 'page',
-      'title' => 'Reference node',
+      'title' => 'Reference page',
     ]);
-    // Create a default-language node with a node link and a file link.
-    $default_language_node = $this->drupalCreateNode([
-      'type' => 'page',
-      'title' => 'Lost in translation',
-      'body' => [
-        'value' => '<a href="/node/' . $node_to_reference->id() . '">Test node link</a><a href="/sites/default/files/test.png">Test file link</a>',
-        'format' => 'plain_text',
+
+    // Add translations for the reference node, and try a whole
+    // series of possible input texts to see how they are handled.
+    $node_to_reference->addTranslation('fr', [
+      'title' => 'Page de référence en français',
+    ])->save();
+    $node_to_reference->addTranslation('pt-br', [
+      'title' => 'Página de referência em Português',
+    ])->save();
+
+    global $base_path;
+    $nid = $node_to_reference->id();
+
+    // The link replacement shouldn't change for any of these based on the
+    // language the filter runs with.
+    foreach (['en', 'fr', 'pt-br'] as $langcode) {
+      $this->assertSame(
+        '<a href="' . $base_path . 'sites/default/files/test.png">Test file link</a>',
+        $this->runFilter('<a href="/sites/default/files/test.png">Test file link</a>', $langcode),
+        "$langcode: file links do not get a language prefix",
+      );
+      $this->assertSame(
+        '<a href="' . $base_path . 'node/' . $nid . '">Test node link</a>',
+        $this->runFilter('<a href="/node/' . $nid . '">Test node link</a>', $langcode),
+        "$langcode: node/N link should be unchanged"
+      );
+      $this->assertSame(
+        '<a href="' . $base_path . 'fr/node/' . $nid . '">Test node link</a>',
+        $this->runFilter('<a href="/fr/node/' . $nid . '">Test node link</a>', $langcode),
+        "$langcode: fr/node/N link should be unchanged",
+      );
+      $this->assertSame(
+        '<a href="' . $base_path . 'pt-br/node/' . $nid . '">Test node link</a>',
+        $this->runFilter('<a href="/pt-br/node/' . $nid . '">Test node link</a>', $langcode),
+        "$langcode: pt-br/node/N link should be unchanged",
+      );
+      $this->assertSame(
+        '<a href="' . $base_path . 'reference-en">Test node link</a>',
+        $this->runFilter('<a href="/reference-en">Test node link</a>', $langcode),
+        "$langcode: /reference-en link uses EN alias",
+      );
+      $this->assertSame(
+        '<a href="' . $base_path . 'fr/reference-fr">Test node link</a>',
+        $this->runFilter('<a href="/fr/reference-fr">Test node link</a>', $langcode),
+        "$langcode: fr/reference-fr link uses the FR alias",
+      );
+      $this->assertSame(
+        '<a href="' . $base_path . 'pt-br/referencia-pt">Test node link</a>',
+        $this->runFilter('<a href="/pt-br/referencia-pt">Test node link</a>', $langcode),
+        "$langcode: pt-br/referencia-pt uses the PT-BR alias",
+      );
+    }
+
+    // Try again with language code stripping configured.
+    $this->buildFormat([
+      'settings_source' => 'local',
+      'local_settings' => [
+        'protocol_style' => 'path',
+        'keep_language_prefix' => FALSE,
       ],
     ]);
-    $this->drupalGet('/node/' . $default_language_node->id());
-    // Links on the default language node should not contain a language prefix.
-    $this->assertSession()->linkByHrefExists('/sites/default/files/test.png');
-    $this->assertSession()->linkByHrefNotExists('/en/sites/default/files/test.png');
-    $this->assertSession()->linkByHrefExists('/node/' . $node_to_reference->id());
-    $this->assertSession()->linkByHrefNotExists('/en/node/' . $node_to_reference->id());
-
-    // Create a translation of the node, same content.
-    $this->drupalGet('/node/' . $default_language_node->id() . '/translations/add/en/fr');
-    $this->submitForm([], 'Save');
-
-    // Links on the translation should *not* contain a language prefix.
-    $this->drupalGet('/fr/node/' . $default_language_node->id());
-    $this->assertSession()->linkByHrefExists('/node/' . $node_to_reference->id());
-    $this->assertSession()->linkByHrefNotExists('/fr/node/' . $node_to_reference->id());
-    $this->assertSession()->linkByHrefExists('/sites/default/files/test.png');
-    $this->assertSession()->linkByHrefNotExists('/fr/sites/default/files/test.png');
+    foreach (['en', 'fr', 'pt-br'] as $langcode) {
+      $this->assertSame(
+        '<a href="' . $base_path . 'sites/default/files/test.png">Test file link</a>',
+        $this->runFilter('<a href="/sites/default/files/test.png">Test file link</a>', $langcode),
+        "$langcode: file links do not get a language prefix",
+      );
+      $this->assertSame(
+        '<a href="' . $base_path . 'node/' . $nid . '">Test node link</a>',
+        $this->runFilter('<a href="/node/' . $nid . '">Test node link</a>', $langcode),
+        "$langcode: node/N link is unchanged"
+      );
+      $this->assertSame(
+        '<a href="' . $base_path . 'node/' . $nid . '">Test node link</a>',
+        $this->runFilter('<a href="/fr/node/' . $nid . '">Test node link</a>', $langcode),
+        "$langcode: fr/node/N link should have no langcode prefix"
+      );
+      $this->assertSame(
+        '<a href="' . $base_path . 'node/' . $nid . '">Test node link</a>',
+        $this->runFilter('<a href="/pt-br/node/' . $nid . '">Test node link</a>', $langcode),
+        "$langcode: pt-br/node/N link should have no langcode prefix"
+      );
+      $this->assertSame(
+        '<a href="' . $base_path . 'reference-en">Test node link</a>',
+        $this->runFilter('<a href="/reference-en">Test node link</a>', $langcode),
+        "$langcode: /reference-en link uses EN alias",
+      );
+      $this->assertSame(
+        '<a href="' . $base_path . 'reference-fr">Test node link</a>',
+        $this->runFilter('<a href="/fr/reference-fr">Test node link</a>', $langcode),
+        "$langcode: fr/reference-fr link should have no langcode prefix",
+      );
+      $this->assertSame(
+        '<a href="' . $base_path . 'referencia-pt">Test node link</a>',
+        $this->runFilter('<a href="/pt-br/referencia-pt">Test node link</a>', $langcode),
+        "$langcode: pt-br/referencia-pt link should have no langcode prefix",
+      );
+    }
   }
 
 }

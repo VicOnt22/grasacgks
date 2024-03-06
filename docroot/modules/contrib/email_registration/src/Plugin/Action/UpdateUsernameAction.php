@@ -3,8 +3,11 @@
 namespace Drupal\email_registration\Plugin\Action;
 
 use Drupal\Core\Action\ActionBase;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\email_registration\UsernameGenerator;
 use Drupal\user\UserInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Auto username rename bulk action.
@@ -15,7 +18,34 @@ use Drupal\user\UserInterface;
  *   type = "user",
  * )
  */
-class UpdateUsernameAction extends ActionBase {
+class UpdateUsernameAction extends ActionBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * The username generator service.
+   *
+   * @var \Drupal\email_registration\UsernameGenerator
+   */
+  protected $usernameGenerator;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(array $configuration, string $plugin_id, array $plugin_definition, UsernameGenerator $usernameGenerator) {
+    $this->usernameGenerator = $usernameGenerator;
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('email_registration.username_generator')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -25,7 +55,7 @@ class UpdateUsernameAction extends ActionBase {
     if (!empty($account) && $account instanceof UserInterface) {
       // Give the user a temporary 'email_registration_' username, so that
       // our "email_registration_user_presave()" hook can execute:
-      $account->setUsername(\Drupal::service('email_registration.username_generator')->generateRandomUsername())->save();
+      $account->setUsername($this->usernameGenerator->generateRandomUsername())->save();
     }
   }
 

@@ -1,0 +1,8 @@
+#layout-builder-modal .container-inline .form-radios label::after,.media-library-widget-modal .container-inline .form-radios label::after,form.media-form .container-inline .form-radios label::after {
+  content: "";
+}
+
+#layout-builder-modal .container-inline .form-radios .form-type-radio,.media-library-widget-modal .container-inline .form-radios .form-type-radio,form.media-form .container-inline .form-radios .form-type-radio {
+  margin-inline-end: 1em;
+}
+

@@ -15,7 +15,19 @@ use Drupal\Core\Url;
  *
  * @Chart(
  *   id = "chartjs",
- *   name = @Translation("Chart.js")
+ *   name = @Translation("Chart.js"),
+ *   types = {
+ *     "area",
+ *     "bar",
+ *     "bubble",
+ *     "column",
+ *     "donut",
+ *     "line",
+ *     "pie",
+ *     "polarArea",
+ *     "scatter",
+ *     "spline",
+ *   },
  * )
  */
 class Chartjs extends ChartBase {
@@ -373,7 +385,7 @@ class Chartjs extends ChartBase {
             if (!empty($item['color'])) {
               unset($item['color']);
             }
-            return array_values($item);
+            return gettype($item) === 'array' ? array_values($item) : $item;
           }, $element[$child]['#data']);
         }
       }

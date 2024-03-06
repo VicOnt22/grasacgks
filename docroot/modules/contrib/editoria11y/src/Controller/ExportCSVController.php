@@ -102,7 +102,7 @@ class ExportCSVController extends ControllerBase implements ContainerInjectionIn
     // By setting these 2 header options, the browser will see the URL
     // used by this Controller to return a CSV file called "article-report.csv".
     $response->headers->set('Content-Type', 'text/csv');
-    $response->headers->set('Content-Disposition', 'attachment; filename="editoria11y-' . $this->t('summary csv'));
+    $response->headers->set('Content-Disposition', 'attachment; filename="editoria11y-summary.csv"');
 
     // This line physically adds the CSV data we created.
     $response->setContent($csv_data);
@@ -168,7 +168,7 @@ class ExportCSVController extends ControllerBase implements ContainerInjectionIn
     // By setting these 2 header options, the browser will see the URL
     // used by this Controller to return a CSV file called "article-report.csv".
     $response->headers->set('Content-Type', 'text/csv');
-    $response->headers->set('Content-Disposition', 'attachment; filename="editoria11y-' . $this->t('issues csv'));
+    $response->headers->set('Content-Disposition', 'attachment; filename="editoria11y-issues.csv"');
 
     // This line physically adds the CSV data we created.
     $response->setContent($csv_data);
@@ -240,7 +240,7 @@ class ExportCSVController extends ControllerBase implements ContainerInjectionIn
     // By setting these 2 header options, the browser will see the URL
     // used by this Controller to return a CSV file called "article-report.csv".
     $response->headers->set('Content-Type', 'text/csv');
-    $response->headers->set('Content-Disposition', 'attachment; filename="editoria11y-' . $this->t('dismissals .csv"'));
+    $response->headers->set('Content-Disposition', 'attachment; filename="editoria11y-dismissals.csv"');
 
     // This line physically adds the CSV data we created.
     $response->setContent($csv_data);

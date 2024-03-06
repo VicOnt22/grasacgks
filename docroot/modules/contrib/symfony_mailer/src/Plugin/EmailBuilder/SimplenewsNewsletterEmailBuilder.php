@@ -19,7 +19,7 @@ use Drupal\symfony_mailer\Entity\MailerPolicy;
  *     "node" = @Translation("Issue"),
  *   },
  *   has_entity = TRUE,
- *   override = {"simplenews.node", "simplenews.test"},
+ *   override = {"simplenews.node", "simplenews.test", "simplenews.extra"},
  *   override_warning = @Translation("Not tested for large numbers of recipients"),
  *   common_adjusters = {"email_subject", "email_from"},
  *   import = @Translation("Simplenews newsletter settings"),
@@ -49,16 +49,20 @@ class SimplenewsNewsletterEmailBuilder extends SimplenewsEmailBuilderBase {
    *   The newsletter issue to send.
    * @param \Drupal\simplenews\SubscriberInterface $subscriber
    *   The subscriber.
-   * @param bool|null $test
-   *   (Optional) TRUE to send a test email.
+   * @param bool|string $mode
+   *   (Optional) The mode of sending: test, extra or node.
    */
-  public function createParams(EmailInterface $email, ContentEntityInterface $issue = NULL, SubscriberInterface $subscriber = NULL, ?bool $test = FALSE) {
+  public function createParams(EmailInterface $email, ContentEntityInterface $issue = NULL, SubscriberInterface $subscriber = NULL, $mode = NULL) {
     assert($subscriber != NULL);
+    if ($mode === TRUE) {
+      @trigger_error('Passing TRUE to SimplenewsNewsletterEmailBuilder::createParams() is deprecated in symfony_mailer:1.4.1 and is removed from symfony_mailer:2.0.0. Instead pass "test" or "extra". See https://www.drupal.org/node/3414408', E_USER_DEPRECATED);
+      $mode = 'test';
+    }
     $email->setParam('issue', $issue)
       ->setParam('simplenews_subscriber', $subscriber)
       ->setParam('newsletter', $issue->simplenews_issue->entity)
       ->setParam($issue->getEntityTypeId(), $issue)
-      ->setVariable('test', $test);
+      ->setVariable('mode', $mode);
   }
 
   /**
@@ -66,7 +70,8 @@ class SimplenewsNewsletterEmailBuilder extends SimplenewsEmailBuilderBase {
    */
   public function fromArray(EmailFactoryInterface $factory, array $message) {
     $mail = $message['params']['simplenews_mail'];
-    return $factory->newEntityEmail($mail->getNewsletter(), 'node', $mail->getIssue(), $mail->getSubscriber(), ($mail->getKey() == 'test'));
+    $mode = $mail->getKey();
+    return $factory->newEntityEmail($mail->getNewsletter(), 'node', $mail->getIssue(), $mail->getSubscriber(), $mode);
   }
 
   /**
@@ -74,9 +79,14 @@ class SimplenewsNewsletterEmailBuilder extends SimplenewsEmailBuilderBase {
    */
   public function build(EmailInterface $email) {
     parent::build($email);
+    $mode = $email->getVariables()['mode'];
+    $temp_subscriber = $mode && !$email->getParam('simplenews_subscriber')->id();
     $email->setBodyEntity($email->getParam('issue'), 'email_html')
       ->addTextHeader('Precedence', 'bulk')
-      ->setVariable('opt_out_hidden', !$email->getEntity()->isAccessible());
+      ->setVariable('opt_out_hidden', !$email->getEntity()->isAccessible() || $temp_subscriber)
+      ->setVariable('reason', $email->getParam('newsletter')->reason ?? '')
+      // @deprecated
+      ->setVariable('test', $mode == 'test');
 
     // @todo Create SubscriberInterface::getUnsubscriberUrl().
     if ($unsubscribe_url = \Drupal::token()->replace('[simplenews-subscriber:unsubscribe-url]', $email->getParams(), ['clear' => TRUE])) {

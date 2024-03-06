@@ -18,7 +18,7 @@
 }
 
 .media-library-edit__link:hover {
-   color: transparent;
+  color: transparent;
 }
 
 .media-library-edit__modal::before {
@@ -33,6 +33,6 @@
 }
 
 /* Hide media library edit modal backdrop if wrapped inside .ui-dialog */
-.ui-dialog .media-library-edit__modal::before{
-  display:none;
+.ui-dialog .media-library-edit__modal::before {
+  display: none;
 }

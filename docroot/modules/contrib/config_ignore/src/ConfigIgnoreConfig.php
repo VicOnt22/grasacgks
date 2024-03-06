@@ -197,6 +197,26 @@ final class ConfigIgnoreConfig {
   public function isIgnored(string $collection, string $name, string $direction, string $operation) {
     $parts = [];
     foreach ($this->data[$operation][$direction] as $pattern) {
+      // Get collection from the pattern.
+      $collection_pattern = '*';
+      if (strpos($pattern, '|') !== FALSE) {
+        // Divide the pattern into collection and pattern.
+        [$collection_pattern, $pattern] = explode('|', $pattern, 2);
+        $pattern = trim($pattern);
+
+        // If collection pattern includes a wildcard then move it to the
+        // config name pattern.
+        if ($collection_pattern[0] === '~') {
+          $collection_pattern = ltrim($collection_pattern, '~');
+          $pattern = '~' . ltrim($pattern, '~');
+        }
+      }
+
+      // Skip if the collection pattern does not match.
+      if (!self::wildcardMatch($collection_pattern, $collection)) {
+        continue;
+      }
+
       // Early return when the line matches.
       if ($pattern === '~' . $name) {
         return FALSE;

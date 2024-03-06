@@ -1,12 +1,12 @@
-name: "Varbase default content when varbase heroslider media is enabled"
+name: Varbase default content when varbase heroslider media is enabled
+description: Varbase default content when varbase heroslider media is enabled
 type: module
 hidden: TRUE
 package: Varbase
-core_version_requirement: ~9.5.0 || ~10.1.0
-description: "Varbase default content when varbase heroslider media is enabled"
+core_version_requirement: ~9
 dependencies: []
 
-# Information added by Drupal.org packaging script on 2023-11-07
-version: '9.0.75'
+# Information added by Drupal.org packaging script on 2024-01-27
+version: '9.0.84'
 project: 'varbase_core'
-datestamp: 1699366897
+datestamp: 1706389828

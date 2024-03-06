@@ -276,12 +276,26 @@ body .layout-builder__add-block.is-layout-builder-highlighted {
   background-image: url(../../images/plugins/text-alignment/text-justify.svg);
 }
 
+#drupal-off-canvas button,
+#drupal-off-canvas input[type=submit],
+#layout-builder-modal button,
+#layout-builder-modal input[type=submit] {
+  width: auto !important;
+}
+
 #drupal-off-canvas button.button--primary,
 #drupal-off-canvas input[type=submit].button--primary,
 #layout-builder-modal button.button--primary,
 #layout-builder-modal input[type=submit].button--primary {
   text-align: center;
-  width: auto;
+}
+
+#drupal-off-canvas a.button.dialog-cancel,
+#layout-builder-modal a.button.dialog-cancel {
+  margin: 1rem 0 0 0;
+  padding: 11px 20px;
+  width: auto !important;
+  border-radius: 8px;
 }
 
 #drupal-off-canvas .fieldgroup.form-composite.form-wrapper,
@@ -434,13 +448,6 @@ body .layout-builder__add-block.is-layout-builder-highlighted {
   border-bottom: 0;
 }
 
-#drupal-off-canvas .inline-block-create-button,
-#drupal-off-canvas .inline-block-list__item,
-#layout-builder-modal .inline-block-create-button,
-#layout-builder-modal .inline-block-list__item {
-  width: auto;
-}
-
 #drupal-off-canvas .inline-block-list li,
 #layout-builder-modal .inline-block-list li {
   padding: 0 .5rem 2.5rem .5rem;
@@ -541,6 +548,21 @@ body .layout-builder__add-block.is-layout-builder-highlighted {
 #drupal-off-canvas #bs_nav-tabs,
 #layout-builder-modal #bs_nav-tabs {
   position: relative !important;
+}
+
+#drupal-off-canvas .media-library-item__attributes,
+#drupal-off-canvas .media-library-item__attributes,
+#layout-builder-modal .media-library-item__attributes,
+#layout-builder-modal .media-library-item__attributes {
+  background: transparent !important;
+}
+
+#drupal-off-canvas .media-library-item__remove,
+#drupal-off-canvas .media-library-item .button.media-library-item__remove,
+#layout-builder-modal .media-library-item__remove,
+#layout-builder-modal .media-library-item .button.media-library-item__remove {
+  width: 1.5rem !important;
+  height: 1.5rem !important;
 }
 
 #layout-builder-modal .form-item--editor-format .form-element--editor-format {
@@ -709,6 +731,11 @@ body #drupal-off-canvas-wrapper .inline-block-list li {
   display: flow-root;
 }
 
+body #drupal-off-canvas-wrapper fieldset,
+body #drupal-off-canvas-wrapper .fieldset {
+  border: 0;
+}
+
 .ui-dialog .ui-dialog-titlebar-close {
   margin-top: .08rem !important;
   height: 2rem !important;
@@ -722,7 +749,7 @@ body #drupal-off-canvas-wrapper .inline-block-list li {
 }
 
 .ui-dialog.ui-front.media-library-widget-modal {
-  z-index: 101;
+  z-index: 1270;
 }
 
 [dir=rtl] .ui-dialog .ui-resizable-w {

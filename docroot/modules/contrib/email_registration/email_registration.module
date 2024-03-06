@@ -38,18 +38,20 @@ function email_registration_help($route_name, RouteMatchInterface $route_match) 
  * Implements hook_ENTITY_TYPE_presave().
  */
 function email_registration_user_presave(UserInterface $account) {
-  $name = $account->getAccountName();
-  $new_name = email_registration_strip_mail_and_cleanup($account->getEmail());
-  // Other modules might want to further alter the account (e.g. by changing
-  // the username):
-  Drupal::moduleHandler()->alter('email_registration_name', $new_name, $account);
-  $new_name = email_registration_unique_username($new_name, (int) $account->id());
-  $account->setUsername($new_name);
+  $newAccountName = $accountName = $account->getAccountName();
+  // Other modules (including this one) might want to alter the username:
+  Drupal::moduleHandler()->alter('email_registration_name', $newAccountName, $account);
+  // Only set the new name, if it was altered:
+  if ($accountName !== $newAccountName) {
+    // Ensure it is unique:
+    $newAccountName = email_registration_unique_username($newAccountName, (int) $account->id());
+    $account->setUsername($newAccountName);
+  }
 
   // @deprecated START:
   // @todo Remove in 3.x.
   // Don't create a new username if one is already set.
-  if (empty($name) || str_starts_with($name, 'email_registration_')) {
+  if (empty($accountName) || str_starts_with($accountName, 'email_registration_')) {
     // Other modules may implement hook_email_registration_name($edit, $account)
     // to generate a username (return a string to be used as the username, NULL
     // to have email_registration generate it).
@@ -61,12 +63,22 @@ function email_registration_user_presave(UserInterface $account) {
       // One would expect a single implementation of the hook, but if there
       // are multiples out there use the last one.
       // If validation is required, the modules need to implement it themselves.
-      $new_name = array_pop($names);
-      $account->setUsername($new_name);
+      $newAccountName = array_pop($names);
+      $account->setUsername($newAccountName);
       @trigger_error('"hook_email_registration_name()" is deprecated in email_registration:2.0.0 and is removed from email_registration:3.0.0. Use hook_email_registration_name_alter instead. See https://www.drupal.org/project/email_registration/issues/3396028', E_USER_DEPRECATED);
     }
   }
   // @deprecated END.
+}
+
+/**
+ * Implements hook_email_registration_name_alter().
+ */
+function email_registration_email_registration_name_alter(string &$newAccountName, UserInterface $account) {
+  if (empty($newAccountName) || str_starts_with($newAccountName, 'email_registration_')) {
+    // Strip and clean the mail and use it as the new username:
+    $newAccountName = email_registration_strip_mail_and_cleanup($account->getEmail());
+  }
 }
 
 /**
@@ -248,18 +260,31 @@ function email_registration_form_user_login_form_alter(&$form, FormStateInterfac
  * Allows users to authenticate by email, which is our preferred method.
  */
 function email_registration_user_login_validate($form, FormStateInterface $form_state) {
-  $mail = $form_state->getValue('name');
-  if (!empty($mail)) {
+  $email = $form_state->getValue('name');
+
+  if (!empty($email)) {
+    $user = user_load_by_mail($email);
     $config = \Drupal::config('email_registration.settings');
-    if ($user = user_load_by_mail($mail)) {
+
+    if ($user) {
+      if (!$user->isActive()) {
+        $form_state->setErrorByName(
+          'name',
+          t('The account with email address %name has not been activated or is blocked.', ['%name' => $email])
+        );
+      }
       $form_state->setValue('name', $user->getAccountName());
     }
     elseif (!$config->get('login_with_username')) {
       $user_input = $form_state->getUserInput();
       $query = isset($user_input['name']) ? ['name' => $user_input['name']] : [];
-      $form_state->setErrorByName('name', t('Unrecognized email address or password. <a href=":password">Forgot your password?</a>', [
-        ':password' => Url::fromRoute('user.pass', [], ['query' => $query])->toString(),
-      ]));
+
+      $form_state->setErrorByName(
+        'name',
+        t('Unrecognized email address or password. <a href=":password">Forgot your password?</a>', [
+          ':password' => Url::fromRoute('user.pass', [], ['query' => $query])->toString(),
+        ])
+          );
     }
   }
 }

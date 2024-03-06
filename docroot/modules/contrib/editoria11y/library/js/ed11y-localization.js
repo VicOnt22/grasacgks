@@ -197,17 +197,6 @@ const ed11yLang = {
             ${Ed11y.M.altAttributeExample}`,
     },
 
-    altDeadspaceLinked : {
-      title: 'Linked Image\'s text alternative is unpronounceable',
-      tip: (alt) =>
-        `${Ed11y.M.altAttributeProvided(alt)}
-        <p>This image's alt consists of only silent characters (spaces and quotation marks). It will be announced by screen readers as as part of the link's text, but the description of what the image is will be unintelligible. To fix, set this image's alternative text to something that describes the link's destination, or provide a <em>completely</em> empty alt (alt="") if the image should not be mentioned at all.</p>
-            <ul>
-                <li>Good link text: "About us"</li>
-                <li>Bad link text: "About us, image: [short confusing silence]"</li>
-            </ul>`,
-    },
-
     altEmptyLinked : {
       title: 'Linked Image has no alt text',
       tip: () =>
@@ -350,10 +339,10 @@ const ed11yLang = {
       title: 'Manual check: should this have list formatting?',
       tip : (text) => 
         `<p>List formatting is structural:</p> 
-            <ol><li>List formatting indents and reflows on overflow. Text aligns vertically with text, rather than the "${text}"</li>
-            <li>Lists are machine-readable. Screen readers can orient their users, announcing this as "list item, 2 of 2."</li></ol>
-            <p>3. Whereas this unformatted item (just a number, typed as text) is not visually or audibly included in the list.</p>
-            <p>To fix: if this "${text}" starts a list, replace it with list formatting.</p>
+            <ol><li>List formatting indents and reflows on overflow. Text aligns vertically with the line above it.</li>
+            <li>Lists are machine-readable. Screen readers can orient their users, announcing this as "list item, 2 of 3."</li></ol>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;3. But this third item is just a sentence with a number in front of it. It wraps incorrectly, and screen readers do not know it is related to the other items in the list.</p>
+            <p>To fix: if this "${text}" is part of a list, replace it with list formatting.</p>
             `,
     },
 

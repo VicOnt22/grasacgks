@@ -1,13 +1,9 @@
-name: "Varbase Media"
-description: "Manages type of media contents and entity browsers in the site."
+name: Varbase Media
+description: Manages type of media contents and entity browsers in the site.
 type: module
 package: Varbase
-core_version_requirement: ~9.5.0 || ~10.1.0
+core_version_requirement: ~9
 configure: varbase_media.settings
-components:
-  - entity_browser_generic_embed
-  - varbase_media_twitter
-  - varbase_media_instagram
 dependencies:
   - drupal:user
   - drupal:block
@@ -46,7 +42,7 @@ install:
   - slick
   - webp
 
-# Information added by Drupal.org packaging script on 2023-08-22
-version: '9.0.24'
+# Information added by Drupal.org packaging script on 2024-02-22
+version: '9.0.42'
 project: 'varbase_media'
-datestamp: 1692730174
+datestamp: 1708596197

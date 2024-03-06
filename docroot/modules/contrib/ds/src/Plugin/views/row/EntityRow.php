@@ -18,6 +18,9 @@ use Drupal\views\Plugin\views\row\EntityRow as ViewsEntityRow;
  */
 class EntityRow extends ViewsEntityRow {
 
+/** / @var \Drupal\ds\Plugin\views\Entity\Render\TranslationLanguageRenderer*/
+protected $entityLanguageRenderer;
+
   /**
    * {@inheritdoc}
    */

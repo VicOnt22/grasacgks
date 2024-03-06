@@ -285,9 +285,11 @@ function editoria11y_page_attachments(array &$attachments) {
     $attachments['#attached']['drupalSettings']['editoria11y']['hidden_handlers'] = $config->get('hidden_handlers');
     $attachments['#attached']['drupalSettings']['editoria11y']['download_links'] = $config->get('download_links');
     $attachments['#attached']['drupalSettings']['editoria11y']['ignore_link_strings'] = $config->get('ignore_link_strings');
+    $attachments['#attached']['drupalSettings']['editoria11y']['link_ignore_selector'] = $config->get('link_ignore_selector');
     $attachments['#attached']['drupalSettings']['editoria11y']['sync'] = $sync;
     $attachments['#attached']['drupalSettings']['editoria11y']['dismissals'] = $dismissals;
     $attachments['#attached']['drupalSettings']['editoria11y']['theme'] = $config->get('ed11y_theme');
+    $attachments['#attached']['drupalSettings']['editoria11y']['custom_tests'] = $config->get('custom_tests');
   }
 
 }

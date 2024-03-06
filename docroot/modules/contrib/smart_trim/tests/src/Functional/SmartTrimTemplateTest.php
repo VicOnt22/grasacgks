@@ -222,4 +222,77 @@ class SmartTrimTemplateTest extends BrowserTestBase {
     $this->assertEquals('more-link', $query[0]->getAttribute('class'));
   }
 
+  /**
+   * Test using a Twig filter.
+   */
+  public function testTwigFilter(): void {
+    // Create another content type.
+    $this->createContentType(['type' => 'filtered', 'name' => 'Filtered']);
+    $this->drupalCreateNode([
+      'title' => $this->randomString(),
+      'id' => 2,
+      'type' => 'filtered',
+      'body' => [
+        'value' => 'Playful pup fetches joy, wagging tail brightens hearts with love.',
+        'format' => 'filter_test',
+      ],
+    ])->save();
+    $this->drupalGet('/node/2');
+    $query = $this->xpath('//div[@id="body"]/div/p[text()="Playful pup fetches joy, wagging tail brightens hearts with love."]');
+    $this->assertCount(1, $query);
+    $query = $this->xpath('//div[@id="body-trim-20-chars" and text()="Playful pup fetches"]');
+    $this->assertCount(1, $query);
+    $query = $this->xpath('//div[@id="body-trim-25-chars-dash" and text()="Playful pup fetches joy-"]');
+    $this->assertCount(1, $query);
+    $query = $this->xpath('//div[@id="body-trim-20-chars-html"]/div/p[text()="Playful"]');
+    $this->assertCount(1, $query);
+    $query = $this->xpath('//div[@id="body-trim-5-words" and text()="Playful pup fetches joy, wagging"]');
+    $this->assertCount(1, $query);
+    $query = $this->xpath('//div[@id="body-trim-7-words-elipses-html"]/div/p[text()="Playful pup fetches joy, wagging tail brightens..."]');
+    $this->assertCount(1, $query);
+  }
+
+  /**
+   * Test that "is_trimmed" variable set when trim occurred.
+   */
+  public function testIsTrimmed(): void {
+    // Check that is_trimmed set when output gets trimmed.
+    $display_repository = \Drupal::service('entity_display.repository');
+    $display_repository->getViewDisplay('node', 'article')
+      ->setComponent('field_wrapped', [
+        'type' => 'smart_trim',
+        'settings' => [
+          'trim_length' => 15,
+          'trim_type' => 'chars',
+          'summary_handler' => 'trim',
+          'more' => [
+            'display_link' => FALSE,
+          ],
+        ],
+      ])
+      ->save();
+
+    $this->drupalGet('/node/1');
+    $this->assertSession()->responseContains('This text is trimmed.');
+
+    // Check that is_trimmed not set for untrimmed ourput.
+    $display_repository = \Drupal::service('entity_display.repository');
+    $display_repository->getViewDisplay('node', 'article')
+      ->setComponent('field_wrapped', [
+        'type' => 'smart_trim',
+        'settings' => [
+          'trim_length' => 30,
+          'trim_type' => 'chars',
+          'summary_handler' => 'trim',
+          'more' => [
+            'display_link' => FALSE,
+          ],
+        ],
+      ])
+      ->save();
+
+    $this->drupalGet('/node/1');
+    $this->assertSession()->responseContains('This text is not trimmed.');
+  }
+
 }

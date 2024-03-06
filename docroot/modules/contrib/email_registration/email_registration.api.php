@@ -40,22 +40,25 @@ function hook_email_registration_name(UserInterface $account): ?string {
 }
 
 /**
- * Implement, to hook into the user presave hook of the main module.
+ * Implement, to alter the username generation of the email_registration module.
  *
- * E.g. for altering the username generation. For further help, see the
- * implementation example below.
+ * Note, that the username is only set, if it differentiates from the original
+ * username. Furthermore both "email_registration" as well as
+ * "email_registration_username" implement this hook. Beware of the module hook
+ * execution order, if you are implementing the hook inside your own module:
+ * https://www.drupal.org/docs/develop/creating-modules/understanding-hooks#s-module-hook-execution-order.
  *
+ * @param string $newAccountName
+ *   The new account name.
  * @param \Drupal\user\UserInterface $account
- *   The user object on which the operation is being performed.
+ *   The user object on which the account name is being altered.
  */
-function hook_email_registration_name_alter(UserInterface &$account): void {
+function hook_email_registration_name_alter(string &$newAccountName, UserInterface $account): void {
   // Your hook implementation should ensure that the resulting string
-  // works as a username. You can use email_registration_cleanup_username($name)
-  // to clean up the name.
-  $newName = email_registration_cleanup_username('u' . $account->id());
-  // Make sure, that your username is unique:
-  $newName = email_registration_unique_username($newName, (int) $account->id());
-  $account->setUsername($newName);
+  // works as a username.
+  // Note for a more complex example implementation, check out the main
+  // module's or submodule's hook implementation.
+  $newAccountName = 'My-random-username-' . rand(1, 999);
 }
 
 /**

@@ -24,10 +24,5 @@
   "require": {
     "drupal/core": "^9 || ^10",
     "drupal/entity_browser": "~2.0"
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-8.x-1.x": "8.1.x-dev"
-    }
   }
 }

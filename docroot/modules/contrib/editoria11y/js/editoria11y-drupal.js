@@ -32,6 +32,8 @@ Drupal.behaviors.editoria11y = {
                 ed11yAlertMode = "assertive";
             }
 
+
+
             let options = {
               // todo
               // videoContent: 'youtube.com, vimeo.com, yuja.com, panopto.com',
@@ -62,14 +64,16 @@ Drupal.behaviors.editoria11y = {
               showDismissed: urlParams.has('ed1ref'),
               ignoreAllIfAbsent : !!drupalSettings.editoria11y.ignore_all_if_absent ? drupalSettings.editoria11y.ignore_all_if_absent : false,
               // todo: ignoreAllIfPresent
-              preventCheckingIfPresent: !!drupalSettings.editoria11y.no_load ? drupalSettings.editoria11y.no_load : '#quickedit-entity-toolbar, .layout-builder-form',
+                preventCheckingIfPresent: !!drupalSettings.editoria11y.no_load ? drupalSettings.editoria11y.no_load : '.ck-editor, #quickedit-entity-toolbar, .layout-builder-form',
               // todo: preventCheckingIfAbsent
               linkIgnoreStrings: !!drupalSettings.editoria11y.ignore_link_strings ? new RegExp(drupalSettings.editoria11y.ignore_link_strings, 'g') : new RegExp('\\(' + Drupal.t('link is external') + '\\)|\\(' + Drupal.t('link sends email') + '\\)', 'g'),
+              linkIgnoreSelector: !!drupalSettings.editoria11y.link_ignore_selector ? drupalSettings.editoria11y.link_ignore_selector : false,
               hiddenHandlers: !!drupalSettings.editoria11y.hidden_handlers ? drupalSettings.editoria11y.hidden_handlers : '',
               theme: !!drupalSettings.editoria11y.theme ? drupalSettings.editoria11y.theme : 'sleekTheme',
               embeddedContent: !!drupalSettings.editoria11y.embedded_content_warning ? drupalSettings.editoria11y.embedded_content_warning : false,
               documentLinks: !!drupalSettings.editoria11y.download_links ? drupalSettings.editoria11y.download_links : `a[href$='.pdf'], a[href*='.pdf?'], a[href$='.doc'], a[href$='.docx'], a[href*='.doc?'], a[href*='.docx?'], a[href$='.ppt'], a[href$='.pptx'], a[href*='.ppt?'], a[href*='.pptx?'], a[href^='https://docs.google']`,
               buttonZIndex: 499,
+              customTests: drupalSettings.editoria11y.custom_tests,
             }
 
             if (typeof editoria11yOptionsOverride !== 'undefined') {
@@ -143,9 +147,9 @@ Drupal.behaviors.editoria11y = {
                 oks = {};
                 total = 0;
                 Ed11y.results.forEach(result => {
-                    if (result[5] !== "ok") {
+                    if (result.dismissalStatus !== "ok") {
                         // log all items not marked as OK
-                        let testName = result[1];
+                        let testName = result.test;
                         testName = Ed11y.M[testName].title;
                         if (results[testName]) {
                             results[testName] = parseInt(results[testName]) + 1;
@@ -155,9 +159,9 @@ Drupal.behaviors.editoria11y = {
                             total++;
                         }
                     }
-                    if (result[5] === "ok") {
-                        if (!results[result[1]]) {
-                            oks[result[1]] = Ed11y.M[result[1]].title;
+                    if (result.dismissalStatus === "ok") {
+                        if (!results[result.test]) {
+                            oks[result.test] = Ed11y.M[result.test].title;
                         }
                     }
                 })

@@ -453,7 +453,7 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
    * Varbase Context #varbase.
    *
    * Example 1: Then I should see "this text" under editor media browser
-   * Example 2: Then I should see "this text" under the editormedia browser modal window.
+   * Example 2: Then I should see "this text" under the editor media browser modal window.
    *
    * @Then /^I should see "([^"]*)" under (?:|the )editor media browser(?:| modal window)$/
    */
@@ -581,6 +581,7 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
 
   }
 
+
   /**
    * Append text at the end of a rich text editor field  WYSIWYG with content.
    *
@@ -668,8 +669,8 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
    *
    * Varbase Context #varbase.
    *
-   * Example #1: When I select all text in "Body" field
-   * Example #2:  And I select all text in "Body" field.
+   * Example #1: When I select all text in "Body" rich text editor field
+   * Example #2:  And I select all text in "Body" rich text editor field
    *
    * @When /^(?:|I )select all text in "(?P<selectedField>[^"]*)" rich text editor field$/
    */
@@ -724,7 +725,7 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
    * @When I save the section
    */
   public function iSaveTheSection() {
-    $save = $this->getSession()->getPage()->find('xpath', "//input[contains(@value, 'Add section')]");
+    $save = $this->getSession()->getPage()->find('xpath', "//*[contains(@value, 'Add section')]");
     if (is_null($save)) {
       throw new \Exception('The "Add section" button was not found or not visible');
     }
@@ -950,7 +951,7 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * Set the section blocks alignemnt.
+   * Set the section blocks alignment.
    *
    * #Varbase Context #varbase
    *
@@ -1474,7 +1475,11 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
       throw new \Exception('Could not find an id for the rich text editor field : ' . $locator);
     }
 
-    $this->getSession()->executeScript("return Drupal.CKEditor5Instances.get(document.getElementById(\"$fieldId\").dataset[\"ckeditor5Id\"]).getData();");
+    $this->getSession()->executeScript("return CKEDITOR.instances[\"$fieldId\"].getData();");
+
+    // Switch to the iframe.
+    $iFrameID = $this->getAttributeByOtherAttributeValue('id', 'title', $fieldId, 'iframe');
+    $this->getSession()->switchToIFrame($iFrameID);
 
     // Find an image with the title.
     $element = $this->getSession()->getPage()->findAll('xpath', "//img[contains(@title, '{$titleText}')]");
@@ -1483,6 +1488,8 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
       throw new \Exception('The page dose not have an image with the [ ' . $titleText . ' ] title text under [ ' . $locator . ' ].');
     }
 
+    // Switch back too the page from the iframe.
+    $this->getSession()->switchToIFrame(NULL);
   }
 
   /**
@@ -1586,7 +1593,7 @@ class VarbaseContext extends RawDrupalContext implements SnippetAcceptingContext
    *
    * @Then /^I should see "(?P<text>[^"]*)" in the "(?P<htmlTagName>[^"]*)" element with the "(?P<attribute>[^"]*)" attribute set to "(?P<value>[^"]*)"$/
    */
-  public function ishouldSeeTextInTheHtmlTagElement($text, $htmlTagName, $attribute, $value) {
+  public function iShouldSeeTextInTheHtmlTagElement($text, $htmlTagName, $attribute, $value) {
 
     $elements = $this->getSession()->getPage()->findAll('css', $htmlTagName);
     if (empty($elements)) {
@@ -2137,7 +2144,7 @@ JS;
    *
    * Example #1: When I scroll up 1000
    *
-   * @When /^(?:|I ) scroll up (?P<value>\d+)$/
+   * @When /^(?:|I )scroll up (?P<value>\d+)$/
    */
   public function iScrollupWithValue($value) {
     $this->getSession()->executeScript("javascript:window.scrollBy(0,-" . $value . ")");
@@ -2184,10 +2191,10 @@ JS;
    * Example #2: And I scroll to top of "#media-library-wrapper"
    * Example #3: And scroll to top of "#layout-builder-modal"
    *
-   * @When /^(?:|I )scroll to top of :selector
+   * @When /^(?:|I )scroll to top of "([^"]*)"$/
    */
   public function iScrollToTopOf($selector) {
-    $this->executeScript('document.querySelector("' . $selector . '").scrollTop = 0');
+    $this->getSession()->executeScript('document.querySelector("' . $selector . '").scrollTop = 0');
     $this->getSession()->wait(2000);
   }
 
@@ -2200,10 +2207,10 @@ JS;
    * Example #2: And I scroll to bottom of "#media-library-wrapper"
    * Example #3: And scroll to bottom of "#layout-builder-modal"
    *
-   * @When /^(?:|I )scroll to bottom of :selector
+   * @When /^(?:|I )scroll to bottom of "([^"]*)"$/
    */
   public function iScrollToBottomOf($selector) {
-    $this->executeScript('document.querySelector("' . $selector . '").scrollTop = document.querySelector("' . $selector . '").scrollHeight');
+    $this->getSession()->executeScript('document.querySelector("' . $selector . '").scrollTop = document.querySelector("' . $selector . '").scrollHeight');
     $this->getSession()->wait(2000); 
   }
 
@@ -2311,7 +2318,7 @@ JS;
   }
 
   /**
-   * Switch to an ifram by its id.
+   * Switch to an iframe by its id.
    *
    * Varbase Context #varbase.
    *
@@ -2325,11 +2332,11 @@ JS;
   }
 
   /**
-   * Switch to the main frame or the parent ifram.
+   * Switch to the main frame or the parent iframe.
    *
    * Varbase Context #varbase.
    *
-   * Example #1: When I switch to main fram
+   * Example #1: When I switch to main frame
    * Example #2: When I switch to parent
    *
    * @When /^(?:|I )switch to main frame$/
@@ -2416,8 +2423,8 @@ JS;
    */
   public function iShouldSeetheOperationForTheEntity($operation, $entity) {
     $row = $this->getEntityRow($this->getSession()->getPage(), $entity);
-    $operation_elment = $row->find('xpath', "//*[contains(@headers, 'view-operations-table-column')]//*[text()='{$operation}']");
-    if (empty($operation_elment)) {
+    $operation_element = $row->find('xpath', "//*[contains(@headers, 'view-operations-table-column')]//*[text()='{$operation}']");
+    if (empty($operation_element)) {
       throw new \Exception(sprintf('Found an entity containing "%s", but it did not have the operation "%s".', $entity, $operation));
     }
   }
@@ -2437,8 +2444,8 @@ JS;
    */
   public function iShouldNotSeetheOperationForTheEntity($operation, $entity) {
     $row = $this->getEntityRow($this->getSession()->getPage(), $entity);
-    $operation_elment = $row->find('xpath', "//*[contains(@headers, 'view-operations-table-column')]//*[text()='{$operation}']");
-    if (!empty($operation_elment)) {
+    $operation_element = $row->find('xpath', "//*[contains(@headers, 'view-operations-table-column')]//*[text()='{$operation}']");
+    if (!empty($operation_element)) {
       throw new \Exception(sprintf('Found an entity containing "%s", but it have the operation "%s".', $entity, $operation));
     }
   }
@@ -2469,6 +2476,64 @@ JS;
     else {
       throw new \Exception(sprintf('The moderation sidebar toolbar tab link was not found in the administration toolbar'));
     }
+  }
+
+  /**
+   * Check if can see the accessibility checker.
+   *
+   * Varbase Context #varbase.
+   *
+   * Example 1: Then I should see the a11y checker
+   * Example 2: Then should see a11y checker
+   * Example 3: Then see the accessibility checker
+   *
+   * @Then /^(?:|I )should see (?:|the )(?:|accessibility|a11y )checker$/
+   */
+  public function iShouldSeeTheAccessibilityChecker() {
+    $this->getSession()->wait(4000);
+    $elements = $this->getSession()->getPage()->findAll('xpath', "//ed11y-element-panel");
+    if (empty($elements)) {
+      throw new \Exception('The Accessibility Checker was not found in the page');
+    }
+  }
+
+  /**
+   * Check if can NOT see the accessibility checker.
+   *
+   * Varbase Context #varbase.
+   *
+   * Example 1: Then I should not see thea a11y checker
+   * Example 2: Then should not see a11y checker
+   * Example 3: Then not see the accessibility checker
+   *
+   * @Then /^(?:|I )should not see (?:|the )(?:|accessibility|a11y )checker$/
+   */
+  public function iShouldNotSeeTheAccessibilityChecker() {
+    $this->getSession()->wait(4000);
+    $elements = $this->getSession()->getPage()->findAll('xpath', "//ed11y-element-panel");
+    if (!empty($elements)) {
+      throw new \Exception('The Accessibility Checker was found in the page');
+    }
+  }
+
+  /**
+   * Close the accessibility checker, to clear space for more actions.
+   *
+   * Varbase Context #varbase.
+   *
+   * Example 1: When I close the accessibility checker
+   * Example 2:  And I close the a11y checker
+   *
+   * @When /^(?:|I )close (?:|the )(?:|accessibility|a11y )checker$/
+   */
+  public function iCloseTheAccessibilityChecker() {
+    $page = $this->getSession()->getPage();
+    $accessibilityCheckerClose = $page->findAll('xpath', "//ed11y-element-panel");
+    if (empty($accessibilityCheckerClose)) {
+      throw new \Exception('The Accessibility Checker was not found in the page');
+    }
+
+    $this->getSession()->executeScript('document.querySelector("body > ed11y-element-panel").shadowRoot.querySelector("#toggle").click();');
   }
 
   /**

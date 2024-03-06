@@ -4,7 +4,7 @@ description: 'Add an edit button to the Media Library widget when an item is sel
 core_version_requirement: ^9.2 || ^10
 package: 'Media'
 
-# Information added by Drupal.org packaging script on 2022-12-24
-version: '3.0.2'
+# Information added by Drupal.org packaging script on 2024-01-27
+version: '3.0.3'
 project: 'media_library_edit'
-datestamp: 1671913385
+datestamp: 1706394964

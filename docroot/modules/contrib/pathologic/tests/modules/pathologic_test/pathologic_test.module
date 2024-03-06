@@ -1,6 +1,10 @@
 <?php
 
 /**
+ * @file
+ */
+
+/**
  * Implements hook_pathologic_alter(), for testing that functionality.
  */
 function pathologic_test_pathologic_alter(&$url_params, $parts, $settings) {
