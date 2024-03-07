@@ -538,6 +538,7 @@ display:
           exposed: true
           expose:
             label: 'Newest first'
+            field_identifier: created
           granularity: second
           entity_type: media
           entity_field: created
@@ -553,6 +554,7 @@ display:
           exposed: true
           expose:
             label: 'Name (A-Z)'
+            field_identifier: name
           entity_type: media
           entity_field: name
           plugin_id: standard
@@ -567,6 +569,7 @@ display:
           exposed: true
           expose:
             label: 'Name (Z-A)'
+            field_identifier: name_1
           entity_type: media
           entity_field: name
           plugin_id: standard
@@ -1345,6 +1348,16 @@ display:
           entity_type: media
           entity_field: uid
           plugin_id: standard
+      sorts:
+        created:
+          expose:
+            field_identifier: created
+        name:
+          expose:
+            field_identifier: name
+        name_1:
+          expose:
+            field_identifier: name_1
     cache_metadata:
       max-age: 0
       contexts:
@@ -1668,6 +1681,16 @@ display:
           empty: true
       css_class: 'media-library-view js-media-library-view media-library-view--widget'
       rendering_language: '***LANGUAGE_language_interface***'
+      sorts:
+        created:
+          expose:
+            field_identifier: created
+        name:
+          expose:
+            field_identifier: name
+        name_1:
+          expose:
+            field_identifier: name_1
     cache_metadata:
       max-age: -1
       contexts:
@@ -1957,6 +1980,16 @@ display:
           empty: true
       css_class: 'media-library-view js-media-library-view media-library-view--widget'
       rendering_language: '***LANGUAGE_language_interface***'
+      sorts:
+        created:
+          expose:
+            field_identifier: created
+        name:
+          expose:
+            field_identifier: name
+        name_1:
+          expose:
+            field_identifier: name_1
     cache_metadata:
       max-age: -1
       contexts:

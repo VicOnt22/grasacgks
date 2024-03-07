@@ -78,6 +78,7 @@ filters:
       local_settings:
         protocol_style: full
         local_paths: ''
+        keep_language_prefix: false
   entity_embed:
     id: entity_embed
     provider: entity_embed
@@ -235,6 +236,7 @@ filters:
       width: 700px
       font_size: 12pt
       line_numbers: '1'
-      print_margins: '1'
       show_invisibles: '0'
+      print_margins: '1'
+      auto_complete: '1'
       use_wrap_mode: '1'

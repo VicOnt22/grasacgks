@@ -128,7 +128,6 @@ module:
   language: 0
   layout_builder: 0
   layout_builder_at: 0
-  layout_builder_block_sanitizer: 0
   layout_builder_blocks: 0
   layout_builder_component_attributes: 0
   layout_builder_modal: 0
@@ -155,7 +154,6 @@ module:
   menu_ui: 0
   metatag: 0
   metatag_facebook: 0
-  metatag_google_plus: 0
   metatag_hreflang: 0
   metatag_mobile: 0
   metatag_open_graph: 0

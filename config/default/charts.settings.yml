@@ -51,4 +51,7 @@ charts_default_settings:
   library_config: {  }
 advanced:
   debug: false
+dependencies:
+  module:
+    - charts_c3
 library_config: null
