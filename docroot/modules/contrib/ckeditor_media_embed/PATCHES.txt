@@ -9,3 +9,7 @@ Issue #3393693: Add Drush 12 compatibility for custom CKEditor Media Embed Plugi
 Source: https://www.drupal.org/files/issues/2023-10-12/ckeditor_media_embed-1-x-3393693-5.patch
 
 
+Issue #3366524: Fix Creation of dynamic property $embed_provider is deprecated
+Source: https://www.drupal.org/files/issues/2023-12-13/3366524-5.patch
+
+

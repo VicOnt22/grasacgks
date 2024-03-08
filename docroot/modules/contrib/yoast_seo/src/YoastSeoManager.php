@@ -22,6 +22,13 @@ class YoastSeoManager {
   protected $moduleHandler;
 
   /**
+   * The Yoast field manager.
+   *
+   * @var \Drupal\yoast_seo\YoastSeoFieldManager
+   */
+  protected $yoast_seo_field_manager;
+
+  /**
    * Target elements for Javascript.
    *
    * @var array

@@ -20,8 +20,9 @@ abstract class RequestTestBase extends BrowserTestBase {
 
   /**
    * Set to TRUE to run this test to generate expectation files.
-   *
    * The test will be marked as a fail when generating test files.
+   *
+   * @var bool
    */
   protected static $generateExpectationFiles = FALSE;
 
@@ -38,6 +39,11 @@ abstract class RequestTestBase extends BrowserTestBase {
     'paths' => 'paths',
   ];
 
+  /**
+   * List of entity bundles for test.
+   *
+   * @var array
+   */
   protected static $entityTestBundles = [
     "taxonomy_term" => [
       "camelids",
@@ -54,7 +60,7 @@ abstract class RequestTestBase extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'user',
     'field',
     'filter',
@@ -244,7 +250,7 @@ abstract class RequestTestBase extends BrowserTestBase {
         // CSRF Token will never have an auth collector, all others shoud.
         $this->assertTrue(array_key_exists($definition_id, $auth_providers), 'Security definition ' . $definition_id . ' not an auth collector.');
       }
-      $this->assertTrue(in_array($definition['type'], $supported_security_types), 'Security definition schema ' . $definition_id . ' has invalid type '. $definition['type']);
+      $this->assertTrue(in_array($definition['type'], $supported_security_types), 'Security definition schema ' . $definition_id . ' has invalid type ' . $definition['type']);
     }
 
     // Test paths for valid tags, schema, security, and definitions.
@@ -375,7 +381,7 @@ abstract class RequestTestBase extends BrowserTestBase {
    *   The base path.
    */
   private function getBasePath() {
-    $path = rtrim(parse_url($this->baseUrl, PHP_URL_PATH), '/');
+    $path = rtrim((string) parse_url($this->baseUrl, PHP_URL_PATH), '/');
 
     // OpenAPI spec states that the base path must start with a '/'.
     if (strlen($path) == 0) {

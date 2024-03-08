@@ -7,26 +7,12 @@ namespace Drupal\Tests\openapi\Functional;
  *
  * @group openapi
  */
-final class RequestTestNull extends RequestTestBase {
+final class RequestNullTest extends RequestTestBase {
 
   /**
    * The API module being tested.
    */
   const API_MODULE = 'null';
-
-  /**
-   * {@inheritdoc}
-   */
-  public static $modules = [
-    'user',
-    'field',
-    'filter',
-    'text',
-    'taxonomy',
-    'serialization',
-    'openapi',
-    'openapi_test',
-  ];
 
   /**
    * Tests OpenAPI requests.

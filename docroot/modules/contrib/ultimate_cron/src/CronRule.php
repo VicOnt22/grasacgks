@@ -22,6 +22,7 @@ class CronRule {
   static private $instances = array();
   private $last_run;
   private $next_run;
+  private $parsed;
 
   /**
    * Factory method for CronRule instance.
@@ -272,8 +273,8 @@ class CronRule {
    *   UNIX timestamp of last schedule time.
    */
   public function getLastSchedule() {
-    if (isset($this->last_ran)) {
-      return $this->last_ran;
+    if (isset($this->last_run)) {
+      return $this->last_run;
     }
 
     // Current time round to last minute.
@@ -369,9 +370,9 @@ class CronRule {
     }
 
     // Create UNIX timestamp from derived date+time.
-    $this->last_ran = mktime($hour, $minute, 0, $month, $day, $year);
+    $this->last_run = mktime($hour, $minute, 0, $month, $day, $year);
 
-    return $this->last_ran;
+    return $this->last_run;
   }
 
   /**

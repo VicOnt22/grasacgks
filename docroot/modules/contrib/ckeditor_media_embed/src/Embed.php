@@ -74,6 +74,13 @@ class Embed implements EmbedInterface {
   protected $moduleHandler;
 
   /**
+   * The URL of the embed provider.
+   *
+   * @var string
+   */
+  protected $embedProvider;
+
+  /**
    * Constructs an Embed object.
    *
    * @param \GuzzleHttp\ClientInterface $http_client
@@ -115,7 +122,7 @@ class Embed implements EmbedInterface {
     });
 
     $provider_parsed['absolute'] = TRUE;
-    $this->embed_provider = $this->urlAssembler->assemble($provider_parsed['path'], $provider_parsed);
+    $this->embedProvider = $this->urlAssembler->assemble($provider_parsed['path'], $provider_parsed);
   }
 
   /**
@@ -146,7 +153,7 @@ class Embed implements EmbedInterface {
    */
   // @codingStandardsIgnoreLine
   protected function getEmbedProviderURL($url) {
-    $provider = $this->embed_provider;
+    $provider = $this->embedProvider;
 
     if (strpos($provider, '//') === 0) {
       $provider = $this->requestStack->getCurrentRequest()->getScheme() . ':' . $provider;

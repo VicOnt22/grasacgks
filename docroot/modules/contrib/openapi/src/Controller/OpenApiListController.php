@@ -20,11 +20,18 @@ class OpenApiListController extends ControllerBase {
   public $openapiGeneratorManager;
 
   /**
+   * UI library plugin manager instance. NULL if the module is not enabled.
+   *
+   * @var \Drupal\Component\Plugin\PluginManagerInterface|null
+   */
+  private ?PluginManagerInterface $openapiUiManager;
+
+  /**
    * Creates a new OpenApiListController.
    *
    * @param \Drupal\Component\Plugin\PluginManagerInterface $openapi_generator_manager
    *   The current openapi generator plugin manager instance.
-   * @param \Drupal\Component\Plugin\PluginManagerInterface $openapi_ui_manager
+   * @param ?\Drupal\Component\Plugin\PluginManagerInterface $openapi_ui_manager
    *   ui library plugin manager instance. NULL if the module is not enabled.
    */
   public function __construct(PluginManagerInterface $openapi_generator_manager, PluginManagerInterface $openapi_ui_manager = NULL) {
