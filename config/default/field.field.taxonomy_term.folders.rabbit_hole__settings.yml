@@ -1,0 +1,21 @@
+uuid: fd80d61a-b7a1-4f81-a3a6-d301d0cb1574
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.rabbit_hole__settings
+    - taxonomy.vocabulary.folders
+  module:
+    - rabbit_hole
+id: taxonomy_term.folders.rabbit_hole__settings
+field_name: rabbit_hole__settings
+entity_type: taxonomy_term
+bundle: folders
+label: 'Rabbit Hole settings'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: rabbit_hole

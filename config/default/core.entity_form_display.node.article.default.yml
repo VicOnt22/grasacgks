@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.article.field_image2
     - field.field.node.article.field_sticky_on_top
     - field.field.node.article.field_tags
+    - field.field.node.article.rabbit_hole__settings
     - node.type.article
     - workflows.workflow.varbase_editorial_workflow
   module:
@@ -16,6 +17,7 @@ dependencies:
     - media_library
     - media_library_edit
     - path
+    - rabbit_hole
     - text
 id: node.article.default
 targetEntityType: node
@@ -87,6 +89,13 @@ content:
     weight: 9
     region: content
     settings: {  }
+    third_party_settings: {  }
+  rabbit_hole__settings:
+    type: rabbit_hole_default
+    weight: 100
+    region: content
+    settings:
+      advanced: true
     third_party_settings: {  }
   simple_sitemap:
     weight: 7

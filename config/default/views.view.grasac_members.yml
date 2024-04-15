@@ -249,10 +249,10 @@ display:
       style:
         type: blazy
         options:
-          style: column
           grid: '4'
           grid_medium: '2'
           grid_small: '1'
+          style: column
       row:
         type: 'ds_entity:user'
         options:

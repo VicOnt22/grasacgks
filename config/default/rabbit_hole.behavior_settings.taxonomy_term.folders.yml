@@ -1,0 +1,13 @@
+uuid: 4d5e10a1-e46b-46cc-abee-5e40354e1d9f
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.folders
+id: taxonomy_term.folders
+targetEntityType: taxonomy_term
+bundle: folders
+action: display_page
+no_bypass: false
+bypass_message: false
+configuration: {  }

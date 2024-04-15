@@ -3,9 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.part_of_speech.rabbit_hole__settings
     - taxonomy.vocabulary.part_of_speech
   module:
     - path
+    - rabbit_hole
     - text
 id: taxonomy_term.part_of_speech.default
 targetEntityType: taxonomy_term
@@ -41,6 +43,13 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  rabbit_hole__settings:
+    type: rabbit_hole_default
+    weight: 100
+    region: content
+    settings:
+      advanced: true
+    third_party_settings: {  }
   simple_sitemap:
     weight: 10
     region: content
@@ -52,6 +61,11 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
     third_party_settings: {  }
 hidden:
   publish_on: true

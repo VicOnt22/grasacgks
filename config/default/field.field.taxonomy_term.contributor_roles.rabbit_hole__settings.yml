@@ -1,0 +1,21 @@
+uuid: c1238ce1-3a38-4d5d-9ec4-3db5f389a32b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.rabbit_hole__settings
+    - taxonomy.vocabulary.contributor_roles
+  module:
+    - rabbit_hole
+id: taxonomy_term.contributor_roles.rabbit_hole__settings
+field_name: rabbit_hole__settings
+entity_type: taxonomy_term
+bundle: contributor_roles
+label: 'Rabbit Hole settings'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: rabbit_hole

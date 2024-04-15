@@ -46,7 +46,7 @@ information, see
   used on new user registration.
 
 - If you use Behat for testing user scenarios you should override the default
-  login behavior so the e-mail address will be used to log in instead of the
+  login behavior so the email address will be used to log in instead of the
   username. To do this you should install the Service Container Extension
   which allows to override the default authentication service from Behat
   Drupal Extension:

@@ -58,7 +58,6 @@ editoria11y.api_ok:
     _user_is_logged_in: 'TRUE'
     _content_type_format: 'json'
     _csrf_request_header_token: 'TRUE'
-    _method: 'POST'
   options:
     no_cache: true
 
@@ -72,7 +71,6 @@ editoria11y.api_hide:
     _user_is_logged_in: 'TRUE'
     _content_type_format: 'json'
     _csrf_request_header_token: 'TRUE'
-    _method: 'POST'
   options:
     no_cache: true
 
@@ -86,7 +84,6 @@ editoria11y.api_purge_page:
     _user_is_logged_in: 'TRUE'
     _content_type_format: 'json'
     _csrf_request_header_token: 'TRUE'
-    _method: 'POST'
   options:
     no_cache: true
 
@@ -100,7 +97,6 @@ editoria11y.api_purge_dismissals:
     _user_is_logged_in: 'TRUE'
     _content_type_format: 'json'
     _csrf_request_header_token: 'TRUE'
-    _method: 'POST'
   options:
     no_cache: true
 
@@ -114,6 +110,5 @@ editoria11y.api_reset:
     _user_is_logged_in: 'TRUE'
     _content_type_format: 'json'
     _csrf_request_header_token: 'TRUE'
-    _method: 'POST'
   options:
     no_cache: true

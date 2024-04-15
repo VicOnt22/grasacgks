@@ -1,0 +1,13 @@
+uuid: c12c1d8e-5831-4d5e-b158-08f85708f638
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.heritage_item
+id: node.heritage_item
+targetEntityType: node
+bundle: heritage_item
+action: display_page
+no_bypass: false
+bypass_message: false
+configuration: {  }

@@ -3,10 +3,12 @@
 namespace Drupal\editoria11y\Controller;
 
 use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Datetime\DateFormatterInterface;
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Url;
 use Drupal\user\Entity\User;
-use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -16,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package Drupal\editoria11y\Controller
  */
-class ExportCSVController extends ControllerBase implements ContainerInjectionInterface {
+final class ExportCSVController extends ControllerBase implements ContainerInjectionInterface {
 
   /**
    * Dashboard property.
@@ -26,28 +28,46 @@ class ExportCSVController extends ControllerBase implements ContainerInjectionIn
   protected $dashboard;
 
   /**
+   * The renderer service.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected RendererInterface $renderer;
+
+  /**
+   * Get date formatter copy.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatterInterface
+   */
+  private DateFormatterInterface $dateFormatter;
+
+  /**
    * Constructs the ExportCSVController object.
    *
    * @param mixed $dashboard
    *   Dashboard property.
+   * @param \Drupal\Core\Datetime\DateFormatterInterface $date_formatter
+   *   The date formatter service.
    */
-  public function __construct($dashboard) {
+  public function __construct($dashboard, DateFormatterInterface $date_formatter) {
     $this->dashboard = $dashboard;
+    $this->dateFormatter = $date_formatter;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create($container) {
-    return new static(
-          $container->get('editoria11y.dashboard')
+    return new self(
+          $container->get('editoria11y.dashboard'),
+          $container->get('date.formatter')
       );
   }
 
   /**
    * Exports a summary CSV of issue count per page.
    */
-  public function pages() {
+  public function pages(): Response {
     // Start using PHP's built in file handler functions to create a temporary
     // file.
     $handle = fopen('php://temp', 'w+');
@@ -113,7 +133,7 @@ class ExportCSVController extends ControllerBase implements ContainerInjectionIn
   /**
    * Exports a CSV of all issues.
    */
-  public function issues() {
+  public function issues(): Response {
     // Start using PHP's built in file handler functions to create a temporary
     // file.
     $handle = fopen('php://temp', 'w+');
@@ -179,7 +199,7 @@ class ExportCSVController extends ControllerBase implements ContainerInjectionIn
   /**
    * Exports a CSV of all issues.
    */
-  public function dismissals() {
+  public function dismissals(): Response {
     // Start using PHP's built in file handler functions to create a temporary
     // file.
     $handle = fopen('php://temp', 'w+');
@@ -208,7 +228,7 @@ class ExportCSVController extends ControllerBase implements ContainerInjectionIn
       $user = User::load($result->uid);
       $name = $user->getDisplayName();
       $stale = $result->stale ? "No" : "Yes";
-      $date = \Drupal::service('date.formatter')->format($result->created);
+      $date = $this->dateFormatter->format($result->created);
       $url = UrlHelper::filterBadProtocol($result->page_path);
       $data = [
         'Page' => $result->page_title,

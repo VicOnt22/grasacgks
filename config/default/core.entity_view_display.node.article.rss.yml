@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.article.field_image2
     - field.field.node.article.field_sticky_on_top
     - field.field.node.article.field_tags
+    - field.field.node.article.rabbit_hole__settings
     - node.type.article
   module:
     - user
@@ -34,4 +35,5 @@ hidden:
   field_sticky_on_top: true
   field_tags: true
   langcode: true
+  rabbit_hole__settings: true
   search_api_excerpt: true

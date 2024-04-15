@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.taxonomy_term.traditional_knowledge_tk_labels.field_image
+    - field.field.taxonomy_term.traditional_knowledge_tk_labels.rabbit_hole__settings
     - image.style.d01
     - taxonomy.vocabulary.traditional_knowledge_tk_labels
   module:
@@ -84,4 +85,5 @@ content:
     region: left
 hidden:
   langcode: true
+  rabbit_hole__settings: true
   search_api_excerpt: true

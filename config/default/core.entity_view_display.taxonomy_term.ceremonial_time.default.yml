@@ -1,0 +1,25 @@
+uuid: be33d655-c822-43ed-aeeb-00b13c1efce0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.ceremonial_time.rabbit_hole__settings
+    - taxonomy.vocabulary.ceremonial_time
+  module:
+    - text
+id: taxonomy_term.ceremonial_time.default
+targetEntityType: taxonomy_term
+bundle: ceremonial_time
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  rabbit_hole__settings: true
+  search_api_excerpt: true

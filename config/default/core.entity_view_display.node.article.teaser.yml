@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.article.field_image2
     - field.field.node.article.field_sticky_on_top
     - field.field.node.article.field_tags
+    - field.field.node.article.rabbit_hole__settings
     - image.style.d02
     - node.type.article
     - responsive_image.styles.d02
@@ -38,7 +39,6 @@ content:
         title: '0'
         alt: '0'
       class: ''
-      id: ''
       image: ''
       link: ''
       overlay: ''
@@ -47,9 +47,6 @@ content:
       layout: ''
       view_mode: s02
       cache: 0
-      skin: ''
-      lazy: ''
-      style: ''
       background: false
       box_caption: ''
       box_caption_custom: ''
@@ -65,6 +62,10 @@ content:
       grid: ''
       grid_medium: ''
       grid_small: ''
+      style: ''
+      id: ''
+      lazy: ''
+      skin: ''
     third_party_settings:
       ds:
         ds_limit: ''
@@ -123,4 +124,5 @@ hidden:
   field_image2: true
   field_sticky_on_top: true
   langcode: true
+  rabbit_hole__settings: true
   search_api_excerpt: true

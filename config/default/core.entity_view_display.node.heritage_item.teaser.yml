@@ -68,6 +68,7 @@ dependencies:
     - field.field.node.heritage_item.field_sources_exhib_pub_his
     - field.field.node.heritage_item.field_tk_label
     - field.field.node.heritage_item.field_weght
+    - field.field.node.heritage_item.rabbit_hole__settings
     - image.style.d01
     - node.type.heritage_item
   module:
@@ -243,4 +244,5 @@ hidden:
   field_tk_label: true
   field_weght: true
   langcode: true
+  rabbit_hole__settings: true
   search_api_excerpt: true

@@ -44,6 +44,9 @@ editoria11y.settings:
     preserve_params:
       type: string
       label: 'URL query parameters that should be recorded as separate pages'
+    redundant_prefix:
+      type: string
+      label: 'Remove string from URL for dashboard page links'
     custom_tests:
       type: integer
       label: 'Number of custom test finished events the checker should wait for'

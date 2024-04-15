@@ -34,7 +34,7 @@ class RoleAssignUserBulkForm extends UserBulkForm {
         if (in_array($action->get('plugin'), $denied_actions)) {
           $config = $action->get('configuration');
 
-          if (!in_array($config['rid'], $assignable_roles)) {
+          if (!isset($assignable_roles[$config['rid']])) {
             unset($this->actions[$action_key]);
           }
         }

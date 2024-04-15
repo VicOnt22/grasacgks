@@ -8,7 +8,6 @@ id: node_type_landing_page
 entity_type_id: null
 entity_id: null
 action: display_page
-allow_override: 0
-redirect: ''
-redirect_code: 301
-redirect_fallback_action: null
+configuration: {  }
+no_bypass: false
+bypass_message: false

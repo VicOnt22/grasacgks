@@ -1,0 +1,25 @@
+uuid: 6965df49-9cf4-48ef-8c4f-d21e3d12d002
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.contributors.rabbit_hole__settings
+    - taxonomy.vocabulary.contributors
+  module:
+    - text
+id: taxonomy_term.contributors.default
+targetEntityType: taxonomy_term
+bundle: contributors
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  rabbit_hole__settings: true
+  search_api_excerpt: true

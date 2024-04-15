@@ -31,6 +31,9 @@ diff.settings:
               weight:
                 type: integer
                 label: 'Weight'
+        visual_default_view_mode:
+          type: string
+          label: 'View mode'
         visual_inline_theme:
           type: string
           label: 'Theme'

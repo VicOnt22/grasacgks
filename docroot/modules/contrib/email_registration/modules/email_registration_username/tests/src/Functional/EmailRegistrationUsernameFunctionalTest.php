@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\email_registration_username\Functional;
 
 use Drupal\Tests\email_registration\Functional\EmailRegistrationFunctionalTestBase;

@@ -10,12 +10,14 @@ dependencies:
     - field.field.taxonomy_term.institution.field_memo_of_understanding
     - field.field.taxonomy_term.institution.field_phone_number
     - field.field.taxonomy_term.institution.field_web_url
+    - field.field.taxonomy_term.institution.rabbit_hole__settings
     - taxonomy.vocabulary.institution
   module:
     - address
     - file
     - link
     - path
+    - rabbit_hole
     - telephone
     - text
 id: taxonomy_term.institution.default
@@ -100,6 +102,13 @@ content:
     weight: 12
     region: content
     settings: {  }
+    third_party_settings: {  }
+  rabbit_hole__settings:
+    type: rabbit_hole_default
+    weight: 100
+    region: content
+    settings:
+      advanced: true
     third_party_settings: {  }
   simple_sitemap:
     weight: 10

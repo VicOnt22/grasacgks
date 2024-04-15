@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.taxonomy_term.full
     - field.field.taxonomy_term.traditional_knowledge_tk_labels.field_image
+    - field.field.taxonomy_term.traditional_knowledge_tk_labels.rabbit_hole__settings
     - image.style.thumbnail
     - taxonomy.vocabulary.traditional_knowledge_tk_labels
   module:
@@ -80,7 +81,6 @@ content:
         title: '0'
         alt: '0'
       class: ''
-      id: ''
       image: ''
       link: ''
       overlay: ''
@@ -89,9 +89,6 @@ content:
       layout: ''
       view_mode: default
       cache: 0
-      skin: ''
-      lazy: ''
-      style: ''
       background: false
       box_caption: ''
       box_caption_custom: ''
@@ -107,6 +104,10 @@ content:
       grid: ''
       grid_medium: ''
       grid_small: ''
+      style: ''
+      id: ''
+      lazy: ''
+      skin: ''
     third_party_settings:
       ds:
         ft:
@@ -119,4 +120,5 @@ content:
     region: main
 hidden:
   langcode: true
+  rabbit_hole__settings: true
   search_api_excerpt: true

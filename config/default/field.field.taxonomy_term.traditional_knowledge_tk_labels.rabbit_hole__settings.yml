@@ -1,0 +1,21 @@
+uuid: f7f033e2-0e7e-4804-89f1-b893d5536335
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.rabbit_hole__settings
+    - taxonomy.vocabulary.traditional_knowledge_tk_labels
+  module:
+    - rabbit_hole
+id: taxonomy_term.traditional_knowledge_tk_labels.rabbit_hole__settings
+field_name: rabbit_hole__settings
+entity_type: taxonomy_term
+bundle: traditional_knowledge_tk_labels
+label: 'Rabbit Hole settings'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: rabbit_hole

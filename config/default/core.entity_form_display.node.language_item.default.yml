@@ -20,6 +20,7 @@ dependencies:
     - field.field.node.language_item.field_source
     - field.field.node.language_item.field_term_definition
     - field.field.node.language_item.field_unique_id
+    - field.field.node.language_item.rabbit_hole__settings
     - node.type.language_item
     - workflows.workflow.varbase_editorial_workflow
   module:
@@ -28,6 +29,7 @@ dependencies:
     - length_indicator
     - media_library
     - path
+    - rabbit_hole
     - text
     - webform
 third_party_settings:
@@ -204,6 +206,13 @@ content:
     weight: 8
     region: content
     settings: {  }
+    third_party_settings: {  }
+  rabbit_hole__settings:
+    type: rabbit_hole_default
+    weight: 100
+    region: content
+    settings:
+      advanced: true
     third_party_settings: {  }
   simple_sitemap:
     weight: 7

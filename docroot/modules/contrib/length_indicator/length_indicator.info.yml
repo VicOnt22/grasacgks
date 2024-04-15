@@ -6,7 +6,7 @@ dependencies:
   - drupal:field
 package: Fields
 
-# Information added by Drupal.org packaging script on 2022-02-22
-version: '8.x-1.2'
+# Information added by Drupal.org packaging script on 2024-03-25
+version: '8.x-1.3'
 project: 'length_indicator'
-datestamp: 1645529471
+datestamp: 1711370726

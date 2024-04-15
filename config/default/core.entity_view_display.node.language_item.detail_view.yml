@@ -21,6 +21,7 @@ dependencies:
     - field.field.node.language_item.field_source
     - field.field.node.language_item.field_term_definition
     - field.field.node.language_item.field_unique_id
+    - field.field.node.language_item.rabbit_hole__settings
     - node.type.language_item
   module:
     - blazy
@@ -235,4 +236,5 @@ hidden:
   field_part_ofspeech: true
   field_share_knowledge_form: true
   langcode: true
+  rabbit_hole__settings: true
   search_api_excerpt: true

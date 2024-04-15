@@ -36,8 +36,8 @@ var AcePopup = /** @class */ (function () {
         popup.renderer.content.style.cursor = "default";
         popup.renderer.setStyle("ace_autocomplete");
         popup.renderer.$textLayer.element.setAttribute("role", popupAriaRole);
-        popup.renderer.$textLayer.element.setAttribute("aria-roledescription", nls("Autocomplete suggestions"));
-        popup.renderer.$textLayer.element.setAttribute("aria-label", nls("Autocomplete suggestions"));
+        popup.renderer.$textLayer.element.setAttribute("aria-roledescription", nls("autocomplete.popup.aria-roledescription", "Autocomplete suggestions"));
+        popup.renderer.$textLayer.element.setAttribute("aria-label", nls("autocomplete.popup.aria-label", "Autocomplete suggestions"));
         popup.renderer.textarea.setAttribute("aria-hidden", "true");
         popup.setOption("displayIndentGuides", false);
         popup.setOption("dragDelay", 150);
@@ -117,7 +117,7 @@ var AcePopup = /** @class */ (function () {
                 t.element.setAttribute("aria-activedescendant", ariaId);
                 el.setAttribute("aria-activedescendant", ariaId);
                 selected.setAttribute("role", optionAriaRole);
-                selected.setAttribute("aria-roledescription", nls("item"));
+                selected.setAttribute("aria-roledescription", nls("autocomplete.popup.item.aria-roledescription", "item"));
                 selected.setAttribute("aria-label", popup.getData(row).caption || popup.getData(row).value);
                 selected.setAttribute("aria-setsize", popup.data.length);
                 selected.setAttribute("aria-posinset", row + 1);
@@ -1497,14 +1497,13 @@ exports.getCompletionPrefix = function (editor) {
     }.bind(this));
     return prefix || this.retrievePrecedingIdentifier(line, pos.column);
 };
-exports.triggerAutocomplete = function (editor) {
-    var pos = editor.getCursorPosition();
-    var line = editor.session.getLine(pos.row);
-    var column = (pos.column === 0) ? 0 : pos.column - 1;
-    var previousChar = line[column];
-    return editor.completers.some(function (el) {
-        if (el.triggerCharacters && Array.isArray(el.triggerCharacters)) {
-            return el.triggerCharacters.includes(previousChar);
+exports.triggerAutocomplete = function (editor, previousChar) {
+    var previousChar = previousChar == null
+        ? editor.session.getPrecedingCharacter()
+        : previousChar;
+    return editor.completers.some(function (completer) {
+        if (completer.triggerCharacters && Array.isArray(completer.triggerCharacters)) {
+            return completer.triggerCharacters.includes(previousChar);
         }
     });
 };
@@ -1565,7 +1564,7 @@ var Autocomplete = /** @class */ (function () {
     Object.defineProperty(Autocomplete, "completionsForLoading", {
         get: function () {
             return [{
-                    caption: config.nls("Loading..."),
+                    caption: config.nls("autocomplete.loading", "Loading..."),
                     value: ""
                 }];
         },
@@ -1755,9 +1754,6 @@ var Autocomplete = /** @class */ (function () {
                 this.updateDocTooltip();
             }
         }
-        else if (keepPopupPosition && !prefix) {
-            this.detach();
-        }
         this.changeTimer.cancel();
         this.observeLayoutChanges();
     };
@@ -1912,6 +1908,7 @@ var Autocomplete = /** @class */ (function () {
                         this.completions = new FilteredList(completionsForEmpty);
                         this.openPopup(this.editor, prefix, keepPopupPosition);
                         this.popup.renderer.setStyle("ace_loading", false);
+                        this.popup.renderer.setStyle("ace_empty-message", true);
                         return;
                     }
                     return this.detach();
@@ -1926,6 +1923,7 @@ var Autocomplete = /** @class */ (function () {
                 new FilteredList(Autocomplete.completionsForLoading.concat(filtered), completions.filterText) :
                 completions;
             this.openPopup(this.editor, prefix, keepPopupPosition);
+            this.popup.renderer.setStyle("ace_empty-message", false);
             this.popup.renderer.setStyle("ace_loading", !finished);
         }.bind(this));
         if (this.showLoadingState && !this.autoShown && !(this.popup && this.popup.isOpen)) {
@@ -2065,6 +2063,12 @@ Autocomplete.prototype.commands = {
             editor.completer.goTo("down");
         else
             return result;
+    },
+    "Backspace": function (editor) {
+        editor.execCommand("backspace");
+        var prefix = util.getCompletionPrefix(editor);
+        if (!prefix && editor.completer)
+            editor.completer.detach();
     },
     "PageUp": function (editor) { editor.completer.popup.gotoPageUp(); },
     "PageDown": function (editor) { editor.completer.popup.gotoPageDown(); }
@@ -3002,12 +3006,12 @@ prompt.commands = function (editor, callback) {
             var otherCommands = getUniqueCommandList(shortcutsArray, recentlyUsedCommands);
             otherCommands = getFilteredCompletions(otherCommands, prefix);
             if (recentlyUsedCommands.length && otherCommands.length) {
-                recentlyUsedCommands[0].message = nls("Recently used");
-                otherCommands[0].message = nls("Other commands");
+                recentlyUsedCommands[0].message = nls("prompt.recently-used", "Recently used");
+                otherCommands[0].message = nls("prompt.other-commands", "Other commands");
             }
             var completions = recentlyUsedCommands.concat(otherCommands);
             return completions.length > 0 ? completions : [{
-                    value: nls("No matching commands"),
+                    value: nls("prompt.no-matching-commands", "No matching commands"),
                     error: 1
                 }];
         }

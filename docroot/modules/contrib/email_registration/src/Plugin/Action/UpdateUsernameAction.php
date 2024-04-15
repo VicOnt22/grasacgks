@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\email_registration\Plugin\Action;
 
 use Drupal\Core\Action\ActionBase;

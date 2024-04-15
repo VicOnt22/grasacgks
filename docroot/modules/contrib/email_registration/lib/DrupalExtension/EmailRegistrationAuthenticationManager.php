@@ -13,13 +13,13 @@ class EmailRegistrationAuthenticationManager extends DrupalAuthenticationManager
    * {@inheritdoc}
    */
   public function logIn(\stdClass $user) {
-    // Check if the e-mail field for the user is present.
+    // Check if the email field for the user is present.
     if (empty($user->mail)) {
       if (isset($user->role)) {
-        throw new \Exception(sprintf("Unable to log in user '%s' with role '%s' without e-mail address", $user->name, $user->role));
+        throw new \Exception(sprintf("Unable to log in user '%s' with role '%s' without email address", $user->name, $user->role));
       }
       else {
-        throw new \Exception(sprintf("Unable to log in user '%s' without e-mail address", $user->name));
+        throw new \Exception(sprintf("Unable to log in user '%s' without email address", $user->name));
       }
     }
 

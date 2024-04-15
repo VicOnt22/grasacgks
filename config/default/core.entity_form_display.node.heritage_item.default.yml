@@ -67,6 +67,7 @@ dependencies:
     - field.field.node.heritage_item.field_sources_exhib_pub_his
     - field.field.node.heritage_item.field_tk_label
     - field.field.node.heritage_item.field_weght
+    - field.field.node.heritage_item.rabbit_hole__settings
     - image.style.thumbnail
     - node.type.heritage_item
     - workflows.workflow.varbase_editorial_workflow
@@ -82,6 +83,7 @@ dependencies:
     - media_library
     - path
     - physical
+    - rabbit_hole
     - text
     - webform
 third_party_settings:
@@ -1293,6 +1295,13 @@ content:
     weight: 72
     region: content
     settings: {  }
+    third_party_settings: {  }
+  rabbit_hole__settings:
+    type: rabbit_hole_default
+    weight: 100
+    region: content
+    settings:
+      advanced: true
     third_party_settings: {  }
   scheduler_settings:
     weight: 19

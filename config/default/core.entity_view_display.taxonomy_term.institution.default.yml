@@ -10,6 +10,7 @@ dependencies:
     - field.field.taxonomy_term.institution.field_memo_of_understanding
     - field.field.taxonomy_term.institution.field_phone_number
     - field.field.taxonomy_term.institution.field_web_url
+    - field.field.taxonomy_term.institution.rabbit_hole__settings
     - taxonomy.vocabulary.institution
   module:
     - address
@@ -234,4 +235,5 @@ content:
     region: main
 hidden:
   langcode: true
+  rabbit_hole__settings: true
   search_api_excerpt: true

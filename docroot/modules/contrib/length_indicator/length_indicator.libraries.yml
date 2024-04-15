@@ -3,6 +3,6 @@ length_indicator:
     theme:
       css/length-indicator.css: {}
   js:
-    js/length-indicator.js: {}
+    js/length-indicator.js: { preprocess: false }
   dependencies:
     - core/once

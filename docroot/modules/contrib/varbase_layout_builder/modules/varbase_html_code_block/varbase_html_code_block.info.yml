@@ -17,7 +17,7 @@ dependencies:
 install:
   - allowed_formats
 
-# Information added by Drupal.org packaging script on 2024-02-28
-version: '10.0.50'
+# Information added by Drupal.org packaging script on 2024-03-24
+version: '10.0.51'
 project: 'varbase_layout_builder'
-datestamp: 1709128802
+datestamp: 1711273645

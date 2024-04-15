@@ -1,0 +1,13 @@
+uuid: eee9e488-83a2-4a94-b3fa-f97c1f40cf74
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.related_events
+id: taxonomy_term.related_events
+targetEntityType: taxonomy_term
+bundle: related_events
+action: display_page
+no_bypass: false
+bypass_message: false
+configuration: {  }

@@ -3,12 +3,14 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.languages.rabbit_hole__settings
     - taxonomy.vocabulary.languages
   module:
     - advanced_text_formatter
     - length_indicator
     - maxlength
     - path
+    - rabbit_hole
     - text
 id: taxonomy_term.languages.default
 targetEntityType: taxonomy_term
@@ -55,6 +57,13 @@ content:
     weight: 30
     region: content
     settings: {  }
+    third_party_settings: {  }
+  rabbit_hole__settings:
+    type: rabbit_hole_default
+    weight: 100
+    region: content
+    settings:
+      advanced: true
     third_party_settings: {  }
   simple_sitemap:
     weight: 10

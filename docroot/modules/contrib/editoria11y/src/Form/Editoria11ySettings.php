@@ -2,10 +2,10 @@
 
 namespace Drupal\editoria11y\Form;
 
-use Drupal\Core\Url;
-use Drupal\Core\Link;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 
 /**
  * Class to define all settings of the module.
@@ -15,14 +15,14 @@ class Editoria11ySettings extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormId() {
+  public function getFormId(): string {
     return 'editoria11y_form_settings';
   }
 
   /**
    * {@inheritdoc}
    */
-  protected function getEditableConfigNames() {
+  protected function getEditableConfigNames(): array {
     return [
       'editoria11y.settings',
     ];
@@ -31,7 +31,7 @@ class Editoria11ySettings extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state): array {
     $config = $this->config('editoria11y.settings');
     $permissions = Url::fromRoute('user.admin_permissions');
     $linkToPermissions = Link::fromTextAndUrl(t("user roles that edit content"), $permissions)->toString();
@@ -183,6 +183,14 @@ class Editoria11ySettings extends ConfigFormBase {
       '#default_value' => $config->get('preserve_params'),
       '#description' => $this->t('The dashboard ignores most parameters: results for both /news?f=1 and /news?f=2 will show up as just /news. Provide a comma separated list of parameters that are meaningful, and should appear as separate pages in results.'),
     ];
+
+    $form['sync']['redundant_prefix'] = [
+      '#title' => $this->t("Remove redundant base url from URLs"),
+      '#type' => 'textfield',
+      '#default_value' => $config->get('redundant prefix'),
+      '#description' => $this->t('Provide base URL if your site is installed in a subdirectory ("/mysite") that is being duplicated in dashboard view links (/mysite/mysite/mypage).'),
+    ];
+
     $form['sync']['disable_sync'] = [
       '#title' => $this->t("Disable sync altogether"),
       '#type' => 'checkbox',
@@ -212,6 +220,7 @@ class Editoria11ySettings extends ConfigFormBase {
       ->set('ignore_link_strings', $form_state->getValue('ignore_link_strings'))
       ->set('link_ignore_selector', $form_state->getValue('link_ignore_selector'))
       ->set('preserve_params', $form_state->getValue('preserve_params'))
+      ->set('redundant_prefix', $form_state->getValue('redundant_prefix'))
       ->set('custom_tests', $form_state->getValue('custom_tests'))
       ->save();
     parent::submitForm($form, $form_state);

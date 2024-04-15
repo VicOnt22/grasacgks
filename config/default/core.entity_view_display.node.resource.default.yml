@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.resource.field_folders
     - field.field.node.resource.field_resource_language
     - field.field.node.resource.field_tags
+    - field.field.node.resource.rabbit_hole__settings
     - node.type.resource
   module:
     - file
@@ -78,4 +79,5 @@ content:
     region: content
 hidden:
   langcode: true
+  rabbit_hole__settings: true
   search_api_excerpt: true

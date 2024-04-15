@@ -2,9 +2,9 @@
 
 namespace Drupal\diff\Plugin\diff\Field;
 
-use Drupal\diff\FieldDiffBuilderBase;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\diff\FieldDiffBuilderBase;
 
 /**
  * Plugin to diff image fields.
@@ -23,7 +23,7 @@ class ImageFieldBuilder extends FieldDiffBuilderBase {
    * {@inheritdoc}
    */
   public function build(FieldItemListInterface $field_items) {
-    $result = array();
+    $result = [];
     $fileManager = $this->entityTypeManager->getStorage('file');
     // Every item from $field_items is of type FieldItemInterface.
     foreach ($field_items as $field_key => $field_item) {
@@ -77,11 +77,11 @@ class ImageFieldBuilder extends FieldDiffBuilderBase {
             if ($image_field = $display->getComponent($field_item->getFieldDefinition()->getName())) {
               $image = $fileManager->load($values['target_id']);
 
-              $image_style[$field_key]['#thumbnail'] = array(
+              $image_style[$field_key]['#thumbnail'] = [
                 '#theme' => 'image_style',
                 '#uri' => $image->getFileUri(),
                 '#style_name' => $image_field['settings']['preview_image_style'],
-              );
+              ];
               $result = array_merge($result, $image_style);
             }
           }
@@ -96,35 +96,35 @@ class ImageFieldBuilder extends FieldDiffBuilderBase {
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-    $form['show_id'] = array(
+    $form['show_id'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Show image ID'),
       '#default_value' => $this->configuration['show_id'],
-    );
-    $form['compare_alt_field'] = array(
+    ];
+    $form['compare_alt_field'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Compare <em>Alt</em> field'),
       '#default_value' => $this->configuration['compare_alt_field'],
       '#description' => $this->t('This is only used if the "Enable <em>Alt</em> field" is checked in the instance settings.'),
-    );
-    $form['compare_title_field'] = array(
+    ];
+    $form['compare_title_field'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Compare <em>Title</em> field'),
       '#default_value' => $this->configuration['compare_title_field'],
       '#description' => $this->t('This is only used if the "Enable <em>Title</em> field" is checked in the instance settings.'),
-    );
-    $form['property_separator'] = array(
+    ];
+    $form['property_separator'] = [
       '#type' => 'select',
       '#title' => $this->t('Property separator'),
       '#default_value' => $this->configuration['property_separator'],
       '#description' => $this->t('Provides the ability to show properties inline or across multiple lines.'),
-      '#options' => array(
+      '#options' => [
         ', ' => $this->t('Comma (,)'),
         '; ' => $this->t('Semicolon (;)'),
         ' ' => $this->t('Space'),
         'nl' => $this->t('New line'),
-      ),
-    );
+      ],
+    ];
     $form['show_thumbnail'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Show image thumbnail'),
@@ -152,13 +152,13 @@ class ImageFieldBuilder extends FieldDiffBuilderBase {
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
-    $default_configuration = array(
+    $default_configuration = [
       'show_id' => 0,
       'compare_alt_field' => 1,
       'compare_title_field' => 1,
       'property_separator' => 'nl',
       'show_thumbnail' => 1,
-    );
+    ];
     $default_configuration += parent::defaultConfiguration();
 
     return $default_configuration;

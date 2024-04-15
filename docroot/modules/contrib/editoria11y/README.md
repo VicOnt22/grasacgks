@@ -15,12 +15,12 @@ checker that addresses three critical needs for content authors:
 
 1. It runs automatically. Modern spellcheck works so well because it is always
    running; put spellcheck behind a button and few users remember to run it!
-1. It focuses exclusively on straightforward issues a content author can easily
+2. It focuses exclusively on straightforward issues a content author can easily
    understand and easily fix. Comprehensive testing should be a key part of site
    creation, but if a tool is going to run automatically, it will do more harm
    than good if it is constantly alerting on code they do not understand
    and cannot fix.
-1. It runs in context. Views, Layout Builder, Paragraphs and all the other
+3. It runs in context. Views, Layout Builder, Paragraphs and all the other
    modules Drupal uses to assemble a page means that tools that run inside
    CKEditor cannot "see" many of the issues on a typical page.
 

@@ -1,0 +1,25 @@
+uuid: dc1cd14e-72b0-427f-bbc3-c6ef1bed5ad6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.related_events.rabbit_hole__settings
+    - taxonomy.vocabulary.related_events
+  module:
+    - text
+id: taxonomy_term.related_events.default
+targetEntityType: taxonomy_term
+bundle: related_events
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  rabbit_hole__settings: true
+  search_api_excerpt: true

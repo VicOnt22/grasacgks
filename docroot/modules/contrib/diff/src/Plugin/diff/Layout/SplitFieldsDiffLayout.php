@@ -3,7 +3,7 @@
 namespace Drupal\diff\Plugin\diff\Layout;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Datetime\DateFormatter;
+use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Render\RendererInterface;
@@ -60,7 +60,7 @@ class SplitFieldsDiffLayout extends DiffLayoutBase {
    *   The entity type manager.
    * @param \Drupal\diff\DiffEntityParser $entity_parser
    *   The entity parser.
-   * @param \Drupal\Core\DateTime\DateFormatter $date
+   * @param \Drupal\Core\Datetime\DateFormatterInterface $date
    *   The date service.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer.
@@ -69,7 +69,18 @@ class SplitFieldsDiffLayout extends DiffLayoutBase {
    * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
    *   The request stack.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config, EntityTypeManagerInterface $entity_type_manager, DiffEntityParser $entity_parser, DateFormatter $date, RendererInterface $renderer, DiffEntityComparison $entity_comparison, RequestStack $request_stack) {
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    ConfigFactoryInterface $config,
+    EntityTypeManagerInterface $entity_type_manager,
+    DiffEntityParser $entity_parser,
+    DateFormatterInterface $date,
+    RendererInterface $renderer,
+    DiffEntityComparison $entity_comparison,
+    RequestStack $request_stack,
+  ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $config, $entity_type_manager, $entity_parser, $date);
     $this->renderer = $renderer;
     $this->entityComparison = $entity_comparison;
@@ -90,7 +101,7 @@ class SplitFieldsDiffLayout extends DiffLayoutBase {
       $container->get('date.formatter'),
       $container->get('renderer'),
       $container->get('diff.entity_comparison'),
-      $container->get('request_stack')
+      $container->get('request_stack'),
     );
   }
 
@@ -146,7 +157,7 @@ class SplitFieldsDiffLayout extends DiffLayoutBase {
 
       $field_diff_rows = $this->entityComparison->getRows(
         $field['#data']['#left'],
-        $field['#data']['#right']
+        $field['#data']['#right'],
       );
 
       // EXPERIMENTAL: Deal with magic thumbnail image data.
@@ -187,14 +198,14 @@ class SplitFieldsDiffLayout extends DiffLayoutBase {
             ],
           ],
           'left-row-sign' => [
-            'data' => isset($field_diff_rows[$key][0]['data']) ? $field_diff_rows[$key][0]['data'] : NULL,
+            'data' => $field_diff_rows[$key][0]['data'] ?? NULL,
             'class' => [
-              isset($field_diff_rows[$key][0]['class']) ? $field_diff_rows[$key][0]['class'] : NULL,
+              $field_diff_rows[$key][0]['class'] ?? NULL,
               isset($field_diff_rows[$key][1]['data']) ? $field_diff_rows[$key][1]['class'] : NULL,
             ],
           ],
           'left-row-data' => [
-            'data' => isset($field_diff_rows[$key][1]['data']) ? $field_diff_rows[$key][1]['data'] : NULL,
+            'data' => $field_diff_rows[$key][1]['data'] ?? NULL,
             'class' => isset($field_diff_rows[$key][1]['data']) ? $field_diff_rows[$key][1]['class'] : NULL,
           ],
           'right-line-number' => [
@@ -205,14 +216,14 @@ class SplitFieldsDiffLayout extends DiffLayoutBase {
             ],
           ],
           'right-row-sign' => [
-            'data' => isset($field_diff_rows[$key][2]['data']) ? $field_diff_rows[$key][2]['data'] : NULL,
+            'data' => $field_diff_rows[$key][2]['data'] ?? NULL,
             'class' => [
-              isset($field_diff_rows[$key][2]['class']) ? $field_diff_rows[$key][2]['class'] : NULL,
+              $field_diff_rows[$key][2]['class'] ?? NULL,
               isset($field_diff_rows[$key][3]['data']) ? $field_diff_rows[$key][3]['class'] : NULL,
             ],
           ],
           'right-row-data' => [
-            'data' => isset($field_diff_rows[$key][3]['data']) ? $field_diff_rows[$key][3]['data'] : NULL,
+            'data' => $field_diff_rows[$key][3]['data'] ?? NULL,
             'class' => isset($field_diff_rows[$key][3]['data']) ? $field_diff_rows[$key][3]['class'] : NULL,
           ],
         ];

@@ -4,6 +4,7 @@ namespace Drupal\roleassign\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 
 /**
@@ -34,8 +35,10 @@ class RoleAssignAdminForm extends ConfigFormBase {
      * - 'anonymous user'
      * - 'authenticated user'
      ******************************/
-    $roles = user_role_names(TRUE);
+    $roles = Role::loadMultiple();
+    unset($roles[RoleInterface::ANONYMOUS_ID]);
     unset($roles[RoleInterface::AUTHENTICATED_ID]);
+    $roles = array_map(fn(RoleInterface $role) => $role->label(), $roles);
 
     /******************************
      * Show checkboxes with roles

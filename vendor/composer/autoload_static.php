@@ -991,10 +991,6 @@ class ComposerStaticInit9a23ef48a2a9329279c4a55d12ebb5f7
         ),
     );
 
-    public static $fallbackDirsPsr0 = array (
-        0 => __DIR__ . '/..' . '/pear/pear-core-minimal/src',
-    );
-
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
@@ -1024,6 +1020,10 @@ class ComposerStaticInit9a23ef48a2a9329279c4a55d12ebb5f7
         'Drupal\\Core\\Site\\Settings' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core/Site/Settings.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
+        'OS_Guess' => __DIR__ . '/..' . '/pear/pear-core-minimal/src/OS/Guess.php',
+        'PEAR' => __DIR__ . '/..' . '/pear/pear-core-minimal/src/PEAR.php',
+        'PEAR_Error' => __DIR__ . '/..' . '/pear/pear-core-minimal/src/PEAR.php',
+        'PEAR_ErrorStack' => __DIR__ . '/..' . '/pear/pear-core-minimal/src/PEAR/ErrorStack.php',
         'PEAR_Exception' => __DIR__ . '/..' . '/pear/pear_exception/PEAR/Exception.php',
         'PHPUnit\\Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
         'PHPUnit\\Framework\\ActualValueIsNotAnObjectException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Exception/ActualValueIsNotAnObjectException.php',
@@ -1648,6 +1648,7 @@ class ComposerStaticInit9a23ef48a2a9329279c4a55d12ebb5f7
         'SebastianBergmann\\Type\\VoidType' => __DIR__ . '/..' . '/sebastian/type/src/type/VoidType.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+        'System' => __DIR__ . '/..' . '/pear/pear-core-minimal/src/System.php',
         'TheSeer\\Tokenizer\\Exception' => __DIR__ . '/..' . '/theseer/tokenizer/src/Exception.php',
         'TheSeer\\Tokenizer\\NamespaceUri' => __DIR__ . '/..' . '/theseer/tokenizer/src/NamespaceUri.php',
         'TheSeer\\Tokenizer\\NamespaceUriException' => __DIR__ . '/..' . '/theseer/tokenizer/src/NamespaceUriException.php',
@@ -1668,7 +1669,6 @@ class ComposerStaticInit9a23ef48a2a9329279c4a55d12ebb5f7
             $loader->prefixLengthsPsr4 = ComposerStaticInit9a23ef48a2a9329279c4a55d12ebb5f7::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit9a23ef48a2a9329279c4a55d12ebb5f7::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit9a23ef48a2a9329279c4a55d12ebb5f7::$prefixesPsr0;
-            $loader->fallbackDirsPsr0 = ComposerStaticInit9a23ef48a2a9329279c4a55d12ebb5f7::$fallbackDirsPsr0;
             $loader->classMap = ComposerStaticInit9a23ef48a2a9329279c4a55d12ebb5f7::$classMap;
 
         }, null, ClassLoader::class);

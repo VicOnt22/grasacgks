@@ -22,6 +22,7 @@ dependencies:
     - blazy
     - image_resize_filter
     - media
+    - pathologic
     - slick
     - token_filter
 _core:
@@ -176,3 +177,14 @@ filters:
       print_margins: '1'
       show_invisibles: '0'
       use_wrap_mode: '1'
+  filter_pathologic:
+    id: filter_pathologic
+    provider: pathologic
+    status: false
+    weight: 50
+    settings:
+      settings_source: global
+      local_settings:
+        protocol_style: full
+        local_paths: ''
+        keep_language_prefix: true

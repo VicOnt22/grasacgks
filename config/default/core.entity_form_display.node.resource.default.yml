@@ -9,13 +9,15 @@ dependencies:
     - field.field.node.resource.field_folders
     - field.field.node.resource.field_resource_language
     - field.field.node.resource.field_tags
+    - field.field.node.resource.rabbit_hole__settings
     - node.type.resource
-    - workflows.workflow.varbase_simple_workflow
+    - workflows.workflow.varbase_editorial_workflow
   module:
     - content_moderation
     - file
     - length_indicator
     - path
+    - rabbit_hole
     - text
 id: node.resource.default
 targetEntityType: node
@@ -101,6 +103,13 @@ content:
     weight: 6
     region: content
     settings: {  }
+    third_party_settings: {  }
+  rabbit_hole__settings:
+    type: rabbit_hole_default
+    weight: 100
+    region: content
+    settings:
+      advanced: true
     third_party_settings: {  }
   simple_sitemap:
     weight: 5
