@@ -50,7 +50,8 @@
         "drupal/views_bulk_operations": "4.2.3",
         "npm-asset/dompurify": "^3.0",
         "enshrined/svg-sanitize": "^0.16.0",
-        "drupal/rabbit_hole": "^2.0@alpha"
+        "drupal/rabbit_hole": "^2.0@alpha",
+        "drupal/devel_entity_updates": "^4.1"
     },
     "conflict": {
         "drupal/drupal": "*"

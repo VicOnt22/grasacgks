@@ -56,6 +56,8 @@ module:
   datetime: 0
   datetime_range: 0
   dblog: 0
+  devel: 0
+  devel_entity_updates: 0
   diff: 0
   display_field_copy: 0
   dropzonejs: 0
