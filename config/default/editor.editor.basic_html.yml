@@ -1,59 +1,67 @@
-uuid: 6f6cbc9a-8b0a-47c4-8a29-d40a6e091007
+uuid: a067322a-f1ba-417d-9d04-1ef5b993ea3c
 langcode: en
 status: true
 dependencies:
   config:
     - filter.format.basic_html
   module:
-    - ckeditor
-_core:
-  default_config_hash: k-FxuuFqYYDbslNZE8EwHFvjI7b3zHcPfu3kniz569Y
+    - ckeditor5
 format: basic_html
-editor: ckeditor
+editor: ckeditor5
 settings:
   toolbar:
-    rows:
-      -
-        -
-          name: 'Block Formatting'
-          items:
-            - Format
-        -
-          name: Formatting
-          items:
-            - Bold
-            - Italic
-            - Underline
-            - '-'
-            - RemoveFormat
-        -
-          name: Lists
-          items:
-            - NumberedList
-            - BulletedList
-        -
-          name: Media
-          items:
-            - Blockquote
-            - DrupalMediaLibrary
-        -
-          name: Linking
-          items:
-            - DrupalLink
-            - DrupalUnlink
-        -
-          name: Direction
-          items:
-            - BidiLtr
-            - BidiRtl
-        -
-          name: Tools
-          items:
-            - Source
+    items:
+      - bold
+      - italic
+      - underline
+      - removeFormat
+      - '|'
+      - numberedList
+      - bulletedList
+      - '|'
+      - blockQuote
+      - '|'
+      - link
+      - '|'
+      - sourceEditing
+      - '|'
+      - code
+      - heading
   plugins:
-    drupallink:
-      linkit_enabled: true
-      linkit_profile: linkit_all_nodes
+    ckeditor5_heading:
+      enabled_headings:
+        - heading2
+        - heading3
+        - heading4
+        - heading5
+        - heading6
+    ckeditor5_sourceEditing:
+      allowed_tags:
+        - '<cite>'
+        - '<dd>'
+        - '<dl>'
+        - '<dt>'
+        - '<span>'
+        - '<h2 id>'
+        - '<h3 id>'
+        - '<h4 id>'
+        - '<h5 id>'
+        - '<h6 id>'
+        - '<a hreflang accesskey target>'
+        - '<blockquote cite>'
+        - '<ol type>'
+        - '<ul type>'
+    ckeditor5_list:
+      reversed: false
+      startIndex: true
+    editor_advanced_link_link:
+      enabled_attributes:
+        - id
+        - rel
+        - target
+        - title
+    linkit_extension:
+      linkit_enabled: false
 image_upload:
   status: true
   scheme: public
