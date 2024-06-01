@@ -9,7 +9,6 @@ module:
   admin_toolbar_tools: 0
   advanced_text_formatter: 0
   allowed_formats: 0
-  anchor_link: 0
   antibot: 0
   backup_migrate: 0
   better_exposed_filters: 0
@@ -32,9 +31,7 @@ module:
   charts: 0
   charts_c3: 0
   checklistapi: 0
-  ckeditor: 0
-  ckeditor_media_embed: 0
-  ckeditor_paste_filter: 0
+  ckeditor5: 0
   conditional_fields: 0
   config: 0
   config_ignore: 0
@@ -66,7 +63,6 @@ module:
   dynamic_page_cache: 0
   easy_breadcrumb: 0
   editor: 0
-  editor_advanced_link: 0
   email_registration: 0
   embed: 0
   entity: 0
@@ -111,7 +107,6 @@ module:
   help: 0
   image: 0
   image_captcha: 0
-  image_resize_filter: 0
   inline_entity_form: 0
   inline_form_errors: 0
   jquery_ui: 0
@@ -251,7 +246,6 @@ module:
   varbase_update_helper: 0
   views_bootstrap: 0
   views_bulk_edit: 0
-  views_bulk_operations: 0
   views_display_switch: 0
   views_filter_select: 0
   views_ui: 0
@@ -271,7 +265,6 @@ module:
   varbase_api: 1
   varbase_email: 1
   varbase_heroslider_media: 1
-  varbase_layout_builder: 1
   varbase_media: 1
   varbase_page: 1
   varbase_search: 1
@@ -280,10 +273,8 @@ module:
   webform_bootstrap: 1
   ds_extras: 2
   varbase_admin: 2
-  varbase_editor: 2
   varbase_webform: 2
   varbase_core: 3
-  vlplb: 3
   vmi: 3
   varbase_styleguide: 4
   content_translation: 10

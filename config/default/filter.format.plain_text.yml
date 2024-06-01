@@ -5,7 +5,7 @@ dependencies:
   module:
     - ace_editor
     - blazy
-    - image_resize_filter
+    - pathologic
     - slick
     - token_filter
 _core:
@@ -92,15 +92,6 @@ filters:
         img: img
         iframe: iframe
       use_data_uri: '0'
-  filter_image_resize:
-    id: filter_image_resize
-    provider: image_resize_filter
-    status: false
-    weight: 0
-    settings:
-      image_locations:
-        local: true
-        remote: false
   token_filter:
     id: token_filter
     provider: token_filter
@@ -123,3 +114,14 @@ filters:
       print_margins: '1'
       show_invisibles: '0'
       use_wrap_mode: '1'
+  filter_pathologic:
+    id: filter_pathologic
+    provider: pathologic
+    status: false
+    weight: 50
+    settings:
+      settings_source: global
+      local_settings:
+        protocol_style: full
+        local_paths: ''
+        keep_language_prefix: true

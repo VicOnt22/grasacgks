@@ -2,29 +2,11 @@ uuid: 038bbfa0-a0b2-4344-b835-400010b6df93
 langcode: en
 status: true
 dependencies:
-  config:
-    - core.entity_view_mode.media.large
-    - core.entity_view_mode.media.medium
-    - core.entity_view_mode.media.original
-    - core.entity_view_mode.media.s01
-    - core.entity_view_mode.media.s02
-    - core.entity_view_mode.media.s03
-    - core.entity_view_mode.media.s04
-    - core.entity_view_mode.media.s05
-    - core.entity_view_mode.media.s06
-    - core.entity_view_mode.media.s07
-    - core.entity_view_mode.media.s08
-    - core.entity_view_mode.media.s09
-    - core.entity_view_mode.media.s10
-    - core.entity_view_mode.media.small
   module:
     - ace_editor
     - blazy
-    - ckeditor_media_embed
     - editor
-    - entity_embed
-    - image_resize_filter
-    - media
+    - linkit
     - pathologic
     - slick
     - token_filter
@@ -38,64 +20,47 @@ filters:
     id: filter_html
     provider: filter
     status: true
-    weight: -50
+    weight: -48
     settings:
-      allowed_html: '<a href hreflang !href accesskey id rel target title> <blockquote cite> <br> <cite> <code> <dd> <dl> <dt> <em> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <li> <ol type start> <p> <span> <strong> <u> <ul type> <img src alt data-* data-entity-type data-entity-uuid data-align data-caption width height> <drupal-entity data-entity-type data-entity-uuid data-entity-embed-display data-entity-embed-display-settings data-align data-caption data-embed-button data-langcode alt title> <drupal-media alt title data-entity-type data-entity-uuid data-view-mode data-align data-caption>'
+      allowed_html: '<br> <p> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <cite> <dd> <dl> <dt> <span> <a hreflang accesskey target href title id rel> <blockquote cite> <ol type start> <ul type> <strong> <em> <u> <code> <li>'
       filter_html_help: false
       filter_html_nofollow: false
   filter_align:
     id: filter_align
     provider: filter
-    status: true
-    weight: -47
+    status: false
+    weight: -46
     settings: {  }
   filter_caption:
     id: filter_caption
     provider: filter
-    status: true
-    weight: -46
+    status: false
+    weight: -45
     settings: {  }
   editor_file_reference:
     id: editor_file_reference
     provider: editor
-    status: true
-    weight: -44
+    status: false
+    weight: -43
     settings: {  }
   filter_url:
     id: filter_url
     provider: filter
     status: true
-    weight: -48
-    settings:
-      filter_url_length: 72
-  filter_pathologic:
-    id: filter_pathologic
-    provider: pathologic
-    status: true
     weight: -49
     settings:
-      settings_source: global
-      local_settings:
-        protocol_style: full
-        local_paths: ''
-        keep_language_prefix: false
-  entity_embed:
-    id: entity_embed
-    provider: entity_embed
-    status: true
-    weight: -45
-    settings: {  }
+      filter_url_length: 72
   filter_autop:
     id: filter_autop
     provider: filter
-    status: false
-    weight: -41
+    status: true
+    weight: -50
     settings: {  }
   filter_html_escape:
     id: filter_html_escape
     provider: filter
     status: false
-    weight: -42
+    weight: -41
     settings: {  }
   filter_htmlcorrector:
     id: filter_htmlcorrector
@@ -103,26 +68,11 @@ filters:
     status: false
     weight: -39
     settings: {  }
-  filter_html_image_secure:
-    id: filter_html_image_secure
-    provider: filter
-    status: false
-    weight: -40
-    settings: {  }
-  filter_image_resize:
-    id: filter_image_resize
-    provider: image_resize_filter
-    status: true
-    weight: -43
-    settings:
-      image_locations:
-        local: true
-        remote: true
   blazy_filter:
     id: blazy_filter
     provider: blazy
-    status: true
-    weight: -35
+    status: false
+    weight: -36
     settings:
       media_switch: ''
       hybrid_style: ''
@@ -133,53 +83,35 @@ filters:
         img: img
         iframe: '0'
       use_data_uri: '0'
-  filter_ckeditor_media_embed:
-    id: filter_ckeditor_media_embed
-    provider: ckeditor_media_embed
-    status: false
-    weight: -37
-    settings: {  }
-  filter_image_link_to_source:
-    id: filter_image_link_to_source
-    provider: image_resize_filter
-    status: false
-    weight: -36
-    settings: {  }
-  media_embed:
-    id: media_embed
-    provider: media
-    status: true
-    weight: 100
-    settings:
-      default_view_mode: large
-      allowed_view_modes:
-        large: large
-        medium: medium
-        original: original
-        s01: s01
-        s02: s02
-        s03: s03
-        s04: s04
-        s05: s05
-        s06: s06
-        s07: s07
-        s08: s08
-        s09: s09
-        s10: s10
-        small: small
-      allowed_media_types:
-        audio: audio
-        file: file
-        image: image
-        remote_video: remote_video
-        video: video
   token_filter:
     id: token_filter
     provider: token_filter
     status: false
-    weight: 0
+    weight: -33
     settings:
       replace_empty: '0'
+  ace_filter:
+    id: ace_filter
+    provider: ace_editor
+    status: false
+    weight: -35
+    settings:
+      theme: cobalt
+      syntax: html
+      height: 500px
+      width: 700px
+      font_size: 12pt
+      line_numbers: '1'
+      print_margins: '1'
+      show_invisibles: '0'
+      use_wrap_mode: '1'
+  linkit:
+    id: linkit
+    provider: linkit
+    status: false
+    weight: -34
+    settings:
+      title: true
   slick_filter:
     id: slick_filter
     provider: slick
@@ -224,19 +156,14 @@ filters:
       override: false
       preserve_keys: false
       visible_items: null
-  ace_filter:
-    id: ace_filter
-    provider: ace_editor
+  filter_pathologic:
+    id: filter_pathologic
+    provider: pathologic
     status: false
-    weight: 0
+    weight: 50
     settings:
-      theme: cobalt
-      syntax: html
-      height: 500px
-      width: 700px
-      font_size: 12pt
-      line_numbers: '1'
-      show_invisibles: '0'
-      print_margins: '1'
-      auto_complete: '1'
-      use_wrap_mode: '1'
+      settings_source: global
+      local_settings:
+        protocol_style: full
+        local_paths: ''
+        keep_language_prefix: true
