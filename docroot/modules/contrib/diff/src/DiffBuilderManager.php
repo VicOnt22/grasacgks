@@ -190,7 +190,7 @@ class DiffBuilderManager extends DefaultPluginManager {
         $bundles = $field_storage_definition->getBundles();
         $query->condition('bundle', (array) $bundles, 'IN');
       }
-      $result = $query->exists($field_key)->range(0, 1)->execute();
+      $result = $query->exists($field_key)->range(0, 1)->accessCheck(FALSE)->execute();
       return !empty($result) ? TRUE : FALSE;
     }
     else {

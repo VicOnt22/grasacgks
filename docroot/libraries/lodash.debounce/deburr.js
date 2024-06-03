@@ -1,5 +1,5 @@
-var deburrLetter = require('./_deburrLetter'),
-    toString = require('./toString');
+import deburrLetter from './_deburrLetter.js';
+import toString from './toString.js';
 
 /** Used to match Latin Unicode letters (excluding mathematical operators). */
 var reLatin = /[\xc0-\xd6\xd8-\xf6\xf8-\xff\u0100-\u017f]/g;
@@ -42,4 +42,4 @@ function deburr(string) {
   return string && string.replace(reLatin, deburrLetter).replace(reComboMark, '');
 }
 
-module.exports = deburr;
+export default deburr;

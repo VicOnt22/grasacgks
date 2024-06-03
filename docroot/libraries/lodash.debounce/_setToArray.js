@@ -15,4 +15,4 @@ function setToArray(set) {
   return result;
 }
 
-module.exports = setToArray;
+export default setToArray;

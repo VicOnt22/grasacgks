@@ -1,7 +1,7 @@
-import baseClamp from './_baseClamp.js';
-import baseToString from './_baseToString.js';
-import toInteger from './toInteger.js';
-import toString from './toString.js';
+var baseClamp = require('./_baseClamp'),
+    baseToString = require('./_baseToString'),
+    toInteger = require('./toInteger'),
+    toString = require('./toString');
 
 /**
  * Checks if `string` starts with the given target string.
@@ -36,4 +36,4 @@ function startsWith(string, target, position) {
   return string.slice(position, position + target.length) == target;
 }
 
-export default startsWith;
+module.exports = startsWith;

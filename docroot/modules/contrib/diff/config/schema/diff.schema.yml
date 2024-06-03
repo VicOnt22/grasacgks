@@ -41,11 +41,11 @@ diff.settings:
       type: sequence
       label: 'Entities'
       sequence:
-        - type: sequence
-          label: 'Entity ID'
-          sequence:
-            - type: integer
-              label: 'Compare base field'
+        type: sequence
+        label: 'Entity ID'
+        sequence:
+          type: integer
+          label: 'Compare base field'
 
 diff.plugins:
   type: config_object

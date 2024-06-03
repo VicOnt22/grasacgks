@@ -1,6 +1,6 @@
-var asciiSize = require('./_asciiSize'),
-    hasUnicode = require('./_hasUnicode'),
-    unicodeSize = require('./_unicodeSize');
+import asciiSize from './_asciiSize.js';
+import hasUnicode from './_hasUnicode.js';
+import unicodeSize from './_unicodeSize.js';
 
 /**
  * Gets the number of symbols in `string`.
@@ -15,4 +15,4 @@ function stringSize(string) {
     : asciiSize(string);
 }
 
-module.exports = stringSize;
+export default stringSize;

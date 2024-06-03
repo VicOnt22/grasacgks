@@ -2,7 +2,6 @@
   margin-left: 0;
   padding-left: 0;
 }
-
 #dashboard-content-state-statistic .content-states-visual-bar {
   border-radius: 10px;
   overflow: hidden;
@@ -12,7 +11,6 @@
   display: inline-block;
   float: left;
 }
-
 #dashboard-content-state-statistic .content-state {
   margin-bottom: 0.5em;
   list-style: none;

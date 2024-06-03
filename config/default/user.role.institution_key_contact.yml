@@ -13,6 +13,7 @@ dependencies:
     - captcha
     - content_moderation
     - field_permissions
+    - file
     - filter
     - media
     - node
@@ -24,47 +25,26 @@ label: 'Institution Key Contact'
 weight: 1
 is_admin: null
 permissions:
-  - 'access all views'
-  - 'access comments'
   - 'access content overview'
-  - 'access media browser'
   - 'access media overview'
-  - 'access relations'
-  - 'access site-wide contact form'
   - 'access toolbar'
-  - 'access user contact forms'
   - 'access user profiles'
   - 'delete media'
-  - 'download any audio files'
-  - 'download any document files'
-  - 'download any image files'
-  - 'download any video files'
-  - 'download own audio files'
-  - 'download own document files'
-  - 'download own image files'
-  - 'download own video files'
-  - 'edit own comments'
+  - 'delete own files'
   - 'edit own image media'
   - 'edit own remote_video media'
   - 'edit own video media'
   - 'have total control'
-  - 'post comments'
-  - 'search heritage_item content'
-  - 'search language_item content'
   - 'skip CAPTCHA'
   - 'skip antibot'
   - 'update media'
-  - 'use php in custom pagers'
   - 'use text format basic_html'
   - 'use text format full_html'
   - userprotect.mail.edit
   - userprotect.pass.edit
   - 'view any unpublished content'
   - 'view field_record_editable_by'
-  - 'view files'
-  - 'view icons'
   - 'view latest version'
   - 'view own field_record_editable_by'
   - 'view own unpublished content'
   - 'view own unpublished media'
-  - 'view revisions'

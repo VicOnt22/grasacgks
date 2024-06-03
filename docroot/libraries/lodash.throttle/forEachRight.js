@@ -1,7 +1,7 @@
-import arrayEachRight from './_arrayEachRight.js';
-import baseEachRight from './_baseEachRight.js';
-import castFunction from './_castFunction.js';
-import isArray from './isArray.js';
+var arrayEachRight = require('./_arrayEachRight'),
+    baseEachRight = require('./_baseEachRight'),
+    castFunction = require('./_castFunction'),
+    isArray = require('./isArray');
 
 /**
  * This method is like `_.forEach` except that it iterates over elements of
@@ -28,4 +28,4 @@ function forEachRight(collection, iteratee) {
   return func(collection, castFunction(iteratee));
 }
 
-export default forEachRight;
+module.exports = forEachRight;

@@ -6,7 +6,6 @@ dependencies:
     - 'block_content:basic:98ca1b48-cd01-4f39-b9fd-78f9ca8f92f0'
   module:
     - block_content
-    - context
   theme:
     - grasacgks
 id: copyrightfooterline
@@ -23,23 +22,4 @@ settings:
   status: true
   info: ''
   view_mode: full
-visibility:
-  user_status:
-    id: user_status
-    negate: false
-    context_mapping:
-      user: '@user.current_user_context:current_user'
-    user_status:
-      viewing_profile: '0'
-      logged_viewing_profile: '0'
-      own_page_true: '0'
-      field_value: '0'
-    user_fields: uid
-  context_all:
-    id: context_all
-    negate: null
-    values: ''
-  context:
-    id: context
-    negate: null
-    values: ''
+visibility: {  }

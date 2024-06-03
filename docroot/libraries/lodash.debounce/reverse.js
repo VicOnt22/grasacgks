@@ -31,4 +31,4 @@ function reverse(array) {
   return array == null ? array : nativeReverse.call(array);
 }
 
-module.exports = reverse;
+export default reverse;

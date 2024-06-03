@@ -1,6 +1,6 @@
-var LazyWrapper = require('./_LazyWrapper'),
-    arrayPush = require('./_arrayPush'),
-    arrayReduce = require('./_arrayReduce');
+import LazyWrapper from './_LazyWrapper.js';
+import arrayPush from './_arrayPush.js';
+import arrayReduce from './_arrayReduce.js';
 
 /**
  * The base implementation of `wrapperValue` which returns the result of
@@ -22,4 +22,4 @@ function baseWrapperValue(value, actions) {
   }, result);
 }
 
-module.exports = baseWrapperValue;
+export default baseWrapperValue;

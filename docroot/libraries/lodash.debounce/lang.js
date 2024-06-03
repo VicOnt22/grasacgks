@@ -1,58 +1,57 @@
-module.exports = {
-  'castArray': require('./castArray'),
-  'clone': require('./clone'),
-  'cloneDeep': require('./cloneDeep'),
-  'cloneDeepWith': require('./cloneDeepWith'),
-  'cloneWith': require('./cloneWith'),
-  'conformsTo': require('./conformsTo'),
-  'eq': require('./eq'),
-  'gt': require('./gt'),
-  'gte': require('./gte'),
-  'isArguments': require('./isArguments'),
-  'isArray': require('./isArray'),
-  'isArrayBuffer': require('./isArrayBuffer'),
-  'isArrayLike': require('./isArrayLike'),
-  'isArrayLikeObject': require('./isArrayLikeObject'),
-  'isBoolean': require('./isBoolean'),
-  'isBuffer': require('./isBuffer'),
-  'isDate': require('./isDate'),
-  'isElement': require('./isElement'),
-  'isEmpty': require('./isEmpty'),
-  'isEqual': require('./isEqual'),
-  'isEqualWith': require('./isEqualWith'),
-  'isError': require('./isError'),
-  'isFinite': require('./isFinite'),
-  'isFunction': require('./isFunction'),
-  'isInteger': require('./isInteger'),
-  'isLength': require('./isLength'),
-  'isMap': require('./isMap'),
-  'isMatch': require('./isMatch'),
-  'isMatchWith': require('./isMatchWith'),
-  'isNaN': require('./isNaN'),
-  'isNative': require('./isNative'),
-  'isNil': require('./isNil'),
-  'isNull': require('./isNull'),
-  'isNumber': require('./isNumber'),
-  'isObject': require('./isObject'),
-  'isObjectLike': require('./isObjectLike'),
-  'isPlainObject': require('./isPlainObject'),
-  'isRegExp': require('./isRegExp'),
-  'isSafeInteger': require('./isSafeInteger'),
-  'isSet': require('./isSet'),
-  'isString': require('./isString'),
-  'isSymbol': require('./isSymbol'),
-  'isTypedArray': require('./isTypedArray'),
-  'isUndefined': require('./isUndefined'),
-  'isWeakMap': require('./isWeakMap'),
-  'isWeakSet': require('./isWeakSet'),
-  'lt': require('./lt'),
-  'lte': require('./lte'),
-  'toArray': require('./toArray'),
-  'toFinite': require('./toFinite'),
-  'toInteger': require('./toInteger'),
-  'toLength': require('./toLength'),
-  'toNumber': require('./toNumber'),
-  'toPlainObject': require('./toPlainObject'),
-  'toSafeInteger': require('./toSafeInteger'),
-  'toString': require('./toString')
-};
+export { default as castArray } from './castArray.js';
+export { default as clone } from './clone.js';
+export { default as cloneDeep } from './cloneDeep.js';
+export { default as cloneDeepWith } from './cloneDeepWith.js';
+export { default as cloneWith } from './cloneWith.js';
+export { default as conformsTo } from './conformsTo.js';
+export { default as eq } from './eq.js';
+export { default as gt } from './gt.js';
+export { default as gte } from './gte.js';
+export { default as isArguments } from './isArguments.js';
+export { default as isArray } from './isArray.js';
+export { default as isArrayBuffer } from './isArrayBuffer.js';
+export { default as isArrayLike } from './isArrayLike.js';
+export { default as isArrayLikeObject } from './isArrayLikeObject.js';
+export { default as isBoolean } from './isBoolean.js';
+export { default as isBuffer } from './isBuffer.js';
+export { default as isDate } from './isDate.js';
+export { default as isElement } from './isElement.js';
+export { default as isEmpty } from './isEmpty.js';
+export { default as isEqual } from './isEqual.js';
+export { default as isEqualWith } from './isEqualWith.js';
+export { default as isError } from './isError.js';
+export { default as isFinite } from './isFinite.js';
+export { default as isFunction } from './isFunction.js';
+export { default as isInteger } from './isInteger.js';
+export { default as isLength } from './isLength.js';
+export { default as isMap } from './isMap.js';
+export { default as isMatch } from './isMatch.js';
+export { default as isMatchWith } from './isMatchWith.js';
+export { default as isNaN } from './isNaN.js';
+export { default as isNative } from './isNative.js';
+export { default as isNil } from './isNil.js';
+export { default as isNull } from './isNull.js';
+export { default as isNumber } from './isNumber.js';
+export { default as isObject } from './isObject.js';
+export { default as isObjectLike } from './isObjectLike.js';
+export { default as isPlainObject } from './isPlainObject.js';
+export { default as isRegExp } from './isRegExp.js';
+export { default as isSafeInteger } from './isSafeInteger.js';
+export { default as isSet } from './isSet.js';
+export { default as isString } from './isString.js';
+export { default as isSymbol } from './isSymbol.js';
+export { default as isTypedArray } from './isTypedArray.js';
+export { default as isUndefined } from './isUndefined.js';
+export { default as isWeakMap } from './isWeakMap.js';
+export { default as isWeakSet } from './isWeakSet.js';
+export { default as lt } from './lt.js';
+export { default as lte } from './lte.js';
+export { default as toArray } from './toArray.js';
+export { default as toFinite } from './toFinite.js';
+export { default as toInteger } from './toInteger.js';
+export { default as toLength } from './toLength.js';
+export { default as toNumber } from './toNumber.js';
+export { default as toPlainObject } from './toPlainObject.js';
+export { default as toSafeInteger } from './toSafeInteger.js';
+export { default as toString } from './toString.js';
+export { default } from './lang.default.js';

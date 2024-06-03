@@ -1,7 +1,7 @@
-var LazyWrapper = require('./_LazyWrapper'),
-    LodashWrapper = require('./_LodashWrapper'),
-    reverse = require('./reverse'),
-    thru = require('./thru');
+import LazyWrapper from './_LazyWrapper.js';
+import LodashWrapper from './_LodashWrapper.js';
+import reverse from './reverse.js';
+import thru from './thru.js';
 
 /**
  * This method is the wrapper version of `_.reverse`.
@@ -41,4 +41,4 @@ function wrapperReverse() {
   return this.thru(reverse);
 }
 
-module.exports = wrapperReverse;
+export default wrapperReverse;

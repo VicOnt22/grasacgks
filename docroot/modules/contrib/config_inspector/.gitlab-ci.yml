@@ -47,7 +47,8 @@ phpcs:
 # Custom job to analyze and visualize the config validatibility of Drupal core.
 📈 Core config validatability:
   variables:
-    _TARGET_PHP: '8.1'
+    # @see https://git.drupalcode.org/project/drupal/-/commit/10466dba9d7322ed55165dd9224edb2153c9b27a
+    _TARGET_PHP: '8.3-ubuntu'
     START_DATETIME: "2022-11-01 00:00:00"
   stage: build
   before_script:
@@ -63,19 +64,25 @@ phpcs:
     - php --version
     - composer --version
   script:
+    # Construct needed directory structure in /tmp/drupal
     - cd /tmp
     - git clone https://git.drupalcode.org/project/drupal.git --single-branch --branch 11.x --quiet
     - cd drupal
     - mv $CI_PROJECT_DIR/scripts/* .
     - mv $CI_PROJECT_DIR modules/
     - mkdir statistics
+    # Move it back to $CI_PROJECT_DIR so we can keep the artifacts even in case of a crash.
+    - mv /tmp/drupal $CI_PROJECT_DIR
+    - cd $CI_PROJECT_DIR
+    # Run it.
     - php config-validatability-report.php $START_DATETIME
-    - mkdir -p $CI_PROJECT_DIR/validatability-report
-    - mv statistics $CI_PROJECT_DIR/validatability-report/
-    - mv statistics.csv $CI_PROJECT_DIR/validatability-report/
   artifacts:
     paths:
-      - validatability-report
+      - statistics
+      - statistics.csv
+    name: validatability-report
+    # Also keep artifacts in case of failure, to simplify debugging.
+    when: always
   # Run in every scheduled pipeline, and allow manual runs on the default branch as well as in MRs.
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -92,13 +99,12 @@ pages:
   image: r-base
   script:
     # Visualize the statistics from the report.
-    - mv validatability-report/statistics.csv .
     - Rscript scripts/visualize_statistics.R
     # Publish the visualization of the report, plus the raw data behind it.
     - mkdir public
     - echo '<img src="validatability.png" width="100%">' > public/index.html
     - mv validatability.png public/
-    - mv validatability-report public/raw
+    - mv statistics public/raw
     - mv statistics.csv public/raw/
   artifacts:
     paths:

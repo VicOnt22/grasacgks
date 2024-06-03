@@ -15,4 +15,4 @@ function setToPairs(set) {
   return result;
 }
 
-export default setToPairs;
+module.exports = setToPairs;

@@ -1,4 +1,4 @@
-var baseSlice = require('./_baseSlice');
+import baseSlice from './_baseSlice.js';
 
 /**
  * Gets all but the last element of `array`.
@@ -19,4 +19,4 @@ function initial(array) {
   return length ? baseSlice(array, 0, -1) : [];
 }
 
-module.exports = initial;
+export default initial;

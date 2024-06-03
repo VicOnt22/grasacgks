@@ -1,5 +1,5 @@
-var baseInvoke = require('./_baseInvoke'),
-    baseRest = require('./_baseRest');
+import baseInvoke from './_baseInvoke.js';
+import baseRest from './_baseRest.js';
 
 /**
  * Invokes the method at `path` of `object`.
@@ -21,4 +21,4 @@ var baseInvoke = require('./_baseInvoke'),
  */
 var invoke = baseRest(baseInvoke);
 
-module.exports = invoke;
+export default invoke;

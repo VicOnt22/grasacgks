@@ -6,5 +6,6 @@ dependencies:
     - user
 id: user.list_item
 label: list_item
+description: ''
 targetEntityType: user
 cache: true

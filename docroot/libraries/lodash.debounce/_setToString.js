@@ -1,5 +1,5 @@
-var baseSetToString = require('./_baseSetToString'),
-    shortOut = require('./_shortOut');
+import baseSetToString from './_baseSetToString.js';
+import shortOut from './_shortOut.js';
 
 /**
  * Sets the `toString` method of `func` to return `string`.
@@ -11,4 +11,4 @@ var baseSetToString = require('./_baseSetToString'),
  */
 var setToString = shortOut(baseSetToString);
 
-module.exports = setToString;
+export default setToString;

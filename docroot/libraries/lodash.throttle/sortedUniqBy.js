@@ -1,5 +1,5 @@
-import baseIteratee from './_baseIteratee.js';
-import baseSortedUniq from './_baseSortedUniq.js';
+var baseIteratee = require('./_baseIteratee'),
+    baseSortedUniq = require('./_baseSortedUniq');
 
 /**
  * This method is like `_.uniqBy` except that it's designed and optimized
@@ -23,4 +23,4 @@ function sortedUniqBy(array, iteratee) {
     : [];
 }
 
-export default sortedUniqBy;
+module.exports = sortedUniqBy;

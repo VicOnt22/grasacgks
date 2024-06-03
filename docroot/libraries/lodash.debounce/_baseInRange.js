@@ -15,4 +15,4 @@ function baseInRange(number, start, end) {
   return number >= nativeMin(start, end) && number < nativeMax(start, end);
 }
 
-module.exports = baseInRange;
+export default baseInRange;

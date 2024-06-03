@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.landing_page_lb.layout_builder__layout
     - node.type.landing_page_lb
   module:
+    - bootstrap_layout_builder
     - layout_builder
     - layout_builder_restrictions
     - user

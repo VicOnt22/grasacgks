@@ -84,7 +84,10 @@ class CoreFieldBuilder extends FieldDiffBuilderBase {
         $values = $field_item->getValue();
         if (isset($values['value'])) {
           $value = $field_item->view(['label' => 'hidden']);
-          $result[$field_key][] = $this->renderer->renderPlain($value);
+          // @see https://www.drupal.org/node/3407994
+          // Added a suggested method renderInIsolation().
+          // @phpstan-ignore-next-line
+          $result[$field_key][] = version_compare(\Drupal::VERSION, '10.3', '<') ? $this->renderer->renderPlain($value) : $this->renderer->renderInIsolation($value);
         }
       }
     }

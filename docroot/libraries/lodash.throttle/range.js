@@ -1,4 +1,4 @@
-import createRange from './_createRange.js';
+var createRange = require('./_createRange');
 
 /**
  * Creates an array of numbers (positive and/or negative) progressing from
@@ -43,4 +43,4 @@ import createRange from './_createRange.js';
  */
 var range = createRange();
 
-export default range;
+module.exports = range;

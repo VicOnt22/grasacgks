@@ -1,4 +1,4 @@
-import getMapData from './_getMapData.js';
+var getMapData = require('./_getMapData');
 
 /**
  * Sets the map `key` to `value`.
@@ -19,4 +19,4 @@ function mapCacheSet(key, value) {
   return this;
 }
 
-export default mapCacheSet;
+module.exports = mapCacheSet;

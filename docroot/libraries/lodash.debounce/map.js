@@ -1,7 +1,7 @@
-var arrayMap = require('./_arrayMap'),
-    baseIteratee = require('./_baseIteratee'),
-    baseMap = require('./_baseMap'),
-    isArray = require('./isArray');
+import arrayMap from './_arrayMap.js';
+import baseIteratee from './_baseIteratee.js';
+import baseMap from './_baseMap.js';
+import isArray from './isArray.js';
 
 /**
  * Creates an array of values by running each element in `collection` thru
@@ -50,4 +50,4 @@ function map(collection, iteratee) {
   return func(collection, baseIteratee(iteratee, 3));
 }
 
-module.exports = map;
+export default map;

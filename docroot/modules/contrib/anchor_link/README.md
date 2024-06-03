@@ -1,5 +1,4 @@
-CKEditor Anchor Link
---------------------------------------------------------------------------------
+# CKEditor Anchor Link
 
 This plugin module adds the better link dialog and anchor related features
 to CKEditor in Drupal 9:
@@ -14,5 +13,6 @@ Most text formats limit HTML tags. If this is the case, it will
 
 E.g. `<a name href hreflang>`
 
-
-http://ckeditor.com/addon/link
+### Requirements
+* Core CKEditor
+* Include the [ckeditor5-anchor-drupal](https://www.npmjs.com/package/@northernco/ckeditor5-anchor-drupal) plugin library via your site's composer file as a drupal-library. See the details in composer.libraries.json; you should be able to copy/paste most of that into your composer.json.

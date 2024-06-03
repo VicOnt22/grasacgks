@@ -13,6 +13,7 @@ interface BaseInterface {
    * Get a list of all implemented authentication methods.
    *
    * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   The container.
    *
    * @return array
    *   Array of all implemented authentication methods.
@@ -28,7 +29,7 @@ interface BaseInterface {
    * @return bool
    *   TRUE if authenticated, FALSE otherwise.
    */
-  public function validateUuid($uuid): bool;
+  public function validateUuid(string $uuid): bool;
 
   /**
    * Validate authentication of the current request with the given settings.

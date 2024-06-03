@@ -2,6 +2,8 @@
 
 namespace Drupal\editor\Entity;
 
+use Drupal\Core\Config\Action\Attribute\ActionMethod;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\editor\EditorInterface;
@@ -9,10 +11,15 @@ use Drupal\editor\EditorInterface;
 /**
  * Defines the configured text editor entity.
  *
+ * An Editor entity is created when a filter format entity (Text format) is
+ * saved after selecting an editor plugin (eg: CKEditor). The ID of the
+ * Editor entity will be same as the ID of the filter format entity in which
+ * the editor plugin was selected.
+ *
  * @ConfigEntityType(
  *   id = "editor",
- *   label = @Translation("Text Editor"),
- *   label_collection = @Translation("Text Editors"),
+ *   label = @Translation("Text editor"),
+ *   label_collection = @Translation("Text editors"),
  *   label_singular = @Translation("text editor"),
  *   label_plural = @Translation("text editors"),
  *   label_count = @PluralTranslation(
@@ -30,6 +37,11 @@ use Drupal\editor\EditorInterface;
  *     "editor",
  *     "settings",
  *     "image_upload",
+ *   },
+ *   constraints = {
+ *     "RequiredConfigDependencies" = {
+ *       "filter_format"
+ *     }
  *   }
  * )
  */
@@ -197,4 +209,37 @@ class Editor extends ConfigEntityBase implements EditorInterface {
     return $this;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  #[ActionMethod(adminLabel: new TranslatableMarkup('Add a button plugin and settings into the Active toolbar'))]
+  public function addButtonPluginIntoActiveToolbar($button_name , $button_index = -1, $plugin_name = '', $plugin_settings = []) {
+    if (!in_array($button_name, $this->settings['toolbar']['items'])) {
+      if ($button_index == -1) {
+        $this->settings['toolbar']['items'][] = $button_name;
+      }
+      elseif ($button_index == 0) {
+        array_unshift($this->settings['toolbar']['items'], $button_name);
+      }
+      else {
+        array_splice($this->settings['toolbar']['items'], $button_index, 0, $button_name);
+      }
+
+      if ($plugin_name != '') {
+        $this->settings['plugins'][$plugin_name] = $plugin_settings;
+      }
+    }
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[ActionMethod(adminLabel: new TranslatableMarkup('Update plugin settings in CKEditor 5 plugin settings'))]
+  public function updatePluginSettings($plugin_name, $plugin_settings = []) {
+    if (array_key_exists($plugin_name, $this->settings['plugins'])) {
+      $this->settings['plugins'][$plugin_name] = $plugin_settings;
+    }
+    return $this;
+  }
 }

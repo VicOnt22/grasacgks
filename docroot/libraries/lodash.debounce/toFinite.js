@@ -1,4 +1,4 @@
-var toNumber = require('./toNumber');
+import toNumber from './toNumber.js';
 
 /** Used as references for various `Number` constants. */
 var INFINITY = 1 / 0,
@@ -39,4 +39,4 @@ function toFinite(value) {
   return value === value ? value : 0;
 }
 
-module.exports = toFinite;
+export default toFinite;

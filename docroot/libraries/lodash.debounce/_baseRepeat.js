@@ -32,4 +32,4 @@ function baseRepeat(string, n) {
   return result;
 }
 
-module.exports = baseRepeat;
+export default baseRepeat;

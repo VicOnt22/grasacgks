@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Drupal\script_manager;
 
 use Drupal\Component\Render\FormattableMarkup;
@@ -15,56 +17,45 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ScriptPlacementManager implements ContainerInjectionInterface {
 
   /**
-   * The script storage controller.
-   *
-   * @var \Drupal\Core\Entity\EntityStorageInterface
-   */
-  protected $scriptStorage;
-
-  /**
-   * A flag for if the current route is an admin route.
-   *
-   * @var bool
-   */
-  protected $isAdminRoute;
-
-  /**
-   * The module handler to invoke hooks on.
-   *
-   * @var \Drupal\Core\Extension\ModuleHandlerInterface
-   */
-  protected $moduleHandler;
-
-  /**
    * ScriptPlacementManager constructor.
    *
    * @param \Drupal\Core\Entity\EntityStorageInterface $scriptStorage
    *   The script entity storage.
    * @param bool $isAdminRoute
    *   Whether the current route is considered an admin route.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
+   *   The module handler.
+   *
+   * @internal
+   *   There is no backwards compatibility promise for this method. If extending
+   *   directly, mark the original service as a service parent, and use service
+   *   calls and setter injection for DI and construction.
    */
-  public function __construct(EntityStorageInterface $scriptStorage, $isAdminRoute, ModuleHandlerInterface $moduleHandler) {
-    $this->scriptStorage = $scriptStorage;
-    $this->isAdminRoute = $isAdminRoute;
-    $this->moduleHandler = $moduleHandler;
+  final public function __construct(
+    protected EntityStorageInterface $scriptStorage,
+    protected bool $isAdminRoute,
+    protected ModuleHandlerInterface $moduleHandler,
+  ) {
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  final public static function create(ContainerInterface $container): static {
     return new static(
       $container->get('entity_type.manager')->getStorage('script'),
       $container->get('router.admin_context')->isAdminRoute(),
-      $container->get('module_handler')
+      $container->get('module_handler'),
     );
   }
 
   /**
    * Get the rendered scripts for a given position.
+   *
+   * @param \Drupal\script_manager\Entity\ScriptInterface::POSITION_* $position
+   *   A position constant.
    */
-  public function getRenderedScriptsForPosition($position) {
-
+  public function getRenderedScriptsForPosition(string $position): array {
     if ($this->isAdminRoute) {
       return [];
     }
@@ -77,7 +68,6 @@ class ScriptPlacementManager implements ContainerInjectionInterface {
     ];
 
     foreach ($scripts as $script) {
-
       $access = $script->access('view', NULL, TRUE);
       $rendered = [
         '#markup' => new FormattableMarkup($script->getSnippet(), []),

@@ -1,6 +1,6 @@
-var baseSlice = require('./_baseSlice'),
-    isIterateeCall = require('./_isIterateeCall'),
-    toInteger = require('./toInteger');
+import baseSlice from './_baseSlice.js';
+import isIterateeCall from './_isIterateeCall.js';
+import toInteger from './toInteger.js';
 
 /**
  * Creates a slice of `array` from `start` up to, but not including, `end`.
@@ -34,4 +34,4 @@ function slice(array, start, end) {
   return baseSlice(array, start, end);
 }
 
-module.exports = slice;
+export default slice;

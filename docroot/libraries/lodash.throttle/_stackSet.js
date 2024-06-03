@@ -1,6 +1,6 @@
-import ListCache from './_ListCache.js';
-import Map from './_Map.js';
-import MapCache from './_MapCache.js';
+var ListCache = require('./_ListCache'),
+    Map = require('./_Map'),
+    MapCache = require('./_MapCache');
 
 /** Used as the size to enable large array optimizations. */
 var LARGE_ARRAY_SIZE = 200;
@@ -31,4 +31,4 @@ function stackSet(key, value) {
   return this;
 }
 
-export default stackSet;
+module.exports = stackSet;

@@ -20,4 +20,4 @@ function arraySome(array, predicate) {
   return false;
 }
 
-module.exports = arraySome;
+export default arraySome;

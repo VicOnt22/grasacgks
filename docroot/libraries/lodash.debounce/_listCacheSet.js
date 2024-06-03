@@ -1,4 +1,4 @@
-var assocIndexOf = require('./_assocIndexOf');
+import assocIndexOf from './_assocIndexOf.js';
 
 /**
  * Sets the list cache `key` to `value`.
@@ -23,4 +23,4 @@ function listCacheSet(key, value) {
   return this;
 }
 
-module.exports = listCacheSet;
+export default listCacheSet;

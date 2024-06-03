@@ -67,6 +67,10 @@ class InspectorCommands extends DrushCommands {
    *   Treat <100% validatability as an error.
    * @option list-constraints
    *   List validation constraints. Requires --detail.
+   * @option generate-baseline
+   *   Generate a baseline file. Requires --only-error.
+   * @option baseline
+   *  Filter errors based on a baseline file. Requires --only-error.
    *
    * @usage drush config:inspect
    *   Inspect whole config for schema errors.
@@ -94,21 +98,32 @@ class InspectorCommands extends DrushCommands {
    * @command config:inspect
    * @aliases inspect_config
    */
-  public function inspect($key = '', array $options = [
-    'only-error' => FALSE,
-    'detail' => FALSE,
-    'skip-keys' => self::OPT,
-    'filter-keys' => self::OPT,
-    'strict-validation' => FALSE,
-    'list-constraints' => FALSE,
-    'todo' => self::OPT,
-    'statistics' => FALSE,
-  ]) {
+  public function inspect(
+    $key = '',
+    array $options = [
+      'only-error' => FALSE,
+      'detail' => FALSE,
+      'skip-keys' => self::OPT,
+      'filter-keys' => self::OPT,
+      'strict-validation' => FALSE,
+      'list-constraints' => FALSE,
+      'todo' => self::OPT,
+      'statistics' => FALSE,
+      'generate-baseline' => FALSE,
+      'baseline' => '',
+    ],
+  ) {
     if ($options['skip-keys'] && $options['filter-keys']) {
       throw new \Exception('Cannot use both --skip-keys and --filter-keys. Use either or neither, not both.');
     }
     if ($options['list-constraints'] && !$options['detail']) {
       throw new \Exception('Cannot use --list-constraints without --detail.');
+    }
+    if ($options['generate-baseline'] && !$options['only-error']) {
+      throw new \Exception('Cannot use --generate-baseline without --only-error.');
+    }
+    if ($options['baseline'] && !$options['only-error']) {
+      throw new \Exception('Cannot use --baseline without --only-error.');
     }
     if ($options['todo'] && $options['detail']) {
       throw new \Exception('Cannot use --todo --detail.');
@@ -129,6 +144,12 @@ class InspectorCommands extends DrushCommands {
     $listConstraints = $options['list-constraints'];
 
     $total_raw_validatability = NULL;
+
+    // If --baseline option is set, skip keys that are in the baseline file.
+    if ($options['baseline']) {
+      $baseline = json_decode(file_get_contents($options['baseline']), TRUE);
+      $skipKeys = array_merge($skipKeys, array_fill_keys($baseline, '1'));
+    }
 
     foreach ($keys as $name) {
       if (isset($skipKeys[$name])) {
@@ -165,6 +186,16 @@ class InspectorCommands extends DrushCommands {
             $status = dt('@count errors', ['@count' => count($result)]);
             $validatability = NULL;
             $data = NULL;
+            if ($options['statistics']) {
+              $this->yell(sprintf("%d errors in %s:\n%s",
+                count($result),
+                $name,
+                implode("\n", array_map(fn ($k, $v) => "[$k] $v", array_keys($result), array_values($result)))
+              ), 80, 'red');
+              // It's still possible to analyze config validatability even when
+              // encountering config not complying with config schema.
+              $exitCode = self::EXIT_SUCCESS;
+            }
           }
         }
         else {
@@ -268,6 +299,13 @@ class InspectorCommands extends DrushCommands {
           $total_raw_validatability->add($raw_validatability);
         }
       }
+    }
+
+    // If --generate-baseline option is set, generate a baseline file.
+    if ($options['generate-baseline']) {
+      $baselineFilePath = getcwd() . DIRECTORY_SEPARATOR . 'config_inspector-baseline.json';
+      file_put_contents($baselineFilePath, json_encode(array_keys($rows)));
+      $this->say('📝 Baseline file generated at ' . $baselineFilePath . PHP_EOL);
     }
 
     if ($options['todo']) {

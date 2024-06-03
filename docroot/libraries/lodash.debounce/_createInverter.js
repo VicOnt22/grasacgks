@@ -1,4 +1,4 @@
-var baseInverter = require('./_baseInverter');
+import baseInverter from './_baseInverter.js';
 
 /**
  * Creates a function like `_.invertBy`.
@@ -14,4 +14,4 @@ function createInverter(setter, toIteratee) {
   };
 }
 
-module.exports = createInverter;
+export default createInverter;

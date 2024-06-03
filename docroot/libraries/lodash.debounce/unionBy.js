@@ -1,9 +1,9 @@
-var baseFlatten = require('./_baseFlatten'),
-    baseIteratee = require('./_baseIteratee'),
-    baseRest = require('./_baseRest'),
-    baseUniq = require('./_baseUniq'),
-    isArrayLikeObject = require('./isArrayLikeObject'),
-    last = require('./last');
+import baseFlatten from './_baseFlatten.js';
+import baseIteratee from './_baseIteratee.js';
+import baseRest from './_baseRest.js';
+import baseUniq from './_baseUniq.js';
+import isArrayLikeObject from './isArrayLikeObject.js';
+import last from './last.js';
 
 /**
  * This method is like `_.union` except that it accepts `iteratee` which is
@@ -36,4 +36,4 @@ var unionBy = baseRest(function(arrays) {
   return baseUniq(baseFlatten(arrays, 1, isArrayLikeObject, true), baseIteratee(iteratee, 2));
 });
 
-module.exports = unionBy;
+export default unionBy;

@@ -1,4 +1,4 @@
-var baseGet = require('./_baseGet');
+import baseGet from './_baseGet.js';
 
 /**
  * A specialized version of `baseProperty` which supports deep paths.
@@ -13,4 +13,4 @@ function basePropertyDeep(path) {
   };
 }
 
-module.exports = basePropertyDeep;
+export default basePropertyDeep;

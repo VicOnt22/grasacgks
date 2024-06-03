@@ -20,4 +20,4 @@ function arrayEvery(array, predicate) {
   return true;
 }
 
-module.exports = arrayEvery;
+export default arrayEvery;

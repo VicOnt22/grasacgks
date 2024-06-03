@@ -19,4 +19,4 @@ function escapeStringChar(chr) {
   return '\\' + stringEscapes[chr];
 }
 
-export default escapeStringChar;
+module.exports = escapeStringChar;

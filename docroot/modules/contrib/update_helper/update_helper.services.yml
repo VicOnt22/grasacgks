@@ -15,3 +15,8 @@ services:
   update_helper.config_exporter:
     class: Drupal\update_helper\ConfigExporter
     arguments: ['@config_update.extension_storage', '@config_update.extension_optional_storage', '@serialization.yaml']
+  update_helper_checklist.command_subscriber:
+    class: Drupal\update_helper\Events\CommandSubscriber
+    arguments: ['@module_handler']
+    tags:
+      - { name: event_subscriber }

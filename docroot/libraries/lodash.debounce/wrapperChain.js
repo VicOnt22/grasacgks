@@ -1,4 +1,4 @@
-var chain = require('./chain');
+import chain from './chain.js';
 
 /**
  * Creates a `lodash` wrapper instance with explicit method chain sequences enabled.
@@ -31,4 +31,4 @@ function wrapperChain() {
   return chain(this);
 }
 
-module.exports = wrapperChain;
+export default wrapperChain;

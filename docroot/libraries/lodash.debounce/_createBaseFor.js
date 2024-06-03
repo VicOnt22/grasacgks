@@ -22,4 +22,4 @@ function createBaseFor(fromRight) {
   };
 }
 
-module.exports = createBaseFor;
+export default createBaseFor;

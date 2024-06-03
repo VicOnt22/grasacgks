@@ -21,4 +21,4 @@ function arrayReduceRight(array, iteratee, accumulator, initAccum) {
   return accumulator;
 }
 
-module.exports = arrayReduceRight;
+export default arrayReduceRight;

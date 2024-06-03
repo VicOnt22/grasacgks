@@ -4,9 +4,8 @@
  * @file
  * Update helper checklist hooks.
  *
- * TODO:
- *   - This requires refactoring, moving things in classes and finding
- *     duplicate code.
+ * @todo This requires refactoring, moving things in classes and finding
+ *   duplicate code.
  */
 
 use Drupal\Core\Url;

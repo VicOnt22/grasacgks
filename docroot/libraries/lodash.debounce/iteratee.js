@@ -1,5 +1,5 @@
-var baseClone = require('./_baseClone'),
-    baseIteratee = require('./_baseIteratee');
+import baseClone from './_baseClone.js';
+import baseIteratee from './_baseIteratee.js';
 
 /** Used to compose bitmasks for cloning. */
 var CLONE_DEEP_FLAG = 1;
@@ -50,4 +50,4 @@ function iteratee(func) {
   return baseIteratee(typeof func == 'function' ? func : baseClone(func, CLONE_DEEP_FLAG));
 }
 
-module.exports = iteratee;
+export default iteratee;

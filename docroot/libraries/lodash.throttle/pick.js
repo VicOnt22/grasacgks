@@ -1,5 +1,5 @@
-import basePick from './_basePick.js';
-import flatRest from './_flatRest.js';
+var basePick = require('./_basePick'),
+    flatRest = require('./_flatRest');
 
 /**
  * Creates an object composed of the picked `object` properties.
@@ -22,4 +22,4 @@ var pick = flatRest(function(object, paths) {
   return object == null ? {} : basePick(object, paths);
 });
 
-export default pick;
+module.exports = pick;

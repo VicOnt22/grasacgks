@@ -1,6 +1,6 @@
-import baseIsTypedArray from './_baseIsTypedArray.js';
-import baseUnary from './_baseUnary.js';
-import nodeUtil from './_nodeUtil.js';
+var baseIsTypedArray = require('./_baseIsTypedArray'),
+    baseUnary = require('./_baseUnary'),
+    nodeUtil = require('./_nodeUtil');
 
 /* Node.js helper references. */
 var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
@@ -24,4 +24,4 @@ var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
  */
 var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
 
-export default isTypedArray;
+module.exports = isTypedArray;

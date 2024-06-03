@@ -1,5 +1,5 @@
-import baseInvoke from './_baseInvoke.js';
-import baseRest from './_baseRest.js';
+var baseInvoke = require('./_baseInvoke'),
+    baseRest = require('./_baseRest');
 
 /**
  * The opposite of `_.method`; this method creates a function that invokes
@@ -30,4 +30,4 @@ var methodOf = baseRest(function(object, args) {
   };
 });
 
-export default methodOf;
+module.exports = methodOf;

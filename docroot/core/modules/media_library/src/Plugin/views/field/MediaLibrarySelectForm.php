@@ -48,12 +48,11 @@ class MediaLibrarySelectForm extends FieldPluginBase {
    */
   public function viewsForm(array &$form, FormStateInterface $form_state) {
     $form['#attributes']['class'] = ['js-media-library-views-form'];
-
-    // Add target for ajax messages.
+    // Add target for AJAX messages.
     $form['media_library_messages'] = [
       '#type' => 'container',
       '#attributes' => [
-        'id' => 'media-library-item-count',
+        'id' => 'media-library-messages',
       ],
       '#weight' => -10,
     ];
@@ -67,6 +66,10 @@ class MediaLibrarySelectForm extends FieldPluginBase {
     $form[$this->options['id']]['#tree'] = TRUE;
     foreach ($this->view->result as $row_index => $row) {
       $entity = $this->getEntity($row);
+      if (!$entity) {
+        $form[$this->options['id']][$row_index] = [];
+        continue;
+      }
       $form[$this->options['id']][$row_index] = [
         '#type' => 'checkbox',
         '#title' => $this->t('Select @label', [
@@ -101,9 +104,6 @@ class MediaLibrarySelectForm extends FieldPluginBase {
         'query' => $query,
       ],
       'callback' => [static::class, 'updateWidget'],
-      // The AJAX system automatically moves focus to the first tabbable
-      // element of the modal, so we need to disable refocus on the button.
-      'disable-refocus' => TRUE,
     ];
 
     $form['actions']['submit']['#value'] = $this->t('Insert selected');
@@ -137,11 +137,11 @@ class MediaLibrarySelectForm extends FieldPluginBase {
     $selected_count = count(explode(',', $current_selection));
     if ($available_slots > 0 && $selected_count > $available_slots) {
       $response = new AjaxResponse();
-      $error = \Drupal::translation()->formatPlural($selected_count - $available_slots, 'There are currently @total items selected, but the maximum number of items for the field is @max. Please remove @count item from the selection.', 'There are currently @total items selected. The maximum number of items for the field is @max. Please remove @count items from the selection.', [
+      $error = \Drupal::translation()->formatPlural($selected_count - $available_slots, 'There are currently @total items selected. The maximum number of items for the field is @max. Remove @count item from the selection.', 'There are currently @total items selected. The maximum number of items for the field is @max. Remove @count items from the selection.', [
         '@total' => $selected_count,
         '@max' => $available_slots,
       ]);
-      $response->addCommand(new MessageCommand($error, '#media-library-item-count', ['type' => 'error']));
+      $response->addCommand(new MessageCommand($error, '#media-library-messages', ['type' => 'error']));
       return $response;
     }
 

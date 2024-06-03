@@ -1,5 +1,5 @@
-var createFind = require('./_createFind'),
-    findLastIndex = require('./findLastIndex');
+import createFind from './_createFind.js';
+import findLastIndex from './findLastIndex.js';
 
 /**
  * This method is like `_.find` except that it iterates over elements of
@@ -22,4 +22,4 @@ var createFind = require('./_createFind'),
  */
 var findLast = createFind(findLastIndex);
 
-module.exports = findLast;
+export default findLast;

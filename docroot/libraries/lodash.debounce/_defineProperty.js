@@ -1,4 +1,4 @@
-var getNative = require('./_getNative');
+import getNative from './_getNative.js';
 
 var defineProperty = (function() {
   try {
@@ -8,4 +8,4 @@ var defineProperty = (function() {
   } catch (e) {}
 }());
 
-module.exports = defineProperty;
+export default defineProperty;

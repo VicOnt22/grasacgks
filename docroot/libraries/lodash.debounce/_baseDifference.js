@@ -1,9 +1,9 @@
-var SetCache = require('./_SetCache'),
-    arrayIncludes = require('./_arrayIncludes'),
-    arrayIncludesWith = require('./_arrayIncludesWith'),
-    arrayMap = require('./_arrayMap'),
-    baseUnary = require('./_baseUnary'),
-    cacheHas = require('./_cacheHas');
+import SetCache from './_SetCache.js';
+import arrayIncludes from './_arrayIncludes.js';
+import arrayIncludesWith from './_arrayIncludesWith.js';
+import arrayMap from './_arrayMap.js';
+import baseUnary from './_baseUnary.js';
+import cacheHas from './_cacheHas.js';
 
 /** Used as the size to enable large array optimizations. */
 var LARGE_ARRAY_SIZE = 200;
@@ -64,4 +64,4 @@ function baseDifference(array, values, iteratee, comparator) {
   return result;
 }
 
-module.exports = baseDifference;
+export default baseDifference;

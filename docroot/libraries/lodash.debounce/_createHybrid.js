@@ -1,12 +1,12 @@
-var composeArgs = require('./_composeArgs'),
-    composeArgsRight = require('./_composeArgsRight'),
-    countHolders = require('./_countHolders'),
-    createCtor = require('./_createCtor'),
-    createRecurry = require('./_createRecurry'),
-    getHolder = require('./_getHolder'),
-    reorder = require('./_reorder'),
-    replaceHolders = require('./_replaceHolders'),
-    root = require('./_root');
+import composeArgs from './_composeArgs.js';
+import composeArgsRight from './_composeArgsRight.js';
+import countHolders from './_countHolders.js';
+import createCtor from './_createCtor.js';
+import createRecurry from './_createRecurry.js';
+import getHolder from './_getHolder.js';
+import reorder from './_reorder.js';
+import replaceHolders from './_replaceHolders.js';
+import root from './_root.js';
 
 /** Used to compose bitmasks for function metadata. */
 var WRAP_BIND_FLAG = 1,
@@ -89,4 +89,4 @@ function createHybrid(func, bitmask, thisArg, partials, holders, partialsRight, 
   return wrapper;
 }
 
-module.exports = createHybrid;
+export default createHybrid;

@@ -1,8 +1,8 @@
-var arrayMap = require('./_arrayMap'),
-    baseIndexOf = require('./_baseIndexOf'),
-    baseIndexOfWith = require('./_baseIndexOfWith'),
-    baseUnary = require('./_baseUnary'),
-    copyArray = require('./_copyArray');
+import arrayMap from './_arrayMap.js';
+import baseIndexOf from './_baseIndexOf.js';
+import baseIndexOfWith from './_baseIndexOfWith.js';
+import baseUnary from './_baseUnary.js';
+import copyArray from './_copyArray.js';
 
 /** Used for built-in method references. */
 var arrayProto = Array.prototype;
@@ -48,4 +48,4 @@ function basePullAll(array, values, iteratee, comparator) {
   return array;
 }
 
-module.exports = basePullAll;
+export default basePullAll;

@@ -13,7 +13,7 @@ class Download extends Base {
   /**
    * {@inheritdoc}
    */
-  public function execute() {
+  public function execute(): BinaryFileResponse {
     $args = $this->getArguments();
     $filename = $this->crypt->encryptFile($args['source']);
     $header = Agent::responseHeader();

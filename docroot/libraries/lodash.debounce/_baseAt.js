@@ -1,4 +1,4 @@
-var get = require('./get');
+import get from './get.js';
 
 /**
  * The base implementation of `_.at` without support for individual paths.
@@ -20,4 +20,4 @@ function baseAt(object, paths) {
   return result;
 }
 
-module.exports = baseAt;
+export default baseAt;

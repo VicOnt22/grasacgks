@@ -34,4 +34,4 @@ function shortOut(func) {
   };
 }
 
-module.exports = shortOut;
+export default shortOut;

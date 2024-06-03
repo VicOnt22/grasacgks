@@ -22,4 +22,4 @@ function isIndex(value, length) {
         (value > -1 && value % 1 == 0 && value < length);
 }
 
-module.exports = isIndex;
+export default isIndex;

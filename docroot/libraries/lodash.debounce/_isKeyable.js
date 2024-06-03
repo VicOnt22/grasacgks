@@ -12,4 +12,4 @@ function isKeyable(value) {
     : (value === null);
 }
 
-module.exports = isKeyable;
+export default isKeyable;

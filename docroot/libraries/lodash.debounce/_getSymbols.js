@@ -1,5 +1,5 @@
-var arrayFilter = require('./_arrayFilter'),
-    stubArray = require('./stubArray');
+import arrayFilter from './_arrayFilter.js';
+import stubArray from './stubArray.js';
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -27,4 +27,4 @@ var getSymbols = !nativeGetSymbols ? stubArray : function(object) {
   });
 };
 
-module.exports = getSymbols;
+export default getSymbols;

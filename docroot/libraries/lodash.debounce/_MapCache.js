@@ -1,8 +1,8 @@
-var mapCacheClear = require('./_mapCacheClear'),
-    mapCacheDelete = require('./_mapCacheDelete'),
-    mapCacheGet = require('./_mapCacheGet'),
-    mapCacheHas = require('./_mapCacheHas'),
-    mapCacheSet = require('./_mapCacheSet');
+import mapCacheClear from './_mapCacheClear.js';
+import mapCacheDelete from './_mapCacheDelete.js';
+import mapCacheGet from './_mapCacheGet.js';
+import mapCacheHas from './_mapCacheHas.js';
+import mapCacheSet from './_mapCacheSet.js';
 
 /**
  * Creates a map cache object to store key-value pairs.
@@ -29,4 +29,4 @@ MapCache.prototype.get = mapCacheGet;
 MapCache.prototype.has = mapCacheHas;
 MapCache.prototype.set = mapCacheSet;
 
-module.exports = MapCache;
+export default MapCache;

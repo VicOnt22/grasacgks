@@ -12,7 +12,7 @@ class Session extends Base {
   /**
    * {@inheritdoc}
    */
-  public function execute() {
+  public function execute(): array {
     /** @var \Drupal\user\UserInterface $account */
     $account = User::load(1);
     return [

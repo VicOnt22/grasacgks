@@ -1,6 +1,6 @@
-var baseExtremum = require('./_baseExtremum'),
-    baseGt = require('./_baseGt'),
-    identity = require('./identity');
+import baseExtremum from './_baseExtremum.js';
+import baseGt from './_baseGt.js';
+import identity from './identity.js';
 
 /**
  * Computes the maximum value of `array`. If `array` is empty or falsey,
@@ -26,4 +26,4 @@ function max(array) {
     : undefined;
 }
 
-module.exports = max;
+export default max;

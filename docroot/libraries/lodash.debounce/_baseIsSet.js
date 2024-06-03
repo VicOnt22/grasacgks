@@ -1,5 +1,5 @@
-var getTag = require('./_getTag'),
-    isObjectLike = require('./isObjectLike');
+import getTag from './_getTag.js';
+import isObjectLike from './isObjectLike.js';
 
 /** `Object#toString` result references. */
 var setTag = '[object Set]';
@@ -15,4 +15,4 @@ function baseIsSet(value) {
   return isObjectLike(value) && getTag(value) == setTag;
 }
 
-module.exports = baseIsSet;
+export default baseIsSet;

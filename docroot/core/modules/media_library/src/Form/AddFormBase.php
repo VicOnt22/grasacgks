@@ -701,24 +701,20 @@ abstract class AddFormBase extends FormBase implements BaseFormIdInterface, Trus
       return $media->id();
     }, $this->getAddedMediaItems($form_state));
 
-    $selected_count = count($media_ids);
-    if ($current_selection = $form_state->getValue('current_selection')) {
-      $selected_count += count(explode(',', $current_selection));
-    }
+    $selected_count = $this->getSelectedMediaItemCount($media_ids, $form_state);
 
     $response = new AjaxResponse();
     $response->addCommand(new UpdateSelectionCommand($media_ids));
     $media_id_to_focus = array_pop($media_ids);
     $response->addCommand(new ReplaceCommand('#media-library-add-form-wrapper', $this->buildMediaLibraryUi($form_state)));
     $response->addCommand(new InvokeCommand("#media-library-content [value=$media_id_to_focus]", 'focus'));
-
     $available_slots = $this->getMediaLibraryState($form_state)->getAvailableSlots();
     if ($available_slots > 0 && $selected_count > $available_slots) {
-      $warning = $this->formatPlural($selected_count - $available_slots, 'There are currently @total items selected, but the maximum number of items for the field is @max. Please remove @count item from the selection.', 'There are currently @total items selected. The maximum number of items for the field is @max. Please remove @count items from the selection.', [
+      $warning = $this->formatPlural($selected_count - $available_slots, 'There are currently @total items selected. The maximum number of items for the field is @max. Remove @count item from the selection.', 'There are currently @total items selected. The maximum number of items for the field is @max. Remove @count items from the selection.', [
         '@total' => $selected_count,
         '@max' => $available_slots,
       ]);
-      $response->addCommand(new MessageCommand($warning, '#media-library-item-count', ['type' => 'warning']));
+      $response->addCommand(new MessageCommand($warning, '#media-library-messages', ['type' => 'warning']));
     }
 
     return $response;
@@ -772,11 +768,7 @@ abstract class AddFormBase extends FormBase implements BaseFormIdInterface, Trus
 
     // Allow the opener service to respond to the selection.
     $state = $this->getMediaLibraryState($form_state);
-
-    $selected_count = count($media_ids);
-    if ($current_selection = $form_state->getValue('current_selection')) {
-      $selected_count += count(explode(',', $current_selection));
-    }
+    $selected_count = $this->getSelectedMediaItemCount($media_ids, $form_state);
 
     $available_slots = $this->getMediaLibraryState($form_state)->getAvailableSlots();
     if ($available_slots > 0 && $selected_count > $available_slots) {
@@ -787,6 +779,25 @@ abstract class AddFormBase extends FormBase implements BaseFormIdInterface, Trus
     return $this->openerResolver->get($state)
       ->getSelectionResponse($state, $media_ids)
       ->addCommand(new CloseDialogCommand());
+  }
+
+  /**
+   * Get the number of selected media.
+   *
+   * @param array $media_ids
+   *   Array with the media IDs.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current form state.
+   *
+   * @return int
+   *   The number of media currently selected.
+   */
+  private function getSelectedMediaItemCount(array $media_ids, FormStateInterface $form_state): int {
+    $selected_count = count($media_ids);
+    if ($current_selection = $form_state->getValue('current_selection')) {
+      $selected_count += count(explode(',', $current_selection));
+    }
+    return $selected_count;
   }
 
   /**

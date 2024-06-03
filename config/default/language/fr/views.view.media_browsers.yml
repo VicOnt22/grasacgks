@@ -60,7 +60,7 @@ display:
           exposed_sorts_label: 'Trier par'
           sort_asc_label: Asc
           sort_desc_label: Desc
-          text_input_required: 'Sélectionnez n''importe quel filtre et cliquez sur Appliquer pour voir les résultats'
+          text_input_required: "Sélectionnez n'importe quel filtre et cliquez sur Appliquer pour voir les résultats"
           bef:
             general:
               secondary_label: 'Options avancées'
@@ -86,7 +86,7 @@ display:
           exposed_sorts_label: 'Trier par'
           sort_asc_label: Asc
           sort_desc_label: Desc
-          text_input_required: 'Sélectionnez n''importe quel filtre et cliquez sur Appliquer pour voir les résultats'
+          text_input_required: "Sélectionnez n'importe quel filtre et cliquez sur Appliquer pour voir les résultats"
           bef:
             general:
               secondary_label: 'Options avancées'

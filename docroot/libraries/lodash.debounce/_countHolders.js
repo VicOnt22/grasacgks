@@ -18,4 +18,4 @@ function countHolders(array, placeholder) {
   return result;
 }
 
-module.exports = countHolders;
+export default countHolders;

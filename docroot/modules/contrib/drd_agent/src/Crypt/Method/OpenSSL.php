@@ -1,7 +1,6 @@
-<?php /** @noinspection PhpComposerExtensionStubsInspection */
+<?php
 
 namespace Drupal\drd_agent\Crypt\Method;
-
 
 use Drupal\drd_agent\Crypt\BaseMethod;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -13,13 +12,33 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class OpenSSL extends BaseMethod {
 
-  private $cipher;
+  /**
+   * The cypher.
+   *
+   * @var mixed|string
+   */
+  private mixed $cipher;
 
-  private $iv;
+  /**
+   * The iv.
+   *
+   * @var string
+   */
+  private string $iv;
 
-  private $password;
+  /**
+   * The password.
+   *
+   * @var string
+   */
+  private string $password;
 
-  private $supportedCipher = [
+  /**
+   * The supported cypher.
+   *
+   * @var array|int[]
+   */
+  private array $supportedCipher = [
     'aes-256-ctr' => 32,
     'aes-128-cbc' => 16,
   ];
@@ -82,11 +101,7 @@ class OpenSSL extends BaseMethod {
     if (empty($this->iv)) {
       $nonceSize = openssl_cipher_iv_length($this->cipher);
       $strong = TRUE;
-      /** @noinspection CryptographicallySecureRandomnessInspection */
       $this->iv = openssl_random_pseudo_bytes($nonceSize, $strong);
-      if ($strong === FALSE || $this->iv === FALSE) {
-        $this->logger->warning('Your systm does not produce secure randomness.');
-      }
     }
     return $this->iv;
   }
@@ -109,9 +124,8 @@ class OpenSSL extends BaseMethod {
   /**
    * {@inheritdoc}
    */
-  public function decrypt($body, $iv) {
+  public function decrypt(string $body, string $iv): mixed {
     $this->iv = $iv;
-    /** @noinspection UnserializeExploitsInspection */
     return unserialize(openssl_decrypt(
       $body,
       $this->cipher,

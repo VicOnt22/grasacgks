@@ -15,4 +15,4 @@ function stubString() {
   return '';
 }
 
-export default stubString;
+module.exports = stubString;

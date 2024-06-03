@@ -1,1 +1,1 @@
-module.exports = require('./assignIn');
+export { default } from './assignIn.js'

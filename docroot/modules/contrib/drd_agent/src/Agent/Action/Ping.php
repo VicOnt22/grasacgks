@@ -10,7 +10,7 @@ class Ping extends Base {
   /**
    * {@inheritdoc}
    */
-  public function execute() {
+  public function execute(): array {
     return [
       'data' => 'pong',
     ];

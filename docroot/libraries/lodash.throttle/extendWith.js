@@ -1,1 +1,1 @@
-export { default } from './assignInWith.js'
+module.exports = require('./assignInWith');

@@ -35,7 +35,7 @@ class Condition extends ConditionBase {
           if (is_array($condition['value'])) {
             $condition['value'] = array_map('mb_strtolower', $condition['value']);
           }
-          elseif (!is_bool($condition['value'])) {
+          elseif (!is_bool($condition['value']) && !empty($condition['value'])) {
             $condition['value'] = mb_strtolower($condition['value']);
           }
         }
@@ -203,7 +203,7 @@ class Condition extends ConditionBase {
           return strpos($value, $condition['value']) === 0;
 
         case 'CONTAINS':
-          return strpos($value, $condition['value']) !== FALSE;
+          return str_contains($value, $condition['value']);
 
         case 'ENDS_WITH':
           return substr($value, -strlen($condition['value'])) === (string) $condition['value'];

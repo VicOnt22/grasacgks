@@ -1,14 +1,13 @@
 name: CKEditor Media Embed plugin
 type: module
 description: Adds the Media Embed CKEditor plugins to Drupal.
-core: 8.x
-core_version_requirement: ^8 || ^9 || ^10
-package: CKEditor
+core_version_requirement: ^9 || ^10
+package: CKEditor 5
 configure: ckeditor_media_embed.ckeditor_media_embed_settings_form
 dependencies:
-  - drupal:ckeditor
+  - drupal:ckeditor5
 
-# Information added by Drupal.org packaging script on 2023-10-08
-version: '8.x-1.12'
+# Information added by Drupal.org packaging script on 2024-04-24
+version: '2.0.2'
 project: 'ckeditor_media_embed'
-datestamp: 1696793073
+datestamp: 1713998004

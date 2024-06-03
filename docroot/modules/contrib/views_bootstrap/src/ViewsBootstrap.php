@@ -80,7 +80,7 @@ class ViewsBootstrap {
    * Return an array of breakpoint names.
    */
   public static function getBreakpoints() {
-    return ['xs', 'sm', 'md', 'lg', 'xl'];
+    return ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
   }
 
   /**

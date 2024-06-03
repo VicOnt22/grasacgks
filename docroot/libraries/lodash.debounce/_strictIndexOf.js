@@ -20,4 +20,4 @@ function strictIndexOf(array, value, fromIndex) {
   return -1;
 }
 
-module.exports = strictIndexOf;
+export default strictIndexOf;

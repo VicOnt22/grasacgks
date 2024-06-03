@@ -23,4 +23,4 @@ function join(array, separator) {
   return array == null ? '' : nativeJoin.call(array, separator);
 }
 
-export default join;
+module.exports = join;

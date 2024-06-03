@@ -420,3 +420,12 @@ function editoria11y_update_9005() {
   $config->set('link_ignore_selector', 'svg.ext, svg.mailto, .link-purpose-text');
   $config->save(TRUE);
 }
+
+/**
+ * Issue 3422440: Fix config schema error.
+ */
+function editoria11y_update_9006() {
+  $config_factory = Drupal::configFactory();
+  $config = $config_factory->getEditable('editoria11y.configuration');
+  $config->delete();
+}

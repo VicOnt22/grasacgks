@@ -42,11 +42,7 @@ class Api {
    * @param \Drupal\Core\Entity\EntityTypeManager $manager
    *   Entity types.
    */
-  public function __construct(
-        AccountInterface $account,
-        Connection $connection,
-        EntityTypeManager $manager
-    ) {
+  public function __construct(AccountInterface $account, Connection $connection, EntityTypeManager $manager) {
     $this->account = $account;
     $this->connection = $connection;
     $this->manager = $manager;

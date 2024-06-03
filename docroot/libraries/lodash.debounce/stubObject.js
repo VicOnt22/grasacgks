@@ -20,4 +20,4 @@ function stubObject() {
   return {};
 }
 
-module.exports = stubObject;
+export default stubObject;

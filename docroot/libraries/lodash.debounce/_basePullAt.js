@@ -1,5 +1,5 @@
-var baseUnset = require('./_baseUnset'),
-    isIndex = require('./_isIndex');
+import baseUnset from './_baseUnset.js';
+import isIndex from './_isIndex.js';
 
 /** Used for built-in method references. */
 var arrayProto = Array.prototype;
@@ -34,4 +34,4 @@ function basePullAt(array, indexes) {
   return array;
 }
 
-module.exports = basePullAt;
+export default basePullAt;

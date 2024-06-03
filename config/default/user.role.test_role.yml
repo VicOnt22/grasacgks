@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - entityqueue.entity_queue.varbase_heroslider_media
     - filter.format.basic_html
     - filter.format.full_html
     - media.type.audio
@@ -131,6 +132,7 @@ permissions:
   - 'delete own audio media'
   - 'delete own document media'
   - 'delete own file media'
+  - 'delete own files'
   - 'delete own heritage_item content'
   - 'delete own image media'
   - 'delete own language_item content'
@@ -152,7 +154,6 @@ permissions:
   - 'edit field_record_editable_by'
   - 'edit own article content'
   - 'edit own audio media'
-  - 'edit own comments'
   - 'edit own document media'
   - 'edit own field_record_editable_by'
   - 'edit own file media'
@@ -225,7 +226,6 @@ permissions:
   - 'view field_bulk_import_key'
   - 'view field_record_editable_by'
   - 'view heritage_item revisions'
-  - 'view icons'
   - 'view language_item revisions'
   - 'view latest version'
   - 'view own field_record_editable_by'

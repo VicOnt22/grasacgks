@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\media_library\FunctionalJavascript;
 
 use Drupal\media\Entity\Media;
 use Drupal\Tests\TestFileCreationTrait;
 
 /**
- * Tests that uploads in the Media library's widget works as expected.
+ * Tests that uploads in the 'media_library_widget' works as expected.
  *
  * @group media_library
  *
@@ -23,7 +25,7 @@ class WidgetUploadTest extends MediaLibraryTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * Tests that uploads in the Media library's widget works as expected.
+   * Tests that uploads in the 'media_library_widget' works as expected.
    */
   public function testWidgetUpload() {
     $assert_session = $this->assertSession();
@@ -211,7 +213,7 @@ class WidgetUploadTest extends MediaLibraryTestBase {
     // Assert media type four should only allow jpg files by trying a png file
     // first.
     $png_uri_4 = $file_system->copy($png_image->uri, 'public://');
-    $this->addMediaFileToField('Add file', $file_system->realpath($png_uri_4), FALSE);
+    $this->addMediaFileToField('Add file', $file_system->realpath($png_uri_4));
     $this->waitForText('Only files with the following extensions are allowed');
     // Assert that jpg files are accepted by type four.
     $jpg_uri_2 = $file_system->copy($jpg_image->uri, 'public://');
@@ -555,7 +557,7 @@ class WidgetUploadTest extends MediaLibraryTestBase {
     // Assert media type four should only allow jpg files by trying a png file
     // first.
     $png_uri_4 = $file_system->copy($png_image->uri, 'public://');
-    $this->addMediaFileToField('Add file', $file_system->realpath($png_uri_4), FALSE);
+    $this->addMediaFileToField('Add file', $file_system->realpath($png_uri_4));
     $this->waitForText('Only files with the following extensions are allowed');
     // Assert that jpg files are accepted by type four.
     $jpg_uri_2 = $file_system->copy($jpg_image->uri, 'public://');

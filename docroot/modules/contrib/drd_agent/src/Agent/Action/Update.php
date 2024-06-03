@@ -2,18 +2,45 @@
 
 namespace Drupal\drd_agent\Agent\Action;
 
+use Drupal\Core\Update\UpdateHookRegistry;
+use Drupal\Core\Update\UpdateRegistry;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 /**
  * Provides a 'Update' code.
  */
 class Update extends Base {
 
   /**
+   * The update hook registry.
+   *
+   * @var \Drupal\Core\Update\UpdateHookRegistry
+   */
+  protected UpdateHookRegistry $updateHookRegistry;
+
+  /**
+   * The update registry.
+   *
+   * @var \Drupal\Core\Update\UpdateRegistry
+   */
+  protected UpdateRegistry $postUpdateRegistry;
+
+  /**
    * {@inheritdoc}
    */
-  public function execute() {
-    /** @noinspection PhpIncludeInspection */
+  public static function create(ContainerInterface $container): Update {
+    /** @var \Drupal\drd_agent\Agent\Action\Update $instance */
+    $instance = parent::create($container);
+    $instance->updateHookRegistry = $container->get('update.update_hook_registry');
+    $instance->postUpdateRegistry = $container->get('update.post_update_registry');
+    return $instance;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function execute(): array {
     require_once DRUPAL_ROOT . '/core/includes/install.inc';
-    /** @noinspection PhpIncludeInspection */
     require_once DRUPAL_ROOT . '/core/includes/update.inc';
     drupal_load_updates();
 
@@ -21,8 +48,7 @@ class Update extends Base {
     $pending = update_get_update_list();
 
     // Pending hook_post_update_X() implementations.
-    /** @noinspection NullPointerExceptionInspection */
-    $post_updates = $this->container->get('update.post_update_registry')->getPendingUpdateInformation();
+    $post_updates = $this->postUpdateRegistry->getPendingUpdateInformation();
 
     $result = [];
     $start = [];
@@ -64,7 +90,7 @@ class Update extends Base {
         // correct place. (The updates are already sorted, so we can simply base
         // this on the first one we come across in the above foreach loop.)
         if (isset($start[$update['module']])) {
-          drupal_set_installed_schema_version($update['module'], $update['number'] - 1);
+          $this->updateHookRegistry->setInstalledVersion($update['module'], $update['number'] - 1);
           unset($start[$update['module']]);
         }
         // Add this update function to the batch.
@@ -82,8 +108,7 @@ class Update extends Base {
     }
 
     // Apply post update hooks.
-    /** @noinspection NullPointerExceptionInspection */
-    $post_updates = $this->container->get('update.post_update_registry')->getPendingUpdateFunctions();
+    $post_updates = $this->postUpdateRegistry->getPendingUpdateFunctions();
     if ($post_updates) {
       $operations[] = ['drupal_flush_all_caches', []];
       foreach ($post_updates as $function) {
@@ -110,10 +135,12 @@ class Update extends Base {
   /**
    * Main loop to run operations until they've finished.
    *
-   * @param $operations
-   * @param $context
+   * @param array $operations
+   *   The operations.
+   * @param array $context
+   *   The context.
    */
-  private function batchProcess($operations, &$context) {
+  private function batchProcess(array $operations, array &$context): void {
     foreach ($operations as $operation) {
       $context['finished'] = FALSE;
       $context['sandbox']['#finished'] = TRUE;
@@ -121,7 +148,8 @@ class Update extends Base {
       $finished = FALSE;
       while (!$finished) {
         call_user_func_array($operation[0], $operation[1]);
-        $finished = (!empty($context['finished']) || !empty($context['sandbox']['#finished']));
+        // @phpstan-ignore-next-line
+        $finished = $context['finished'] || $context['sandbox']['#finished'];
       }
     }
   }
@@ -130,12 +158,12 @@ class Update extends Base {
    * Callback to finally capture all messages from all operations.
    *
    * @param array $results
-   *   The context of the oprations.
+   *   The context of the operations.
    */
-  private function captureUpdateMessages(array $results) {
+  private function captureUpdateMessages(array $results): void {
     foreach ($results as $module => $updates) {
       if ($module !== '#abort') {
-        foreach ($updates as $number => $queries) {
+        foreach ($updates as $queries) {
           foreach ($queries as $query) {
             // If there is no message for this update, don't show anything.
             if (empty($query['query'])) {

@@ -1,5 +1,5 @@
-var baseFunctions = require('./_baseFunctions'),
-    keys = require('./keys');
+import baseFunctions from './_baseFunctions.js';
+import keys from './keys.js';
 
 /**
  * Creates an array of function property names from own enumerable properties
@@ -28,4 +28,4 @@ function functions(object) {
   return object == null ? [] : baseFunctions(object, keys(object));
 }
 
-module.exports = functions;
+export default functions;

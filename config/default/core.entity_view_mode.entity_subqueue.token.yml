@@ -8,5 +8,6 @@ _core:
   default_config_hash: Rw4MnFMi88rho7zJ-tMpU0QExz7lApq9XzxdHuB0IH8
 id: entity_subqueue.token
 label: Token
+description: ''
 targetEntityType: entity_subqueue
 cache: true

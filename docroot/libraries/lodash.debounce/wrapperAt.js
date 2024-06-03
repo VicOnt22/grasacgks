@@ -1,9 +1,9 @@
-var LazyWrapper = require('./_LazyWrapper'),
-    LodashWrapper = require('./_LodashWrapper'),
-    baseAt = require('./_baseAt'),
-    flatRest = require('./_flatRest'),
-    isIndex = require('./_isIndex'),
-    thru = require('./thru');
+import LazyWrapper from './_LazyWrapper.js';
+import LodashWrapper from './_LodashWrapper.js';
+import baseAt from './_baseAt.js';
+import flatRest from './_flatRest.js';
+import isIndex from './_isIndex.js';
+import thru from './thru.js';
 
 /**
  * This method is the wrapper version of `_.at`.
@@ -45,4 +45,4 @@ var wrapperAt = flatRest(function(paths) {
   });
 });
 
-module.exports = wrapperAt;
+export default wrapperAt;

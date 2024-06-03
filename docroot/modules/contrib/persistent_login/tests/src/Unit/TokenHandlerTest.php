@@ -3,7 +3,7 @@
 namespace Drupal\Tests\persistent_login\Unit;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Session\SessionConfiguration;
 use Drupal\persistent_login\CookieHelperInterface;
 use Drupal\persistent_login\EventSubscriber\TokenHandler;
@@ -11,6 +11,8 @@ use Drupal\persistent_login\TokenManager;
 use Drupal\Tests\UnitTestCase;
 use Prophecy\Argument;
 use Symfony\Component\HttpFoundation\Request;
+
+// cspell:ignoreRegExp /[a-zA-Z0-9_-]{40,}/
 
 /**
  * Test the Token Handler service.
@@ -35,9 +37,9 @@ class TokenHandlerTest extends UnitTestCase {
   private $sessionConfigMock;
 
   /**
-   * @var \Drupal\Core\Session\AccountInterface|\Prophecy\Prophecy\ObjectProphecy
+   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface|\Prophecy\Prophecy\ObjectProphecy
    */
-  private $currentUserMock;
+  private $loggerChannelFactoryMock;
 
   /**
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface|\Prophecy\Prophecy\ObjectProphecy
@@ -48,11 +50,12 @@ class TokenHandlerTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function setUp(): void {
+    parent::setUp();
     $this->tokenManagerMock = $this->prophesize(TokenManager::class);
     $this->cookieHelperMock = $this->prophesize(CookieHelperInterface::class);
     $this->sessionConfigMock = $this->prophesize(SessionConfiguration::class);
     $this->entityTypeManagerMock = $this->prophesize(EntityTypeManagerInterface::class);
-    $this->currentUserMock = $this->prophesize(AccountInterface::class);
+    $this->loggerChannelFactoryMock = $this->prophesize(LoggerChannelFactoryInterface::class);
   }
 
   /**
@@ -65,7 +68,7 @@ class TokenHandlerTest extends UnitTestCase {
       $this->sessionConfigMock->reveal(),
       $this->entityTypeManagerMock->reveal(),
       $this->getConfigFactoryStub(),
-      $this->currentUserMock->reveal()
+      $this->loggerChannelFactoryMock->reveal()
     );
 
     $this->cookieHelperMock->getCookieValue(Argument::type(Request::class))
@@ -87,7 +90,7 @@ class TokenHandlerTest extends UnitTestCase {
       $this->sessionConfigMock->reveal(),
       $this->entityTypeManagerMock->reveal(),
       $this->getConfigFactoryStub(),
-      $this->currentUserMock->reveal()
+      $this->loggerChannelFactoryMock->reveal()
     );
 
     $this->cookieHelperMock->getCookieValue(Argument::type(Request::class))
@@ -109,7 +112,7 @@ class TokenHandlerTest extends UnitTestCase {
       $this->sessionConfigMock->reveal(),
       $this->entityTypeManagerMock->reveal(),
       $this->getConfigFactoryStub(),
-      $this->currentUserMock->reveal()
+      $this->loggerChannelFactoryMock->reveal()
     );
 
     $this->cookieHelperMock->getCookieValue(Argument::type(Request::class))

@@ -1,6 +1,6 @@
-var MapCache = require('./_MapCache'),
-    setCacheAdd = require('./_setCacheAdd'),
-    setCacheHas = require('./_setCacheHas');
+import MapCache from './_MapCache.js';
+import setCacheAdd from './_setCacheAdd.js';
+import setCacheHas from './_setCacheHas.js';
 
 /**
  *
@@ -24,4 +24,4 @@ function SetCache(values) {
 SetCache.prototype.add = SetCache.prototype.push = setCacheAdd;
 SetCache.prototype.has = setCacheHas;
 
-module.exports = SetCache;
+export default SetCache;

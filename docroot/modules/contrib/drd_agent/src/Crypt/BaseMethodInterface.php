@@ -23,7 +23,7 @@ interface BaseMethodInterface {
    * @return bool
    *   TRUE if method is available.
    */
-  public function isAvailable(): bool ;
+  public function isAvailable(): bool;
 
   /**
    * Get a list of available cipher methods.
@@ -31,10 +31,10 @@ interface BaseMethodInterface {
    * @return array
    *   List of methods.
    */
-  public function getCipherMethods(): array ;
+  public function getCipherMethods(): array;
 
   /**
-   * Get an initialiation vector.
+   * Get an initialization vector.
    *
    * @return string
    *   The IV.
@@ -47,21 +47,21 @@ interface BaseMethodInterface {
    * @return string|bool
    *   The cipher.
    */
-  public function getCipher();
+  public function getCipher(): bool|string;
 
   /**
    * Get the password.
    *
-   * @return string
-   *   The password.
+   * @return bool|string
+   *   The password or FALSE otherwise.
    */
-  public function getPassword(): string;
+  public function getPassword(): bool|string;
 
   /**
    * Encrypt and encode any list of arguments.
    *
    * @param array $args
-   *   The arguments to be encrpyted.
+   *   The arguments to be encrypted.
    *
    * @return string
    *   Encrypted and base64 encoded serialisation of the arguments.
@@ -74,12 +74,12 @@ interface BaseMethodInterface {
    * @param string $body
    *   The encrypted, serialized and encoded string to process.
    * @param string $iv
-   *   The initialiation vector.
+   *   The initialization vector.
    *
    * @return mixed
-   *   The decoded, decrypted and unserialized arguments.
+   *   The decoded, decrypted and deserialized arguments.
    */
-  public function decrypt($body, $iv);
+  public function decrypt(string $body, string $iv): mixed;
 
   /**
    * Encrypt a file.
@@ -90,6 +90,6 @@ interface BaseMethodInterface {
    * @return string
    *   Filename of the encrypted version.
    */
-  public function encryptFile($filename): string;
+  public function encryptFile(string $filename): string;
 
 }

@@ -2,6 +2,8 @@
 
 namespace Drupal\ckeditor_media_embed;
 
+use Drupal\Component\Serialization\Exception\InvalidDataTypeException;
+use Drupal\Core\Asset\Exception\InvalidLibraryFileException;
 use Drupal\Core\Asset\LibraryDiscoveryInterface;
 use Drupal\Core\Serialization\Yaml;
 use Drupal\Core\Config\ConfigFactory;
@@ -15,13 +17,28 @@ class AssetManager {
    *
    * @var string
    */
-  private static $libraryVersion = '4.5.11';
+  private static $libraryVersion = '4.5.x';
+
+  /**
+   * Drupal\ckeditor_media_embed\packageName definition.
+   *
+   * @var string
+   */
+  private static $packageName= '@ckeditor/ckeditor5-media-embed';
+
   /**
    * Drupal\ckeditor_media_embed\packagePrefix definition.
    *
    * @var string
    */
-  private static $packagePrefix = 'ckeditor4';
+  private static $packagePrefix = 'ckeditor5-media-embed';
+
+  /**
+   * Drupal\ckeditor_media_embed\ckeditorName definition.
+   *
+   * @var string
+   */
+  private static $ckeditorName = 'ckeditor5';
 
   /**
    * Retrieve a list of all plugins to install.
@@ -35,21 +52,8 @@ class AssetManager {
     }
 
     $plugins = [
-      'autoembed',
-      'autolink',
-      'embed',
-      'embedbase',
-      'embedsemantic',
-      'notification',
-      'notificationaggregator',
-      'link',
-      'fakeobjects',
+      'media-embed',
     ];
-
-    // Text match was added as a new dependency of autolink as of 4.11.
-    if (version_compare($version, '4.11', '>=')) {
-      $plugins[] = 'textmatch';
-    }
 
     return $plugins;
   }
@@ -100,7 +104,7 @@ class AssetManager {
     $is_installed = FALSE;
 
     $library_plugin_path = self::getCKEditorLibraryPluginDirectory() . $plugin_name;
-    if (is_dir($library_plugin_path) && is_file($library_plugin_path . '/plugin.js')) {
+    if (is_dir($library_plugin_path) && is_file($library_plugin_path . '/build/' . $plugin_name . '.js')) {
       $is_installed = TRUE;
     }
 
@@ -113,7 +117,7 @@ class AssetManager {
    * @param \Drupal\Core\Asset\LibraryDiscoveryInterface $library_discovery
    *   The library discovery service to use for retrieving information about
    *   the CKeditor library.
-   * @param \Drupal\Core\Config\ConfigFactory
+   * @param \Drupal\Core\Config\ConfigFactory $config_factory
    *   The config factory service to use for retrieving configuration
    *   information about CKeditor Media Embed.
    * @param string $path
@@ -199,10 +203,10 @@ class AssetManager {
       try {
         $libraries = Yaml::decode(file_get_contents($library_file));
 
-        if (!empty($libraries['ckeditor']['version'])) {
-          $version = $libraries['ckeditor']['version'];
+        if (!empty($libraries[self::$ckeditorName]['version'])) {
+          $version = $libraries[self::$ckeditorName]['version'];
 
-          $version_extra_position = strpos($libraries['ckeditor']['version'], '+');
+          $version_extra_position = strpos($libraries[self::$ckeditorName]['version'], '+');
           if ($version_extra_position > 0) {
             $version = substr($version, 0, $version_extra_position);
           }
@@ -225,7 +229,8 @@ class AssetManager {
    */
   // @codingStandardsIgnoreLine
   public static function getCKEditorLibraryPluginPath() {
-    return 'profiles/varbase/libraries/ckeditor/plugins/';
+    $origin_url = \Drupal::request()->getSchemeAndHttpHost() . \Drupal::request()->getBaseUrl();
+    return $origin_url . '/libraries/' . self::$ckeditorName . '/plugins/';
   }
 
   /**
@@ -239,21 +244,21 @@ class AssetManager {
    */
   // @codingStandardsIgnoreLine
   public static function getCKEditorLibraryPluginDirectory() {
-    return \Drupal::root() . '/profiles/varbase/libraries/ckeditor/plugins/';
+    return \Drupal::root() . '/libraries/' . self::$ckeditorName . '/plugins/';
   }
 
   /**
-   * Retrieve the URL of the source package to download.
+   * Retrieve the URL of the source package metadata.
    *
    * @param string $version
-   *   The version of the CKEditor source package to download.
+   *   The version of the CKEditor source package.
    *
    * @return string
-   *   The absolute URL to the source package downloadable archive.
+   *   The absolute URL to the source package metadata.
    */
   // @codingStandardsIgnoreLine
-  public static function getCKEditorDevFullPackageUrl($version) {
-    return 'https://github.com/ckeditor/' . self::$packagePrefix . '/archive/' . $version . '.zip';
+  public static function getNPMRegistryPackageUrl($version) {
+    return 'https://registry.npmjs.org/' . self::$packageName . '/' . $version;
   }
 
   /**

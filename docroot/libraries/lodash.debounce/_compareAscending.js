@@ -1,4 +1,4 @@
-var isSymbol = require('./isSymbol');
+import isSymbol from './isSymbol.js';
 
 /**
  * Compares values to sort them in ascending order.
@@ -38,4 +38,4 @@ function compareAscending(value, other) {
   return 0;
 }
 
-module.exports = compareAscending;
+export default compareAscending;

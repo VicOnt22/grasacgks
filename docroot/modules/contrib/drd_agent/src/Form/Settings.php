@@ -10,12 +10,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Configure drd-agent settings for this site.
  */
-class Settings extends FormBase {
+final class Settings extends FormBase {
 
   /**
+   * The state.
+   *
    * @var \Drupal\Core\State\StateInterface
    */
-  protected $state;
+  protected StateInterface $state;
 
   /**
    * {@inheritdoc}
@@ -25,6 +27,8 @@ class Settings extends FormBase {
   }
 
   /**
+   * Constructs settings.
+   *
    * @param \Drupal\Core\State\StateInterface $state
    *   The state factory.
    */
@@ -35,8 +39,8 @@ class Settings extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
-    return new static(
+  public static function create(ContainerInterface $container): Settings {
+    return new Settings(
       $container->get('state')
     );
   }
@@ -45,12 +49,11 @@ class Settings extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
-    $state = \Drupal::state();
 
     $form['debug_mode'] = [
       '#type' => 'checkbox',
       '#title' => t('Debug mode'),
-      '#default_value' => $state->get('drd_agent.debug_mode', FALSE),
+      '#default_value' => $this->state->get('drd_agent.debug_mode', FALSE),
     ];
 
     $form['actions'] = [
@@ -59,7 +62,7 @@ class Settings extends FormBase {
 
     $form['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Submit')
+      '#value' => $this->t('Submit'),
     ];
 
     return $form;
@@ -68,7 +71,7 @@ class Settings extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
     $debug_mode = $form_state->getValue('debug_mode');
     $this->state->set('drd_agent.debug_mode', $debug_mode);
     $this->messenger()->addStatus($this->t('Settings saved'));

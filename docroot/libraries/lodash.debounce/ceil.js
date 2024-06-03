@@ -1,4 +1,4 @@
-var createRound = require('./_createRound');
+import createRound from './_createRound.js';
 
 /**
  * Computes `number` rounded up to `precision`.
@@ -23,4 +23,4 @@ var createRound = require('./_createRound');
  */
 var ceil = createRound('ceil');
 
-module.exports = ceil;
+export default ceil;

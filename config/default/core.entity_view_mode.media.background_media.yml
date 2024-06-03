@@ -8,5 +8,6 @@ _core:
   default_config_hash: xEGLB9amKgZ-rQGV0tnHdrihtP8wGV5zTKfc9CsmnNA
 id: media.background_media
 label: 'Background media'
+description: ''
 targetEntityType: media
 cache: true

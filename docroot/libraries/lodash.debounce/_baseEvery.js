@@ -1,4 +1,4 @@
-var baseEach = require('./_baseEach');
+import baseEach from './_baseEach.js';
 
 /**
  * The base implementation of `_.every` without support for iteratee shorthands.
@@ -18,4 +18,4 @@ function baseEvery(collection, predicate) {
   return result;
 }
 
-module.exports = baseEvery;
+export default baseEvery;

@@ -24,9 +24,11 @@
         // CKEditor 5 integration.
         if (this.dataset.ckeditor5Id) {
           let eid = this.dataset.ckeditor5Id;
+          //@todo Tempfix until the issue below is fixed.
+          // https://www.drupal.org/project/drupal/issues/3319358
           setTimeout(function() {
             ml.ckeditor5(Drupal.CKEditor5Instances.get(eid), options);
-          });
+          }, 400);
         }
       });
     },
@@ -412,14 +414,15 @@
    */
   ml.ckeditor5 = function (editor, options) {
     $(once('maxlengthbinding', editor.sourceElement)).each(function() {
-      editor.model.document.on('change', function() {
-        if (editor.getData() !== editor.sourceElement.textContent) {
+      // Listen to changes to data only.
+      editor.model.document.on('change:data', function() {
+        let editorData = editor.getData();
+        if (editorData !== editor.sourceElement.textContent) {
           // Trim if limit is reached and enforcing is activated.
           if (options['enforce']) {
             let maxlength = $(editor.sourceElement).data('maxlength');
-            let data = editor.getData();
-            let trimmed = ml.truncate_html(data, maxlength);
-            if (data.length !== trimmed.length) {
+            const trimmed = ml.truncate_html(editorData, maxlength);
+            if (editorData.length !== trimmed.length) {
               editor.setData(trimmed);
               setTimeout(() => {
                 editor.model.change( writer => {

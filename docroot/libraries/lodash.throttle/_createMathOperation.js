@@ -1,5 +1,5 @@
-import baseToNumber from './_baseToNumber.js';
-import baseToString from './_baseToString.js';
+var baseToNumber = require('./_baseToNumber'),
+    baseToString = require('./_baseToString');
 
 /**
  * Creates a function that performs a mathematical operation on two values.
@@ -35,4 +35,4 @@ function createMathOperation(operator, defaultValue) {
   };
 }
 
-export default createMathOperation;
+module.exports = createMathOperation;

@@ -1,5 +1,5 @@
-import baseIsMatch from './_baseIsMatch.js';
-import getMatchData from './_getMatchData.js';
+var baseIsMatch = require('./_baseIsMatch'),
+    getMatchData = require('./_getMatchData');
 
 /**
  * Performs a partial deep comparison between `object` and `source` to
@@ -33,4 +33,4 @@ function isMatch(object, source) {
   return object === source || baseIsMatch(object, source, getMatchData(source));
 }
 
-export default isMatch;
+module.exports = isMatch;

@@ -1,4 +1,4 @@
-var baseSortedIndex = require('./_baseSortedIndex');
+import baseSortedIndex from './_baseSortedIndex.js';
 
 /**
  * Uses a binary search to determine the lowest index at which `value`
@@ -21,4 +21,4 @@ function sortedIndex(array, value) {
   return baseSortedIndex(array, value);
 }
 
-module.exports = sortedIndex;
+export default sortedIndex;

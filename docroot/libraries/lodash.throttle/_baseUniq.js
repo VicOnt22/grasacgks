@@ -1,9 +1,9 @@
-import SetCache from './_SetCache.js';
-import arrayIncludes from './_arrayIncludes.js';
-import arrayIncludesWith from './_arrayIncludesWith.js';
-import cacheHas from './_cacheHas.js';
-import createSet from './_createSet.js';
-import setToArray from './_setToArray.js';
+var SetCache = require('./_SetCache'),
+    arrayIncludes = require('./_arrayIncludes'),
+    arrayIncludesWith = require('./_arrayIncludesWith'),
+    cacheHas = require('./_cacheHas'),
+    createSet = require('./_createSet'),
+    setToArray = require('./_setToArray');
 
 /** Used as the size to enable large array optimizations. */
 var LARGE_ARRAY_SIZE = 200;
@@ -69,4 +69,4 @@ function baseUniq(array, iteratee, comparator) {
   return result;
 }
 
-export default baseUniq;
+module.exports = baseUniq;

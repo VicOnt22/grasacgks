@@ -3,8 +3,7 @@
 namespace Drupal\ckeditor_media_embed\Command;
 
 use Drupal\ckeditor_media_embed\AssetManager;
-use Drupal\ckeditor\CKEditorPluginManager;
-use Drupal\Core\Archiver\Zip;
+use Drupal\Core\Archiver\Tar;
 use Drupal\Core\Asset\LibraryDiscovery;
 use Drupal\Core\Config\ConfigFactory;
 use GuzzleHttp\Client;
@@ -14,14 +13,7 @@ use Symfony\Component\Filesystem\Filesystem;
 /**
  * Class CLICommands.
  */
-class CliCommandWrapper  {
-
-  /**
-   * The CKEditor plugin manager service.
-   *
-   * @var \Drupal\ckeditor\CKEditorPluginManager
-   */
-  protected $ckeditorPluginManager;
+class CliCommandWrapper {
 
   /**
    * The http client.
@@ -59,10 +51,14 @@ class CliCommandWrapper  {
   protected $packageVersion;
 
   /**
+   * The module handler.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+
+  /**
    * Constructs CLI commands object.
    *
-   * @param \Drupal\ckeditor\CKEditorPluginManager $ckeditorPluginManager
-   *   The CKEditor plugin manager service.
    * @param \Drupal\Core\Asset\LibraryDiscovery $libraryDiscovery
    *   The library discover service.
    * @param \GuzzleHttp\Client $httpClient
@@ -70,8 +66,7 @@ class CliCommandWrapper  {
    * @param \Drupal\Core\Config\ConfigFactory $configFactory
    *   The config factory service.
    */
-  public function __construct(CKEditorPluginManager $ckeditorPluginManager, LibraryDiscovery $libraryDiscovery, Client $httpClient, ConfigFactory $configFactory) {
-    $this->ckeditorPluginManager = $ckeditorPluginManager;
+  public function __construct(LibraryDiscovery $libraryDiscovery, Client $httpClient, ConfigFactory $configFactory) {
     $this->libraryDiscovery = $libraryDiscovery;
     $this->httpClient = $httpClient;
     $this->configFactory = $configFactory;
@@ -93,7 +88,7 @@ class CliCommandWrapper  {
   /**
    * Present question to user about overwriting the plugin files.
    *
-   * @param $command
+   * @param CKEditorCliCommandInterface $command
    *   A command object (e.g., a Drush or Drupal Console command).
    *
    * @return bool
@@ -119,9 +114,9 @@ class CliCommandWrapper  {
   /**
    * Overwrite the plugin files.
    *
-   * @param $command
+   * @param CKEditorCliCommandInterface $command
    *   A command object (e.g., a Drush or Drupal Console command).
-   * @param $overwrite
+   * @param bool $overwrite
    *   User's response regarding overwriting plugin files.
    */
   public function overwritePluginFiles(CKEditorCliCommandInterface $command, $overwrite) {
@@ -132,13 +127,13 @@ class CliCommandWrapper  {
     }
 
     $this->configFactory->getEditable('ckeditor_media_embed.settings')->set('plugins_version_installed', $this->packageVersion)->save();
-    $this->ckeditorPluginManager->clearCachedDefinitions();
+    drupal_flush_all_caches();
   }
 
   /**
    * Download the full source package of CKEditor and extract it.
    *
-   * @param $command
+   * @param CKEditorCliCommandInterface $command
    *   A command object (e.g., a Drush or Drupal Console command).
    *
    * @return string
@@ -151,15 +146,16 @@ class CliCommandWrapper  {
     ));
 
     $package_name = AssetManager::getCKEditorDevFullPackageName($this->packageVersion);
-    $package_url = AssetManager::getCKEditorDevFullPackageUrl($this->packageVersion);
+    $package_metadata_url = AssetManager::getNPMRegistryPackageUrl($this->packageVersion);
+    $package_url = $this->getNPMRegistryDistUrl($package_metadata_url);
     $package_directory = sys_get_temp_dir() . '/' . $package_name;
-    $package_archive = sys_get_temp_dir() . "/$package_name.zip";
+    $package_archive = sys_get_temp_dir() . "/$package_name.tgz";
 
     try {
       $this->downloadFile($package_url, $package_archive);
       if (is_file($package_archive)) {
-        $archive = new Zip($package_archive);
-        $archive->extract(sys_get_temp_dir());
+        $archive = new Tar($package_archive);
+        $archive->extract($package_directory);
         $command->getIo()->success(sprintf(
           $command->getMessage('success-downloading-package'), $this->packageVersion
         ));
@@ -175,13 +171,13 @@ class CliCommandWrapper  {
   /**
    * Install an individual CKEditor plugin.
    *
-   * @param $command
+   * @param CKEditorCliCommandInterface $command
    *   A command object (e.g., a Drush or Drupal Console command).
    * @param string $package_directory
    *   The full path to the downloaded CKEditor full development package.
    * @param string $plugin_name
    *   The machine name of the CKEditor plugin to install.
-   * @param $overwrite
+   * @param bool $overwrite
    *   User's response regarding overwriting plugin files.
    *
    * @return $this
@@ -189,7 +185,7 @@ class CliCommandWrapper  {
   // @codingStandardsIgnoreLine
   protected function installCKEditorPlugin(CKEditorCliCommandInterface $command, $package_directory, $plugin_name, $overwrite = FALSE) {
     $libraries_path = AssetManager::getCKEditorLibraryPluginDirectory() . $plugin_name;
-    $package_plugin_path = $package_directory . '/plugins/' . $plugin_name;
+    $package_plugin_path = $package_directory . '/package/';
 
     try {
       $this->fileSystem->mkdir($libraries_path);
@@ -202,6 +198,22 @@ class CliCommandWrapper  {
     }
 
     return $this;
+  }
+
+  /**
+   * Gets package dist url from NPM registry.
+   *
+   * @param string $url
+   *   The full URL to the npm package.
+   *
+   * @return string
+   *   The absolute URL to the downloadable archive.
+   */
+  protected function getNPMRegistryDistUrl($url) {
+    $response = $this->httpClient->get($url);
+    $parsed = json_decode($response->getBody());
+
+    return $parsed->dist->tarball;
   }
 
   /**

@@ -1,9 +1,9 @@
-var arrayMap = require('./_arrayMap'),
-    baseIntersection = require('./_baseIntersection'),
-    baseIteratee = require('./_baseIteratee'),
-    baseRest = require('./_baseRest'),
-    castArrayLikeObject = require('./_castArrayLikeObject'),
-    last = require('./last');
+import arrayMap from './_arrayMap.js';
+import baseIntersection from './_baseIntersection.js';
+import baseIteratee from './_baseIteratee.js';
+import baseRest from './_baseRest.js';
+import castArrayLikeObject from './_castArrayLikeObject.js';
+import last from './last.js';
 
 /**
  * This method is like `_.intersection` except that it accepts `iteratee`
@@ -42,4 +42,4 @@ var intersectionBy = baseRest(function(arrays) {
     : [];
 });
 
-module.exports = intersectionBy;
+export default intersectionBy;

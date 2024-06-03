@@ -157,14 +157,13 @@ class CalendarController extends ControllerBase {
 
     // Second - Update publish on date! (only if publish on date is set)
     // Get publish on timestamp.
-    $publish_on_timestamp = $node->get('publish_on')->getValue();
-    $publish_on_timestamp_value = $publish_on_timestamp[0]['value'];
+    $publish_on_timestamp = $node->get('publish_on')->value;
 
     // Only change scheduler publish on timestamp, when "publish on" is set.
-    if ($publish_on_timestamp_value) {
+    if ($publish_on_timestamp) {
 
       // Get the Node's publish ondate and return a datetime object.
-      $original_publish_datetime = DateTimeHelper::convertUnixTimestampToDatetime($publish_on_timestamp_value);
+      $original_publish_datetime = DateTimeHelper::convertUnixTimestampToDatetime($publish_on_timestamp);
 
       // Extract hour, minutes and seconds.
       $hour = $original_publish_datetime->format('H');

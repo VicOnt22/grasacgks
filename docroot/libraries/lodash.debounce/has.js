@@ -1,5 +1,5 @@
-var baseHas = require('./_baseHas'),
-    hasPath = require('./_hasPath');
+import baseHas from './_baseHas.js';
+import hasPath from './_hasPath.js';
 
 /**
  * Checks if `path` is a direct property of `object`.
@@ -32,4 +32,4 @@ function has(object, path) {
   return object != null && hasPath(object, path, baseHas);
 }
 
-module.exports = has;
+export default has;

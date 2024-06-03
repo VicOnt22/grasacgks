@@ -37,7 +37,7 @@ jobs:
     strategy:
       matrix:
         THEME: ['claro', 'gin']
-        DRUPAL_TESTING_DRUPAL_VERSION: ['~9.5.0', '~10.1.0']
+        DRUPAL_TESTING_DRUPAL_VERSION: ['~10.1.0', '~10.2.0']
         PHP_VERSION: ['8.1']
 
     steps:
@@ -55,7 +55,7 @@ jobs:
         mysql -uroot -proot -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';"
 
     - name: Cache composer dependencies
-      uses: actions/cache@v1
+      uses: actions/cache@v4
       with:
         path: ~/.composer/cache
         key: ${{ runner.os }}-composer-cache-${{ hashFiles('**/composer.json') }}

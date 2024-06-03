@@ -5,15 +5,11 @@ dependencies:
   config:
     - block_content.type.varbase_rich_text_block
     - field.storage.block_content.body
+    - filter.format.basic_html
+    - filter.format.full_html
+    - filter.format.plain_text
   module:
-    - allowed_formats
     - text
-third_party_settings:
-  allowed_formats:
-    allowed_formats:
-      - full_html
-      - basic_html
-      - plain_text
 _core:
   default_config_hash: b9Ykb4X7pxatlWj5obg0_4Z2jZ6eWaTtDqm4sLd8mHY
 id: block_content.varbase_rich_text_block.body
@@ -29,4 +25,8 @@ default_value_callback: ''
 settings:
   display_summary: false
   required_summary: false
+  allowed_formats:
+    - full_html
+    - basic_html
+    - plain_text
 field_type: text_with_summary

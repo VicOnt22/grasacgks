@@ -505,7 +505,7 @@ content:
             weight: 0
             settings:
               display_control: true
-              bearing: !!float 0
+              bearing: 0.0
             enabled: false
           leaflet_control_attribution:
             weight: 0
@@ -976,7 +976,7 @@ content:
         inertiaDeceleration: 3000
         easeLinearity: 0.2
         worldCopyJump: false
-        maxBoundsViscosity: !!float 0
+        maxBoundsViscosity: 0.0
         keyboard: true
         keyboardPanDelta: 80
         scrollWheelZoom: true

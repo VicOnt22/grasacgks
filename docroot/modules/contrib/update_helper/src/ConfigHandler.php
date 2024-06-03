@@ -12,7 +12,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 /**
  * Configuration handler.
  *
- * TODO: Create UpdateDefinition class to handle configuration update entry.
+ * @todo Create UpdateDefinition class to handle configuration update entry.
  *
  * @package Drupal\update_helper
  */

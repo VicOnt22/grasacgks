@@ -1,5 +1,5 @@
-var createToPairs = require('./_createToPairs'),
-    keysIn = require('./keysIn');
+import createToPairs from './_createToPairs.js';
+import keysIn from './keysIn.js';
 
 /**
  * Creates an array of own and inherited enumerable string keyed-value pairs
@@ -27,4 +27,4 @@ var createToPairs = require('./_createToPairs'),
  */
 var toPairsIn = createToPairs(keysIn);
 
-module.exports = toPairsIn;
+export default toPairsIn;

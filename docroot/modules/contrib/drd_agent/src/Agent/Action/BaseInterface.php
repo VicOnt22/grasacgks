@@ -10,11 +10,16 @@ use Drupal\drd_agent\Crypt\BaseMethodInterface;
 interface BaseInterface {
 
   /**
+   * Inits the DRD action.
+   *
    * @param \Drupal\drd_agent\Crypt\BaseMethodInterface $crypt
+   *   The base method.
    * @param array $arguments
+   *   The arguments.
    * @param bool $debugMode
+   *   The debug mode.
    */
-  public function init(BaseMethodInterface $crypt, array $arguments, $debugMode);
+  public function init(BaseMethodInterface $crypt, array $arguments, bool $debugMode): void;
 
   /**
    * Change current session to user 1.
@@ -32,7 +37,7 @@ interface BaseInterface {
    * @return \Drupal\drd_agent\Crypt\BaseMethodInterface|bool
    *   The loaded Crypt instance if available or FALSE otherwise.
    */
-  public function getCryptInstance($uuid);
+  public function getCryptInstance(string $uuid): BaseMethodInterface|bool;
 
   /**
    * Authorize the DRD instance, all validations have passed successfully.
@@ -42,7 +47,7 @@ interface BaseInterface {
    *
    * @return $this
    */
-  public function authorize($remoteSetupToken): self;
+  public function authorize(string $remoteSetupToken): self;
 
   /**
    * Get an array of database connection information.
@@ -71,12 +76,12 @@ interface BaseInterface {
   /**
    * Set the debug mode.
    *
-   * @var bool $debugMode
+   * @param bool $debugMode
    *   TRUE if active, FALSE otherwise.
    *
    * @return $this
    */
-  public function setDebugMode($debugMode): self;
+  public function setDebugMode(bool $debugMode): self;
 
   /**
    * Logging if in debug mode.
@@ -87,12 +92,13 @@ interface BaseInterface {
    *   Parameters for the watchdog report.
    * @param int $severity
    *   Severity of the watchdog report.
-   * @param string $link
+   * @param string|null $link
    *   Optional link associated with the watchdog report.
    *
    * @return $this
+   *   Itself.
    */
-  public function watchdog($message, array $variables = array(), $severity = 5, $link = NULL): self;
+  public function watchdog(string $message, array $variables = [], int $severity = 5, string $link = NULL): self;
 
   /**
    * Validate a one-time-token.
@@ -105,17 +111,24 @@ interface BaseInterface {
    * @return bool
    *   TRUE if token is valid and configuration succeeded, FALSE otherwise.
    */
-  public function ott($ott, $remoteSetupToken): bool;
+  public function ott(string $ott, string $remoteSetupToken): bool;
 
   /**
-   * @param $path
+   * Gets the real path.
+   *
+   * @param string $path
+   *   The path.
    *
    * @return string
+   *   The real path.
    */
-  public function realPath($path): string;
+  public function realPath(string $path): string;
 
   /**
+   * Get messages.
+   *
    * @return array
+   *   The messages.
    */
   public function getMessages(): array;
 
@@ -126,6 +139,6 @@ interface BaseInterface {
    *   The response of the action as an array which will be encrypted before
    *   returned to DRD.
    */
-  public function execute();
+  public function execute(): mixed;
 
 }

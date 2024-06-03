@@ -16,4 +16,4 @@ function trimmedEndIndex(string) {
   return index;
 }
 
-module.exports = trimmedEndIndex;
+export default trimmedEndIndex;

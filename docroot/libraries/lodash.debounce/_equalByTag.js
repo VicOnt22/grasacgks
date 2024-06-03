@@ -1,9 +1,9 @@
-var Symbol = require('./_Symbol'),
-    Uint8Array = require('./_Uint8Array'),
-    eq = require('./eq'),
-    equalArrays = require('./_equalArrays'),
-    mapToArray = require('./_mapToArray'),
-    setToArray = require('./_setToArray');
+import Symbol from './_Symbol.js';
+import Uint8Array from './_Uint8Array.js';
+import eq from './eq.js';
+import equalArrays from './_equalArrays.js';
+import mapToArray from './_mapToArray.js';
+import setToArray from './_setToArray.js';
 
 /** Used to compose bitmasks for value comparisons. */
 var COMPARE_PARTIAL_FLAG = 1,
@@ -109,4 +109,4 @@ function equalByTag(object, other, tag, bitmask, customizer, equalFunc, stack) {
   return false;
 }
 
-module.exports = equalByTag;
+export default equalByTag;

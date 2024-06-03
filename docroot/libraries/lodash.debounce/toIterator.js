@@ -20,4 +20,4 @@ function wrapperToIterator() {
   return this;
 }
 
-module.exports = wrapperToIterator;
+export default wrapperToIterator;

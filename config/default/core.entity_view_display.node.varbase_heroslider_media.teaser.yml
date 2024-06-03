@@ -26,3 +26,4 @@ hidden:
   field_link: true
   field_media_single: true
   langcode: true
+  search_api_excerpt: true

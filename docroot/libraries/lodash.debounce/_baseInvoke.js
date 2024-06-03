@@ -1,8 +1,8 @@
-var apply = require('./_apply'),
-    castPath = require('./_castPath'),
-    last = require('./last'),
-    parent = require('./_parent'),
-    toKey = require('./_toKey');
+import apply from './_apply.js';
+import castPath from './_castPath.js';
+import last from './last.js';
+import parent from './_parent.js';
+import toKey from './_toKey.js';
 
 /**
  * The base implementation of `_.invoke` without support for individual
@@ -21,4 +21,4 @@ function baseInvoke(object, path, args) {
   return func == null ? undefined : apply(func, object, args);
 }
 
-module.exports = baseInvoke;
+export default baseInvoke;

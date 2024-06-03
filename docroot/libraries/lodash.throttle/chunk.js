@@ -1,6 +1,6 @@
-import baseSlice from './_baseSlice.js';
-import isIterateeCall from './_isIterateeCall.js';
-import toInteger from './toInteger.js';
+var baseSlice = require('./_baseSlice'),
+    isIterateeCall = require('./_isIterateeCall'),
+    toInteger = require('./toInteger');
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeCeil = Math.ceil,
@@ -47,4 +47,4 @@ function chunk(array, size, guard) {
   return result;
 }
 
-export default chunk;
+module.exports = chunk;

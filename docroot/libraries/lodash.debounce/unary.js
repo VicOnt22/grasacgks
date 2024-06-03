@@ -1,4 +1,4 @@
-var ary = require('./ary');
+import ary from './ary.js';
 
 /**
  * Creates a function that accepts up to one argument, ignoring any
@@ -19,4 +19,4 @@ function unary(func) {
   return ary(func, 1);
 }
 
-module.exports = unary;
+export default unary;

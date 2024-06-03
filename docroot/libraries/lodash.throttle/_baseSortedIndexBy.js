@@ -1,4 +1,4 @@
-import isSymbol from './isSymbol.js';
+var isSymbol = require('./isSymbol');
 
 /** Used as references for the maximum length and index of an array. */
 var MAX_ARRAY_LENGTH = 4294967295,
@@ -64,4 +64,4 @@ function baseSortedIndexBy(array, value, iteratee, retHighest) {
   return nativeMin(high, MAX_ARRAY_INDEX);
 }
 
-export default baseSortedIndexBy;
+module.exports = baseSortedIndexBy;

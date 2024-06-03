@@ -17,4 +17,4 @@ function last(array) {
   return length ? array[length - 1] : undefined;
 }
 
-module.exports = last;
+export default last;

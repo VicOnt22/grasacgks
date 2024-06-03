@@ -1,6 +1,6 @@
-import baseGetAllKeys from './_baseGetAllKeys.js';
-import getSymbolsIn from './_getSymbolsIn.js';
-import keysIn from './keysIn.js';
+var baseGetAllKeys = require('./_baseGetAllKeys'),
+    getSymbolsIn = require('./_getSymbolsIn'),
+    keysIn = require('./keysIn');
 
 /**
  * Creates an array of own and inherited enumerable property names and
@@ -14,4 +14,4 @@ function getAllKeysIn(object) {
   return baseGetAllKeys(object, keysIn, getSymbolsIn);
 }
 
-export default getAllKeysIn;
+module.exports = getAllKeysIn;

@@ -243,11 +243,15 @@ class IndexStatusForm extends FormBase {
     switch ($form_state->getTriggeringElement()['#name']) {
       case 'index_now':
         $values = $form_state->getValues();
+        if (!\Drupal::lock()->lockMayBeAvailable($index->getLockId())) {
+          $this->messenger->addWarning($this->t('Cannot start indexing because another indexing process (like a cron job or Drush command) is already running.'));
+          break;
+        }
         try {
           IndexBatchHelper::setStringTranslation($this->getStringTranslation());
           IndexBatchHelper::create($index, $values['batch_size'], $values['limit']);
         }
-        catch (SearchApiException $e) {
+        catch (SearchApiException) {
           $this->messenger->addWarning($this->t('Failed to create a batch, please check the batch size and limit.'));
         }
         break;

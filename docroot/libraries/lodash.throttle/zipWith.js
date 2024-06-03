@@ -1,5 +1,5 @@
-import baseRest from './_baseRest.js';
-import unzipWith from './unzipWith.js';
+var baseRest = require('./_baseRest'),
+    unzipWith = require('./unzipWith');
 
 /**
  * This method is like `_.zip` except that it accepts `iteratee` to specify
@@ -29,4 +29,4 @@ var zipWith = baseRest(function(arrays) {
   return unzipWith(arrays, iteratee);
 });
 
-export default zipWith;
+module.exports = zipWith;

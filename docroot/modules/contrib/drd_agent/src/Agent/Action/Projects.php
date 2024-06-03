@@ -2,8 +2,8 @@
 
 namespace Drupal\drd_agent\Agent\Action;
 
-use Drupal;
-use Drupal\hacked\hackedProject;
+use Drupal\Core\Extension\Extension;
+use Drupal\hacked\HackedProject;
 
 /**
  * Provides a 'Projects' code.
@@ -13,7 +13,7 @@ class Projects extends Base {
   /**
    * {@inheritdoc}
    */
-  public function execute() {
+  public function execute(): array {
     $projects = [];
 
     // Core.
@@ -23,20 +23,18 @@ class Projects extends Base {
       'status' => 1,
       'info' => [
         'core' => '8.x',
-        'version' => Drupal::VERSION,
+        'version' => \Drupal::VERSION,
         'project' => 'drupal',
         'hidden' => FALSE,
       ],
     ];
 
     // Modules.
-    /** @noinspection NullPointerExceptionInspection */
     foreach ($this->container->get('extension.list.module')->reset()->getList() as $name => $extension) {
       $this->buildProjectInfo($projects, 'module', $name, $extension);
     }
 
     // Themes.
-    /** @noinspection NullPointerExceptionInspection */
     foreach ($this->container->get('theme_handler')->rebuildThemeData() as $name => $extension) {
       $this->buildProjectInfo($projects, 'theme', $name, $extension);
     }
@@ -61,12 +59,11 @@ class Projects extends Base {
    * @param \Drupal\Core\Extension\Extension $extension
    *   Object with further details about the project.
    */
-  private function buildProjectInfo(array &$projects, $type, $name, $extension) {
-    /** @noinspection PhpUndefinedFieldInspection */
+  private function buildProjectInfo(array &$projects, string $type, string $name, Extension $extension): void {
     $projects[] = [
       'name' => $name,
       'type' => $type,
-      'status' => $extension->status,
+      'status' => $this->moduleHandler->moduleExists($name),
       'info' => $extension->info,
     ];
   }
@@ -77,11 +74,11 @@ class Projects extends Base {
    * @param array $projects
    *   The list of projects.
    */
-  private function checkHacked(array &$projects) {
+  private function checkHacked(array &$projects): void {
     foreach ($projects as &$project) {
-      $hacked = new hackedProject($project['name']);
+      $hacked = new HackedProject($project['name']);
       $project['hacked'] = [
-        'report' => $hacked->compute_report(),
+        'report' => $hacked->computeReport(),
       ];
       $project['hacked']['status'] = ($project['hacked']['report']['status'] === HACKED_STATUS_HACKED);
     }

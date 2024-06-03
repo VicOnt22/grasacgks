@@ -11,4 +11,4 @@ function stackGet(key) {
   return this.__data__.get(key);
 }
 
-export default stackGet;
+module.exports = stackGet;

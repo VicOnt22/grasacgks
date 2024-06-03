@@ -1,4 +1,4 @@
-import baseSlice from './_baseSlice.js';
+var baseSlice = require('./_baseSlice');
 
 /**
  * Casts `array` to a slice if it's needed.
@@ -15,4 +15,4 @@ function castSlice(array, start, end) {
   return (!start && end >= length) ? array : baseSlice(array, start, end);
 }
 
-export default castSlice;
+module.exports = castSlice;

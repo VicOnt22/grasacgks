@@ -15,4 +15,4 @@ function mapToArray(map) {
   return result;
 }
 
-module.exports = mapToArray;
+export default mapToArray;

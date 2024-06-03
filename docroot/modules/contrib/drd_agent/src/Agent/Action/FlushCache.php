@@ -10,7 +10,7 @@ class FlushCache extends Base {
   /**
    * {@inheritdoc}
    */
-  public function execute() {
+  public function execute(): array {
     drupal_flush_all_caches();
     return [
       'data' => 'cache flushed',

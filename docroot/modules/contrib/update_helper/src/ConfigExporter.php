@@ -8,8 +8,7 @@ use Drupal\Core\Config\StorageInterface;
 /**
  * Configuration exporter service.
  *
- * TODO:
- *  - Add support for create new.
+ * @todo Add support for create new.
  *
  * @package Drupal\update_helper
  */
@@ -55,7 +54,7 @@ class ConfigExporter {
   /**
    * Export configuration.
    *
-   * TODO: It would be good to log that file has been changed!!!
+   * @todo It would be good to log that file has been changed!!!
    *
    * @param \Drupal\update_helper\ConfigName $config_name
    *   Config name.

@@ -1,9 +1,9 @@
-var baseTimes = require('./_baseTimes'),
-    isArguments = require('./isArguments'),
-    isArray = require('./isArray'),
-    isBuffer = require('./isBuffer'),
-    isIndex = require('./_isIndex'),
-    isTypedArray = require('./isTypedArray');
+import baseTimes from './_baseTimes.js';
+import isArguments from './isArguments.js';
+import isArray from './isArray.js';
+import isBuffer from './isBuffer.js';
+import isIndex from './_isIndex.js';
+import isTypedArray from './isTypedArray.js';
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -46,4 +46,4 @@ function arrayLikeKeys(value, inherited) {
   return result;
 }
 
-module.exports = arrayLikeKeys;
+export default arrayLikeKeys;

@@ -3,8 +3,10 @@
 namespace Drupal\drd_agent\Plugin\DrdPiAuth;
 
 use Drupal\Component\Plugin\PluginBase;
-use RuntimeException;
 
+/**
+ * The base class for DRDPi autentication.
+ */
 abstract class DrdPiAuthBase extends PluginBase implements DrdPiAuthInterface {
 
   /**
@@ -26,15 +28,15 @@ abstract class DrdPiAuthBase extends PluginBase implements DrdPiAuthInterface {
   /**
    * {@inheritdoc}
    */
-  public function validate($input): void {
+  public function validate(array $input): void {
     $local = $this->getLocal();
     $required = $this->getRequired();
     foreach ($required as $item) {
       if (!isset($local[$item])) {
-        throw new RuntimeException('Unsupported method.');
+        throw new \RuntimeException('Unsupported method.');
       }
       if ($local[$item] !== $input['secrets'][$item]) {
-        throw new RuntimeException('Invalid secret.');
+        throw new \RuntimeException('Invalid secret.');
       }
     }
   }

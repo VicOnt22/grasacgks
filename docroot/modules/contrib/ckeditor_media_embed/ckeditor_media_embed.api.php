@@ -18,7 +18,7 @@ use Drupal\Component\Utility\Html;
  * @param object $embed
  *   The embed json decoded object as provided by Embed::getEmbedObject().
  */
-function ckeditor_media_embed_ckeditor_media_embed_object_alter(&$embed) {
+function hook_ckeditor_media_embed_object_alter(&$embed) {
   $title_exists = (
     !empty($embed->title)
     && $title = Html::escape($embed->title)

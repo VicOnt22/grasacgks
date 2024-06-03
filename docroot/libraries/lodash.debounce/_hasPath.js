@@ -1,9 +1,9 @@
-var castPath = require('./_castPath'),
-    isArguments = require('./isArguments'),
-    isArray = require('./isArray'),
-    isIndex = require('./_isIndex'),
-    isLength = require('./isLength'),
-    toKey = require('./_toKey');
+import castPath from './_castPath.js';
+import isArguments from './isArguments.js';
+import isArray from './isArray.js';
+import isIndex from './_isIndex.js';
+import isLength from './isLength.js';
+import toKey from './_toKey.js';
 
 /**
  * Checks if `path` exists on `object`.
@@ -36,4 +36,4 @@ function hasPath(object, path, hasFunc) {
     (isArray(object) || isArguments(object));
 }
 
-module.exports = hasPath;
+export default hasPath;

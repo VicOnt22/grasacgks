@@ -1,4 +1,4 @@
-var root = require('./_root');
+import root from './_root.js';
 
 /** Detect free variable `exports`. */
 var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
@@ -32,4 +32,4 @@ function cloneBuffer(buffer, isDeep) {
   return result;
 }
 
-module.exports = cloneBuffer;
+export default cloneBuffer;

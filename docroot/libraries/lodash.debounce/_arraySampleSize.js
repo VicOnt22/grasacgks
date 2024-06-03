@@ -1,6 +1,6 @@
-var baseClamp = require('./_baseClamp'),
-    copyArray = require('./_copyArray'),
-    shuffleSelf = require('./_shuffleSelf');
+import baseClamp from './_baseClamp.js';
+import copyArray from './_copyArray.js';
+import shuffleSelf from './_shuffleSelf.js';
 
 /**
  * A specialized version of `_.sampleSize` for arrays.
@@ -14,4 +14,4 @@ function arraySampleSize(array, n) {
   return shuffleSelf(copyArray(array), baseClamp(n, 0, array.length));
 }
 
-module.exports = arraySampleSize;
+export default arraySampleSize;

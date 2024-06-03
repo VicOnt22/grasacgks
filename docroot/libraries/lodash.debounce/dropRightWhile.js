@@ -1,5 +1,5 @@
-var baseIteratee = require('./_baseIteratee'),
-    baseWhile = require('./_baseWhile');
+import baseIteratee from './_baseIteratee.js';
+import baseWhile from './_baseWhile.js';
 
 /**
  * Creates a slice of `array` excluding elements dropped from the end.
@@ -42,4 +42,4 @@ function dropRightWhile(array, predicate) {
     : [];
 }
 
-module.exports = dropRightWhile;
+export default dropRightWhile;

@@ -45,6 +45,22 @@ js remove field_gks_refrence_number from edit form under claro admin theme
 Source: patches/claro-gks.patch
 
 
+issues 3056633 Drupal Component Plugin Exception 
+Source: https://www.drupal.org/files/issues/2022-04-05/3056633-147.patch
+
+
+post_update drush updb fails
+Source: patches/views_post_update_d10.patch
+
+
+Issue #3426062: Add the local patch from Drupal Distributions Recipes patch for Drupal core in Varbase Core to have Recipes functionality
+Source: https://raw.githubusercontent.com/vardot/varbase-patches/patches/drupal-core--distributions_recipes--2024-03-06--4683c884--recipe-10.2.x.patch
+
+
+Issue #3431330: Add Action Method to Add a button plugin and settings into the Active toolbar in editor
+Source: https://www.drupal.org/files/issues/2024-03-18/distributions_recipes--3431330-2.patch
+
+
 Issue #2869592: Disabled update module shouldn't produce a status report warning
 Source: https://www.drupal.org/files/issues/2869592-remove-update-warning-7.patch
 
@@ -73,19 +89,35 @@ Issue #3226791: Fix Validation error saving untranslatable Media reference field
 Source: https://www.drupal.org/files/issues/2021-08-04/media_required_validation-3226791-2.patch
 
 
-Issue #3059955: It is possible to overflow the number of items allowed in Media Library
-Source: https://www.drupal.org/files/issues/2020-11-16/3059955-107.patch
-
-
-Issue #3272720: Fix PHP8.1 Deprecated function: hash(): Passing null to parameter #2 ($data) of type string is deprecated in generateFieldTableName
+Issue #3272720: Fix PHP8.1+ Deprecated function: hash(): Passing null to parameter #2 ($data) of type string is deprecated in generateFieldTableName
 Source: https://www.drupal.org/files/issues/2022-07-21/3272720-6.patch
 
 
+Issue #3326684: Fix PHP8.1+ Deprecated function: mb_strtolower(): Passing null to parameter #1 ($string) of type string is deprecated
+Source: https://www.drupal.org/files/issues/2023-11-21/3199.patch
+
+
+Issue #3302838: Fix PHP8.1+ Querying with NULL values results in warning mb_strtolower(): Passing null to parameter is deprecated
+Source: https://www.drupal.org/files/issues/2023-07-05/3302838-38.patch
+
+
+Issue #3049332: Fix PHP message: Error: Call to a member function getEntityTypeId() on null (Layout Builder)
+Source: https://www.drupal.org/files/issues/2024-01-09/drupal-core--2024-01-09--3049332-85.patch
+
+
 Issue #3046152: Video media needs playsinline & muted options
-Source: https://www.drupal.org/files/issues/2022-04-11/3046152-28.patch
+Source: https://www.drupal.org/files/issues/2023-12-16/drupal-core--10-2-x--3046152-49.patch
+
+
+Issue #3080606: Reorder Layout Builder sections
+Source: https://www.drupal.org/files/issues/2023-05-30/3080606-100.patch
 
 
 Issue #3272629: Media Library widget display doesn't return to first page on applying filters
 Source: https://www.drupal.org/files/issues/2022-03-30/media_library_pager_fix.patch
+
+
+Issue #3413079: Cannot read properties of null (reading 'nodeType') on node.page.body
+Source: https://www.drupal.org/files/issues/2024-01-08/3413079-9.patch
 
 

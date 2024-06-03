@@ -17,4 +17,4 @@ function matchesStrictComparable(key, srcValue) {
   };
 }
 
-module.exports = matchesStrictComparable;
+export default matchesStrictComparable;

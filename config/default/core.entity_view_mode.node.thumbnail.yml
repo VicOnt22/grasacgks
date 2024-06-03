@@ -6,5 +6,6 @@ dependencies:
     - node
 id: node.thumbnail
 label: thumbnail
+description: ''
 targetEntityType: node
 cache: true

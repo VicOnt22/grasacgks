@@ -1,6 +1,6 @@
-var baseForRight = require('./_baseForRight'),
-    castFunction = require('./_castFunction'),
-    keysIn = require('./keysIn');
+import baseForRight from './_baseForRight.js';
+import castFunction from './_castFunction.js';
+import keysIn from './keysIn.js';
 
 /**
  * This method is like `_.forIn` except that it iterates over properties of
@@ -34,4 +34,4 @@ function forInRight(object, iteratee) {
     : baseForRight(object, castFunction(iteratee), keysIn);
 }
 
-module.exports = forInRight;
+export default forInRight;

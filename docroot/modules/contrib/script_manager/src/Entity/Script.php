@@ -2,6 +2,7 @@
 
 namespace Drupal\script_manager\Entity;
 
+use Drupal\Core\Condition\ConditionManager;
 use Drupal\Core\Condition\ConditionPluginCollection;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\EntityWithPluginCollectionInterface;
@@ -86,15 +87,15 @@ class Script extends ConfigEntityBase implements ScriptInterface, EntityWithPlug
   /**
    * {@inheritdoc}
    */
-  public function getSnippet() {
-    return $this->snippet;
+  public function getSnippet(): string {
+    return $this->snippet ?? '';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getPosition() {
-    return $this->position;
+  public function getPosition(): string {
+    return $this->position ?? '';
   }
 
   /**
@@ -109,11 +110,21 @@ class Script extends ConfigEntityBase implements ScriptInterface, EntityWithPlug
   /**
    * {@inheritdoc}
    */
-  public function getVisibilityConditions() {
+  public function getVisibilityConditions(): ConditionPluginCollection {
     if (!isset($this->visibilityCollection)) {
-      $this->visibilityCollection = new ConditionPluginCollection(\Drupal::service('plugin.manager.condition'), $this->get('visibility'));
+      $this->visibilityCollection = new ConditionPluginCollection($this::getConditionPluginManager(), $this->get('visibility'));
     }
     return $this->visibilityCollection;
+  }
+
+  /**
+   * Get the condition manager.
+   *
+   * @return \Drupal\Core\Condition\ConditionManager
+   *   The condition manager.
+   */
+  private static function getConditionPluginManager(): ConditionManager {
+    return \Drupal::service('plugin.manager.condition');
   }
 
 }

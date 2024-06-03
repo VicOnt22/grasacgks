@@ -1,9 +1,9 @@
-var baseDifference = require('./_baseDifference'),
-    baseFlatten = require('./_baseFlatten'),
-    baseIteratee = require('./_baseIteratee'),
-    baseRest = require('./_baseRest'),
-    isArrayLikeObject = require('./isArrayLikeObject'),
-    last = require('./last');
+import baseDifference from './_baseDifference.js';
+import baseFlatten from './_baseFlatten.js';
+import baseIteratee from './_baseIteratee.js';
+import baseRest from './_baseRest.js';
+import isArrayLikeObject from './isArrayLikeObject.js';
+import last from './last.js';
 
 /**
  * This method is like `_.difference` except that it accepts `iteratee` which
@@ -41,4 +41,4 @@ var differenceBy = baseRest(function(array, values) {
     : [];
 });
 
-module.exports = differenceBy;
+export default differenceBy;

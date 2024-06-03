@@ -131,7 +131,7 @@ class BehaviorSettings extends ConfigEntityBase implements BehaviorSettingsInter
    * {@inheritdoc}
    */
   public function getNoBypass(): bool {
-    return $this->no_bypass;
+    return $this->no_bypass ? TRUE : FALSE;
   }
 
   /**
@@ -146,7 +146,7 @@ class BehaviorSettings extends ConfigEntityBase implements BehaviorSettingsInter
    * {@inheritdoc}
    */
   public function getBypassMessage(): bool {
-    return $this->bypass_message;
+    return $this->bypass_message ? true : false;
   }
 
   /**

@@ -8,5 +8,6 @@ _core:
   default_config_hash: DUxssKxCP0sUBbjyxfT8WAJzlb5AQzoELPcPTzS0yNk
 id: node.vertical_media_teaser_small
 label: 'Vertical media teaser - small'
+description: ''
 targetEntityType: node
 cache: true

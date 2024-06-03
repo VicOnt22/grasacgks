@@ -10,7 +10,7 @@ class DomainsEnableAll extends Base {
   /**
    * {@inheritdoc}
    */
-  public function execute() {
+  public function execute(): array {
     $args = $this->getArguments();
     $result = [];
 

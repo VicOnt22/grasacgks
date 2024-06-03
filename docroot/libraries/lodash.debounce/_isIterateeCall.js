@@ -1,7 +1,7 @@
-var eq = require('./eq'),
-    isArrayLike = require('./isArrayLike'),
-    isIndex = require('./_isIndex'),
-    isObject = require('./isObject');
+import eq from './eq.js';
+import isArrayLike from './isArrayLike.js';
+import isIndex from './_isIndex.js';
+import isObject from './isObject.js';
 
 /**
  * Checks if the given arguments are from an iteratee call.
@@ -27,4 +27,4 @@ function isIterateeCall(value, index, object) {
   return false;
 }
 
-module.exports = isIterateeCall;
+export default isIterateeCall;

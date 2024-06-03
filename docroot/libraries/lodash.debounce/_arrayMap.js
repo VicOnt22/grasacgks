@@ -18,4 +18,4 @@ function arrayMap(array, iteratee) {
   return result;
 }
 
-module.exports = arrayMap;
+export default arrayMap;

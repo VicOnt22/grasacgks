@@ -30,4 +30,4 @@ function getView(start, end, transforms) {
   return { 'start': start, 'end': end };
 }
 
-export default getView;
+module.exports = getView;

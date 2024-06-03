@@ -1,5 +1,5 @@
-import toString from './toString.js';
-import upperFirst from './upperFirst.js';
+var toString = require('./toString'),
+    upperFirst = require('./upperFirst');
 
 /**
  * Converts the first character of `string` to upper case and the remaining
@@ -20,4 +20,4 @@ function capitalize(string) {
   return upperFirst(toString(string).toLowerCase());
 }
 
-export default capitalize;
+module.exports = capitalize;

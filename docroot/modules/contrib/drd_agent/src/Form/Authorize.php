@@ -11,17 +11,20 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Authorize a new dashboard for this drd-agent.
  */
-class Authorize extends FormBase {
+final class Authorize extends FormBase {
 
   /**
+   * The setup service.
+   *
    * @var \Drupal\drd_agent\Setup
    */
-  protected $setupService;
+  protected Setup $setupService;
 
   /**
    * Authorize constructor.
    *
    * @param \Drupal\drd_agent\Setup $setup_service
+   *   The setup service.
    */
   public function __construct(Setup $setup_service) {
     $this->setupService = $setup_service;
@@ -30,7 +33,7 @@ class Authorize extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): Authorize {
     return new static(
       $container->get('drd_agent.setup')
     );
@@ -86,9 +89,9 @@ class Authorize extends FormBase {
       ];
       $form['domain'] = [
         '#markup' => $domain,
-      '#prefix' => '<div class="domain">',
-      '#suffix' => '</div>',
-    ];
+        '#prefix' => '<div class="domain">',
+        '#suffix' => '</div>',
+      ];
       $form['cancel'] = [
         '#type' => 'submit',
         '#value' => t('Cancel'),
@@ -125,7 +128,7 @@ class Authorize extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
     if (empty($_SESSION['drd_agent_authorization_values'])) {
       $_SESSION['drd_agent_authorization_values'] = $form_state->getValue('token');
     }

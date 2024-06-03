@@ -1,5 +1,5 @@
-var baseAssignValue = require('./_baseAssignValue'),
-    createAggregator = require('./_createAggregator');
+import baseAssignValue from './_baseAssignValue.js';
+import createAggregator from './_createAggregator.js';
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -37,4 +37,4 @@ var countBy = createAggregator(function(result, value, key) {
   }
 });
 
-module.exports = countBy;
+export default countBy;

@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Drupal\script_manager\Entity;
 
+use Drupal\Core\Condition\ConditionPluginCollection;
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 
 /**
@@ -30,7 +33,7 @@ interface ScriptInterface extends ConfigEntityInterface {
    * @return string
    *   The snippet.
    */
-  public function getSnippet();
+  public function getSnippet(): string;
 
   /**
    * Get the position of the snippet.
@@ -38,7 +41,7 @@ interface ScriptInterface extends ConfigEntityInterface {
    * @return string
    *   The position of the script.
    */
-  public function getPosition();
+  public function getPosition(): string;
 
   /**
    * Get the visibility conditions.
@@ -46,6 +49,6 @@ interface ScriptInterface extends ConfigEntityInterface {
    * @return \Drupal\Core\Condition\ConditionPluginCollection
    *   An array of plugin instances.
    */
-  public function getVisibilityConditions();
+  public function getVisibilityConditions(): ConditionPluginCollection;
 
 }

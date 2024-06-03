@@ -514,7 +514,7 @@ class Index extends ConfigEntityBase implements IndexInterface {
    */
   public function setServer(ServerInterface $server = NULL) {
     $this->serverInstance = $server;
-    $this->server = $server ? $server->id() : NULL;
+    $this->server = $server?->id();
     return $this;
   }
 
@@ -746,6 +746,7 @@ class Index extends ConfigEntityBase implements IndexInterface {
    */
   public function setFields(array $fields) {
     $this->fieldInstances = $fields;
+    return $this;
   }
 
   /**
@@ -866,7 +867,7 @@ class Index extends ConfigEntityBase implements IndexInterface {
     // determine whether all items were loaded successfully.
     $items_by_datasource = [];
     foreach ($item_ids as $item_id) {
-      list($datasource_id, $raw_id) = Utility::splitCombinedId($item_id);
+      [$datasource_id, $raw_id] = Utility::splitCombinedId($item_id);
       $items_by_datasource[$datasource_id][$raw_id] = $item_id;
     }
 
@@ -917,21 +918,31 @@ class Index extends ConfigEntityBase implements IndexInterface {
    */
   public function indexItems($limit = '-1', $datasource_id = NULL) {
     if ($this->hasValidTracker() && !$this->isReadOnly()) {
-      $tracker = $this->getTrackerInstance();
-      $next_set = $tracker->getRemainingItems($limit, $datasource_id);
-      if (!$next_set) {
-        return 0;
-      }
-      $items = $this->loadItemsMultiple($next_set);
-      if (!$items) {
+      if (!\Drupal::lock()->acquire($this->getLockId(), 60)) {
         return 0;
       }
       try {
-        return count($this->indexSpecificItems($items));
+        $tracker = $this->getTrackerInstance();
+        $next_set = $tracker->getRemainingItems($limit, $datasource_id);
+        if (!$next_set) {
+          return 0;
+        }
+        $items = $this->loadItemsMultiple($next_set);
+        if (!$items) {
+          return 0;
+        }
+        try {
+          return count($this->indexSpecificItems($items));
+        }
+        catch (SearchApiException $e) {
+          $variables['%index'] = $this->label();
+          $this->logException($e,
+            '%type while trying to index items on index %index: @message in %function (line %line of %file)',
+            $variables);
+        }
       }
-      catch (SearchApiException $e) {
-        $variables['%index'] = $this->label();
-        $this->logException($e, '%type while trying to index items on index %index: @message in %function (line %line of %file)', $variables);
+      finally {
+        \Drupal::lock()->release($this->getLockId());
       }
     }
     return 0;
@@ -984,46 +995,47 @@ class Index extends ConfigEntityBase implements IndexInterface {
       unset($rejected_ids[$item_id]);
     }
 
-    // Items that are rejected should also be deleted from the server.
-    if ($rejected_ids) {
-      $this->getServerInstance()->deleteItems($this, $rejected_ids);
-    }
-
-    $indexed_ids = [];
-    if ($items) {
-      $indexed_ids = $this->getServerInstance()->indexItems($this, $items);
-    }
-
-    // Return the IDs of all items that were either successfully indexed or
-    // rejected before being handed to the server.
-    $processed_ids = array_merge(array_values($rejected_ids), array_values($indexed_ids));
-
-    if ($processed_ids) {
-      if ($this->hasValidTracker()) {
-        $this->getTrackerInstance()->trackItemsIndexed($processed_ids);
+    try {
+      // Items that are rejected should also be deleted from the server.
+      if ($rejected_ids) {
+        $this->getServerInstance()->deleteItems($this, $rejected_ids);
       }
-      // Since we've indexed items now, triggering reindexing would have some
-      // effect again. Therefore, we reset the flag.
-      $this->setHasReindexed(FALSE);
 
-      $description = 'This hook is deprecated in search_api:8.x-1.14 and is removed from search_api:2.0.0. Please use the "search_api.items_indexed" event instead. See https://www.drupal.org/node/3059866';
-      \Drupal::moduleHandler()->invokeAllDeprecated($description, 'search_api_items_indexed', [$this, $processed_ids]);
+      $indexed_ids = [];
+      if ($items) {
+        $indexed_ids = $this->getServerInstance()->indexItems($this, $items);
+      }
 
-      $dispatcher = \Drupal::getContainer()->get('event_dispatcher');
-      $dispatcher->dispatch(new ItemsIndexedEvent($this, $processed_ids), SearchApiEvents::ITEMS_INDEXED);
+      // Return the IDs of all items that were either successfully indexed or
+      // rejected before being handed to the server.
+      $processed_ids = array_merge(array_values($rejected_ids), array_values($indexed_ids));
 
-      // Clear search api list caches.
-      Cache::invalidateTags(['search_api_list:' . $this->id]);
+      if ($processed_ids) {
+        if ($this->hasValidTracker()) {
+          $this->getTrackerInstance()->trackItemsIndexed($processed_ids);
+        }
+        // Since we've indexed items now, triggering reindexing would have some
+        // effect again. Therefore, we reset the flag.
+        $this->setHasReindexed(FALSE);
+
+        $description = 'This hook is deprecated in search_api:8.x-1.14 and is removed from search_api:2.0.0. Please use the "search_api.items_indexed" event instead. See https://www.drupal.org/node/3059866';
+        \Drupal::moduleHandler()
+          ->invokeAllDeprecated($description, 'search_api_items_indexed', [$this, $processed_ids]);
+
+        $dispatcher = \Drupal::getContainer()->get('event_dispatcher');
+        $dispatcher->dispatch(new ItemsIndexedEvent($this, $processed_ids), SearchApiEvents::ITEMS_INDEXED);
+      }
+
+      return $processed_ids;
     }
+    finally {
+      // Clear Search API list caches.
+      Cache::invalidateTags(['search_api_list:' . $this->id]);
 
-    // When indexing via Drush, multiple iterations of a batch will happen in
-    // the same PHP process, so the static cache will quickly fill up. To
-    // prevent this, clear it after each batch of items gets indexed.
-    if (function_exists('drush_backend_batch_process') && batch_get()) {
+      // Clear the static entity cache, to avoid running out of memory when
+      // indexing lots of items in one process (especially via Drush).
       \Drupal::getContainer()->get('entity.memory_cache')->deleteAll();
     }
-
-    return $processed_ids;
   }
 
   /**
@@ -1205,6 +1217,13 @@ class Index extends ConfigEntityBase implements IndexInterface {
       \Drupal::state()->set($key, $has_reindexed);
     }
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLockId(): string {
+    return "search_api:index:{$this->id}";
   }
 
   /**
@@ -1609,7 +1628,7 @@ class Index extends ConfigEntityBase implements IndexInterface {
       try {
         $temp_store->delete($entity->id());
       }
-      catch (TempStoreException $e) {
+      catch (TempStoreException) {
         // Can't really be helped, I guess. But is also very unlikely to happen.
         // Ignore it.
       }

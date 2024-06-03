@@ -1,4 +1,4 @@
-import baseProperty from './_baseProperty.js';
+var baseProperty = require('./_baseProperty');
 
 /**
  * Gets the size of an ASCII `string`.
@@ -9,4 +9,4 @@ import baseProperty from './_baseProperty.js';
  */
 var asciiSize = baseProperty('length');
 
-export default asciiSize;
+module.exports = asciiSize;

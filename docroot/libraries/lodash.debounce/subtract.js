@@ -1,4 +1,4 @@
-var createMathOperation = require('./_createMathOperation');
+import createMathOperation from './_createMathOperation.js';
 
 /**
  * Subtract two numbers.
@@ -19,4 +19,4 @@ var subtract = createMathOperation(function(minuend, subtrahend) {
   return minuend - subtrahend;
 }, 0);
 
-module.exports = subtract;
+export default subtract;

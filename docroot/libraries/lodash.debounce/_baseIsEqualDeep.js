@@ -1,11 +1,11 @@
-var Stack = require('./_Stack'),
-    equalArrays = require('./_equalArrays'),
-    equalByTag = require('./_equalByTag'),
-    equalObjects = require('./_equalObjects'),
-    getTag = require('./_getTag'),
-    isArray = require('./isArray'),
-    isBuffer = require('./isBuffer'),
-    isTypedArray = require('./isTypedArray');
+import Stack from './_Stack.js';
+import equalArrays from './_equalArrays.js';
+import equalByTag from './_equalByTag.js';
+import equalObjects from './_equalObjects.js';
+import getTag from './_getTag.js';
+import isArray from './isArray.js';
+import isBuffer from './isBuffer.js';
+import isTypedArray from './isTypedArray.js';
 
 /** Used to compose bitmasks for value comparisons. */
 var COMPARE_PARTIAL_FLAG = 1;
@@ -80,4 +80,4 @@ function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
   return equalObjects(object, other, bitmask, customizer, equalFunc, stack);
 }
 
-module.exports = baseIsEqualDeep;
+export default baseIsEqualDeep;

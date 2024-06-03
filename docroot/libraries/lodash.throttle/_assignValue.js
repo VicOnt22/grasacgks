@@ -1,5 +1,5 @@
-import baseAssignValue from './_baseAssignValue.js';
-import eq from './eq.js';
+var baseAssignValue = require('./_baseAssignValue'),
+    eq = require('./eq');
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -25,4 +25,4 @@ function assignValue(object, key, value) {
   }
 }
 
-export default assignValue;
+module.exports = assignValue;

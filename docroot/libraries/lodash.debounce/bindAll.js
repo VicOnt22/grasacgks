@@ -1,8 +1,8 @@
-var arrayEach = require('./_arrayEach'),
-    baseAssignValue = require('./_baseAssignValue'),
-    bind = require('./bind'),
-    flatRest = require('./_flatRest'),
-    toKey = require('./_toKey');
+import arrayEach from './_arrayEach.js';
+import baseAssignValue from './_baseAssignValue.js';
+import bind from './bind.js';
+import flatRest from './_flatRest.js';
+import toKey from './_toKey.js';
 
 /**
  * Binds methods of an object to the object itself, overwriting the existing
@@ -38,4 +38,4 @@ var bindAll = flatRest(function(object, methodNames) {
   return object;
 });
 
-module.exports = bindAll;
+export default bindAll;

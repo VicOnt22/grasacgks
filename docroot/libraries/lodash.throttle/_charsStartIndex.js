@@ -1,4 +1,4 @@
-import baseIndexOf from './_baseIndexOf.js';
+var baseIndexOf = require('./_baseIndexOf');
 
 /**
  * Used by `_.trim` and `_.trimStart` to get the index of the first string symbol
@@ -17,4 +17,4 @@ function charsStartIndex(strSymbols, chrSymbols) {
   return index;
 }
 
-export default charsStartIndex;
+module.exports = charsStartIndex;

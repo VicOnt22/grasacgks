@@ -1,4 +1,4 @@
-var before = require('./before');
+import before from './before.js';
 
 /**
  * Creates a function that is restricted to invoking `func` once. Repeat calls
@@ -22,4 +22,4 @@ function once(func) {
   return before(2, func);
 }
 
-module.exports = once;
+export default once;

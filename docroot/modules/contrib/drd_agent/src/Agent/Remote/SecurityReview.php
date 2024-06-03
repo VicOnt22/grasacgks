@@ -2,9 +2,8 @@
 
 namespace Drupal\drd_agent\Agent\Remote;
 
-
-use Drupal\security_review\Controller\ChecklistController;
 use Drupal\Core\Session\UserSession;
+use Drupal\security_review\Controller\ChecklistController;
 
 /**
  * Implements the SecurityReview class.
@@ -27,9 +26,17 @@ class SecurityReview extends Base {
         $switcher = $this->container->get('account_switcher');
         $switcher->switchTo(new UserSession(['uid' => 1]));
 
-        /** @var \Drupal\security_review\Checklist $checklist */
-        $checklist = $this->container->get('security_review.checklist');
-        $checklist->runChecklist();
+        if ($this->container->has('security_review.checklist')) {
+          // Do not declare the old class since it isn't available in 3.0.
+          $checklist = $this->container->get('security_review.checklist');
+          $checklist->runChecklist();
+        }
+        else {
+          /** @var \Drupal\security_review\SecurityCheckPluginManager $pluginManager */
+          $pluginManager = $this->container->get('plugin.manager.security_review.security_check');
+          $security_review->runChecks($pluginManager->getChecks());
+          $security_review->setLastRun(time());
+        }
 
         $switcher->switchBack();
       }

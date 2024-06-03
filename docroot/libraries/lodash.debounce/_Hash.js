@@ -1,8 +1,8 @@
-var hashClear = require('./_hashClear'),
-    hashDelete = require('./_hashDelete'),
-    hashGet = require('./_hashGet'),
-    hashHas = require('./_hashHas'),
-    hashSet = require('./_hashSet');
+import hashClear from './_hashClear.js';
+import hashDelete from './_hashDelete.js';
+import hashGet from './_hashGet.js';
+import hashHas from './_hashHas.js';
+import hashSet from './_hashSet.js';
 
 /**
  * Creates a hash object.
@@ -29,4 +29,4 @@ Hash.prototype.get = hashGet;
 Hash.prototype.has = hashHas;
 Hash.prototype.set = hashSet;
 
-module.exports = Hash;
+export default Hash;

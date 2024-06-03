@@ -1,17 +1,19 @@
 {
     "name": "vardot/varbase-project",
-    "version": "1.0.0+no-version-set",
-    "version_normalized": "1.0.0.0",
+    "version": "9.1.3",
+    "version_normalized": "9.1.3.0",
     "require": {
         "bower-asset/jquery-ui-slider-pips": "^1.11",
         "composer/installers": "~2.0",
-        "cweagans/composer-patches": "~1.0",
+        "cweagans/composer-patches": "~1",
         "drupal/address": "^1.11",
         "drupal/backup_migrate": "^5.0",
         "drupal/conditional_fields": "^4.0@alpha",
         "drupal/config_filter": "^2.4",
-        "drupal/context": "^4.1",
-        "drupal/core-composer-scaffold": "^9",
+        "drupal/context": "^5.0@RC",
+        "drupal/core": "^10",
+        "drupal/core-composer-scaffold": "~10",
+        "drupal/display_field_copy": "^2.0",
         "drupal/duration_field": "^2.1",
         "drupal/easy_breadcrumb": "^2.0",
         "drupal/facets": "^3.0@beta",
@@ -20,46 +22,48 @@
         "drupal/file_delete": "^2.0",
         "drupal/geocoder": "^4.4",
         "drupal/geofield_map": "^3.0",
-        "drupal/geolocation": "^3.12",
+        "drupal/geolocation": "^3.13",
         "drupal/glossify": "^3.0",
-        "drupal/image_field_to_media": "1.x-dev@dev",
-        "drupal/image_media_migrate": "^1.0",
         "drupal/lang_dropdown": "^2.0",
         "drupal/migrate_skip_on_404": "^1.1",
         "drupal/node_revision_delete": "^1.0@RC",
         "drupal/og": "^1.0@alpha",
         "drupal/physical": "^1.1",
+        "drupal/rabbit_hole": "^2.0@alpha",
+        "drupal/scroll_top_button": "^2.0",
         "drupal/search_api_tracking": "^1.0",
         "drupal/slick": "^2.7",
         "drupal/smart_trim": "^2.0",
+        "drupal/views_bulk_operations": "4.2.3",
+        "drupal/views_display_switch": "^1.1",
         "drupal/zooming": "^1.1",
+        "enshrined/svg-sanitize": "^0.16.0",
         "geocoder-php/bing-maps-provider": "^4.3",
         "geocoder-php/cache-provider": "^4.4",
         "geocoder-php/geo-plugin-provider": "^4.3",
         "geocoder-php/google-maps-provider": "^4.7",
         "geocodio/geocodio-library-php": "^1.5",
+        "npm-asset/dompurify": "^3.0",
         "oomphinc/composer-installers-extender": "~2.0",
         "querypath/querypath": "^3.0",
         "sibyx/phpgpx": "^1.2",
-        "vardot/varbase": "~9.0",
+        "vardot/varbase": "~9.1.0",
+        "vardot/varbase-patches": "~9.2.0",
         "vardot/varbase-updater": "~2.0",
-        "webflo/drupal-finder": "~1.0",
-        "drupal/scroll_top_button": "^2.0",
-        "drupal/views_display_switch": "^1.1",
-        "drupal/display_field_copy": "^2.0",
-        "drupal/views_bulk_operations": "4.2.3",
-        "npm-asset/dompurify": "^3.0",
-        "enshrined/svg-sanitize": "^0.16.0",
-        "drupal/rabbit_hole": "^2.0@alpha",
-        "drupal/devel_entity_updates": "^4.1"
+        "webflo/drupal-finder": "~1",
+        "drupal/ckeditor_media_embed": "^2.0"
     },
     "conflict": {
         "drupal/drupal": "*"
     },
     "require-dev": {
-        "drupal/core-dev": "~9.0",
-        "drush/drush": "~11.0",
-        "kint-php/kint": "^4.1"
+        "drupal/core-dev": "~10",
+        "drush/drush": "^12.5",
+        "kint-php/kint": "^4.1",
+        "mglaman/phpstan-drupal": "~1.1.0",
+        "phpstan/extension-installer": "~1.3.0",
+        "phpstan/phpstan": "~1.10.0",
+        "phpstan/phpstan-deprecation-rules": "~1.1.0"
     },
     "type": "project",
     "extra": {
@@ -104,6 +108,9 @@
             "docroot/themes/contrib/{$name}": [
                 "type:drupal-theme"
             ],
+            "docroot/recipes/contrib/{$name}": [
+                "type:drupal-recipe"
+            ],
             "docroot/libraries/slick": [
                 "npm-asset/slick-carousel"
             ],
@@ -122,6 +129,9 @@
             "docroot/libraries/ckeditor5-anchor-drupal": [
                 "npm-asset/northernco--ckeditor5-anchor-drupal"
             ],
+            "docroot/libraries/ckeditor5/plugins/media-embed": [
+                "npm-asset/ckeditor--ckeditor5-media-embed"
+            ],
             "docroot/libraries/{$name}": [
                 "type:drupal-library",
                 "type:bower-asset",
@@ -138,6 +148,7 @@
             ]
         },
         "installer-types": [
+            "drupal-recipe",
             "bower-asset",
             "npm-asset"
         ],
@@ -195,6 +206,10 @@
                 {
                     "name": "ckeditor5-anchor-drupal",
                     "package": "npm-asset/northernco--ckeditor5-anchor-drupal"
+                },
+                {
+                    "name": "docroot/libraries/ckeditor5/plugins/media-embed",
+                    "package": "npm-asset/ckeditor--ckeditor5-media-embed"
                 }
             ]
         },
@@ -215,7 +230,9 @@
                 "Add a width $properties argument to FieldItemLi": "https://www.drupal.org/files/issues/2021-06-06/2941092-23.patch",
                 "project/drupal/issues/2794481 Allow optional End date": "https://www.drupal.org/files/issues/2022-06-16/drupal-datetime_range-allow_end_date_optional-2794481-139.patch",
                 "issues/3344033 Deprecated function strlen() Passing null to parameter #1": "https://www.drupal.org/files/issues/2023-04-03/3344033-9.patch",
-                "js remove field_gks_refrence_number from edit form under claro admin theme": "patches/claro-gks.patch"
+                "js remove field_gks_refrence_number from edit form under claro admin theme": "patches/claro-gks.patch",
+                "issues 3056633 Drupal Component Plugin Exception ": "https://www.drupal.org/files/issues/2022-04-05/3056633-147.patch",
+                "post_update drush updb fails": "patches/views_post_update_d10.patch"
             },
             "drupal/config_devel": {
                 "Add an extra.drush.services section to composer.json": "https://www.drupal.org/files/issues/2021-07-28/3225746-2--add-extra-drush-services-to-composer-json.patch"
@@ -231,6 +248,9 @@
             },
             "drupal/scroll_top_button": {
                 "issues/3327879 button text cannot be translated": "https://www.drupal.org/files/issues/2022-12-20/3327889-2.patch"
+            },
+            "drupal/facets": {
+                "issues/3406085 PHP 8.2 - Deprecated function": "https://www.drupal.org/files/issues/2024-02-21/facets-php82-3406085-18.patch"
             }
         }
     },
@@ -285,8 +305,10 @@
             "cweagans/composer-patches": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "php-http/discovery": true,
+            "phpstan/extension-installer": true,
             "drupal/core-composer-scaffold": true,
-            "vardot/varbase-updater": true
+            "vardot/varbase-updater": true,
+            "drupal/core-project-message": true
         }
     }
 }

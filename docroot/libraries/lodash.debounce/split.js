@@ -1,10 +1,10 @@
-var baseToString = require('./_baseToString'),
-    castSlice = require('./_castSlice'),
-    hasUnicode = require('./_hasUnicode'),
-    isIterateeCall = require('./_isIterateeCall'),
-    isRegExp = require('./isRegExp'),
-    stringToArray = require('./_stringToArray'),
-    toString = require('./toString');
+import baseToString from './_baseToString.js';
+import castSlice from './_castSlice.js';
+import hasUnicode from './_hasUnicode.js';
+import isIterateeCall from './_isIterateeCall.js';
+import isRegExp from './isRegExp.js';
+import stringToArray from './_stringToArray.js';
+import toString from './toString.js';
 
 /** Used as references for the maximum length and index of an array. */
 var MAX_ARRAY_LENGTH = 4294967295;
@@ -49,4 +49,4 @@ function split(string, separator, limit) {
   return string.split(separator, limit);
 }
 
-module.exports = split;
+export default split;

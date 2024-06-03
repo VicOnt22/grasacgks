@@ -1,7 +1,7 @@
-import baseClamp from './_baseClamp.js';
-import baseToString from './_baseToString.js';
-import toInteger from './toInteger.js';
-import toString from './toString.js';
+var baseClamp = require('./_baseClamp'),
+    baseToString = require('./_baseToString'),
+    toInteger = require('./toInteger'),
+    toString = require('./toString');
 
 /**
  * Checks if `string` ends with the given target string.
@@ -40,4 +40,4 @@ function endsWith(string, target, position) {
   return position >= 0 && string.slice(position, end) == target;
 }
 
-export default endsWith;
+module.exports = endsWith;

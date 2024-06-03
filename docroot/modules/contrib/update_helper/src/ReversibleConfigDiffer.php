@@ -11,8 +11,7 @@ use Drupal\Core\StringTranslation\TranslationInterface;
  * Normalization is changed so that it can be 2-way normalization, not 1-way.
  * Also format is adjusted to better supports converting from/to config array.
  *
- * TODO:
- * - (de)normalization should be solved properly. It does not support option
+ * @todo (de)normalization should be solved properly. It does not support option
  *   with multiple assoc arrays in array. In Yaml empty line with '-' and then
  *   parameters after it.
  *

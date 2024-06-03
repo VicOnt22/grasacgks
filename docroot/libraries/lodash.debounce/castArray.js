@@ -1,4 +1,4 @@
-var isArray = require('./isArray');
+import isArray from './isArray.js';
 
 /**
  * Casts `value` as an array if it's not one.
@@ -41,4 +41,4 @@ function castArray() {
   return isArray(value) ? value : [value];
 }
 
-module.exports = castArray;
+export default castArray;

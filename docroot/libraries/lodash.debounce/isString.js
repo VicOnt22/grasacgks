@@ -1,6 +1,6 @@
-var baseGetTag = require('./_baseGetTag'),
-    isArray = require('./isArray'),
-    isObjectLike = require('./isObjectLike');
+import baseGetTag from './_baseGetTag.js';
+import isArray from './isArray.js';
+import isObjectLike from './isObjectLike.js';
 
 /** `Object#toString` result references. */
 var stringTag = '[object String]';
@@ -27,4 +27,4 @@ function isString(value) {
     (!isArray(value) && isObjectLike(value) && baseGetTag(value) == stringTag);
 }
 
-module.exports = isString;
+export default isString;

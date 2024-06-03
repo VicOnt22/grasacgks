@@ -1,6 +1,6 @@
-import arrayReduce from './_arrayReduce.js';
-import deburr from './deburr.js';
-import words from './words.js';
+var arrayReduce = require('./_arrayReduce'),
+    deburr = require('./deburr'),
+    words = require('./words');
 
 /** Used to compose unicode capture groups. */
 var rsApos = "['\u2019]";
@@ -21,4 +21,4 @@ function createCompounder(callback) {
   };
 }
 
-export default createCompounder;
+module.exports = createCompounder;

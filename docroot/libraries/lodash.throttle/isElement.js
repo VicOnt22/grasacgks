@@ -1,5 +1,5 @@
-import isObjectLike from './isObjectLike.js';
-import isPlainObject from './isPlainObject.js';
+var isObjectLike = require('./isObjectLike'),
+    isPlainObject = require('./isPlainObject');
 
 /**
  * Checks if `value` is likely a DOM element.
@@ -22,4 +22,4 @@ function isElement(value) {
   return isObjectLike(value) && value.nodeType === 1 && !isPlainObject(value);
 }
 
-export default isElement;
+module.exports = isElement;

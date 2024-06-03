@@ -1,8 +1,8 @@
-var arrayFilter = require('./_arrayFilter'),
-    baseFilter = require('./_baseFilter'),
-    baseIteratee = require('./_baseIteratee'),
-    isArray = require('./isArray'),
-    negate = require('./negate');
+import arrayFilter from './_arrayFilter.js';
+import baseFilter from './_baseFilter.js';
+import baseIteratee from './_baseIteratee.js';
+import isArray from './isArray.js';
+import negate from './negate.js';
 
 /**
  * The opposite of `_.filter`; this method returns the elements of `collection`
@@ -43,4 +43,4 @@ function reject(collection, predicate) {
   return func(collection, negate(baseIteratee(predicate, 3)));
 }
 
-module.exports = reject;
+export default reject;

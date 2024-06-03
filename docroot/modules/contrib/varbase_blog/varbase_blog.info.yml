@@ -2,7 +2,7 @@ name: Varbase Blog
 description: Provides Blog post content type and related configuration. Use Blog to publish blog post by different authors in the Blog section of the site.
 type: module
 package: Varbase
-core_version_requirement: ~9
+core_version_requirement: ~10
 dependencies:
   - varbase_core:varbase_core
   - varbase_media:varbase_media
@@ -18,7 +18,7 @@ install:
   - varbase_layout_builder
   - vlplb
 
-# Information added by Drupal.org packaging script on 2023-12-02
-version: '9.0.13'
+# Information added by Drupal.org packaging script on 2024-04-04
+version: '9.1.2'
 project: 'varbase_blog'
-datestamp: 1701510531
+datestamp: 1712242595

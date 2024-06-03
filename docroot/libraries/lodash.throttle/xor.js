@@ -1,7 +1,7 @@
-import arrayFilter from './_arrayFilter.js';
-import baseRest from './_baseRest.js';
-import baseXor from './_baseXor.js';
-import isArrayLikeObject from './isArrayLikeObject.js';
+var arrayFilter = require('./_arrayFilter'),
+    baseRest = require('./_baseRest'),
+    baseXor = require('./_baseXor'),
+    isArrayLikeObject = require('./isArrayLikeObject');
 
 /**
  * Creates an array of unique values that is the
@@ -25,4 +25,4 @@ var xor = baseRest(function(arrays) {
   return baseXor(arrayFilter(arrays, isArrayLikeObject));
 });
 
-export default xor;
+module.exports = xor;

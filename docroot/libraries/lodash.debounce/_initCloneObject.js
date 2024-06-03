@@ -1,6 +1,6 @@
-var baseCreate = require('./_baseCreate'),
-    getPrototype = require('./_getPrototype'),
-    isPrototype = require('./_isPrototype');
+import baseCreate from './_baseCreate.js';
+import getPrototype from './_getPrototype.js';
+import isPrototype from './_isPrototype.js';
 
 /**
  * Initializes an object clone.
@@ -15,4 +15,4 @@ function initCloneObject(object) {
     : {};
 }
 
-module.exports = initCloneObject;
+export default initCloneObject;

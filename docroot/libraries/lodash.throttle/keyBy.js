@@ -1,5 +1,5 @@
-import baseAssignValue from './_baseAssignValue.js';
-import createAggregator from './_createAggregator.js';
+var baseAssignValue = require('./_baseAssignValue'),
+    createAggregator = require('./_createAggregator');
 
 /**
  * Creates an object composed of keys generated from the results of running
@@ -33,4 +33,4 @@ var keyBy = createAggregator(function(result, value, key) {
   baseAssignValue(result, key, value);
 });
 
-export default keyBy;
+module.exports = keyBy;

@@ -1,7 +1,7 @@
-var baseDifference = require('./_baseDifference'),
-    baseFlatten = require('./_baseFlatten'),
-    baseRest = require('./_baseRest'),
-    isArrayLikeObject = require('./isArrayLikeObject');
+import baseDifference from './_baseDifference.js';
+import baseFlatten from './_baseFlatten.js';
+import baseRest from './_baseRest.js';
+import isArrayLikeObject from './isArrayLikeObject.js';
 
 /**
  * Creates an array of `array` values not included in the other given arrays
@@ -30,4 +30,4 @@ var difference = baseRest(function(array, values) {
     : [];
 });
 
-module.exports = difference;
+export default difference;

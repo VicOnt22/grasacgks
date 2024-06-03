@@ -1,5 +1,5 @@
-import baseAssignValue from './_baseAssignValue.js';
-import eq from './eq.js';
+var baseAssignValue = require('./_baseAssignValue'),
+    eq = require('./eq');
 
 /**
  * This function is like `assignValue` except that it doesn't assign
@@ -17,4 +17,4 @@ function assignMergeValue(object, key, value) {
   }
 }
 
-export default assignMergeValue;
+module.exports = assignMergeValue;

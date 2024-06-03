@@ -1,9 +1,9 @@
-import baseRepeat from './_baseRepeat.js';
-import baseToString from './_baseToString.js';
-import castSlice from './_castSlice.js';
-import hasUnicode from './_hasUnicode.js';
-import stringSize from './_stringSize.js';
-import stringToArray from './_stringToArray.js';
+var baseRepeat = require('./_baseRepeat'),
+    baseToString = require('./_baseToString'),
+    castSlice = require('./_castSlice'),
+    hasUnicode = require('./_hasUnicode'),
+    stringSize = require('./_stringSize'),
+    stringToArray = require('./_stringToArray');
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeCeil = Math.ceil;
@@ -30,4 +30,4 @@ function createPadding(length, chars) {
     : result.slice(0, length);
 }
 
-export default createPadding;
+module.exports = createPadding;

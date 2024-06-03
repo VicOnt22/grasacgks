@@ -100,13 +100,11 @@ function editoria11y_page_attachments(array &$attachments): void {
   // Get languages.
   $attachments['#cache']['contexts'][] = 'languages';
   $language = Drupal::languageManager()->getCurrentLanguage()->getId();
-  if ($language && $language !== 'en') {
-    $attachments['#attached']['library'][] = 'editoria11y/editoria11y-localized';
-  }
-  else {
-    $attachments['#attached']['library'][] = 'editoria11y/editoria11y';
-  }
 
+  $library = $language && $language !== 'en' ?
+    'editoria11y/editoria11y-localized' :
+    'editoria11y/editoria11y';
+  $attachments['#attached']['library'][] = $library;
   // Build URI after filtering nonpreserved parameters
   // $page_path = $request->getPathInfo();
   $page_path = Url::fromRoute('<current>')->toString();
@@ -148,6 +146,7 @@ function editoria11y_page_attachments(array &$attachments): void {
 
   $attachments['#cache']['tags'][] = 'editoria11y:dismissals_' . preg_replace('/[^a-zA-Z0-9]/', '', $page_path);
 
+  $allow_ok = FALSE;
   if ($sync) {
     // Null or false unless both sync and permission are true.
     $allow_ok = Drupal::currentUser()->hasPermission('mark as ok in editoria11y');
@@ -210,7 +209,9 @@ function editoria11y_page_attachments(array &$attachments): void {
       foreach ($parameters as $name => $options) {
         if (isset($options['type']) && strpos($options['type'], 'entity:') === 0) {
           $entity = $route_match->getParameter($name);
+          /* @noinspection PhpUndefinedFieldInspection */
           if ($entity instanceof ContentEntityInterface && $entity->hasLinkTemplate('canonical') && $entity->type && $entity->type->entity) {
+            /* @noinspection PhpUndefinedFieldInspection */
             $entity_type = $entity->type->entity->label();
           }
         }
@@ -273,11 +274,16 @@ function editoria11y_page_attachments(array &$attachments): void {
   $attachments['#attached']['drupalSettings']['editoria11y']['embedded_content_warning'] = $config->get('embedded_content_warning');
   $attachments['#attached']['drupalSettings']['editoria11y']['hidden_handlers'] = $config->get('hidden_handlers');
   $attachments['#attached']['drupalSettings']['editoria11y']['download_links'] = $config->get('download_links');
+  $attachments['#attached']['drupalSettings']['editoria11y']['link_strings_new_windows'] = $config->get('link_strings_new_windows');
   $attachments['#attached']['drupalSettings']['editoria11y']['ignore_link_strings'] = $config->get('ignore_link_strings');
   $attachments['#attached']['drupalSettings']['editoria11y']['link_ignore_selector'] = $config->get('link_ignore_selector');
   $attachments['#attached']['drupalSettings']['editoria11y']['sync'] = $sync;
   $attachments['#attached']['drupalSettings']['editoria11y']['dismissals'] = $dismissals;
   $attachments['#attached']['drupalSettings']['editoria11y']['theme'] = $config->get('ed11y_theme');
   $attachments['#attached']['drupalSettings']['editoria11y']['custom_tests'] = $config->get('custom_tests');
+  /** @var \Drupal\Core\File\FileUrlGeneratorInterface $fileUrlGenerator */
+  $fileUrlGenerator = \Drupal::service('file_url_generator');
+  $attachments['#attached']['drupalSettings']['editoria11y']['css_url'] = $fileUrlGenerator
+    ->generateString(Drupal::service('extension.list.module')->getPath('editoria11y'));
 
 }

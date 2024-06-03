@@ -1,7 +1,7 @@
 # Introduction
 
 MaxLength allows site administrators to set hard or soft character 
-limits on titles, text fields and links.
+limits on titles, text fields, and links.
 
 For a full description of the module visit the [MaxLength Project Page](https://www.drupal.org/project/maxlength)
 
@@ -66,15 +66,17 @@ For more information read the [MaxLength Documentation](https://www.drupal.org/d
  * [Clayton Dewey (cedewey)](https://www.drupal.org/u/cedewey)
  * [Jeff Hipp (hipp2bsquare)](https://www.drupal.org/u/hipp2bsquare)
  * [Steven DuBois(srdtwc)](https://www.drupal.org/u/srdtwc)
+ * [Adam Nagy(joevagyok)](https://www.drupal.org/u/joevagyok)
 
-Supporting organization:
+Supporting organizations:
 
  * [DevCollaborative](https://devcollaborative.com)
+ * [European Commission](https://www.drupal.org/european-commission)
  
 
 # Credits
 
-Many people have contributed to MaxLength over years. 
+Many people have contributed to MaxLength over the years. 
 We are grateful to each of them for the work they've put into it.
 
 Read more about the history of MaxLength at the [Credits documentation page](https://www.drupal.org/docs/contributed-modules/maxlength/credits).

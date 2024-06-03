@@ -1,4 +1,4 @@
-import toString from './toString.js';
+var toString = require('./toString');
 
 /**
  * Replaces matches for `pattern` in `string` with `replacement`.
@@ -26,4 +26,4 @@ function replace() {
   return args.length < 3 ? string : string.replace(args[1], args[2]);
 }
 
-export default replace;
+module.exports = replace;

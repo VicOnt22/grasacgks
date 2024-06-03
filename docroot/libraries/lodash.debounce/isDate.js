@@ -1,6 +1,6 @@
-var baseIsDate = require('./_baseIsDate'),
-    baseUnary = require('./_baseUnary'),
-    nodeUtil = require('./_nodeUtil');
+import baseIsDate from './_baseIsDate.js';
+import baseUnary from './_baseUnary.js';
+import nodeUtil from './_nodeUtil.js';
 
 /* Node.js helper references. */
 var nodeIsDate = nodeUtil && nodeUtil.isDate;
@@ -24,4 +24,4 @@ var nodeIsDate = nodeUtil && nodeUtil.isDate;
  */
 var isDate = nodeIsDate ? baseUnary(nodeIsDate) : baseIsDate;
 
-module.exports = isDate;
+export default isDate;

@@ -1,5 +1,5 @@
-import baseClone from './_baseClone.js';
-import baseMatches from './_baseMatches.js';
+var baseClone = require('./_baseClone'),
+    baseMatches = require('./_baseMatches');
 
 /** Used to compose bitmasks for cloning. */
 var CLONE_DEEP_FLAG = 1;
@@ -43,4 +43,4 @@ function matches(source) {
   return baseMatches(baseClone(source, CLONE_DEEP_FLAG));
 }
 
-export default matches;
+module.exports = matches;

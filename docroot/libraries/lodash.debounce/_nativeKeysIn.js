@@ -17,4 +17,4 @@ function nativeKeysIn(object) {
   return result;
 }
 
-module.exports = nativeKeysIn;
+export default nativeKeysIn;

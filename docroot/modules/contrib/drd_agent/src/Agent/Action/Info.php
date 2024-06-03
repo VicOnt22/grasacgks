@@ -2,7 +2,6 @@
 
 namespace Drupal\drd_agent\Agent\Action;
 
-use Drupal;
 use Drupal\Core\Site\Settings;
 use Drupal\drd_agent\Agent\Remote\Monitoring;
 use Drupal\drd_agent\Agent\Remote\SecurityReview;
@@ -15,12 +14,12 @@ class Info extends Base {
   /**
    * {@inheritdoc}
    */
-  public function execute() {
+  public function execute(): array {
     $config = $this->configFactory->get('system.site');
     // Initial set of information.
     $result = [
       'root' => DRUPAL_ROOT,
-      'version' => Drupal::VERSION,
+      'version' => \Drupal::VERSION,
       'name' => $config->get('name'),
       'globals' => [],
       'settings' => Settings::getAll(),

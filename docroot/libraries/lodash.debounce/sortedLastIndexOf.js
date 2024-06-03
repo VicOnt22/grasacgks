@@ -1,5 +1,5 @@
-var baseSortedIndex = require('./_baseSortedIndex'),
-    eq = require('./eq');
+import baseSortedIndex from './_baseSortedIndex.js';
+import eq from './eq.js';
 
 /**
  * This method is like `_.lastIndexOf` except that it performs a binary
@@ -28,4 +28,4 @@ function sortedLastIndexOf(array, value) {
   return -1;
 }
 
-module.exports = sortedLastIndexOf;
+export default sortedLastIndexOf;

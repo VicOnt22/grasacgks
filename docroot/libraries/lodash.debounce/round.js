@@ -1,4 +1,4 @@
-var createRound = require('./_createRound');
+import createRound from './_createRound.js';
 
 /**
  * Computes `number` rounded to `precision`.
@@ -23,4 +23,4 @@ var createRound = require('./_createRound');
  */
 var round = createRound('round');
 
-module.exports = round;
+export default round;

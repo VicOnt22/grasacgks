@@ -1,4 +1,4 @@
-var memoizeCapped = require('./_memoizeCapped');
+import memoizeCapped from './_memoizeCapped.js';
 
 /** Used to match property names within property paths. */
 var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
@@ -24,4 +24,4 @@ var stringToPath = memoizeCapped(function(string) {
   return result;
 });
 
-module.exports = stringToPath;
+export default stringToPath;

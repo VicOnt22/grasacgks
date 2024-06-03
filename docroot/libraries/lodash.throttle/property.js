@@ -1,7 +1,7 @@
-import baseProperty from './_baseProperty.js';
-import basePropertyDeep from './_basePropertyDeep.js';
-import isKey from './_isKey.js';
-import toKey from './_toKey.js';
+var baseProperty = require('./_baseProperty'),
+    basePropertyDeep = require('./_basePropertyDeep'),
+    isKey = require('./_isKey'),
+    toKey = require('./_toKey');
 
 /**
  * Creates a function that returns the value at `path` of a given object.
@@ -29,4 +29,4 @@ function property(path) {
   return isKey(path) ? baseProperty(toKey(path)) : basePropertyDeep(path);
 }
 
-export default property;
+module.exports = property;

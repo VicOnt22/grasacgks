@@ -265,6 +265,9 @@ class UpdaterTest extends KernelTestBase {
     $this->assertEquals($expected_config_data, $this->config('field.storage.node.body')->get());
   }
 
+  /**
+   * Tests configuration dependencies are managed correctly.
+   */
   public function testConfigurationDependencies() {
     // Create an article content type this will add the body field to it.
     $this->installConfig(['node']);

@@ -26,8 +26,9 @@ class ViewsBootstrapTable extends Table {
    */
   protected function defineOptions() {
     $options = parent::defineOptions();
-    $options['bootstrap_styles'] = ['default' => []];
+    $options['table_class_custom'] = ['default' => NULL];
     $options['responsive'] = ['default' => FALSE];
+    $options['bootstrap_styles'] = ['default' => NULL];
 
     return $options;
   }
@@ -37,6 +38,19 @@ class ViewsBootstrapTable extends Table {
    */
   public function buildOptionsForm(&$form, FormStateInterface $form_state) {
     parent::buildOptionsForm($form, $form_state);
+
+    $form['help'] = [
+      '#markup' => $this->t('The Bootstrap table style adds default Bootstrap table classes and optional classes (<a href=":docs">see documentation</a>).',
+        [':docs' => 'https://www.drupal.org/docs/extending-drupal/contributed-modules/contributed-module-documentation/views-bootstrap-for-bootstrap-5/table']),
+      '#weight' => -99,
+    ];
+
+    $form['table_class_custom'] = [
+      '#title' => $this->t('Custom table class'),
+      '#description' => $this->t('Additional classes to provide on the table. Separated by a space.'),
+      '#type' => 'textfield',
+      '#default_value' => $this->options['table_class_custom'],
+    ];
 
     $form['responsive'] = [
       '#type' => 'checkbox',
@@ -50,10 +64,11 @@ class ViewsBootstrapTable extends Table {
       '#type' => 'checkboxes',
       '#default_value' => $this->options['bootstrap_styles'],
       '#options' => [
-        'striped' => $this->t('Striped'),
         'bordered' => $this->t('Bordered'),
+        'borderless' => $this->t('Borderless'),
+        'sm' => $this->t('Condensed'),
         'hover' => $this->t('Hover'),
-        'condensed' => $this->t('Condensed'),
+        'striped' => $this->t('Striped'),
       ],
     ];
   }

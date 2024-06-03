@@ -1,6 +1,6 @@
-var apply = require('./_apply'),
-    arrayMap = require('./_arrayMap'),
-    unzip = require('./unzip');
+import apply from './_apply.js';
+import arrayMap from './_arrayMap.js';
+import unzip from './unzip.js';
 
 /**
  * This method is like `_.unzip` except that it accepts `iteratee` to specify
@@ -36,4 +36,4 @@ function unzipWith(array, iteratee) {
   });
 }
 
-module.exports = unzipWith;
+export default unzipWith;

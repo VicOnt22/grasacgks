@@ -1,5 +1,5 @@
-var baseGetTag = require('./_baseGetTag'),
-    isObjectLike = require('./isObjectLike');
+import baseGetTag from './_baseGetTag.js';
+import isObjectLike from './isObjectLike.js';
 
 /** `Object#toString` result references. */
 var boolTag = '[object Boolean]';
@@ -26,4 +26,4 @@ function isBoolean(value) {
     (isObjectLike(value) && baseGetTag(value) == boolTag);
 }
 
-module.exports = isBoolean;
+export default isBoolean;

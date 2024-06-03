@@ -111,7 +111,6 @@ class DrushTest extends BrowserTestBase {
     ];
   }
 
-
   /**
    * Tests `drush generate configuration-update`.
    *

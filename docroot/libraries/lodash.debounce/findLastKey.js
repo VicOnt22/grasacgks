@@ -1,6 +1,6 @@
-var baseFindKey = require('./_baseFindKey'),
-    baseForOwnRight = require('./_baseForOwnRight'),
-    baseIteratee = require('./_baseIteratee');
+import baseFindKey from './_baseFindKey.js';
+import baseForOwnRight from './_baseForOwnRight.js';
+import baseIteratee from './_baseIteratee.js';
 
 /**
  * This method is like `_.findKey` except that it iterates over elements of
@@ -41,4 +41,4 @@ function findLastKey(object, predicate) {
   return baseFindKey(object, baseIteratee(predicate, 3), baseForOwnRight);
 }
 
-module.exports = findLastKey;
+export default findLastKey;

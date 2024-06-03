@@ -1,4 +1,4 @@
-var realNames = require('./_realNames');
+import realNames from './_realNames.js';
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -28,4 +28,4 @@ function getFuncName(func) {
   return result;
 }
 
-module.exports = getFuncName;
+export default getFuncName;

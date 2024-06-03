@@ -119,7 +119,7 @@ class MaxLengthCkeditorTest extends WebDriverTestBase {
 
     // Assert CKEditor5 is present.
     $settings = $this->getDrupalSettings();
-    $this->assertContains('ckeditor5/internal.drupal.ckeditor5', explode(',', $settings['ajaxPageState']['libraries']), 'CKEditor5 glue library is present.');
+    $this->assertContains('ckeditor5/internal.drupal.ckeditor5.emphasis', explode(',', $settings['ajaxPageState']['libraries']), 'CKEditor5 glue library is present.');
 
     // Assert the maxlength counter labels.
     $this->assertSession()->pageTextContainsOnce('Content limited to 200 characters, remaining: 200 and total 0');

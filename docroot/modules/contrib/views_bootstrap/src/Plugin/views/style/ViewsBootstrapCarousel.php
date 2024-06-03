@@ -21,11 +21,18 @@ use Drupal\views\Plugin\views\style\StylePluginBase;
  */
 class ViewsBootstrapCarousel extends StylePluginBase {
   /**
-   * Does the style plugin for itself support to add fields to it's output.
+   * Whether or not this style uses a row plugin.
    *
    * @var bool
    */
-  protected $usesFields = TRUE;
+  protected $usesRowPlugin = TRUE;
+
+  /**
+   * Whether the config form exposes the class to provide on each row.
+   *
+   * @var bool
+   */
+  protected $usesRowClass = TRUE;
 
   /**
    * Definition.
@@ -43,8 +50,11 @@ class ViewsBootstrapCarousel extends StylePluginBase {
     $options['wrap'] = ['default' => TRUE];
     $options['effect'] = ['default' => 'slide'];
     $options['use_caption'] = ['default' => TRUE];
+    $options['columns'] = ['default' => 1];
+    $options['breakpoints'] = ['default' => 'md'];
 
     // Fields to use in carousel.
+    $options['display'] = ['default' => 'fields'];
     $options['image'] = ['default' => ''];
     $options['title'] = ['default' => ''];
     $options['description'] = ['default' => ''];
@@ -57,6 +67,12 @@ class ViewsBootstrapCarousel extends StylePluginBase {
    */
   public function buildOptionsForm(&$form, FormStateInterface $form_state) {
     parent::buildOptionsForm($form, $form_state);
+
+    $form['help'] = [
+      '#markup' => $this->t('The Bootstrap carousel displays content as a slideshow (<a href=":docs">see documentation</a>).',
+        [':docs' => 'https://www.drupal.org/docs/extending-drupal/contributed-modules/contributed-module-documentation/views-bootstrap-for-bootstrap-5/carousel']),
+      '#weight' => -99,
+    ];
 
     $fields = ['' => $this->t('<None>')];
     $fields += $this->displayHandler->getFieldLabels(TRUE);
@@ -78,7 +94,7 @@ class ViewsBootstrapCarousel extends StylePluginBase {
     $form['ride'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Ride (Autoplay)'),
-      '#description' => $this->t('Autoplays the carousel on load.'),
+      '#description' => $this->t('Autoplay the carousel on load.'),
       '#default_value' => $this->options['ride'],
     ];
 
@@ -127,26 +143,80 @@ class ViewsBootstrapCarousel extends StylePluginBase {
       '#default_value' => $this->options['effect'],
     ];
 
-    $form['image'] = [
+    $form['columns'] = [
       '#type' => 'select',
-      '#title' => $this->t('Image'),
-      '#options' => $fields,
-      '#default_value' => $this->options['image'],
+      '#title' => $this->t('Columns'),
+      '#description' => $this->t('The number of columns to include in the carousel.'),
+      '#options' => [
+        1 => 1,
+        2 => 2,
+        3 => 3,
+        4 => 4,
+      ],
+      '#default_value' => $this->options['columns'],
     ];
 
-    $form['title'] = [
+    $form['breakpoints'] = [
       '#type' => 'select',
-      '#title' => $this->t('Title'),
-      '#options' => $fields,
-      '#default_value' => $this->options['title'],
+      '#title' => $this->t('Breakpoints'),
+      '#description' => $this->t('The min-width breakpoint of the multicolumn carousel.'),
+      '#options' => [
+        'xs' => $this->t('Extra Small'),
+        'sm' => $this->t('Small'),
+        'md' => $this->t('Medium'),
+        'lg' => $this->t('Large'),
+      ],
+      '#default_value' => $this->options['breakpoints'],
     ];
 
-    $form['description'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Description'),
-      '#options' => $fields,
-      '#default_value' => $this->options['description'],
-    ];
+    if ($this->usesFields()) {
+      $form['display'] = [
+        '#type' => 'radios',
+        '#title' => $this->t('Display'),
+        '#options' => [
+          'fields' => $this->t('Select by fields'),
+          'content' => $this->t('Display fields as row content'),
+        ],
+        '#description' => $this->t('Displaying fields as row content will output the field rows as unformatted values within each carousel item.'),
+        '#default_value' => $this->options['display'],
+      ];
+      $form['image'] = [
+        '#type' => 'select',
+        '#title' => $this->t('Image'),
+        '#options' => $fields,
+        '#default_value' => $this->options['image'],
+        '#states' => [
+          'visible' => [
+            ':input[name="style_options[display]"]' => ['value' => 'fields'],
+          ],
+        ],
+      ];
+
+      $form['title'] = [
+        '#type' => 'select',
+        '#title' => $this->t('Title'),
+        '#options' => $fields,
+        '#default_value' => $this->options['title'],
+        '#states' => [
+          'visible' => [
+            ':input[name="style_options[display]"]' => ['value' => 'fields'],
+          ],
+        ],
+      ];
+
+      $form['description'] = [
+        '#type' => 'select',
+        '#title' => $this->t('Description'),
+        '#options' => $fields,
+        '#default_value' => $this->options['description'],
+        '#states' => [
+          'visible' => [
+            ':input[name="style_options[display]"]' => ['value' => 'fields'],
+          ],
+        ],
+      ];
+    }
+
   }
 
 }

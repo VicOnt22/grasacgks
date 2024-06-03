@@ -1,12 +1,12 @@
-var baseToString = require('./_baseToString'),
-    castSlice = require('./_castSlice'),
-    hasUnicode = require('./_hasUnicode'),
-    isObject = require('./isObject'),
-    isRegExp = require('./isRegExp'),
-    stringSize = require('./_stringSize'),
-    stringToArray = require('./_stringToArray'),
-    toInteger = require('./toInteger'),
-    toString = require('./toString');
+import baseToString from './_baseToString.js';
+import castSlice from './_castSlice.js';
+import hasUnicode from './_hasUnicode.js';
+import isObject from './isObject.js';
+import isRegExp from './isRegExp.js';
+import stringSize from './_stringSize.js';
+import stringToArray from './_stringToArray.js';
+import toInteger from './toInteger.js';
+import toString from './toString.js';
 
 /** Used as default options for `_.truncate`. */
 var DEFAULT_TRUNC_LENGTH = 30,
@@ -108,4 +108,4 @@ function truncate(string, options) {
   return result + omission;
 }
 
-module.exports = truncate;
+export default truncate;

@@ -1,4 +1,4 @@
-var isSymbol = require('./isSymbol');
+import isSymbol from './isSymbol.js';
 
 /**
  * The base implementation of methods like `_.max` and `_.min` which accepts a
@@ -29,4 +29,4 @@ function baseExtremum(array, iteratee, comparator) {
   return result;
 }
 
-module.exports = baseExtremum;
+export default baseExtremum;

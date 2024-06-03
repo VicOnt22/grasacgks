@@ -38,4 +38,4 @@ function composeArgsRight(args, partials, holders, isCurried) {
   return result;
 }
 
-module.exports = composeArgsRight;
+export default composeArgsRight;

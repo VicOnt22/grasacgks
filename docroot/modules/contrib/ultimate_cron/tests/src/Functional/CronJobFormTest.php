@@ -46,7 +46,7 @@ class CronJobFormTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'classy';
+  protected $defaultTheme = 'starterkit_theme';
 
   /**
    * Tests adding and editing a cron job.
@@ -79,7 +79,7 @@ class CronJobFormTest extends BrowserTestBase {
     $edit = array('title' => $this->jobName);
 
     // Save the new job.
-    $this->submitForm($edit, t('Save'));
+    $this->submitForm($edit, 'Save');
     // Assert the edited Job hasn't run yet.
     $this->assertSession()->pageTextContains('Never');
     // Assert messenger service message for successful updated job.
@@ -102,13 +102,13 @@ class CronJobFormTest extends BrowserTestBase {
 
     // Change time when cron runs, check the 'Scheduled' label is updated.
     $this->clickLink(t('Edit'));
-    $this->submitForm(['scheduler[configuration][rules][0]' => '0+@ */6 * * *'], t('Save'));
+    $this->submitForm(['scheduler[configuration][rules][0]' => '0+@ */6 * * *'], 'Save');
     $this->assertSession()->pageTextContains('Every 6 hours');
 
     // Test disabling a job.
     $this->clickLink(t('Disable'), 0);
     $this->assertSession()->pageTextContains('This cron job will no longer be executed.');
-    $this->submitForm([], t('Disable'));
+    $this->submitForm([], 'Disable');
 
     // Assert messenger service message for successful disabled job.
     $this->assertSession()->pageTextContains(t('Disabled cron job @name.', array('@name' => $this->jobName)));
@@ -120,7 +120,7 @@ class CronJobFormTest extends BrowserTestBase {
     // Test enabling a job.
     $this->clickLink(t('Enable'), 0);
     $this->assertSession()->pageTextContains('This cron job will be executed again.');
-    $this->submitForm([], t('Enable'));
+    $this->submitForm([], 'Enable');
 
     // Assert messenger service message for successful enabled job.
     $this->assertSession()->pageTextContains(t('Enabled cron job @name.', array('@name' => $this->jobName)));
@@ -134,7 +134,7 @@ class CronJobFormTest extends BrowserTestBase {
       'status' => FALSE,
     );
     $this->drupalGet('admin/config/system/cron/jobs/manage/' . $this->jobId);
-    $this->submitForm($edit, t('Save'));
+    $this->submitForm($edit, 'Save');
     $this->assertSession()->elementExists('xpath','//table/tbody/tr[1]/td[6]');
     $this->assertSession()->elementContains('xpath','//table/tbody/tr[1]/td[8]/div/div/ul/li[1]/a', 'Enable');
     $this->assertSession()->elementNotContains('xpath', '//table/tbody/tr[1]/td[8]/div/div/ul/li[1]/a', 'Run');
@@ -144,7 +144,7 @@ class CronJobFormTest extends BrowserTestBase {
       'status' => TRUE,
     );
     $this->drupalGet('admin/config/system/cron/jobs/manage/' . $this->jobId);
-    $this->submitForm($edit, t('Save'));
+    $this->submitForm($edit, 'Save');
     $this->assertEquals($expected_checkmark_image_url, $this->xpath('//table/tbody/tr[1]/td[6]/img')[0]->getAttribute('src'));
     $this->assertSession()->elementExists('xpath','//table/tbody/tr[1]/td[8]/div/div/ul/li[1]/a');
 
@@ -155,14 +155,14 @@ class CronJobFormTest extends BrowserTestBase {
     $job_configuration = array(
       'scheduler[id]' => 'crontab',
     );
-    $this->submitForm($job_configuration, t('Save'));
+    $this->submitForm($job_configuration, 'Save');
     $this->drupalGet('admin/config/system/cron/jobs/manage/' . $this->jobId);
-    $this->submitForm(['scheduler[configuration][rules][0]' => '0+@ * * * *'], t('Save'));
+    $this->submitForm(['scheduler[configuration][rules][0]' => '0+@ * * * *'], 'Save');
     $this->assertSession()->pageTextContains('0+@ * * * *');
 
     // Try editing the rule to an invalid one.
     $this->clickLink('Edit');
-    $this->submitForm(['scheduler[configuration][rules][0]' => '*//15+@ *-2 * * *'], t('Save'));
+    $this->submitForm(['scheduler[configuration][rules][0]' => '*//15+@ *-2 * * *'], 'Save');
     $this->assertSession()->pageTextContains('Rule is invalid');
     $this->assertSession()->titleEquals('Edit job | Drupal');
 
@@ -181,7 +181,7 @@ class CronJobFormTest extends BrowserTestBase {
 
     // Test deleting a job (only possible if invalid cron job).
     $this->clickLink(t('Delete'), 0);
-    $this->submitForm([], t('Delete'));
+    $this->submitForm([], 'Delete');
     $this->assertSession()->pageTextContains(t('The cron job @name has been deleted.', array('@name' => $job->label())));
     $this->drupalGet('admin/config/system/cron/jobs');
     $this->assertSession()->pageTextNotContains($job->label());
@@ -210,12 +210,12 @@ class CronJobFormTest extends BrowserTestBase {
 
     \Drupal::service('ultimate_cron.discovery')->discoverCronJobs();
     $this->drupalGet('admin/config/system/cron/jobs');
-    $this->assertSession()->pageTextContains('Queue: Broken queue test');
+    $this->assertSession()->pageTextContains('Queue: Cron queue test: Foo');
 
-    $this->drupalGet('admin/config/system/cron/jobs/manage/ultimate_cron_queue_cron_queue_test_broken_queue');
-    $this->assertSession()->fieldValueEquals('title', 'Queue: Broken queue test');
+    $this->drupalGet('admin/config/system/cron/jobs/manage/ultimate_cron_queue_cron_queue_test_deriver__foo');
+    $this->assertSession()->fieldValueEquals('title', 'Queue: Cron queue test: Foo');
     $this->submitForm([], 'Save');
-    $this->assertSession()->pageTextContains('job Queue: Broken queue test has been updated.');
+    $this->assertSession()->pageTextContains('job Queue: Cron queue test: Foo has been updated.');
   }
 
 }

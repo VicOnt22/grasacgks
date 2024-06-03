@@ -19,4 +19,4 @@ function arrayIncludesWith(array, value, comparator) {
   return false;
 }
 
-module.exports = arrayIncludesWith;
+export default arrayIncludesWith;

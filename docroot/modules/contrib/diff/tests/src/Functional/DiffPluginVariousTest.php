@@ -189,6 +189,7 @@ class DiffPluginVariousTest extends DiffPluginTestBase {
     // Create a new revision with an updated timestamp.
     /** @var \Drupal\node\NodeInterface $node */
     $node = $this->drupalGetNodeByTitle('timestamp_test');
+    // @phpstan-ignore-next-line
     $node->field_timestamp = $new_timestamp;
     $node->setNewRevision(TRUE);
     $node->save();

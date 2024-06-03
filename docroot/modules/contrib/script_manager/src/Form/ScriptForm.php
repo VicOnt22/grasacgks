@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Drupal\script_manager\Form;
 
 use Drupal\Component\Plugin\ContextAwarePluginInterface;
@@ -9,57 +11,42 @@ use Drupal\Core\Executable\ExecutableManagerInterface;
 use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\Context\ContextRepositoryInterface;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\script_manager\Entity\Script;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * The script entity add form.
+ *
+ * @internal
+ *   There is no extensibility promise for this class. Use form alter hooks to
+ *   make customisations.
+ *
+ * @property \Drupal\script_manager\Entity\ScriptInterface $entity
  */
-class ScriptForm extends EntityForm {
-
-  /**
-   * The condition plugin manager.
-   *
-   * @var \Drupal\Core\Executable\ExecutableManagerInterface
-   */
-  protected $conditionManager;
-
-  /**
-   * The script entity object.
-   *
-   * @var \Drupal\script_manager\Entity\ScriptInterface
-   */
-  protected $entity;
-
-  /**
-   * @var \Drupal\Core\Config\ImmutableConfig
-   */
-  protected $configuration;
-
-  /**
-   * The context repository.
-   *
-   * @var \Drupal\Core\Plugin\Context\ContextRepositoryInterface
-   */
-  protected $contextRepository;
+final class ScriptForm extends EntityForm {
 
   /**
    * Constructs the ScriptForm class.
    */
-  public function __construct(ExecutableManagerInterface $manager, ImmutableConfig $configuration, ContextRepositoryInterface $contextRepository) {
-    $this->conditionManager = $manager;
-    $this->configuration = $configuration;
-    $this->contextRepository = $contextRepository;
+  public function __construct(
+    protected ExecutableManagerInterface $conditionManager,
+    protected ImmutableConfig $configuration,
+    protected ContextRepositoryInterface $contextRepository,
+    protected TranslationInterface $translation,
+  ) {
+    $this->setStringTranslation($translation);
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     return new static(
       $container->get('plugin.manager.condition'),
       $container->get('config.factory')->get('script_manager.settings'),
-      $container->get('context.repository')
+      $container->get('context.repository'),
+      $container->get('string_translation'),
     );
   }
 
@@ -118,6 +105,8 @@ class ScriptForm extends EntityForm {
 
   /**
    * The form title.
+   *
+   * `_title_callback` callback for entity.script.edit_form.
    */
   public function formTitle(Script $script) {
     return $this->t('Edit %script Script', ['%script' => $script->label()]);
@@ -126,8 +115,7 @@ class ScriptForm extends EntityForm {
   /**
    * Build the visibility form.
    */
-  protected function buildVisibilityForm(FormStateInterface $form_state) {
-
+  protected function buildVisibilityForm(FormStateInterface $form_state): array {
     $form['visibility_tabs'] = [
       '#type' => 'vertical_tabs',
       '#title' => $this->t('Visibility'),
@@ -142,7 +130,7 @@ class ScriptForm extends EntityForm {
     $visibility_configuration = $this->entity->getVisibilityConditions()->getConfiguration();
 
     foreach ($this->getEnabledVisibilityDefinitions() as $condition_id => $definition) {
-      $condition = $this->conditionManager->createInstance($condition_id, isset($visibility_configuration[$condition_id]) ? $visibility_configuration[$condition_id] : []);
+      $condition = $this->conditionManager->createInstance($condition_id, $visibility_configuration[$condition_id] ?? []);
       $form_state->set(['conditions', $condition_id], $condition);
 
       $form[$condition_id] = [
@@ -161,7 +149,7 @@ class ScriptForm extends EntityForm {
   protected function getEnabledVisibilityDefinitions() {
     $definitions = $this->conditionManager->getFilteredDefinitions('script_manager');
     $enabled_plugins = $this->configuration->get('enabled_visibility_plugins');
-    return $enabled_plugins ? array_filter($definitions, function($definition) use ($enabled_plugins) {
+    return $enabled_plugins ? array_filter($definitions, function ($definition) use ($enabled_plugins) {
       return in_array($definition['id'], $enabled_plugins);
     }) : $definitions;
   }
@@ -197,7 +185,7 @@ class ScriptForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  public function save(array $form, FormStateInterface $form_state) {
+  public function save(array $form, FormStateInterface $form_state): int {
     parent::save($form, $form_state);
     $entity = $this->entity;
 
@@ -206,7 +194,7 @@ class ScriptForm extends EntityForm {
       $condition->submitConfigurationForm($form, (new FormState())->setValues($values));
 
       if ($condition instanceof ContextAwarePluginInterface) {
-        $context_mapping = isset($values['context_mapping']) ? $values['context_mapping'] : [];
+        $context_mapping = $values['context_mapping'] ?? [];
         $condition->setContextMapping($context_mapping);
       }
 
@@ -216,8 +204,8 @@ class ScriptForm extends EntityForm {
       $entity->getVisibilityConditions()->addInstanceId($condition_id, $condition_configuration);
     }
 
-    $entity->save();
     $form_state->setRedirect('entity.script.collection');
+    return (int) $entity->save();
   }
 
 }

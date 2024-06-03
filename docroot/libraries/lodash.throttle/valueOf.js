@@ -1,1 +1,1 @@
-export { default } from './wrapperValue.js'
+module.exports = require('./wrapperValue');

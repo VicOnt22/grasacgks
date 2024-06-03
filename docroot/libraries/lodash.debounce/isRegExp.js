@@ -1,6 +1,6 @@
-var baseIsRegExp = require('./_baseIsRegExp'),
-    baseUnary = require('./_baseUnary'),
-    nodeUtil = require('./_nodeUtil');
+import baseIsRegExp from './_baseIsRegExp.js';
+import baseUnary from './_baseUnary.js';
+import nodeUtil from './_nodeUtil.js';
 
 /* Node.js helper references. */
 var nodeIsRegExp = nodeUtil && nodeUtil.isRegExp;
@@ -24,4 +24,4 @@ var nodeIsRegExp = nodeUtil && nodeUtil.isRegExp;
  */
 var isRegExp = nodeIsRegExp ? baseUnary(nodeIsRegExp) : baseIsRegExp;
 
-module.exports = isRegExp;
+export default isRegExp;

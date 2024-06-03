@@ -1,5 +1,5 @@
-var baseSlice = require('./_baseSlice'),
-    toInteger = require('./toInteger');
+import baseSlice from './_baseSlice.js';
+import toInteger from './toInteger.js';
 
 /**
  * Creates a slice of `array` with `n` elements taken from the end.
@@ -36,4 +36,4 @@ function takeRight(array, n, guard) {
   return baseSlice(array, n < 0 ? 0 : n, length);
 }
 
-module.exports = takeRight;
+export default takeRight;

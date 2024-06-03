@@ -1,4 +1,4 @@
-import baseToString from './_baseToString.js';
+var baseToString = require('./_baseToString');
 
 /**
  * Converts `value` to a string. An empty string is returned for `null`
@@ -25,4 +25,4 @@ function toString(value) {
   return value == null ? '' : baseToString(value);
 }
 
-export default toString;
+module.exports = toString;

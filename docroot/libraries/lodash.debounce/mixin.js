@@ -1,10 +1,10 @@
-var arrayEach = require('./_arrayEach'),
-    arrayPush = require('./_arrayPush'),
-    baseFunctions = require('./_baseFunctions'),
-    copyArray = require('./_copyArray'),
-    isFunction = require('./isFunction'),
-    isObject = require('./isObject'),
-    keys = require('./keys');
+import arrayEach from './_arrayEach.js';
+import arrayPush from './_arrayPush.js';
+import baseFunctions from './_baseFunctions.js';
+import copyArray from './_copyArray.js';
+import isFunction from './isFunction.js';
+import isObject from './isObject.js';
+import keys from './keys.js';
 
 /**
  * Adds all own enumerable string keyed function properties of a source
@@ -71,4 +71,4 @@ function mixin(object, source, options) {
   return object;
 }
 
-module.exports = mixin;
+export default mixin;

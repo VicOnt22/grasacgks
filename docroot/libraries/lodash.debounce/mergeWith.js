@@ -1,5 +1,5 @@
-var baseMerge = require('./_baseMerge'),
-    createAssigner = require('./_createAssigner');
+import baseMerge from './_baseMerge.js';
+import createAssigner from './_createAssigner.js';
 
 /**
  * This method is like `_.merge` except that it accepts `customizer` which
@@ -36,4 +36,4 @@ var mergeWith = createAssigner(function(object, source, srcIndex, customizer) {
   baseMerge(object, source, srcIndex, customizer);
 });
 
-module.exports = mergeWith;
+export default mergeWith;

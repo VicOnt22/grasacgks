@@ -25,4 +25,4 @@ function thru(value, interceptor) {
   return interceptor(value);
 }
 
-module.exports = thru;
+export default thru;

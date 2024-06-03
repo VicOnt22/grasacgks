@@ -20,4 +20,4 @@ function stubArray() {
   return [];
 }
 
-export default stubArray;
+module.exports = stubArray;

@@ -162,7 +162,7 @@ class PluginRevisionController extends ControllerBase {
     $build['controls']['diff_layout'] = [
       '#type' => 'item',
       '#title' => $this->t('Layout'),
-      '#wrapper_attributes' => ['class' => 'diff-controls__item'],
+      '#wrapper_attributes' => ['class' => ['diff-controls__item']],
       'filter' => $this->buildLayoutNavigation($entity, $left_revision->getRevisionId(), $right_revision->getRevisionId(), $filter),
     ];
 
@@ -251,7 +251,7 @@ class PluginRevisionController extends ControllerBase {
       $element = [
         '#type' => 'item',
         '#title' => $this->t('Navigation'),
-        '#wrapper_attributes' => ['class' => 'diff-navigation'],
+        '#wrapper_attributes' => ['class' => ['diff-navigation']],
       ];
       $i = 0;
       // Find the previous revision.

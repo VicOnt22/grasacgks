@@ -1,4 +1,4 @@
-var createMathOperation = require('./_createMathOperation');
+import createMathOperation from './_createMathOperation.js';
 
 /**
  * Multiply two numbers.
@@ -19,4 +19,4 @@ var multiply = createMathOperation(function(multiplier, multiplicand) {
   return multiplier * multiplicand;
 }, 1);
 
-module.exports = multiply;
+export default multiply;

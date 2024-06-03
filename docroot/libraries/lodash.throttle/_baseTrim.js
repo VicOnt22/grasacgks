@@ -1,4 +1,4 @@
-import trimmedEndIndex from './_trimmedEndIndex.js';
+var trimmedEndIndex = require('./_trimmedEndIndex');
 
 /** Used to match leading whitespace. */
 var reTrimStart = /^\s+/;
@@ -16,4 +16,4 @@ function baseTrim(string) {
     : string;
 }
 
-export default baseTrim;
+module.exports = baseTrim;

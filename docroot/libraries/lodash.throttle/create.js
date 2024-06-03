@@ -1,5 +1,5 @@
-import baseAssign from './_baseAssign.js';
-import baseCreate from './_baseCreate.js';
+var baseAssign = require('./_baseAssign'),
+    baseCreate = require('./_baseCreate');
 
 /**
  * Creates an object that inherits from the `prototype` object. If a
@@ -40,4 +40,4 @@ function create(prototype, properties) {
   return properties == null ? result : baseAssign(result, properties);
 }
 
-export default create;
+module.exports = create;

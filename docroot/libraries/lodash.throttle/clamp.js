@@ -1,5 +1,5 @@
-import baseClamp from './_baseClamp.js';
-import toNumber from './toNumber.js';
+var baseClamp = require('./_baseClamp'),
+    toNumber = require('./toNumber');
 
 /**
  * Clamps `number` within the inclusive `lower` and `upper` bounds.
@@ -36,4 +36,4 @@ function clamp(number, lower, upper) {
   return baseClamp(toNumber(number), lower, upper);
 }
 
-export default clamp;
+module.exports = clamp;

@@ -1,4 +1,4 @@
-description: 'Un gabarit webform de session d''évaluation.'
+description: "Un gabarit webform de session d'évaluation."
 handlers:
   email_notification:
     label: 'Notification par courriel'

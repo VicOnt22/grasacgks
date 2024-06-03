@@ -10,6 +10,7 @@ namespace Drupal\drd_agent\Plugin\DrdPiAuth;
  * )
  */
 class Pantheon extends DrdPiAuthBase {
+
   /**
    * {@inheritdoc}
    */

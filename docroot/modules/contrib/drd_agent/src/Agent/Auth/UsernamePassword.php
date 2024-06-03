@@ -2,8 +2,6 @@
 
 namespace Drupal\drd_agent\Agent\Auth;
 
-
-
 /**
  * Implements the UsernamePassword authentication method.
  */

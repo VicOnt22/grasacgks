@@ -1,4 +1,4 @@
-var basePropertyOf = require('./_basePropertyOf');
+import basePropertyOf from './_basePropertyOf.js';
 
 /** Used to map characters to HTML entities. */
 var htmlEscapes = {
@@ -18,4 +18,4 @@ var htmlEscapes = {
  */
 var escapeHtmlChar = basePropertyOf(htmlEscapes);
 
-module.exports = escapeHtmlChar;
+export default escapeHtmlChar;

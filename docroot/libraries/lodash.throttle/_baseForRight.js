@@ -1,4 +1,4 @@
-import createBaseFor from './_createBaseFor.js';
+var createBaseFor = require('./_createBaseFor');
 
 /**
  * This function is like `baseFor` except that it iterates over properties
@@ -12,4 +12,4 @@ import createBaseFor from './_createBaseFor.js';
  */
 var baseForRight = createBaseFor(true);
 
-export default baseForRight;
+module.exports = baseForRight;

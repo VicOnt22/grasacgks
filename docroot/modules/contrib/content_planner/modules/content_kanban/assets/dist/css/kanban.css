@@ -34,6 +34,22 @@
   color: inherit;
   font-weight: bold;
 }
+.content-kanban .kanban-columns .kanban-column .kanban-entry .node-publication-info span {
+  display: inline-block;
+}
+.content-kanban .kanban-columns .kanban-column .kanban-entry .node-publication-info .publish-on {
+  float: right;
+}
+.content-kanban .kanban-columns .kanban-column .kanban-entry .node-publication-info .workflow-state {
+  color: white;
+  padding: 2px 3px;
+  border-radius: 3px;
+  max-width: 60%;
+  font-size: 0.7em;
+  font-weight: bold;
+  line-height: 1.2;
+  background-color: #333333;
+}
 .content-kanban .kanban-columns .kanban-column .kanban-entry .node-actions {
   position: absolute;
   right: 6px;
@@ -56,34 +72,29 @@
   display: inline-block;
 }
 .content-kanban .kanban-columns .kanban-column .kanban-entry .node-actions li .node-edit-link {
-  background-image: url("/core/themes/stable/images/core/icons/bebebe/pencil.svg");
+  background-image: url("../../../../../assets/dist/images/bebebe/pencil.svg");
 }
 .content-kanban .kanban-columns .kanban-column .kanban-entry .node-actions li .node-edit-link:hover {
-  background-image: url("/core/themes/stable/images/core/icons/787878/pencil.svg");
+  background-image: url("../../../../../assets/dist/images/787878/pencil.svg");
 }
 .content-kanban .kanban-columns .kanban-column .kanban-entry .node-actions li .node-delete-link {
-  background-image: url("/core/themes/stable/images/core/icons/bebebe/ex.svg");
+  background-image: url("../../../../../assets/dist/images/bebebe/ex.svg");
 }
 .content-kanban .kanban-columns .kanban-column .kanban-entry .node-actions li .node-delete-link:hover {
-  background-image: url("/core/themes/stable/images/core/icons/787878/ex.svg");
+  background-image: url("../../../../../assets/dist/images/787878/ex.svg");
 }
-
 .content-kanban .kanban-columns.kanban-2-columns .kanban-column {
   width: 50%;
 }
-
 .content-kanban .kanban-columns.kanban-3-columns .kanban-column {
   width: 33%;
 }
-
 .content-kanban .kanban-columns.kanban-4-columns .kanban-column {
   width: 25%;
 }
-
 .content-kanban .kanban-columns.kanban-5-columns .kanban-column {
   width: 20%;
 }
-
 .content-kanban .kanban-columns.kanban-6-columns .kanban-column {
   width: 16.666666667%;
 }

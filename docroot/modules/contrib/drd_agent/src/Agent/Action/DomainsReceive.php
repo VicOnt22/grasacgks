@@ -2,8 +2,7 @@
 
 namespace Drupal\drd_agent\Agent\Action;
 
-use Exception;
-use Psr\Log\LogLevel;
+use Drupal\Core\Logger\RfcLogLevel;
 
 /**
  * Provides a 'DomainsReceive' code.
@@ -13,7 +12,7 @@ class DomainsReceive extends Base {
   /**
    * {@inheritdoc}
    */
-  public function execute() {
+  public function execute(): array {
     $domains = [];
 
     foreach ($this->readSites() as $uri => $shortname) {
@@ -47,24 +46,26 @@ class DomainsReceive extends Base {
     $sites = [];
     if (file_exists(DRUPAL_ROOT . '/sites/sites.php')) {
       try {
-        /** @noinspection PhpIncludeInspection */
         include DRUPAL_ROOT . '/sites/sites.php';
       }
-      catch (Exception $e) {
+      catch (\Exception) {
         // Ignore.
       }
     }
+    // The $sites variable could be non-empty, if the included file above
+    // defined an array with site values.
+    // @phpstan-ignore-next-line
     if (empty($sites)) {
       foreach (scandir(DRUPAL_ROOT . '/sites') as $shortname) {
         if (is_dir(DRUPAL_ROOT . '/sites/' . $shortname) &&
           !in_array($shortname, ['.', '..', 'all'])) {
           $file = DRUPAL_ROOT . '/sites/' . $shortname . '/settings.php';
           if (file_exists($file)) {
-            list($base_url,) = $this->readSettings($shortname, $file);
+            [$base_url] = $this->readSettings($shortname, $file);
             if (empty($base_url)) {
               $this->watchdog('Reading Sites - Failed as url is empty: @shortname', [
                 '@shortname' => $shortname,
-              ], LogLevel::ERROR);
+              ], RfcLogLevel::ERROR);
               continue;
             }
             $pos = strpos($base_url, '://');
@@ -93,20 +94,17 @@ class DomainsReceive extends Base {
    * @param string $shortname
    *   Name of the subdirectory in Drupal's site directory.
    * @param string $file
-   *   Full path and filename to the settings.php which whould be read.
+   *   Full path and filename to the settings.php which would be read.
    *
    * @return array
    *   An array containing the base url and database settings.
    */
-  private function readSettings($shortname, $file): array {
+  private function readSettings(string $shortname, string $file): array {
     // The following 2 variables may be required due to Drupal's
     // default.settings.php since version 8.2.x.
     // @see also https://www.drupal.org/node/2911759
-    /* @noinspection PhpUnusedLocalVariableInspection */
-    $app_root = $this->container->get('app.root');
-    /* @noinspection PhpUnusedLocalVariableInspection */
+    $app_root = $this->container->getParameter('app.root');
     $site_path = 'sites/' . $shortname;
-    /* @noinspection PhpUnusedLocalVariableInspection */
     $class_loader = new DummyClassLoader();
 
     $base_url = '';
@@ -118,18 +116,22 @@ class DomainsReceive extends Base {
         '',
         '',
         '@ini_set',
-        '@ini_set'
+        '@ini_set',
       ], $php);
       file_put_contents('temporary://drd-test.php', $php);
+      //phpcs:disable
       eval($php);
     }
-    catch (Exception $e) {
+    catch (\Exception $e) {
       // Ignore it.
       $this->watchdog('Read Settings - Exception occured:<pre>@exception</pre>', [
         '@exception' => print_r($e, TRUE),
-      ], LogLevel::ERROR);
+      ], RfcLogLevel::ERROR);
       return ['', ''];
     }
+    // The $base_url variable could be non-empty, if the file content above
+    // defined the base url.
+    // @phpstan-ignore-next-line
     if (empty($base_url)) {
       if ($shortname === 'default') {
         $base_url = $GLOBALS['base_url'];
@@ -144,10 +146,15 @@ class DomainsReceive extends Base {
 }
 
 /**
- * Class DummyClassLoader
+ * The dummy class loader.
  *
  * @package Drupal\drd_agent\Agent\Action
  */
 class DummyClassLoader {
-  public function addPsr4($s1, $s2) {}
+
+  /**
+   * Adds the Psr4.
+   */
+  public function addPsr4(mixed $s1, mixed $s2): void  {}
+
 }

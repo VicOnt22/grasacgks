@@ -1,4 +1,4 @@
-import baseUniq from './_baseUniq.js';
+var baseUniq = require('./_baseUniq');
 
 /**
  * Creates a duplicate-free version of an array, using
@@ -22,4 +22,4 @@ function uniq(array) {
   return (array && array.length) ? baseUniq(array) : [];
 }
 
-export default uniq;
+module.exports = uniq;

@@ -1,5 +1,5 @@
-import baseIteratee from './_baseIteratee.js';
-import basePullAll from './_basePullAll.js';
+var baseIteratee = require('./_baseIteratee'),
+    basePullAll = require('./_basePullAll');
 
 /**
  * This method is like `_.pullAll` except that it accepts `iteratee` which is
@@ -30,4 +30,4 @@ function pullAllBy(array, values, iteratee) {
     : array;
 }
 
-export default pullAllBy;
+module.exports = pullAllBy;

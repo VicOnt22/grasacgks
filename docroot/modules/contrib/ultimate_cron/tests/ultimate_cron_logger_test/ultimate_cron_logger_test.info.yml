@@ -5,7 +5,7 @@ package: Testing
 dependencies:
   - ultimate_cron
 
-# Information added by Drupal.org packaging script on 2022-10-22
-version: '8.x-2.0-alpha6'
+# Information added by Drupal.org packaging script on 2024-02-04
+version: '8.x-2.0-alpha7'
 project: 'ultimate_cron'
-datestamp: 1666471451
+datestamp: 1707038674

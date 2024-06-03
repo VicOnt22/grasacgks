@@ -18,4 +18,4 @@ function baseDelay(func, wait, args) {
   return setTimeout(function() { func.apply(undefined, args); }, wait);
 }
 
-module.exports = baseDelay;
+export default baseDelay;

@@ -1,6 +1,6 @@
-var LazyWrapper = require('./_LazyWrapper'),
-    LodashWrapper = require('./_LodashWrapper'),
-    copyArray = require('./_copyArray');
+import LazyWrapper from './_LazyWrapper.js';
+import LodashWrapper from './_LodashWrapper.js';
+import copyArray from './_copyArray.js';
 
 /**
  * Creates a clone of `wrapper`.
@@ -20,4 +20,4 @@ function wrapperClone(wrapper) {
   return result;
 }
 
-module.exports = wrapperClone;
+export default wrapperClone;

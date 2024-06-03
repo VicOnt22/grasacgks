@@ -26,7 +26,7 @@ vbp-colors:
       css/theme/vbp-colors.theme.css: {}
 
 # ------------------------------------------------------------------------------
-# Libraries for Varbase Bootstrap Paraghraph types.
+# Libraries for Varbase Bootstrap Paragraph types.
 # ------------------------------------------------------------------------------
 
 # Varbase Bootstrap Paragraphs accordion component.

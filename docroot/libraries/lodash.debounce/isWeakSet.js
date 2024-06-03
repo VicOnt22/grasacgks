@@ -1,5 +1,5 @@
-var baseGetTag = require('./_baseGetTag'),
-    isObjectLike = require('./isObjectLike');
+import baseGetTag from './_baseGetTag.js';
+import isObjectLike from './isObjectLike.js';
 
 /** `Object#toString` result references. */
 var weakSetTag = '[object WeakSet]';
@@ -25,4 +25,4 @@ function isWeakSet(value) {
   return isObjectLike(value) && baseGetTag(value) == weakSetTag;
 }
 
-module.exports = isWeakSet;
+export default isWeakSet;

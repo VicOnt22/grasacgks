@@ -1,4 +1,4 @@
-import baseSlice from './_baseSlice.js';
+var baseSlice = require('./_baseSlice');
 
 /**
  * The base implementation of methods like `_.dropWhile` and `_.takeWhile`
@@ -23,4 +23,4 @@ function baseWhile(array, predicate, isDrop, fromRight) {
     : baseSlice(array, (fromRight ? index + 1 : 0), (fromRight ? length : index));
 }
 
-export default baseWhile;
+module.exports = baseWhile;

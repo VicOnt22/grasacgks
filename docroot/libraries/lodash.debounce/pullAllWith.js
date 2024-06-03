@@ -1,4 +1,4 @@
-var basePullAll = require('./_basePullAll');
+import basePullAll from './_basePullAll.js';
 
 /**
  * This method is like `_.pullAll` except that it accepts `comparator` which
@@ -29,4 +29,4 @@ function pullAllWith(array, values, comparator) {
     : array;
 }
 
-module.exports = pullAllWith;
+export default pullAllWith;

@@ -15,17 +15,22 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package Drupal\drd_agent\Controller
  */
-class Agent extends ControllerBase {
+final class Agent extends ControllerBase {
 
   /**
+   * The container.
+   *
    * @var \Symfony\Component\DependencyInjection\ContainerInterface
    */
-  protected $container;
+  protected ContainerInterface $container;
 
   /**
+   * The state interface.
+   *
    * @var \Drupal\Core\State\StateInterface
    */
-  protected $state;
+  protected StateInterface $state;
+
   /**
    * Get an array of http response headers.
    *
@@ -43,14 +48,19 @@ class Agent extends ControllerBase {
    * Agent constructor.
    *
    * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   The container.
    * @param \Drupal\Core\State\StateInterface $state
+   *   The state.
    */
   public function __construct(ContainerInterface $container, StateInterface $state) {
     $this->container = $container;
     $this->state = $state;
   }
 
-  public static function create(ContainerInterface $container) {
+  /**
+   * Creates an Agent instance.
+   */
+  public static function create(ContainerInterface $container): Agent {
     return new static(
       $container,
       $container->get('state')
@@ -62,6 +72,7 @@ class Agent extends ControllerBase {
    *
    * @return \Symfony\Component\HttpFoundation\Response
    *   The response to DRD.
+   *
    * @throws \Exception
    */
   public function get(): Response {
@@ -73,6 +84,7 @@ class Agent extends ControllerBase {
    *
    * @return \Symfony\Component\HttpFoundation\Response
    *   The response to DRD.
+   *
    * @throws \Exception
    */
   public function getCryptMethods(): Response {
@@ -84,6 +96,7 @@ class Agent extends ControllerBase {
    *
    * @return \Symfony\Component\HttpFoundation\Response
    *   The response to DRD.
+   *
    * @throws \Exception
    */
   public function authorizeBySecret(): Response {
@@ -99,7 +112,7 @@ class Agent extends ControllerBase {
    * @return \Symfony\Component\HttpFoundation\Response
    *   The response to DRD.
    */
-  private function deliver($data): Response {
+  private function deliver(string|Response $data): Response {
     return ($data instanceof Response) ? $data : new JsonResponse($data, 200, self::responseHeader());
   }
 

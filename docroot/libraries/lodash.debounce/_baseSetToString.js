@@ -1,6 +1,6 @@
-var constant = require('./constant'),
-    defineProperty = require('./_defineProperty'),
-    identity = require('./identity');
+import constant from './constant.js';
+import defineProperty from './_defineProperty.js';
+import identity from './identity.js';
 
 /**
  * The base implementation of `setToString` without support for hot loop shorting.
@@ -19,4 +19,4 @@ var baseSetToString = !defineProperty ? identity : function(func, string) {
   });
 };
 
-module.exports = baseSetToString;
+export default baseSetToString;

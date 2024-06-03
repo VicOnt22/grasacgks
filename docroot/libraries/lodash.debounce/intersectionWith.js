@@ -1,8 +1,8 @@
-var arrayMap = require('./_arrayMap'),
-    baseIntersection = require('./_baseIntersection'),
-    baseRest = require('./_baseRest'),
-    castArrayLikeObject = require('./_castArrayLikeObject'),
-    last = require('./last');
+import arrayMap from './_arrayMap.js';
+import baseIntersection from './_baseIntersection.js';
+import baseRest from './_baseRest.js';
+import castArrayLikeObject from './_castArrayLikeObject.js';
+import last from './last.js';
 
 /**
  * This method is like `_.intersection` except that it accepts `comparator`
@@ -38,4 +38,4 @@ var intersectionWith = baseRest(function(arrays) {
     : [];
 });
 
-module.exports = intersectionWith;
+export default intersectionWith;

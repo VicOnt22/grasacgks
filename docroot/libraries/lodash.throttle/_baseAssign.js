@@ -1,5 +1,5 @@
-import copyObject from './_copyObject.js';
-import keys from './keys.js';
+var copyObject = require('./_copyObject'),
+    keys = require('./keys');
 
 /**
  * The base implementation of `_.assign` without support for multiple sources
@@ -14,4 +14,4 @@ function baseAssign(object, source) {
   return object && copyObject(source, keys(source), object);
 }
 
-export default baseAssign;
+module.exports = baseAssign;

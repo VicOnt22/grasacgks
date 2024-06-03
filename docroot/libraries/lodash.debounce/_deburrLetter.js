@@ -1,4 +1,4 @@
-var basePropertyOf = require('./_basePropertyOf');
+import basePropertyOf from './_basePropertyOf.js';
 
 /** Used to map Latin Unicode letters to basic Latin letters. */
 var deburredLetters = {
@@ -68,4 +68,4 @@ var deburredLetters = {
  */
 var deburrLetter = basePropertyOf(deburredLetters);
 
-module.exports = deburrLetter;
+export default deburrLetter;

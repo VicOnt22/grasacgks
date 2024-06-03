@@ -1,4 +1,4 @@
-var freeGlobal = require('./_freeGlobal');
+import freeGlobal from './_freeGlobal.js';
 
 /** Detect free variable `exports`. */
 var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
@@ -27,4 +27,4 @@ var nodeUtil = (function() {
   } catch (e) {}
 }());
 
-module.exports = nodeUtil;
+export default nodeUtil;

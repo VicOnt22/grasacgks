@@ -1,7 +1,7 @@
-import baseRepeat from './_baseRepeat.js';
-import isIterateeCall from './_isIterateeCall.js';
-import toInteger from './toInteger.js';
-import toString from './toString.js';
+var baseRepeat = require('./_baseRepeat'),
+    isIterateeCall = require('./_isIterateeCall'),
+    toInteger = require('./toInteger'),
+    toString = require('./toString');
 
 /**
  * Repeats the given string `n` times.
@@ -34,4 +34,4 @@ function repeat(string, n, guard) {
   return baseRepeat(toString(string), n);
 }
 
-export default repeat;
+module.exports = repeat;

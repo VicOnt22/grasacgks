@@ -1,5 +1,5 @@
-var baseRest = require('./_baseRest'),
-    pullAll = require('./pullAll');
+import baseRest from './_baseRest.js';
+import pullAll from './pullAll.js';
 
 /**
  * Removes all given values from `array` using
@@ -26,4 +26,4 @@ var baseRest = require('./_baseRest'),
  */
 var pull = baseRest(pullAll);
 
-module.exports = pull;
+export default pull;

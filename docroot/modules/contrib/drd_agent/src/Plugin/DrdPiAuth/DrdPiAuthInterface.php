@@ -2,6 +2,9 @@
 
 namespace Drupal\drd_agent\Plugin\DrdPiAuth;
 
+/**
+ * The authentication interface for DRDPi.
+ */
 interface DrdPiAuthInterface {
 
   /**
@@ -11,9 +14,7 @@ interface DrdPiAuthInterface {
    *
    * @param array $input
    *   The decoded input.
-   *
-   * @return void
    */
-  public function validate($input): void;
+  public function validate(array $input): void;
 
 }

@@ -1,5 +1,5 @@
-var arrayPush = require('./_arrayPush'),
-    isArray = require('./isArray');
+import arrayPush from './_arrayPush.js';
+import isArray from './isArray.js';
 
 /**
  * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
@@ -17,4 +17,4 @@ function baseGetAllKeys(object, keysFunc, symbolsFunc) {
   return isArray(object) ? result : arrayPush(result, symbolsFunc(object));
 }
 
-module.exports = baseGetAllKeys;
+export default baseGetAllKeys;

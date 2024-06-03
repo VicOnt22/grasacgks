@@ -8,5 +8,6 @@ _core:
   default_config_hash: bdRF02avtmZW08aSsORWjphBhPoqrZkfnsTC1mIKFbQ
 id: media.simplified
 label: Simplified
+description: ''
 targetEntityType: media
 cache: true

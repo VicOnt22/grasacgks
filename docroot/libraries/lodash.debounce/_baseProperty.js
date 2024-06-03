@@ -11,4 +11,4 @@ function baseProperty(key) {
   };
 }
 
-module.exports = baseProperty;
+export default baseProperty;

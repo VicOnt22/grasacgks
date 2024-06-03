@@ -18,7 +18,7 @@ namespace Drupal\Tests\ckeditor_media_embed\Unit {
      */
     public function setUp(): void {
       $container = new ContainerBuilder();
-      $container->set('app.root', __DIR__ . '/../../assets');
+      $container->setParameter('app.root', __DIR__ . '/../../assets');
       \Drupal::setContainer($container);
     }
 
@@ -88,8 +88,11 @@ namespace Drupal\Tests\ckeditor_media_embed\Unit {
     // @codingStandardsIgnoreLine
     public function testGetCKEditorVersion() {
       $library_discovery = $this->createMock('Drupal\Core\Asset\LibraryDiscovery');
-
       $config_empty = $this->createMock('\Drupal\Core\Config\ImmutableConfig');
+
+      $config_empty = $this->getMockBuilder('\Drupal\Core\Config\ImmutableConfig')
+        ->disableOriginalConstructor()
+        ->getMock();
       $config_empty->expects($this->exactly(2))
         ->method('get')
         ->with('ckeditor_version')
@@ -102,7 +105,7 @@ namespace Drupal\Tests\ckeditor_media_embed\Unit {
         ->willReturn($config_empty);
 
       $container = new ContainerBuilder();
-      $container->set('app.root', __DIR__ . '/../../assets');
+      $container->setParameter('app.root', __DIR__ . '/../../assets');
       $container->set('config.factory', $config_factory);
       \Drupal::setContainer($container);
 

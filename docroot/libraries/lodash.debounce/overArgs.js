@@ -1,11 +1,11 @@
-var apply = require('./_apply'),
-    arrayMap = require('./_arrayMap'),
-    baseFlatten = require('./_baseFlatten'),
-    baseIteratee = require('./_baseIteratee'),
-    baseRest = require('./_baseRest'),
-    baseUnary = require('./_baseUnary'),
-    castRest = require('./_castRest'),
-    isArray = require('./isArray');
+import apply from './_apply.js';
+import arrayMap from './_arrayMap.js';
+import baseFlatten from './_baseFlatten.js';
+import baseIteratee from './_baseIteratee.js';
+import baseRest from './_baseRest.js';
+import baseUnary from './_baseUnary.js';
+import castRest from './_castRest.js';
+import isArray from './isArray.js';
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeMin = Math.min;
@@ -58,4 +58,4 @@ var overArgs = castRest(function(func, transforms) {
   });
 });
 
-module.exports = overArgs;
+export default overArgs;

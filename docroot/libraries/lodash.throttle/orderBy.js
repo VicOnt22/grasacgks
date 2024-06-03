@@ -1,5 +1,5 @@
-import baseOrderBy from './_baseOrderBy.js';
-import isArray from './isArray.js';
+var baseOrderBy = require('./_baseOrderBy'),
+    isArray = require('./isArray');
 
 /**
  * This method is like `_.sortBy` except that it allows specifying the sort
@@ -44,4 +44,4 @@ function orderBy(collection, iteratees, orders, guard) {
   return baseOrderBy(collection, iteratees, orders);
 }
 
-export default orderBy;
+module.exports = orderBy;

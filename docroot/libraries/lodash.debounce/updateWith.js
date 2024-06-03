@@ -1,5 +1,5 @@
-var baseUpdate = require('./_baseUpdate'),
-    castFunction = require('./_castFunction');
+import baseUpdate from './_baseUpdate.js';
+import castFunction from './_castFunction.js';
 
 /**
  * This method is like `_.update` except that it accepts `customizer` which is
@@ -30,4 +30,4 @@ function updateWith(object, path, updater, customizer) {
   return object == null ? object : baseUpdate(object, path, castFunction(updater), customizer);
 }
 
-module.exports = updateWith;
+export default updateWith;

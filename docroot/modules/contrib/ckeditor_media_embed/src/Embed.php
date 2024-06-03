@@ -170,9 +170,9 @@ class Embed implements EmbedInterface {
     $xpath = new \DOMXPath($document);
 
     foreach ($xpath->query('//oembed') as $node) {
-      $embed = $this->getEmbedObject($node->nodeValue);
+      $embed = $this->getEmbedObject($node->getAttribute('url'));
 
-      if (!empty($embed) && !empty($embed->html)) {
+      if (!empty($embed->html)) {
         $this->swapEmbedHtml($node, $embed);
       }
     }
@@ -205,9 +205,8 @@ class Embed implements EmbedInterface {
     $child = NULL;
     $embed_body_node = Html::load(trim($embed->html))->getElementsByTagName('body')->item(0);
     foreach ($embed_body_node->childNodes as $child) {
-      if ($child = $node->ownerDocument->importNode($child, TRUE)) {
-        $embed_node->appendChild($child);
-      }
+      $child = $node->ownerDocument->importNode($child, TRUE);
+      $embed_node->appendChild($child);
     }
 
     $node->parentNode->replaceChild($embed_node, $node);

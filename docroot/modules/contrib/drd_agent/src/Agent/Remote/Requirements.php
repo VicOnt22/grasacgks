@@ -7,7 +7,6 @@ use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Url;
 use Drupal\user\Entity\User;
-use Exception;
 use GuzzleHttp\Client;
 
 /**
@@ -31,8 +30,7 @@ class Requirements extends Base {
       'username' => '',
       'password' => '',
     ];
-    $info['prefix'] = isset($info['prefix']['default']) ?
-      $info['prefix']['default'] :
+    $info['prefix'] = $info['prefix']['default'] ??
       '';
     foreach ($info as $key => $value) {
       unset($info[$key]);
@@ -72,20 +70,28 @@ class Requirements extends Base {
           <a href="@url2">Google Tag Manager</a> or
           <a href="@url4">Matomo</a> or
           <a href="@url3">Piwik</a>.', [
-            '@url1' => Url::fromUserInput('/admin/config/system/google-analytics')->toUriString(),
-            '@url2' => Url::fromUserInput('/admin/config/system/google_tag')->toUriString(),
-            '@url3' => Url::fromUserInput('/admin/config/system/piwik')->toUriString(),
-            '@url4' => Url::fromUserInput('/admin/config/system/matomo')->toUriString(),
+            '@url1' => Url::fromUserInput('/admin/config/system/google-analytics')
+              ->toUriString(),
+            '@url2' => Url::fromUserInput('/admin/config/system/google_tag')
+              ->toUriString(),
+            '@url3' => Url::fromUserInput('/admin/config/system/piwik')
+              ->toUriString(),
+            '@url4' => Url::fromUserInput('/admin/config/system/matomo')
+              ->toUriString(),
           ]) :
       t('For SEO improvements you should use an analytics tool like
           <a href="@url1">Google Analytics</a>,
           <a href="@url2">Google Tag Manager</a> or
           <a href="@url4">Matomo</a> or
           <a href="@url3">Piwik</a>.', [
-            '@url1' => Url::fromUri('https://www.drupal.org/project/google_analytics', ['external' => TRUE])->toUriString(),
-            '@url2' => Url::fromUri('https://www.drupal.org/project/google_tag', ['external' => TRUE])->toUriString(),
-            '@url3' => Url::fromUri('https://www.drupal.org/project/piwik', ['external' => TRUE])->toUriString(),
-            '@url4' => Url::fromUri('https://www.drupal.org/project/matomo', ['external' => TRUE])->toUriString(),
+            '@url1' => Url::fromUri('https://www.drupal.org/project/google_analytics', ['external' => TRUE])
+              ->toUriString(),
+            '@url2' => Url::fromUri('https://www.drupal.org/project/google_tag', ['external' => TRUE])
+              ->toUriString(),
+            '@url3' => Url::fromUri('https://www.drupal.org/project/piwik', ['external' => TRUE])
+              ->toUriString(),
+            '@url4' => Url::fromUri('https://www.drupal.org/project/matomo', ['external' => TRUE])
+              ->toUriString(),
           ]),
     ];
 
@@ -94,7 +100,10 @@ class Requirements extends Base {
       'title' => t('Devel module disabled'),
       'value' => $devel ? t('Yes') : t('No'),
       'severity' => $devel ? REQUIREMENT_OK : REQUIREMENT_WARNING,
-      'description' => t('On production sites the <a href="@url">Devel module</a> should be disabled for security and performance reasons.', ['@url' => Url::fromUserInput('/admin/modules')->toUriString()]),
+      'description' => t('On production sites the <a href="@url">Devel module</a> should be disabled for security and performance reasons.', [
+        '@url' => Url::fromUserInput('/admin/modules')
+          ->toUriString(),
+      ]),
     ];
 
     $metatag = $this->moduleHandler->moduleExists('metatag');
@@ -103,8 +112,14 @@ class Requirements extends Base {
       'value' => $metatag ? t('Yes') : t('No'),
       'severity' => $metatag ? REQUIREMENT_OK : REQUIREMENT_WARNING,
       'description' => $metatag ?
-      t('The MetaTag module is enabled, its <a href="@url">settings can be managed here</a>.', ['@url' => Url::fromUserInput('/admin/config/search/metatags')->toUriString()]) :
-      t('For SEO improvements you should use the <a href="@url">MetaTag</a> module.', ['@url' => Url::fromUri('https://www.drupal.org/project/metatag')->toUriString()]),
+      t('The MetaTag module is enabled, its <a href="@url">settings can be managed here</a>.', [
+        '@url' => Url::fromUserInput('/admin/config/search/metatags')
+          ->toUriString(),
+      ]) :
+      t('For SEO improvements you should use the <a href="@url">MetaTag</a> module.', [
+        '@url' => Url::fromUri('https://www.drupal.org/project/metatag')
+          ->toUriString(),
+      ]),
     ];
 
     $pathauto = $this->moduleHandler->moduleExists('pathauto');
@@ -113,8 +128,14 @@ class Requirements extends Base {
       'value' => $pathauto ? t('Yes') : t('No'),
       'severity' => $pathauto ? REQUIREMENT_OK : REQUIREMENT_WARNING,
       'description' => $pathauto ?
-      t('The PathAuto module is enabled, it <a href="@url">can be managed here</a>.', ['@url' => Url::fromUserInput('/admin/config/search/path/patterns')->toUriString()]) :
-      t('For SEO improvements you should use the <a href="@url">PathAuto</a> module.', ['@url' => Url::fromUri('https://www.drupal.org/project/pathauto', ['external' => TRUE])->toUriString()]),
+      t('The PathAuto module is enabled, it <a href="@url">can be managed here</a>.', [
+        '@url' => Url::fromUserInput('/admin/config/search/path/patterns')
+          ->toUriString(),
+      ]) :
+      t('For SEO improvements you should use the <a href="@url">PathAuto</a> module.', [
+        '@url' => Url::fromUri('https://www.drupal.org/project/pathauto', ['external' => TRUE])
+          ->toUriString(),
+      ]),
     ];
 
     $php = !$this->moduleHandler->moduleExists('php');
@@ -123,8 +144,14 @@ class Requirements extends Base {
       'value' => $php ? t('Yes') : t('No'),
       'severity' => $php ? REQUIREMENT_OK : REQUIREMENT_ERROR,
       'description' => $php ?
-      t('For security reasons you should try to avoid using the <a href="@url">PHP Filter</a> module.', ['@url' => Url::fromUserInput('/admin/modules')->toUriString()]) :
-      t('For security reasons you should keep the <a href="@url">PHP Filter</a> module disabled.', ['@url' => Url::fromUserInput('/admin/modules')->toUriString()]),
+      t('For security reasons you should try to avoid using the <a href="@url">PHP Filter</a> module.', [
+        '@url' => Url::fromUserInput('/admin/modules')
+          ->toUriString(),
+      ]) :
+      t('For security reasons you should keep the <a href="@url">PHP Filter</a> module disabled.', [
+        '@url' => Url::fromUserInput('/admin/modules')
+          ->toUriString(),
+      ]),
     ];
 
     $sitemap = (
@@ -142,9 +169,12 @@ class Requirements extends Base {
         <a href="@url1">Simple sitemap</a>,
         <a href="@url2">Sitemap</a>,
         <a href="@url3">XML-Sitemap</a>.', [
-          '@url1' => Url::fromUri('https://www.drupal.org/project/simple_sitemap', ['external' => TRUE])->toUriString(),
-          '@url2' => Url::fromUri('https://www.drupal.org/project/xmlitemap', ['external' => TRUE])->toUriString(),
-          '@url3' => Url::fromUri('https://www.drupal.org/project/xmlsitemap', ['external' => TRUE])->toUriString(),
+          '@url1' => Url::fromUri('https://www.drupal.org/project/simple_sitemap', ['external' => TRUE])
+            ->toUriString(),
+          '@url2' => Url::fromUri('https://www.drupal.org/project/xmlitemap', ['external' => TRUE])
+            ->toUriString(),
+          '@url3' => Url::fromUri('https://www.drupal.org/project/xmlsitemap', ['external' => TRUE])
+            ->toUriString(),
         ]),
     ];
 
@@ -173,18 +203,18 @@ class Requirements extends Base {
         ->condition('is_admin', TRUE)
         ->accessCheck(FALSE)
         ->execute();
-    } catch (InvalidPluginDefinitionException $e) {
-    } catch (PluginNotFoundException $e) {
+    }
+    catch (InvalidPluginDefinitionException $e) {
+    }
+    catch (PluginNotFoundException $e) {
     }
     if (empty($admin_roles)) {
       $count_admin = 0;
     }
     else {
-      /* @var \Drupal\Core\Database\Query\SelectInterface $query */
       $query = $this->database->select('user__roles', 'ur')
         ->fields('ur', ['entity_id'])
         ->condition('ur.roles_target_id', $admin_roles, 'IN');
-      /** @noinspection NullPointerExceptionInspection */
       $count_admin = $query
         ->countQuery()
         ->execute()
@@ -197,14 +227,21 @@ class Requirements extends Base {
       'description' => t('For security reasons you should only have a small amount of users with an administer role.'),
     ];
 
-    $css = $this->configFactory->get('system.performance')->get('css.preprocess');
+    $css = $this->configFactory->get('system.performance')
+      ->get('css.preprocess');
     $requirements['drd_agent.compress.css'] = [
       'title' => t('Aggregate and compress CSS files'),
       'value' => $css ? t('Yes') : t('No'),
       'severity' => $css ? REQUIREMENT_OK : REQUIREMENT_WARNING,
       'description' => $css ?
-      t('The CSS is aggregated on this site. <a href="@url">Performance settings can be managed here</a>.', ['@url' => Url::fromUserInput('/admin/config/development/performance')->toUriString()]) :
-      t('For performance reasons you should allow your <a href="@url">CSS to be aggregated</a> on production sites.', ['@url' => Url::fromUserInput('/admin/config/development/performance')->toUriString()]),
+      t('The CSS is aggregated on this site. <a href="@url">Performance settings can be managed here</a>.', [
+        '@url' => Url::fromUserInput('/admin/config/development/performance')
+          ->toUriString(),
+      ]) :
+      t('For performance reasons you should allow your <a href="@url">CSS to be aggregated</a> on production sites.', [
+        '@url' => Url::fromUserInput('/admin/config/development/performance')
+          ->toUriString(),
+      ]),
     ];
 
     $js = $this->configFactory->get('system.performance')->get('js.preprocess');
@@ -213,8 +250,14 @@ class Requirements extends Base {
       'value' => $js ? t('Yes') : t('No'),
       'severity' => $js ? REQUIREMENT_OK : REQUIREMENT_WARNING,
       'description' => $js ?
-      t('The JS is aggregated on this site. <a href="@url">Performance settings can be managed here</a>.', ['@url' => Url::fromUserInput('/admin/config/development/performance')->toUriString()]) :
-      t('For performance reasons you should allow your <a href="@url">JS to be aggregated</a> on production sites.', ['@url' => Url::fromUserInput('/admin/config/development/performance')->toUriString()]),
+      t('The JS is aggregated on this site. <a href="@url">Performance settings can be managed here</a>.', [
+        '@url' => Url::fromUserInput('/admin/config/development/performance')
+          ->toUriString(),
+      ]) :
+      t('For performance reasons you should allow your <a href="@url">JS to be aggregated</a> on production sites.', [
+        '@url' => Url::fromUserInput('/admin/config/development/performance')
+          ->toUriString(),
+      ]),
     ];
 
     $page403 = $this->configFactory->get('system.site')->get('page.403');
@@ -223,8 +266,14 @@ class Requirements extends Base {
       'value' => empty($page403) ? t('Undefined') : $page403,
       'severity' => empty($page403) ? REQUIREMENT_WARNING : REQUIREMENT_OK,
       'description' => $page403 ?
-      t('There is a 403 page defined. <a href="@url">The 403 page can be managed here</a>.', ['@url' => Url::fromUserInput('/admin/config/system/site-information')->toUriString()]) :
-      t('For improved user experience you should define a <a href="@url">default 403 (Access denied)</a> page.', ['@url' => Url::fromUserInput('/admin/config/system/site-information')->toUriString()]),
+      t('There is a 403 page defined. <a href="@url">The 403 page can be managed here</a>.', [
+        '@url' => Url::fromUserInput('/admin/config/system/site-information')
+          ->toUriString(),
+      ]) :
+      t('For improved user experience you should define a <a href="@url">default 403 (Access denied)</a> page.', [
+        '@url' => Url::fromUserInput('/admin/config/system/site-information')
+          ->toUriString(),
+      ]),
     ];
 
     $page404 = $this->configFactory->get('system.site')->get('page.404');
@@ -233,14 +282,23 @@ class Requirements extends Base {
       'value' => empty($page404) ? t('Undefined') : $page404,
       'severity' => empty($page404) ? REQUIREMENT_WARNING : REQUIREMENT_OK,
       'description' => $page404 ?
-      t('There is a 404 page defined. <a href="@url">The 404 page can be managed here</a>.', ['@url' => Url::fromUserInput('/admin/config/system/site-information')->toUriString()]) :
-      t('For improved user experience you could define a <a href="@url">default 404 (Not found)</a> page.', ['@url' => Url::fromUserInput('/admin/config/system/site-information')->toUriString()]),
+      t('There is a 404 page defined. <a href="@url">The 404 page can be managed here</a>.', [
+        '@url' => Url::fromUserInput('/admin/config/system/site-information')
+          ->toUriString(),
+      ]) :
+      t('For improved user experience you could define a <a href="@url">default 404 (Not found)</a> page.', [
+        '@url' => Url::fromUserInput('/admin/config/system/site-information')
+          ->toUriString(),
+      ]),
     ];
 
     $warnings = $this->configFactory->get('system.logging')->get('error_level');
     $requirements['drd_agent.hidden.warnings'] = [
       'title' => t('Error messages to display'),
-      'description' => t('For security reasons you should <a href="@url">write all errors and warnings</a> to the log.', ['@url' => Url::fromUserInput('/admin/config/development/logging')->toUriString()]),
+      'description' => t('For security reasons you should <a href="@url">write all errors and warnings</a> to the log.', [
+        '@url' => Url::fromUserInput('/admin/config/development/logging')
+          ->toUriString(),
+      ]),
     ];
 
     switch ($warnings) {
@@ -280,9 +338,7 @@ class Requirements extends Base {
       'title' => t('Info files to be removed'),
       'value' => empty($txtfiles) ? t('All info files properly removed') : implode(', ', $txtfiles),
       'severity' => empty($txtfiles) ? REQUIREMENT_OK : REQUIREMENT_WARNING,
-      'description' => $requirements ?
-      t('The info files of Drupal Core are removed.') :
-      t('The info files in the Drupal Core could be removed to expose less about which version Drupal is running.'),
+      'description' => t('The info files of Drupal Core are removed.'),
     ];
 
     if ($this->moduleHandler->moduleExists('robotstxt')) {
@@ -297,7 +353,11 @@ class Requirements extends Base {
       }
     }
     else {
-      $robotsurl = Url::fromUri('base://robots.txt', ['absolute' => TRUE, 'language' => (object) ['language' => LanguageInterface::LANGCODE_NOT_SPECIFIED]])->toString();
+      $robotsurl = Url::fromUri('base://robots.txt',
+        [
+          'absolute' => TRUE,
+          'language' => (object) ['language' => LanguageInterface::LANGCODE_NOT_SPECIFIED],
+        ])->toString();
       try {
         $client = new Client([
           'base_uri' => $robotsurl,
@@ -306,17 +366,23 @@ class Requirements extends Base {
         ]);
         $response = $client->request('get');
       }
-      catch (Exception $ex) {
+      catch (\Exception $ex) {
         // Ignore.
       }
       $robots = (isset($response) && $response->getStatusCode() === 200);
       if ($robots) {
         $severity = REQUIREMENT_OK;
-        $description = t('This site contains a <a href="@url">robots.txt</a> file', ['@url' => Url::fromUserInput('/robots.txt')->toUriString()]);
+        $description = t('This site contains a <a href="@url">robots.txt</a> file', [
+          '@url' => Url::fromUserInput('/robots.txt')
+            ->toUriString(),
+        ]);
       }
       else {
         $severity = REQUIREMENT_WARNING;
-        $description = t('For SEO reasons this site should have a <a href="@url">robots.txt</a> file in the Drupal Core.', ['@url' => Url::fromUri('https://www.drupal.org/project/robotstxt', ['external' => TRUE])->toUriString()]);
+        $description = t('For SEO reasons this site should have a <a href="@url">robots.txt</a> file in the Drupal Core.', [
+          '@url' => Url::fromUri('https://www.drupal.org/project/robotstxt', ['external' => TRUE])
+            ->toUriString(),
+        ]);
       }
     }
     $requirements['drd_agent.robots.txt'] = [
@@ -326,14 +392,18 @@ class Requirements extends Base {
       'description' => $description,
     ];
 
-    $themeregistry = $this->configFactory->get('devel.settings')->get('rebuild_theme');
+    $themeregistry = $this->configFactory->get('devel.settings')
+      ->get('rebuild_theme');
     $requirements['drd_agent.theme.registry'] = [
       'title' => t('Rebuild theme registry on each page load'),
       'value' => $themeregistry ? t('Yes') : t('No'),
       'severity' => $themeregistry ? REQUIREMENT_WARNING : REQUIREMENT_OK,
       'description' => $themeregistry ?
       t('Your site is not rebuilding the them registry on each page load. Thats good.') :
-      t('For performance reasons this site should not <a href="@url">rebuild the theme registry</a> on each page load.', ['@url' => Url::fromUserInput('/admin/appearance/settings')->toUriString()]),
+      t('For performance reasons this site should not <a href="@url">rebuild the theme registry</a> on each page load.', [
+        '@url' => Url::fromUserInput('/admin/appearance/settings')
+          ->toUriString(),
+      ]),
     ];
 
     $watchdog = $this->configFactory->get('dblog.settings')->get('row_limit');
@@ -341,7 +411,10 @@ class Requirements extends Base {
       'title' => t('Database log messages to keep'),
       'value' => empty($watchdog) ? t('All') : $watchdog,
       'severity' => ($watchdog <= 1000 && $watchdog > 0) ? REQUIREMENT_OK : REQUIREMENT_WARNING,
-      'description' => t('For performance reasons the <a href="@url">database log</a> should not be bigger then 1000 messages.', ['@url' => Url::fromUserInput('/admin/config/development/logging')->toUriString()]),
+      'description' => t('For performance reasons the <a href="@url">database log</a> should not be bigger then 1000 messages.', [
+        '@url' => Url::fromUserInput('/admin/config/development/logging')
+          ->toUriString(),
+      ]),
     ];
 
     return $requirements;

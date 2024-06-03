@@ -37,4 +37,4 @@ function unicodeToArray(string) {
   return string.match(reUnicode) || [];
 }
 
-export default unicodeToArray;
+module.exports = unicodeToArray;

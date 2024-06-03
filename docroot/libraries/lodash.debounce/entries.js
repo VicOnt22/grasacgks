@@ -1,1 +1,1 @@
-module.exports = require('./toPairs');
+export { default } from './toPairs.js'

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Drupal\Tests\script_manager\Functional;
 
 use Behat\Mink\Exception\ExpectationException;
@@ -12,28 +14,29 @@ use Drupal\Tests\BrowserTestBase;
  *
  * @group script_manager
  */
-class ScriptManagerTest extends BrowserTestBase {
-
-  /**
-   * Modules to test.
-   *
-   * @var array
-   */
-  public static $modules = [
-    'script_manager',
-  ];
-
-  /**
-   * An example script.
-   *
-   * @var \Drupal\script_manager\Entity\Script
-   */
-  protected $exampleScript;
+final class ScriptManagerTest extends BrowserTestBase {
 
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected static $modules = [
+    'script_manager',
+  ];
+
+  /**
+   * A script entity to test with.
+   */
+  protected Script $exampleScript;
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
     parent::setUp();
     $this->exampleScript = Script::create([
       'id' => 'foo',
@@ -47,7 +50,7 @@ class ScriptManagerTest extends BrowserTestBase {
   /**
    * Test the different page positions.
    */
-  public function testScriptManagerPositions() {
+  public function testScriptManagerPositions(): void {
     $this->exampleScript->set('position', ScriptInterface::POSITION_TOP)->save();
     $this->drupalGet('<front>');
     $this->assertOrderInPage([$this->exampleScript->getSnippet(), '</h1>']);
@@ -64,27 +67,27 @@ class ScriptManagerTest extends BrowserTestBase {
   /**
    * Test the visibility conditions.
    */
-  public function testScriptManagerConditions() {
+  public function testScriptManagerConditions(): void {
     $this->exampleScript->set('visibility', [
       'request_path' => [
         'id' => 'request_path',
         'pages' => '/user/register',
         'negate' => FALSE,
         'context_mapping' => [],
-      ]
+      ],
     ])->save();
 
     $this->drupalGet('<front>');
     $this->assertScriptNotVisible();
 
     $this->drupalGet('user/register');
-    $this->assertScriptVisibile();
+    $this->assertScriptVisible();
   }
 
   /**
    * Assert the script appears on the page.
    */
-  protected function assertScriptVisibile() {
+  protected function assertScriptVisible(): void {
     $this->assertSession()
       ->pageTextContains($this->exampleScript->getSnippet());
   }
@@ -92,7 +95,7 @@ class ScriptManagerTest extends BrowserTestBase {
   /**
    * Assert the script doesn't appears on the page.
    */
-  protected function assertScriptNotVisible() {
+  protected function assertScriptNotVisible(): void {
     $this->assertSession()
       ->pageTextNotContains($this->exampleScript->getSnippet());
   }
@@ -116,7 +119,7 @@ class ScriptManagerTest extends BrowserTestBase {
       $strings[$pos] = $item;
     }
     ksort($strings);
-    $ordered = implode(', ', array_map(function ($item) {
+    $ordered = implode(', ', array_map(function ($item): string {
       return "'$item'";
     }, $items));
     if ($items !== array_values($strings)) {

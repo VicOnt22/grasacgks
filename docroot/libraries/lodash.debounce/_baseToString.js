@@ -1,7 +1,7 @@
-var Symbol = require('./_Symbol'),
-    arrayMap = require('./_arrayMap'),
-    isArray = require('./isArray'),
-    isSymbol = require('./isSymbol');
+import Symbol from './_Symbol.js';
+import arrayMap from './_arrayMap.js';
+import isArray from './isArray.js';
+import isSymbol from './isSymbol.js';
 
 /** Used as references for various `Number` constants. */
 var INFINITY = 1 / 0;
@@ -34,4 +34,4 @@ function baseToString(value) {
   return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
 }
 
-module.exports = baseToString;
+export default baseToString;

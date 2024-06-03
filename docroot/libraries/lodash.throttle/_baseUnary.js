@@ -11,4 +11,4 @@ function baseUnary(func) {
   };
 }
 
-export default baseUnary;
+module.exports = baseUnary;

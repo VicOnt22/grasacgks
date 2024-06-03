@@ -1,5 +1,5 @@
-import metaMap from './_metaMap.js';
-import noop from './noop.js';
+var metaMap = require('./_metaMap'),
+    noop = require('./noop');
 
 /**
  * Gets metadata for `func`.
@@ -12,4 +12,4 @@ var getData = !metaMap ? noop : function(func) {
   return metaMap.get(func);
 };
 
-export default getData;
+module.exports = getData;

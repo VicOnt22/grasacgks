@@ -20,13 +20,13 @@ function views_bootstrap_help($route_name, RouteMatchInterface $route_match) {
       $output .= '<h3>' . t('Uses') . '</h3>';
       $output .= '<p>' . t('<a href="/admin/structure/views/add">Create a view</a> using one of the following styles:') . '</p>';
       $output .= '<ul>';
-      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/4.2/components/card/">Card</a>') . '</li>';
-      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/4.2/layout/grid/">Grid</a>') . '</li>';
-      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/4.2/content/tables/">Tables</a>') . '</li>';
-      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/4.2/components/media-object/">Media object</a>') . '</li>';
-      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/4.2/components/collapse/#accordion-example">Accordion</a>') . '</li>';
-      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/4.2/components/carousel/">Carousel</a>') . '</li>';
-      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/4.2/components/list-group/">List group</a>') . '</li>';
+      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/5.1/components/card/">Card</a>') . '</li>';
+      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/5.1/layout/grid/">Grid</a>') . '</li>';
+      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/5.1/content/tables/">Tables</a>') . '</li>';
+      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/5.1/components/media-object/">Media object</a>') . '</li>';
+      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/5.1/components/collapse/#accordion-example">Accordion</a>') . '</li>';
+      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/5.1/components/carousel/">Carousel</a>') . '</li>';
+      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/5.1/components/list-group/">List group</a>') . '</li>';
       $output .= '<ul>';
 
       return $output;

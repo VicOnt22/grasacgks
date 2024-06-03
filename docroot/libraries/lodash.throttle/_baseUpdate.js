@@ -1,5 +1,5 @@
-import baseGet from './_baseGet.js';
-import baseSet from './_baseSet.js';
+var baseGet = require('./_baseGet'),
+    baseSet = require('./_baseSet');
 
 /**
  * The base implementation of `_.update`.
@@ -15,4 +15,4 @@ function baseUpdate(object, path, updater, customizer) {
   return baseSet(object, path, updater(baseGet(object, path)), customizer);
 }
 
-export default baseUpdate;
+module.exports = baseUpdate;

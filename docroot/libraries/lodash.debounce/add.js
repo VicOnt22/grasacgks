@@ -1,4 +1,4 @@
-var createMathOperation = require('./_createMathOperation');
+import createMathOperation from './_createMathOperation.js';
 
 /**
  * Adds two numbers.
@@ -19,4 +19,4 @@ var add = createMathOperation(function(augend, addend) {
   return augend + addend;
 }, 0);
 
-module.exports = add;
+export default add;

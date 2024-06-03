@@ -1,4 +1,4 @@
-var createRelationalOperation = require('./_createRelationalOperation');
+import createRelationalOperation from './_createRelationalOperation.js';
 
 /**
  * Checks if `value` is less than or equal to `other`.
@@ -27,4 +27,4 @@ var lte = createRelationalOperation(function(value, other) {
   return value <= other;
 });
 
-module.exports = lte;
+export default lte;

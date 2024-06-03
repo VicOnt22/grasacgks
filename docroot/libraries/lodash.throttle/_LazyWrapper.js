@@ -1,5 +1,5 @@
-import baseCreate from './_baseCreate.js';
-import baseLodash from './_baseLodash.js';
+var baseCreate = require('./_baseCreate'),
+    baseLodash = require('./_baseLodash');
 
 /** Used as references for the maximum length and index of an array. */
 var MAX_ARRAY_LENGTH = 4294967295;
@@ -25,4 +25,4 @@ function LazyWrapper(value) {
 LazyWrapper.prototype = baseCreate(baseLodash.prototype);
 LazyWrapper.prototype.constructor = LazyWrapper;
 
-export default LazyWrapper;
+module.exports = LazyWrapper;

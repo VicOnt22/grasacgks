@@ -2,9 +2,9 @@
 
 namespace Drupal\drd_agent\Agent\Action;
 
-
 use Drupal\block\BlockListBuilder;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
+use Drupal\Component\Render\MarkupInterface;
 
 /**
  * Provides a 'Blocks' code.
@@ -45,7 +45,7 @@ class Blocks extends Base {
    * @return \Drupal\Component\Render\MarkupInterface|array
    *   Rendered result of the block or an empty array.
    */
-  private function renderBlock($delta) {
+  private function renderBlock(string $delta): MarkupInterface|array {
     try {
       $blb = BlockListBuilder::createInstance($this->container, $this->entityTypeManager->getDefinition('block'));
     }
@@ -57,7 +57,6 @@ class Blocks extends Base {
     if (isset($blocks[$delta])) {
       $block = $blocks[$delta];
       $build = $block->getPlugin()->build();
-      /** @noinspection NullPointerExceptionInspection */
       return $this->container->get('renderer')->renderPlain($build);
     }
     return [];
@@ -66,7 +65,7 @@ class Blocks extends Base {
   /**
    * {@inheritdoc}
    */
-  public function execute() {
+  public function execute(): array {
     if (!$this->moduleHandler->moduleExists('block')) {
       return [];
     }

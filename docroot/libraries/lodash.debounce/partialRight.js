@@ -1,7 +1,7 @@
-var baseRest = require('./_baseRest'),
-    createWrap = require('./_createWrap'),
-    getHolder = require('./_getHolder'),
-    replaceHolders = require('./_replaceHolders');
+import baseRest from './_baseRest.js';
+import createWrap from './_createWrap.js';
+import getHolder from './_getHolder.js';
+import replaceHolders from './_replaceHolders.js';
 
 /** Used to compose bitmasks for function metadata. */
 var WRAP_PARTIAL_RIGHT_FLAG = 64;
@@ -46,4 +46,4 @@ var partialRight = baseRest(function(func, partials) {
 // Assign default placeholders.
 partialRight.placeholder = {};
 
-module.exports = partialRight;
+export default partialRight;

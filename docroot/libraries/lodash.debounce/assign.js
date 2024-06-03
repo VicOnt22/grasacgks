@@ -1,9 +1,9 @@
-var assignValue = require('./_assignValue'),
-    copyObject = require('./_copyObject'),
-    createAssigner = require('./_createAssigner'),
-    isArrayLike = require('./isArrayLike'),
-    isPrototype = require('./_isPrototype'),
-    keys = require('./keys');
+import assignValue from './_assignValue.js';
+import copyObject from './_copyObject.js';
+import createAssigner from './_createAssigner.js';
+import isArrayLike from './isArrayLike.js';
+import isPrototype from './_isPrototype.js';
+import keys from './keys.js';
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -55,4 +55,4 @@ var assign = createAssigner(function(object, source) {
   }
 });
 
-module.exports = assign;
+export default assign;

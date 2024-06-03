@@ -1,7 +1,7 @@
-var baseToPairs = require('./_baseToPairs'),
-    getTag = require('./_getTag'),
-    mapToArray = require('./_mapToArray'),
-    setToPairs = require('./_setToPairs');
+import baseToPairs from './_baseToPairs.js';
+import getTag from './_getTag.js';
+import mapToArray from './_mapToArray.js';
+import setToPairs from './_setToPairs.js';
 
 /** `Object#toString` result references. */
 var mapTag = '[object Map]',
@@ -27,4 +27,4 @@ function createToPairs(keysFunc) {
   };
 }
 
-module.exports = createToPairs;
+export default createToPairs;

@@ -1,6 +1,6 @@
-import baseInRange from './_baseInRange.js';
-import toFinite from './toFinite.js';
-import toNumber from './toNumber.js';
+var baseInRange = require('./_baseInRange'),
+    toFinite = require('./toFinite'),
+    toNumber = require('./toNumber');
 
 /**
  * Checks if `n` is between `start` and up to, but not including, `end`. If
@@ -52,4 +52,4 @@ function inRange(number, start, end) {
   return baseInRange(number, start, end);
 }
 
-export default inRange;
+module.exports = inRange;

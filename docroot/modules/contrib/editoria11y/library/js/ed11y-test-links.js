@@ -9,26 +9,22 @@ class Ed11yTestLinks {
     // todo later: Add test for consecutive links to same href?
     // todo later: parameterize stopwords as in Sa11y
 
-    if (!Ed11y.options.linkIgnoreStrings) {
-      Ed11y.options.linkIgnoreStrings = Ed11y.M.linkStringsNewWindows;
-    }
-
     Ed11y.elements.a?.forEach((el) => {
       // todo: replace with full accessible name calculation
       let linkText = Ed11y.computeText(el, 0, !!Ed11y.options.linkIgnoreSelector); // returns text or 'noAria';
       let img = el.querySelectorAll('img');
       let hasImg = img.length > 0;
-      let document = false;
+      let document = el.matches(Ed11y.options.documentLinks);
 
-      if (el.matches(Ed11y.options.documentLinks)) {
-        document = true;
-      }
-
-      // Create version of text without "open in new window" warnings.
-      let linkStrippedText = Ed11y.options.linkIgnoreStrings ? linkText.toLowerCase().replace(Ed11y.options.linkIgnoreStrings, '') : linkText.toLowerCase();
       if (el?.getAttribute('target') === '_blank') {
         // Nothing was stripped AND we weren't warned.
-        if (linkStrippedText.length === linkText.length && !(Ed11y.options.linkIgnoreSelector && el?.querySelector(Ed11y.options.linkIgnoreSelector))) {
+        if (
+          !(
+            (Ed11y.options.linkIgnoreSelector &&
+              el?.querySelector(Ed11y.options.linkIgnoreSelector))
+              || linkText.toLowerCase().match(Ed11y.options.linkStringsNewWindows)
+          )
+        ) {
           let dismissKey = Ed11y.dismissalKey(linkText);
           Ed11y.results.push({
             element: el,
@@ -40,12 +36,13 @@ class Ed11yTestLinks {
         }
       }
 
-
-
-      linkStrippedText = linkStrippedText.replace(/'|"|-|\.|\s+/g, '');
-
       // Tests to see if this link is empty
-      if (linkStrippedText.length === 0) {
+      if (
+        linkText.replace(/"|'|\?|\.|-|\s+/g, '').length === 0 &&
+          !( Ed11y.options.linkIgnoreSelector &&
+          el.querySelector(Ed11y.options.linkIgnoreSelector)
+          )
+      ) {
         // already flagged by link test
         if (hasImg === false) {
           Ed11y.results.push({
@@ -66,15 +63,26 @@ class Ed11yTestLinks {
         }
       }
       else {
-        // Checks if link text is not descriptive.
         let linkTextCheck = function (textContent) {
+          // Checks if link text is not descriptive.
+          let linkStrippedText = textContent;
+          // Create version of text without "open in new window" warnings.
+          if (Ed11y.options.linkStringsNewWindows && Ed11y.options.linkStringsNewWindows !== Ed11y.M.linkStringsNewWindows) {
+            // don't strip on the default, which is loose.
+            linkStrippedText = linkStrippedText.toLowerCase().replace(Ed11y.options.linkIgnoreStrings, '');
+          }
+          if (Ed11y.options.linkIgnoreStrings) {
+            linkStrippedText = Ed11y.options.linkIgnoreStrings ?
+              linkStrippedText.toLowerCase().replace(Ed11y.options.linkIgnoreStrings, '')
+              : linkStrippedText.toLowerCase();
+          }
           // todo later: use regex to find any three-letter TLD followed by a slash.
           // todo later: parameterize TLD list
           let linksUrls = Ed11y.options.linksUrls ? Ed11y.options.linksUrls : Ed11y.M.linksUrls;
           let linksMeaningless = Ed11y.options.linksMeaningless ? Ed11y.options.linksMeaningless : Ed11y.M.linksMeaningless;
           let hit = 'none';
 
-          if (textContent.replace(linksMeaningless, '').length === 0) {
+          if (linkStrippedText.replace(linksMeaningless, '').length === 0) {
             // If no partial words were found, then check for total words.
             hit = 'generic';
           }
@@ -88,7 +96,7 @@ class Ed11yTestLinks {
           }
           return hit;
         };
-        let textCheck = linkTextCheck(linkStrippedText);
+        let textCheck = linkTextCheck(linkText);
         if (textCheck !== 'none') {
           let dismissKey = false;
           let error = false;
@@ -111,9 +119,8 @@ class Ed11yTestLinks {
           }
         }
       }
-      //Warning: Find all PDFs. Although only append warning icon to
-      // first PDF on page.
-      if (!hasImg && document) {
+      // Warning: Find all PDFs.
+      if ( document ) {
         let dismissKey = Ed11y.dismissalKey(el?.getAttribute('href'));
         Ed11y.results.push(
           {

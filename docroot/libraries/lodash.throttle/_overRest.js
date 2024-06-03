@@ -1,4 +1,4 @@
-import apply from './_apply.js';
+var apply = require('./_apply');
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeMax = Math.max;
@@ -33,4 +33,4 @@ function overRest(func, start, transform) {
   };
 }
 
-export default overRest;
+module.exports = overRest;

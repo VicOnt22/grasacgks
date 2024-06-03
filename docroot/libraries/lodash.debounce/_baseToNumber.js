@@ -1,4 +1,4 @@
-var isSymbol = require('./isSymbol');
+import isSymbol from './isSymbol.js';
 
 /** Used as references for various `Number` constants. */
 var NAN = 0 / 0;
@@ -21,4 +21,4 @@ function baseToNumber(value) {
   return +value;
 }
 
-module.exports = baseToNumber;
+export default baseToNumber;

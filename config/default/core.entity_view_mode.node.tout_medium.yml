@@ -8,5 +8,6 @@ _core:
   default_config_hash: sHhMlkV2Lfv_XMoXMxgvtakHtAjQ5qvO7X7AIK2EmBQ
 id: node.tout_medium
 label: 'Tout - medium'
+description: ''
 targetEntityType: node
 cache: true

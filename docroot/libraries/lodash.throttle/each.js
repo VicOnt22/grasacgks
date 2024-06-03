@@ -1,1 +1,1 @@
-export { default } from './forEach.js'
+module.exports = require('./forEach');

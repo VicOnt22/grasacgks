@@ -15,4 +15,4 @@ function stubFalse() {
   return false;
 }
 
-module.exports = stubFalse;
+export default stubFalse;

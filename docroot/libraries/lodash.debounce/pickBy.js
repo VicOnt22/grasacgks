@@ -1,7 +1,7 @@
-var arrayMap = require('./_arrayMap'),
-    baseIteratee = require('./_baseIteratee'),
-    basePickBy = require('./_basePickBy'),
-    getAllKeysIn = require('./_getAllKeysIn');
+import arrayMap from './_arrayMap.js';
+import baseIteratee from './_baseIteratee.js';
+import basePickBy from './_basePickBy.js';
+import getAllKeysIn from './_getAllKeysIn.js';
 
 /**
  * Creates an object composed of the `object` properties `predicate` returns
@@ -34,4 +34,4 @@ function pickBy(object, predicate) {
   });
 }
 
-module.exports = pickBy;
+export default pickBy;

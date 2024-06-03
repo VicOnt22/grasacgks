@@ -1,4 +1,4 @@
-import baseUniq from './_baseUniq.js';
+var baseUniq = require('./_baseUniq');
 
 /**
  * This method is like `_.uniq` except that it accepts `comparator` which
@@ -25,4 +25,4 @@ function uniqWith(array, comparator) {
   return (array && array.length) ? baseUniq(array, undefined, comparator) : [];
 }
 
-export default uniqWith;
+module.exports = uniqWith;

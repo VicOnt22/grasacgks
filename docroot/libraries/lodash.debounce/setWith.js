@@ -1,4 +1,4 @@
-var baseSet = require('./_baseSet');
+import baseSet from './_baseSet.js';
 
 /**
  * This method is like `_.set` except that it accepts `customizer` which is
@@ -29,4 +29,4 @@ function setWith(object, path, value, customizer) {
   return object == null ? object : baseSet(object, path, value, customizer);
 }
 
-module.exports = setWith;
+export default setWith;

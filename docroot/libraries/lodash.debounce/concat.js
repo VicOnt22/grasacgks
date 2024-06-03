@@ -1,7 +1,7 @@
-var arrayPush = require('./_arrayPush'),
-    baseFlatten = require('./_baseFlatten'),
-    copyArray = require('./_copyArray'),
-    isArray = require('./isArray');
+import arrayPush from './_arrayPush.js';
+import baseFlatten from './_baseFlatten.js';
+import copyArray from './_copyArray.js';
+import isArray from './isArray.js';
 
 /**
  * Creates a new array concatenating `array` with any additional arrays
@@ -40,4 +40,4 @@ function concat() {
   return arrayPush(isArray(array) ? copyArray(array) : [array], baseFlatten(args, 1));
 }
 
-module.exports = concat;
+export default concat;

@@ -20,4 +20,4 @@ function baseReduce(collection, iteratee, accumulator, initAccum, eachFunc) {
   return accumulator;
 }
 
-module.exports = baseReduce;
+export default baseReduce;

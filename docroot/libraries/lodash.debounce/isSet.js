@@ -1,6 +1,6 @@
-var baseIsSet = require('./_baseIsSet'),
-    baseUnary = require('./_baseUnary'),
-    nodeUtil = require('./_nodeUtil');
+import baseIsSet from './_baseIsSet.js';
+import baseUnary from './_baseUnary.js';
+import nodeUtil from './_nodeUtil.js';
 
 /* Node.js helper references. */
 var nodeIsSet = nodeUtil && nodeUtil.isSet;
@@ -24,4 +24,4 @@ var nodeIsSet = nodeUtil && nodeUtil.isSet;
  */
 var isSet = nodeIsSet ? baseUnary(nodeIsSet) : baseIsSet;
 
-module.exports = isSet;
+export default isSet;

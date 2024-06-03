@@ -1,8 +1,8 @@
-import arraySampleSize from './_arraySampleSize.js';
-import baseSampleSize from './_baseSampleSize.js';
-import isArray from './isArray.js';
-import isIterateeCall from './_isIterateeCall.js';
-import toInteger from './toInteger.js';
+var arraySampleSize = require('./_arraySampleSize'),
+    baseSampleSize = require('./_baseSampleSize'),
+    isArray = require('./isArray'),
+    isIterateeCall = require('./_isIterateeCall'),
+    toInteger = require('./toInteger');
 
 /**
  * Gets `n` random elements at unique keys from `collection` up to the
@@ -34,4 +34,4 @@ function sampleSize(collection, n, guard) {
   return func(collection, n);
 }
 
-export default sampleSize;
+module.exports = sampleSize;

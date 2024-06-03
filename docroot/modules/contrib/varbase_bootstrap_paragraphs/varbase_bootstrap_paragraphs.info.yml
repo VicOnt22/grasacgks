@@ -1,7 +1,7 @@
 name: Varbase Bootstrap Paragraphs
 type: module
 description: A suite of Paragraph bundles to be used for Varbase distribution. Made with the Bootstrap framework, based on a fork of Bootstrap Paragraph module (bootstrap_paragraphs).
-core_version_requirement: ~9
+core_version_requirement: ~10
 package: Varbase
 configure: varbase_bootstrap_paragraphs.settings
 dependencies:
@@ -10,7 +10,6 @@ install:
   - text
   - options
   - link
-  - ckeditor
   - block
   - advanced_text_formatter
   - field_group
@@ -23,7 +22,7 @@ install:
   - paragraphs_previewer
   - paragraphs_edit
 
-# Information added by Drupal.org packaging script on 2024-01-19
-version: '9.0.22'
+# Information added by Drupal.org packaging script on 2024-05-05
+version: '9.1.10'
 project: 'varbase_bootstrap_paragraphs'
-datestamp: 1705677381
+datestamp: 1714927634

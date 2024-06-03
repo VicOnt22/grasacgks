@@ -1,6 +1,6 @@
-var asciiToArray = require('./_asciiToArray'),
-    hasUnicode = require('./_hasUnicode'),
-    unicodeToArray = require('./_unicodeToArray');
+import asciiToArray from './_asciiToArray.js';
+import hasUnicode from './_hasUnicode.js';
+import unicodeToArray from './_unicodeToArray.js';
 
 /**
  * Converts `string` to an array.
@@ -15,4 +15,4 @@ function stringToArray(string) {
     : asciiToArray(string);
 }
 
-module.exports = stringToArray;
+export default stringToArray;

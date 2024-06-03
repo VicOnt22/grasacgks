@@ -1,5 +1,5 @@
-var capitalize = require('./capitalize'),
-    createCompounder = require('./_createCompounder');
+import capitalize from './capitalize.js';
+import createCompounder from './_createCompounder.js';
 
 /**
  * Converts `string` to [camel case](https://en.wikipedia.org/wiki/CamelCase).
@@ -26,4 +26,4 @@ var camelCase = createCompounder(function(result, word, index) {
   return result + (index ? capitalize(word) : word);
 });
 
-module.exports = camelCase;
+export default camelCase;

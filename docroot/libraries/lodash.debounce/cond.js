@@ -1,7 +1,7 @@
-var apply = require('./_apply'),
-    arrayMap = require('./_arrayMap'),
-    baseIteratee = require('./_baseIteratee'),
-    baseRest = require('./_baseRest');
+import apply from './_apply.js';
+import arrayMap from './_arrayMap.js';
+import baseIteratee from './_baseIteratee.js';
+import baseRest from './_baseRest.js';
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -57,4 +57,4 @@ function cond(pairs) {
   });
 }
 
-module.exports = cond;
+export default cond;

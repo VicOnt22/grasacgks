@@ -1,9 +1,9 @@
-var arrayMap = require('./_arrayMap'),
-    baseAt = require('./_baseAt'),
-    basePullAt = require('./_basePullAt'),
-    compareAscending = require('./_compareAscending'),
-    flatRest = require('./_flatRest'),
-    isIndex = require('./_isIndex');
+import arrayMap from './_arrayMap.js';
+import baseAt from './_baseAt.js';
+import basePullAt from './_basePullAt.js';
+import compareAscending from './_compareAscending.js';
+import flatRest from './_flatRest.js';
+import isIndex from './_isIndex.js';
 
 /**
  * Removes elements from `array` corresponding to `indexes` and returns an
@@ -40,4 +40,4 @@ var pullAt = flatRest(function(array, indexes) {
   return result;
 });
 
-module.exports = pullAt;
+export default pullAt;

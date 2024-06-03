@@ -1,4 +1,4 @@
-var isKeyable = require('./_isKeyable');
+import isKeyable from './_isKeyable.js';
 
 /**
  * Gets the data for `map`.
@@ -15,4 +15,4 @@ function getMapData(map, key) {
     : data.map;
 }
 
-module.exports = getMapData;
+export default getMapData;

@@ -1,5 +1,5 @@
-import arrayFilter from './_arrayFilter.js';
-import isFunction from './isFunction.js';
+var arrayFilter = require('./_arrayFilter'),
+    isFunction = require('./isFunction');
 
 /**
  * The base implementation of `_.functions` which creates an array of
@@ -16,4 +16,4 @@ function baseFunctions(object, props) {
   });
 }
 
-export default baseFunctions;
+module.exports = baseFunctions;

@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 use Drupal\layout_builder\LayoutTempstoreRepositoryInterface;
 use Drupal\layout_builder\OverridesSectionStorageInterface;
 use Drupal\layout_builder\Plugin\SectionStorage\OverridesSectionStorage;
@@ -208,6 +209,27 @@ class OverridesEntityForm extends ContentEntityForm {
       '#value' => $this->t('Revert to defaults'),
       '#submit' => ['::redirectOnSubmit'],
       '#redirect' => 'revert',
+    ];
+    $actions['move_sections'] = [
+      '#type' => 'link',
+      '#title' => $this->t('Reorder sections'),
+      '#url' => Url::fromRoute('layout_builder.move_sections_form',
+        [
+          'section_storage_type' => $this->sectionStorage->getStorageType(),
+          'section_storage' => $this->sectionStorage->getStorageId(),
+        ],
+        [
+          'attributes' => [
+            'class' => [
+              'use-ajax',
+              'button',
+            ],
+            'data-dialog-type' => 'dialog',
+            'data-dialog-renderer' => 'off_canvas',
+            'data-disable-refocus' => 'true',
+          ],
+        ]
+      ),
     ];
     $actions['preview_toggle'] = $this->buildContentPreviewToggle();
     return $actions;

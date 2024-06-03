@@ -243,7 +243,7 @@ class Kanban {
       // Get Entity IDs.
       $multipleEntities = [];
       if ($entityIds = $this->contentModerationService->getEntityIdsFromContentModerationEntities($this->workflowID, $filters, $this->entityTypes)) {
-        $multipleEntities = $this->kanbanService->getEntitiesByEntityIds($entityIds, $filters);
+        $multipleEntities = $this->kanbanService->getEntitiesByEntityIds($entityIds, $filters, $this->entityTypes);
       }
       $columnEntities = [];
       foreach ($multipleEntities as $entities) {

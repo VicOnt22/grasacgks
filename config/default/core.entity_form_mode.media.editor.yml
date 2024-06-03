@@ -8,5 +8,6 @@ _core:
   default_config_hash: ACyb3-nlev7PxjkskWlrEyX-WvQ9wrYoshN82q2GjjY
 id: media.editor
 label: Editor
+description: ''
 targetEntityType: media
 cache: true

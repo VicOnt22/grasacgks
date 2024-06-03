@@ -227,7 +227,7 @@ class IndexAddFieldsForm extends EntityForm {
    *   attached properties.
    */
   protected function getDatasourceListItem(DatasourceInterface $datasource = NULL) {
-    $datasource_id = $datasource ? $datasource->getPluginId() : NULL;
+    $datasource_id = $datasource?->getPluginId();
     $datasource_id_param = $datasource_id ?: '';
     $properties = $this->entity->getPropertyDefinitions($datasource_id);
     if ($properties) {
@@ -275,7 +275,7 @@ class IndexAddFieldsForm extends EntityForm {
 
     $active_item = '';
     if ($active_property_path) {
-      list($active_item, $active_property_path) = explode(':', $active_property_path, 2) + [1 => ''];
+      [$active_item, $active_property_path] = explode(':', $active_property_path, 2) + [1 => ''];
     }
 
     $type_mapping = $this->dataTypeHelper->getFieldTypeMapping();
@@ -359,8 +359,8 @@ class IndexAddFieldsForm extends EntityForm {
 
       $nested_list = [];
       if ($nested_properties) {
+        $link_url = clone $base_url;
         if ($key == $active_item) {
-          $link_url = clone $base_url;
           $query_base['property_path'] = $parent_path;
           $link_url->setOption('query', $query_base);
           $item['expand_link'] = [
@@ -376,7 +376,6 @@ class IndexAddFieldsForm extends EntityForm {
           $nested_list = $this->getPropertiesList($nested_properties, $active_property_path, $base_url, $datasource_id, $this_path, $label_prefix . $label . ' » ');
         }
         else {
-          $link_url = clone $base_url;
           $query_base['property_path'] = $this_path;
           $link_url->setOption('query', $query_base);
           $item['expand_link'] = [
@@ -482,7 +481,7 @@ class IndexAddFieldsForm extends EntityForm {
     /** @var \Drupal\Core\TypedData\DataDefinitionInterface $property */
     $property = $button['#property'];
 
-    list($datasource_id, $property_path) = Utility::splitCombinedId($button['#name']);
+    [$datasource_id, $property_path] = Utility::splitCombinedId($button['#name']);
     $field = $this->fieldsHelper->createFieldFromProperty($this->entity, $property, $datasource_id, $property_path, NULL, $button['#data_type']);
     $field->setLabel($button['#prefixed_label']);
     $this->entity->addField($field);

@@ -1,5 +1,5 @@
-var baseSum = require('./_baseSum'),
-    identity = require('./identity');
+import baseSum from './_baseSum.js';
+import identity from './identity.js';
 
 /**
  * Computes the sum of the values in `array`.
@@ -21,4 +21,4 @@ function sum(array) {
     : 0;
 }
 
-module.exports = sum;
+export default sum;

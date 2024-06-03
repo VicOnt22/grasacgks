@@ -1,5 +1,5 @@
-var arrayEvery = require('./_arrayEvery'),
-    createOver = require('./_createOver');
+import arrayEvery from './_arrayEvery.js';
+import createOver from './_createOver.js';
 
 /**
  * Creates a function that checks if **all** of the `predicates` return
@@ -31,4 +31,4 @@ var arrayEvery = require('./_arrayEvery'),
  */
 var overEvery = createOver(arrayEvery);
 
-module.exports = overEvery;
+export default overEvery;

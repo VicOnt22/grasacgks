@@ -1,4 +1,4 @@
-import baseIndexOf from './_baseIndexOf.js';
+var baseIndexOf = require('./_baseIndexOf');
 
 /**
  * Used by `_.trim` and `_.trimEnd` to get the index of the last string symbol
@@ -16,4 +16,4 @@ function charsEndIndex(strSymbols, chrSymbols) {
   return index;
 }
 
-export default charsEndIndex;
+module.exports = charsEndIndex;

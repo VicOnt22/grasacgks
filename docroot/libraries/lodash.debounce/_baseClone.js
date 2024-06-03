@@ -1,25 +1,25 @@
-var Stack = require('./_Stack'),
-    arrayEach = require('./_arrayEach'),
-    assignValue = require('./_assignValue'),
-    baseAssign = require('./_baseAssign'),
-    baseAssignIn = require('./_baseAssignIn'),
-    cloneBuffer = require('./_cloneBuffer'),
-    copyArray = require('./_copyArray'),
-    copySymbols = require('./_copySymbols'),
-    copySymbolsIn = require('./_copySymbolsIn'),
-    getAllKeys = require('./_getAllKeys'),
-    getAllKeysIn = require('./_getAllKeysIn'),
-    getTag = require('./_getTag'),
-    initCloneArray = require('./_initCloneArray'),
-    initCloneByTag = require('./_initCloneByTag'),
-    initCloneObject = require('./_initCloneObject'),
-    isArray = require('./isArray'),
-    isBuffer = require('./isBuffer'),
-    isMap = require('./isMap'),
-    isObject = require('./isObject'),
-    isSet = require('./isSet'),
-    keys = require('./keys'),
-    keysIn = require('./keysIn');
+import Stack from './_Stack.js';
+import arrayEach from './_arrayEach.js';
+import assignValue from './_assignValue.js';
+import baseAssign from './_baseAssign.js';
+import baseAssignIn from './_baseAssignIn.js';
+import cloneBuffer from './_cloneBuffer.js';
+import copyArray from './_copyArray.js';
+import copySymbols from './_copySymbols.js';
+import copySymbolsIn from './_copySymbolsIn.js';
+import getAllKeys from './_getAllKeys.js';
+import getAllKeysIn from './_getAllKeysIn.js';
+import getTag from './_getTag.js';
+import initCloneArray from './_initCloneArray.js';
+import initCloneByTag from './_initCloneByTag.js';
+import initCloneObject from './_initCloneObject.js';
+import isArray from './isArray.js';
+import isBuffer from './isBuffer.js';
+import isMap from './isMap.js';
+import isObject from './isObject.js';
+import isSet from './isSet.js';
+import keys from './keys.js';
+import keysIn from './keysIn.js';
 
 /** Used to compose bitmasks for cloning. */
 var CLONE_DEEP_FLAG = 1,
@@ -163,4 +163,4 @@ function baseClone(value, bitmask, customizer, key, object, stack) {
   return result;
 }
 
-module.exports = baseClone;
+export default baseClone;

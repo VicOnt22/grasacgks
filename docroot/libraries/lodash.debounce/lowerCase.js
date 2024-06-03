@@ -1,4 +1,4 @@
-var createCompounder = require('./_createCompounder');
+import createCompounder from './_createCompounder.js';
 
 /**
  * Converts `string`, as space separated words, to lower case.
@@ -24,4 +24,4 @@ var lowerCase = createCompounder(function(result, word, index) {
   return result + (index ? ' ' : '') + word.toLowerCase();
 });
 
-module.exports = lowerCase;
+export default lowerCase;

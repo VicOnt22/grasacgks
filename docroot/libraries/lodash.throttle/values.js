@@ -1,5 +1,5 @@
-import baseValues from './_baseValues.js';
-import keys from './keys.js';
+var baseValues = require('./_baseValues'),
+    keys = require('./keys');
 
 /**
  * Creates an array of the own enumerable string keyed property values of `object`.
@@ -31,4 +31,4 @@ function values(object) {
   return object == null ? [] : baseValues(object, keys(object));
 }
 
-export default values;
+module.exports = values;

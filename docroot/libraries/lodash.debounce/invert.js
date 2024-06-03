@@ -1,6 +1,6 @@
-var constant = require('./constant'),
-    createInverter = require('./_createInverter'),
-    identity = require('./identity');
+import constant from './constant.js';
+import createInverter from './_createInverter.js';
+import identity from './identity.js';
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -39,4 +39,4 @@ var invert = createInverter(function(result, value, key) {
   result[value] = key;
 }, constant(identity));
 
-module.exports = invert;
+export default invert;

@@ -12,4 +12,4 @@ function hasUnicodeWord(string) {
   return reHasUnicodeWord.test(string);
 }
 
-module.exports = hasUnicodeWord;
+export default hasUnicodeWord;

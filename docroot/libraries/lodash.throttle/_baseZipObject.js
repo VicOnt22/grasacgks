@@ -20,4 +20,4 @@ function baseZipObject(props, values, assignFunc) {
   return result;
 }
 
-export default baseZipObject;
+module.exports = baseZipObject;

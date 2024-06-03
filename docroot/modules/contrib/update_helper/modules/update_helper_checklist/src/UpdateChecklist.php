@@ -11,7 +11,7 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Update checklist service.
  *
- * TODO: Need tests and a lot!
+ * @todo Need tests and a lot!
  *
  * @package Drupal\update_helper_checklist
  */

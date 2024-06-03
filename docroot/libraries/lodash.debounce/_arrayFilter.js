@@ -22,4 +22,4 @@ function arrayFilter(array, predicate) {
   return result;
 }
 
-module.exports = arrayFilter;
+export default arrayFilter;

@@ -1,4 +1,4 @@
-var getMapData = require('./_getMapData');
+import getMapData from './_getMapData.js';
 
 /**
  * Removes `key` and its value from the map.
@@ -15,4 +15,4 @@ function mapCacheDelete(key) {
   return result;
 }
 
-module.exports = mapCacheDelete;
+export default mapCacheDelete;

@@ -14,4 +14,4 @@ function hashDelete(key) {
   return result;
 }
 
-module.exports = hashDelete;
+export default hashDelete;

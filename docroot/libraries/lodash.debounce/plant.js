@@ -1,5 +1,5 @@
-var baseLodash = require('./_baseLodash'),
-    wrapperClone = require('./_wrapperClone');
+import baseLodash from './_baseLodash.js';
+import wrapperClone from './_wrapperClone.js';
 
 /**
  * Creates a clone of the chain sequence planting `value` as the wrapped value.
@@ -45,4 +45,4 @@ function wrapperPlant(value) {
   return result;
 }
 
-module.exports = wrapperPlant;
+export default wrapperPlant;

@@ -4,20 +4,21 @@ namespace Drupal\ckeditor_media_embed\Command\Drush;
 
 use Drupal\ckeditor_media_embed\Command\CKEditorCliCommandInterface;
 use Drupal\ckeditor_media_embed\Command\CliCommandWrapper;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Serialization\Yaml;
 use Drush\Style\DrushStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class InstallCommand.
+ * The install command.
  */
 class InstallCommand implements CKEditorCliCommandInterface {
 
   /**
    * The CKEditor Media Embed CLI Commands service.
    *
-   * @var \Drupal\ckeditor_media_embed\CLICommands
+   * @var \Drupal\ckeditor_media_embed\Command\CliCommandWrapper
    */
   protected $cliCommands;
 
@@ -29,14 +30,37 @@ class InstallCommand implements CKEditorCliCommandInterface {
   protected $messages;
 
   /**
+   * The console input service.
+   *
+   * @var \Symfony\Component\Console\Input\InputInterface
+   */
+  protected $input;
+
+  /**
+   * The output service.
+   *
+   * @var \Symfony\Component\Console\Output\OutputInterface
+   */
+  protected $output;
+
+  /**
+   * The input/output service provided by Drush.
+   *
+   * @var \Drush\Style\DrushStyle
+   */
+  protected $io;
+
+  /**
    * Constructs command object.
    *
    * @param \Drupal\ckeditor_media_embed\Command\CliCommandWrapper $cli_commands
    *   The CKEditor Media Embed CLI Commands service.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler service.
    */
-  public function __construct(CliCommandWrapper $cli_commands) {
+  public function __construct(CliCommandWrapper $cli_commands, ModuleHandlerInterface $module_handler) {
     $this->cliCommands = $cli_commands;
-    $this->setMessages();
+    $this->setMessages($module_handler->getModule('ckeditor_media_embed')->getPath() . '/command/translations/en/ckeditor_media_embed.install.yml');
   }
 
   /**
@@ -64,15 +88,15 @@ class InstallCommand implements CKEditorCliCommandInterface {
   /**
    * Set messages to display to the user at various steps of the installation.
    *
+   * @param string $path_to_message_file
+   *   The path to the messages file.
+   *
    * @return $this
    */
-  protected function setMessages() {
-    $messages_file = \Drupal::service('module_handler')->getModule('ckeditor_media_embed')->getPath() . '/console/translations/en/ckeditor_media_embed.install.yml';
-    $messages = Yaml::decode(file_get_contents($messages_file))['messages'];
+  protected function setMessages($path_to_message_file) {
+    $messages = Yaml::decode(file_get_contents($path_to_message_file))['messages'];
 
-    $this->messages = array_map(function ($message) {
-      return dt($message);
-    }, $messages);
+    $this->messages = array_map('dt', $messages);
 
     return $this;
   }

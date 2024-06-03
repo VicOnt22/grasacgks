@@ -17,4 +17,4 @@ function copyArray(source, array) {
   return array;
 }
 
-module.exports = copyArray;
+export default copyArray;

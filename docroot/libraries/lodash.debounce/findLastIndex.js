@@ -1,6 +1,6 @@
-var baseFindIndex = require('./_baseFindIndex'),
-    baseIteratee = require('./_baseIteratee'),
-    toInteger = require('./toInteger');
+import baseFindIndex from './_baseFindIndex.js';
+import baseIteratee from './_baseIteratee.js';
+import toInteger from './toInteger.js';
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeMax = Math.max,
@@ -56,4 +56,4 @@ function findLastIndex(array, predicate, fromIndex) {
   return baseFindIndex(array, baseIteratee(predicate, 3), index, true);
 }
 
-module.exports = findLastIndex;
+export default findLastIndex;

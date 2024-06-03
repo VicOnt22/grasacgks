@@ -17,4 +17,4 @@ function arrayPush(array, values) {
   return array;
 }
 
-module.exports = arrayPush;
+export default arrayPush;

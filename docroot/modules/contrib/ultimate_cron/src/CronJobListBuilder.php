@@ -130,4 +130,17 @@ class CronJobListBuilder extends DraggableListBuilder {
     return $operations;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function load() {
+    $entity_ids = $this->getEntityIds();
+    $entities = $this->storage->loadMultiple($entity_ids);
+
+    // Sort the entities using the entity class's sort() method.
+    // See \Drupal\Core\Config\Entity\ConfigEntityBase::sort().
+    uasort($entities, [$this->entityType->getClass(), 'sort']);
+    return $entities;
+  }
+
 }

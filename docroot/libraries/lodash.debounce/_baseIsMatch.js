@@ -1,5 +1,5 @@
-var Stack = require('./_Stack'),
-    baseIsEqual = require('./_baseIsEqual');
+import Stack from './_Stack.js';
+import baseIsEqual from './_baseIsEqual.js';
 
 /** Used to compose bitmasks for value comparisons. */
 var COMPARE_PARTIAL_FLAG = 1,
@@ -59,4 +59,4 @@ function baseIsMatch(object, source, matchData, customizer) {
   return true;
 }
 
-module.exports = baseIsMatch;
+export default baseIsMatch;

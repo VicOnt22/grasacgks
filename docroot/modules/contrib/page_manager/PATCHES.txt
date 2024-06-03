@@ -5,3 +5,7 @@ issues/3263077 PHP 8.1 2665328 fixes for Page Manager
 Source: https://www.drupal.org/files/issues/2023-05-17/2665328-128-page_manager_variant_title.patch
 
 
+Issue #3438993: Some mandatory parameters are missing (machine_name, step) to generate a URL for route entity.page.devel_load
+Source: https://www.drupal.org/files/issues/2024-04-12/3438993-5.patch
+
+

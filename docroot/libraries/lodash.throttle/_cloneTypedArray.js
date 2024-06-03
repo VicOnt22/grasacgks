@@ -1,4 +1,4 @@
-import cloneArrayBuffer from './_cloneArrayBuffer.js';
+var cloneArrayBuffer = require('./_cloneArrayBuffer');
 
 /**
  * Creates a clone of `typedArray`.
@@ -13,4 +13,4 @@ function cloneTypedArray(typedArray, isDeep) {
   return new typedArray.constructor(buffer, typedArray.byteOffset, typedArray.length);
 }
 
-export default cloneTypedArray;
+module.exports = cloneTypedArray;

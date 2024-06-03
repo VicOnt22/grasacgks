@@ -204,7 +204,7 @@ class KanbanService {
    * @return array
    *   Returns a array with the entities for the given entity ids.
    */
-  public function getEntitiesByEntityIds(array $entityIds = [], array $filters = []) {
+  public function getEntitiesByEntityIds(array $entityIds = [], array $filters = [], array $entityTypes = []) {
 
     $result = [];
     // Basic table.
@@ -226,6 +226,11 @@ class KanbanService {
 
           if ($filters['content_type']) {
             $query[$entityTypeName]->condition('nfd.' . $bundleKey, $filters['content_type']);
+          }
+
+          $bundles = $entityTypes[$entityTypeName] ?? [];
+          if ($bundles) {
+            $query[$entityTypeName]->condition('nfd.' . $bundleKey, $bundles, 'IN');
           }
 
           // Join with users table to get the username who added the entity.

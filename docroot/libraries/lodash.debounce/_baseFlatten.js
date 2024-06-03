@@ -1,5 +1,5 @@
-var arrayPush = require('./_arrayPush'),
-    isFlattenable = require('./_isFlattenable');
+import arrayPush from './_arrayPush.js';
+import isFlattenable from './_isFlattenable.js';
 
 /**
  * The base implementation of `_.flatten` with support for restricting flattening.
@@ -35,4 +35,4 @@ function baseFlatten(array, depth, predicate, isStrict, result) {
   return result;
 }
 
-module.exports = baseFlatten;
+export default baseFlatten;

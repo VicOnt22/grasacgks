@@ -1,5 +1,5 @@
-import baseFlatten from './_baseFlatten.js';
-import map from './map.js';
+var baseFlatten = require('./_baseFlatten'),
+    map = require('./map');
 
 /** Used as references for various `Number` constants. */
 var INFINITY = 1 / 0;
@@ -28,4 +28,4 @@ function flatMapDeep(collection, iteratee) {
   return baseFlatten(map(collection, iteratee), INFINITY);
 }
 
-export default flatMapDeep;
+module.exports = flatMapDeep;

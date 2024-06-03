@@ -67,7 +67,7 @@ libraries-override:
   vartheme_bs4/comments: grasacgks/comments
   vartheme_bs4/navbar.admin: grasacgks/navbar.admin
 
-ckeditor_stylesheets:
+ckeditor5-stylesheets:
   # Base
   - css/base/bootstrap.base.css
   - css/base/bootstrap5-utilities.base.css

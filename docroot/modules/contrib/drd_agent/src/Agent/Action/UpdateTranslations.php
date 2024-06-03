@@ -10,7 +10,7 @@ class UpdateTranslations extends Base {
   /**
    * {@inheritdoc}
    */
-  public function execute() {
+  public function execute(): array {
     if ($this->moduleHandler->moduleExists('locale')) {
       $this->moduleHandler->loadInclude('locale', 'fetch.inc');
       $this->moduleHandler->loadInclude('locale', 'bulk.inc');
@@ -29,7 +29,7 @@ class UpdateTranslations extends Base {
       }
       batch_process();
 
-      // Allow other modules as well to jump in with translation update routines.
+      // Allow other modules to jump in with translation update routines.
       $this->moduleHandler->invokeAll('drd_agent_update_translation');
     }
     return [];

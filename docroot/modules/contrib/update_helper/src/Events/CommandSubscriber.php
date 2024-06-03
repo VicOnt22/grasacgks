@@ -2,8 +2,9 @@
 
 namespace Drupal\update_helper\Events;
 
+use Drupal\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\update_helper\Generators\ConfigurationUpdate;
+use Drupal\update_helper\Drush\Generators\ConfigurationUpdateGenerator;
 use DrupalCodeGenerator\Asset\File;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -27,6 +28,10 @@ class CommandSubscriber implements EventSubscriberInterface {
    */
   public function __construct(ModuleHandlerInterface $module_handler) {
     $this->moduleHandler = $module_handler;
+  }
+
+  public static function create(ContainerInterface $container): static {
+    return new static($container->get('module_handler'));
   }
 
   /**
@@ -58,7 +63,7 @@ class CommandSubscriber implements EventSubscriberInterface {
       $update_file = $module_path . '/' . $vars['module'] . '.install';
     }
 
-    $vars['update_hook_name'] = ConfigurationUpdate::getUpdateFunctionName($vars['module'], $vars['update_name']);
+    $vars['update_hook_name'] = ConfigurationUpdateGenerator::getUpdateFunctionName($vars['module'], $vars['update_name']);
     $vars['file_exists'] = file_exists($update_file);
 
     // Add the update hook template.

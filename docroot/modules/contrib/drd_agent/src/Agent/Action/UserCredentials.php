@@ -3,7 +3,6 @@
 namespace Drupal\drd_agent\Agent\Action;
 
 use Drupal\user\Entity\User;
-use Exception;
 
 /**
  * Provides a 'UserCredentials' code.
@@ -13,7 +12,7 @@ class UserCredentials extends Base {
   /**
    * {@inheritdoc}
    */
-  public function execute() {
+  public function execute(): array {
     $args = $this->getArguments();
     /** @var \Drupal\user\Entity\User $account */
     $account = User::load($args['uid']);
@@ -27,7 +26,7 @@ class UserCredentials extends Base {
       try {
         $account->save();
       }
-      catch (Exception $ex) {
+      catch (\Exception $ex) {
         $this->messenger->addMessage('Changing user credentials failed.', 'error');
       }
     }
@@ -42,7 +41,7 @@ class UserCredentials extends Base {
    * @param array $args
    *   Array of arguments.
    */
-  private function setUsername(User $account, array $args) {
+  private function setUsername(User $account, array $args): void {
     if (empty($args['username'])) {
       return;
     }
@@ -51,6 +50,7 @@ class UserCredentials extends Base {
       $this->messenger->addMessage($check, 'error');
       return;
     }
+    /** @var \Drupal\user\Entity\User $user */
     $user = user_load_by_name($args['username']);
     if (!empty($user) && $user->uid !== $args['uid']) {
       $this->messenger->addMessage('Username already taken.', 'error');
@@ -67,7 +67,7 @@ class UserCredentials extends Base {
    * @param array $args
    *   Array of arguments.
    */
-  private function setPassword(User $account, array $args) {
+  private function setPassword(User $account, array $args): void {
     if (empty($args['password'])) {
       return;
     }
@@ -82,7 +82,7 @@ class UserCredentials extends Base {
    * @param array $args
    *   Array of arguments.
    */
-  private function setStatus(User $account, array $args) {
+  private function setStatus(User $account, array $args): void {
     if (!isset($args['status'])) {
       return;
     }

@@ -23,4 +23,4 @@ function hasUnicode(string) {
   return reHasUnicode.test(string);
 }
 
-module.exports = hasUnicode;
+export default hasUnicode;

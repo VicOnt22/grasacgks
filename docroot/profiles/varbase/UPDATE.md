@@ -9,7 +9,7 @@ Updating Varbase is best done through Composer. We will assume that you have
  [installed Varbase the recommended way](../getting-started/installing-varbase.md) through the Composer-based project template [varbase-project](https://github.com/Vardot/varbase-project) by running the command: `composer create-project Vardot/varbase-project YOUR_PROJECT --no-dev --no-interaction`
 
 This will create the Varbase project directory that will look like this:
- `/path/to/YOUR_PROJECT` with the Drupal 9 codebase installed via Varbase
+ `/path/to/YOUR_PROJECT` with the Drupal 10 codebase installed via Varbase
  installation profile in `/path/to/YOUR_PROJECT/docroot`.
 
 
@@ -58,13 +58,13 @@ At the end of the update process, two log files are useful to troubleshoot
 2. Edit your _composer.json_ file to be ready for updates. You have two choices.
  Edit your _composer.json_ to include
  all the new updates made in
- [varbase-project](https://github.com/Vardot/varbase-project/blob/9.0.x/composer.json).
+ [varbase-project](https://github.com/Vardot/varbase-project/blob/9.1.x/composer.json).
  This includes the new components required and its versions
  _"require"_, _"repositories"_, _"extra"_, and any other important config.
  You can use a diff tool such as [Meld](http://meldmerge.org/) or
  [DiffMerge](https://sourcegear.com/diffmerge/) to help you diff between
  your old _composer.json_ and the new one from
- [varbase-project](https://github.com/Vardot/varbase-project/blob/9.0.x/composer.json). 
+ [varbase-project](https://github.com/Vardot/varbase-project/blob/9.1.x/composer.json). 
 3. Back up your code and database 
 4. Execute Composer update to download updates to modules and libraries.
  `composer update`  

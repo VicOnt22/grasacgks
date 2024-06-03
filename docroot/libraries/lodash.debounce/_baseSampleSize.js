@@ -1,6 +1,6 @@
-var baseClamp = require('./_baseClamp'),
-    shuffleSelf = require('./_shuffleSelf'),
-    values = require('./values');
+import baseClamp from './_baseClamp.js';
+import shuffleSelf from './_shuffleSelf.js';
+import values from './values.js';
 
 /**
  * The base implementation of `_.sampleSize` without param guards.
@@ -15,4 +15,4 @@ function baseSampleSize(collection, n) {
   return shuffleSelf(array, baseClamp(n, 0, array.length));
 }
 
-module.exports = baseSampleSize;
+export default baseSampleSize;

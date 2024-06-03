@@ -1,9 +1,9 @@
-var arrayFilter = require('./_arrayFilter'),
-    baseIteratee = require('./_baseIteratee'),
-    baseRest = require('./_baseRest'),
-    baseXor = require('./_baseXor'),
-    isArrayLikeObject = require('./isArrayLikeObject'),
-    last = require('./last');
+import arrayFilter from './_arrayFilter.js';
+import baseIteratee from './_baseIteratee.js';
+import baseRest from './_baseRest.js';
+import baseXor from './_baseXor.js';
+import isArrayLikeObject from './isArrayLikeObject.js';
+import last from './last.js';
 
 /**
  * This method is like `_.xor` except that it accepts `iteratee` which is
@@ -36,4 +36,4 @@ var xorBy = baseRest(function(arrays) {
   return baseXor(arrayFilter(arrays, isArrayLikeObject), baseIteratee(iteratee, 2));
 });
 
-module.exports = xorBy;
+export default xorBy;

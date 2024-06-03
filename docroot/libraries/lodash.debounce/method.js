@@ -1,5 +1,5 @@
-var baseInvoke = require('./_baseInvoke'),
-    baseRest = require('./_baseRest');
+import baseInvoke from './_baseInvoke.js';
+import baseRest from './_baseRest.js';
 
 /**
  * Creates a function that invokes the method at `path` of a given object.
@@ -31,4 +31,4 @@ var method = baseRest(function(path, args) {
   };
 });
 
-module.exports = method;
+export default method;

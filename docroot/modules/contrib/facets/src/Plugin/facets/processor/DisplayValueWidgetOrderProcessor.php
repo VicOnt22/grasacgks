@@ -68,18 +68,23 @@ class DisplayValueWidgetOrderProcessor extends SortProcessorPluginBase implement
    */
   public function sortResults(Result $a, Result $b) {
     // Get the transliterate values only once.
-    if (!isset($a->transliterateDisplayValue)) {
-      $a->transliterateDisplayValue = $this->transliteration->removeDiacritics($a->getDisplayValue());
+    $transliterateDisplayValueA = $a->getTransliterateDisplayValue();
+    if (!isset($transliterateDisplayValueA)) {
+      $transliterateDisplayValueA = $this->transliteration->removeDiacritics($a->getDisplayValue());
+      $a->setTransliterateDisplayValue($transliterateDisplayValueA);
     }
-    if (!isset($b->transliterateDisplayValue)) {
-      $b->transliterateDisplayValue = $this->transliteration->removeDiacritics($b->getDisplayValue());
+
+    $transliterateDisplayValueB = $b->getTransliterateDisplayValue();
+    if (!isset($transliterateDisplayValueB)) {
+      $transliterateDisplayValueB = $this->transliteration->removeDiacritics($b->getDisplayValue());
+      $b->setTransliterateDisplayValue($transliterateDisplayValueB);
     }
 
     // Return the sort value.
-    if ($a->transliterateDisplayValue == $b->transliterateDisplayValue) {
+    if ($transliterateDisplayValueA == $transliterateDisplayValueB) {
       return 0;
     }
-    return strnatcasecmp($a->transliterateDisplayValue, $b->transliterateDisplayValue);
+    return strnatcasecmp($transliterateDisplayValueA, $transliterateDisplayValueB);
   }
 
 }

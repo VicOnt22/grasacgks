@@ -1,13 +1,13 @@
-var Symbol = require('./_Symbol'),
-    copyArray = require('./_copyArray'),
-    getTag = require('./_getTag'),
-    isArrayLike = require('./isArrayLike'),
-    isString = require('./isString'),
-    iteratorToArray = require('./_iteratorToArray'),
-    mapToArray = require('./_mapToArray'),
-    setToArray = require('./_setToArray'),
-    stringToArray = require('./_stringToArray'),
-    values = require('./values');
+import Symbol from './_Symbol.js';
+import copyArray from './_copyArray.js';
+import getTag from './_getTag.js';
+import isArrayLike from './isArrayLike.js';
+import isString from './isString.js';
+import iteratorToArray from './_iteratorToArray.js';
+import mapToArray from './_mapToArray.js';
+import setToArray from './_setToArray.js';
+import stringToArray from './_stringToArray.js';
+import values from './values.js';
 
 /** `Object#toString` result references. */
 var mapTag = '[object Map]',
@@ -55,4 +55,4 @@ function toArray(value) {
   return func(value);
 }
 
-module.exports = toArray;
+export default toArray;

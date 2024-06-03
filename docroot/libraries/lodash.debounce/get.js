@@ -1,4 +1,4 @@
-var baseGet = require('./_baseGet');
+import baseGet from './_baseGet.js';
 
 /**
  * Gets the value at `path` of `object`. If the resolved value is
@@ -30,4 +30,4 @@ function get(object, path, defaultValue) {
   return result === undefined ? defaultValue : result;
 }
 
-module.exports = get;
+export default get;

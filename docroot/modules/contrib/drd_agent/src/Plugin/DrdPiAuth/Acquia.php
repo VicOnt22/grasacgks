@@ -13,12 +13,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   id = "acquia"
  * )
  */
-class Acquia extends DrdPiAuthBase implements ContainerFactoryPluginInterface {
+final class Acquia extends DrdPiAuthBase implements ContainerFactoryPluginInterface {
 
   /**
+   * The database connection.
+   *
    * @var \Drupal\Core\Database\Connection
    */
-  protected $database;
+  protected Connection $database;
 
   /**
    * Constructs an Acquia DRD PI auth object.
@@ -30,7 +32,7 @@ class Acquia extends DrdPiAuthBase implements ContainerFactoryPluginInterface {
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
    * @param \Drupal\Core\Database\Connection $database
-   *   The database connection
+   *   The database connection.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, Connection $database) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -40,7 +42,7 @@ class Acquia extends DrdPiAuthBase implements ContainerFactoryPluginInterface {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): Acquia {
     return new static(
       $configuration,
       $plugin_id,

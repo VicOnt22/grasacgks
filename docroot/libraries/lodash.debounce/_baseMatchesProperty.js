@@ -1,10 +1,10 @@
-var baseIsEqual = require('./_baseIsEqual'),
-    get = require('./get'),
-    hasIn = require('./hasIn'),
-    isKey = require('./_isKey'),
-    isStrictComparable = require('./_isStrictComparable'),
-    matchesStrictComparable = require('./_matchesStrictComparable'),
-    toKey = require('./_toKey');
+import baseIsEqual from './_baseIsEqual.js';
+import get from './get.js';
+import hasIn from './hasIn.js';
+import isKey from './_isKey.js';
+import isStrictComparable from './_isStrictComparable.js';
+import matchesStrictComparable from './_matchesStrictComparable.js';
+import toKey from './_toKey.js';
 
 /** Used to compose bitmasks for value comparisons. */
 var COMPARE_PARTIAL_FLAG = 1,
@@ -30,4 +30,4 @@ function baseMatchesProperty(path, srcValue) {
   };
 }
 
-module.exports = baseMatchesProperty;
+export default baseMatchesProperty;

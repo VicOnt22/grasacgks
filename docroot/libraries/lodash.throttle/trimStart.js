@@ -1,8 +1,8 @@
-import baseToString from './_baseToString.js';
-import castSlice from './_castSlice.js';
-import charsStartIndex from './_charsStartIndex.js';
-import stringToArray from './_stringToArray.js';
-import toString from './toString.js';
+var baseToString = require('./_baseToString'),
+    castSlice = require('./_castSlice'),
+    charsStartIndex = require('./_charsStartIndex'),
+    stringToArray = require('./_stringToArray'),
+    toString = require('./toString');
 
 /** Used to match leading whitespace. */
 var reTrimStart = /^\s+/;
@@ -40,4 +40,4 @@ function trimStart(string, chars, guard) {
   return castSlice(strSymbols, start).join('');
 }
 
-export default trimStart;
+module.exports = trimStart;

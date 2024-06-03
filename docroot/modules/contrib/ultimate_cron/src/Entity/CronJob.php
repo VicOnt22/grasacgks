@@ -493,12 +493,12 @@ class CronJob extends ConfigEntityBase implements CronJobInterface {
     }
     finally {
       self::$currentJob = NULL;
+      $log_entry->finish();
       \Drupal::moduleHandler()->invokeAll('cron_post_run', array($this));
       $this->finishProgress();
 
       // Restore original user account.
       $accountSwitcher->switchBack();
-      $log_entry->finish();
       $this->unlock($lock_id);
     }
     return TRUE;

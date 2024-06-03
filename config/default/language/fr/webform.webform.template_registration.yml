@@ -1,5 +1,5 @@
 title: Inscription
-description: 'Un gabarit webform d''inscription.'
+description: "Un gabarit webform d'inscription."
 handlers:
   email_notification:
     label: 'Notification par courriel'

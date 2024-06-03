@@ -1,6 +1,6 @@
-var coreJsData = require('./_coreJsData'),
-    isFunction = require('./isFunction'),
-    stubFalse = require('./stubFalse');
+import coreJsData from './_coreJsData.js';
+import isFunction from './isFunction.js';
+import stubFalse from './stubFalse.js';
 
 /**
  * Checks if `func` is capable of being masked.
@@ -11,4 +11,4 @@ var coreJsData = require('./_coreJsData'),
  */
 var isMaskable = coreJsData ? isFunction : stubFalse;
 
-module.exports = isMaskable;
+export default isMaskable;

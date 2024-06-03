@@ -1,9 +1,9 @@
-var LazyWrapper = require('./_LazyWrapper'),
-    LodashWrapper = require('./_LodashWrapper'),
-    baseLodash = require('./_baseLodash'),
-    isArray = require('./isArray'),
-    isObjectLike = require('./isObjectLike'),
-    wrapperClone = require('./_wrapperClone');
+import LazyWrapper from './_LazyWrapper.js';
+import LodashWrapper from './_LodashWrapper.js';
+import baseLodash from './_baseLodash.js';
+import isArray from './isArray.js';
+import isObjectLike from './isObjectLike.js';
+import wrapperClone from './_wrapperClone.js';
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -144,4 +144,4 @@ function lodash(value) {
 lodash.prototype = baseLodash.prototype;
 lodash.prototype.constructor = lodash;
 
-module.exports = lodash;
+export default lodash;

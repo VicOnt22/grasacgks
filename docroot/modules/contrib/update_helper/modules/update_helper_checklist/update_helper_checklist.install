@@ -13,7 +13,7 @@ function update_helper_checklist_install() {
   $checkList = \Drupal::service('update_helper_checklist.update_checklist');
 
   // Mark all updates as successful on install.
-  // TODO: Improve - Get information from executed update hooks, what to mark.
+  // @todo Get information from executed update hooks, what to mark.
   $checkList->markAllUpdates();
 }
 
@@ -57,7 +57,7 @@ function update_helper_checklist_update_8001() {
   $saved_progress = $old_config_storage->setChecklistId($checklist_id)
     ->getSavedProgress();
 
-  if ($saved_progress !== null) {
+  if ($saved_progress !== NULL) {
     // Copy saved progress to new state storage.
     /** @var \Drupal\checklistapi\Storage\StateStorage $new_state_storage */
     $new_state_storage = \Drupal::service('checklistapi_storage.state');

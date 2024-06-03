@@ -1,5 +1,5 @@
-import baseCreate from './_baseCreate.js';
-import isObject from './isObject.js';
+var baseCreate = require('./_baseCreate'),
+    isObject = require('./isObject');
 
 /**
  * Creates a function that produces an instance of `Ctor` regardless of
@@ -34,4 +34,4 @@ function createCtor(Ctor) {
   };
 }
 
-export default createCtor;
+module.exports = createCtor;

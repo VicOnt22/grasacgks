@@ -18,4 +18,4 @@ function apply(func, thisArg, args) {
   return func.apply(thisArg, args);
 }
 
-module.exports = apply;
+export default apply;

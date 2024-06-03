@@ -1,8 +1,8 @@
-import baseIndexOf from './_baseIndexOf.js';
-import isArrayLike from './isArrayLike.js';
-import isString from './isString.js';
-import toInteger from './toInteger.js';
-import values from './values.js';
+var baseIndexOf = require('./_baseIndexOf'),
+    isArrayLike = require('./isArrayLike'),
+    isString = require('./isString'),
+    toInteger = require('./toInteger'),
+    values = require('./values');
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeMax = Math.max;
@@ -50,4 +50,4 @@ function includes(collection, value, fromIndex, guard) {
     : (!!length && baseIndexOf(collection, value, fromIndex) > -1);
 }
 
-export default includes;
+module.exports = includes;

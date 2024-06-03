@@ -201,32 +201,40 @@ display:
                   sort_options: true
                   rewrite:
                     filter_rewrite_values: ''
+                    filter_rewrite_values_key: false
                   collapsible: true
                   is_secondary: false
+                  collapsible_disable_automatic_open: false
               field_region_of_origin_target_id:
                 plugin_id: default
                 advanced:
                   sort_options: true
                   rewrite:
                     filter_rewrite_values: ''
+                    filter_rewrite_values_key: false
                   collapsible: true
                   is_secondary: false
+                  collapsible_disable_automatic_open: false
               field_nation_tid_target_id:
                 plugin_id: default
                 advanced:
                   sort_options: true
                   rewrite:
                     filter_rewrite_values: ''
+                    filter_rewrite_values_key: false
                   collapsible: true
                   is_secondary: false
+                  collapsible_disable_automatic_open: false
               field_collection_target_id:
                 plugin_id: default
                 advanced:
                   placeholder_text: 'Start typing collection name'
                   rewrite:
                     filter_rewrite_values: ''
+                    filter_rewrite_values_key: false
                   collapsible: true
                   is_secondary: false
+                  collapsible_disable_automatic_open: false
       access:
         type: perm
         options:
@@ -554,7 +562,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -577,7 +584,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -991,7 +997,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -1511,7 +1516,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: '<br>Browsing allows you to see all the records for relatives and heritage items in the GKS. You can also search by material made, and/or filter by nations. To search by material made, type the material''s name, by example ''leather'', in the box below and click “Apply.” You can select  multiple nations from the dropdown list by pressing “Ctrl” (on PC) or “Command” (on Mac) and clicking, then select “Apply.” '
+            value: "<br>Browsing allows you to see all the records for relatives and heritage items in the GKS. You can also search by material made, and/or filter by nations. To search by material made, type the material's name, by example 'leather', in the box below and click “Apply.” You can select  multiple nations from the dropdown list by pressing “Ctrl” (on PC) or “Command” (on Mac) and clicking, then select “Apply.” "
             format: full_html
           tokenize: false
       exposed_block: false
@@ -1536,7 +1541,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:

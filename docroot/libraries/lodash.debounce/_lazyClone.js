@@ -1,5 +1,5 @@
-var LazyWrapper = require('./_LazyWrapper'),
-    copyArray = require('./_copyArray');
+import LazyWrapper from './_LazyWrapper.js';
+import copyArray from './_copyArray.js';
 
 /**
  * Creates a clone of the lazy wrapper object.
@@ -20,4 +20,4 @@ function lazyClone() {
   return result;
 }
 
-module.exports = lazyClone;
+export default lazyClone;

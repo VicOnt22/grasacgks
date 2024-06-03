@@ -1,7 +1,7 @@
-import LazyWrapper from './_LazyWrapper.js';
-import getData from './_getData.js';
-import getFuncName from './_getFuncName.js';
-import lodash from './wrapperLodash.js';
+var LazyWrapper = require('./_LazyWrapper'),
+    getData = require('./_getData'),
+    getFuncName = require('./_getFuncName'),
+    lodash = require('./wrapperLodash');
 
 /**
  * Checks if `func` has a lazy counterpart.
@@ -25,4 +25,4 @@ function isLaziable(func) {
   return !!data && func === data[0];
 }
 
-export default isLaziable;
+module.exports = isLaziable;

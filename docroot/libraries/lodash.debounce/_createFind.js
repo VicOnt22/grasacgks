@@ -1,6 +1,6 @@
-var baseIteratee = require('./_baseIteratee'),
-    isArrayLike = require('./isArrayLike'),
-    keys = require('./keys');
+import baseIteratee from './_baseIteratee.js';
+import isArrayLike from './isArrayLike.js';
+import keys from './keys.js';
 
 /**
  * Creates a `_.find` or `_.findLast` function.
@@ -22,4 +22,4 @@ function createFind(findIndexFunc) {
   };
 }
 
-module.exports = createFind;
+export default createFind;

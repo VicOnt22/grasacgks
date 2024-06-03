@@ -1,5 +1,5 @@
-var baseClamp = require('./_baseClamp'),
-    toInteger = require('./toInteger');
+import baseClamp from './_baseClamp.js';
+import toInteger from './toInteger.js';
 
 /** Used as references for various `Number` constants. */
 var MAX_SAFE_INTEGER = 9007199254740991;
@@ -34,4 +34,4 @@ function toSafeInteger(value) {
     : (value === 0 ? value : 0);
 }
 
-module.exports = toSafeInteger;
+export default toSafeInteger;

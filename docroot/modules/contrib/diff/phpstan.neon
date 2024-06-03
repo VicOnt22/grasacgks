@@ -5,7 +5,6 @@ parameters:
   paths:
     - .
   reportUnmatchedIgnoredErrors: true
-  checkMissingIterableValueType: false
   strictRules:
      strictCalls: false
   fileExtensions:
@@ -15,6 +14,9 @@ parameters:
     - profile
     - install
     - inc
+  ignoreErrors:
+    -
+      identifier: missingType.iterableValue
   excludePaths:
     # We cant improve this directory as its contains Drupal-generic code.
     - vendor

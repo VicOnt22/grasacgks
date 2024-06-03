@@ -1,6 +1,6 @@
-var baseFindIndex = require('./_baseFindIndex'),
-    baseIsNaN = require('./_baseIsNaN'),
-    strictIndexOf = require('./_strictIndexOf');
+import baseFindIndex from './_baseFindIndex.js';
+import baseIsNaN from './_baseIsNaN.js';
+import strictIndexOf from './_strictIndexOf.js';
 
 /**
  * The base implementation of `_.indexOf` without `fromIndex` bounds checks.
@@ -17,4 +17,4 @@ function baseIndexOf(array, value, fromIndex) {
     : baseFindIndex(array, baseIsNaN, fromIndex);
 }
 
-module.exports = baseIndexOf;
+export default baseIndexOf;

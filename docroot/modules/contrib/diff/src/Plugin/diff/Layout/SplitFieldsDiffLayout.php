@@ -116,7 +116,7 @@ class SplitFieldsDiffLayout extends DiffLayoutBase {
     $build['controls']['filter'] = [
       '#type' => 'item',
       '#title' => $this->t('Filter'),
-      '#wrapper_attributes' => ['class' => 'diff-controls__item'],
+      '#wrapper_attributes' => ['class' => ['diff-controls__item']],
       'options' => $this->buildFilterNavigation($entity, $left_revision, $right_revision, 'split_fields', $active_filter),
     ];
 
@@ -164,13 +164,13 @@ class SplitFieldsDiffLayout extends DiffLayoutBase {
       if (isset($field['#data']['#left_thumbnail'])) {
         $field_diff_rows['#thumbnail'][1] = [
           'data' => $field['#data']['#left_thumbnail'],
-          'class' => '',
+          'class' => [],
         ];
       }
       if (isset($field['#data']['#right_thumbnail'])) {
         $field_diff_rows['#thumbnail'][3] = [
           'data' => $field['#data']['#right_thumbnail'],
-          'class' => '',
+          'class' => [],
         ];
       }
 
@@ -206,7 +206,7 @@ class SplitFieldsDiffLayout extends DiffLayoutBase {
           ],
           'left-row-data' => [
             'data' => $field_diff_rows[$key][1]['data'] ?? NULL,
-            'class' => isset($field_diff_rows[$key][1]['data']) ? $field_diff_rows[$key][1]['class'] : NULL,
+            'class' => isset($field_diff_rows[$key][1]['data']) ? [$field_diff_rows[$key][1]['class']] : [],
           ],
           'right-line-number' => [
             'data' => $show_right ? $row_count_right : NULL,
@@ -224,7 +224,7 @@ class SplitFieldsDiffLayout extends DiffLayoutBase {
           ],
           'right-row-data' => [
             'data' => $field_diff_rows[$key][3]['data'] ?? NULL,
-            'class' => isset($field_diff_rows[$key][3]['data']) ? $field_diff_rows[$key][3]['class'] : NULL,
+            'class' => isset($field_diff_rows[$key][3]['data']) ? [$field_diff_rows[$key][3]['class']] : [],
           ],
         ];
       }

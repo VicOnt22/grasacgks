@@ -1,4 +1,4 @@
-var createFlow = require('./_createFlow');
+import createFlow from './_createFlow.js';
 
 /**
  * Creates a function that returns the result of invoking the given functions
@@ -24,4 +24,4 @@ var createFlow = require('./_createFlow');
  */
 var flow = createFlow();
 
-module.exports = flow;
+export default flow;

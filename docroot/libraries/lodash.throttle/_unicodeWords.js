@@ -66,4 +66,4 @@ function unicodeWords(string) {
   return string.match(reUnicodeWord) || [];
 }
 
-export default unicodeWords;
+module.exports = unicodeWords;

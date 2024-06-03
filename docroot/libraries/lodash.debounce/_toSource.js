@@ -23,4 +23,4 @@ function toSource(func) {
   return '';
 }
 
-module.exports = toSource;
+export default toSource;

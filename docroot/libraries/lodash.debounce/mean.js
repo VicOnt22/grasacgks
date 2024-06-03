@@ -1,5 +1,5 @@
-var baseMean = require('./_baseMean'),
-    identity = require('./identity');
+import baseMean from './_baseMean.js';
+import identity from './identity.js';
 
 /**
  * Computes the mean of the values in `array`.
@@ -19,4 +19,4 @@ function mean(array) {
   return baseMean(array, identity);
 }
 
-module.exports = mean;
+export default mean;

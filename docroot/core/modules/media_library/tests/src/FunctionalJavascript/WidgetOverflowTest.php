@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\media_library\FunctionalJavascript;
 
 use Drupal\Tests\TestFileCreationTrait;
 
 /**
- * Tests that uploads in the Media library's widget works as expected.
+ * Tests that uploads in the 'media_library_widget' works as expected.
  *
  * @group media_library
  *
@@ -53,136 +55,130 @@ class WidgetOverflowTest extends MediaLibraryTestBase {
   }
 
   /**
-   * Tests overflow validation.
+   * Uploads multiple test images into the media library.
    *
-   * @dataProvider overflowProvider
+   * @param int $number
+   *   The number of images to upload.
    */
-  public function testWidgetOverflow($advanced_ui, $button_text) {
-    $this->config('media_library.settings')->set('advanced_ui', $advanced_ui)->save();
-    $assert_session = $this->assertSession();
-    $page = $this->getSession()->getPage();
-    $driver = $this->getSession()->getDriver();
+  private function uploadFiles(int $number): void {
     /** @var \Drupal\Core\File\FileSystemInterface $file_system */
     $file_system = $this->container->get('file_system');
-    // Visit a node create page and open the media library.
-    $this->drupalGet('node/add/basic_page');
-    $this->openMediaLibraryForField('field_twin_media');
-    $assert_session->pageTextContains('Add or select media');
-    $assert_session->fieldExists('Add files');
+
     // Create a list of new files to upload.
-    $filenames = [];
-    $remote_paths = [];
-    foreach (range(1, 5) as $i) {
+    $filenames = $remote_paths = [];
+    for ($i = 0; $i < $number; $i++) {
       $path = $file_system->copy($this->image->uri, 'public://');
+      $path = $file_system->realpath($path);
+      $this->assertNotEmpty($path);
+      $this->assertFileExists($path);
+
       $filenames[] = $file_system->basename($path);
-      $remote_paths[] = $driver->uploadFileAndGetRemoteFilePath($file_system->realpath($path));
+      $remote_paths[] = $this->getSession()
+        ->getDriver()
+        ->uploadFileAndGetRemoteFilePath($path);
     }
-    $page->findField('Add files')->setValue(implode("\n", $remote_paths));
-    // Assert the media item fields are shown and the vertical tabs are no
-    // longer shown.
+    $page = $this->getSession()->getPage();
+    $page->fillField('Add files', implode("\n", $remote_paths));
     $this->assertMediaAdded();
-    // Assert all files have been added.
-    foreach (range(0, 4) as $i) {
-      $assert_session->fieldValueEquals("media[$i][fields][name][0][value]", $filenames[$i]);
-      $page->fillField("media[$i][fields][field_media_test_image][0][alt]", $filenames[$i]);
+    $assert_session = $this->assertSession();
+    foreach ($filenames as $i => $filename) {
+      $assert_session->fieldValueEquals("media[$i][fields][name][0][value]", $filename);
+      $page->fillField("media[$i][fields][field_media_test_image][0][alt]", $filename);
     }
-    // When the user uploads more items than allowed, the media items are
-    // saved but when the user is returned to the media library there is a
-    // warning message.
-    $assert_session->elementExists('css', '.ui-dialog-buttonpane')
-      ->pressButton($button_text);
-    $this->waitForText('Please remove 3 items from the selection.');
-    $assert_session->elementTextContains('css', '.messages--warning', 'There are currently 5 items selected. The maximum number of items for the field is 2. Please remove 3 items from the selection.');
-    // When the user tries insert more items than allowed, the user is returned
-    // to the media library with an error message.
-    $assert_session->elementExists('css', '.ui-dialog-buttonpane')->pressButton('Insert selected');
-    $assert_session->waitForElement('css', '.messages--error');
+  }
+
+  /**
+   * Tests that the Media Library constrains the number of selected items.
+   *
+   * @param string|null $selected_operation
+   *   The operation of the button to click. For example, if this is "insert",
+   *   the "Save and insert" button will be pressed. If NULL, the "Save" button
+   *   will be pressed.
+   *
+   * @dataProvider providerWidgetOverflow
+   */
+  public function testWidgetOverflow(?string $selected_operation): void {
+    // If we want to press the "Save and insert" or "Save and select" buttons,
+    // we need to enable the advanced UI.
+    if ($selected_operation) {
+      $this->config('media_library.settings')->set('advanced_ui', TRUE)->save();
+    }
+
+    $assert_session = $this->assertSession();
+    $page = $this->getSession()->getPage();
+    $this->drupalGet('node/add/basic_page');
+    // Upload 5 files into a media field that only allows 2.
+    $this->openMediaLibraryForField('field_twin_media');
+    $this->uploadFiles(5);
+    // Save the media items and ensure that the user is warned that they have
+    // selected too many items.
+    if ($selected_operation) {
+      $this->saveAnd($selected_operation);
+    }
+    else {
+      $this->pressSaveButton();
+    }
+    $this->waitForElementTextContains('.messages--warning', 'There are currently 5 items selected. The maximum number of items for the field is 2. Remove 3 items from the selection.');
+    // If the user tries to insert the selected items anyway, they should get
+    // an error.
+    $this->pressInsertSelected(NULL, FALSE);
+    $this->waitForElementTextContains('.messages--error', 'There are currently 5 items selected. The maximum number of items for the field is 2. Remove 3 items from the selection.');
     $assert_session->elementNotExists('css', '.messages--warning');
-    $assert_session->elementTextContains('css', '.messages--error', 'There are currently 5 items selected. The maximum number of items for the field is 2. Please remove 3 items from the selection.');
-    // Uncheck the extra items.
-    $page->uncheckField('media_library_select_form[2]');
-    $page->uncheckField('media_library_select_form[3]');
-    $page->uncheckField('media_library_select_form[4]');
+    // Once the extra items are deselected, all should be well.
+    $this->deselectMediaItem(2);
+    $this->deselectMediaItem(3);
+    $this->deselectMediaItem(4);
     $this->pressInsertSelected('Added 2 media items.');
   }
 
   /**
-   * Tests overflow validation skips fields with unlimited cardinality.
+   * Tests that unlimited fields' selection count is not constrained.
    *
-   * @dataProvider overflowProvider
+   * @param string|null $selected_operation
+   *   The operation of the button to click. For example, if this is "insert",
+   *   the "Save and insert" button will be pressed. If NULL, the "Save" button
+   *   will be pressed.
+   *
+   * @dataProvider providerWidgetOverflow
    */
-  public function testUnlimitedCardinality($advanced_ui, $button_text) {
-    $this->config('media_library.settings')->set('advanced_ui', $advanced_ui)->save();
+  public function testUnlimitedCardinality(?string $selected_operation): void {
+    if ($selected_operation) {
+      $this->config('media_library.settings')->set('advanced_ui', TRUE)->save();
+    }
+
     $assert_session = $this->assertSession();
-    $page = $this->getSession()->getPage();
-    $driver = $this->getSession()->getDriver();
-    /** @var \Drupal\Core\File\FileSystemInterface $file_system */
-    $file_system = $this->container->get('file_system');
     // Visit a node create page and open the media library.
     $this->drupalGet('node/add/basic_page');
     $this->openMediaLibraryForField('field_unlimited_media');
     $this->switchToMediaType('Three');
-    $assert_session->pageTextContains('Add or select media');
-    $assert_session->fieldExists('Add files');
-    // Create a list of new files to upload.
-    $filenames = [];
-    $remote_paths = [];
-    foreach (range(1, 5) as $i) {
-      $path = $file_system->copy($this->image->uri, 'public://');
-      $filenames[] = $file_system->basename($path);
-      $remote_paths[] = $driver->uploadFileAndGetRemoteFilePath($file_system->realpath($path));
-    }
-    $page->findField('Add files')->setValue(implode("\n", $remote_paths));
-    // Assert the media item fields are shown and the vertical tabs are no
-    // longer shown.
-    $this->assertMediaAdded();
-    // Assert all files have been added.
-    foreach (range(0, 4) as $i) {
-      $assert_session->fieldValueEquals("media[$i][fields][name][0][value]", $filenames[$i]);
-      $page->fillField("media[$i][fields][field_media_test_image][0][alt]", $filenames[$i]);
-    }
-    // When the user is returned to the media library there should not
-    // be a warning message.
-    $buttons = $assert_session->elementExists('css', '.ui-dialog-buttonpane');
-    $buttons->pressButton($button_text);
-
-    if ($button_text === 'Save and insert') {
-      $this->waitForText('Added 5 media items.');
+    $this->uploadFiles(5);
+    if ($selected_operation) {
+      $this->saveAnd($selected_operation);
     }
     else {
-      $result = $buttons->waitFor(10, function ($buttons) {
-        /** @var \Behat\Mink\Element\NodeElement $buttons */
-        return $buttons->findButton('Insert selected');
-      });
-      $this->assertNotEmpty($result);
-      $assert_session->elementNotExists('css', '.messages--warning');
-      // When the user tries insert more items than allowed,
-      // the user is returned
-      // to the media library with an error message.
-      $this->pressInsertSelected('Added 5 media items.');
+      $this->pressSaveButton();
     }
+
+    if ($selected_operation !== 'insert') {
+      $this->pressInsertSelected();
+    }
+    // There should not be any warnings or errors.
+    $assert_session->elementNotExists('css', '.messages--error');
+    $assert_session->elementNotExists('css', '.messages--warning');
+    $this->waitForText('Added 5 media items.');
   }
 
   /**
-   * Data provider for ::testWidgetOverflow().
+   * Data provider for ::testWidgetOverflow() and ::testUnlimitedCardinality().
    *
-   * @return array
-   *   Test data.
+   * @return array[]
+   *   Sets of arguments to pass to the test method.
    */
-  public function overflowProvider() {
+  public function providerWidgetOverflow(): array {
     return [
-      'Save button' => [
-        'advancedUi' => FALSE,
-        'buttonText' => 'Save',
-      ],
-      'Save and insert button' => [
-        'advancedUi' => TRUE,
-        'buttonText' => 'Save and insert',
-      ],
-      'Save and select button' => [
-        'advancedUi' => TRUE,
-        'buttonText' => 'Save and select',
-      ],
+      'Save' => [NULL],
+      'Save and insert' => ['insert'],
+      'Save and select' => ['select'],
     ];
   }
 

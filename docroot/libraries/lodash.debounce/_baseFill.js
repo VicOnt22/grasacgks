@@ -1,5 +1,5 @@
-var toInteger = require('./toInteger'),
-    toLength = require('./toLength');
+import toInteger from './toInteger.js';
+import toLength from './toLength.js';
 
 /**
  * The base implementation of `_.fill` without an iteratee call guard.
@@ -29,4 +29,4 @@ function baseFill(array, value, start, end) {
   return array;
 }
 
-module.exports = baseFill;
+export default baseFill;

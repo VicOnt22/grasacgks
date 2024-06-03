@@ -1,5 +1,5 @@
-var baseMerge = require('./_baseMerge'),
-    createAssigner = require('./_createAssigner');
+import baseMerge from './_baseMerge.js';
+import createAssigner from './_createAssigner.js';
 
 /**
  * This method is like `_.assign` except that it recursively merges own and
@@ -36,4 +36,4 @@ var merge = createAssigner(function(object, source, srcIndex) {
   baseMerge(object, source, srcIndex);
 });
 
-module.exports = merge;
+export default merge;

@@ -6,5 +6,6 @@ dependencies:
     - file
 id: file.entityreference_view_widget
 label: entityreference_view_widget
+description: ''
 targetEntityType: file
 cache: true

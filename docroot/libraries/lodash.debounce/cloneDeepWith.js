@@ -1,4 +1,4 @@
-var baseClone = require('./_baseClone');
+import baseClone from './_baseClone.js';
 
 /** Used to compose bitmasks for cloning. */
 var CLONE_DEEP_FLAG = 1,
@@ -37,4 +37,4 @@ function cloneDeepWith(value, customizer) {
   return baseClone(value, CLONE_DEEP_FLAG | CLONE_SYMBOLS_FLAG, customizer);
 }
 
-module.exports = cloneDeepWith;
+export default cloneDeepWith;

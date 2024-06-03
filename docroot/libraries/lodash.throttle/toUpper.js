@@ -1,4 +1,4 @@
-import toString from './toString.js';
+var toString = require('./toString');
 
 /**
  * Converts `string`, as a whole, to upper case just like
@@ -25,4 +25,4 @@ function toUpper(value) {
   return toString(value).toUpperCase();
 }
 
-export default toUpper;
+module.exports = toUpper;

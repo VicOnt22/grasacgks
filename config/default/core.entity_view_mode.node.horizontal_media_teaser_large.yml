@@ -8,5 +8,6 @@ _core:
   default_config_hash: CVtXXNE6mL6Azfm0IzpS9HyC40AP0UP2UPj6z6W35pA
 id: node.horizontal_media_teaser_large
 label: 'Horizontal media teaser - large'
+description: ''
 targetEntityType: node
 cache: true

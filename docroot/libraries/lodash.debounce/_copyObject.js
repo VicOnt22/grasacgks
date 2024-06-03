@@ -1,5 +1,5 @@
-var assignValue = require('./_assignValue'),
-    baseAssignValue = require('./_baseAssignValue');
+import assignValue from './_assignValue.js';
+import baseAssignValue from './_baseAssignValue.js';
 
 /**
  * Copies properties of `source` to `object`.
@@ -37,4 +37,4 @@ function copyObject(source, props, object, customizer) {
   return object;
 }
 
-module.exports = copyObject;
+export default copyObject;

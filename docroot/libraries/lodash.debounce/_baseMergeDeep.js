@@ -1,18 +1,18 @@
-var assignMergeValue = require('./_assignMergeValue'),
-    cloneBuffer = require('./_cloneBuffer'),
-    cloneTypedArray = require('./_cloneTypedArray'),
-    copyArray = require('./_copyArray'),
-    initCloneObject = require('./_initCloneObject'),
-    isArguments = require('./isArguments'),
-    isArray = require('./isArray'),
-    isArrayLikeObject = require('./isArrayLikeObject'),
-    isBuffer = require('./isBuffer'),
-    isFunction = require('./isFunction'),
-    isObject = require('./isObject'),
-    isPlainObject = require('./isPlainObject'),
-    isTypedArray = require('./isTypedArray'),
-    safeGet = require('./_safeGet'),
-    toPlainObject = require('./toPlainObject');
+import assignMergeValue from './_assignMergeValue.js';
+import cloneBuffer from './_cloneBuffer.js';
+import cloneTypedArray from './_cloneTypedArray.js';
+import copyArray from './_copyArray.js';
+import initCloneObject from './_initCloneObject.js';
+import isArguments from './isArguments.js';
+import isArray from './isArray.js';
+import isArrayLikeObject from './isArrayLikeObject.js';
+import isBuffer from './isBuffer.js';
+import isFunction from './isFunction.js';
+import isObject from './isObject.js';
+import isPlainObject from './isPlainObject.js';
+import isTypedArray from './isTypedArray.js';
+import safeGet from './_safeGet.js';
+import toPlainObject from './toPlainObject.js';
 
 /**
  * A specialized version of `baseMerge` for arrays and objects which performs
@@ -91,4 +91,4 @@ function baseMergeDeep(object, source, key, srcIndex, mergeFunc, customizer, sta
   assignMergeValue(object, key, newValue);
 }
 
-module.exports = baseMergeDeep;
+export default baseMergeDeep;

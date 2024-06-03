@@ -19,7 +19,7 @@ class UpdateHelperChecklistToolbarTest extends BrowserTestBase {
     'toolbar',
     'update_helper_checklist',
     'update_helper_checklist_test',
-    'test_page_test'
+    'test_page_test',
   ];
 
   /**

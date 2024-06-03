@@ -21,4 +21,4 @@ function baseSum(array, iteratee) {
   return result;
 }
 
-module.exports = baseSum;
+export default baseSum;

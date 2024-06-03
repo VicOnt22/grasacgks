@@ -1,7 +1,7 @@
-var baseFindIndex = require('./_baseFindIndex'),
-    baseIsNaN = require('./_baseIsNaN'),
-    strictLastIndexOf = require('./_strictLastIndexOf'),
-    toInteger = require('./toInteger');
+import baseFindIndex from './_baseFindIndex.js';
+import baseIsNaN from './_baseIsNaN.js';
+import strictLastIndexOf from './_strictLastIndexOf.js';
+import toInteger from './toInteger.js';
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeMax = Math.max,
@@ -43,4 +43,4 @@ function lastIndexOf(array, value, fromIndex) {
     : baseFindIndex(array, baseIsNaN, index, true);
 }
 
-module.exports = lastIndexOf;
+export default lastIndexOf;

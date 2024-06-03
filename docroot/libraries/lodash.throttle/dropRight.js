@@ -1,5 +1,5 @@
-import baseSlice from './_baseSlice.js';
-import toInteger from './toInteger.js';
+var baseSlice = require('./_baseSlice'),
+    toInteger = require('./toInteger');
 
 /**
  * Creates a slice of `array` with `n` elements dropped from the end.
@@ -36,4 +36,4 @@ function dropRight(array, n, guard) {
   return baseSlice(array, 0, n < 0 ? 0 : n);
 }
 
-export default dropRight;
+module.exports = dropRight;

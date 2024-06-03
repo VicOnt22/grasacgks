@@ -1,7 +1,7 @@
-var baseFlatten = require('./_baseFlatten'),
-    baseOrderBy = require('./_baseOrderBy'),
-    baseRest = require('./_baseRest'),
-    isIterateeCall = require('./_isIterateeCall');
+import baseFlatten from './_baseFlatten.js';
+import baseOrderBy from './_baseOrderBy.js';
+import baseRest from './_baseRest.js';
+import isIterateeCall from './_isIterateeCall.js';
 
 /**
  * Creates an array of elements, sorted in ascending order by the results of
@@ -45,4 +45,4 @@ var sortBy = baseRest(function(collection, iteratees) {
   return baseOrderBy(collection, baseFlatten(iteratees, 1), []);
 });
 
-module.exports = sortBy;
+export default sortBy;

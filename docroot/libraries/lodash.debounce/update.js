@@ -1,5 +1,5 @@
-var baseUpdate = require('./_baseUpdate'),
-    castFunction = require('./_castFunction');
+import baseUpdate from './_baseUpdate.js';
+import castFunction from './_castFunction.js';
 
 /**
  * This method is like `_.set` except that accepts `updater` to produce the
@@ -32,4 +32,4 @@ function update(object, path, updater) {
   return object == null ? object : baseUpdate(object, path, castFunction(updater));
 }
 
-module.exports = update;
+export default update;

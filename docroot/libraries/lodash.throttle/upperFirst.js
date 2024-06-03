@@ -1,4 +1,4 @@
-import createCaseFirst from './_createCaseFirst.js';
+var createCaseFirst = require('./_createCaseFirst');
 
 /**
  * Converts the first character of `string` to upper case.
@@ -19,4 +19,4 @@ import createCaseFirst from './_createCaseFirst.js';
  */
 var upperFirst = createCaseFirst('toUpperCase');
 
-export default upperFirst;
+module.exports = upperFirst;

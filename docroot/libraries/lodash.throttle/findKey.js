@@ -1,6 +1,6 @@
-import baseFindKey from './_baseFindKey.js';
-import baseForOwn from './_baseForOwn.js';
-import baseIteratee from './_baseIteratee.js';
+var baseFindKey = require('./_baseFindKey'),
+    baseForOwn = require('./_baseForOwn'),
+    baseIteratee = require('./_baseIteratee');
 
 /**
  * This method is like `_.find` except that it returns the key of the first
@@ -41,4 +41,4 @@ function findKey(object, predicate) {
   return baseFindKey(object, baseIteratee(predicate, 3), baseForOwn);
 }
 
-export default findKey;
+module.exports = findKey;

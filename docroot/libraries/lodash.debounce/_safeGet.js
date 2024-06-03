@@ -18,4 +18,4 @@ function safeGet(object, key) {
   return object[key];
 }
 
-module.exports = safeGet;
+export default safeGet;

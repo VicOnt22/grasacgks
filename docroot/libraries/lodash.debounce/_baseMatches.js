@@ -1,6 +1,6 @@
-var baseIsMatch = require('./_baseIsMatch'),
-    getMatchData = require('./_getMatchData'),
-    matchesStrictComparable = require('./_matchesStrictComparable');
+import baseIsMatch from './_baseIsMatch.js';
+import getMatchData from './_getMatchData.js';
+import matchesStrictComparable from './_matchesStrictComparable.js';
 
 /**
  * The base implementation of `_.matches` which doesn't clone `source`.
@@ -19,4 +19,4 @@ function baseMatches(source) {
   };
 }
 
-module.exports = baseMatches;
+export default baseMatches;

@@ -1,67 +1,66 @@
-module.exports = {
-  'chunk': require('./chunk'),
-  'compact': require('./compact'),
-  'concat': require('./concat'),
-  'difference': require('./difference'),
-  'differenceBy': require('./differenceBy'),
-  'differenceWith': require('./differenceWith'),
-  'drop': require('./drop'),
-  'dropRight': require('./dropRight'),
-  'dropRightWhile': require('./dropRightWhile'),
-  'dropWhile': require('./dropWhile'),
-  'fill': require('./fill'),
-  'findIndex': require('./findIndex'),
-  'findLastIndex': require('./findLastIndex'),
-  'first': require('./first'),
-  'flatten': require('./flatten'),
-  'flattenDeep': require('./flattenDeep'),
-  'flattenDepth': require('./flattenDepth'),
-  'fromPairs': require('./fromPairs'),
-  'head': require('./head'),
-  'indexOf': require('./indexOf'),
-  'initial': require('./initial'),
-  'intersection': require('./intersection'),
-  'intersectionBy': require('./intersectionBy'),
-  'intersectionWith': require('./intersectionWith'),
-  'join': require('./join'),
-  'last': require('./last'),
-  'lastIndexOf': require('./lastIndexOf'),
-  'nth': require('./nth'),
-  'pull': require('./pull'),
-  'pullAll': require('./pullAll'),
-  'pullAllBy': require('./pullAllBy'),
-  'pullAllWith': require('./pullAllWith'),
-  'pullAt': require('./pullAt'),
-  'remove': require('./remove'),
-  'reverse': require('./reverse'),
-  'slice': require('./slice'),
-  'sortedIndex': require('./sortedIndex'),
-  'sortedIndexBy': require('./sortedIndexBy'),
-  'sortedIndexOf': require('./sortedIndexOf'),
-  'sortedLastIndex': require('./sortedLastIndex'),
-  'sortedLastIndexBy': require('./sortedLastIndexBy'),
-  'sortedLastIndexOf': require('./sortedLastIndexOf'),
-  'sortedUniq': require('./sortedUniq'),
-  'sortedUniqBy': require('./sortedUniqBy'),
-  'tail': require('./tail'),
-  'take': require('./take'),
-  'takeRight': require('./takeRight'),
-  'takeRightWhile': require('./takeRightWhile'),
-  'takeWhile': require('./takeWhile'),
-  'union': require('./union'),
-  'unionBy': require('./unionBy'),
-  'unionWith': require('./unionWith'),
-  'uniq': require('./uniq'),
-  'uniqBy': require('./uniqBy'),
-  'uniqWith': require('./uniqWith'),
-  'unzip': require('./unzip'),
-  'unzipWith': require('./unzipWith'),
-  'without': require('./without'),
-  'xor': require('./xor'),
-  'xorBy': require('./xorBy'),
-  'xorWith': require('./xorWith'),
-  'zip': require('./zip'),
-  'zipObject': require('./zipObject'),
-  'zipObjectDeep': require('./zipObjectDeep'),
-  'zipWith': require('./zipWith')
-};
+export { default as chunk } from './chunk.js';
+export { default as compact } from './compact.js';
+export { default as concat } from './concat.js';
+export { default as difference } from './difference.js';
+export { default as differenceBy } from './differenceBy.js';
+export { default as differenceWith } from './differenceWith.js';
+export { default as drop } from './drop.js';
+export { default as dropRight } from './dropRight.js';
+export { default as dropRightWhile } from './dropRightWhile.js';
+export { default as dropWhile } from './dropWhile.js';
+export { default as fill } from './fill.js';
+export { default as findIndex } from './findIndex.js';
+export { default as findLastIndex } from './findLastIndex.js';
+export { default as first } from './first.js';
+export { default as flatten } from './flatten.js';
+export { default as flattenDeep } from './flattenDeep.js';
+export { default as flattenDepth } from './flattenDepth.js';
+export { default as fromPairs } from './fromPairs.js';
+export { default as head } from './head.js';
+export { default as indexOf } from './indexOf.js';
+export { default as initial } from './initial.js';
+export { default as intersection } from './intersection.js';
+export { default as intersectionBy } from './intersectionBy.js';
+export { default as intersectionWith } from './intersectionWith.js';
+export { default as join } from './join.js';
+export { default as last } from './last.js';
+export { default as lastIndexOf } from './lastIndexOf.js';
+export { default as nth } from './nth.js';
+export { default as pull } from './pull.js';
+export { default as pullAll } from './pullAll.js';
+export { default as pullAllBy } from './pullAllBy.js';
+export { default as pullAllWith } from './pullAllWith.js';
+export { default as pullAt } from './pullAt.js';
+export { default as remove } from './remove.js';
+export { default as reverse } from './reverse.js';
+export { default as slice } from './slice.js';
+export { default as sortedIndex } from './sortedIndex.js';
+export { default as sortedIndexBy } from './sortedIndexBy.js';
+export { default as sortedIndexOf } from './sortedIndexOf.js';
+export { default as sortedLastIndex } from './sortedLastIndex.js';
+export { default as sortedLastIndexBy } from './sortedLastIndexBy.js';
+export { default as sortedLastIndexOf } from './sortedLastIndexOf.js';
+export { default as sortedUniq } from './sortedUniq.js';
+export { default as sortedUniqBy } from './sortedUniqBy.js';
+export { default as tail } from './tail.js';
+export { default as take } from './take.js';
+export { default as takeRight } from './takeRight.js';
+export { default as takeRightWhile } from './takeRightWhile.js';
+export { default as takeWhile } from './takeWhile.js';
+export { default as union } from './union.js';
+export { default as unionBy } from './unionBy.js';
+export { default as unionWith } from './unionWith.js';
+export { default as uniq } from './uniq.js';
+export { default as uniqBy } from './uniqBy.js';
+export { default as uniqWith } from './uniqWith.js';
+export { default as unzip } from './unzip.js';
+export { default as unzipWith } from './unzipWith.js';
+export { default as without } from './without.js';
+export { default as xor } from './xor.js';
+export { default as xorBy } from './xorBy.js';
+export { default as xorWith } from './xorWith.js';
+export { default as zip } from './zip.js';
+export { default as zipObject } from './zipObject.js';
+export { default as zipObjectDeep } from './zipObjectDeep.js';
+export { default as zipWith } from './zipWith.js';
+export { default } from './array.default.js';

@@ -1,49 +1,48 @@
-module.exports = {
-  'assign': require('./assign'),
-  'assignIn': require('./assignIn'),
-  'assignInWith': require('./assignInWith'),
-  'assignWith': require('./assignWith'),
-  'at': require('./at'),
-  'create': require('./create'),
-  'defaults': require('./defaults'),
-  'defaultsDeep': require('./defaultsDeep'),
-  'entries': require('./entries'),
-  'entriesIn': require('./entriesIn'),
-  'extend': require('./extend'),
-  'extendWith': require('./extendWith'),
-  'findKey': require('./findKey'),
-  'findLastKey': require('./findLastKey'),
-  'forIn': require('./forIn'),
-  'forInRight': require('./forInRight'),
-  'forOwn': require('./forOwn'),
-  'forOwnRight': require('./forOwnRight'),
-  'functions': require('./functions'),
-  'functionsIn': require('./functionsIn'),
-  'get': require('./get'),
-  'has': require('./has'),
-  'hasIn': require('./hasIn'),
-  'invert': require('./invert'),
-  'invertBy': require('./invertBy'),
-  'invoke': require('./invoke'),
-  'keys': require('./keys'),
-  'keysIn': require('./keysIn'),
-  'mapKeys': require('./mapKeys'),
-  'mapValues': require('./mapValues'),
-  'merge': require('./merge'),
-  'mergeWith': require('./mergeWith'),
-  'omit': require('./omit'),
-  'omitBy': require('./omitBy'),
-  'pick': require('./pick'),
-  'pickBy': require('./pickBy'),
-  'result': require('./result'),
-  'set': require('./set'),
-  'setWith': require('./setWith'),
-  'toPairs': require('./toPairs'),
-  'toPairsIn': require('./toPairsIn'),
-  'transform': require('./transform'),
-  'unset': require('./unset'),
-  'update': require('./update'),
-  'updateWith': require('./updateWith'),
-  'values': require('./values'),
-  'valuesIn': require('./valuesIn')
-};
+export { default as assign } from './assign.js';
+export { default as assignIn } from './assignIn.js';
+export { default as assignInWith } from './assignInWith.js';
+export { default as assignWith } from './assignWith.js';
+export { default as at } from './at.js';
+export { default as create } from './create.js';
+export { default as defaults } from './defaults.js';
+export { default as defaultsDeep } from './defaultsDeep.js';
+export { default as entries } from './entries.js';
+export { default as entriesIn } from './entriesIn.js';
+export { default as extend } from './extend.js';
+export { default as extendWith } from './extendWith.js';
+export { default as findKey } from './findKey.js';
+export { default as findLastKey } from './findLastKey.js';
+export { default as forIn } from './forIn.js';
+export { default as forInRight } from './forInRight.js';
+export { default as forOwn } from './forOwn.js';
+export { default as forOwnRight } from './forOwnRight.js';
+export { default as functions } from './functions.js';
+export { default as functionsIn } from './functionsIn.js';
+export { default as get } from './get.js';
+export { default as has } from './has.js';
+export { default as hasIn } from './hasIn.js';
+export { default as invert } from './invert.js';
+export { default as invertBy } from './invertBy.js';
+export { default as invoke } from './invoke.js';
+export { default as keys } from './keys.js';
+export { default as keysIn } from './keysIn.js';
+export { default as mapKeys } from './mapKeys.js';
+export { default as mapValues } from './mapValues.js';
+export { default as merge } from './merge.js';
+export { default as mergeWith } from './mergeWith.js';
+export { default as omit } from './omit.js';
+export { default as omitBy } from './omitBy.js';
+export { default as pick } from './pick.js';
+export { default as pickBy } from './pickBy.js';
+export { default as result } from './result.js';
+export { default as set } from './set.js';
+export { default as setWith } from './setWith.js';
+export { default as toPairs } from './toPairs.js';
+export { default as toPairsIn } from './toPairsIn.js';
+export { default as transform } from './transform.js';
+export { default as unset } from './unset.js';
+export { default as update } from './update.js';
+export { default as updateWith } from './updateWith.js';
+export { default as values } from './values.js';
+export { default as valuesIn } from './valuesIn.js';
+export { default } from './object.default.js';

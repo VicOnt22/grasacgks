@@ -1,6 +1,6 @@
-import baseTimes from './_baseTimes.js';
-import castFunction from './_castFunction.js';
-import toInteger from './toInteger.js';
+var baseTimes = require('./_baseTimes'),
+    castFunction = require('./_castFunction'),
+    toInteger = require('./toInteger');
 
 /** Used as references for various `Number` constants. */
 var MAX_SAFE_INTEGER = 9007199254740991;
@@ -48,4 +48,4 @@ function times(n, iteratee) {
   return result;
 }
 
-export default times;
+module.exports = times;

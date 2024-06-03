@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Drupal\script_manager\Plugin\Field\FieldFormatter;
 
 use Drupal\Component\Render\FormattableMarkup;
@@ -11,7 +13,7 @@ use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceFormatterBase;
  * Formatter for script references.
  *
  * @FieldFormatter(
- *   id = "script_entity",
+ *   id = \Drupal\script_manager\Plugin\Field\FieldFormatter\ScriptEntityFormatter::PLUGIN_ID,
  *   label = "Script Formatter",
  *   description = @Translation("A field formatter to render script entities when referenced."),
  *   field_types = {
@@ -20,6 +22,8 @@ use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceFormatterBase;
  * )
  */
 class ScriptEntityFormatter extends EntityReferenceFormatterBase {
+
+  public const PLUGIN_ID = 'script_entity';
 
   /**
    * {@inheritdoc}

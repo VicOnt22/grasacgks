@@ -1,6 +1,6 @@
-var baseNth = require('./_baseNth'),
-    baseRest = require('./_baseRest'),
-    toInteger = require('./toInteger');
+import baseNth from './_baseNth.js';
+import baseRest from './_baseRest.js';
+import toInteger from './toInteger.js';
 
 /**
  * Creates a function that gets the argument at index `n`. If `n` is negative,
@@ -29,4 +29,4 @@ function nthArg(n) {
   });
 }
 
-module.exports = nthArg;
+export default nthArg;

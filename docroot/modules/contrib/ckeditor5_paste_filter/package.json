@@ -1,0 +1,30 @@
+{
+  "name": "ckeditor5_paste_filter",
+  "version": "1.0.1",
+  "description": "Filter content pasted into CKEditor 5",
+  "author": "",
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "watch": "webpack --mode development --watch",
+    "build": "webpack",
+    "lint": "eslint js/ckeditor5_plugins/**/*.js",
+    "fix": "prettier --write js/ckeditor5_plugins/**/*.js",
+    "changelog": "yarn conventional-changelog --preset conventionalcommits --release-count 2 | tail -n +2 | sed 's#https://git.drupal.org/project/ckeditor5_paste_filter/issues/#https://www.drupal.org/project/ckeditor5_paste_filter/issues/#g' | markdown-it",
+    "bump": "yarn version --new-version $(conventional-recommended-bump --preset conventionalcommits)",
+    "bump-unstable": "yarn version --new-version"
+  },
+  "devDependencies": {
+    "@ckeditor/ckeditor5-dev-utils": "^30.0.0",
+    "conventional-changelog-cli": "^3.0.0",
+    "conventional-recommended-bump": "^7.0.1",
+    "eslint-config-drupal": "^5.0.2",
+    "markdown-it": "^13.0.1",
+    "raw-loader": "^4.0.2",
+    "terser-webpack-plugin": "^5.2.0",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.4.0"
+  },
+  "dependencies": {
+    "ckeditor5": "~34.1.0"
+  }
+}

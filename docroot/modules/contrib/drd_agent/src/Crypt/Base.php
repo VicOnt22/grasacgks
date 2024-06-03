@@ -14,7 +14,7 @@ class Base implements BaseInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getInstance(ContainerInterface $container, $method, array $settings): BaseMethodInterface {
+  public static function getInstance(ContainerInterface $container, string $method, array $settings): BaseMethodInterface {
     $classname = "\\Drupal\\drd_agent\\Crypt\\Method\\$method";
     return new $classname($container, $settings);
   }
@@ -22,11 +22,11 @@ class Base implements BaseInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getMethods(ContainerInterface $container, $instances = FALSE): array {
+  public static function getMethods(ContainerInterface $container, bool $instances = FALSE): array {
     $methods = [];
-    foreach (['MCrypt', 'OpenSSL', 'TLS'] as $item) {
+    foreach (['OpenSSL', 'TLS'] as $item) {
       $classname = "\\Drupal\\drd_agent\\Crypt\\Method\\$item";
-      /* @var BaseMethodInterface $method */
+      /** @var BaseMethodInterface $method */
       $method = new $classname($container);
       if ($method instanceof BaseMethodInterface && $method->isAvailable()) {
         if ($instances) {

@@ -164,7 +164,7 @@ class ContentEntityDatasourceTest extends KernelTestBase {
       $this->assertInstanceOf(EntityAdapter::class, $item);
       $entity = $item->getValue();
       $this->assertInstanceOf(EntityTestMulRevChanged::class, $entity);
-      list($id, $langcode) = explode(':', $item_id);
+      [$id, $langcode] = explode(':', $item_id);
       $this->assertEquals($id, $entity->id());
       $this->assertEquals($langcode, $entity->language()->getId());
     }
@@ -336,7 +336,6 @@ class ContentEntityDatasourceTest extends KernelTestBase {
       'languages' => $language_config,
     ]);
     $method = new \ReflectionMethod($this->datasource, 'getLanguages');
-    $method->setAccessible(TRUE);
     /** @var \Drupal\Core\Language\LanguageInterface[] $returned */
     $returned = $method->invoke($this->datasource);
     foreach ($returned as $langcode => $language) {

@@ -17,7 +17,7 @@ libraries-extend:
   node/drupal.node.preview:
     - bootstrap_barrio/drupal.node.preview
 
-ckeditor_stylesheets:
+ckeditor5-stylesheets:
   - css/components/table.css
 
 regions:

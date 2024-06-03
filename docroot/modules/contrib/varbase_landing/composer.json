@@ -20,17 +20,11 @@
     "drupal": {
       "type": "composer",
       "url": "https://packages.drupal.org/8"
-    },
-    "assets": {
-      "type": "composer",
-      "url": "https://asset-packagist.org"
     }
   },
   "require": {
-    "composer/installers": "~2",
-    "oomphinc/composer-installers-extender": "~2",
-    "cweagans/composer-patches": "~1",
-    "drupal/core": "~9",
+    "drupal/core": "~10",
+    "vardot/varbase-patches": "~9",
     "vardot/entity-definition-update-manager": "~1",
     "vardot/module-installer-factory": "~1",
     "drupal/varbase_media": "~9",
@@ -38,13 +32,8 @@
     "drupal/varbase_bootstrap_paragraphs": "~9",
     "drupal/paragraphs_features": "~2",
     "drupal/paragraphs_asymmetric_translation_widgets": "~1",
-    "drupal/length_indicator": "~1",
+    "drupal/length_indicator": "~1.0",
     "drupal/advanced_text_formatter": "~2 || ~3",
     "drupal/maxlength": "~2"
-  },
-  "extra": {
-    "enable-patching": true,
-    "composer-exit-on-patch-failure": true,
-    "patches": { }
   }
 }

@@ -1,4 +1,4 @@
-var baseIndexOf = require('./_baseIndexOf');
+import baseIndexOf from './_baseIndexOf.js';
 
 /**
  * A specialized version of `_.includes` for arrays without support for
@@ -14,4 +14,4 @@ function arrayIncludes(array, value) {
   return !!length && baseIndexOf(array, value, 0) > -1;
 }
 
-module.exports = arrayIncludes;
+export default arrayIncludes;

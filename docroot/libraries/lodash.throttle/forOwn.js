@@ -1,5 +1,5 @@
-import baseForOwn from './_baseForOwn.js';
-import castFunction from './_castFunction.js';
+var baseForOwn = require('./_baseForOwn'),
+    castFunction = require('./_castFunction');
 
 /**
  * Iterates over own enumerable string keyed properties of an object and
@@ -33,4 +33,4 @@ function forOwn(object, iteratee) {
   return object && baseForOwn(object, castFunction(iteratee));
 }
 
-export default forOwn;
+module.exports = forOwn;

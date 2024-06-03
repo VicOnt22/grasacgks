@@ -25,6 +25,20 @@ class Result implements ResultInterface {
   protected $displayValue;
 
   /**
+   * The facet transliterate display value.
+   *
+   * @var string
+   */
+  public $transliterateDisplayValue;
+
+  /**
+   * The term weight.
+   *
+   * @var int
+   */
+  public $termWeight;
+
+  /**
    * The raw facet value.
    *
    * @var string
@@ -97,6 +111,13 @@ class Result implements ResultInterface {
    */
   public function getDisplayValue() {
     return $this->displayValue;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTransliterateDisplayValue() {
+    return $this->transliterateDisplayValue;
   }
 
   /**
@@ -183,6 +204,13 @@ class Result implements ResultInterface {
    */
   public function setDisplayValue($display_value) {
     $this->displayValue = $display_value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setTransliterateDisplayValue($transliterate_display_value) {
+    $this->transliterateDisplayValue = $transliterate_display_value;
   }
 
   /**

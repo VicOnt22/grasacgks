@@ -25,4 +25,4 @@ function baseRange(start, end, step, fromRight) {
   return result;
 }
 
-module.exports = baseRange;
+export default baseRange;

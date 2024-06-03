@@ -1,6 +1,6 @@
-import baseIsMap from './_baseIsMap.js';
-import baseUnary from './_baseUnary.js';
-import nodeUtil from './_nodeUtil.js';
+var baseIsMap = require('./_baseIsMap'),
+    baseUnary = require('./_baseUnary'),
+    nodeUtil = require('./_nodeUtil');
 
 /* Node.js helper references. */
 var nodeIsMap = nodeUtil && nodeUtil.isMap;
@@ -24,4 +24,4 @@ var nodeIsMap = nodeUtil && nodeUtil.isMap;
  */
 var isMap = nodeIsMap ? baseUnary(nodeIsMap) : baseIsMap;
 
-export default isMap;
+module.exports = isMap;

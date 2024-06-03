@@ -1,0 +1,9 @@
+{
+    "name": "drupal/script_manager",
+    "description": "Manage JavaScript snippets included in your website.",
+    "type": "drupal-module",
+    "require": {
+        "php": ">=8.1",
+        "drupal/core": ">=10"
+    }
+}

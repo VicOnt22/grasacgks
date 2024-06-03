@@ -2,7 +2,6 @@
 
 namespace Drupal\drd_agent\Crypt\Method;
 
-
 use Drupal\drd_agent\Crypt\BaseMethod;
 
 /**
@@ -29,7 +28,7 @@ class TLS extends BaseMethod {
   /**
    * {@inheritdoc}
    */
-  public function getPassword(): string {
+  public function getPassword(): bool|string {
     return FALSE;
   }
 
@@ -37,7 +36,7 @@ class TLS extends BaseMethod {
    * {@inheritdoc}
    */
   public function isAvailable(): bool {
-    // TODO: properly find out if the remote site is running on TLD.
+    // @todo properly find out if the remote site is running on TLD.
     return FALSE;
   }
 
@@ -65,8 +64,7 @@ class TLS extends BaseMethod {
   /**
    * {@inheritdoc}
    */
-  public function decrypt($body, $iv) {
-    /** @noinspection UnserializeExploitsInspection */
+  public function decrypt(string $body, string $iv): mixed {
     return unserialize($body);
   }
 

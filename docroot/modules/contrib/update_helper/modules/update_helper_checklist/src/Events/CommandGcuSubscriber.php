@@ -3,10 +3,10 @@
 namespace Drupal\update_helper_checklist\Events;
 
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\update_helper\Drush\Generators\ConfigurationUpdateGenerator;
 use Drupal\update_helper\Events\CommandExecuteEvent;
 use Drupal\update_helper\Events\UpdateHelperEvents;
 use Drupal\update_helper\Events\CommandInteractEvent;
-use Drupal\update_helper\Generators\ConfigurationUpdate;
 use Drupal\update_helper_checklist\UpdateChecklist;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -119,7 +119,7 @@ class CommandGcuSubscriber implements EventSubscriberInterface {
     end($update_versions);
     $last_update_version = current($update_versions);
 
-    $vars['update_hook_name'] = ConfigurationUpdate::getUpdateFunctionName($vars['module'], $vars['update_name']);
+    $vars['update_hook_name'] = ConfigurationUpdateGenerator::getUpdateFunctionName($vars['module'], $vars['update_name']);
     $vars['update_version'] = ($vars[static::$updateVersionName] === $last_update_version) ? '' : $vars[static::$updateVersionName];
     $vars['file_exists'] = file_exists($checklist_file);
 

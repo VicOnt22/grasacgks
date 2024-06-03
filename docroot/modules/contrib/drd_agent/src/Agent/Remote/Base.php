@@ -17,65 +17,58 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 abstract class Base implements BaseInterface, ContainerInjectionInterface {
 
   /**
+   * The container.
+   *
    * @var \Symfony\Component\DependencyInjection\ContainerInterface
    */
-  protected $container;
+  protected ContainerInterface $container;
 
   /**
+   * The account switcher.
+   *
    * @var \Drupal\Core\Session\AccountSwitcherInterface
    */
-  protected $accountSwitcher;
+  protected AccountSwitcherInterface $accountSwitcher;
 
   /**
+   * The config factory.
+   *
    * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
-  protected $configFactory;
+  protected ConfigFactoryInterface $configFactory;
 
   /**
+   * The database connection.
+   *
    * @var \Drupal\Core\Database\Connection
    */
-  protected $database;
+  protected Connection $database;
 
   /**
+   * The entity type manager.
+   *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $entityTypeManager;
+  protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
+   * The module handler.
+   *
    * @var \Drupal\Core\Extension\ModuleHandlerInterface
    */
-  protected $moduleHandler;
+  protected ModuleHandlerInterface $moduleHandler;
 
   /**
+   * The time.
+   *
    * @var \Drupal\Component\Datetime\Time
    */
-  protected $time;
-
-  /**
-   * Base constructor.
-   *
-   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-   * @param \Drupal\Core\Session\AccountSwitcherInterface $accountSwitcher
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   * @param \Drupal\Core\Database\Connection $database
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
-   * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
-   * @param \Drupal\Component\Datetime\Time $time
-   */
-  public function __construct(ContainerInterface $container, AccountSwitcherInterface $accountSwitcher, ConfigFactoryInterface $configFactory, Connection $database, EntityTypeManagerInterface $entityTypeManager, ModuleHandlerInterface $moduleHandler, Time $time) {
-    $this->container = $container;
-    $this->accountSwitcher = $accountSwitcher;
-    $this->configFactory = $configFactory;
-    $this->database = $database;
-    $this->entityTypeManager = $entityTypeManager;
-    $this->moduleHandler = $moduleHandler;
-    $this->time = $time;
-  }
+  protected Time $time;
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): Base {
     return new static(
       $container,
       $container->get('account_switcher'),
@@ -85,6 +78,34 @@ abstract class Base implements BaseInterface, ContainerInjectionInterface {
       $container->get('module_handler'),
       $container->get('datetime.time')
     );
+  }
+
+  /**
+   * Base constructor.
+   *
+   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   The container.
+   * @param \Drupal\Core\Session\AccountSwitcherInterface $accountSwitcher
+   *   The account switcher.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The config factory.
+   * @param \Drupal\Core\Database\Connection $database
+   *   The database connection.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
+   *   The module handler.
+   * @param \Drupal\Component\Datetime\Time $time
+   *   The time.
+   */
+  final public function __construct(ContainerInterface $container, AccountSwitcherInterface $accountSwitcher, ConfigFactoryInterface $configFactory, Connection $database, EntityTypeManagerInterface $entityTypeManager, ModuleHandlerInterface $moduleHandler, Time $time) {
+    $this->container = $container;
+    $this->accountSwitcher = $accountSwitcher;
+    $this->configFactory = $configFactory;
+    $this->database = $database;
+    $this->entityTypeManager = $entityTypeManager;
+    $this->moduleHandler = $moduleHandler;
+    $this->time = $time;
   }
 
 }

@@ -1,5 +1,5 @@
-var root = require('./_root'),
-    stubFalse = require('./stubFalse');
+import root from './_root.js';
+import stubFalse from './stubFalse.js';
 
 /** Detect free variable `exports`. */
 var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
@@ -35,4 +35,4 @@ var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined;
  */
 var isBuffer = nativeIsBuffer || stubFalse;
 
-module.exports = isBuffer;
+export default isBuffer;

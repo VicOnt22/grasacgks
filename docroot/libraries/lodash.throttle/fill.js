@@ -1,5 +1,5 @@
-import baseFill from './_baseFill.js';
-import isIterateeCall from './_isIterateeCall.js';
+var baseFill = require('./_baseFill'),
+    isIterateeCall = require('./_isIterateeCall');
 
 /**
  * Fills elements of `array` with `value` from `start` up to, but not
@@ -42,4 +42,4 @@ function fill(array, value, start, end) {
   return baseFill(array, value, start, end);
 }
 
-export default fill;
+module.exports = fill;

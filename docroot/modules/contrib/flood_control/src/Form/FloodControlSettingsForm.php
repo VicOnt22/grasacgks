@@ -70,6 +70,8 @@ class FloodControlSettingsForm extends ConfigFormBase {
     $flood_config = $this->config('user.flood');
     $flood_settings = $flood_config->get();
 
+    $flood_control_config = $this->config('flood_control.settings');
+
     $options = $this->getOptions();
     $counterOptions = $options['counter'];
     $timeOptions = $options['time'];
@@ -120,6 +122,17 @@ class FloodControlSettingsForm extends ConfigFormBase {
       '#description' => $this->t('The allowed time window for failed username logins.'),
     ];
 
+    $form['flood_control'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Flood control'),
+    ];
+    $form['flood_control']['ip_white_list'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('IP whitelist'),
+      '#default_value' => $flood_control_config->get('ip_white_list') ?? '',
+      '#description' => $this->t('Enter the IP addresses or IP address ranges that will have unrestricted access. <br />Enter one per single line IP-address in format XXX.XXX.XXX.XXX, or IP-address range in format XXX.XXX.XXX.YYY-XXX.XXX.XXX.ZZZ.'),
+    ];
+
     // Contact module flood events.
     if ($this->moduleHandler->moduleExists('contact')) {
       $contact_config = $this->config('contact.settings');
@@ -156,6 +169,50 @@ class FloodControlSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    // Validating whitelisted ip addresses.
+    $whitelistIps = flood_control_get_whitelist_ips($form_state->getValue('ip_white_list'));
+
+    // Checking single ip addresses.
+    if (!empty($whitelistIps['addresses'])) {
+      foreach ($whitelistIps['addresses'] as $ipAddress) {
+        if (!filter_var($ipAddress, FILTER_VALIDATE_IP, FILTER_FLAG_NO_RES_RANGE)) {
+          $form_state->setErrorByName('ip_white_list', $this->t('IP address %ip_address is not valid.', ['%ip_address' => $ipAddress]));
+        }
+      }
+    }
+
+    // Checking ip ranges.
+    if (!empty($whitelistIps['ranges'])) {
+      foreach ($whitelistIps['ranges'] as $ipRange) {
+        [$ipLower, $ipUpper] = explode('-', $ipRange, 2);
+
+        if (!filter_var($ipLower, FILTER_VALIDATE_IP, FILTER_FLAG_NO_RES_RANGE)) {
+          $form_state->setErrorByName('ip_white_list', $this->t('Lower IP address %ip_address in range %ip_range is not valid.', ['%ip_address' => $ipLower, '%ip_range' => $ipRange]));
+        }
+
+        if (!filter_var($ipUpper, FILTER_VALIDATE_IP, FILTER_FLAG_NO_RES_RANGE)) {
+          $form_state->setErrorByName('ip_white_list', $this->t('Upper IP address %ip_address in range %ip_range is not valid.', ['%ip_address' => $ipUpper, '%ip_range' => $ipRange]));
+        }
+
+        $ipLowerDec = (float) sprintf("%u", ip2long($ipLower));
+        $ipUpperDec = (float) sprintf("%u", ip2long($ipUpper));
+
+        if ($ipLowerDec === $ipUpperDec) {
+          $form_state->setErrorByName('ip_white_list', $this->t('Lower and upper IP addresses should be different. Please correct range %ip_range.', ['%ip_range' => $ipRange]));
+        }
+        elseif ($ipLowerDec > $ipUpperDec) {
+          $form_state->setErrorByName('ip_white_list', $this->t("Lower IP can't be greater than upper IP addresses in range. Please correct range %ip_range.", ['%ip_range' => $ipRange]));
+        }
+      }
+    }
+
+    parent::validateForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $flood_config = $this->configFactory->getEditable('user.flood');
     $flood_config
@@ -163,6 +220,11 @@ class FloodControlSettingsForm extends ConfigFormBase {
       ->set('ip_window', $form_state->getValue('ip_window'))
       ->set('user_limit', $form_state->getValue('user_limit'))
       ->set('user_window', $form_state->getValue('user_window'))
+      ->save();
+
+    $flood_control_config = $this->configFactory->getEditable('flood_control.settings');
+    $flood_control_config
+      ->set('ip_white_list', $form_state->getValue('ip_white_list'))
       ->save();
 
     if ($this->moduleHandler->moduleExists('contact')) {

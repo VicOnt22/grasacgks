@@ -1,4 +1,4 @@
-var toString = require('./toString');
+import toString from './toString.js';
 
 /**
  * Converts `string`, as a whole, to lower case just like
@@ -25,4 +25,4 @@ function toLower(value) {
   return toString(value).toLowerCase();
 }
 
-module.exports = toLower;
+export default toLower;

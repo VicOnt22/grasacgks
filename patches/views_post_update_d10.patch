@@ -1,0 +1,46 @@
+diff --git a/core/modules/views/views.post_update.php b/core/modules/views/views.post_update.php
+index 766e5630..28b38fe1 100644
+--- a/core/modules/views/views.post_update.php
++++ b/core/modules/views/views.post_update.php
+@@ -74,13 +74,13 @@ function views_post_update_responsive_image_lazy_load(?array &$sandbox = NULL):
+ /**
+  * Update timestamp formatter settings for views.
+  */
+-function views_post_update_timestamp_formatter(array &$sandbox = NULL): void {
+-  /** @var \Drupal\views\ViewsConfigUpdater $view_config_updater */
+-  $view_config_updater = \Drupal::classResolver(ViewsConfigUpdater::class);
+-  \Drupal::classResolver(ConfigEntityUpdater::class)->update($sandbox, 'view', function (ViewEntityInterface $view) use ($view_config_updater): bool {
+-    return $view_config_updater->needsTimestampFormatterTimeDiffUpdate($view);
+-  });
+-}
++//function views_post_update_timestamp_formatter(array &$sandbox = NULL): void {
++//  /** @var \Drupal\views\ViewsConfigUpdater $view_config_updater */
++//  $view_config_updater = \Drupal::classResolver(ViewsConfigUpdater::class);
++//  \Drupal::classResolver(ConfigEntityUpdater::class)->update($sandbox, 'view', function (ViewEntityInterface $view) use ($view_config_updater): bool {
++//    return $view_config_updater->needsTimestampFormatterTimeDiffUpdate($view);
++//  });
++//}
+ 
+ /**
+  * Fix '-revision_id' replacement token syntax.
+@@ -119,13 +119,13 @@ function views_post_update_remove_skip_cache_setting(): void {
+ /**
+  * Remove default_argument_skip_url setting.
+  */
+-function views_post_update_remove_default_argument_skip_url(array &$sandbox = NULL): void {
+-  /** @var \Drupal\views\ViewsConfigUpdater $view_config_updater */
+-  $view_config_updater = \Drupal::classResolver(ViewsConfigUpdater::class);
+-  \Drupal::classResolver(ConfigEntityUpdater::class)->update($sandbox, 'view', function (ViewEntityInterface $view) use ($view_config_updater): bool {
+-    return $view_config_updater->needsDefaultArgumentSkipUrlUpdate($view);
+-  });
+-}
++//function views_post_update_remove_default_argument_skip_url(array &$sandbox = NULL): void {
++//  /** @var \Drupal\views\ViewsConfigUpdater $view_config_updater */
++//  $view_config_updater = \Drupal::classResolver(ViewsConfigUpdater::class);
++//  \Drupal::classResolver(ConfigEntityUpdater::class)->update($sandbox, 'view', function (ViewEntityInterface $view) use ($view_config_updater): bool {
++//    return $view_config_updater->needsDefaultArgumentSkipUrlUpdate($view);
++//  });
++//}
+ 
+ /**
+  * Removes User context from views with taxonomy filters.

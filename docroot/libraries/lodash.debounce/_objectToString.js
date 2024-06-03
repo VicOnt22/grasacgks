@@ -19,4 +19,4 @@ function objectToString(value) {
   return nativeObjectToString.call(value);
 }
 
-module.exports = objectToString;
+export default objectToString;

@@ -1,4 +1,4 @@
-import isNumber from './isNumber.js';
+var isNumber = require('./isNumber');
 
 /**
  * Checks if `value` is `NaN`.
@@ -35,4 +35,4 @@ function isNaN(value) {
   return isNumber(value) && value != +value;
 }
 
-export default isNaN;
+module.exports = isNaN;

@@ -1,8 +1,8 @@
-import apply from './_apply.js';
-import arrayPush from './_arrayPush.js';
-import baseRest from './_baseRest.js';
-import castSlice from './_castSlice.js';
-import toInteger from './toInteger.js';
+var apply = require('./_apply'),
+    arrayPush = require('./_arrayPush'),
+    baseRest = require('./_baseRest'),
+    castSlice = require('./_castSlice'),
+    toInteger = require('./toInteger');
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -60,4 +60,4 @@ function spread(func, start) {
   });
 }
 
-export default spread;
+module.exports = spread;

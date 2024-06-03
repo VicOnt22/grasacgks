@@ -1,4 +1,4 @@
-import isIndex from './_isIndex.js';
+var isIndex = require('./_isIndex');
 
 /**
  * The base implementation of `_.nth` which doesn't coerce arguments.
@@ -17,4 +17,4 @@ function baseNth(array, n) {
   return isIndex(n, length) ? array[n] : undefined;
 }
 
-export default baseNth;
+module.exports = baseNth;

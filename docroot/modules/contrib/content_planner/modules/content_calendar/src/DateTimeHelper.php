@@ -64,8 +64,8 @@ abstract class DateTimeHelper {
    * @return int
    *   Return the days count of the month.
    */
-  public static function getDayCountInMonth($month, $year) {
-    return cal_days_in_month(CAL_GREGORIAN, $month, $year);
+  public static function getDayCountInMonth($month, $year): int {
+    return (int) date('t', strtotime($year . '-' . $month . '-01'));
   }
 
   /**

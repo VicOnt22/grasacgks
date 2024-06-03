@@ -8,5 +8,6 @@ _core:
   default_config_hash: eNxoCKAeUagL3cl_4_Kwa81k_LWW8nqsW4M05lDOj8w
 id: media.bulk_upload
 label: 'Bulk upload'
+description: ''
 targetEntityType: media
 cache: true

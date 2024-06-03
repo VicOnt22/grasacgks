@@ -1,5 +1,5 @@
-var arrayMap = require('./_arrayMap'),
-    createOver = require('./_createOver');
+import arrayMap from './_arrayMap.js';
+import createOver from './_createOver.js';
 
 /**
  * Creates a function that invokes `iteratees` with the arguments it receives
@@ -21,4 +21,4 @@ var arrayMap = require('./_arrayMap'),
  */
 var over = createOver(arrayMap);
 
-module.exports = over;
+export default over;

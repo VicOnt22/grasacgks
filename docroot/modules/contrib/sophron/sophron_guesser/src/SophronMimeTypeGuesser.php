@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\sophron_guesser;
 
 use Drupal\Core\File\FileSystemInterface;
@@ -13,36 +15,23 @@ use Symfony\Component\Mime\MimeTypeGuesserInterface;
 class SophronMimeTypeGuesser implements MimeTypeGuesserInterface {
 
   /**
-   * The MIME map manager service.
-   *
-   * @var \Drupal\sophron\MimeMapManagerInterface
-   */
-  protected $mimeMapManager;
-
-  /**
-   * The file system service.
-   *
-   * @var \Drupal\Core\File\FileSystemInterface
-   */
-  protected $fileSystem;
-
-  /**
    * Constructs a SophronMimeTypeGuesser object.
    *
-   * @param \Drupal\sophron\MimeMapManagerInterface $mime_map_manager
+   * @param \Drupal\sophron\MimeMapManagerInterface $mimeMapManager
    *   The MIME map manager service.
-   * @param \Drupal\Core\File\FileSystemInterface $file_system
+   * @param \Drupal\Core\File\FileSystemInterface $fileSystem
    *   The file system service.
    */
-  public function __construct(MimeMapManagerInterface $mime_map_manager, FileSystemInterface $file_system) {
-    $this->mimeMapManager = $mime_map_manager;
-    $this->fileSystem = $file_system;
+  public function __construct(
+    protected readonly MimeMapManagerInterface $mimeMapManager,
+    protected readonly FileSystemInterface $fileSystem,
+  ) {
   }
 
   /**
    * {@inheritdoc}
    */
-  public function guessMimeType(string $path) : ?string {
+  public function guessMimeType(string $path): string {
     $extension = '';
     $file_parts = explode('.', $this->fileSystem->basename($path));
 
@@ -54,25 +43,16 @@ class SophronMimeTypeGuesser implements MimeTypeGuesserInterface {
     // 'awesome.image.jpeg'.
     while ($additional_part = array_pop($file_parts)) {
       $extension = strtolower($additional_part . ($extension ? '.' . $extension : ''));
-      if ($mime_map_extension = $this->mimeMapManager->getExtension($extension)) {
-        try {
-          return $mime_map_extension->getDefaultType();
-        }
-        catch (MappingException $e) {
-          return 'application/octet-stream';
-        }
+      $mime_map_extension = $this->mimeMapManager->getExtension($extension);
+      try {
+        return $mime_map_extension->getDefaultType();
+      }
+      catch (MappingException $e) {
+        continue;
       }
     }
 
     return 'application/octet-stream';
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function guess($path) {
-    @trigger_error(__METHOD__ . '() is deprecated in drupal:9.1.0 and is removed from drupal:10.0.0. Use ::guessMimeType() instead. See https://www.drupal.org/node/3133341', E_USER_DEPRECATED);
-    return $this->guessMimeType($path);
   }
 
   /**
@@ -93,7 +73,7 @@ class SophronMimeTypeGuesser implements MimeTypeGuesserInterface {
    * @param array|null $mapping
    *   Not relevant.
    */
-  public function setMapping(array $mapping = NULL) {
+  public function setMapping(?array $mapping = NULL) {
     // Do nothing.
   }
 

@@ -1,4 +1,4 @@
-var createBaseFor = require('./_createBaseFor');
+import createBaseFor from './_createBaseFor.js';
 
 /**
  * The base implementation of `baseForOwn` which iterates over `object`
@@ -13,4 +13,4 @@ var createBaseFor = require('./_createBaseFor');
  */
 var baseFor = createBaseFor();
 
-module.exports = baseFor;
+export default baseFor;

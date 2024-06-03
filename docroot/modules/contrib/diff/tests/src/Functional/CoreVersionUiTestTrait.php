@@ -17,7 +17,7 @@ trait CoreVersionUiTestTrait {
    * @param string $submit
    *   The label of the submit button to post.
    */
-  protected function drupalPostNodeForm($path, array $edit, $submit): void {
+  protected function drupalPostNodeForm($path, array $edit, string $submit): void {
     $this->drupalGet($path);
     $this->submitForm($edit, $submit);
   }

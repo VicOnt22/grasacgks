@@ -11,7 +11,7 @@ dependencies:
   - drupal:user
   - drupal:options
 
-# Information added by Drupal.org packaging script on 2024-03-24
-version: '10.0.51'
+# Information added by Drupal.org packaging script on 2024-05-05
+version: '10.0.53'
 project: 'varbase_layout_builder'
-datestamp: 1711273645
+datestamp: 1714927957

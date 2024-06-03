@@ -1,4 +1,4 @@
-var toString = require('./toString');
+import toString from './toString.js';
 
 /** Used to generate unique IDs. */
 var idCounter = 0;
@@ -25,4 +25,4 @@ function uniqueId(prefix) {
   return toString(prefix) + id;
 }
 
-module.exports = uniqueId;
+export default uniqueId;

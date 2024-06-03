@@ -6,6 +6,7 @@ use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
 use Drupal\layout_builder\Entity\LayoutEntityDisplayInterface;
 use Drupal\layout_builder\LayoutTempstoreRepositoryInterface;
 use Drupal\layout_builder\SectionStorageInterface;
@@ -182,6 +183,29 @@ class DefaultsEntityForm extends EntityForm {
       '#submit' => ['::redirectOnSubmit'],
       '#redirect' => 'discard_changes',
     ];
+
+    $actions['move_sections'] = [
+      '#type' => 'link',
+      '#title' => $this->t('Reorder sections'),
+      '#url' => Url::fromRoute('layout_builder.move_sections_form',
+        [
+          'section_storage_type' => $this->sectionStorage->getStorageType(),
+          'section_storage' => $this->sectionStorage->getStorageId(),
+        ],
+        [
+          'attributes' => [
+            'class' => [
+              'use-ajax',
+              'button',
+            ],
+            'data-dialog-type' => 'dialog',
+            'data-dialog-renderer' => 'off_canvas',
+            'data-disable-refocus' => 'true',
+          ],
+        ]
+      ),
+    ];
+
     $actions['preview_toggle'] = $this->buildContentPreviewToggle();
     return $actions;
   }

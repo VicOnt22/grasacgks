@@ -23,6 +23,9 @@ editoria11y.settings:
     download_links:
       type: string
       label: 'These links download a document or image and need a manual review'
+    link_strings_new_windows:
+      type: string
+      label: 'Strings that indicate a link opens in a new window'
     ignore_link_strings:
       type: string
       label: 'Remove these strings from link text before checking for bad link text'

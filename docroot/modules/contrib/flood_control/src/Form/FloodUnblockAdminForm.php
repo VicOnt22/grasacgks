@@ -94,12 +94,14 @@ class FloodUnblockAdminForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-
     // Fetches the limit from the form.
-    $limit = $form_state->getValue('limit') ?? 33;
+    $limit = \Drupal::request()->query->get('limit') ?? 33;
 
     // Fetches the identifier from the form.
-    $identifier = $form_state->getValue('identifier');
+    $identifier = \Drupal::request()->query->get('identifier') ?? '';
+
+    // Fetches the blocked status from the form.
+    $blocked = \Drupal::request()->query->get('blocked') ?? FALSE;
 
     // Set default markup.
     $top_markup = $this->t("List of IP addresses and user ID's that are recorded in Drupal's flood after multiple failed login attempts. You can remove separate entries.");
@@ -137,9 +139,16 @@ class FloodUnblockAdminForm extends FormBase {
         '#description' => $this->t('(Part of) identifier: IP address or UID'),
         '#maxlength' => 256,
       ],
+      'blocked' => [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Only blocked'),
+        '#description' => $this->t('Show only the blocked requests'),
+        '#default_value' => $blocked,
+      ],
       'submit' => [
         '#type' => 'submit',
         '#value' => $this->t('Filter'),
+        '#submit' => ['::applyFilters'],
       ],
     ];
 
@@ -194,14 +203,26 @@ class FloodUnblockAdminForm extends FormBase {
         $is_blocked = $this->floodUnblockManager->isBlocked($result->identifier, $result->event);
 
         // Defines list of options for tableselect element.
-        $options[$result->fid] = [
-          'title' => ['data' => ['#title' => $this->t('Flood id @id', ['@id' => $result->fid])]],
-          'identifier' => $identifiers[$result->identifier],
-          'blocked' => $is_blocked ? $this->t('Blocked') : $this->t('Not blocked'),
-          'event' => $this->floodUnblockManager->getEventLabel($result->event),
-          'timestamp' => $this->dateFormatter->format($result->timestamp, 'short'),
-          'expiration' => $this->dateFormatter->format($result->expiration, 'short'),
-        ];
+        if ($blocked && $is_blocked) {
+          $options[$result->fid] = [
+            'title' => ['data' => ['#title' => $this->t('Flood id @id', ['@id' => $result->fid])]],
+            'identifier' => $identifiers[$result->identifier],
+            'blocked' => $is_blocked ? $this->t('Blocked') : $this->t('Not blocked'),
+            'event' => $this->floodUnblockManager->getEventLabel($result->event),
+            'timestamp' => $this->dateFormatter->format($result->timestamp, 'short'),
+            'expiration' => $this->dateFormatter->format($result->expiration, 'short'),
+          ];
+        }
+        elseif (!$blocked) {
+          $options[$result->fid] = [
+            'title' => ['data' => ['#title' => $this->t('Flood id @id', ['@id' => $result->fid])]],
+            'identifier' => $identifiers[$result->identifier],
+            'blocked' => $is_blocked ? $this->t('Blocked') : $this->t('Not blocked'),
+            'event' => $this->floodUnblockManager->getEventLabel($result->event),
+            'timestamp' => $this->dateFormatter->format($result->timestamp, 'short'),
+            'expiration' => $this->dateFormatter->format($result->expiration, 'short'),
+          ];
+        }
       }
     }
 
@@ -248,6 +269,27 @@ class FloodUnblockAdminForm extends FormBase {
     if (empty($selected_entries)) {
       $form_state->setErrorByName('table', $this->t('Please make a selection.'));
     }
+  }
+
+  /**
+   * Applies the filter parameters to the url.
+   *
+   * @param array $form
+   *   The current form.
+   * @param FormStateInterface $form_state
+   *   The form state.
+   */
+  public function applyFilters(array &$form, FormStateInterface $form_state) {
+    $field = $form_state->getValues();
+    $url = Url::fromRoute('flood_control.unblock_form')
+      ->setRouteParameters(
+        [
+          'limit' => $field["limit"],
+          'identifier' => $field["identifier"],
+          'blocked' => $field['blocked'],
+        ]
+      );
+    $form_state->setRedirectUrl($url);
   }
 
   /**

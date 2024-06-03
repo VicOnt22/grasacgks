@@ -12,4 +12,4 @@ function overArg(func, transform) {
   };
 }
 
-module.exports = overArg;
+export default overArg;

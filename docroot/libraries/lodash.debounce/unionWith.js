@@ -1,8 +1,8 @@
-var baseFlatten = require('./_baseFlatten'),
-    baseRest = require('./_baseRest'),
-    baseUniq = require('./_baseUniq'),
-    isArrayLikeObject = require('./isArrayLikeObject'),
-    last = require('./last');
+import baseFlatten from './_baseFlatten.js';
+import baseRest from './_baseRest.js';
+import baseUniq from './_baseUniq.js';
+import isArrayLikeObject from './isArrayLikeObject.js';
+import last from './last.js';
 
 /**
  * This method is like `_.union` except that it accepts `comparator` which
@@ -31,4 +31,4 @@ var unionWith = baseRest(function(arrays) {
   return baseUniq(baseFlatten(arrays, 1, isArrayLikeObject, true), undefined, comparator);
 });
 
-module.exports = unionWith;
+export default unionWith;

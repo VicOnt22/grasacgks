@@ -171,6 +171,7 @@ class FieldsSettingsForm extends ConfigFormBase {
     $field_name = $field_definition->getName();
     $field_type = $field_definition->getType();
     $field_key = $entity_type->id() . '__' . $field_name;
+    $field_machine_name = $field_definition->getName();
 
     $display_options = $this->diffBuilderManager->getSelectedPluginForFieldStorageDefinition($field_definition);
     $plugin_options = $this->diffBuilderManager->getApplicablePluginOptions($field_definition);
@@ -195,6 +196,11 @@ class FieldsSettingsForm extends ConfigFormBase {
     ];
 
     $field_type_label = $this->fieldTypePluginManager->getDefinitions()[$field_type]['label'];
+
+    $field_row['field_machine_name'] = [
+      '#markup' => $field_machine_name,
+    ];
+
     $field_row['field_type'] = [
       '#markup' => $field_type_label,
     ];
@@ -521,6 +527,7 @@ class FieldsSettingsForm extends ConfigFormBase {
     return [
       'entity_type' => $this->t('Entity Type'),
       'field_name' => $this->t('Field'),
+      'field_machine_name' => $this->t('Field Machine Name'),
       'field_type' => $this->t('Field Type'),
       'plugin' => $this->t('Plugin'),
       'settings_edit' => '',

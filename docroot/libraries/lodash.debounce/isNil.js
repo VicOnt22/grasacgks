@@ -22,4 +22,4 @@ function isNil(value) {
   return value == null;
 }
 
-module.exports = isNil;
+export default isNil;

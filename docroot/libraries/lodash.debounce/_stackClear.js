@@ -1,4 +1,4 @@
-var ListCache = require('./_ListCache');
+import ListCache from './_ListCache.js';
 
 /**
  * Removes all key-value entries from the stack.
@@ -12,4 +12,4 @@ function stackClear() {
   this.size = 0;
 }
 
-module.exports = stackClear;
+export default stackClear;

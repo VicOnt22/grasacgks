@@ -10,7 +10,7 @@ class ErrorLogs extends Base {
   /**
    * {@inheritdoc}
    */
-  public function execute() {
+  public function execute(): array {
     $args = $this->getArguments();
     $max_length = $args['maxLength'] ?? 5000;
     $log_file = ini_get('error_log');
@@ -18,7 +18,7 @@ class ErrorLogs extends Base {
       return [];
     }
     $offset = max(-1, (filesize($log_file) - $max_length));
-    $log = file_get_contents($log_file, FILE_BINARY, NULL, $offset);
+    $log = file_get_contents($log_file, FALSE, NULL, $offset);
     $result['php error log'] = $log;
 
     return $result;

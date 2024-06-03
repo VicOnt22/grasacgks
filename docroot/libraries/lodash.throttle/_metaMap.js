@@ -1,6 +1,6 @@
-import WeakMap from './_WeakMap.js';
+var WeakMap = require('./_WeakMap');
 
 /** Used to store function metadata. */
 var metaMap = WeakMap && new WeakMap;
 
-export default metaMap;
+module.exports = metaMap;

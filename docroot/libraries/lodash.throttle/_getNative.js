@@ -1,5 +1,5 @@
-import baseIsNative from './_baseIsNative.js';
-import getValue from './_getValue.js';
+var baseIsNative = require('./_baseIsNative'),
+    getValue = require('./_getValue');
 
 /**
  * Gets the native function at `key` of `object`.
@@ -14,4 +14,4 @@ function getNative(object, key) {
   return baseIsNative(value) ? value : undefined;
 }
 
-export default getNative;
+module.exports = getNative;

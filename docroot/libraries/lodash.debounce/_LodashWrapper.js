@@ -1,5 +1,5 @@
-var baseCreate = require('./_baseCreate'),
-    baseLodash = require('./_baseLodash');
+import baseCreate from './_baseCreate.js';
+import baseLodash from './_baseLodash.js';
 
 /**
  * The base constructor for creating `lodash` wrapper objects.
@@ -19,4 +19,4 @@ function LodashWrapper(value, chainAll) {
 LodashWrapper.prototype = baseCreate(baseLodash.prototype);
 LodashWrapper.prototype.constructor = LodashWrapper;
 
-module.exports = LodashWrapper;
+export default LodashWrapper;

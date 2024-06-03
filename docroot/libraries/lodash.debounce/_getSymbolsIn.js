@@ -1,7 +1,7 @@
-var arrayPush = require('./_arrayPush'),
-    getPrototype = require('./_getPrototype'),
-    getSymbols = require('./_getSymbols'),
-    stubArray = require('./stubArray');
+import arrayPush from './_arrayPush.js';
+import getPrototype from './_getPrototype.js';
+import getSymbols from './_getSymbols.js';
+import stubArray from './stubArray.js';
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeGetSymbols = Object.getOwnPropertySymbols;
@@ -22,4 +22,4 @@ var getSymbolsIn = !nativeGetSymbols ? stubArray : function(object) {
   return result;
 };
 
-module.exports = getSymbolsIn;
+export default getSymbolsIn;

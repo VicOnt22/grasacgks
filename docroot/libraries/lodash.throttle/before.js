@@ -1,4 +1,4 @@
-import toInteger from './toInteger.js';
+var toInteger = require('./toInteger');
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -37,4 +37,4 @@ function before(n, func) {
   };
 }
 
-export default before;
+module.exports = before;

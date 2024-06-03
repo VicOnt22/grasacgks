@@ -1,4 +1,4 @@
-var arrayMap = require('./_arrayMap');
+import arrayMap from './_arrayMap.js';
 
 /**
  * The base implementation of `_.toPairs` and `_.toPairsIn` which creates an array
@@ -15,4 +15,4 @@ function baseToPairs(object, props) {
   });
 }
 
-module.exports = baseToPairs;
+export default baseToPairs;

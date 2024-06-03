@@ -1,5 +1,5 @@
-import baseDelay from './_baseDelay.js';
-import baseRest from './_baseRest.js';
+var baseDelay = require('./_baseDelay'),
+    baseRest = require('./_baseRest');
 
 /**
  * Defers invoking the `func` until the current call stack has cleared. Any
@@ -23,4 +23,4 @@ var defer = baseRest(function(func, args) {
   return baseDelay(func, 1, args);
 });
 
-export default defer;
+module.exports = defer;

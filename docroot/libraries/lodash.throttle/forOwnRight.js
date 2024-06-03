@@ -1,5 +1,5 @@
-import baseForOwnRight from './_baseForOwnRight.js';
-import castFunction from './_castFunction.js';
+var baseForOwnRight = require('./_baseForOwnRight'),
+    castFunction = require('./_castFunction');
 
 /**
  * This method is like `_.forOwn` except that it iterates over properties of
@@ -31,4 +31,4 @@ function forOwnRight(object, iteratee) {
   return object && baseForOwnRight(object, castFunction(iteratee));
 }
 
-export default forOwnRight;
+module.exports = forOwnRight;

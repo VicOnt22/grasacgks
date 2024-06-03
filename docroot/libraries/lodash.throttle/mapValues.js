@@ -1,6 +1,6 @@
-import baseAssignValue from './_baseAssignValue.js';
-import baseForOwn from './_baseForOwn.js';
-import baseIteratee from './_baseIteratee.js';
+var baseAssignValue = require('./_baseAssignValue'),
+    baseForOwn = require('./_baseForOwn'),
+    baseIteratee = require('./_baseIteratee');
 
 /**
  * Creates an object with the same keys as `object` and values generated
@@ -40,4 +40,4 @@ function mapValues(object, iteratee) {
   return result;
 }
 
-export default mapValues;
+module.exports = mapValues;

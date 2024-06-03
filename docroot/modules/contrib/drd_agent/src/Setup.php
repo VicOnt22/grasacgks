@@ -4,38 +4,53 @@ namespace Drupal\drd_agent;
 
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\State\StateInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Class Setup.
+ * The class to set up the agent.
  *
  * @package Drupal\drd_agent
  */
 class Setup {
 
-  protected $values;
+  /**
+   * The values.
+   *
+   * @var mixed
+   */
+  protected mixed $values;
 
   /**
+   * The state.
+   *
    * @var \Drupal\Core\State\StateInterface
    */
-  protected $state;
+  protected StateInterface $state;
 
   /**
+   * The time.
+   *
    * @var \Drupal\Component\Datetime\TimeInterface
    */
-  protected $time;
+  protected TimeInterface $time;
 
   /**
+   * The request.
+   *
    * @var \Symfony\Component\HttpFoundation\Request
    */
-  protected $request;
+  protected Request $request;
 
   /**
    * Setup constructor.
    *
    * @param \Drupal\Core\State\StateInterface $state
+   *   The state.
    * @param \Drupal\Component\Datetime\TimeInterface $time
+   *   The time.
    * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
+   *   The request stack.
    */
   public function __construct(StateInterface $state, TimeInterface $time, RequestStack $request_stack) {
     $this->state = $state;
@@ -44,7 +59,10 @@ class Setup {
     $this->checkForRemoteSetupToken();
   }
 
-  private function checkForRemoteSetupToken() {
+  /**
+   * Checks and sets the remote setup token.
+   */
+  private function checkForRemoteSetupToken(): void {
     if (isset($_SESSION['drd_agent_authorization_values'])) {
       $this->setRemoteSetupToken($_SESSION['drd_agent_authorization_values']);
     }
@@ -58,7 +76,7 @@ class Setup {
    *
    * @return $this
    */
-  public function setRemoteSetupToken($remoteSetupToken): self {
+  public function setRemoteSetupToken(string $remoteSetupToken): self {
     $values = strtr($remoteSetupToken, ['-' => '+', '_' => '/']);
     $this->values = json_decode(base64_decode($values), TRUE);
     return $this;
@@ -89,7 +107,7 @@ class Setup {
    * @return string|false
    *   The hostname or FALSE.
    */
-  public function getDomain() {
+  public function getDomain(): bool|string {
     $this->checkForRemoteSetupToken();
     if (isset($this->values['redirect'])) {
       return parse_url($this->values['redirect'], PHP_URL_HOST);

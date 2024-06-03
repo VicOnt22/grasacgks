@@ -5,7 +5,6 @@ namespace Drupal\diff;
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -151,7 +150,7 @@ abstract class DiffLayoutBase extends PluginBase implements DiffLayoutInterface,
         'diff_revisions' => [
           '#type' => 'item',
           '#title' => $this->t('Comparing'),
-          '#wrapper_attributes' => ['class' => 'diff-revision'],
+          '#wrapper_attributes' => ['class' => ['diff-revision']],
           'items' => [
             '#prefix' => '<div class="diff-revision__items">',
             '#suffix' => '</div>',

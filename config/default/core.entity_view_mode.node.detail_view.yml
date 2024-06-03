@@ -6,5 +6,6 @@ dependencies:
     - node
 id: node.detail_view
 label: detail_view
+description: ''
 targetEntityType: node
 cache: true

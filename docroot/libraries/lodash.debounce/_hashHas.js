@@ -1,4 +1,4 @@
-var nativeCreate = require('./_nativeCreate');
+import nativeCreate from './_nativeCreate.js';
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -20,4 +20,4 @@ function hashHas(key) {
   return nativeCreate ? (data[key] !== undefined) : hasOwnProperty.call(data, key);
 }
 
-module.exports = hashHas;
+export default hashHas;

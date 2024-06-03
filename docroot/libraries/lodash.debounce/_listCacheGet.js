@@ -1,4 +1,4 @@
-var assocIndexOf = require('./_assocIndexOf');
+import assocIndexOf from './_assocIndexOf.js';
 
 /**
  * Gets the list cache value for `key`.
@@ -16,4 +16,4 @@ function listCacheGet(key) {
   return index < 0 ? undefined : data[index][1];
 }
 
-module.exports = listCacheGet;
+export default listCacheGet;

@@ -1,8 +1,8 @@
-var arrayReduceRight = require('./_arrayReduceRight'),
-    baseEachRight = require('./_baseEachRight'),
-    baseIteratee = require('./_baseIteratee'),
-    baseReduce = require('./_baseReduce'),
-    isArray = require('./isArray');
+import arrayReduceRight from './_arrayReduceRight.js';
+import baseEachRight from './_baseEachRight.js';
+import baseIteratee from './_baseIteratee.js';
+import baseReduce from './_baseReduce.js';
+import isArray from './isArray.js';
 
 /**
  * This method is like `_.reduce` except that it iterates over elements of
@@ -33,4 +33,4 @@ function reduceRight(collection, iteratee, accumulator) {
   return func(collection, baseIteratee(iteratee, 4), accumulator, initAccum, baseEachRight);
 }
 
-module.exports = reduceRight;
+export default reduceRight;

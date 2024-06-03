@@ -324,7 +324,7 @@ class EntityCloneForm extends FormBase {
     $has_content_translation_status_field = $this->moduleHandler->moduleExists('content_translation') && $this->entityDefinitionUpdateManager->getFieldStorageDefinition('content_translation_status', $this->entityTypeDefinition->id());
     if ($duplicate instanceof EntityPublishedInterface || $has_content_translation_status_field) {
       if ($duplicate instanceof EntityPublishedInterface) {
-        $status_field = 'status';
+        $status_field = $duplicate->getEntityType()->getKey('published');
       }
       else {
         $status_field = 'content_translation_status';

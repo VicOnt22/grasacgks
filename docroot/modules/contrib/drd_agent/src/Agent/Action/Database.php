@@ -2,7 +2,6 @@
 
 namespace Drupal\drd_agent\Agent\Action;
 
-
 use Drupal\Core\Database\Database as CoreDatabase;
 
 /**
@@ -13,7 +12,7 @@ class Database extends Base {
   /**
    * {@inheritdoc}
    */
-  public function execute() {
+  public function execute(): array|bool {
     $databases = CoreDatabase::getAllConnectionInfo();
 
     exec('mysqldump --version', $output, $ret);

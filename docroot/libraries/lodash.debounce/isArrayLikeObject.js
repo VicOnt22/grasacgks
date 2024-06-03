@@ -1,5 +1,5 @@
-var isArrayLike = require('./isArrayLike'),
-    isObjectLike = require('./isObjectLike');
+import isArrayLike from './isArrayLike.js';
+import isObjectLike from './isObjectLike.js';
 
 /**
  * This method is like `_.isArrayLike` except that it also checks if `value`
@@ -30,4 +30,4 @@ function isArrayLikeObject(value) {
   return isObjectLike(value) && isArrayLike(value);
 }
 
-module.exports = isArrayLikeObject;
+export default isArrayLikeObject;

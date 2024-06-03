@@ -1,4 +1,4 @@
-var toInteger = require('./toInteger');
+import toInteger from './toInteger.js';
 
 /**
  * Checks if `value` is an integer.
@@ -30,4 +30,4 @@ function isInteger(value) {
   return typeof value == 'number' && value == toInteger(value);
 }
 
-module.exports = isInteger;
+export default isInteger;

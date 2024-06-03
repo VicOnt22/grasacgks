@@ -1,6 +1,6 @@
-var baseExtremum = require('./_baseExtremum'),
-    baseIteratee = require('./_baseIteratee'),
-    baseLt = require('./_baseLt');
+import baseExtremum from './_baseExtremum.js';
+import baseIteratee from './_baseIteratee.js';
+import baseLt from './_baseLt.js';
 
 /**
  * This method is like `_.min` except that it accepts `iteratee` which is
@@ -31,4 +31,4 @@ function minBy(array, iteratee) {
     : undefined;
 }
 
-module.exports = minBy;
+export default minBy;

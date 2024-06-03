@@ -1,4 +1,4 @@
-import defineProperty from './_defineProperty.js';
+var defineProperty = require('./_defineProperty');
 
 /**
  * The base implementation of `assignValue` and `assignMergeValue` without
@@ -22,4 +22,4 @@ function baseAssignValue(object, key, value) {
   }
 }
 
-export default baseAssignValue;
+module.exports = baseAssignValue;

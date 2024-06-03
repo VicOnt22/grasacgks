@@ -1,5 +1,5 @@
-var baseClamp = require('./_baseClamp'),
-    toInteger = require('./toInteger');
+import baseClamp from './_baseClamp.js';
+import toInteger from './toInteger.js';
 
 /** Used as references for the maximum length and index of an array. */
 var MAX_ARRAY_LENGTH = 4294967295;
@@ -35,4 +35,4 @@ function toLength(value) {
   return value ? baseClamp(toInteger(value), 0, MAX_ARRAY_LENGTH) : 0;
 }
 
-module.exports = toLength;
+export default toLength;

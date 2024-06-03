@@ -20,4 +20,4 @@ function baseFindKey(collection, predicate, eachFunc) {
   return result;
 }
 
-module.exports = baseFindKey;
+export default baseFindKey;

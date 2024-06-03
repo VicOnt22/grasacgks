@@ -78,6 +78,10 @@ class DiffRevisionTest extends DiffTestBase {
     // Assert the revision summary.
     $this->assertSession()->pageTextContainsOnce('Revision 2 comment');
 
+    // Assert the submit button.
+    $this->assertSession()->elementExists('xpath', '//input[@type="submit" and @id="edit-submit" and @value="Compare selected revisions"]');
+    $this->assertSession()->elementNotExists('xpath', '//input[@type="submit" and @id="edit-submit-top" and @value="Compare selected revisions"]');
+
     // Compare the revisions in standard mode.
     $this->submitForm([], 'Compare selected revisions');
     $this->clickLink('Split fields');
@@ -208,7 +212,7 @@ class DiffRevisionTest extends DiffTestBase {
     // Assert that there are no radio buttons for revision selection.
     $this->assertSession()->elementNotExists('xpath', '//input[@type="radio"]');
     // Assert that there is no submit button.
-    $this->assertSession()->elementNotExists('xpath', '//input[@type="submit" and text()="Compare selected revisions"]');
+    $this->assertSession()->elementNotExists('xpath', '//input[@type="submit" and @value="Compare selected revisions"]');
 
     // Create two new revisions of node.
     $edit = [
@@ -284,6 +288,33 @@ class DiffRevisionTest extends DiffTestBase {
       $this->assertEquals($text[0]->getText(), 'Current revision');
       $this->assertSession()->linkNotExists('Set as current revision');
     }
+
+    // Create more revisions.
+    $this->drupalGet('node/' . $node->id());
+    $edit = [
+      'body[0][value]' => '<p>More revisions to test the top submit button</p>
+      <p>first_unique_text</p>
+      <p>second_unique_text</p>',
+      'revision' => TRUE,
+      'revision_log[0][value]' => 'Revision comment',
+    ];
+    // Set to published if content moderation is enabled.
+    if (\Drupal::moduleHandler()->moduleExists('content_moderation')) {
+      $edit['moderation_state[0][state]'] = 'published';
+    }
+    $this->drupalPostNodeForm('node/' . $node->id() . '/edit', $edit, 'Save');
+
+    $this->drupalGet('node/' . $node->id());
+
+    // Check the revisions overview.
+    $this->clickLink(t('Revisions'));
+    $rows = $this->xpath('//tbody/tr');
+    // Make sure there are 6 revisions.
+    $this->assertCount(6, $rows);
+
+    // Assert the submit buttons.
+    $this->assertSession()->elementExists('xpath', '//input[@type="submit" and @id="edit-submit-top" and @value="Compare selected revisions"]');
+    $this->assertSession()->elementExists('xpath', '//input[@type="submit" and @id="edit-submit" and @value="Compare selected revisions"]');
   }
 
   /**
@@ -443,7 +474,6 @@ class DiffRevisionTest extends DiffTestBase {
     ], 'Continue');
     $this->submitForm([
       'group_field_options_wrapper' => 'field_ui:entity_reference:node',
-      'new_storage_type' => 'reference',
       'label' => 'Content reference test',
       'field_name' => 'content',
     ], 'Continue');

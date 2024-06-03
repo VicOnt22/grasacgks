@@ -2,7 +2,7 @@
 
 namespace Drupal\drd_agent\Crypt;
 
-
+use Drupal\Core\Logger\LoggerChannelInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -13,23 +13,27 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 abstract class BaseMethod implements BaseMethodInterface {
 
   /**
+   * The container.
+   *
    * @var \Symfony\Component\DependencyInjection\ContainerInterface
    */
-  protected $container;
+  protected ContainerInterface $container;
 
   /**
+   * The logger channel.
+   *
    * @var \Drupal\Core\Logger\LoggerChannelInterface
    */
-  protected $logger;
+  protected LoggerChannelInterface $logger;
 
   /**
    * BaseMethod constructor.
    *
    * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   The container.
    */
   public function __construct(ContainerInterface $container) {
     $this->container = $container;
-    /** @noinspection NullPointerExceptionInspection */
     $this->logger = $container->get('logger.factory')->get('DRD Agent');
   }
 
@@ -46,7 +50,7 @@ abstract class BaseMethod implements BaseMethodInterface {
    * @return int
    *   Exit code of the openssl command.
    */
-  private function cryptFileExecute($mode, $in, $out): int {
+  private function cryptFileExecute(string $mode, string $in, string $out): int {
     $output = [];
     $cmd = [
       'openssl',
@@ -68,7 +72,7 @@ abstract class BaseMethod implements BaseMethodInterface {
   /**
    * {@inheritdoc}
    */
-  public function encryptFile($filename): string {
+  public function encryptFile(string $filename): string {
     if ($this->getCipher()) {
       exec('openssl version', $output, $ret);
       if ($ret === 0) {

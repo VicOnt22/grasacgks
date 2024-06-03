@@ -22,6 +22,7 @@ dependencies:
     - taxonomy.vocabulary.traditional_knowledge_tk_labels
   module:
     - field_permissions
+    - file
     - filter
     - media
     - system
@@ -34,24 +35,8 @@ label: 'authenticated user'
 weight: -9
 is_admin: false
 permissions:
-  - 'access comments'
   - 'access content'
-  - 'access relations'
-  - 'access site-wide contact form'
-  - 'access user contact forms'
-  - 'edit own comments'
-  - 'edit own tags'
-  - 'post comments'
-  - 'search all content'
-  - 'search all excluded entities'
-  - 'search article content'
-  - 'search content'
-  - 'search heritage_item content'
-  - 'search language_item content'
-  - 'search page content'
-  - 'search project content'
-  - 'search resource content'
-  - 'search secure_page content'
+  - 'delete own files'
   - 'select terms in ceremonial_time'
   - 'select terms in collection'
   - 'select terms in contributor_roles'
@@ -68,22 +53,10 @@ permissions:
   - 'select terms in seasonal_time'
   - 'select terms in tags'
   - 'select terms in traditional_knowledge_tk_labels'
-  - 'skip comment approval'
-  - 'tag content'
-  - 'use advanced search'
-  - 'use text format filtered_html'
   - 'use text format webform_default'
   - userprotect.account.edit
-  - 'view advanced help index'
-  - 'view advanced help popup'
-  - 'view advanced help topic'
   - 'view field_folders'
-  - 'view field_make_role'
-  - 'view files'
-  - 'view icons'
   - 'view media'
-  - 'view own field_make_role'
-  - 'view own files'
   - 'view term names in ceremonial_time'
   - 'view term names in collection'
   - 'view term names in contributor_roles'

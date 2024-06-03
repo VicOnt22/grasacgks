@@ -8,5 +8,6 @@ _core:
   default_config_hash: qHzyP5Jvt3l540GgpPIoMhlc8VBxwxCFeY8mB3ImpDE
 id: page_variant.token
 label: Token
+description: ''
 targetEntityType: page_variant
 cache: true

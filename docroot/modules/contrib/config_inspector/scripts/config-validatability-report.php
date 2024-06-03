@@ -135,22 +135,33 @@ function assess_revision(string $revision, int $day, string $date): \stdClass {
   // 4. This also aids in debugging: if the script crashes, just do
   //    `git diff TAG1 TAG2`.
   @shell_exec("git tag 10.99.$day");
+  $prev = $day > 1 ? $day - 1 : $day;
+  $standard_profile_config_changed = @shell_exec("git diff 10.99.$prev 10.99.$day --name-only | grep 'core/profiles/standard/config\|config/optional'");
+  if (!empty($standard_profile_config_changed)) {
+    print "🤖                               Drupal's standard install profile config changed, uninstalling…\n";
+    @shell_exec("rm -rf sites/default/files sites/default/settings.php");
+    unset($installed);
+  }
+  $was_just_installed = FALSE;
   if (!isset($installed)) {
     print "🤖                               Installing Drupal's standard install profile…\n";
     @shell_exec("composer require drush/drush --quiet");
     @shell_exec("php core/scripts/drupal install standard --quiet");
     @shell_exec("vendor/bin/drush pm:install config_inspector --yes --quiet");
     $installed = TRUE;
+    $was_just_installed = TRUE;
   }
-  $prev = $day > 1 ? $day - 1 : $day;
-  // Composer install if lock file changed, and reinstall drush.
-  $prep_output[] = @shell_exec("git diff 10.99.$prev 10.99.$day --name-only | grep -q composer\.lock && echo '🤖                               Reinstalling Composer packages (including Drush) because composer.lock has changed…' && composer require drush/drush --quiet");
-  // Ensure `drush config:inspect --statistics` keeps working.
-  $prep_output[] = @shell_exec("git diff 10.99.$prev 10.99.$day --name-only | grep -q '.install$\|.post_update\.php$' && echo '🤖                               Installing DB updates…' && vendor/bin/drush updatedb --yes --quiet");
-  $prep_output[] = @shell_exec("git diff 10.99.$prev 10.99.$day --name-only | grep -q '.schema\.yml$' && echo '🤖                               Erasing discovery cache because config schema changed…' && vendor/bin/drush cc bin discovery --quiet");
-  $prep_output[] = @shell_exec("git diff 10.99.$prev 10.99.$day --name-only | grep -q '^core\/lib\/Drupal\/Core\/Config\/Schema\/' && echo '🤖                               Erasing discovery cache because config schema infrastructure changed…' && vendor/bin/drush cc bin discovery --quiet");
-  $prep_output[] = @shell_exec("git diff 10.99.$prev 10.99.$day --name-only | grep -q '\/Validation\/' && echo '🤖                               Rebuilding container because validation constraints were added or modified…' && vendor/bin/drush cr --quiet");
-  $prep_output[] = @shell_exec("git diff 10.99.$prev 10.99.$day --name-only | grep -q '^core\/lib\/Drupal\/Core\/.*Kernel' && echo '🤖                               Rebuilding container because kernel infrastructure changed…' && vendor/bin/drush cr --quiet");
+  if (!$was_just_installed) {
+    // Composer install if lock file changed, and reinstall drush.
+    $prep_output[] = @shell_exec("git diff 10.99.$prev 10.99.$day --name-only | grep -q composer\.lock && echo '🤖                               Reinstalling Composer packages (including Drush) because composer.lock has changed…' && composer require drush/drush --quiet");
+    // Ensure `drush config:inspect --statistics` keeps working.
+    $prep_output[] = @shell_exec("git diff 10.99.$prev 10.99.$day --name-only | grep -q '.install$\|.post_update\.php$' && echo '🤖                               Installing DB updates…' && vendor/bin/drush updatedb --yes --quiet");
+    $prep_output[] = @shell_exec("git diff 10.99.$prev 10.99.$day --name-only | grep -q '.schema\.yml$' && echo '🤖                               Erasing discovery cache because config schema changed…' && vendor/bin/drush cc bin discovery --quiet");
+    $prep_output[] = @shell_exec("git diff 10.99.$prev 10.99.$day --name-only | grep -q '^core\/lib\/Drupal\/Core\/Config\/Schema\/' && echo '🤖                               Erasing discovery cache because config schema infrastructure changed…' && vendor/bin/drush cc bin discovery --quiet");
+    $prep_output[] = @shell_exec("git diff 10.99.$prev 10.99.$day --name-only | grep -q '\/Validation\/' && echo '🤖                               Rebuilding container because validation constraints were added or modified…' && vendor/bin/drush cr --quiet");
+    $prep_output[] = @shell_exec("git diff 10.99.$prev 10.99.$day --name-only | grep -q '^core\/lib\/Drupal\/Core\/.*Kernel' && echo '🤖                               Rebuilding container because kernel infrastructure changed…' && vendor/bin/drush cr --quiet");
+    $prep_output[] = @shell_exec("git diff 10.99.$prev 10.99.$day --name-only | grep -q '.services\.yml$' && echo '🤖                               Rebuilding container because services changed…' && vendor/bin/drush cr --quiet");
+  }
   // Actually gather statistics.
   @shell_exec("vendor/bin/drush config:inspect --statistics > statistics/$date.json");
   $assessment_json = @shell_exec("jq -r .assessment statistics/$date.json");

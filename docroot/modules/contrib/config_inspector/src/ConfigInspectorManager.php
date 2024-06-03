@@ -52,7 +52,10 @@ class ConfigInspectorManager {
     ConfigFactoryInterface $config_factory,
     TypedConfigManagerInterface $typed_config_manager,
     CacheBackendInterface $discovery_cache,
+    // phpcs:disable Drupal.Functions.MultiLineFunctionDeclaration.MissingTrailingComma
+    // PHP 7 compatibility requires not complying with the above phpcs rule!
     CacheBackendInterface $bootstrap_cache
+    // phpcs:enable
   ) {
     $this->configFactory = $config_factory;
     $this->typedConfigManager = $typed_config_manager;

@@ -1,6 +1,6 @@
-var baseAssignValue = require('./_baseAssignValue'),
-    baseForOwn = require('./_baseForOwn'),
-    baseIteratee = require('./_baseIteratee');
+import baseAssignValue from './_baseAssignValue.js';
+import baseForOwn from './_baseForOwn.js';
+import baseIteratee from './_baseIteratee.js';
 
 /**
  * The opposite of `_.mapValues`; this method creates an object with the
@@ -33,4 +33,4 @@ function mapKeys(object, iteratee) {
   return result;
 }
 
-module.exports = mapKeys;
+export default mapKeys;

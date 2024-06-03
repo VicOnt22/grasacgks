@@ -15,4 +15,4 @@ function stackDelete(key) {
   return result;
 }
 
-module.exports = stackDelete;
+export default stackDelete;

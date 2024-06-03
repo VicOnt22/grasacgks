@@ -2,18 +2,18 @@
 
 namespace Drupal\update_helper;
 
+use Drupal\Component\Utility\DiffArray;
 use Drupal\Component\Utility\NestedArray;
-use Drupal\config_update\ConfigRevertInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\ConfigManagerInterface;
 use Drupal\Core\Extension\MissingDependencyException;
 use Drupal\Core\Extension\ModuleInstallerInterface;
+use Drupal\Core\Extension\ThemeInstallerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\config_update\ConfigRevertInterface;
 use Drupal\update_helper\Events\ConfigurationUpdateEvent;
 use Drupal\update_helper\Events\UpdateHelperEvents;
-use Drupal\Component\Utility\DiffArray;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Drupal\Core\Extension\ThemeInstallerInterface;
 
 /**
  * Helper class to update configuration.

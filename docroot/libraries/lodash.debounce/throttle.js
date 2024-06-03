@@ -1,5 +1,5 @@
-var debounce = require('./debounce'),
-    isObject = require('./isObject');
+import debounce from './debounce.js';
+import isObject from './isObject.js';
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -66,4 +66,4 @@ function throttle(func, wait, options) {
   });
 }
 
-module.exports = throttle;
+export default throttle;

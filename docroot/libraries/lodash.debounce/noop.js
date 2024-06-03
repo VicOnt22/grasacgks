@@ -14,4 +14,4 @@ function noop() {
   // No operation performed.
 }
 
-module.exports = noop;
+export default noop;

@@ -15,6 +15,7 @@ interface BaseInterface {
    * Create instance of a crypt object of given method with provided settings.
    *
    * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   The container.
    * @param string $method
    *   ID of the crypt method.
    * @param array $settings
@@ -23,19 +24,19 @@ interface BaseInterface {
    * @return BaseMethodInterface
    *   The crypt object.
    */
-  public static function getInstance(ContainerInterface $container, $method, array $settings): BaseMethodInterface;
+  public static function getInstance(ContainerInterface $container, string $method, array $settings): BaseMethodInterface;
 
   /**
    * Get a list of crypt methods, either just their ids or instances of each.
    *
-   *
    * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   The container.
    * @param bool $instances
    *   Whether to receive ids (FALSE) or instances (TRUE).
    *
    * @return array
    *   List of crypt methods.
    */
-  public static function getMethods(ContainerInterface $container, $instances = FALSE): array ;
+  public static function getMethods(ContainerInterface $container, bool $instances = FALSE): array;
 
 }

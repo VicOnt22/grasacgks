@@ -1,7 +1,7 @@
-import castSlice from './_castSlice.js';
-import hasUnicode from './_hasUnicode.js';
-import stringToArray from './_stringToArray.js';
-import toString from './toString.js';
+var castSlice = require('./_castSlice'),
+    hasUnicode = require('./_hasUnicode'),
+    stringToArray = require('./_stringToArray'),
+    toString = require('./toString');
 
 /**
  * Creates a function like `_.lowerFirst`.
@@ -30,4 +30,4 @@ function createCaseFirst(methodName) {
   };
 }
 
-export default createCaseFirst;
+module.exports = createCaseFirst;

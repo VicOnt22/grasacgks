@@ -1,5 +1,5 @@
-import baseGetTag from './_baseGetTag.js';
-import isObject from './isObject.js';
+var baseGetTag = require('./_baseGetTag'),
+    isObject = require('./isObject');
 
 /** `Object#toString` result references. */
 var asyncTag = '[object AsyncFunction]',
@@ -34,4 +34,4 @@ function isFunction(value) {
   return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
 }
 
-export default isFunction;
+module.exports = isFunction;

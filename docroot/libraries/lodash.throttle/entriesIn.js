@@ -1,1 +1,1 @@
-export { default } from './toPairsIn.js'
+module.exports = require('./toPairsIn');

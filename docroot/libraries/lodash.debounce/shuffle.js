@@ -1,6 +1,6 @@
-var arrayShuffle = require('./_arrayShuffle'),
-    baseShuffle = require('./_baseShuffle'),
-    isArray = require('./isArray');
+import arrayShuffle from './_arrayShuffle.js';
+import baseShuffle from './_baseShuffle.js';
+import isArray from './isArray.js';
 
 /**
  * Creates an array of shuffled values, using a version of the
@@ -22,4 +22,4 @@ function shuffle(collection) {
   return func(collection);
 }
 
-module.exports = shuffle;
+export default shuffle;

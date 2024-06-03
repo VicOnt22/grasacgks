@@ -1,4 +1,4 @@
-var root = require('./_root');
+import root from './_root.js';
 
 /**
  * Gets the timestamp of the number of milliseconds that have elapsed since
@@ -20,4 +20,4 @@ var now = function() {
   return root.Date.now();
 };
 
-module.exports = now;
+export default now;

@@ -1,6 +1,6 @@
-import baseGetTag from './_baseGetTag.js';
-import getPrototype from './_getPrototype.js';
-import isObjectLike from './isObjectLike.js';
+var baseGetTag = require('./_baseGetTag'),
+    getPrototype = require('./_getPrototype'),
+    isObjectLike = require('./isObjectLike');
 
 /** `Object#toString` result references. */
 var objectTag = '[object Object]';
@@ -59,4 +59,4 @@ function isPlainObject(value) {
     funcToString.call(Ctor) == objectCtorString;
 }
 
-export default isPlainObject;
+module.exports = isPlainObject;

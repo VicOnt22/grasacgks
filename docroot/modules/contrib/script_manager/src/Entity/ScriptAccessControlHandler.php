@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Drupal\script_manager\Entity;
 
 use Drupal\Component\Plugin\ContextAwarePluginInterface;
@@ -18,38 +20,29 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Access control handler for script entities.
+ *
+ * @internal
+ *   There is no extensibility promise for this class.
  */
-class ScriptAccessControlHandler extends EntityAccessControlHandler implements EntityHandlerInterface {
+final class ScriptAccessControlHandler extends EntityAccessControlHandler implements EntityHandlerInterface {
 
   use ConditionAccessResolverTrait;
 
   /**
-   * The context handler.
-   *
-   * @var \Drupal\Core\Plugin\Context\ContextHandlerInterface
-   */
-  protected $contextHandler;
-
-  /**
-   * The context repository.
-   *
-   * @var \Drupal\Core\Plugin\Context\ContextRepositoryInterface
-   */
-  protected $contextRepository;
-
-  /**
    * Constructs the access control handler.
    */
-  public function __construct(EntityTypeInterface $entity_type, ContextHandlerInterface $context_handler, ContextRepositoryInterface $context_repository) {
+  public function __construct(
+    EntityTypeInterface $entity_type,
+    protected ContextHandlerInterface $contextHandler,
+    protected ContextRepositoryInterface $contextRepository
+  ) {
     parent::__construct($entity_type);
-    $this->contextHandler = $context_handler;
-    $this->contextRepository = $context_repository;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function createInstance(ContainerInterface $container, EntityTypeInterface $entity_type) {
+  public static function createInstance(ContainerInterface $container, EntityTypeInterface $entity_type): static {
     return new static(
       $entity_type,
       $container->get('context.handler'),
@@ -61,7 +54,7 @@ class ScriptAccessControlHandler extends EntityAccessControlHandler implements E
    * {@inheritdoc}
    */
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
-    /** @var \Drupal\script_manager\Entity\Script $entity */
+    assert($entity instanceof ScriptInterface);
     if ($operation !== 'view') {
       return parent::checkAccess($entity, $operation, $account);
     }
@@ -69,15 +62,17 @@ class ScriptAccessControlHandler extends EntityAccessControlHandler implements E
     try {
       $conditions = $this->getPreparedConditions($entity);
     }
-    catch (ContextException $e) {
+    catch (ContextException) {
       // Following core blocks convention, access is uncacheable when context
       // is missing.
       return AccessResult::forbidden()->setCacheMaxAge(0);
     }
 
-    $access = $this->resolveConditions($conditions, 'and') !== FALSE ? AccessResult::allowed() : AccessResult::forbidden();
+    $access = $this->resolveConditions($conditions, 'and') !== FALSE
+      ? AccessResult::allowed()
+      : AccessResult::forbidden();
 
-    // Add dependencies on all of the condition and entity cachability metadata.
+    // Add dependencies on all the condition and entity cachability metadata.
     $access->addCacheableDependency($entity);
     foreach ($conditions as $condition) {
       if ($condition instanceof CacheableDependencyInterface) {
@@ -99,7 +94,7 @@ class ScriptAccessControlHandler extends EntityAccessControlHandler implements E
    * @return array
    *   An array of conditions.
    */
-  protected function getPreparedConditions(ScriptInterface $entity) {
+  protected function getPreparedConditions(ScriptInterface $entity): array {
     $conditions = [];
     foreach ($entity->getVisibilityConditions() as $condition_id => $condition) {
       if ($condition instanceof ContextAwarePluginInterface) {

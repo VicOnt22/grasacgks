@@ -1,6 +1,6 @@
-import baseRandom from './_baseRandom.js';
-import isIterateeCall from './_isIterateeCall.js';
-import toFinite from './toFinite.js';
+var baseRandom = require('./_baseRandom'),
+    isIterateeCall = require('./_isIterateeCall'),
+    toFinite = require('./toFinite');
 
 /** Built-in method references without a dependency on `root`. */
 var freeParseFloat = parseFloat;
@@ -79,4 +79,4 @@ function random(lower, upper, floating) {
   return baseRandom(lower, upper);
 }
 
-export default random;
+module.exports = random;

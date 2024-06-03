@@ -1,6 +1,6 @@
-var baseFlatten = require('./_baseFlatten'),
-    map = require('./map'),
-    toInteger = require('./toInteger');
+import baseFlatten from './_baseFlatten.js';
+import map from './map.js';
+import toInteger from './toInteger.js';
 
 /**
  * This method is like `_.flatMap` except that it recursively flattens the
@@ -28,4 +28,4 @@ function flatMapDepth(collection, iteratee, depth) {
   return baseFlatten(map(collection, iteratee), depth);
 }
 
-module.exports = flatMapDepth;
+export default flatMapDepth;

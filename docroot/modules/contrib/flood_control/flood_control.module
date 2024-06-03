@@ -62,3 +62,44 @@ function flood_control_migrate_prepare_row(Row $row, MigrateSourceInterface $sou
   $row->setSourceProperty('flood_control_threshold_limit', $threshold_limit);
   $row->setSourceProperty('flood_control_threshold_window', $threshold_window);
 }
+
+/**
+ * Parse and return whitelist IPs from config value.
+ *
+ * @param string $whitelistIpsValue
+ *   Optional. IP addresses to be whitelisted (string value from config).
+ *
+ * @return array[]
+ *   An array of whitelist of IPs addresses and ranges.
+ */
+function flood_control_get_whitelist_ips(string $whitelistIpsValue = '') {
+  if (!$whitelistIpsValue) {
+    $config = \Drupal::configFactory()->get('flood_control.settings');
+    $whitelistIpsValue = $config->get('ip_white_list') ?? '';
+  }
+
+  $whitelistIps = [
+    'ranges' => [],
+    'addresses' => [],
+  ];
+
+  // Ensure the IPs value is trimmed before moving onward.
+  $whitelistIpsValue = trim($whitelistIpsValue);
+
+  if (empty($whitelistIpsValue)) {
+    return $whitelistIps;
+  }
+
+  $valueRows = explode("\n", $whitelistIpsValue);
+  foreach ($valueRows as $valueRow) {
+    $valueRow = trim($valueRow);
+    if (str_contains($valueRow, '-')) {
+      $whitelistIps['ranges'][] = $valueRow;
+    }
+    else {
+      $whitelistIps['addresses'][] = $valueRow;
+    }
+  }
+
+  return $whitelistIps;
+}

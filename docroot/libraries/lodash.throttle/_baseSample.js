@@ -1,5 +1,5 @@
-import arraySample from './_arraySample.js';
-import values from './values.js';
+var arraySample = require('./_arraySample'),
+    values = require('./values');
 
 /**
  * The base implementation of `_.sample`.
@@ -12,4 +12,4 @@ function baseSample(collection) {
   return arraySample(values(collection));
 }
 
-export default baseSample;
+module.exports = baseSample;

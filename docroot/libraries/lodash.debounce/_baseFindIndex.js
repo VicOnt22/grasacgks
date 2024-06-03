@@ -21,4 +21,4 @@ function baseFindIndex(array, predicate, fromIndex, fromRight) {
   return -1;
 }
 
-module.exports = baseFindIndex;
+export default baseFindIndex;

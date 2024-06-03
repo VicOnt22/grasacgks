@@ -14,4 +14,4 @@ function getWrapDetails(source) {
   return match ? match[1].split(reSplitDetails) : [];
 }
 
-module.exports = getWrapDetails;
+export default getWrapDetails;

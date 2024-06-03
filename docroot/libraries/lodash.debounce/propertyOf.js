@@ -1,4 +1,4 @@
-var baseGet = require('./_baseGet');
+import baseGet from './_baseGet.js';
 
 /**
  * The opposite of `_.property`; this method creates a function that returns
@@ -27,4 +27,4 @@ function propertyOf(object) {
   };
 }
 
-module.exports = propertyOf;
+export default propertyOf;

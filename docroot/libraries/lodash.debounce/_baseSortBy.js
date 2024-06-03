@@ -18,4 +18,4 @@ function baseSortBy(array, comparer) {
   return array;
 }
 
-module.exports = baseSortBy;
+export default baseSortBy;

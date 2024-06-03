@@ -3,6 +3,7 @@
 namespace Drupal\panels\Plugin\DisplayBuilder;
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Block\TitleBlockPluginInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -10,11 +11,7 @@ use Drupal\Core\Plugin\Context\ContextHandlerInterface;
 use Drupal\Core\Plugin\ContextAwarePluginInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\ctools\Plugin\PluginWizardInterface;
-use Drupal\panels\Form\LayoutChangeRegions;
-use Drupal\panels\Form\LayoutChangeSettings;
-use Drupal\panels\Form\LayoutPluginSelector;
 use Drupal\panels\Form\PanelsContentForm;
 use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -44,11 +41,11 @@ class StandardDisplayBuilder extends DisplayBuilderBase implements PluginWizardI
   protected $account;
 
   /**
-    * The module handler.
-    *
-    * @var \Drupal\Core\Extension\ModuleHandlerInterface
-    */
-   protected $moduleHandler;
+   * The module handler.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
 
   /**
    * Constructs a new PanelsDisplayVariant.
@@ -95,12 +92,14 @@ class StandardDisplayBuilder extends DisplayBuilderBase implements PluginWizardI
    *   The render array representing regions.
    * @param array $contexts
    *   The array of context objects.
+   * @param string $title
+   *   The page title.
    *
    * @return array
    *   An associative array, keyed by region ID, containing the render arrays
    *   representing the content of each region.
    */
-  protected function buildRegions(array $regions, array $contexts) {
+  protected function buildRegions(array $regions, array $contexts, $title = NULL) {
     $build = [];
     foreach ($regions as $region => $blocks) {
       if (!$blocks) {
@@ -117,13 +116,17 @@ class StandardDisplayBuilder extends DisplayBuilderBase implements PluginWizardI
         if ($block instanceof ContextAwarePluginInterface) {
           $this->contextHandler->applyContextMapping($block, $contexts);
         }
+        if ($block instanceof TitleBlockPluginInterface) {
+          $block->setTitle($title);
+        }
         if ($block->access($this->account)) {
+          $configuration = $block->getConfiguration();
           $block_render_array = [
             '#theme' => 'block',
             '#attributes' => [],
             '#contextual_links' => [],
             '#weight' => $weight++,
-            '#configuration' => $block->getConfiguration(),
+            '#configuration' => $configuration,
             '#plugin_id' => $block->getPluginId(),
             '#base_plugin_id' => $block->getBaseId(),
             '#derivative_plugin_id' => $block->getDerivativeId(),
@@ -157,6 +160,26 @@ class StandardDisplayBuilder extends DisplayBuilderBase implements PluginWizardI
 
           $block_render_array['content'] = $content;
 
+          // Add CSS classes.
+          $css_classes = !empty($configuration['css_classes']) ? $configuration['css_classes'] : [];
+          if (is_array($css_classes)) {
+            foreach ($css_classes as $class) {
+              $block_render_array['#attributes']['class'][] = Html::cleanCssIdentifier($class);
+            }
+          } elseif (is_string($css_classes)) {
+            $block_render_array['#attributes']['class'][] = Html::cleanCssIdentifier($css_classes);
+          }
+          // Add HTML Id.
+          $html_id = !empty($configuration['html_id']) ? $configuration['html_id'] : '';
+          if (!empty($html_id)) {
+            $block_render_array['#attributes']['id'] = Html::getId($html_id);
+          }
+          // Add CSS styles.
+          $css_styles = !empty($configuration['css_styles']) ? $configuration['css_styles'] : '';
+          if (!empty($css_styles)) {
+            $block_render_array['#attributes']['style'] = $css_styles;
+          }
+
           $this->moduleHandler->alter(['block_view', 'block_view_' . $block->getBaseId()], $block_render_array, $block);
           $build[$region][$block_id] = $block_render_array;
         }
@@ -172,8 +195,9 @@ class StandardDisplayBuilder extends DisplayBuilderBase implements PluginWizardI
     $regions = $panels_display->getRegionAssignments();
     $contexts = $panels_display->getContexts();
     $layout = $panels_display->getLayout();
+    $title = $panels_display->getRenderedPageTitle();
 
-    $regions = $this->buildRegions($regions, $contexts);
+    $regions = $this->buildRegions($regions, $contexts, $title);
     if ($layout) {
       $regions = $layout->build($regions);
     }

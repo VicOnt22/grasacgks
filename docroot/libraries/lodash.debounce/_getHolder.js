@@ -10,4 +10,4 @@ function getHolder(func) {
   return object.placeholder;
 }
 
-module.exports = getHolder;
+export default getHolder;

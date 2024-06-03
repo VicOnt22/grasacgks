@@ -1,6 +1,6 @@
-var SetCache = require('./_SetCache'),
-    arraySome = require('./_arraySome'),
-    cacheHas = require('./_cacheHas');
+import SetCache from './_SetCache.js';
+import arraySome from './_arraySome.js';
+import cacheHas from './_cacheHas.js';
 
 /** Used to compose bitmasks for value comparisons. */
 var COMPARE_PARTIAL_FLAG = 1,
@@ -81,4 +81,4 @@ function equalArrays(array, other, bitmask, customizer, equalFunc, stack) {
   return result;
 }
 
-module.exports = equalArrays;
+export default equalArrays;

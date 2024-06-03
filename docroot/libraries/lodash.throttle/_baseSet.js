@@ -1,8 +1,8 @@
-import assignValue from './_assignValue.js';
-import castPath from './_castPath.js';
-import isIndex from './_isIndex.js';
-import isObject from './isObject.js';
-import toKey from './_toKey.js';
+var assignValue = require('./_assignValue'),
+    castPath = require('./_castPath'),
+    isIndex = require('./_isIndex'),
+    isObject = require('./isObject'),
+    toKey = require('./_toKey');
 
 /**
  * The base implementation of `_.set`.
@@ -48,4 +48,4 @@ function baseSet(object, path, value, customizer) {
   return object;
 }
 
-export default baseSet;
+module.exports = baseSet;

@@ -9,7 +9,7 @@ dependencies:
 configure: content_calendar.settings
 hidden: true
 
-# Information added by Drupal.org packaging script on 2023-03-23
-version: '8.x-1.1'
+# Information added by Drupal.org packaging script on 2024-05-08
+version: '8.x-1.2'
 project: 'content_planner'
-datestamp: 1679589908
+datestamp: 1715167170

@@ -34,6 +34,14 @@ interface ResultInterface {
   public function getDisplayValue();
 
   /**
+   * Returns the transliterate display value as present in the index.
+   *
+   * @return string
+   *   The transliterated formatted value of the result.
+   */
+  public function getTransliterateDisplayValue();
+
+  /**
    * Returns the count for the result.
    *
    * @return int
@@ -128,6 +136,14 @@ interface ResultInterface {
    *   Override display value.
    */
   public function setDisplayValue($display_value);
+
+  /**
+   * Overrides the transliterate display value of a result.
+   *
+   * @param string $transliterate_display_value
+   *   Override transliterate display value.
+   */
+  public function setTransliterateDisplayValue($transliterate_display_value);
 
   /**
    * Sets children results.

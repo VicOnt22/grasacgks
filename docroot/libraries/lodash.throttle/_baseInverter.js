@@ -1,4 +1,4 @@
-import baseForOwn from './_baseForOwn.js';
+var baseForOwn = require('./_baseForOwn');
 
 /**
  * The base implementation of `_.invert` and `_.invertBy` which inverts
@@ -18,4 +18,4 @@ function baseInverter(object, setter, iteratee, accumulator) {
   return accumulator;
 }
 
-export default baseInverter;
+module.exports = baseInverter;

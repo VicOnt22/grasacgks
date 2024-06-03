@@ -1,6 +1,6 @@
-var baseGetTag = require('./_baseGetTag'),
-    isLength = require('./isLength'),
-    isObjectLike = require('./isObjectLike');
+import baseGetTag from './_baseGetTag.js';
+import isLength from './isLength.js';
+import isObjectLike from './isObjectLike.js';
 
 /** `Object#toString` result references. */
 var argsTag = '[object Arguments]',
@@ -57,4 +57,4 @@ function baseIsTypedArray(value) {
     isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
 }
 
-module.exports = baseIsTypedArray;
+export default baseIsTypedArray;

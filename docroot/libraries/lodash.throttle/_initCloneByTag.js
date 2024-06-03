@@ -1,8 +1,8 @@
-import cloneArrayBuffer from './_cloneArrayBuffer.js';
-import cloneDataView from './_cloneDataView.js';
-import cloneRegExp from './_cloneRegExp.js';
-import cloneSymbol from './_cloneSymbol.js';
-import cloneTypedArray from './_cloneTypedArray.js';
+var cloneArrayBuffer = require('./_cloneArrayBuffer'),
+    cloneDataView = require('./_cloneDataView'),
+    cloneRegExp = require('./_cloneRegExp'),
+    cloneSymbol = require('./_cloneSymbol'),
+    cloneTypedArray = require('./_cloneTypedArray');
 
 /** `Object#toString` result references. */
 var boolTag = '[object Boolean]',
@@ -74,4 +74,4 @@ function initCloneByTag(object, tag, isDeep) {
   }
 }
 
-export default initCloneByTag;
+module.exports = initCloneByTag;

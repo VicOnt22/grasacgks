@@ -1,5 +1,5 @@
-var baseConformsTo = require('./_baseConformsTo'),
-    keys = require('./keys');
+import baseConformsTo from './_baseConformsTo.js';
+import keys from './keys.js';
 
 /**
  * The base implementation of `_.conforms` which doesn't clone `source`.
@@ -15,4 +15,4 @@ function baseConforms(source) {
   };
 }
 
-module.exports = baseConforms;
+export default baseConforms;

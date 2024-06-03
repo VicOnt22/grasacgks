@@ -202,7 +202,7 @@ function maxlength_field_widget_single_element_form_alter(&$element, FormStateIn
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  *   The form state.
  * @param array $context
- *   See hook_field_widget_form_alter().
+ *   See hook_field_widget_single_element_form_alter().
  */
 function _maxlength_field_widget_form_alter_link_field(array &$element, FormStateInterface $form_state, array $context): void {
   if (!isset($element['title'])) {
@@ -236,6 +236,19 @@ function _maxlength_field_widget_form_alter_link_field(array &$element, FormStat
       if (isset($element['title']['value'])) {
         $element['title']['value']['#attributes']['#maxlength_js_enforce'] = TRUE;
       }
+    }
+  }
+}
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function maxlength_library_info_alter(&$libraries, $extension) {
+  if ($extension === 'maxlength') {
+    // We only care about MaxLength.
+    $ckeditor5_enabled = \Drupal::moduleHandler()->moduleExists('ckeditor5');
+    if ($ckeditor5_enabled) {
+      $libraries['maxlength']['dependencies'][] = 'ckeditor5/internal.drupal.ckeditor5';
     }
   }
 }

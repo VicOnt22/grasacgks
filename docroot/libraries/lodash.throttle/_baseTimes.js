@@ -17,4 +17,4 @@ function baseTimes(n, iteratee) {
   return result;
 }
 
-export default baseTimes;
+module.exports = baseTimes;

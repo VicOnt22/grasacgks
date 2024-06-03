@@ -1,5 +1,5 @@
-var baseEach = require('./_baseEach'),
-    isArrayLike = require('./isArrayLike');
+import baseEach from './_baseEach.js';
+import isArrayLike from './isArrayLike.js';
 
 /**
  * The base implementation of `_.map` without support for iteratee shorthands.
@@ -19,4 +19,4 @@ function baseMap(collection, iteratee) {
   return result;
 }
 
-module.exports = baseMap;
+export default baseMap;

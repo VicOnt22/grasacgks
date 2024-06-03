@@ -36,4 +36,4 @@ function composeArgs(args, partials, holders, isCurried) {
   return result;
 }
 
-module.exports = composeArgs;
+export default composeArgs;

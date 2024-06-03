@@ -1,5 +1,5 @@
-import escapeHtmlChar from './_escapeHtmlChar.js';
-import toString from './toString.js';
+var escapeHtmlChar = require('./_escapeHtmlChar'),
+    toString = require('./toString');
 
 /** Used to match HTML entities and HTML characters. */
 var reUnescapedHtml = /[&<>"']/g,
@@ -40,4 +40,4 @@ function escape(string) {
     : string;
 }
 
-export default escape;
+module.exports = escape;

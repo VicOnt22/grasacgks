@@ -1,6 +1,6 @@
-var isObject = require('./isObject'),
-    now = require('./now'),
-    toNumber = require('./toNumber');
+import isObject from './isObject.js';
+import now from './now.js';
+import toNumber from './toNumber.js';
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -188,4 +188,4 @@ function debounce(func, wait, options) {
   return debounced;
 }
 
-module.exports = debounce;
+export default debounce;

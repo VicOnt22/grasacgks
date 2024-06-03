@@ -1,7 +1,7 @@
-var escape = require('./escape'),
-    reEscape = require('./_reEscape'),
-    reEvaluate = require('./_reEvaluate'),
-    reInterpolate = require('./_reInterpolate');
+import escape from './escape.js';
+import reEscape from './_reEscape.js';
+import reEvaluate from './_reEvaluate.js';
+import reInterpolate from './_reInterpolate.js';
 
 /**
  * By default, the template delimiters used by lodash are like those in
@@ -64,4 +64,4 @@ var templateSettings = {
   }
 };
 
-module.exports = templateSettings;
+export default templateSettings;

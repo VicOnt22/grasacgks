@@ -4,12 +4,12 @@
   "description": "CSS and JS build tool for Content calendar",
   "author": "Martin Penev",
   "scripts": {
-    "build-css": "node-sass --source-map true --output dist/css/ src/scss/",
+    "build-css": "sass --source-map src/scss:dist/css",
     "watch-css": "nodemon -e scss -x 'npm run build-css'",
     "all": "parallelshell 'npm run serve' 'npm run watch-css'"
   },
   "devDependencies": {
-    "node-sass": "^4.0.0",
+    "sass": "^1.76.0",
     "nodemon": "^1.0.0",
     "parallelshell": "^3.0.0"
   }

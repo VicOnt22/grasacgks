@@ -1,0 +1,15 @@
+--- themes/claro/js/details.js
++++ themes/claro/js/details.js
+@@ -34,4 +34,12 @@
+   Drupal.theme.detailsSummarizedContentText = function (text) {
+     return text || '';
+   };
+-})(jQuery, Modernizr, Drupal);+
++  $(document).ready(function(){
++  let gksfield = document.getElementById("edit-field-gks-reference-number-wrapper");
++  gksfield.remove();
++  let knowledgefield = document.getElementById("edit-field-share-knowledge-form-wrapper");
++  knowledgefield.remove();
++  });
++
++})(jQuery, Modernizr, Drupal);

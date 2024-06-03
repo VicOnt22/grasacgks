@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\layout_builder\FunctionalJavascript;
 
 use Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay;
@@ -9,6 +11,7 @@ use Drupal\node\Entity\Node;
  * Tests that the inline block feature works correctly.
  *
  * @group layout_builder
+ * @group #slow
  */
 class InlineBlockTest extends InlineBlockTestBase {
 
@@ -22,6 +25,7 @@ class InlineBlockTest extends InlineBlockTestBase {
    */
   protected static $modules = [
     'field_ui',
+    'dblog',
   ];
 
   /**
@@ -387,10 +391,23 @@ class InlineBlockTest extends InlineBlockTestBase {
     $this->assertCount(1, $this->blockStorage->loadMultiple());
     $default_block_id = $this->getLatestBlockEntityId();
 
+    // Create a third node.
+    $this->createNode([
+      'type' => 'bundle_with_section_field',
+      'title' => 'The node3 title',
+      'body' => [
+        [
+          'value' => 'The node3 body',
+        ],
+      ],
+    ]);
+
     // Ensure the block shows up on node pages.
     $this->drupalGet('node/1');
     $assert_session->pageTextContains('The DEFAULT block body');
     $this->drupalGet('node/2');
+    $assert_session->pageTextContains('The DEFAULT block body');
+    $this->drupalGet('node/3');
     $assert_session->pageTextContains('The DEFAULT block body');
 
     // Enable overrides.
@@ -405,6 +422,10 @@ class InlineBlockTest extends InlineBlockTestBase {
     $this->drupalGet('node/2/layout');
     $this->assertSaveLayout();
     $node_2_block_id = $this->getLatestBlockEntityId();
+    $this->assertCount(3, $this->blockStorage->loadMultiple());
+
+    // Do not save the third layout, no additional block was created.
+    $this->drupalGet('node/3/layout');
     $this->assertCount(3, $this->blockStorage->loadMultiple());
 
     $this->drupalGet(static::FIELD_UI_PREFIX . '/display/default');
@@ -422,6 +443,19 @@ class InlineBlockTest extends InlineBlockTestBase {
     // Ensure other blocks still exist.
     $this->assertCount(2, $this->blockStorage->loadMultiple());
     $this->assertEmpty($usage->getUsage($default_block_id));
+
+    $this->drupalGet('node/3/layout');
+    $assert_session->pageTextNotContains('The DEFAULT block body');
+    $log = \Drupal::database()
+      ->select('watchdog', 'w')
+      ->fields('w', ['message', 'variables'])
+      ->orderBy('wid', 'DESC')
+      ->range(0, 1)
+      ->execute()
+      ->fetch();
+
+    $this->assertEquals('Unable to load inline block content entity with revision ID %vid.', $log->message);
+    $this->assertEquals($default_block_id, unserialize($log->variables)['%vid']);
 
     $this->drupalGet('node/1/layout');
     $assert_session->pageTextContains('The DEFAULT block body');
@@ -453,11 +487,14 @@ class InlineBlockTest extends InlineBlockTestBase {
     $default_block2_id = $this->getLatestBlockEntityId();
     $this->assertCount(2, $this->blockStorage->loadMultiple());
 
-    // Delete the other node so bundle can be deleted.
+    // Delete the other nodes so the bundle can be deleted.
     $this->assertNotEmpty($usage->getUsage($node_2_block_id));
     $this->drupalGet('node/2/delete');
     $page->pressButton('Delete');
     $this->assertEmpty(Node::load(2));
+    $this->drupalGet('node/3/delete');
+    $page->pressButton('Delete');
+    $this->assertEmpty(Node::load(3));
     $cron->run();
     // Ensure entity block was deleted.
     $this->assertEmpty($this->blockStorage->load($node_2_block_id));
@@ -555,7 +592,7 @@ class InlineBlockTest extends InlineBlockTestBase {
     $page->clickLink('Add block');
     $assert_session->assertWaitOnAjaxRequest();
     // Confirm that with no block content types the link does not appear.
-    $assert_session->linkNotExists('Create custom block');
+    $assert_session->linkNotExists('Create content block');
 
     $this->createBlockContentType('basic', 'Basic block');
 
@@ -563,10 +600,10 @@ class InlineBlockTest extends InlineBlockTestBase {
     // Add a basic block with the body field set.
     $page->clickLink('Add block');
     $assert_session->assertWaitOnAjaxRequest();
-    // Confirm with only 1 type the "Create custom block" link goes directly t
+    // Confirm with only 1 type the "Create content block" link goes directly t
     // block add form.
     $assert_session->linkNotExists('Basic block');
-    $this->clickLink('Create custom block');
+    $this->clickLink('Create content block');
     $assert_session->assertWaitOnAjaxRequest();
     $assert_session->fieldExists('Title');
 
@@ -575,12 +612,12 @@ class InlineBlockTest extends InlineBlockTestBase {
     $this->drupalGet($layout_default_path);
     // Add a basic block with the body field set.
     $page->clickLink('Add block');
-    // Confirm that, when more than 1 type exists, "Create custom block" shows a
+    // Confirm that, when more than 1 type exists, "Create content block" shows a
     // list of block types.
     $assert_session->assertWaitOnAjaxRequest();
     $assert_session->linkNotExists('Basic block');
     $assert_session->linkNotExists('Advanced block');
-    $this->clickLink('Create custom block');
+    $this->clickLink('Create content block');
     $assert_session->assertWaitOnAjaxRequest();
     $assert_session->fieldNotExists('Title');
     $assert_session->linkExists('Basic block');
@@ -592,7 +629,7 @@ class InlineBlockTest extends InlineBlockTestBase {
   }
 
   /**
-   * Tests the 'create and edit custom blocks' permission to add a new block.
+   * Tests the 'create and edit content blocks' permission to add a new block.
    */
   public function testAddInlineBlocksPermission() {
     LayoutBuilderEntityViewDisplay::load('node.bundle_with_section_field.default')
@@ -609,10 +646,10 @@ class InlineBlockTest extends InlineBlockTestBase {
       $page->clickLink('Add block');
       $this->assertNotEmpty($assert_session->waitForElementVisible('css', '#drupal-off-canvas .block-categories'));
       if ($expected) {
-        $assert_session->linkExists('Create custom block');
+        $assert_session->linkExists('Create content block');
       }
       else {
-        $assert_session->linkNotExists('Create custom block');
+        $assert_session->linkNotExists('Create content block');
       }
     };
 

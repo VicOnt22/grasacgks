@@ -19,4 +19,4 @@ function arrayEach(array, iteratee) {
   return array;
 }
 
-module.exports = arrayEach;
+export default arrayEach;

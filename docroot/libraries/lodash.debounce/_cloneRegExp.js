@@ -14,4 +14,4 @@ function cloneRegExp(regexp) {
   return result;
 }
 
-module.exports = cloneRegExp;
+export default cloneRegExp;

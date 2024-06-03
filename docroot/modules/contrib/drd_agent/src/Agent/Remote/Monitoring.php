@@ -14,7 +14,6 @@ class Monitoring extends Base {
     $review = [];
 
     if ($this->moduleHandler->moduleExists('monitoring')) {
-      /* @var \Drupal\monitoring\Result\SensorResultInterface $result */
       foreach (monitoring_sensor_run_multiple() as $result) {
         $review[$result->getSensorId()] = $result->toArray();
         $review[$result->getSensorId()]['label'] = $result->getSensorConfig()->getLabel();

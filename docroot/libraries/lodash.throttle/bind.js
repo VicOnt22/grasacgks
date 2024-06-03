@@ -1,7 +1,7 @@
-import baseRest from './_baseRest.js';
-import createWrap from './_createWrap.js';
-import getHolder from './_getHolder.js';
-import replaceHolders from './_replaceHolders.js';
+var baseRest = require('./_baseRest'),
+    createWrap = require('./_createWrap'),
+    getHolder = require('./_getHolder'),
+    replaceHolders = require('./_replaceHolders');
 
 /** Used to compose bitmasks for function metadata. */
 var WRAP_BIND_FLAG = 1,
@@ -54,4 +54,4 @@ var bind = baseRest(function(func, thisArg, partials) {
 // Assign default placeholders.
 bind.placeholder = {};
 
-export default bind;
+module.exports = bind;

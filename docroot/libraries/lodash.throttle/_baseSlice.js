@@ -28,4 +28,4 @@ function baseSlice(array, start, end) {
   return result;
 }
 
-export default baseSlice;
+module.exports = baseSlice;

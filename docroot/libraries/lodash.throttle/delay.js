@@ -1,6 +1,6 @@
-import baseDelay from './_baseDelay.js';
-import baseRest from './_baseRest.js';
-import toNumber from './toNumber.js';
+var baseDelay = require('./_baseDelay'),
+    baseRest = require('./_baseRest'),
+    toNumber = require('./toNumber');
 
 /**
  * Invokes `func` after `wait` milliseconds. Any additional arguments are
@@ -25,4 +25,4 @@ var delay = baseRest(function(func, wait, args) {
   return baseDelay(func, toNumber(wait) || 0, args);
 });
 
-export default delay;
+module.exports = delay;

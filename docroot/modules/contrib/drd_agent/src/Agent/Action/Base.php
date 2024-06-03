@@ -10,18 +10,17 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\Core\Logger\RfcLogLevel;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Session\AccountSwitcherInterface;
 use Drupal\Core\State\StateInterface;
-use Drupal\drd_agent\Agent\Auth\BaseInterface as AuthBaseInterface;
 use Drupal\drd_agent\Agent\Auth\Base as AuthBase;
+use Drupal\drd_agent\Agent\Auth\BaseInterface as AuthBaseInterface;
 use Drupal\drd_agent\Crypt\Base as CryptBase;
 use Drupal\drd_agent\Crypt\BaseMethodInterface;
 use Drupal\drd_agent\DrdPiAuthManager;
 use Drupal\user\Entity\User;
-use Exception;
-use Psr\Log\LogLevel;
-use RuntimeException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -29,93 +28,147 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class Base implements BaseInterface, ContainerInjectionInterface {
 
-  private $debugMode = FALSE;
-  private $arguments = array();
+  // The following 3 constants are required by DRD to build and verify the auth
+  // method in the client handshake.
+  // @see \Drupal\drd_pi\DrdPiAccountInterface::getAuthorizationMethod
+  public const SEC_AUTH_ACQUIA = 'Acquia';
+  public const SEC_AUTH_PANTHEON = 'Pantheon';
+  public const SEC_AUTH_PLATFORMSH = 'PlatformSH';
+
+  /**
+   * The debug mode.
+   *
+   * @var bool
+   */
+  private bool $debugMode = FALSE;
+
+  /**
+   * The arguments.
+   *
+   * @var array
+   */
+  private array $arguments = [];
 
   /**
    * Crypt object for this DRD request.
    *
-   * @var \Drupal\drd_agent\Crypt\BaseMethodInterface
+   * @var \Drupal\drd_agent\Crypt\BaseMethodInterface|bool
    */
-  protected $crypt;
+  protected BaseMethodInterface|bool $crypt;
 
   /**
+   * The account switcher.
+   *
    * @var \Drupal\Core\Session\AccountSwitcherInterface
    */
-  protected $accountSwitcher;
+  protected AccountSwitcherInterface $accountSwitcher;
 
   /**
+   * The config factory.
+   *
    * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
-  protected $configFactory;
+  protected ConfigFactoryInterface $configFactory;
 
   /**
+   * The container interface.
+   *
    * @var \Symfony\Component\DependencyInjection\ContainerInterface
    */
-  protected $container;
+  protected ContainerInterface $container;
 
   /**
+   * The database connection.
+   *
    * @var \Drupal\Core\Database\Connection
    */
-  protected $database;
+  protected Connection $database;
 
   /**
+   * The entity type manager.
+   *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $entityTypeManager;
+  protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
+   * The file system.
+   *
    * @var \Drupal\Core\File\FileSystemInterface
    */
-  protected $fileSystem;
+  protected FileSystemInterface $fileSystem;
 
   /**
+   * The logger channel.
+   *
    * @var \Drupal\Core\Logger\LoggerChannelInterface
    */
-  protected $logger;
+  protected LoggerChannelInterface $logger;
 
   /**
+   * The messenger.
+   *
    * @var \Drupal\Core\Messenger\MessengerInterface
    */
-  protected $messenger;
+  protected MessengerInterface $messenger;
 
   /**
+   * The module handler.
+   *
    * @var \Drupal\Core\Extension\ModuleHandlerInterface
    */
-  protected $moduleHandler;
+  protected ModuleHandlerInterface $moduleHandler;
 
   /**
+   * The state.
+   *
    * @var \Drupal\Core\State\StateInterface
    */
-  protected $state;
+  protected StateInterface $state;
 
   /**
+   * The time.
+   *
    * @var \Drupal\Component\Datetime\Time
    */
-  protected $time;
+  protected Time $time;
 
   /**
+   * The DrdPi authentication manager.
+   *
    * @var \Drupal\drd_agent\DrdPiAuthManager
    */
-  protected $drdPiAuthManager;
+  protected DrdPiAuthManager $drdPiAuthManager;
 
   /**
    * Base constructor.
    *
    * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   The container.
    * @param \Drupal\Core\Session\AccountSwitcherInterface $account_switcher
+   *   The account switcher.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory.
    * @param \Drupal\Core\Database\Connection $database
+   *   The databse connection.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
    * @param \Drupal\Core\File\FileSystemInterface $file_system
+   *   The filesystem.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_channel_factory
+   *   The logger channel.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler.
    * @param \Drupal\Core\State\StateInterface $state
+   *   The state.
    * @param \Drupal\Component\Datetime\Time $time
+   *   The time.
    * @param \Drupal\drd_agent\DrdPiAuthManager $drd_pi_auth_manager
+   *   The DrdPi authentication manager.
    */
-  public function __construct(ContainerInterface $container, AccountSwitcherInterface $account_switcher, ConfigFactoryInterface $config_factory, Connection $database, EntityTypeManagerInterface $entity_type_manager, FileSystemInterface $file_system, LoggerChannelFactoryInterface $logger_channel_factory, MessengerInterface $messenger, ModuleHandlerInterface $module_handler, StateInterface $state, Time $time, DrdPiAuthManager $drd_pi_auth_manager) {
+  final public function __construct(ContainerInterface $container, AccountSwitcherInterface $account_switcher, ConfigFactoryInterface $config_factory, Connection $database, EntityTypeManagerInterface $entity_type_manager, FileSystemInterface $file_system, LoggerChannelFactoryInterface $logger_channel_factory, MessengerInterface $messenger, ModuleHandlerInterface $module_handler, StateInterface $state, Time $time, DrdPiAuthManager $drd_pi_auth_manager) {
     $this->accountSwitcher = $account_switcher;
     $this->configFactory = $config_factory;
     $this->container = $container;
@@ -133,7 +186,7 @@ class Base implements BaseInterface, ContainerInjectionInterface {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): Base {
     return new static(
       $container,
       $container->get('account_switcher'),
@@ -151,7 +204,7 @@ class Base implements BaseInterface, ContainerInjectionInterface {
   }
 
   /**
-   * Recursivly convert request arguments to an array.
+   * Recursively convert request arguments to an array.
    *
    * @param mixed $items
    *   Arguments to convert.
@@ -159,7 +212,7 @@ class Base implements BaseInterface, ContainerInjectionInterface {
    * @return mixed
    *   Array of all the given arguments.
    */
-  private function toArray($items) {
+  private function toArray(mixed $items): mixed {
     foreach ($items as $key => $item) {
       if (is_object($item)) {
         $items[$key] = $this->toArray((array) $item);
@@ -176,7 +229,7 @@ class Base implements BaseInterface, ContainerInjectionInterface {
    *
    * @param bool $debugMode
    *   Whether we operate in debug mode.
-   * @param string $message
+   * @param string|null $message
    *   Optional warning to output in watchdog.
    *
    * @return array
@@ -184,20 +237,20 @@ class Base implements BaseInterface, ContainerInjectionInterface {
    *
    * @throws \Exception
    */
-  private function readInput($debugMode, $message = NULL): array {
+  private function readInput(bool $debugMode, string $message = NULL): array {
     $this->setDebugMode($debugMode);
     if (isset($message)) {
-      $this->watchdog($message, array(), 4);
+      $this->watchdog($message, [], 4);
     }
 
     $raw_input = file_get_contents('php://input');
     if (empty($raw_input)) {
-      throw new RuntimeException('Can not read input');
+      throw new \RuntimeException('Can not read input');
     }
 
-    $input = json_decode(base64_decode($raw_input), TRUE);
+    $input = json_decode(base64_decode($raw_input), TRUE, 512, JSON_THROW_ON_ERROR);
     if (!is_array($input) || empty($input)) {
-      throw new RuntimeException('Input is empty');
+      throw new \RuntimeException('Input is empty');
     }
 
     return $input;
@@ -212,19 +265,19 @@ class Base implements BaseInterface, ContainerInjectionInterface {
    * @return string|mixed
    *   Encrypted and base64 encoded result from the executed action.
    */
-  public function run($debugMode = FALSE) {
+  public function run(bool $debugMode = FALSE): mixed {
     try {
       $input = $this->readInput($debugMode);
 
       if (empty($input['uuid']) || empty($input['args']) || !isset($input['iv'])) {
-        throw new RuntimeException('Input is incomplete');
+        throw new \RuntimeException('Input is incomplete');
       }
       $input['args'] = base64_decode($input['args']);
       $input['iv'] = base64_decode($input['iv']);
 
       if (!empty($input['ott']) && !empty($input['config'])) {
         if (!$this->ott($input['ott'], $input['config'])) {
-          throw new RuntimeException('OTT config failed');
+          throw new \RuntimeException('OTT config failed');
         }
         return 'ok';
       }
@@ -235,12 +288,12 @@ class Base implements BaseInterface, ContainerInjectionInterface {
 
       $this->crypt = $this->getCryptInstance($input['uuid']);
       if (!$this->crypt) {
-        throw new RuntimeException('Encryption method not available or unauthorised');
+        throw new \RuntimeException('Encryption method not available or unauthorised');
       }
       $args = $this->toArray($this->crypt->decrypt($input['args'], $input['iv']));
 
       if (empty($args['auth']) || !isset($args['authsetting']) || empty($args['action'])) {
-        throw new RuntimeException('Arguments incomplete');
+        throw new \RuntimeException('Arguments incomplete');
       }
 
       if (empty($input['auth'])) {
@@ -258,14 +311,13 @@ class Base implements BaseInterface, ContainerInjectionInterface {
         $actionFile = $this->realPath('temporary://drd_agent_' . $action . '.php');
         file_put_contents($actionFile, $args['drd_action_plugin']);
         unset($args['drd_action_plugin']);
-        /** @noinspection PhpIncludeInspection */
         require_once $actionFile;
       }
       unset($args['auth'], $args['authsetting'], $args['action'], $args['drd_action_module']);
       $this->arguments = $args;
     }
-    catch (Exception $ex) {
-      $this->watchdog($ex->getMessage(), array(), 3);
+    catch (\Exception $ex) {
+      $this->watchdog($ex->getMessage(), [], 3);
       header('HTTP/1.1 502 Error');
       print 'error';
       exit;
@@ -276,12 +328,11 @@ class Base implements BaseInterface, ContainerInjectionInterface {
       $classname = "\\Drupal\\$actionModule\\Agent\\Action\\$action";
 
       /** @var \Drupal\drd_agent\Agent\Action\BaseInterface $actionObject */
-      /** @noinspection PhpUndefinedMethodInspection */
-      $actionObject = $classname::create($this->container);
+      $actionObject = call_user_func([$classname, 'create'], $this->container);
       $actionObject->init($this->crypt, $this->arguments, $this->debugMode);
     }
-    catch (Exception $ex) {
-      $this->watchdog('Not yet implemented: ' . $action, array(), 3);
+    catch (\Exception) {
+      $this->watchdog('Not yet implemented: ' . $action, [], 3);
       header('HTTP/1.1 403 Not found');
       print 'Not yet implemented';
       exit;
@@ -303,24 +354,21 @@ class Base implements BaseInterface, ContainerInjectionInterface {
    * @param array $args
    *   Array of arguments.
    *
-   * @return $this
    * @throws \RuntimeException
    */
-  private function authenticate($uuid, array $args): self {
+  private function authenticate(string $uuid, array $args): void {
     $auth_methods = AuthBase::getMethods($this->container);
     if (!isset($auth_methods[$args['auth']]) || !($auth_methods[$args['auth']] instanceof AuthBaseInterface)) {
-      throw new RuntimeException('Unrecognized authentication method');
+      throw new \RuntimeException('Unrecognized authentication method');
     }
 
-    /** @var \Drupal\drd_agent\Agent\Auth\BaseInterface $auth */
     $auth = $auth_methods[$args['auth']];
     if (!$auth->validateUuid($uuid)) {
-      throw new RuntimeException('DRD instance not registered');
+      throw new \RuntimeException('DRD instance not registered');
     }
     if (!$auth->validate($args['authsetting'])) {
-      throw new RuntimeException('Not authenticated');
+      throw new \RuntimeException('Not authenticated');
     }
-    return $this;
   }
 
   /**
@@ -332,12 +380,12 @@ class Base implements BaseInterface, ContainerInjectionInterface {
    * @return string
    *   Encrypted and base64 encoded result from the executed action.
    */
-  public function authorizeBySecret($debugMode = FALSE): string {
+  public function authorizeBySecret(bool $debugMode = FALSE): string {
     try {
       $input = $this->readInput($debugMode, 'Authorize DRD by secret');
 
       if (empty($input['remoteSetupToken']) || empty($input['method']) || empty($input['secrets'])) {
-        throw new RuntimeException('Input is incomplete');
+        throw new \RuntimeException('Input is incomplete');
       }
 
       /** @var \Drupal\drd_agent\Plugin\DrdPiAuth\DrdPiAuthInterface $auth */
@@ -346,8 +394,8 @@ class Base implements BaseInterface, ContainerInjectionInterface {
 
       $this->authorize($input['remoteSetupToken']);
     }
-    catch (Exception $ex) {
-      $this->watchdog($ex->getMessage(), array(), 3);
+    catch (\Exception $ex) {
+      $this->watchdog($ex->getMessage(), [], 3);
       // Let's slow down to prevent brute force.
       sleep(10);
       header('HTTP/1.1 502 Error');
@@ -375,7 +423,7 @@ class Base implements BaseInterface, ContainerInjectionInterface {
   /**
    * {@inheritdoc}
    */
-  public function setDebugMode($debugMode): BaseInterface {
+  public function setDebugMode(bool $debugMode): BaseInterface {
     $this->debugMode = $debugMode;
     return $this;
   }
@@ -392,7 +440,7 @@ class Base implements BaseInterface, ContainerInjectionInterface {
   /**
    * {@inheritdoc}
    */
-  public function getCryptInstance($uuid) {
+  public function getCryptInstance(string $uuid): BaseMethodInterface|bool {
     $authorised = $this->state->get('drd_agent.authorised', []);
     if (empty($authorised[$uuid])) {
       return FALSE;
@@ -408,8 +456,8 @@ class Base implements BaseInterface, ContainerInjectionInterface {
   /**
    * {@inheritdoc}
    */
-  public function authorize($remoteSetupToken): BaseInterface {
-    /* @var \Drupal\drd_agent\Setup $service */
+  public function authorize(string $remoteSetupToken): BaseInterface {
+    /** @var \Drupal\drd_agent\Setup $service */
     $service = $this->container->get('drd_agent.setup');
     $service
       ->setRemoteSetupToken($remoteSetupToken)
@@ -429,7 +477,7 @@ class Base implements BaseInterface, ContainerInjectionInterface {
    *
    * {@inheritdoc}
    */
-  public function watchdog($message, array $variables = [], $severity = 5, $link = NULL): BaseInterface {
+  public function watchdog(string $message, array $variables = [], int $severity = 5, string $link = NULL): BaseInterface {
     if ($this->getDebugMode()) {
       if ($link) {
         $variables['link'] = $link;
@@ -442,28 +490,28 @@ class Base implements BaseInterface, ContainerInjectionInterface {
   /**
    * {@inheritdoc}
    */
-  public function ott($token, $remoteSetupToken): bool {
-    $ott = $this->state->get('drd_agent.ott', FALSE);
-    if (!$ott) {
-      $this->watchdog('No OTT available', [], LogLevel::ERROR);
+  public function ott(string $ott, string $remoteSetupToken): bool {
+    $storedOtt = $this->state->get('drd_agent.ott', FALSE);
+    if (!$storedOtt) {
+      $this->watchdog('No OTT available', [], RfcLogLevel::ERROR);
       return FALSE;
     }
     $this->state->delete('drd_agent.ott');
-    if (empty($ott['expires']) || $ott['expires'] < $this->time->getRequestTime()) {
-      $this->watchdog('OTT expired', [], LogLevel::ERROR);
+    if (empty($storedOtt['expires']) || $storedOtt['expires'] < $this->time->getRequestTime()) {
+      $this->watchdog('OTT expired', [], RfcLogLevel::ERROR);
       return FALSE;
     }
-    if (empty($ott['token']) || $ott['token'] !== $token) {
-      $this->watchdog('Token missmatch: :local / :remote', [':local' => $ott['token'], ':remote' => $token], LogLevel::ERROR);
+    if (empty($storedOtt['token']) || $storedOtt['token'] !== $ott) {
+      $this->watchdog('Token missmatch: :local / :remote', [':local' => $storedOtt['token'], ':remote' => $ott], RfcLogLevel::ERROR);
       return FALSE;
     }
 
-    /* @var \Drupal\drd_agent\Setup $service */
+    /** @var \Drupal\drd_agent\Setup $service */
     $service = $this->container->get('drd_agent.setup');
     $service
       ->setRemoteSetupToken($remoteSetupToken)
       ->execute();
-    $this->watchdog('OTT config completed', [], LogLevel::INFO);
+    $this->watchdog('OTT config completed', [], RfcLogLevel::INFO);
     return TRUE;
   }
 
@@ -484,14 +532,14 @@ class Base implements BaseInterface, ContainerInjectionInterface {
   /**
    * {@inheritdoc}
    */
-  public function execute() {
-    // Deliberatly empty, overwritten by extending classes.
+  public function execute(): mixed {
+    return [];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function init(BaseMethodInterface $crypt, array $arguments, $debugMode) {
+  public function init(BaseMethodInterface $crypt, array $arguments, bool $debugMode): void {
     $this->crypt = $crypt;
     $this->arguments = $arguments;
     $this->debugMode = $debugMode;

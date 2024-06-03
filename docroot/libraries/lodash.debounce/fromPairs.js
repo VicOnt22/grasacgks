@@ -25,4 +25,4 @@ function fromPairs(pairs) {
   return result;
 }
 
-module.exports = fromPairs;
+export default fromPairs;

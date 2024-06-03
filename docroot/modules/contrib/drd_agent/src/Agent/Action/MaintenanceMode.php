@@ -2,8 +2,6 @@
 
 namespace Drupal\drd_agent\Agent\Action;
 
-
-
 /**
  * Provides a 'MaintenanceMode' code.
  */
@@ -12,7 +10,7 @@ class MaintenanceMode extends Base {
   /**
    * {@inheritdoc}
    */
-  public function execute() {
+  public function execute(): array {
     $args = $this->getArguments();
     if ($args['mode'] === 'getStatus') {
       return [

@@ -1,4 +1,4 @@
-var createWrap = require('./_createWrap');
+import createWrap from './_createWrap.js';
 
 /** Used to compose bitmasks for function metadata. */
 var WRAP_CURRY_RIGHT_FLAG = 16;
@@ -51,4 +51,4 @@ function curryRight(func, arity, guard) {
 // Assign default placeholders.
 curryRight.placeholder = {};
 
-module.exports = curryRight;
+export default curryRight;

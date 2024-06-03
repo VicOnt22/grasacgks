@@ -20,4 +20,4 @@ function head(array) {
   return (array && array.length) ? array[0] : undefined;
 }
 
-module.exports = head;
+export default head;

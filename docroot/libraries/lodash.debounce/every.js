@@ -1,8 +1,8 @@
-var arrayEvery = require('./_arrayEvery'),
-    baseEvery = require('./_baseEvery'),
-    baseIteratee = require('./_baseIteratee'),
-    isArray = require('./isArray'),
-    isIterateeCall = require('./_isIterateeCall');
+import arrayEvery from './_arrayEvery.js';
+import baseEvery from './_baseEvery.js';
+import baseIteratee from './_baseIteratee.js';
+import isArray from './isArray.js';
+import isIterateeCall from './_isIterateeCall.js';
 
 /**
  * Checks if `predicate` returns truthy for **all** elements of `collection`.
@@ -53,4 +53,4 @@ function every(collection, predicate, guard) {
   return func(collection, baseIteratee(predicate, 3));
 }
 
-module.exports = every;
+export default every;

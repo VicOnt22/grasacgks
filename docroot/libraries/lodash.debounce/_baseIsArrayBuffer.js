@@ -1,5 +1,5 @@
-var baseGetTag = require('./_baseGetTag'),
-    isObjectLike = require('./isObjectLike');
+import baseGetTag from './_baseGetTag.js';
+import isObjectLike from './isObjectLike.js';
 
 var arrayBufferTag = '[object ArrayBuffer]';
 
@@ -14,4 +14,4 @@ function baseIsArrayBuffer(value) {
   return isObjectLike(value) && baseGetTag(value) == arrayBufferTag;
 }
 
-module.exports = baseIsArrayBuffer;
+export default baseIsArrayBuffer;

@@ -1,33 +1,32 @@
-module.exports = {
-  'camelCase': require('./camelCase'),
-  'capitalize': require('./capitalize'),
-  'deburr': require('./deburr'),
-  'endsWith': require('./endsWith'),
-  'escape': require('./escape'),
-  'escapeRegExp': require('./escapeRegExp'),
-  'kebabCase': require('./kebabCase'),
-  'lowerCase': require('./lowerCase'),
-  'lowerFirst': require('./lowerFirst'),
-  'pad': require('./pad'),
-  'padEnd': require('./padEnd'),
-  'padStart': require('./padStart'),
-  'parseInt': require('./parseInt'),
-  'repeat': require('./repeat'),
-  'replace': require('./replace'),
-  'snakeCase': require('./snakeCase'),
-  'split': require('./split'),
-  'startCase': require('./startCase'),
-  'startsWith': require('./startsWith'),
-  'template': require('./template'),
-  'templateSettings': require('./templateSettings'),
-  'toLower': require('./toLower'),
-  'toUpper': require('./toUpper'),
-  'trim': require('./trim'),
-  'trimEnd': require('./trimEnd'),
-  'trimStart': require('./trimStart'),
-  'truncate': require('./truncate'),
-  'unescape': require('./unescape'),
-  'upperCase': require('./upperCase'),
-  'upperFirst': require('./upperFirst'),
-  'words': require('./words')
-};
+export { default as camelCase } from './camelCase.js';
+export { default as capitalize } from './capitalize.js';
+export { default as deburr } from './deburr.js';
+export { default as endsWith } from './endsWith.js';
+export { default as escape } from './escape.js';
+export { default as escapeRegExp } from './escapeRegExp.js';
+export { default as kebabCase } from './kebabCase.js';
+export { default as lowerCase } from './lowerCase.js';
+export { default as lowerFirst } from './lowerFirst.js';
+export { default as pad } from './pad.js';
+export { default as padEnd } from './padEnd.js';
+export { default as padStart } from './padStart.js';
+export { default as parseInt } from './parseInt.js';
+export { default as repeat } from './repeat.js';
+export { default as replace } from './replace.js';
+export { default as snakeCase } from './snakeCase.js';
+export { default as split } from './split.js';
+export { default as startCase } from './startCase.js';
+export { default as startsWith } from './startsWith.js';
+export { default as template } from './template.js';
+export { default as templateSettings } from './templateSettings.js';
+export { default as toLower } from './toLower.js';
+export { default as toUpper } from './toUpper.js';
+export { default as trim } from './trim.js';
+export { default as trimEnd } from './trimEnd.js';
+export { default as trimStart } from './trimStart.js';
+export { default as truncate } from './truncate.js';
+export { default as unescape } from './unescape.js';
+export { default as upperCase } from './upperCase.js';
+export { default as upperFirst } from './upperFirst.js';
+export { default as words } from './words.js';
+export { default } from './string.default.js';

@@ -1,10 +1,10 @@
-var DataView = require('./_DataView'),
-    Map = require('./_Map'),
-    Promise = require('./_Promise'),
-    Set = require('./_Set'),
-    WeakMap = require('./_WeakMap'),
-    baseGetTag = require('./_baseGetTag'),
-    toSource = require('./_toSource');
+import DataView from './_DataView.js';
+import Map from './_Map.js';
+import Promise from './_Promise.js';
+import Set from './_Set.js';
+import WeakMap from './_WeakMap.js';
+import baseGetTag from './_baseGetTag.js';
+import toSource from './_toSource.js';
 
 /** `Object#toString` result references. */
 var mapTag = '[object Map]',
@@ -55,4 +55,4 @@ if ((DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag) ||
   };
 }
 
-module.exports = getTag;
+export default getTag;

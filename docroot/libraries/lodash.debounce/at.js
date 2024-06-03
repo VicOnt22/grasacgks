@@ -1,5 +1,5 @@
-var baseAt = require('./_baseAt'),
-    flatRest = require('./_flatRest');
+import baseAt from './_baseAt.js';
+import flatRest from './_flatRest.js';
 
 /**
  * Creates an array of values corresponding to `paths` of `object`.
@@ -20,4 +20,4 @@ var baseAt = require('./_baseAt'),
  */
 var at = flatRest(baseAt);
 
-module.exports = at;
+export default at;

@@ -37,4 +37,4 @@ function negate(predicate) {
   };
 }
 
-module.exports = negate;
+export default negate;

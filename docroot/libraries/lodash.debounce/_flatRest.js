@@ -1,6 +1,6 @@
-var flatten = require('./flatten'),
-    overRest = require('./_overRest'),
-    setToString = require('./_setToString');
+import flatten from './flatten.js';
+import overRest from './_overRest.js';
+import setToString from './_setToString.js';
 
 /**
  * A specialized version of `baseRest` which flattens the rest array.
@@ -13,4 +13,4 @@ function flatRest(func) {
   return setToString(overRest(func, undefined, flatten), func + '');
 }
 
-module.exports = flatRest;
+export default flatRest;

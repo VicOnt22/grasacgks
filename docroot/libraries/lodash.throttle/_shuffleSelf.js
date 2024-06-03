@@ -1,4 +1,4 @@
-import baseRandom from './_baseRandom.js';
+var baseRandom = require('./_baseRandom');
 
 /**
  * A specialized version of `_.shuffle` which mutates and sets the size of `array`.
@@ -25,4 +25,4 @@ function shuffleSelf(array, size) {
   return array;
 }
 
-export default shuffleSelf;
+module.exports = shuffleSelf;

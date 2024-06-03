@@ -1,5 +1,5 @@
-import arrayEach from './_arrayEach.js';
-import arrayIncludes from './_arrayIncludes.js';
+var arrayEach = require('./_arrayEach'),
+    arrayIncludes = require('./_arrayIncludes');
 
 /** Used to compose bitmasks for function metadata. */
 var WRAP_BIND_FLAG = 1,
@@ -43,4 +43,4 @@ function updateWrapDetails(details, bitmask) {
   return details.sort();
 }
 
-export default updateWrapDetails;
+module.exports = updateWrapDetails;

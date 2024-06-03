@@ -20,4 +20,4 @@ function insertWrapDetails(source, details) {
   return source.replace(reWrapComment, '{\n/* [wrapped with ' + details + '] */\n');
 }
 
-module.exports = insertWrapDetails;
+export default insertWrapDetails;

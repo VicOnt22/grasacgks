@@ -1,5 +1,5 @@
-import baseIteratee from './_baseIteratee.js';
-import createInverter from './_createInverter.js';
+var baseIteratee = require('./_baseIteratee'),
+    createInverter = require('./_createInverter');
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -53,4 +53,4 @@ var invertBy = createInverter(function(result, value, key) {
   }
 }, baseIteratee);
 
-export default invertBy;
+module.exports = invertBy;

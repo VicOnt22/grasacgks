@@ -1,5 +1,5 @@
-import baseIteratee from './_baseIteratee.js';
-import basePullAt from './_basePullAt.js';
+var baseIteratee = require('./_baseIteratee'),
+    basePullAt = require('./_basePullAt');
 
 /**
  * Removes all elements from `array` that `predicate` returns truthy for
@@ -50,4 +50,4 @@ function remove(array, predicate) {
   return result;
 }
 
-export default remove;
+module.exports = remove;

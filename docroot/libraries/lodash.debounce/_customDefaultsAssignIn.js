@@ -1,4 +1,4 @@
-var eq = require('./eq');
+import eq from './eq.js';
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -26,4 +26,4 @@ function customDefaultsAssignIn(objValue, srcValue, key, object) {
   return objValue;
 }
 
-module.exports = customDefaultsAssignIn;
+export default customDefaultsAssignIn;

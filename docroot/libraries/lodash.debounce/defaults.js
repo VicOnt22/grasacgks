@@ -1,7 +1,7 @@
-var baseRest = require('./_baseRest'),
-    eq = require('./eq'),
-    isIterateeCall = require('./_isIterateeCall'),
-    keysIn = require('./keysIn');
+import baseRest from './_baseRest.js';
+import eq from './eq.js';
+import isIterateeCall from './_isIterateeCall.js';
+import keysIn from './keysIn.js';
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -61,4 +61,4 @@ var defaults = baseRest(function(object, sources) {
   return object;
 });
 
-module.exports = defaults;
+export default defaults;

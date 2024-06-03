@@ -1,6 +1,6 @@
-import copyObject from './_copyObject.js';
-import createAssigner from './_createAssigner.js';
-import keysIn from './keysIn.js';
+var copyObject = require('./_copyObject'),
+    createAssigner = require('./_createAssigner'),
+    keysIn = require('./keysIn');
 
 /**
  * This method is like `_.assign` except that it iterates over own and
@@ -37,4 +37,4 @@ var assignIn = createAssigner(function(object, source) {
   copyObject(source, keysIn(source), object);
 });
 
-export default assignIn;
+module.exports = assignIn;

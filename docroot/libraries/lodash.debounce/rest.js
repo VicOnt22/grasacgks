@@ -1,5 +1,5 @@
-var baseRest = require('./_baseRest'),
-    toInteger = require('./toInteger');
+import baseRest from './_baseRest.js';
+import toInteger from './toInteger.js';
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -37,4 +37,4 @@ function rest(func, start) {
   return baseRest(func, start);
 }
 
-module.exports = rest;
+export default rest;

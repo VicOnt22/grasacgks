@@ -1,6 +1,6 @@
-var isLaziable = require('./_isLaziable'),
-    setData = require('./_setData'),
-    setWrapToString = require('./_setWrapToString');
+import isLaziable from './_isLaziable.js';
+import setData from './_setData.js';
+import setWrapToString from './_setWrapToString.js';
 
 /** Used to compose bitmasks for function metadata. */
 var WRAP_BIND_FLAG = 1,
@@ -53,4 +53,4 @@ function createRecurry(func, bitmask, wrapFunc, placeholder, thisArg, partials, 
   return setWrapToString(result, func, bitmask);
 }
 
-module.exports = createRecurry;
+export default createRecurry;

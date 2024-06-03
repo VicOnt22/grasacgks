@@ -1,4 +1,4 @@
-var createWrap = require('./_createWrap');
+import createWrap from './_createWrap.js';
 
 /** Used to compose bitmasks for function metadata. */
 var WRAP_FLIP_FLAG = 512;
@@ -25,4 +25,4 @@ function flip(func) {
   return createWrap(func, WRAP_FLIP_FLAG);
 }
 
-module.exports = flip;
+export default flip;

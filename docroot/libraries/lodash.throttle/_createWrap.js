@@ -1,13 +1,13 @@
-import baseSetData from './_baseSetData.js';
-import createBind from './_createBind.js';
-import createCurry from './_createCurry.js';
-import createHybrid from './_createHybrid.js';
-import createPartial from './_createPartial.js';
-import getData from './_getData.js';
-import mergeData from './_mergeData.js';
-import setData from './_setData.js';
-import setWrapToString from './_setWrapToString.js';
-import toInteger from './toInteger.js';
+var baseSetData = require('./_baseSetData'),
+    createBind = require('./_createBind'),
+    createCurry = require('./_createCurry'),
+    createHybrid = require('./_createHybrid'),
+    createPartial = require('./_createPartial'),
+    getData = require('./_getData'),
+    mergeData = require('./_mergeData'),
+    setData = require('./_setData'),
+    setWrapToString = require('./_setWrapToString'),
+    toInteger = require('./toInteger');
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -103,4 +103,4 @@ function createWrap(func, bitmask, thisArg, partials, holders, argPos, ary, arit
   return setWrapToString(setter(result, newData), func, bitmask);
 }
 
-export default createWrap;
+module.exports = createWrap;

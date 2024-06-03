@@ -198,6 +198,23 @@ class RevisionOverviewForm extends FormBase {
     $revert_permission = $rev_revert_perm && $node->access('update');
     $delete_permission = $rev_delete_perm && $node->access('delete');
 
+    // Submit button for the form.
+    $compare_revision_submit = [
+      '#type' => 'submit',
+      '#button_type' => 'primary',
+      '#value' => t('Compare selected revisions'),
+      '#attributes' => [
+        'class' => [
+          'diff-button',
+        ],
+      ],
+    ];
+
+    // For more than 5 revisions, add a submit button on top of the screen.
+    if ($revision_count > 5) {
+      $build['submit_top'] = $compare_revision_submit;
+    }
+
     // Contains the table listing the revisions.
     $build['node_revisions_table'] = [
       '#type' => 'table',
@@ -299,16 +316,7 @@ class RevisionOverviewForm extends FormBase {
 
     // Allow comparisons only if there are 2 or more revisions.
     if ($revision_count > 1) {
-      $build['submit'] = [
-        '#type' => 'submit',
-        '#button_type' => 'primary',
-        '#value' => t('Compare selected revisions'),
-        '#attributes' => [
-          'class' => [
-            'diff-button',
-          ],
-        ],
-      ];
+      $build['submit'] = $compare_revision_submit;
     }
     $build['pager'] = [
       '#type' => 'pager',
@@ -362,7 +370,10 @@ class RevisionOverviewForm extends FormBase {
       '#template' => '{% trans %}{{ date }} by {{ username }}{% endtrans %}{% if message %}<p class="revision-log">{{ message }}</p>{% endif %}',
       '#context' => [
         'date' => $link->toString(),
-        'username' => $this->renderer->renderPlain($username),
+        // @see https://www.drupal.org/node/3407994
+        // Added a suggested method renderInIsolation().
+        // @phpstan-ignore-next-line
+        'username' => version_compare(\Drupal::VERSION, '10.3', '<') ? $this->renderer->renderPlain($username) : $this->renderer->renderInIsolation($username),
         'message' => [
           '#markup' => $this->entityComparison->getRevisionDescription($revision, $previous_revision),
           '#allowed_tags' => Xss::getAdminTagList(),

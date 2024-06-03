@@ -1,7 +1,7 @@
-import asciiWords from './_asciiWords.js';
-import hasUnicodeWord from './_hasUnicodeWord.js';
-import toString from './toString.js';
-import unicodeWords from './_unicodeWords.js';
+var asciiWords = require('./_asciiWords'),
+    hasUnicodeWord = require('./_hasUnicodeWord'),
+    toString = require('./toString'),
+    unicodeWords = require('./_unicodeWords');
 
 /**
  * Splits `string` into an array of its words.
@@ -32,4 +32,4 @@ function words(string, pattern, guard) {
   return string.match(pattern) || [];
 }
 
-export default words;
+module.exports = words;

@@ -1,6 +1,6 @@
-import baseRange from './_baseRange.js';
-import isIterateeCall from './_isIterateeCall.js';
-import toFinite from './toFinite.js';
+var baseRange = require('./_baseRange'),
+    isIterateeCall = require('./_isIterateeCall'),
+    toFinite = require('./toFinite');
 
 /**
  * Creates a `_.range` or `_.rangeRight` function.
@@ -27,4 +27,4 @@ function createRange(fromRight) {
   };
 }
 
-export default createRange;
+module.exports = createRange;

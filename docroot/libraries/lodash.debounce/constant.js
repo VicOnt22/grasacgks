@@ -23,4 +23,4 @@ function constant(value) {
   };
 }
 
-module.exports = constant;
+export default constant;

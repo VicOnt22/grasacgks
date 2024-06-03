@@ -1,6 +1,6 @@
-var baseExtremum = require('./_baseExtremum'),
-    baseGt = require('./_baseGt'),
-    baseIteratee = require('./_baseIteratee');
+import baseExtremum from './_baseExtremum.js';
+import baseGt from './_baseGt.js';
+import baseIteratee from './_baseIteratee.js';
 
 /**
  * This method is like `_.max` except that it accepts `iteratee` which is
@@ -31,4 +31,4 @@ function maxBy(array, iteratee) {
     : undefined;
 }
 
-module.exports = maxBy;
+export default maxBy;

@@ -2,7 +2,6 @@
 
 namespace Drupal\drd_agent\Agent\Auth;
 
-
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\user\UserAuthInterface;
@@ -18,40 +17,52 @@ abstract class Base implements BaseInterface {
    *
    * @var array
    */
-  protected $storedSettings;
+  protected array $storedSettings;
 
   /**
+   * The current user.
+   *
    * @var \Drupal\Core\Session\AccountInterface
    */
-  protected $currentUser;
+  protected AccountInterface $currentUser;
 
   /**
+   * The state.
+   *
    * @var \Drupal\Core\State\StateInterface
    */
-  protected $state;
+  protected StateInterface $state;
 
   /**
+   * The user authentication.
+   *
    * @var \Drupal\user\UserAuthInterface
    */
-  protected $userAuth;
+  protected UserAuthInterface $userAuth;
 
   /**
    * Base constructor.
    *
    * @param \Drupal\Core\Session\AccountInterface $current_User
+   *   The current user.
    * @param \Drupal\Core\State\StateInterface $state
+   *   The state.
    * @param \Drupal\user\UserAuthInterface $user_auth
+   *   The user authentication.
    */
-  public function __construct(AccountInterface $current_User, StateInterface $state, UserAuthInterface $user_auth) {
+  final public function __construct(AccountInterface $current_User, StateInterface $state, UserAuthInterface $user_auth) {
     $this->currentUser = $current_User;
     $this->state = $state;
     $this->userAuth = $user_auth;
   }
 
   /**
-   * {@inheritdoc}
+   * Create a Base instance.
+   *
+   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   The container.
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): Base {
     return new static(
       $container->get('current_user'),
       $container->get('state'),
@@ -63,13 +74,12 @@ abstract class Base implements BaseInterface {
    * {@inheritdoc}
    */
   public static function getMethods(ContainerInterface $container): array {
-    $methods = array(
+    $methods = [
       'username_password' => 'UsernamePassword',
       'shared_secret' => 'SharedSecret',
-    );
+    ];
     foreach ($methods as $key => $class) {
       $classname = "\\Drupal\\drd_agent\\Agent\\Auth\\$class";
-      /** @noinspection PhpUndefinedMethodInspection */
       $methods[$key] = $classname::create($container);
     }
     return $methods;
@@ -78,7 +88,7 @@ abstract class Base implements BaseInterface {
   /**
    * {@inheritdoc}
    */
-  final public function validateUuid($uuid): bool {
+  final public function validateUuid(string $uuid): bool {
     $authorised = $this->state->get('drd_agent.authorised', []);
     if (empty($authorised[$uuid])) {
       return FALSE;

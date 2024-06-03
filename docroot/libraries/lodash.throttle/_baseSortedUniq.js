@@ -1,4 +1,4 @@
-import eq from './eq.js';
+var eq = require('./eq');
 
 /**
  * The base implementation of `_.sortedUniq` and `_.sortedUniqBy` without
@@ -27,4 +27,4 @@ function baseSortedUniq(array, iteratee) {
   return result;
 }
 
-export default baseSortedUniq;
+module.exports = baseSortedUniq;

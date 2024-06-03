@@ -1,4 +1,4 @@
-var assocIndexOf = require('./_assocIndexOf');
+import assocIndexOf from './_assocIndexOf.js';
 
 /** Used for built-in method references. */
 var arrayProto = Array.prototype;
@@ -32,4 +32,4 @@ function listCacheDelete(key) {
   return true;
 }
 
-module.exports = listCacheDelete;
+export default listCacheDelete;

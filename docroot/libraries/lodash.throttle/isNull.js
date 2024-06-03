@@ -19,4 +19,4 @@ function isNull(value) {
   return value === null;
 }
 
-export default isNull;
+module.exports = isNull;

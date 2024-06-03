@@ -1,13 +1,13 @@
-var arrayEach = require('./_arrayEach'),
-    baseCreate = require('./_baseCreate'),
-    baseForOwn = require('./_baseForOwn'),
-    baseIteratee = require('./_baseIteratee'),
-    getPrototype = require('./_getPrototype'),
-    isArray = require('./isArray'),
-    isBuffer = require('./isBuffer'),
-    isFunction = require('./isFunction'),
-    isObject = require('./isObject'),
-    isTypedArray = require('./isTypedArray');
+import arrayEach from './_arrayEach.js';
+import baseCreate from './_baseCreate.js';
+import baseForOwn from './_baseForOwn.js';
+import baseIteratee from './_baseIteratee.js';
+import getPrototype from './_getPrototype.js';
+import isArray from './isArray.js';
+import isBuffer from './isBuffer.js';
+import isFunction from './isFunction.js';
+import isObject from './isObject.js';
+import isTypedArray from './isTypedArray.js';
 
 /**
  * An alternative to `_.reduce`; this method transforms `object` to a new
@@ -62,4 +62,4 @@ function transform(object, iteratee, accumulator) {
   return accumulator;
 }
 
-module.exports = transform;
+export default transform;

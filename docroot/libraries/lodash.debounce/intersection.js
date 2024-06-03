@@ -1,7 +1,7 @@
-var arrayMap = require('./_arrayMap'),
-    baseIntersection = require('./_baseIntersection'),
-    baseRest = require('./_baseRest'),
-    castArrayLikeObject = require('./_castArrayLikeObject');
+import arrayMap from './_arrayMap.js';
+import baseIntersection from './_baseIntersection.js';
+import baseRest from './_baseRest.js';
+import castArrayLikeObject from './_castArrayLikeObject.js';
 
 /**
  * Creates an array of unique values that are included in all given arrays
@@ -27,4 +27,4 @@ var intersection = baseRest(function(arrays) {
     : [];
 });
 
-module.exports = intersection;
+export default intersection;

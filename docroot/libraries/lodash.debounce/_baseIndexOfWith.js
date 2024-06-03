@@ -20,4 +20,4 @@ function baseIndexOfWith(array, value, fromIndex, comparator) {
   return -1;
 }
 
-module.exports = baseIndexOfWith;
+export default baseIndexOfWith;

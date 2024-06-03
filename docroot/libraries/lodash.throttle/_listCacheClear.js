@@ -10,4 +10,4 @@ function listCacheClear() {
   this.size = 0;
 }
 
-export default listCacheClear;
+module.exports = listCacheClear;

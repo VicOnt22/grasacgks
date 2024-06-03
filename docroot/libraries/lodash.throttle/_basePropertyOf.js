@@ -11,4 +11,4 @@ function basePropertyOf(object) {
   };
 }
 
-export default basePropertyOf;
+module.exports = basePropertyOf;

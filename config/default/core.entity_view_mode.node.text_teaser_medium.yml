@@ -8,5 +8,6 @@ _core:
   default_config_hash: rrHiqsz9fMj0Week4bfqX8-W_3KP6soE3jZ5mKEY6aM
 id: node.text_teaser_medium
 label: 'Text teaser - medium'
+description: ''
 targetEntityType: node
 cache: true

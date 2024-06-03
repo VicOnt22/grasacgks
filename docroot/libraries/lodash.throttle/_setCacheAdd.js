@@ -16,4 +16,4 @@ function setCacheAdd(value) {
   return this;
 }
 
-export default setCacheAdd;
+module.exports = setCacheAdd;

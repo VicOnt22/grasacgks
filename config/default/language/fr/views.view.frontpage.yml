@@ -1,11 +1,11 @@
-label: 'Page d''accueil'
-description: 'Tout le contenu promu en page d''accueil.'
+label: "Page d'accueil"
+description: "Tout le contenu promu en page d'accueil."
 display:
   default:
     display_options:
       empty:
         area_text_custom:
-          content: 'Aucun contenu de page d''accueil n''a été créé pour l''instant.'
+          content: "Aucun contenu de page d'accueil n'a été créé pour l'instant."
         title:
           title: 'Bienvenue sur [site:name]'
       exposed_form:

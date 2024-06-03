@@ -1,4 +1,4 @@
-var baseFlatten = require('./_baseFlatten');
+import baseFlatten from './_baseFlatten.js';
 
 /**
  * Flattens `array` a single level deep.
@@ -19,4 +19,4 @@ function flatten(array) {
   return length ? baseFlatten(array, 1) : [];
 }
 
-module.exports = flatten;
+export default flatten;

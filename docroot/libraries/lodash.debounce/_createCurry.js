@@ -1,10 +1,10 @@
-var apply = require('./_apply'),
-    createCtor = require('./_createCtor'),
-    createHybrid = require('./_createHybrid'),
-    createRecurry = require('./_createRecurry'),
-    getHolder = require('./_getHolder'),
-    replaceHolders = require('./_replaceHolders'),
-    root = require('./_root');
+import apply from './_apply.js';
+import createCtor from './_createCtor.js';
+import createHybrid from './_createHybrid.js';
+import createRecurry from './_createRecurry.js';
+import getHolder from './_getHolder.js';
+import replaceHolders from './_replaceHolders.js';
+import root from './_root.js';
 
 /**
  * Creates a function that wraps `func` to enable currying.
@@ -43,4 +43,4 @@ function createCurry(func, bitmask, arity) {
   return wrapper;
 }
 
-module.exports = createCurry;
+export default createCurry;

@@ -1,11 +1,11 @@
-var arrayMap = require('./_arrayMap'),
-    baseClone = require('./_baseClone'),
-    baseUnset = require('./_baseUnset'),
-    castPath = require('./_castPath'),
-    copyObject = require('./_copyObject'),
-    customOmitClone = require('./_customOmitClone'),
-    flatRest = require('./_flatRest'),
-    getAllKeysIn = require('./_getAllKeysIn');
+import arrayMap from './_arrayMap.js';
+import baseClone from './_baseClone.js';
+import baseUnset from './_baseUnset.js';
+import castPath from './_castPath.js';
+import copyObject from './_copyObject.js';
+import customOmitClone from './_customOmitClone.js';
+import flatRest from './_flatRest.js';
+import getAllKeysIn from './_getAllKeysIn.js';
 
 /** Used to compose bitmasks for cloning. */
 var CLONE_DEEP_FLAG = 1,
@@ -54,4 +54,4 @@ var omit = flatRest(function(object, paths) {
   return result;
 });
 
-module.exports = omit;
+export default omit;

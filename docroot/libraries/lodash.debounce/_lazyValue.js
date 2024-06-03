@@ -1,6 +1,6 @@
-var baseWrapperValue = require('./_baseWrapperValue'),
-    getView = require('./_getView'),
-    isArray = require('./isArray');
+import baseWrapperValue from './_baseWrapperValue.js';
+import getView from './_getView.js';
+import isArray from './isArray.js';
 
 /** Used to indicate the type of lazy iteratees. */
 var LAZY_FILTER_FLAG = 1,
@@ -66,4 +66,4 @@ function lazyValue() {
   return result;
 }
 
-module.exports = lazyValue;
+export default lazyValue;

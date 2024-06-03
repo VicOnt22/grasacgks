@@ -8,5 +8,6 @@ _core:
   default_config_hash: RCzrhDPa-lHM5LX-xJu21818fA746-KxUKHh4AkyMZU
 id: media.slick
 label: 'Slick carousel'
+description: ''
 targetEntityType: media
 cache: true

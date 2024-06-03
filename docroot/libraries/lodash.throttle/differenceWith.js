@@ -1,8 +1,8 @@
-import baseDifference from './_baseDifference.js';
-import baseFlatten from './_baseFlatten.js';
-import baseRest from './_baseRest.js';
-import isArrayLikeObject from './isArrayLikeObject.js';
-import last from './last.js';
+var baseDifference = require('./_baseDifference'),
+    baseFlatten = require('./_baseFlatten'),
+    baseRest = require('./_baseRest'),
+    isArrayLikeObject = require('./isArrayLikeObject'),
+    last = require('./last');
 
 /**
  * This method is like `_.difference` except that it accepts `comparator`
@@ -37,4 +37,4 @@ var differenceWith = baseRest(function(array, values) {
     : [];
 });
 
-export default differenceWith;
+module.exports = differenceWith;

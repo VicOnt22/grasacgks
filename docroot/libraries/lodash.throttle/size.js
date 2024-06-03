@@ -1,8 +1,8 @@
-import baseKeys from './_baseKeys.js';
-import getTag from './_getTag.js';
-import isArrayLike from './isArrayLike.js';
-import isString from './isString.js';
-import stringSize from './_stringSize.js';
+var baseKeys = require('./_baseKeys'),
+    getTag = require('./_getTag'),
+    isArrayLike = require('./isArrayLike'),
+    isString = require('./isString'),
+    stringSize = require('./_stringSize');
 
 /** `Object#toString` result references. */
 var mapTag = '[object Map]',
@@ -43,4 +43,4 @@ function size(collection) {
   return baseKeys(collection).length;
 }
 
-export default size;
+module.exports = size;

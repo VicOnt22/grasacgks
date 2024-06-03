@@ -1,5 +1,5 @@
-var castPath = require('./_castPath'),
-    toKey = require('./_toKey');
+import castPath from './_castPath.js';
+import toKey from './_toKey.js';
 
 /**
  * The base implementation of `_.get` without support for default values.
@@ -21,4 +21,4 @@ function baseGet(object, path) {
   return (index && index == length) ? object : undefined;
 }
 
-module.exports = baseGet;
+export default baseGet;
