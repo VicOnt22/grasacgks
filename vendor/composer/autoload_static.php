@@ -161,6 +161,7 @@ class ComposerStaticInitea1c5478debedf1024da1ff63d2a3a54
             'PHPStan\\PhpDocParser\\' => 21,
             'PHPStan\\ExtensionInstaller\\' => 27,
             'PHPStan\\' => 8,
+            'PHPMailer\\PHPMailer\\' => 20,
             'PHPCSStandards\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 57,
         ),
         'O' => 
@@ -610,6 +611,10 @@ class ComposerStaticInitea1c5478debedf1024da1ff63d2a3a54
         array (
             0 => __DIR__ . '/..' . '/phpstan/phpstan-deprecation-rules/src',
             1 => __DIR__ . '/..' . '/phpstan/phpstan-phpunit/src',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'PHPCSStandards\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 
         array (

@@ -2014,6 +2014,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'drupal/phpmailer_smtp' => array(
+            'pretty_version' => '2.2.5',
+            'version' => '2.2.5.0',
+            'reference' => '2.2.5',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../docroot/modules/contrib/phpmailer_smtp',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'drupal/physical' => array(
             'pretty_version' => '1.3.0',
             'version' => '1.3.0.0',
@@ -3728,6 +3737,15 @@
             'install_path' => __DIR__ . '/../phpdocumentor/type-resolver',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'phpmailer/phpmailer' => array(
+            'pretty_version' => 'v6.9.1',
+            'version' => '6.9.1.0',
+            'reference' => '039de174cd9c17a8389754d3b877a2ed22743e18',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpmailer/phpmailer',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'phpowermove/docblock' => array(
             'pretty_version' => 'v4.0',

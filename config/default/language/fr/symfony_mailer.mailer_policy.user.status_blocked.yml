@@ -1,0 +1,6 @@
+configuration:
+  email_subject:
+    value: 'Détails du compte [user:display-name] sur [site:name] (bloqué)'
+  email_body:
+    content:
+      value: "[user:display-name],\r\n\r\nVotre compte sur [site:name] a été bloqué.\r\n\r\n-- L'équipe [site:name]"

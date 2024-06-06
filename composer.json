@@ -51,7 +51,8 @@
         "vardot/varbase-patches": "~9.2.0",
         "vardot/varbase-updater": "~2.0",
         "webflo/drupal-finder": "~1",
-        "drupal/ckeditor_media_embed": "^2.0"
+        "drupal/ckeditor_media_embed": "^2.0",
+        "drupal/phpmailer_smtp": "^2.2"
     },
     "conflict": {
         "drupal/drupal": "*"

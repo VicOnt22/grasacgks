@@ -1,0 +1,23 @@
+uuid: b8ab757c-0491-4679-9033-7c966a0b396b
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+_core:
+  default_config_hash: 2NftxbBnZ2Amc98ro_bU6IcfxnIWIGDlZ5l_bgp6hbk
+id: user.status_blocked
+configuration:
+  email_subject:
+    value: 'Account details for [user:display-name] at [site:name] (blocked)'
+  email_body:
+    content:
+      value: |-
+        [user:display-name],
+
+        Your account on [site:name] has been blocked.
+
+        --  [site:name] team
+      format: plain_text
+  email_skip_sending:
+    message: 'Notification disabled in settings'

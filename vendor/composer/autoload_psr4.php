@@ -87,6 +87,7 @@ return array(
     'PHPStan\\PhpDocParser\\' => array($vendorDir . '/phpstan/phpdoc-parser/src'),
     'PHPStan\\ExtensionInstaller\\' => array($vendorDir . '/phpstan/extension-installer/src'),
     'PHPStan\\' => array($vendorDir . '/phpstan/phpstan-deprecation-rules/src', $vendorDir . '/phpstan/phpstan-phpunit/src'),
+    'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'PHPCSStandards\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => array($vendorDir . '/dealerdirect/phpcodesniffer-composer-installer/src'),
     'OpenIDConnectServer\\' => array($vendorDir . '/steverhoades/oauth2-openid-connect-server/src'),
     'OomphInc\\ComposerInstallersExtender\\' => array($vendorDir . '/oomphinc/composer-installers-extender/src'),

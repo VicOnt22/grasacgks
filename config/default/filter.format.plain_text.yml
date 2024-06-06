@@ -28,7 +28,7 @@ filters:
       line_numbers: '1'
       show_invisibles: '0'
       print_margins: '1'
-      auto_complete: true
+      auto_complete: '1'
       use_wrap_mode: '1'
   blazy_filter:
     id: blazy_filter
@@ -36,15 +36,15 @@ filters:
     status: false
     weight: 3
     settings:
+      media_switch: ''
+      hybrid_style: ''
+      box_style: ''
+      box_media_style: ''
+      box_caption: ''
       filter_tags:
         img: img
         iframe: iframe
-      media_switch: ''
-      box_style: ''
-      box_media_style: ''
-      hybrid_style: ''
       use_data_uri: '0'
-      box_caption: ''
   filter_autop:
     id: filter_autop
     provider: filter
@@ -81,11 +81,10 @@ filters:
     status: false
     weight: 4
     settings:
-      optionset: default
-      media_switch: ''
       caption:
         alt: '0'
         title: '0'
+      optionset: default
       layout: ''
       background: false
       box_caption: ''
@@ -95,6 +94,7 @@ filters:
       responsive_image_style: ''
       box_style: ''
       image_style: ''
+      media_switch: ''
       ratio: ''
       thumbnail_style: ''
       grid: ''
