@@ -52,7 +52,8 @@
         "vardot/varbase-updater": "~2.0",
         "webflo/drupal-finder": "~1",
         "drupal/ckeditor_media_embed": "^2.0",
-        "drupal/phpmailer_smtp": "^2.2"
+        "drupal/phpmailer_smtp": "^2.2",
+        "drupal/views_data_export": "^1.4"
     },
     "conflict": {
         "drupal/drupal": "*"

@@ -46,6 +46,7 @@ module:
   context_ui: 0
   contextual: 0
   crop: 0
+  csv_serialization: 0
   ctools: 0
   ctools_block: 0
   ctools_views: 0
@@ -244,6 +245,7 @@ module:
   varbase_update_helper: 0
   views_bootstrap: 0
   views_bulk_edit: 0
+  views_data_export: 0
   views_display_switch: 0
   views_filter_select: 0
   views_ui: 0

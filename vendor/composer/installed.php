@@ -991,6 +991,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'drupal/csv_serialization' => array(
+            'pretty_version' => '4.0.0',
+            'version' => '4.0.0.0',
+            'reference' => '4.0.0',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../docroot/modules/contrib/csv_serialization',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'drupal/ctools' => array(
             'pretty_version' => '4.0.4',
             'version' => '4.0.4.0',
@@ -2677,6 +2686,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'drupal/views_data_export' => array(
+            'pretty_version' => '1.4.0',
+            'version' => '1.4.0.0',
+            'reference' => '8.x-1.4',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../docroot/modules/contrib/views_data_export',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'drupal/views_display_switch' => array(
             'pretty_version' => '1.1.4',
             'version' => '1.1.4.0',
@@ -3042,6 +3060,15 @@
             'install_path' => __DIR__ . '/../league/container',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'league/csv' => array(
+            'pretty_version' => '9.16.0',
+            'version' => '9.16.0.0',
+            'reference' => '998280c6c34bd67d8125fdc8b45bae28d761b440',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../league/csv',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'league/event' => array(
             'pretty_version' => '2.2.0',

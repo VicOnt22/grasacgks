@@ -34,6 +34,7 @@ class ComposerStaticInitea1c5478debedf1024da1ff63d2a3a54
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         '9c67151ae59aff4788964ce8eb2a0f43' => __DIR__ . '/..' . '/clue/stream-filter/src/functions_include.php',
+        '9e4824c5afbdc1482b6025ce3d4dfde8' => __DIR__ . '/..' . '/league/csv/src/functions_include.php',
         'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         'a16312f9300fed4a097923eacb0ba814' => __DIR__ . '/..' . '/igorw/get-in/src/get_in.php',
@@ -179,6 +180,7 @@ class ComposerStaticInitea1c5478debedf1024da1ff63d2a3a54
             'League\\OAuth2\\Server\\' => 21,
             'League\\OAuth2\\Client\\' => 21,
             'League\\Event\\' => 13,
+            'League\\Csv\\' => 11,
             'League\\Container\\' => 17,
             'Lcobucci\\JWT\\' => 13,
             'Lcobucci\\Clock\\' => 15,
@@ -651,6 +653,10 @@ class ComposerStaticInitea1c5478debedf1024da1ff63d2a3a54
         'League\\Event\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/event/src',
+        ),
+        'League\\Csv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/csv/src',
         ),
         'League\\Container\\' => 
         array (
