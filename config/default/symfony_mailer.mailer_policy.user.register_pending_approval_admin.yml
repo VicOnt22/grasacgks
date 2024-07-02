@@ -8,15 +8,17 @@ _core:
   default_config_hash: hSF9DrzImPZ6F5VmFdZWPItLmjMY5NV97GEDEb4LEUo
 id: user.register_pending_approval_admin
 configuration:
-  email_subject:
-    value: 'Account details for [user:display-name] at [site:name] (pending admin approval)'
   email_body:
     content:
-      value: |-
-        [user:display-name] has applied for an account.
-
-        [user:edit-url]
+      value: "[user:display-name] has applied for an account.\r\n\r\n[user:edit-url]"
       format: plain_text
+  email_from:
+    addresses:
+      -
+        value: grasac-noreply@chass.utoronto.ca
+        display: 'GKS site'
+  email_subject:
+    value: 'Account details for [user:display-name] at [site:name] (pending admin approval)'
   email_to:
     addresses:
       -

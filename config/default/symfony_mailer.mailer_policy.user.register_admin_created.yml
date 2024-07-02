@@ -8,23 +8,14 @@ _core:
   default_config_hash: evWTt7sqJ0T4jiVLfnkozz5eOVTIh83n_ItETdlsM-s
 id: user.register_admin_created
 configuration:
-  email_subject:
-    value: 'An administrator created an account for you at [site:name]'
   email_body:
     content:
-      value: |-
-        [user:display-name],
-
-        A site administrator at [site:name] has created an account for you. You may now log in by clicking this link or copying and pasting it into your browser:
-
-        [user:one-time-login-url]
-
-        This link can only be used once to log in and will lead you to a page where you can set your password.
-
-        After setting your password, you will be able to log in at [site:login-url] in the future using:
-
-        username: [user:name]
-        password: Your password
-
-        --  [site:name] team
+      value: "[user:display-name],\r\n\r\nA site administrator at [site:name] has created an account for you. You may now log in by clicking this link or copying and pasting it into your browser:\r\n\r\n[user:one-time-login-url]\r\n\r\nThis link can only be used once to log in and will lead you to a page where you can set your password.\r\n\r\nAfter setting your password, you will be able to log in at [site:login-url] in the future using:\r\n\r\nusername: [user:name]\r\npassword: Your password\r\n\r\n--  [site:name] team"
       format: plain_text
+  email_from:
+    addresses:
+      -
+        value: grasac-noreply@chass.utoronto.ca
+        display: 'GKS site'
+  email_subject:
+    value: 'An administrator created an account for you at [site:name]'

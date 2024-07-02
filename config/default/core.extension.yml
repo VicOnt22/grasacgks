@@ -181,7 +181,6 @@ module:
   path_alias: 0
   pathologic: 0
   phpass: 0
-  phpmailer_smtp: 0
   physical: 0
   prevent_homepage_deletion: 0
   rabbit_hole: 0

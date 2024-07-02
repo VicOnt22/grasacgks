@@ -1,7 +1,7 @@
 theme: current
 defaults:
-  sender: phpmailer_smtp
-  formatter: phpmailer_smtp
+  sender: php_mail
+  formatter: php_mail
 modules:
   webform:
     none: {  }

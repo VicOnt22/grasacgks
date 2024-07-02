@@ -8,13 +8,12 @@ id: symfony_mailer.test
 configuration:
   email_body:
     content:
-      value: |-
-        <h4>You have mail</h4>
-        <p>This is a test email from <a href="[site:url]">[site:name]</a>.</p>
-        <p>Have a great <span class="day">{{ day }}</span>!</p>
-        <h4 class="text-small">
-           <a href="https://www.drupal.org/project/symfony_mailer">Drupal Symfony Mailer</a>
-        </h4>
+      value: "<h4>You have mail</h4>\r\n<p>This is a test email from <a href=\"[site:url]\">[site:name]</a>.</p>\r\n<p>Have a great <span class=\"day\">{{ day }}</span>!</p>\r\n<h4 class=\"text-small\">\r\n   <a href=\"https://www.drupal.org/project/symfony_mailer\">Drupal Symfony Mailer</a>\r\n</h4>"
       format: email_html
+  email_from:
+    addresses:
+      -
+        value: grasac-noreply@chass.utoronto.ca
+        display: 'GKS site'
   email_subject:
     value: 'Test email from [site:name]'

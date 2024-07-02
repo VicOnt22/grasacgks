@@ -1,6 +1,0 @@
-configuration:
-  email_subject:
-    value: "Détails du compte [user:display-name] sur [site:name] (en attente de validation d'un administrateur)"
-  email_body:
-    content:
-      value: "[user:display-name] a fait une demande de compte.\r\n\r\n[user:edit-url]"
